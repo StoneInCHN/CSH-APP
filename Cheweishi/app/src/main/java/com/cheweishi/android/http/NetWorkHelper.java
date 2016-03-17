@@ -1,6 +1,7 @@
 package com.cheweishi.android.http;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -64,8 +65,10 @@ public class NetWorkHelper {
 
     public void PostJson(String url, Map<String, Object> params, final JSONCallback jsonCallback) {
 
-        if (!NetworkUtils.isNetworkAvailable(context)) {
-//            listener.onErrorResponse("当前没有网络...");
+        if (!NetworkUtils.isNetworkAvailable(context) && null != jsonCallback) {
+            jsonCallback.error("当前没有网络...");
+            Toast.makeText(context.getApplicationContext(),
+                    "当前网络不可用", Toast.LENGTH_SHORT);
             return;
         }
 
@@ -131,8 +134,10 @@ public class NetWorkHelper {
     public void GetJson(String url, final JSONCallback jsonCallback, String Tag) {
 
 
-        if (!NetworkUtils.isNetworkAvailable(context)) {
-//            listener.onErrorResponse("当前没有网络...");
+        if (!NetworkUtils.isNetworkAvailable(context) && null != jsonCallback) {
+            jsonCallback.error("当前没有网络...");
+            Toast.makeText(context.getApplicationContext(),
+                    "当前网络不可用", Toast.LENGTH_SHORT);
             return;
         }
 
