@@ -298,6 +298,39 @@ public class WashcarHistoryAdapter extends MyBaseAdapter<WashcarHistoryVO>
 
 	}
 
+
+	/**
+	 * 返回的json数据
+	 *
+	 * @param TAG
+	 * @param data
+	 */
+	@Override
+	public void receive(String TAG, String data) {
+
+	}
+
+	/**
+	 * 返回的json数据
+	 *
+	 * @param data
+	 */
+	@Override
+	public void receive(String data) {
+
+	}
+
+	/**
+	 * 失败数据
+	 *
+	 * @param errorMsg
+	 */
+	@Override
+	public void error(String errorMsg) {
+
+	}
+
+
 	@Override
 	public void downFile(int type, ResponseInfo<File> arg0) {
 		// TODO Auto-generated method stub

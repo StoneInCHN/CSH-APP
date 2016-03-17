@@ -102,6 +102,37 @@ public class BaseFragment extends Fragment implements JSONCallback {
 	}
 
 	/**
+	 * 返回的json数据
+	 *
+	 * @param TAG
+	 * @param data
+	 */
+	@Override
+	public void receive(String TAG, String data) {
+
+	}
+
+	/**
+	 * 返回的json数据
+	 *
+	 * @param data
+	 */
+	@Override
+	public void receive(String data) {
+
+	}
+
+	/**
+	 * 失败数据
+	 *
+	 * @param errorMsg
+	 */
+	@Override
+	public void error(String errorMsg) {
+
+	}
+
+	/**
 	 * 返回文件下载回调
 	 */
 	@Override
