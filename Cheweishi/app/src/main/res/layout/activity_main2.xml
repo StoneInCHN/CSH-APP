@@ -149,7 +149,7 @@
                     android:background="@color/line_gray"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="@dimen/small_padding"></LinearLayout>
+                    android:padding="@dimen/small_padding"/>
             </LinearLayout>
 
             <LinearLayout
