@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_backgroud"
+    android:orientation="vertical">
+
+    <include layout="@layout/title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/top_left_small_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/information_no_car_wash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/cb_order"
+                android:checked="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/small_marging"
+                android:text="@string/wash_no"
+                android:textSize="@dimen/title__text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/double_large_marging"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/information_else"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/cb_order" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/small_marging"
+                android:text="@string/wash_else"
+                android:textSize="@dimen/titile_side_text_size" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/information_ed_else"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/wash_edit"
+            android:layout_marginTop="@dimen/normal_marging"
+            android:background="@drawable/order_confirm"
+            android:gravity="left|top"
+            android:hint="@string/wash_cause"
+            android:padding="@dimen/nosmall_padding"
+            android:textSize="@dimen/titile_side_text_size"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/tv_wash_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/top_left_large_padding"
+            android:background="@drawable/login_back"
+            android:gravity="center"
+            android:text="@string/wash_submit"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

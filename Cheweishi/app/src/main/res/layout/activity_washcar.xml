@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- title -->
+
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/normal_padding">
+
+        <Button
+            android:id="@+id/left_action"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@null"
+            android:drawableLeft="@drawable/left"
+            android:gravity="center"
+            android:paddingRight="@dimen/top_left_large_padding"
+            android:textSize="@dimen/titile_side_text_size" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:padding="@dimen/normal_padding"
+            android:textSize="@dimen/title__text_size" />
+
+        <TextView
+            android:id="@+id/tvHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="我的订单"
+            android:textSize="@dimen/titile_side_text_size" />
+    </RelativeLayout>
+    <!--  -->
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mapview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_title" />
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignBottom="@id/mapview"
+        android:clipChildren="false"
+        android:layerType="software" />
+
+    <CheckBox
+        android:id="@+id/cbox_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/zhaochewei_bj"
+        android:button="@null"
+        android:drawableTop="@drawable/zhaochewei_liebiao"
+        android:padding="@dimen/small_padding"
+        android:text="@string/list"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_twelve" />
+
+    <CheckBox
+        android:id="@+id/cbox_traffic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/cbox_list"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/zhaochewei_bj"
+        android:button="@null"
+        android:drawableTop="@drawable/lukuang_onclik"
+        android:padding="@dimen/small_padding"
+        android:text="路况"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_twelve" />
+
+    <ImageButton
+        android:id="@+id/ibtn_decrese"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/container"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/normal_marging"
+        android:background="@null"
+        android:src="@drawable/ibtn_map_decrese" />
+
+    <ImageButton
+        android:id="@+id/ibtn_increse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ibtn_decrese"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/normal_marging"
+        android:background="@null"
+        android:src="@drawable/ibtn_map_increse" />
+
+    <ImageView
+        android:id="@+id/img_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/container"
+        android:layout_marginLeft="@dimen/normal_marging"
+        android:src="@drawable/zhaochewei_dingwei_icon" />
+
+</RelativeLayout>

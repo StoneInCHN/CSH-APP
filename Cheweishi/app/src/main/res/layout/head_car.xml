@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_head"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/normal_padding"
+    android:visibility="gone">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/car_manager_remind"
+        android:textColor="@color/main_blue"
+        android:textSize="@dimen/key_text_small" />
+
+    <ImageView
+        android:id="@+id/delete_hear_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/emotionstore_progresscancelbtn"
+        android:visibility="gone" />
+
+</LinearLayout>

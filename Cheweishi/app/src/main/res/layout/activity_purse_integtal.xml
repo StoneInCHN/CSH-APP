@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include1"
+        layout="@layout/title" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/hongbao_xlistview"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/img_title_purse"
+        android:layout_marginLeft="@dimen/normal_marging"
+        android:layout_marginRight="@dimen/normal_marging"
+        android:layout_marginTop="@dimen/large_marging"
+        android:divider="@color/white"
+        android:dividerHeight="15dp" />
+
+    <RelativeLayout
+        android:id="@+id/img_title_purse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/include1"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/normal_marging"
+        android:background="@drawable/hongbao_icon">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_red_purse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_hbze"
+                android:layout_marginBottom="50dp"
+                android:textColor="@color/red_deep"
+                android:textSize="@dimen/ttf_twenty_four"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_hbze"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/normal_marging"
+                android:text="红包总额"
+                android:textColor="@color/red_deep"
+                android:textSize="@dimen/ttf_sixteen" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

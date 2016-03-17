@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/carmanger_bmapView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:clickable="true" />
+
+        <RadioGroup
+            android:id="@+id/rgroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/carmanger_bmapView"
+            android:layout_alignTop="@id/carmanger_bmapView"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/cbox_car_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cbox_carlocation_selector"
+                android:button="@null"
+                android:checked="true"
+                android:padding="5dp" />
+
+            <RadioButton
+                android:id="@+id/cbox_person_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/cbox_personlocation_selector"
+                android:button="@null"
+                android:padding="5dp" />
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/cbox_traffic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/bmapView"
+            android:layout_below="@id/rgroup"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/cbox_traffic_selector"
+            android:button="@null"
+            android:padding="5dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

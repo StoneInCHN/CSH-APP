@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/normal_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/normal_padding">
+
+        <LinearLayout
+            android:id="@+id/tishijulidaohang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/large_padding">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/findcarportviewpager_map_item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/normal_marging"
+                    android:singleLine="true"
+                    android:text="英利国际停车场"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/titile_side_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/small_padding">
+
+                <TextView
+                    android:id="@+id/findcarportviewpager_map_item_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/zhaochewei_fangxiang"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:text="122米"
+                    android:textColor="@color/gray_normal"
+                    android:visibility="gone" />
+
+                <com.cheweishi.android.widget.FontAwesomeView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/two_dp_padding"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="@string/icon_destination"
+                    android:textColor="@color/gray_pressed"
+                    android:textSize="@dimen/ttf_twelve"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/findcarportviewpager_map_item_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="江北区建新北路16号-负1号"
+                    android:textColor="@color/gray_normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="营业时间："
+                    android:textColor="@color/gray_normal" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray_normal" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/image_thumbnail_spacing"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:background="@color/gray_backgroud" />
+
+        <LinearLayout
+            android:id="@+id/findcarport_linearlayout_notive"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1.7"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/small_padding">
+
+            <com.cheweishi.android.widget.FontAwesomeView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:text="@string/icon_wash_order"
+                android:textColor="@color/main_blue"
+                android:textSize="@dimen/ttf_thirteen" />
+
+            <TextView
+                android:id="@+id/tv_reserve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:drawablePadding="@dimen/normal_padding"
+                android:gravity="center"
+                android:text="去预约"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

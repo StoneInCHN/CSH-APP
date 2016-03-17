@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!--  -->
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/title" />
+
+    <RelativeLayout
+        android:id="@+id/lay_wash_beauty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_my_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/normal_padding"
+            android:paddingLeft="@dimen/normal_padding"
+            android:paddingTop="@dimen/normal_padding"
+            android:text="我的车辆："
+            android:textColor="@color/white"
+            android:textSize="@dimen/ttf_fourteen" />
+
+        <ImageView
+            android:id="@+id/tv_right"
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/yuyuebaoyang_jiantou" />
+
+        <TextView
+            android:id="@+id/tv_maintain_myCar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_right"
+            android:layout_marginRight="@dimen/normal_padding"
+            android:layout_toRightOf="@+id/tv_my_car"
+            android:ellipsize="end"
+            android:paddingBottom="@dimen/normal_padding"
+            android:paddingTop="@dimen/normal_padding"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ttf_fourteen" />
+    </RelativeLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:listSelector="@android:color/transparent" />
+
+    <!-- <CheckBox
+        android:id="@+id/cbox_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/zhaochewei_bj"
+        android:button="@null"
+        android:drawableTop="@drawable/zhaochewei_ditu_icon"
+        android:padding="@dimen/small_padding"
+        android:text="地图"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_twelve"
+        android:visibility="gone" /> -->
+
+    <!--  <include
+         android:id="@+id/layout_nodata"
+         android:layout_below="@id/include_title"
+         android:layout_alignParentBottom="true"
+         layout="@layout/no_data"
+         android:visibility="gone" /> -->
+
+</LinearLayout>

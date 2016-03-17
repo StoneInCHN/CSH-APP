@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/title" />
+
+    <TextView
+        android:id="@+id/tv_result_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textColor="@color/orange"
+        android:padding="@dimen/normal_marging"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btn_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/double_large_marging"
+        android:layout_marginLeft="@dimen/normal_marging"
+        android:layout_marginRight="@dimen/normal_marging"
+        android:layout_marginTop="@dimen/normal_marging"
+        android:text="点击访问"
+        android:textSize="18sp" />
+
+</LinearLayout>

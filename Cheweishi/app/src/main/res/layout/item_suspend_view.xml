@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_business_insurance"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:padding="@dimen/normal_padding">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.cheweishi.android.widget.MarqueeTextView
+            android:id="@+id/tv_bussiness_insurance_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="商业险"
+            android:textColor="@color/main_blue"
+            android:textSize="@dimen/titile_side_text_size" />
+
+        <TextView
+            android:id="@+id/tv_bussiness_insurance_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_marging"
+            android:text="交强险（760）+车船税（300）33333"
+            android:textColor="@color/gray_pressed"
+            android:textSize="@dimen/item_medium_text_size" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_bussiness_insurance_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/normal_marging"
+        android:layout_marginRight="@dimen/normal_marging"
+        android:ellipsize="marquee"
+        android:text="1060"
+        android:textColor="@color/main_orange"
+        android:textSize="@dimen/titile_side_text_size" />
+
+    <CheckBox
+        android:id="@+id/cb_bussiness_insurance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/insurance_check" />
+
+</LinearLayout>

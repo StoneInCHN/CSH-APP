@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ibtn_user"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/more_back"
+            android:padding="@dimen/normal_marging"
+            android:src="@drawable/tianjiacar_img2x" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/text_black_colcor"
+            android:textSize="@dimen/title__text_size" />
+
+        <ImageButton
+            android:id="@+id/ibtn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/more_back"
+            android:paddingLeft="@dimen/normal_marging"
+            android:paddingRight="@dimen/normal_marging"
+            android:src="@drawable/tianjiacar_img2x"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_gray" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/refresh_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:cacheColorHint="#00000000"
+        android:descendantFocusability="blocksDescendants"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_scanning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/more_back"
+                    android:drawablePadding="@dimen/normal_padding"
+                    android:drawableTop="@drawable/saoyisao"
+                    android:paddingBottom="@dimen/large_padding"
+                    android:paddingTop="@dimen/large_padding"
+                    android:text="@string/main_saoyisao"
+                    android:textColor="@color/text_saoyisao_color"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btn_my_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/more_back"
+                    android:drawablePadding="@dimen/normal_padding"
+                    android:drawableTop="@drawable/purse"
+                    android:paddingBottom="@dimen/large_padding"
+                    android:paddingTop="@dimen/large_padding"
+                    android:text="@string/main_mywallet"
+                    android:textColor="@color/text_saoyisao_color"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btn_my_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/more_back"
+                    android:drawablePadding="@dimen/normal_padding"
+                    android:drawableTop="@drawable/order"
+                    android:paddingBottom="@dimen/large_padding"
+                    android:paddingTop="@dimen/large_padding"
+                    android:text="@string/main_myorder"
+                    android:textColor="@color/text_saoyisao_color"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line_gray" />
+
+            <com.cheweishi.android.widget.UnslidingGridView
+                android:id="@+id/gv_service"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/line_gray"
+                android:cacheColorHint="#00000000"
+                android:horizontalSpacing="1dp"
+                android:listSelector="#00000000"
+                android:numColumns="4"
+                android:scrollbars="none"
+                android:verticalSpacing="1dp"></com.cheweishi.android.widget.UnslidingGridView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xlarge_marging"
+                android:background="@color/line_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <com.cheweishi.android.widget.MyGallery
+                    android:id="@+id/mygallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:soundEffectsEnabled="false" />
+
+                <LinearLayout
+                    android:id="@+id/ll_focus_indicator_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/line_gray"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/small_padding"></LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rl_activity_area"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/more_back"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/large_padding"
+                    android:paddingTop="@dimen/large_padding">
+
+                    <ImageView
+                        android:id="@+id/img_activity_area"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/huodongqu" />
+
+                    <TextView
+                        android:id="@+id/tv_activity_area"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/small_marging"
+                        android:layout_toRightOf="@id/img_activity_area"
+                        android:text="@string/main_activity_area"
+                        android:textColor="@color/text_black_colcor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_area_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/small_marging"
+                        android:layout_toRightOf="@id/img_activity_area"
+                        android:text="@string/main_area_content"
+                        android:textColor="@color/gray_pressed"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/line_gray" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_integral_mall"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/more_back"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/large_padding"
+                    android:paddingTop="@dimen/large_padding">
+
+                    <ImageView
+                        android:id="@+id/img_integral_mall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/jifenshangcheng2" />
+
+                    <TextView
+                        android:id="@+id/tv_integral_mall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/small_marging"
+                        android:layout_toRightOf="@id/img_integral_mall"
+                        android:text="@string/main_integral_mall"
+                        android:textColor="@color/text_black_colcor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_integral_mall_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/small_marging"
+                        android:layout_toRightOf="@id/img_integral_mall"
+                        android:text="@string/main_integral_mall_content"
+                        android:textColor="@color/gray_pressed"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xlarge_marging"
+                android:background="@color/line_gray" />
+
+            <com.cheweishi.android.widget.UnSlidingListView
+                android:id="@+id/list_business"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:listSelector="#00000000"
+                android:scrollbars="none"></com.cheweishi.android.widget.UnSlidingListView>
+        </LinearLayout>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+</LinearLayout>
