@@ -479,6 +479,7 @@ public class MainNewActivity extends BaseActivity {
     }
 
     /**
+     * // TODO 发送请求
      * 获取主界面的数据
      */
     private void getMainData() {
