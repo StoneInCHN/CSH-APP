@@ -27,8 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_marging"
             android:text="@string/banben"
-            android:textSize="@dimen/titile_side_text_size"
-            android:textColor="@color/text_black_colcor" />
+            android:textColor="@color/text_black_colcor"
+            android:textSize="@dimen/titile_side_text_size" />
     </LinearLayout>
 
     <LinearLayout
@@ -45,8 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/banben_updata"
-            android:textSize="@dimen/titile_side_text_size"
-            android:textColor="@color/text_black_colcor" />
+            android:textColor="@color/text_black_colcor"
+            android:textSize="@dimen/titile_side_text_size" />
 
         <TextView
             android:id="@+id/tv_show_update"
@@ -76,8 +76,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/function_introduction"
-            android:textSize="@dimen/titile_side_text_size"
-            android:textColor="@color/text_black_colcor" />
+            android:textColor="@color/text_black_colcor"
+            android:textSize="@dimen/titile_side_text_size" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -104,8 +104,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/team_introduction"
-            android:textSize="@dimen/titile_side_text_size"
-            android:textColor="@color/text_black_colcor" />
+            android:textColor="@color/text_black_colcor"
+            android:textSize="@dimen/titile_side_text_size" />
 
         <ImageView
             android:layout_width="wrap_content"
