@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textColor="@color/orange"
         android:padding="@dimen/normal_marging"
+        android:textColor="@color/orange"
         android:textSize="17sp" />
 
     <Button
@@ -24,7 +24,7 @@
         android:layout_marginLeft="@dimen/normal_marging"
         android:layout_marginRight="@dimen/normal_marging"
         android:layout_marginTop="@dimen/normal_marging"
-        android:text="点击访问"
+        android:text="提交数据"
         android:textSize="18sp" />
 
 </LinearLayout>
