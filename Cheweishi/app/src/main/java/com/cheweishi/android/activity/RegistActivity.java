@@ -120,9 +120,9 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     private TextView tv_error;
 
 
-    private static final int REGISTER = 0;
+    private static final int REGISTER = 0;// 注册
 
-    private static final int FORGET_PASSWORD = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +144,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
             R.id.linear_saoma, R.id.ib_password, R.id.tv_service, R.id.tv_voice})
     @Override
     public void onClick(View arg0) {
-        // TODO Auto-generated method stub
         switch (arg0.getId()) {
             case R.id.btn_getcode:
                 checkCode();
