@@ -22,6 +22,7 @@ import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.entity.LoginMessage;
+import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.StringUtil;
@@ -52,6 +53,7 @@ public abstract class BaseActivity extends FragmentActivity implements
     public static LoginMessage loginMessage;
     public static List<LoginMessage> loginMessages;
     public static Context baseContext;
+    protected NetWorkHelper netWorkHelper;
 
     /**
      * Activity的回调函数。当application进入前台时，该函数会被自动调用。
@@ -77,6 +79,8 @@ public abstract class BaseActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        netWorkHelper = NetWorkHelper.getInstance(baseContext);
 
         isLogined();
         baseContext = this;
