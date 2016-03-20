@@ -17,4 +17,6 @@ public class NetInterface {
 
     /******************接口*********************/
     public static final String  USER_LOGIN = "login";
+
+    public static final String SMS_TOKEN ="getSmsToken"; // 验证码接口
 }

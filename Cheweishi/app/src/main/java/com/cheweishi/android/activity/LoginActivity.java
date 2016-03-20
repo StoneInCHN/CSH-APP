@@ -358,12 +358,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
 
         // TODO new Interface
 
-        String url = NetInterface.HEADER_ALL+NetInterface.USER_LOGIN;
+        String url = NetInterface.HEADER_ALL + NetInterface.USER_LOGIN + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userName", phoneNumber);
         param.put("password", password);
         param.put("imei", m_szImei);
-        netWorkHelper.PostJson(url,param,this);
+        netWorkHelper.PostJson(url, param, this);
     }
 
     private void parseLoginJSON(String str) {
