@@ -253,6 +253,7 @@ public class PasswordForgetActivity extends BaseActivity implements
         Map<String, Object> param = new HashMap<>();
         param.put("mobileNo", phoneNumber);
         param.put("tokenType", FORGET_PASSWORD);
+        netWorkHelper.PostJson(url,param,this);
 
     }
 
