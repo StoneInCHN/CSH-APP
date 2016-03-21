@@ -173,7 +173,7 @@ public class UserSignActivity extends BaseActivity implements OnClickListener {
 			params.addBodyParameter("signature", et_userSign.getText().toString());
 			httpBiz.httPostData(10000, API.CSH_UPDATE_USER_SIGN_URL, params, this);
 
-//			String url = NetInterface.HEADER_ALL+NetInterface.NICK_MODIFY+NetInterface.SUFFIX;
+//			String url = NetInterface.HEADER_ALL+NetInterface.EDIT_USER_INFO+NetInterface.SUFFIX;
 //			Map<String,Object> param = new HashMap<>();
 //			param.put("userId",loginMessage.getUid());
 //			param.put("token",);

@@ -20,5 +20,5 @@ public class NetInterface {
 
     public static final String SMS_TOKEN ="getSmsToken"; // 验证码接口
 
-    public static final String NICK_MODIFY="editUserInfo";//昵称修改
+    public static final String EDIT_USER_INFO="editUserInfo";//昵称修改
 }

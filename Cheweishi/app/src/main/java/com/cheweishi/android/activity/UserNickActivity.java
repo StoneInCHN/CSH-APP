@@ -104,7 +104,7 @@ public class UserNickActivity extends BaseActivity implements OnClickListener {
             rp.addBodyParameter("nick_name", et_nick.getText().toString());
             ProgrosDialog.openDialog(UserNickActivity.this);
             httpBiz.httPostData(10009, API.CSH_UPDATE_USER_NICK_URL, rp, this);
-//            String url = NetInterface.HEADER_ALL + NetInterface.NICK_MODIFY + NetInterface.SUFFIX;
+//            String url = NetInterface.HEADER_ALL + NetInterface.EDIT_USER_INFO + NetInterface.SUFFIX;
 //            Map<String, Object> param = new HashMap<>();
 //            param.put("userId", loginMessage.getUid());
 //            param.put("token",);
