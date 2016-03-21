@@ -80,10 +80,11 @@ public abstract class BaseActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        netWorkHelper = NetWorkHelper.getInstance(baseContext);
 
         isLogined();
         baseContext = this;
+
+        netWorkHelper = NetWorkHelper.getInstance(baseContext);
         ActivityControl.addActivity(this);
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 //		PushAgent.getInstance(this).onAppStart();

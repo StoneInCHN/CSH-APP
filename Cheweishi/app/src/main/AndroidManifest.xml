@@ -1263,6 +1263,10 @@
             android:name="com.cheweishi.android.activity.InsuranceCalculationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
+
+
+        <!--消息中心-->
+        <activity android:name="com.cheweishi.android.activity.MessageCenterActivity" />
     </application>
 
 </manifest>

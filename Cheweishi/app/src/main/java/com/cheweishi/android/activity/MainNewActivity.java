@@ -755,7 +755,7 @@ public class MainNewActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.ibtn_user, R.id.ibtn_search, R.id.btn_scanning,
+    @OnClick({R.id.ibtn_user, R.id.fl_msg, R.id.btn_scanning,
             R.id.btn_my_wallet, R.id.btn_my_order, R.id.rl_activity_area,
             R.id.rl_integral_mall})
     public void onClick(View v) {
@@ -770,7 +770,8 @@ public class MainNewActivity extends BaseActivity {
             case R.id.ibtn_user:// 个人中心
                 isLogin(MyAccountActivity.class);
                 break;
-            case R.id.ibtn_search:// 搜索
+            case R.id.fl_msg:// 消息中心
+                isLogin(MessageCenterActivity.class);
                 break;
             case R.id.btn_scanning:// 扫一扫
                 PackageManager pkm = getPackageManager();

@@ -28,15 +28,43 @@
             android:textColor="@color/text_black_colcor"
             android:textSize="@dimen/title__text_size" />
 
-        <ImageButton
-            android:id="@+id/ibtn_search"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+        <!--<ImageButton-->
+        <!--android:id="@+id/ibtn_search"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@drawable/more_back"-->
+        <!--android:paddingLeft="@dimen/normal_marging"-->
+        <!--android:paddingRight="@dimen/normal_marging"-->
+        <!--android:src="@drawable/tianjiacar_img2x"-->
+        <!--android:visibility="invisible" />-->
+
+        <FrameLayout
+            android:id="@+id/fl_msg"
             android:background="@drawable/more_back"
             android:paddingLeft="@dimen/normal_marging"
             android:paddingRight="@dimen/normal_marging"
-            android:src="@drawable/tianjiacar_img2x"
-            android:visibility="invisible" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_marginRight="1dp"
+                android:paddingTop="2dp"
+                android:src="@drawable/message_icon" />
+
+            <TextView
+                android:id="@+id/tv_msg_center_num"
+                android:layout_width="16dip"
+                android:layout_height="16dip"
+                android:layout_gravity="right"
+                android:background="@drawable/message_notice"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+        </FrameLayout>
     </LinearLayout>
 
     <View
@@ -123,7 +151,7 @@
                 android:listSelector="#00000000"
                 android:numColumns="4"
                 android:scrollbars="none"
-                android:verticalSpacing="1dp"/>
+                android:verticalSpacing="1dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -149,7 +177,7 @@
                     android:background="@color/line_gray"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="@dimen/small_padding"/>
+                    android:padding="@dimen/small_padding" />
             </LinearLayout>
 
             <LinearLayout
@@ -252,7 +280,7 @@
                 android:layout_height="wrap_content"
                 android:cacheColorHint="#00000000"
                 android:listSelector="#00000000"
-                android:scrollbars="none"/>
+                android:scrollbars="none" />
         </LinearLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 

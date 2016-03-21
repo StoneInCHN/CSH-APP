@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_marginRight="1dp"
+        android:paddingTop="2dp"
+        android:src="@drawable/message_icon" />
+
+    <TextView
+        android:id="@+id/tv_msg_center_num"
+        android:layout_width="16dip"
+        android:layout_height="16dip"
+        android:layout_gravity="right"
+        android:background="@drawable/message_notice"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+</FrameLayout>
