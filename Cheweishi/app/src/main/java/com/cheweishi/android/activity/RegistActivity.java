@@ -452,11 +452,11 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 
 
         // TODO new Interface
-        String url = NetInterface.HEADER_ALL + NetInterface.SMS_TOKEN;
-        Map<String, Object> param = new HashMap<>();
-        param.put("mobileNo", phoneNumber);
-        param.put("tokenType", REGISTER);
-        netWorkHelper.PostJson(url, param, this);
+//        String url = NetInterface.HEADER_ALL + NetInterface.SMS_TOKEN;
+//        Map<String, Object> param = new HashMap<>();
+//        param.put("mobileNo", phoneNumber);
+//        param.put("tokenType", REGISTER);
+//        netWorkHelper.PostJson(url, param, this);
     }
 
     public void receive(int type, String data) {

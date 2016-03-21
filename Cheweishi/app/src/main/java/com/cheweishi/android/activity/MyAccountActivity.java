@@ -79,7 +79,6 @@ public class MyAccountActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		if (broad == null) {
 			broad = new MyBroadcastReceiver();
@@ -124,7 +123,6 @@ public class MyAccountActivity extends BaseActivity implements OnClickListener {
 			R.id.left_action, R.id.ll_my_order })
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 		if (ButtonUtils.isFastClick()) {
 			return;
 		}

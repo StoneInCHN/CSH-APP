@@ -249,11 +249,11 @@ public class PasswordForgetActivity extends BaseActivity implements
         params.addBodyParameter("path", path);
         httpBiz.httPostData(10001, API.CSH_CODE_URL, params, this);
 
-        String url = NetInterface.HEADER_ALL + NetInterface.SMS_TOKEN + NetInterface.SUFFIX;
-        Map<String, Object> param = new HashMap<>();
-        param.put("mobileNo", phoneNumber);
-        param.put("tokenType", FORGET_PASSWORD);
-        netWorkHelper.PostJson(url,param,this);
+//        String url = NetInterface.HEADER_ALL + NetInterface.SMS_TOKEN + NetInterface.SUFFIX;
+//        Map<String, Object> param = new HashMap<>();
+//        param.put("mobileNo", phoneNumber);
+//        param.put("tokenType", FORGET_PASSWORD);
+//        netWorkHelper.PostJson(url,param,this);
 
     }
 

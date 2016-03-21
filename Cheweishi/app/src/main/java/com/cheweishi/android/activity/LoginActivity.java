@@ -194,7 +194,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     /**
      * 环信登录
      *
-     * @param view
      */
     protected void HXLogin() {
 
@@ -358,12 +357,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
 
         // TODO new Interface
 
-        String url = NetInterface.HEADER_ALL + NetInterface.USER_LOGIN + NetInterface.SUFFIX;
-        Map<String, Object> param = new HashMap<>();
-        param.put("userName", phoneNumber);
-        param.put("password", password);
-        param.put("imei", m_szImei);
-        netWorkHelper.PostJson(url, param, this);
+//        String url = NetInterface.HEADER_ALL + NetInterface.USER_LOGIN + NetInterface.SUFFIX;
+//        Map<String, Object> param = new HashMap<>();
+//        param.put("userName", phoneNumber);
+//        param.put("password", password);
+//        param.put("imei", m_szImei);
+//        netWorkHelper.PostJson(url, param, this);
     }
 
     private void parseLoginJSON(String str) {
