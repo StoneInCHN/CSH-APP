@@ -109,7 +109,6 @@ public class UserNickActivity extends BaseActivity implements OnClickListener {
 //            param.put("userId", loginMessage.getUid());
 //            param.put("token",);
 //            param.put("nickName",et_nick.getText().toString());
-//            param.put("sign");
 //            netWorkHelper.PostJson(url, param, this);
         }
     }

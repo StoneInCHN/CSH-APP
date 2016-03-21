@@ -18,6 +18,7 @@ import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
+import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
@@ -28,6 +29,9 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -80,7 +84,6 @@ public class UserSignActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
 				currentFontSize.setText(s.length() + "");
 				CharSequence input = null;
 				if (!resetText) {
@@ -127,7 +130,6 @@ public class UserSignActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
 				if (!resetText) {
 					cursorPos = et_userSign.getSelectionEnd();
 					tmp = s.toString();// 这里用s.toString()而不直接用s是因为如果用s，那么，tmp和s在内存中指向的是同一个地址，s改变了，tmp也就改变了，那么表情过滤就失败了
@@ -136,7 +138,6 @@ public class UserSignActivity extends BaseActivity implements OnClickListener {
 
 			@Override
 			public void afterTextChanged(Editable arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -145,7 +146,6 @@ public class UserSignActivity extends BaseActivity implements OnClickListener {
 	@OnClick({ R.id.left_action, R.id.right_action })
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		case R.id.left_action:
 			if (!et_userSign.getText().toString().equals(pre)) {
@@ -162,7 +162,7 @@ public class UserSignActivity extends BaseActivity implements OnClickListener {
 	}
 
 	/**
-	 * 个性签名提交服务器
+	 * 个性签名提交服务器 // TODO 签名发包
 	 */
 	private void connectToServer() {
 		if (isLogined()) {
@@ -172,6 +172,13 @@ public class UserSignActivity extends BaseActivity implements OnClickListener {
 			params.addBodyParameter("uid", loginMessage.getUid());
 			params.addBodyParameter("signature", et_userSign.getText().toString());
 			httpBiz.httPostData(10000, API.CSH_UPDATE_USER_SIGN_URL, params, this);
+
+//			String url = NetInterface.HEADER_ALL+NetInterface.NICK_MODIFY+NetInterface.SUFFIX;
+//			Map<String,Object> param = new HashMap<>();
+//			param.put("userId",loginMessage.getUid());
+//			param.put("token",);
+//			param.put("sign",et_userSign.getText().toString());
+//			netWorkHelper.PostJson(url,param,this);
 		}
 	}
 
