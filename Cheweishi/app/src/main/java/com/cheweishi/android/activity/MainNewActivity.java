@@ -771,7 +771,7 @@ public class MainNewActivity extends BaseActivity {
                 isLogin(MyAccountActivity.class);
                 break;
             case R.id.ll_right_msg:// 消息中心
-                isLogin(MessageCenterActivity.class);
+                isLogin(MessagerCenterActivity.class);
                 break;
             case R.id.btn_scanning:// 扫一扫
                 PackageManager pkm = getPackageManager();

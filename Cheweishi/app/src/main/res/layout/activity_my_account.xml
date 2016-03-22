@@ -189,55 +189,55 @@
                 android:layout_height="1dp"
                 android:background="@color/line_gray" />
 
-            <LinearLayout
-                android:id="@+id/ll_msg_center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/more_back"
-                android:gravity="center_vertical"
-                android:visibility="visible"
-                android:padding="@dimen/large_padding">
+            <!--<LinearLayout-->
+                <!--android:id="@+id/ll_msg_center"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/more_back"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:visibility="visible"-->
+                <!--android:padding="@dimen/large_padding">-->
 
-                <TextView
-                    android:id="@+id/tv_msg_center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:drawableLeft="@drawable/message"
-                    android:drawablePadding="@dimen/normal_padding"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:includeFontPadding="false"
-                    android:singleLine="true"
-                    android:text="@string/msg_center"
-                    android:textColor="@color/gray_normal"
-                    android:textSize="@dimen/key_text_small" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_msg_center"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:drawableLeft="@drawable/message"-->
+                    <!--android:drawablePadding="@dimen/normal_padding"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:includeFontPadding="false"-->
+                    <!--android:singleLine="true"-->
+                    <!--android:text="@string/msg_center"-->
+                    <!--android:textColor="@color/gray_normal"-->
+                    <!--android:textSize="@dimen/key_text_small" />-->
 
-                <TextView
-                    android:id="@+id/tv_messageCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/info_dian"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text=""
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_messageCount"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--android:background="@drawable/info_dian"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:gravity="center"-->
+                    <!--android:singleLine="true"-->
+                    <!--android:text=""-->
+                    <!--android:textColor="@android:color/white"-->
+                    <!--android:textSize="14sp"-->
+                    <!--android:visibility="gone" />-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:gravity="right|center_vertical"
-                    android:singleLine="true"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:gravity="right|center_vertical"-->
+                    <!--android:singleLine="true"-->
+                    <!--android:textColor="@android:color/white"-->
+                    <!--android:textSize="18sp" />-->
+            <!--</LinearLayout>-->
 
             <TextView
                 android:layout_width="match_parent"
