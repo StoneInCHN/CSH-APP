@@ -20,7 +20,7 @@ public class CarShopActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_shop);
         listView = (PullToRefreshListView) findViewById(R.id.pl_car_shop);
-        adapter = new CarShopAdapter();
+        adapter = new CarShopAdapter(baseContext,null);
         listView.setAdapter(adapter);
     }
 }
