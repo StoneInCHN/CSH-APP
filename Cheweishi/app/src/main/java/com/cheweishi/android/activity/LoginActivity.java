@@ -45,12 +45,16 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.LoginMessage;
+import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.RegularExpressionTools;
 import com.cheweishi.android.tools.SharePreferenceTools;
 import com.cheweishi.android.utils.CommonUtils;
+import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.KeyGenerator;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.google.gson.Gson;
@@ -193,7 +197,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
 
     /**
      * 环信登录
-     *
      */
     protected void HXLogin() {
 
@@ -303,67 +306,70 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     // TODO login Interface
     private void submitLogin(String phoneNumber, String password) {
 
-        // System.out.println("tag:登录次数==================" + index);
-        // index++;
-        // Date date = new Date();
-        // SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        // System.out.println("tag:" + sf.format(date));
-        loginTel = phoneNumber;
-        loginPass = password;
+//        // System.out.println("tag:登录次数==================" + index);
+//        // index++;
+//        // Date date = new Date();
+//        // SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        // System.out.println("tag:" + sf.format(date));
+//        loginTel = phoneNumber;
+//        loginPass = password;
         mLoginButton.setClickable(false);
         ProgrosDialog.openDialog(LoginActivity.this);
         ProgrosDialog.CanceledOnTouchOutside(false);
         ProgrosDialog.setIsDismiss(false);
-        // SharedPreferences preferences = LoginActivity.this
-        // .getSharedPreferences("device_token", MODE_PRIVATE);
-        // String device_token = preferences.getString("device_token", "");
-        // Log.i("result", "=login=device_token=1==" + device_token);
-        String phoneSystem = android.os.Build.VERSION.RELEASE;
+//        // SharedPreferences preferences = LoginActivity.this
+//        // .getSharedPreferences("device_token", MODE_PRIVATE);
+//        // String device_token = preferences.getString("device_token", "");
+//        // Log.i("result", "=login=device_token=1==" + device_token);
+//        String phoneSystem = android.os.Build.VERSION.RELEASE;
         TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         String m_szImei = TelephonyMgr.getDeviceId();
-        RequestParams rp = new RequestParams();
-        rp.addBodyParameter("userName", phoneNumber);
-        rp.addBodyParameter("passWord", password);
-        // rp.addBodyParameter("loginType", 2+"");;
-        rp.addBodyParameter("mobileSystem", phoneSystem);
-        rp.addBodyParameter("mobileVersion", android.os.Build.MODEL);
-        rp.addBodyParameter("appVersion",
-                APPTools.getVersionName(LoginActivity.this));
-        rp.addBodyParameter("imei", m_szImei);
-        rp.addBodyParameter("type", "2");// 注册平台：1，IOS；2，Android；3，PC
-        // if (StringUtil.isEmpty(device_token)) {
-        // device_token = UmengRegistrar.getRegistrationId(LoginActivity.this);
-        // Log.i("result", "=login=device_token=2==" + device_token);
-        // if (StringUtil.isEmpty(device_token)) {
-        // device_token = "no_device_token";
-        // isDevice = false;
-        // rp.addBodyParameter("imei", device_token);
-        // } else {
-        // rp.addBodyParameter("imei", device_token);
-        // Editor editor = preferences.edit();
-        // editor.putString("device_token", device_token);
-        // editor.commit();
-        // isDevice = true;
-        // }
-        // Log.i("result", "=login=device_token=3==" + device_token);
-        // } else {
-        // rp.addBodyParameter("imei", device_token);
-        // isDevice = true;
-        // }
-        // rp.addBodyParameter("username", "test");
-        // rp.addBodyParameter("password", "cws707");
-        httpBiz.httPostData(10001, API.CSH_LOGIN_URL, rp, this);
+//        RequestParams rp = new RequestParams();
+//        rp.addBodyParameter("userName", phoneNumber);
+//        rp.addBodyParameter("passWord", password);
+//        // rp.addBodyParameter("loginType", 2+"");;
+//        rp.addBodyParameter("mobileSystem", phoneSystem);
+//        rp.addBodyParameter("mobileVersion", android.os.Build.MODEL);
+//        rp.addBodyParameter("appVersion",
+//                APPTools.getVersionName(LoginActivity.this));
+//        rp.addBodyParameter("imei", m_szImei);
+//        rp.addBodyParameter("type", "2");// 注册平台：1，IOS；2，Android；3，PC
+//        // if (StringUtil.isEmpty(device_token)) {
+//        // device_token = UmengRegistrar.getRegistrationId(LoginActivity.this);
+//        // Log.i("result", "=login=device_token=2==" + device_token);
+//        // if (StringUtil.isEmpty(device_token)) {
+//        // device_token = "no_device_token";
+//        // isDevice = false;
+//        // rp.addBodyParameter("imei", device_token);
+//        // } else {
+//        // rp.addBodyParameter("imei", device_token);
+//        // Editor editor = preferences.edit();
+//        // editor.putString("device_token", device_token);
+//        // editor.commit();
+//        // isDevice = true;
+//        // }
+//        // Log.i("result", "=login=device_token=3==" + device_token);
+//        // } else {
+//        // rp.addBodyParameter("imei", device_token);
+//        // isDevice = true;
+//        // }
+//        // rp.addBodyParameter("username", "test");
+//        // rp.addBodyParameter("password", "cws707");
+//        httpBiz.httPostData(10001, API.CSH_LOGIN_URL, rp, this);
 
 
         // TODO new Interface
-
-//        String url = NetInterface.HEADER_ALL + NetInterface.USER_LOGIN + NetInterface.SUFFIX;
-//        Map<String, Object> param = new HashMap<>();
-//        param.put("userName", phoneNumber);
-//        param.put("password", password);
-//        param.put("imei", m_szImei);
-//        netWorkHelper.PostJson(url, param, this);
+        loginTel = phoneNumber;
+        loginPass = password;
+        String url = NetInterface.HEADER_ALL + NetInterface.USER_LOGIN + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userName", phoneNumber);
+        password = KeyGenerator.encrypt(password);
+        param.put("password", password);
+        param.put("imei", m_szImei);
+        netWorkHelper.PostJson(url, param, this);
     }
+
 
     private void parseLoginJSON(String str) {
         Log.i("result", "==LoginMessage==" + str);
@@ -414,6 +420,39 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
         }
     }
 
+
+    // TODO 其他登录的情况暂时没加入
+    @Override
+    public void receive(String data) {
+        ProgrosDialog.closeProgrosDialog();
+        LoginResponse loginResponse = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
+        if (!loginResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            mLoginButton.setClickable(true);
+            showToast(loginResponse.getDesc());
+            return;
+        }
+
+        LoginMessageUtils.setLogined(this, true);
+        SharePreferenceTools.setUser(this, loginTel, loginPass);
+        if (MainNewActivity.instance != null) {
+            MainNewActivity.instance.finish();
+        }
+//        save(loginResponse);
+
+        Intent intent = new Intent(LoginActivity.this,
+                MainNewActivity.class);
+        startActivity(intent);
+        mLoginButton.setClickable(true);
+        finish();
+
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        ProgrosDialog.closeProgrosDialog();
+        mLoginButton.setClickable(true);
+    }
+
     @Override
     public void receive(int type, String data) {
         ProgrosDialog.closeProgrosDialog();
@@ -428,6 +467,17 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
                 mLoginButton.setClickable(true);
                 break;
         }
+    }
+
+
+    /**
+     * 保存登录信息
+     */
+    protected void save(LoginResponse loginResponse) {
+        if (!StringUtil.isEmpty(loginResponse)) {
+            DBTools.getInstance(this).save(loginResponse);
+        }
+        // saveProduct(loginMessage, LoginActivity.this);
     }
 
     /**
@@ -741,7 +791,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                             DBTools.getInstance(LoginActivity.this).delete(
-                                    LoginMessage.class);
+                                    LoginResponse.class);
                             // setRadioButtonLight();
                         }
                     });

@@ -73,9 +73,7 @@ public class ProgrosDialog extends BaseDialog {
 
 	public static void closeProgrosDialog() {
 		try {
-			System.out.println("Success========关闭对话可能哈哈");
 			if (mProgrosDialog != null) {
-				System.out.println("Success========关闭对话可能");
 				mProgrosDialog.dismiss();
 			}
 			mProgrosDialog = null;

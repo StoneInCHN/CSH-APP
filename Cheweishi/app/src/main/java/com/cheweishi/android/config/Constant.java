@@ -77,5 +77,9 @@ public class Constant {
     public static String JPUSH_TAGS = "";
 
 
+    //请求标识
     public static final String PARAMETER_TAG = "PARAMETER_TAG";
+
+    // 密码Publick key
+    public static final String SERVER_PUBLIC_KEY_STORE = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCBMPGboxzPh9SApXHBKMQHF31rgB6LQBZxg3VirK9Rbp0qvgIDw+2ygZxPQAkgiK24PTWuBbw2UTNy5NxglSCsCnY8+vJXd8cwZKrBpnwXEcO0Wuh5G8Z++X0AIisMCIoiDZZwWnvqJ7a3vUQIj62qTX259s0UqvjGA7uvoDM9tQIDAQAB";
 }

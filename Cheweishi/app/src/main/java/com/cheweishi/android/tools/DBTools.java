@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.entity.LoginMessage;
+import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
@@ -54,8 +55,8 @@ public class DBTools {
 		try {
 			db.dropTable(object);
 //			db.deleteAll(object);
-			if (object == LoginMessage.class) {
-				BaseActivity.loginMessage = null;
+			if (object == LoginResponse.class) {
+				BaseActivity.loginResponse = null;
 			}
 		} catch (DbException e) {
 			e.printStackTrace();

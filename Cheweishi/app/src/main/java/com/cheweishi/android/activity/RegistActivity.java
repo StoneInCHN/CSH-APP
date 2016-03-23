@@ -27,17 +27,24 @@ import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Config;
+import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.LoginMessage;
+import com.cheweishi.android.entity.LoginResponse;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.RegularExpressionTools;
 import com.cheweishi.android.tools.SharePreferenceTools;
 import com.cheweishi.android.utils.ActivityControl;
+import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.KeyGenerator;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
@@ -121,7 +128,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 
 
     private static final int REGISTER = 0;// 注册
-
 
 
     @Override
@@ -393,47 +399,59 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     }
 
     /**
-     * 注册
+     * 注册 // TODO 注册发包
      *
      * @param phoneNumber
      * @param password
      * @param idCard
      */
     private void submitData(String phoneNumber, String password, String idCard) {
-        System.out.println("SUCCESS==========" + "注册请求");
-        Log.i("result", "=====注册请求===");
+        LogHelper.d("=====注册请求===");
         getCodeFlag = false;
-        String phoneDevice = getinfor();
-        String phoneSystem = android.os.Build.VERSION.RELEASE;// 系统版本
-        String mobileVersion = android.os.Build.MODEL;// 手机型号
-        // SharedPreferences preferences = getSharedPreferences("device_token",
-        // MODE_PRIVATE);
-        // String str = preferences.getString("device_token", "");
-        String appVersion = APPTools.getVersionName(RegistActivity.this);
-        // if (StringUtil.isEmpty(str)) {
-        // str = "no_device_token";
-        // }
-        // String urlString =
-        // "http://115.28.161.11:8080/XAI/app/cws/appRegist.do"
-        // + "?tel=" + phoneNumber + "&psw=" + password + "&imei=" + str
-        // + "&nick=" + phoneNumber + "&phone=" + phoneDevice + "&system="
-        // + phoneSystem + "&app="
-        // + APPTools.getVersionName(RegistActivity.this);
-        // System.out.println(urlString);
-        Log.i("result", "====注册参数===userName=" + phoneNumber + "=passWord="
-                + password + "=appVersion=" + appVersion + "=mobileVersion="
-                + mobileVersion + "=mobileSystem=" + phoneSystem + "=imei="
-                + phoneDevice);
-        RequestParams rp = new RequestParams();
-        rp.addBodyParameter("userName", phoneNumber);
-        rp.addBodyParameter("passWord", password);
-        rp.addBodyParameter("appVersion", appVersion);// App版本信息
-        rp.addBodyParameter("mobileVersion", mobileVersion);// 手机版本信息
-        rp.addBodyParameter("mobileSystem", phoneSystem);// 手机系统版本信息
-        rp.addBodyParameter("imei", phoneDevice);// 手机唯一标识符
-        rp.addBodyParameter("type", "2");// 注册平台：1，IOS；2，Android；3，PC
-        ProgrosDialog.openDialog(RegistActivity.this);
-        httpBiz.httPostData(100002, API.CSH_REGISTER_URL, rp, this);
+
+        // TODO old
+//        String phoneDevice = getinfor();
+//        String phoneSystem = android.os.Build.VERSION.RELEASE;// 系统版本
+//        String mobileVersion = android.os.Build.MODEL;// 手机型号
+//        // SharedPreferences preferences = getSharedPreferences("device_token",
+//        // MODE_PRIVATE);
+//        // String str = preferences.getString("device_token", "");
+//        String appVersion = APPTools.getVersionName(RegistActivity.this);
+//        // if (StringUtil.isEmpty(str)) {
+//        // str = "no_device_token";
+//        // }
+//        // String urlString =
+//        // "http://115.28.161.11:8080/XAI/app/cws/appRegist.do"
+//        // + "?tel=" + phoneNumber + "&psw=" + password + "&imei=" + str
+//        // + "&nick=" + phoneNumber + "&phone=" + phoneDevice + "&system="
+//        // + phoneSystem + "&app="
+//        // + APPTools.getVersionName(RegistActivity.this);
+//        // System.out.println(urlString);
+//        Log.i("result", "====注册参数===userName=" + phoneNumber + "=passWord="
+//                + password + "=appVersion=" + appVersion + "=mobileVersion="
+//                + mobileVersion + "=mobileSystem=" + phoneSystem + "=imei="
+//                + phoneDevice);
+//        RequestParams rp = new RequestParams();
+//        rp.addBodyParameter("userName", phoneNumber);
+//        rp.addBodyParameter("passWord", password);
+//        rp.addBodyParameter("appVersion", appVersion);// App版本信息
+//        rp.addBodyParameter("mobileVersion", mobileVersion);// 手机版本信息
+//        rp.addBodyParameter("mobileSystem", phoneSystem);// 手机系统版本信息
+//        rp.addBodyParameter("imei", phoneDevice);// 手机唯一标识符
+//        rp.addBodyParameter("type", "2");// 注册平台：1，IOS；2，Android；3，PC
+//        ProgrosDialog.openDialog(RegistActivity.this);
+//        httpBiz.httPostData(100002, API.CSH_REGISTER_URL, rp, this);
+
+
+        // TODO new interface
+        String url = NetInterface.HEADER_ALL + NetInterface.REGISTER + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userName", phoneNumber);
+        password = KeyGenerator.encrypt(password);
+        param.put("password", password);
+        param.put("password_confirm", password);
+        param.put(Constant.PARAMETER_TAG, NetInterface.REGISTER);
+        netWorkHelper.PostJson(url, param, this);
     }
 
     /**
@@ -444,19 +462,77 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
      */
     private void submitPhone(String phoneNumber, String path) {
         getCodeFlag = true;
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("called", phoneNumber);
-        params.addBodyParameter("type", "0");// 0注册， 1找回密码
-        params.addBodyParameter("path", path);
-        httpBiz.httPostData(100001, API.CSH_CODE_URL, params, this);
+        // TODO old
+//        RequestParams params = new RequestParams();
+//        params.addBodyParameter("called", phoneNumber);
+//        params.addBodyParameter("type", "0");// 0注册， 1找回密码
+//        params.addBodyParameter("path", path);
+//        httpBiz.httPostData(100001, API.CSH_CODE_URL, params, this);
 
 
         // TODO new Interface
-//        String url = NetInterface.HEADER_ALL + NetInterface.SMS_TOKEN;
-//        Map<String, Object> param = new HashMap<>();
-//        param.put("mobileNo", phoneNumber);
-//        param.put("tokenType", REGISTER);
-//        netWorkHelper.PostJson(url, param, this);
+        String url = NetInterface.HEADER_ALL + NetInterface.SMS_TOKEN + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("mobileNo", phoneNumber);
+        param.put("tokenType", REGISTER);
+        param.put(Constant.PARAMETER_TAG, NetInterface.SMS_TOKEN);
+        netWorkHelper.PostJson(url, param, this);
+    }
+
+
+    @Override
+    public void receive(String TAG, String data) {
+        ProgrosDialog.closeProgrosDialog();
+        BaseResponse base = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+        switch (TAG) {
+            case NetInterface.SMS_TOKEN:
+                //错误的时候
+                if (!base.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(getResources().getString(R.string.code_error));
+                    if (getCodeFlag == true) {
+                        mRegisterButton.setClickable(true);
+                        time.cancel();
+                        mGetcodeButton.setTextColor(RegistActivity.this
+                                .getApplicationContext().getResources()
+                                .getColor(R.color.orange_text_color));
+                        mGetcodeButton.setText(R.string.get_again);
+                    } else {
+                        initColorTextView(true);
+                        tv_voice.setClickable(true);
+                        mRegisterButton.setClickable(true);
+                    }
+                    mGetcodeButton.setClickable(true);
+                    return;
+                }
+
+
+                mGetcodeButton.setTextColor(RegistActivity.this
+                        .getApplicationContext().getResources()
+                        .getColor(R.color.btn_gray_normal));
+                time.start();
+                mCode = base.getDesc();
+                tv_remind.setText(mPhoneNumberEditText.getText().toString()
+                        .trim());
+                showToast(getResources().getString(R.string.code_success));
+                break;
+
+            case NetInterface.REGISTER:
+
+                if (base.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast("注册成功");
+                    LoginMessageUtils.setLogined(this, true);
+                    save(base.getDesc());
+                } else {
+                    showToast(base.getDesc());
+                }
+                break;
+
+        }
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        ProgrosDialog.closeProgrosDialog();
     }
 
     public void receive(int type, String data) {
@@ -588,7 +664,30 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
         }
     }
 
-    ;
+
+    /**
+     * 设置电话和uid
+     *
+     * @param userId
+     */
+    protected void save(String userId) {
+        SharePreferenceTools.setUser(RegistActivity.this, mPhoneNumberEditText
+                .getText().toString(), mPasswordEditText.getText().toString());
+//        LoginMessage loginMessage = new LoginMessage();
+//        loginMessage.setUid(userId); // 存储Uid
+//        loginMessage.setTel(mPhoneNumberEditText
+//                .getText().toString());// 存储编辑框
+        LoginResponse loginMessage = new LoginResponse();
+        LoginResponse.MsgBean bean = new LoginResponse.MsgBean();
+        bean.setId(userId);
+        bean.setUserName(mPhoneNumberEditText.getText().toString());
+        loginMessage.setMsg(bean);
+        DBTools.getInstance(this).save(loginMessage);
+        ActivityControl.removeActivityFromName(LoginActivity.class.getName());
+        startActivity(new Intent(RegistActivity.this, MainNewActivity.class));
+        this.finish();
+    }
+
 
     protected void save(JSONObject jsonObject) {
         ProgrosDialog.closeProgrosDialog();

@@ -6,8 +6,12 @@ import org.json.JSONObject;
 import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
+import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.RegularExpressionTools;
+import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
@@ -242,19 +246,63 @@ public class PasswordForgetActivity extends BaseActivity implements
      * @param path
      */
     private void submitPhone(String phoneNumber, String path) {
-        Log.i("result", "==submitPhone==" + phoneNumber + "==path=" + path);
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("called", phoneNumber);
-        params.addBodyParameter("type", "1");
-        params.addBodyParameter("path", path);
-        httpBiz.httPostData(10001, API.CSH_CODE_URL, params, this);
 
-//        String url = NetInterface.HEADER_ALL + NetInterface.SMS_TOKEN + NetInterface.SUFFIX;
-//        Map<String, Object> param = new HashMap<>();
-//        param.put("mobileNo", phoneNumber);
-//        param.put("tokenType", FORGET_PASSWORD);
-//        netWorkHelper.PostJson(url,param,this);
+        // TODO old 只发一次
+//        Log.i("result", "==submitPhone==" + phoneNumber + "==path=" + path);
+//        RequestParams params = new RequestParams();
+//        params.addBodyParameter("called", phoneNumber);
+//        params.addBodyParameter("type", "1");
+//        params.addBodyParameter("path", path);
+//        httpBiz.httPostData(10001, API.CSH_CODE_URL, params, this);
 
+        String url = NetInterface.HEADER_ALL + NetInterface.SMS_TOKEN + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("mobileNo", phoneNumber);
+        param.put("tokenType", FORGET_PASSWORD);
+        netWorkHelper.PostJson(url, param, this);
+
+    }
+
+    @Override
+    public void receive(String data) {
+        BaseResponse baseResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+        if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            showToast(baseResponse.getDesc());
+            btn_pass_forget_getcode.setClickable(true);
+            btn_next.setClickable(true);
+            time.cancel();
+            btn_pass_forget_getcode.setText(R.string.get_again);
+            btn_pass_forget_getcode.setTextColor(PasswordForgetActivity.this
+                    .getApplicationContext().getResources()
+                    .getColor(R.color.orange_text_color));
+            btn_next.setClickable(true);
+            tv_voice.setClickable(true);
+            initColorTextView(true);
+            return;
+        }
+
+        // TODO 解析数据...
+        btn_next.setClickable(true);
+        showToast(getResources().getString(R.string.code_success));
+        time.start();
+        mCode = baseResponse.getDesc();
+        tv_remind.setText(pass_forget_phonenumber.getText()
+                .toString().replaceAll(" ", ""));
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        showToast(R.string.server_link_fault);
+        btn_pass_forget_getcode.setClickable(true);
+        btn_next.setClickable(true);
+        time.cancel();
+        btn_pass_forget_getcode.setText(R.string.get_again);
+        btn_pass_forget_getcode.setTextColor(PasswordForgetActivity.this
+                .getApplicationContext().getResources()
+                .getColor(R.color.orange_text_color));
+        btn_next.setClickable(true);
+        tv_voice.setClickable(true);
+        initColorTextView(true);
     }
 
     public void receive(int type, String data) {

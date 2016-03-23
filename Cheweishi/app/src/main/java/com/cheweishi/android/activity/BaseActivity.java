@@ -22,6 +22,7 @@ import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.entity.LoginMessage;
+import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.utils.ActivityControl;
@@ -51,7 +52,9 @@ public abstract class BaseActivity extends FragmentActivity implements
     private Toast mToast;
     public HttpBiz httpBiz;
     public static LoginMessage loginMessage;
+    public static LoginResponse loginResponse;
     public static List<LoginMessage> loginMessages;
+    public static List<LoginResponse> loginResponses;
     public static Context baseContext;
     protected NetWorkHelper netWorkHelper;
 
@@ -302,6 +305,25 @@ public abstract class BaseActivity extends FragmentActivity implements
     static int feed;
 
     @SuppressWarnings("unchecked")
+    public boolean isLogined_new() {
+        if (StringUtil.isEmpty(loginResponse)) {
+            loginResponses = (List<LoginResponse>) DBTools.getInstance(this)
+                    .findAll(LoginResponse.class);
+            if (!StringUtil.isEmpty(loginResponses) && loginResponses.size() > 0) {
+                loginResponse = loginResponses.get(0);
+            }
+        }
+        Log.i("result", "===loginMessage==" + String.valueOf(loginResponse));
+        if (StringUtil.isEmpty(BaseActivity.loginResponse)
+                || StringUtil.isEmpty(loginResponse.getMsg().getId())) {
+            return false;
+        }
+        Log.i("result", "===uid==" + loginResponse.getMsg().getId() + "===mobile=="
+                + loginResponse.getMsg().getUserName());
+        return true;
+    }
+
+    @SuppressWarnings("unchecked")
     public boolean isLogined() {
         if (StringUtil.isEmpty(loginMessage)) {
             loginMessages = (List<LoginMessage>) DBTools.getInstance(this)
@@ -323,7 +345,6 @@ public abstract class BaseActivity extends FragmentActivity implements
     /**
      * 判断环信账号
      *
-     * @param context
      * @return
      */
     public boolean hasNo() {
@@ -372,7 +393,6 @@ public abstract class BaseActivity extends FragmentActivity implements
     /**
      * 判断积分
      *
-     * @param context
      * @return
      */
     public boolean hasScore() {

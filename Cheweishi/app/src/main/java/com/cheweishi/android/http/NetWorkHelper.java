@@ -15,7 +15,7 @@ import com.android.volley.toolbox.Volley;
 import com.baidu.navisdk.util.common.NetworkUtils;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.config.Constant;
-import com.lidroid.xutils.util.LogUtils;
+import com.cheweishi.android.utils.LogHelper;
 
 import org.json.JSONObject;
 
@@ -82,6 +82,7 @@ public class NetWorkHelper {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
+                LogHelper.d(jsonObject.toString());
                 if (null == jsonCallback)
                     return;
                 if (null != RequestTag) {
@@ -95,10 +96,10 @@ public class NetWorkHelper {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                LogUtils.d(error.getMessage());
+                LogHelper.d(error.getMessage());
                 if (null != error.networkResponse) {
                     byte[] htmlBodyBytes = error.networkResponse.data;
-                    LogUtils.d(new String(htmlBodyBytes));
+                    LogHelper.d(new String(htmlBodyBytes));
                 }
                 if (null == jsonCallback)
                     return;
@@ -163,10 +164,10 @@ public class NetWorkHelper {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                LogUtils.d(error.getMessage());
+                LogHelper.d(error.getMessage());
                 if (null != error.networkResponse) {
                     byte[] htmlBodyBytes = error.networkResponse.data;
-                    LogUtils.d(new String(htmlBodyBytes));
+                    LogHelper.d(new String(htmlBodyBytes));
                 }
                 if (null == jsonCallback)
                     return;

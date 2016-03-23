@@ -18,6 +18,7 @@ import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.entity.LoginMessage;
+import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.interfaces.CarReportListener;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -33,8 +34,10 @@ public class BaseFragment extends Fragment implements JSONCallback {
 	public HttpBiz httpBiz;
 	private Toast mToast;
 	public static LoginMessage loginMessage;
+	public static LoginResponse loginResponse;
 	public static Context baseContext;
 	public static List<LoginMessage> loginMessages;
+	public static List<LoginResponse> loginResponses;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
