@@ -78,7 +78,7 @@ public class LoginMessageUtils {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Constant.loginMessage = getLoginMessage(context);
+        Constant.loginResponse = getLoginResponse(context);
     }
 
 

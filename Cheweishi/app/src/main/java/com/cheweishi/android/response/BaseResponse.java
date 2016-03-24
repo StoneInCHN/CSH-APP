@@ -1,9 +1,11 @@
 package com.cheweishi.android.response;
 
+import java.io.Serializable;
+
 /**
  * Created by tangce on 3/23/2016.
  */
-public class BaseResponse {
+public class BaseResponse implements Serializable {
 
     protected String code;
 
@@ -34,4 +36,6 @@ public class BaseResponse {
     public void setToken(String token) {
         this.token = token;
     }
+
+
 }

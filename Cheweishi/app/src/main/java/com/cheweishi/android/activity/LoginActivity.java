@@ -487,7 +487,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
      */
     protected void save(LoginResponse loginResponse) {
         if (!StringUtil.isEmpty(loginResponse)) {
-            LruCacheUtils.addJsonLruCache(Constant.USER_ID, loginResponse.getDesc());
+//            LruCacheUtils.addJsonLruCache(Constant.USER_ID, loginResponse.getDesc());
+            LoginMessageUtils.saveProduct(loginResponse,baseContext);
             DBTools.getInstance(this).save(loginResponse);
         }
         // saveProduct(loginMessage, LoginActivity.this);

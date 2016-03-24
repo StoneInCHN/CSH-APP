@@ -510,12 +510,13 @@ public class MainNewActivity extends BaseActivity {
 //            Log.i("result", "===首页数据请求参数==lat=" + MyMapUtils.getLatitude(this) + "_" + MyMapUtils.getLongitude(this) + "_" + APPTools.getVersionName(this));
 //        }
 //        httpBiz.httPostData(10001, API.CSH_MAIN_DATA_URL, params, this);
-
+        if (!isLogined())
+            return;
         ProgrosDialog.openDialog(this);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
-        LogHelper.d("----send:"+loginResponse.getToken());
+        LogHelper.d("----send:" + loginResponse.getToken());
         param.put("token", loginResponse.getToken());
         param.put("latitude", MyMapUtils.getLatitude(this));//维度
         param.put("longitude", MyMapUtils.getLongitude(this));//经度

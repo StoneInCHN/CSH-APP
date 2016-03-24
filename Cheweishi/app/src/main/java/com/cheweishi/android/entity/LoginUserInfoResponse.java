@@ -10,6 +10,15 @@ public class LoginUserInfoResponse {
     private String id;
     private String userName;
     private String defaultVehicle;
+    private String defaultVehiclePlate;
+
+    public String getDefaultVehiclePlate() {
+        return defaultVehiclePlate;
+    }
+
+    public void setDefaultVehiclePlate(String defaultVehiclePlate) {
+        this.defaultVehiclePlate = defaultVehiclePlate;
+    }
 
     public String getSignature() {
         return signature;

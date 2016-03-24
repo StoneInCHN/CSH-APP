@@ -192,29 +192,27 @@ public class UserInfoEditActivity extends BaseActivity implements
 
     /**
      * 初始化数据
-     *
-     * @param info
      */
     private void initdata() {
         if (isLogined()) {
             XUtilsImageLoader.getxUtilsImageLoader(this,
                     R.drawable.info_touxiang_moren, img_userEdit_userIcon,
-                    API.DOWN_IMAGE_URL + loginMessage.getIcon());
+                    loginResponse.getMsg().getPhoto());
             if (hasNote()) {
-                tv_specialSign.setText(loginMessage.getSignature());
+                tv_specialSign.setText(loginResponse.getMsg().getSignature());
             } else {
                 tv_specialSign.setText("请填写");
             }
             if (hasNick()) {
-                tv_user_nick.setText(loginMessage.getNick_name());
+                tv_user_nick.setText(loginResponse.getMsg().getNickName());
             }
             if (hasTel()) {
                 try {
-                    tv_tel.setText(loginMessage.getMobile().substring(0, 3)
+                    tv_tel.setText(loginResponse.getMsg().getUserName().substring(0, 3)
                             + "***"
-                            + loginMessage.getMobile().substring(
-                            loginMessage.getMobile().length() - 4,
-                            loginMessage.getMobile().length()));
+                            + loginResponse.getMsg().getUserName().substring(
+                            loginResponse.getMsg().getUserName().length() - 4,
+                            loginResponse.getMsg().getUserName().length()));
                 } catch (Exception e) {
 
                 }
@@ -384,14 +382,14 @@ public class UserInfoEditActivity extends BaseActivity implements
             case R.id.ll_user_nick:// 昵称
                 if (isLogined()) {
                     intent = new Intent(this, UserNickActivity.class);
-                    intent.putExtra("nick", loginMessage.getNick_name());
+                    intent.putExtra("nick", loginResponse.getMsg().getNickName());
                     startActivity(intent);
                 }
                 break;
             case R.id.ll_user_specialSign:// 签名
                 if (isLogined()) {
                     intent = new Intent(this, UserSignActivity.class);
-                    intent.putExtra("sign", loginMessage.getSignature());
+                    intent.putExtra("sign", loginResponse.getMsg().getSignature());
                     startActivity(intent);
                 }
                 break;
@@ -440,7 +438,7 @@ public class UserInfoEditActivity extends BaseActivity implements
                 origionalImg.startAnimation(animation1);
                 XUtilsImageLoader.getxUtilsImageLoader(UserInfoEditActivity.this,
                         R.drawable.info_touxiang_moren, origionalImg,
-                        API.DOWN_IMAGE_URL + loginMessage.getIcon());
+                        loginResponse.getMsg().getPhoto());
                 break;
 
             // 调用手机相机
@@ -507,11 +505,11 @@ public class UserInfoEditActivity extends BaseActivity implements
      */
     protected void userInfoSave() {
         // String email = "";
-        // if (loginMessage != null && loginMessage.getUid() != null) {
+        // if (loginResponse != null && loginResponse.getUid() != null) {
         // RequestParams params = new RequestParams();
-        // params.addBodyParameter("userInfoModel.id", loginMessage.getUid());
+        // params.addBodyParameter("userInfoModel.id", loginResponse.getUid());
         // params.addBodyParameter("userInfoModel.icon",
-        // loginMessage.getIcon());
+        // loginResponse.getIcon());
         // params.addBodyParameter("userInfoModel.nick_name",
         // et_userNick.getText().toString());
         // params.addBodyParameter("userInfoModel.signature",
@@ -579,14 +577,14 @@ public class UserInfoEditActivity extends BaseActivity implements
      */
     private void setSuccess() {
         // String str = "";
-        // if ((et_userNick.getText() + "").equals(loginMessage.getNick_name() +
+        // if ((et_userNick.getText() + "").equals(loginResponse.getNick_name() +
         // "")) {
         // str = Constant.USER_NICK_EDIT_REFRESH_OTHER;
         // } else {
-        // // loginMessage.setIcon(icon)
-        // loginMessage.setNick_name(et_userNick.getText() + "");
-        // loginMessage.setSignature(tv_specialSign.getText() + "");
-        // LoginMessageUtils.saveProduct(loginMessage,
+        // // loginResponse.setIcon(icon)
+        // loginResponse.setNick_name(et_userNick.getText() + "");
+        // loginResponse.setSignature(tv_specialSign.getText() + "");
+        // LoginMessageUtils.saveProduct(loginResponse,
         // UserInfoEditActivity.this);
         // str = Constant.USER_NICK_EDIT_REFRESH;
         // }
@@ -819,25 +817,26 @@ public class UserInfoEditActivity extends BaseActivity implements
      * @throws Exception
      */
     private void setImageView(String pathString) {
-        System.out.println("imgpath===" + pathString);
-        File file = new File(pathString);
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("file", file);
-        params.addBodyParameter("uid", loginMessage.getUid());
-        params.addBodyParameter("key", loginMessage.getKey());
-        httpBiz = new HttpBiz(this);
-        httpBiz.uploadMethod(UPLOAD_IMG_TYPE, params, API.UPLOAD_IMG_URL, this,
-                this);
+//        System.out.println("imgpath===" + pathString);
+//        File file = new File(pathString);
+//        RequestParams params = new RequestParams();
+//        params.addBodyParameter("file", file);
+//        params.addBodyParameter("uid", loginResponse.getDesc());
+//        params.addBodyParameter("key", loginResponse.getMsg().);
+//        httpBiz = new HttpBiz(this);
+//        httpBiz.uploadMethod(UPLOAD_IMG_TYPE, params, API.UPLOAD_IMG_URL, this,
+//                this);
 
 
         // TODO 需要在子线程中run
+        File file = new File(pathString);
         try {
             String url = NetInterface.HEADER_ALL + NetInterface.EDIT_USER_INFO + NetInterface.SUFFIX;
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost(url);
             MultipartEntity httpEntity = new MultipartEntity();
-            httpEntity.addPart("userId", new StringBody(loginMessage.getUid()));
-//		    httpEntity.addPart("token", );
+            httpEntity.addPart("userId", new StringBody(loginResponse.getDesc()));
+            httpEntity.addPart("token", new StringBody(loginResponse.getToken()));
             httpEntity.addPart("photo", new FileBody(file));
             post.setEntity(httpEntity);
             HttpResponse response = client.execute(post);
@@ -867,18 +866,18 @@ public class UserInfoEditActivity extends BaseActivity implements
                     Constant.CURRENT_REFRESH = Constant.LOGIN_REFRESH;
                     String path = jsonObject.optJSONObject("data").optString(
                             "file");
-                    loginMessage.setPhoto(path);
-                    LoginMessageUtils.saveProduct(loginMessage,
+//                    loginResponse.setPhoto(path);
+                    LoginMessageUtils.saveProduct(loginResponse,
                             UserInfoEditActivity.this);
-                    XUtilsImageLoader.getxUtilsImageLoader(
-                            UserInfoEditActivity.this,
-                            R.drawable.info_touxiang_moren,
-                            img_userEdit_userIcon, API.DOWN_IMAGE_URL
-                                    + loginMessage.getPhoto());
-                    XUtilsImageLoader.getxUtilsImageLoader(
-                            UserInfoEditActivity.this,
-                            R.drawable.info_touxiang_moren, origionalImg,
-                            API.DOWN_IMAGE_URL + loginMessage.getPhoto());
+//                    XUtilsImageLoader.getxUtilsImageLoader(
+//                            UserInfoEditActivity.this,
+//                            R.drawable.info_touxiang_moren,
+//                            img_userEdit_userIcon, API.DOWN_IMAGE_URL
+//                                    + loginResponse.getPhoto());
+//                    XUtilsImageLoader.getxUtilsImageLoader(
+//                            UserInfoEditActivity.this,
+//                            R.drawable.info_touxiang_moren, origionalImg,
+//                            API.DOWN_IMAGE_URL + loginResponse.getPhoto());
                     // if (!Constant.EDIT_FLAG) {
                     Constant.CURRENT_REFRESH = Constant.LOGIN_REFRESH;
                     // }

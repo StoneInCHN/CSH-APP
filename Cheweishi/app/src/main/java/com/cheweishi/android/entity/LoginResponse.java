@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by tangce on 3/23/2016.
  */
-public class LoginResponse extends BaseResponse implements Serializable {
+public class LoginResponse extends BaseResponse implements Serializable{
 
     /**
      * signature : null

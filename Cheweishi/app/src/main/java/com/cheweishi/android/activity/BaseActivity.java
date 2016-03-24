@@ -25,6 +25,7 @@ import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.tools.DBTools;
+import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -84,8 +85,8 @@ public abstract class BaseActivity extends FragmentActivity implements
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 
-        isLogined();
         baseContext = this;
+        isLogined();
 
         netWorkHelper = NetWorkHelper.getInstance(baseContext);
         ActivityControl.addActivity(this);
@@ -307,11 +308,12 @@ public abstract class BaseActivity extends FragmentActivity implements
     @SuppressWarnings("unchecked")
     public boolean isLogined() {
         if (StringUtil.isEmpty(loginResponse)) {
-            loginResponses = (List<LoginResponse>) DBTools.getInstance(this)
-                    .findAll(LoginResponse.class);
-            if (!StringUtil.isEmpty(loginResponses) && loginResponses.size() > 0) {
-                loginResponse = loginResponses.get(0);
-            }
+//            loginResponses = (List<LoginResponse>) DBTools.getInstance(this)
+//                    .findAll(LoginResponse.class);
+            loginResponse = LoginMessageUtils.getLoginResponse(baseContext);
+//            if (!StringUtil.isEmpty(loginResponses) && loginResponses.size() > 0) {
+//                loginResponse = loginResponses.get(0);
+//            }
         }
         Log.i("result", "===loginMessage==" + String.valueOf(loginResponse));
         if (StringUtil.isEmpty(BaseActivity.loginResponse)
@@ -363,11 +365,8 @@ public abstract class BaseActivity extends FragmentActivity implements
      */
     public boolean hasCar() {
         if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getCarManager())
-                    && !StringUtil.isEmpty(loginMessage.getCarManager()
-                    .getPlate())
-                    && !StringUtil.isEmpty(loginMessage.getCarManager()
-                    .getId())) {
+            if (!StringUtil.isEmpty(loginResponse.getMsg())
+                    && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle())) {
                 Log.i("result", "=baseac==cid===" + loginMessage.getCarManager()
                         .getId());
                 return true;
@@ -383,7 +382,7 @@ public abstract class BaseActivity extends FragmentActivity implements
      * @return
      */
     public boolean hasDevice() {
-        if (hasCar() && !StringUtil.isEmpty(loginMessage.getCarManager().getDevice())) {
+        if (hasCar() && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle())) {
             return true;
         } else {
             return false;
@@ -396,13 +395,13 @@ public abstract class BaseActivity extends FragmentActivity implements
      * @return
      */
     public boolean hasScore() {
-        if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getScore())
-                    && !StringUtil.isEmpty(loginMessage.getScore().getCid())
-                    && !StringUtil.isEmpty(loginMessage.getScore().getNow())) {
-                return true;
-            }
-        }
+//        if (isLogined()) {
+//            if (!StringUtil.isEmpty(loginMessage.getScore())
+//                    && !StringUtil.isEmpty(loginMessage.getScore().getCid())
+//                    && !StringUtil.isEmpty(loginMessage.getScore().getNow())) {
+//                return true;
+//            }
+//        }
         return false;
     }
 
@@ -418,7 +417,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 
     public boolean hasPhoto() {
         if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getPhoto())) {
+            if (!StringUtil.isEmpty(loginResponse.getMsg().getPhoto())) {
                 return true;
             }
         }
@@ -427,11 +426,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 
     public boolean hasBrandName() {
         if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getCarManager())
-                    && !StringUtil.isEmpty(loginMessage.getCarManager()
-                    .getBrandName())
-                    && !StringUtil.isEmpty(loginMessage.getCarManager()
-                    .getSeriesName())) {
+            if (!StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle())) {
                 return true;
             }
         }
@@ -440,11 +435,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 
     public boolean hasBrandIcon() {
         if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getCarManager())
-                    && !StringUtil.isEmpty(loginMessage.getCarManager()
-                    .getBrand())
-                    && !StringUtil.isEmpty(loginMessage.getCarManager()
-                    .getBrand().getBrandIcon())) {
+            if (!StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle())
+                    ) {
                 return true;
             }
         }
@@ -453,7 +445,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 
     public boolean hasNick() {
         if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getNick_name())) {
+            if (!StringUtil.isEmpty(loginResponse.getMsg().getNickName())) {
                 return true;
             }
         }
@@ -471,7 +463,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 
     public boolean hasTel() {
         if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getMobile())) {
+            if (!StringUtil.isEmpty(loginResponse.getMsg().getUserName())) {
                 return true;
             }
         }
@@ -480,7 +472,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 
     public boolean hasNote() {
         if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getSignature())) {
+            if (!StringUtil.isEmpty(loginResponse.getMsg().getSignature())) {
                 return true;
             }
         }
@@ -491,8 +483,8 @@ public abstract class BaseActivity extends FragmentActivity implements
      * 判断用户没有登录，去登录
      */
     public boolean goToLoginFirst() {
-        if (StringUtil.isEmpty(loginMessage)
-                || StringUtil.isEmpty(loginMessage.getUid())) {
+        if (StringUtil.isEmpty(loginResponse)
+                || StringUtil.isEmpty(loginResponse.getDesc())) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.score_business_query_enter,
