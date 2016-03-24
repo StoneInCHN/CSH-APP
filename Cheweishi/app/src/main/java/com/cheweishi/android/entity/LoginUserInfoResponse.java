@@ -1,9 +1,11 @@
 package com.cheweishi.android.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by tangce on 3/24/2016.
  */
-public class LoginUserInfoResponse {
+public class LoginUserInfoResponse implements Serializable {
     private String signature;
     private String nickName;
     private String photo;

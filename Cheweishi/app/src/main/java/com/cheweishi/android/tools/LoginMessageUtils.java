@@ -19,6 +19,7 @@ import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.fragement.BaseFragment;
+import com.cheweishi.android.utils.disklrucahe.DiskLruCacheHelper;
 
 public class LoginMessageUtils {
     public static boolean showDialogFlag = false;
@@ -230,6 +231,27 @@ public class LoginMessageUtils {
         Editor editor = preferences.edit();
         editor.remove("loginMessage");
         editor.commit();
+    }
+
+
+    public static void saveloginmsg(Context context, LoginResponse loginResponse) {
+        try {
+            DiskLruCacheHelper diskLruCacheHelper = new DiskLruCacheHelper(context);
+            diskLruCacheHelper.put("test_lg", loginResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static LoginResponse getloginmsg(Context context) {
+        try {
+            DiskLruCacheHelper diskLruCacheHelper = new DiskLruCacheHelper(context);
+            LoginResponse loginResponse = diskLruCacheHelper.getAsSerializable("test_lg");
+            return loginResponse;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
