@@ -42,6 +42,7 @@ import cn.smssdk.SMSSDK;
 import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
+import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.LoginMessage;
@@ -55,6 +56,7 @@ import com.cheweishi.android.utils.CommonUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.KeyGenerator;
 import com.cheweishi.android.utils.LogHelper;
+import com.cheweishi.android.utils.LruCacheUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.google.gson.Gson;
@@ -125,6 +127,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
         thirdHandler = new Handler(this);
         init();
         setListeners();
+
+        boolean aut_login = getIntent().getBooleanExtra(Constant.AUTO_LOGIN, false);
+        if (aut_login) {
+//            login();
+//            submitLogin(SharePreferenceTools.getTelFromUser(LoginActivity.this), SharePreferenceTools
+//                    .getPassFromUser(LoginActivity.this));
+        }
+
     }
 
     /**
@@ -365,6 +375,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
         Map<String, Object> param = new HashMap<>();
         param.put("userName", phoneNumber);
         password = KeyGenerator.encrypt(password);
+        LogHelper.d(password);
         param.put("password", password);
         param.put("imei", m_szImei);
         netWorkHelper.PostJson(url, param, this);
@@ -437,7 +448,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
         if (MainNewActivity.instance != null) {
             MainNewActivity.instance.finish();
         }
-//        save(loginResponse);
+        LogHelper.d("-----login:" + loginResponse.getToken());
+        save(loginResponse);
 
         Intent intent = new Intent(LoginActivity.this,
                 MainNewActivity.class);
@@ -475,6 +487,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
      */
     protected void save(LoginResponse loginResponse) {
         if (!StringUtil.isEmpty(loginResponse)) {
+            LruCacheUtils.addJsonLruCache(Constant.USER_ID, loginResponse.getDesc());
             DBTools.getInstance(this).save(loginResponse);
         }
         // saveProduct(loginMessage, LoginActivity.this);

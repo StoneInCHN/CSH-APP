@@ -11,9 +11,13 @@ public class NetInterface {
 
     public static final String TEMP_URL = "/csh-interface/endUser/";// 中间路径
 
+    public static final String TEMP_HOME_URL ="/csh-interface/tenantInfo/";//租户相关的
+
     public static final String HEADER_ALL=BASE_URL+ TEMP_URL;
 
     public static final String RESPONSE_SUCCESS = "0000" ; // success
+
+    public static final String RESPONSE_TOKEN = "0004" ; // ERROR
 
     public static final String SUFFIX = ".jhtml";//后缀
 
@@ -28,4 +32,6 @@ public class NetInterface {
     public static final String REGISTER = "reg"; // 注册
 
     public static final String EDIT_USER_INFO="editUserInfo";//昵称修改
+
+    public static final String LIST = "list";// 列表
 }

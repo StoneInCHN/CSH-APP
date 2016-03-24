@@ -305,7 +305,7 @@ public abstract class BaseActivity extends FragmentActivity implements
     static int feed;
 
     @SuppressWarnings("unchecked")
-    public boolean isLogined_new() {
+    public boolean isLogined() {
         if (StringUtil.isEmpty(loginResponse)) {
             loginResponses = (List<LoginResponse>) DBTools.getInstance(this)
                     .findAll(LoginResponse.class);
@@ -315,16 +315,16 @@ public abstract class BaseActivity extends FragmentActivity implements
         }
         Log.i("result", "===loginMessage==" + String.valueOf(loginResponse));
         if (StringUtil.isEmpty(BaseActivity.loginResponse)
-                || StringUtil.isEmpty(loginResponse.getMsg().getId())) {
+                || StringUtil.isEmpty(loginResponse.getDesc())) {
             return false;
         }
-        Log.i("result", "===uid==" + loginResponse.getMsg().getId() + "===mobile=="
-                + loginResponse.getMsg().getUserName());
+//        Log.i("result", "===uid==" + loginResponse.getMsg().getId() + "===mobile=="
+//                + loginResponse.getMsg().getUserName());
         return true;
     }
 
     @SuppressWarnings("unchecked")
-    public boolean isLogined() {
+    public boolean isLogined_old() {
         if (StringUtil.isEmpty(loginMessage)) {
             loginMessages = (List<LoginMessage>) DBTools.getInstance(this)
                     .findAll(LoginMessage.class);

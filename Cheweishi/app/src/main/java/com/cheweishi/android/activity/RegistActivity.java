@@ -32,6 +32,7 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
+import com.cheweishi.android.entity.LoginUserInfoResponse;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
@@ -678,10 +679,10 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 //        loginMessage.setTel(mPhoneNumberEditText
 //                .getText().toString());// 存储编辑框
         LoginResponse loginMessage = new LoginResponse();
-        LoginResponse.MsgBean bean = new LoginResponse.MsgBean();
-        bean.setId(userId);
-        bean.setUserName(mPhoneNumberEditText.getText().toString());
-        loginMessage.setMsg(bean);
+        LoginUserInfoResponse loginUserInfoResponse = new LoginUserInfoResponse();
+        loginUserInfoResponse.setId(userId);
+        loginUserInfoResponse.setUserName(mPhoneNumberEditText.getText().toString());
+        loginMessage.setMsg(loginUserInfoResponse);
         DBTools.getInstance(this).save(loginMessage);
         ActivityControl.removeActivityFromName(LoginActivity.class.getName());
         startActivity(new Intent(RegistActivity.this, MainNewActivity.class));

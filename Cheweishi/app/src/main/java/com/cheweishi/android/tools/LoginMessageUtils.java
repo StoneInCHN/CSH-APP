@@ -119,7 +119,7 @@ public class LoginMessageUtils {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Constant.loginMessage = getLoginMessage(context);
+        Constant.loginResponse = getLoginResponse(context);
     }
 
     public static LoginMessage getLoginMessage(Context context) {

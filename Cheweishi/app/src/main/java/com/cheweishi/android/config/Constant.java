@@ -16,6 +16,7 @@ package com.cheweishi.android.config;
 import android.os.Environment;
 
 import com.cheweishi.android.entity.LoginMessage;
+import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.utils.StringUtil;
 
 public class Constant {
@@ -60,6 +61,7 @@ public class Constant {
     public static String USER_NICK_EDIT_REFRESH = "com.cheweishi.android.activity.UserInfoEditActivity_NICK";
     public static String USER_NICK_EDIT_REFRESH_OTHER = "com.cheweishi.android.activity.UserInfoEditActivity_OTHER";
     public static LoginMessage loginMessage;
+    public static LoginResponse loginResponse;
     public static boolean EDIT_FLAG = false;
     public static boolean CAR_FLAF = false;
 
@@ -82,4 +84,14 @@ public class Constant {
 
     // 密码Publick key
     public static final String SERVER_PUBLIC_KEY_STORE = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCBMPGboxzPh9SApXHBKMQHF31rgB6LQBZxg3VirK9Rbp0qvgIDw+2ygZxPQAkgiK24PTWuBbw2UTNy5NxglSCsCnY8+vJXd8cwZKrBpnwXEcO0Wuh5G8Z++X0AIisMCIoiDZZwWnvqJ7a3vUQIj62qTX259s0UqvjGA7uvoDM9tQIDAQAB";
+
+
+    //用户id
+    public static final String USER_ID = "userid";
+
+    //当前用户toke
+    public static final String CURRENT_TOKEN = "token";
+
+    //自动登录
+    public static final String AUTO_LOGIN = "AUTO_LOGIN";
 }

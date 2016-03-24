@@ -1,8 +1,10 @@
 package com.cheweishi.android.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.json.JSONArray;
@@ -49,6 +51,7 @@ import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
+import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ADInfo;
 import com.cheweishi.android.entity.Brand;
@@ -56,10 +59,13 @@ import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.entity.MainGridInfo;
 import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.MainSellerServiceInfo;
+import com.cheweishi.android.entity.ServiceListResponse;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.ButtonUtils;
+import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.utils.mapUtils.LocationUtil;
@@ -483,27 +489,75 @@ public class MainNewActivity extends BaseActivity {
      * 获取主界面的数据
      */
     private void getMainData() {
-        RequestParams params = new RequestParams();
-        if (isLogined()) {
-            params.addBodyParameter("uid", loginMessage.getUid());
-            params.addBodyParameter("mobile", loginMessage.getMobile());
-        }
-        params.addBodyParameter("lat", MyMapUtils.getLatitude(this) + "");
-        params.addBodyParameter("lon", MyMapUtils.getLongitude(this) + "");
-        params.addBodyParameter("app", APPTools.getVersionName(this));
-        httpBiz = new HttpBiz(this);
+//        RequestParams params = new RequestParams();
+//        if (isLogined()) {
+//            params.addBodyParameter("uid", loginMessage.getUid());
+//            params.addBodyParameter("mobile", loginMessage.getMobile());
+//        }
+//        params.addBodyParameter("lat", MyMapUtils.getLatitude(this) + "");
+//        params.addBodyParameter("lon", MyMapUtils.getLongitude(this) + "");
+//        params.addBodyParameter("app", APPTools.getVersionName(this));
+//        httpBiz = new HttpBiz(this);
+//        ProgrosDialog.openDialog(this);
+//        // Log.i("result",
+//        // "===主界面数据请求参数==uid=" + loginMessage.getUid() + "==mobile="
+//        // + loginMessage.getMobile() + "==lat="
+//        // + MyMapUtils.getLatitude(this) + "==lon="
+//        // + MyMapUtils.getLongitude(this));
+//        if (isLogined()) {
+//            Log.i("result", "===首页数据请求参数===uid=" + loginMessage.getUid() + "_" + loginMessage.getMobile() + "_" + MyMapUtils.getLatitude(this) + "_" + MyMapUtils.getLongitude(this) + "_" + APPTools.getVersionName(this));
+//        } else {
+//            Log.i("result", "===首页数据请求参数==lat=" + MyMapUtils.getLatitude(this) + "_" + MyMapUtils.getLongitude(this) + "_" + APPTools.getVersionName(this));
+//        }
+//        httpBiz.httPostData(10001, API.CSH_MAIN_DATA_URL, params, this);
+
         ProgrosDialog.openDialog(this);
-        // Log.i("result",
-        // "===主界面数据请求参数==uid=" + loginMessage.getUid() + "==mobile="
-        // + loginMessage.getMobile() + "==lat="
-        // + MyMapUtils.getLatitude(this) + "==lon="
-        // + MyMapUtils.getLongitude(this));
-        if (isLogined()) {
-            Log.i("result", "===首页数据请求参数===uid=" + loginMessage.getUid() + "_" + loginMessage.getMobile() + "_" + MyMapUtils.getLatitude(this) + "_" + MyMapUtils.getLongitude(this) + "_" + APPTools.getVersionName(this));
-        } else {
-            Log.i("result", "===首页数据请求参数==lat=" + MyMapUtils.getLatitude(this) + "_" + MyMapUtils.getLongitude(this) + "_" + APPTools.getVersionName(this));
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        LogHelper.d("----send:"+loginResponse.getToken());
+        param.put("token", loginResponse.getToken());
+        param.put("latitude", MyMapUtils.getLatitude(this));//维度
+        param.put("longitude", MyMapUtils.getLongitude(this));//经度
+        /**
+         * 1保养
+         2	洗车
+         3	维修
+         4	紧急救援
+         5	美容
+         */
+        param.put("serviceCategoryId", 2); // TODO 目前只有一种
+        param.put("pageSize", 5);
+        param.put("pageNumber", 1);
+        param.put(Constant.PARAMETER_TAG, NetInterface.LIST);
+        netWorkHelper.PostJson(url, param, this);
+    }
+
+    @Override
+    public void receive(String TAG, String data) {
+        ProgrosDialog.closeProgrosDialog();
+        ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
+        if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            // TODO 成功
+            loginResponse.setToken(response.getToken());
+            DBTools.getInstance(baseContext).save(loginResponse);
+        } else if (response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
+            // TODO 超时
+            Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
+            intent.putExtra(Constant.AUTO_LOGIN, true);
+            startActivity(intent);
+            this.finish();
+            overridePendingTransition(R.anim.score_business_query_enter,
+                    R.anim.score_business_query_exit);
         }
-        httpBiz.httPostData(10001, API.CSH_MAIN_DATA_URL, params, this);
+
+
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        ProgrosDialog.closeProgrosDialog();
+        showToast(R.string.FAIL);
     }
 
     @Override

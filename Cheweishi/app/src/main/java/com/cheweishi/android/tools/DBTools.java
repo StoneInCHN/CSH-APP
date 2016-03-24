@@ -32,6 +32,7 @@ public class DBTools {
 		if (StringUtil.isEmpty(db)) {
 			db = DbUtils.create(mContext);
 		}
+
 		return dbTools;
 	}
 	
