@@ -5,13 +5,17 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-    public static final String BASE_URL = "http://139.129.5.114";// 基础路径
-//    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
+//    public static final String BASE_URL = "http://139.129.5.114";// 基础路径
+    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
 
     public static final String TEMP_URL = "/csh-interface/endUser/";// 中间路径
 
     public static final String TEMP_HOME_URL ="/csh-interface/tenantInfo/";//租户相关的
+
+    public static final String TEMP_CAR_URL = "/csh-interface/vehicle/";// 车辆管理
+
+    public static final String TEMP_ADV_URL ="/csh-interface/advertisement/"; // 广告
 
     public static final String HEADER_ALL=BASE_URL+ TEMP_URL;
 
@@ -34,4 +38,8 @@ public class NetInterface {
     public static final String EDIT_USER_INFO="editUserInfo";//昵称修改
 
     public static final String LIST = "list";// 列表
+
+    public static final String HOME_ADV= "getAdvImage"; // 首页广告
+
+
 }

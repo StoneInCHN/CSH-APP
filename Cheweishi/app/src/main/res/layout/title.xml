@@ -33,7 +33,6 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:padding="@dimen/normal_padding"
-            android:text="@string/message_center"
             android:textColor="@color/gray_normal"
             android:textSize="@dimen/title__text_size" />
 

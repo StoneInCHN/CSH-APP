@@ -165,7 +165,8 @@ public class BeautyListActivity extends BaseActivity implements OnRefreshListene
 					EmptyTools.setImg(R.drawable.dingdanwu_icon);
 					EmptyTools.setMessage("亲，暂无相关数据");
 				} else {
-					mListViewAdapter.setData(washcarList);
+					// TODO 修改主页数据而注释
+//					mListViewAdapter.setData(washcarList);
 				}
 			} else if (StringUtil.isEquals(API.returnRelogin, json.optString("state"), true)) {
 				ReLoginDialog.getInstance(this).showDialog(json.optString("message"));
@@ -185,7 +186,8 @@ public class BeautyListActivity extends BaseActivity implements OnRefreshListene
 		mListView.setOnRefreshListener(this);
 		mListView.setMode(Mode.BOTH);
 		washcarList = new ArrayList<MainSellerInfo>();
-		mListViewAdapter = new MainListViewAdapter(this, washcarList);
+		// TODO 修改主页数据而注释
+//		mListViewAdapter = new MainListViewAdapter(this, washcarList);
 		mListView.setAdapter(mListViewAdapter);
 	}
 
