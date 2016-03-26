@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -62,6 +63,7 @@ import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.PhotoTools;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.BitmapUtils;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.ClearEditText;
 import com.cheweishi.android.widget.CustomDialog;
@@ -424,7 +426,7 @@ public class UserInfoEditActivity extends BaseActivity implements
             // UserInfoEditActivity.this.startActivityForResult(intent, 2015);
             // break;
             case R.id.ll_user_img:
-                //showImgDialog();
+                showImgDialog();
                 break;
             case R.id.origionalImg:
                 dialog1.dismiss();
@@ -826,35 +828,53 @@ public class UserInfoEditActivity extends BaseActivity implements
 //        httpBiz = new HttpBiz(this);
 //        httpBiz.uploadMethod(UPLOAD_IMG_TYPE, params, API.UPLOAD_IMG_URL, this,
 //                this);
-
+        ProgrosDialog.openDialog(this);
 
         // TODO 需要在子线程中run
-        File file = new File(pathString);
-        try {
-            String url = NetInterface.HEADER_ALL + NetInterface.EDIT_USER_INFO + NetInterface.SUFFIX;
-            HttpClient client = new DefaultHttpClient();
-            HttpPost post = new HttpPost(url);
-            MultipartEntity httpEntity = new MultipartEntity();
-            httpEntity.addPart("userId", new StringBody(loginResponse.getDesc()));
-            httpEntity.addPart("token", new StringBody(loginResponse.getToken()));
-            httpEntity.addPart("photo", new FileBody(file));
-            post.setEntity(httpEntity);
-            HttpResponse response = client.execute(post);
-            HttpEntity responseEntity = response.getEntity();
-            if (response.getStatusLine().getStatusCode() == 200) {
-                // success
-                String responseString = EntityUtils.toString(responseEntity);
-            } else {
-                // fail
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        new UploadImage().execute(pathString);
+
+    }
+
+    private class UploadImage extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPostExecute(String string) {
+            ProgrosDialog.closeProgrosDialog();
         }
-        ProgrosDialog.openDialog(this);
+
+        @Override
+        protected String doInBackground(String... params) {
+            File file = new File(params[0]);
+            try {
+                String url = NetInterface.HEADER_ALL + NetInterface.EDIT_USER_INFO + NetInterface.SUFFIX;
+                HttpClient client = new DefaultHttpClient();
+                HttpPost post = new HttpPost(url);
+                LogHelper.d(url);
+                MultipartEntity httpEntity = new MultipartEntity();
+                httpEntity.addPart("userId", new StringBody(loginResponse.getDesc()));
+                httpEntity.addPart("token", new StringBody(loginResponse.getToken()));
+                httpEntity.addPart("photo", new FileBody(file));
+                post.setEntity(httpEntity);
+                HttpResponse response = client.execute(post);
+                HttpEntity responseEntity = response.getEntity();
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    // success
+                    String responseString = EntityUtils.toString(responseEntity);
+                    LogHelper.d(responseString);
+                } else {
+                    // fail
+                    LogHelper.d("----------upload fail" + response.getStatusLine().getStatusCode() + "--" + EntityUtils.toString(responseEntity));
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
     }
 
     private void parseImgJSON(String result) {

@@ -18,9 +18,14 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.LoginUserInfoResponse;
+import com.cheweishi.android.entity.ModifyUserInfoResponse;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
+import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReturnBackDialogRemindTools;
+import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
@@ -98,19 +103,46 @@ public class UserNickActivity extends BaseActivity implements OnClickListener {
     // TODO 昵称发包
     private void connectToNickServer() {
         if (isLogined()) {
-            httpBiz = new HttpBiz(this);
-            RequestParams rp = new RequestParams();
-            rp.addBodyParameter("uid", loginMessage.getUid());
-            rp.addBodyParameter("nick_name", et_nick.getText().toString());
-            ProgrosDialog.openDialog(UserNickActivity.this);
-            httpBiz.httPostData(10009, API.CSH_UPDATE_USER_NICK_URL, rp, this);
-//            String url = NetInterface.HEADER_ALL + NetInterface.EDIT_USER_INFO + NetInterface.SUFFIX;
-//            Map<String, Object> param = new HashMap<>();
-//            param.put("userId", loginMessage.getUid());
-//            param.put("token",);
-//            param.put("nickName",et_nick.getText().toString());
-//            netWorkHelper.PostJson(url, param, this);
+//            httpBiz = new HttpBiz(this);
+//            RequestParams rp = new RequestParams();
+//            rp.addBodyParameter("uid", loginMessage.getUid());
+//            rp.addBodyParameter("nick_name", et_nick.getText().toString());
+//            ProgrosDialog.openDialog(UserNickActivity.this);
+//            httpBiz.httPostData(10009, API.CSH_UPDATE_USER_NICK_URL, rp, this);
+            String url = NetInterface.HEADER_ALL + NetInterface.EDIT_USER_INFO + NetInterface.SUFFIX;
+            Map<String, Object> param = new HashMap<>();
+            param.put("userId", loginResponse.getDesc());
+            param.put("token", loginResponse.getToken());
+            param.put("nickName", et_nick.getText().toString());
+            netWorkHelper.PostJson(url, param, this);
         }
+    }
+
+    @Override
+    public void receive(String data) {
+
+        ModifyUserInfoResponse response = (ModifyUserInfoResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ModifyUserInfoResponse.class);
+
+        if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            showToast(response.getDesc());
+            return;
+        }
+        showToast(R.string.change_success);
+        LoginUserInfoResponse userInfoResponse = loginResponse.getMsg();
+        userInfoResponse.setNickName(response.getMsg().getNickName());
+        loginResponse.setMsg(userInfoResponse);
+        LoginMessageUtils.saveProduct(loginResponse, baseContext);
+        DBTools.getInstance(baseContext).save(loginResponse);
+        Constant.CURRENT_REFRESH = Constant.USER_NICK_EDIT_REFRESH;
+        Intent mIntent = new Intent();
+        mIntent.setAction(Constant.REFRESH_FLAG);
+        sendBroadcast(mIntent);
+        finish();
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        showToast(R.string.server_link_fault);
     }
 
     /**

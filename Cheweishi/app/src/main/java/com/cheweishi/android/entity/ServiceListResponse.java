@@ -10,21 +10,21 @@ import java.util.List;
 public class ServiceListResponse extends BaseResponse {
 
     /**
-     * total : 1
+     * total : 6
      * pageNumber : 1
-     * pageSize : 2
+     * pageSize : 5
      */
 
     private PageBean page;
     /**
-     * tenant_name : 爱车
-     * praiseRate : 0.2
+     * tenant_name : 中和汽修
+     * praiseRate : 0.4
      * address : null
      * service_category_name : 洗车
-     * distance : 3
+     * distance : 3.36
      * price : 50
      * photo : null
-     * id : 1
+     * id : 3
      * promotion_price : 30
      */
 
@@ -78,12 +78,12 @@ public class ServiceListResponse extends BaseResponse {
 
     public static class MsgBean {
         private String tenant_name;
-        private double praiseRate;
-        private Object address;
+        private int praiseRate;
+        private String address;
         private String service_category_name;
-        private int distance;
+        private double distance;
         private int price;
-        private Object photo;
+        private String photo;
         private int id;
         private int promotion_price;
 
@@ -95,19 +95,19 @@ public class ServiceListResponse extends BaseResponse {
             this.tenant_name = tenant_name;
         }
 
-        public double getPraiseRate() {
+        public int getPraiseRate() {
             return praiseRate;
         }
 
-        public void setPraiseRate(double praiseRate) {
+        public void setPraiseRate(int praiseRate) {
             this.praiseRate = praiseRate;
         }
 
-        public Object getAddress() {
+        public String getAddress() {
             return address;
         }
 
-        public void setAddress(Object address) {
+        public void setAddress(String address) {
             this.address = address;
         }
 
@@ -119,11 +119,11 @@ public class ServiceListResponse extends BaseResponse {
             this.service_category_name = service_category_name;
         }
 
-        public int getDistance() {
+        public double getDistance() {
             return distance;
         }
 
-        public void setDistance(int distance) {
+        public void setDistance(double distance) {
             this.distance = distance;
         }
 
@@ -135,11 +135,11 @@ public class ServiceListResponse extends BaseResponse {
             this.price = price;
         }
 
-        public Object getPhoto() {
+        public String getPhoto() {
             return photo;
         }
 
-        public void setPhoto(Object photo) {
+        public void setPhoto(String photo) {
             this.photo = photo;
         }
 

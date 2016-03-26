@@ -54,12 +54,14 @@ import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ADInfo;
+import com.cheweishi.android.entity.AdvResponse;
 import com.cheweishi.android.entity.Brand;
 import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.entity.MainGridInfo;
 import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.MainSellerServiceInfo;
 import com.cheweishi.android.entity.ServiceListResponse;
+import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.ReLoginDialog;
@@ -452,17 +454,22 @@ public class MainNewActivity extends BaseActivity {
         // }
     }
 
+
+    private void showData(ServiceListResponse response) {
+        setTitleLeft();
+        setJpushTags();
+        listViewAdapter = new MainListViewAdapter(this, response.getMsg());
+        list_business.setAdapter(listViewAdapter);
+    }
+
     /**
      * 显示数据
      */
-    private void showData() {
-        setTitleLeft();
-        setJpushTags();
-        listViewAdapter = new MainListViewAdapter(this, sellerInfos);
-        list_business.setAdapter(listViewAdapter);
+    private void showData(AdvResponse advResponse) {
 
+        // TODO 更新广告
         InitFocusIndicatorContainer();
-        imgAdapter = new ImgAdapter(MainNewActivity.this, adInfos, 0);
+        imgAdapter = new ImgAdapter(MainNewActivity.this, advResponse, 0);
         mygallery.setAdapter(imgAdapter);
         mygallery.setFocusable(true);
         mygallery.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -518,8 +525,10 @@ public class MainNewActivity extends BaseActivity {
         param.put("userId", loginResponse.getDesc());
         LogHelper.d("----send:" + loginResponse.getToken());
         param.put("token", loginResponse.getToken());
-        param.put("latitude", MyMapUtils.getLatitude(this));//维度
-        param.put("longitude", MyMapUtils.getLongitude(this));//经度
+//        param.put("latitude", MyMapUtils.getLatitude(this));//维度
+        param.put("latitude", "10");//维度
+//        param.put("longitude", MyMapUtils.getLongitude(this));//经度
+        param.put("longitude", "10");//经度
         /**
          * 1保养
          2	洗车
@@ -537,22 +546,48 @@ public class MainNewActivity extends BaseActivity {
     @Override
     public void receive(String TAG, String data) {
         ProgrosDialog.closeProgrosDialog();
-        ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
-        if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-            // TODO 成功
-            loginResponse.setToken(response.getToken());
-            DBTools.getInstance(baseContext).save(loginResponse);
-        } else if (response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
-            // TODO 超时
-            Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
-            intent.putExtra(Constant.AUTO_LOGIN, true);
-            startActivity(intent);
-            this.finish();
-            overridePendingTransition(R.anim.score_business_query_enter,
-                    R.anim.score_business_query_exit);
+        switch (TAG) {
+            case NetInterface.LIST:
+                ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
+                if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    // TODO 成功
+                    showData(response);
+                    loginResponse.setToken(response.getToken());
+                    DBTools.getInstance(baseContext).save(loginResponse);
+                } else if (response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
+                    // TODO 超时
+                    Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
+                    intent.putExtra(Constant.AUTO_LOGIN, true);
+                    startActivity(intent);
+                    this.finish();
+                    overridePendingTransition(R.anim.score_business_query_enter,
+                            R.anim.score_business_query_exit);
+                }
+
+                requestAdv();
+                break;
+
+            case NetInterface.HOME_ADV:
+
+                AdvResponse advResponse = (AdvResponse) GsonUtil.getInstance().convertJsonStringToObject(data, AdvResponse.class);
+                if (!advResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    return;
+                }
+
+                showData(advResponse);
+                break;
         }
 
 
+    }
+
+    private void requestAdv() {
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_ADV_URL + NetInterface.HOME_ADV + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put(Constant.PARAMETER_TAG, NetInterface.HOME_ADV);
+        netWorkHelper.PostJson(url, param, this);
     }
 
     @Override
@@ -595,7 +630,7 @@ public class MainNewActivity extends BaseActivity {
             if (StringUtil.isEquals(API.returnSuccess,
                     jsonObject.optString("state"), true)) {
                 // 数据处理
-                processingData(jsonObject);
+//                processingData(jsonObject);
             } else if (StringUtil.isEquals(API.returnRelogin,
                     jsonObject.optString("state"), true)) {
                 ReLoginDialog.getInstance(this).showDialog(
@@ -617,126 +652,6 @@ public class MainNewActivity extends BaseActivity {
         }
     }
 
-    /**
-     * 数据处理
-     *
-     * @param jsonObject
-     */
-    private void processingData(JSONObject jsonObject) {
-        JSONObject object = jsonObject.optJSONObject("data");
-        if (!StringUtil.isEmpty(object)) {
-            // 获取图片的base_url
-            API.CSH_GET_IMG_BASE_URL = object.optString("baseUrl");
-            // 获取推送标签
-            Constant.JPUSH_TAGS = object.optString("tags");
-            // 用户信息
-            if (!StringUtil.isEmpty(object.optJSONObject("user"))) {
-                loginMessage.setNick_name(object.optJSONObject("user")
-                        .optString("nick_name"));
-                loginMessage.setIcon(object.optJSONObject("user").optString(
-                        "icon"));
-                loginMessage.setSignature(object.optJSONObject("user")
-                        .optString("signature"));
-            }
-
-            // 车辆信息
-            if (!StringUtil.isEmpty(object.optJSONObject("vehicle"))) {
-                CarManager carManager = new CarManager();
-                carManager.setId(object.optJSONObject("vehicle").optInt("id")
-                        + "");
-                carManager.setSeries(object.optJSONObject("vehicle").optString(
-                        "series"));
-                carManager.setModule(object.optJSONObject("vehicle").optString(
-                        "module"));
-                carManager.setDevice(object.optJSONObject("vehicle").optString(
-                        "device"));
-                carManager.setPlate(object.optJSONObject("vehicle").optString(
-                        "plate"));
-                JSONObject brandObject = object.optJSONObject("vehicle")
-                        .optJSONObject("brand");
-                if (!StringUtil.isEmpty(brandObject)) {
-                    Brand brand = new Brand();
-                    brand.setSeries(brandObject.optString("series"));
-                    brand.setBrandIcon(brandObject.optString("brandIcon"));
-                    brand.setModule(brandObject.optString("module"));
-                    brand.setSeriesName(brandObject.optString("seriesName"));
-                    brand.setModuleName(brandObject.optString("moduleName"));
-                    brand.setBrand(brandObject.optString("brand"));
-                    brand.setBrandName(brandObject.optString("brandName"));
-                    carManager.setBrand(brand);
-                }
-                carManager.setDriving_license(object.optJSONObject("vehicle")
-                        .optString("driving_license"));
-                loginMessage.setCarManager(carManager);
-            }
-            // 保存用户信息
-            if (!StringUtil.isEmpty(loginMessage)) {
-                DBTools.getInstance(this).save(loginMessage);
-            }
-
-            // 广告信息
-            adInfos = new ArrayList<ADInfo>();
-            Gson gson = new Gson();
-            java.lang.reflect.Type type = new TypeToken<List<ADInfo>>() {
-            }.getType();
-            adInfos = gson.fromJson(object.optString("adv"), type);
-            for (ADInfo adInfo : adInfos) {
-                adInfo.setWidth(320);
-                adInfo.setHeight(80);
-                adInfo.setDefaultImg(R.drawable.ad_default_back);
-            }
-            // 店铺信息
-            JSONArray array = object.optJSONArray("store");
-            sellerInfos = new ArrayList<MainSellerInfo>();
-            JSONObject sellerObject = null;
-            MainSellerInfo sellerInfo = null;
-            for (int i = 0; i < array.length(); i++) {
-                sellerObject = array.optJSONObject(i);
-                sellerInfo = new MainSellerInfo();
-                sellerInfo.setName(sellerObject.optString("store_name"));
-                sellerInfo.setAddress(sellerObject.optString("address"));
-                sellerInfo.setImgUrl(sellerObject.optString("image_1"));//
-                sellerInfo.setEvaluateImg(sellerObject.optInt("evaluateImg"));// ?
-                sellerInfo.setEvaluate(sellerObject.optString("evaluate"));// ?
-                String distance = String.format("%.2f",
-                        sellerObject.optDouble("distance") / 1000);
-                sellerInfo.setDistance(distance + "km");
-                sellerInfo.setId(sellerObject.optString("id"));
-                sellerInfo.setAppoint(sellerObject.optString("is_appoint"));
-                // sellerInfo.setLon(jsonObject.getDouble("lon"));
-
-                JSONArray array2 = sellerObject.optJSONArray("commodity");
-                JSONObject serviceObject = null;
-                List<MainSellerServiceInfo> sellerServiceInfos = new ArrayList<MainSellerServiceInfo>();
-                MainSellerServiceInfo serviceInfo = null;
-                if (!StringUtil.isEmpty(array2)) {
-                    for (int j = 0; j < array2.length(); j++) {
-                        serviceInfo = new MainSellerServiceInfo();
-                        serviceObject = array2.optJSONObject(j);
-                        serviceInfo.setName(serviceObject
-                                .optString("goods_name"));
-                        serviceInfo.setfPrice(serviceObject
-                                .optString("discount_price"));
-                        serviceInfo.setPrice(serviceObject.optString("price"));
-                        serviceInfo.setId(serviceObject.optString("id"));
-                        serviceInfo.setIsFPrice(serviceObject
-                                .optInt("is_discount__price"));
-                        serviceInfo.setIsRed(serviceObject
-                                .optInt("support_red") + "");
-                        serviceInfo.setCate_id_2(serviceObject
-                                .optString("cate_id_2"));
-                        sellerServiceInfos.add(serviceInfo);
-                    }
-                }
-                // Log.i("result", "===serviceInfos==" + serviceInfos.size());
-                sellerInfo.setServices(sellerServiceInfos);
-                sellerInfos.add(sellerInfo);
-            }
-            showData();
-        } else {
-            showToast(jsonObject.optString("message"));
-        }
-    }
 
     /**
      * 定位相关初始化
