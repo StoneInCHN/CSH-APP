@@ -41,5 +41,7 @@ public class NetInterface {
 
     public static final String HOME_ADV= "getAdvImage"; // 首页广告
 
+    public static final String GET_TENANT_INFO="getTenantById"; //获取租户信息
+
 
 }

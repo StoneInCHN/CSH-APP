@@ -465,7 +465,7 @@ public class MainNewActivity extends BaseActivity {
     /**
      * 显示数据
      */
-    private void showData(AdvResponse advResponse) {
+    private void showData(final AdvResponse advResponse) {
 
         // TODO 更新广告
         InitFocusIndicatorContainer(advResponse);
@@ -476,8 +476,8 @@ public class MainNewActivity extends BaseActivity {
 
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int selIndex, long arg3) {
-                if (adInfos != null && adInfos.size() > 0) {
-                    selIndex = selIndex % adInfos.size();
+                if (advResponse.getMsg() != null && advResponse.getMsg().size() > 0) {
+                    selIndex = selIndex % advResponse.getMsg().size();
                     portImg.get(preSelImgIndex).setImageResource(
                             R.drawable.lunbo_dian);
                     portImg.get(selIndex).setImageResource(

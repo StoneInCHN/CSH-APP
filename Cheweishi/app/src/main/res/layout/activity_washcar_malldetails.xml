@@ -202,7 +202,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:visibility="gone"></com.cheweishi.android.widget.UnSlidingListView>
+                android:visibility="gone"/>
 
             <com.cheweishi.android.widget.UnSlidingExpandableListView
                 android:id="@+id/lv_washcar_detils"

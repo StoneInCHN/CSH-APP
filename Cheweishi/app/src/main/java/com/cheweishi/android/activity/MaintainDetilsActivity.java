@@ -280,13 +280,14 @@ public class MaintainDetilsActivity extends BaseActivity {
 	}
 
 	private void setData(WashCar washCar) {
-		XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.zhaochewei_img,
-				car_iv_location, washCar.getImage_1());
-		car_tv_car_iv_location.setText(washCar.getStore_name());
-		tv_service.setText(washCar.getBusiness_time());
-		car_xlocation.setText(washCar.getAddress());
-		exListAdapter = new ExpandableListViewAdapter(this, washCar.getType(),
-				washCar);
-		lv_maintain_detils.setAdapter(exListAdapter);
+		// TODO 2016-3-26 16:52:17 因调试商家详情而注释
+//		XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.zhaochewei_img,
+//				car_iv_location, washCar.getImage_1());
+//		car_tv_car_iv_location.setText(washCar.getStore_name());
+//		tv_service.setText(washCar.getBusiness_time());
+//		car_xlocation.setText(washCar.getAddress());
+//		exListAdapter = new ExpandableListViewAdapter(this, washCar.getType(),
+//				washCar);
+//		lv_maintain_detils.setAdapter(exListAdapter);
 	}
 }
