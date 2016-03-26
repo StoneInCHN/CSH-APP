@@ -468,7 +468,7 @@ public class MainNewActivity extends BaseActivity {
     private void showData(AdvResponse advResponse) {
 
         // TODO 更新广告
-        InitFocusIndicatorContainer();
+        InitFocusIndicatorContainer(advResponse);
         imgAdapter = new ImgAdapter(MainNewActivity.this, advResponse, 0);
         mygallery.setAdapter(imgAdapter);
         mygallery.setFocusable(true);
@@ -704,12 +704,12 @@ public class MainNewActivity extends BaseActivity {
     /**
      * 设置小圆点
      */
-    private void InitFocusIndicatorContainer() {
+    private void InitFocusIndicatorContainer(AdvResponse advResponse) {
         portImg = new ArrayList<ImageView>();
         portImg.clear();
         this.ll_focus_indicator_container.removeAllViews();
-        if (!StringUtil.isEmpty(adInfos)) {
-            for (int i = 0; i < adInfos.size(); i++) {
+        if (!StringUtil.isEmpty(advResponse.getMsg())) {
+            for (int i = 0; i < advResponse.getMsg().size(); i++) {
                 ImageView localImageView = new ImageView(this);
                 localImageView.setId(i);
                 ImageView.ScaleType localScaleType = ImageView.ScaleType.FIT_XY;
