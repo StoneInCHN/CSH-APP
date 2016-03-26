@@ -130,7 +130,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
 
         boolean aut_login = getIntent().getBooleanExtra(Constant.AUTO_LOGIN, false);
         if (aut_login) {
-//            login();
+            login();
 //            submitLogin(SharePreferenceTools.getTelFromUser(LoginActivity.this), SharePreferenceTools
 //                    .getPassFromUser(LoginActivity.this));
         }
