@@ -367,8 +367,6 @@ public abstract class BaseActivity extends FragmentActivity implements
         if (isLogined()) {
             if (!StringUtil.isEmpty(loginResponse.getMsg())
                     && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle())) {
-                Log.i("result", "=baseac==cid===" + loginMessage.getCarManager()
-                        .getId());
                 return true;
             }
 

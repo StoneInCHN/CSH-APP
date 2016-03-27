@@ -31,6 +31,7 @@ import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ServiceDetialResponse;
 import com.cheweishi.android.entity.UserComment;
 import com.cheweishi.android.entity.WashCar;
+import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
@@ -172,13 +173,16 @@ public class WashcarDetailsActivity extends BaseActivity implements
     @Override
     public void receive(String data) {
         ProgrosDialog.closeProgrosDialog();
-         washCar = (ServiceDetialResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceDetialResponse.class);
+        washCar = (ServiceDetialResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceDetialResponse.class);
         if (!washCar.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(washCar.getDesc());
             return;
         }
 
         setData();
+
+        loginResponse.setToken(washCar.getToken());
+        LoginMessageUtils.saveloginmsg(baseContext,loginResponse);
     }
 
     /**
@@ -297,10 +301,9 @@ public class WashcarDetailsActivity extends BaseActivity implements
      * 拨打电话
      */
     public void turnToPhone() {
-        // TODO 暂时没有电话
-//        Intent tel = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
-//                + washCar.getMsg().get));
-//        tel.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(tel);
+        Intent tel = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
+                + washCar.getMsg().getContactPhone()));
+        tel.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(tel);
     }
 }

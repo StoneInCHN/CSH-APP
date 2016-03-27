@@ -3,6 +3,7 @@ package com.cheweishi.android.activity;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -154,6 +155,12 @@ public class UserInfoEditActivity extends BaseActivity implements
         }
         IntentFilter intentFilter = new IntentFilter(Constant.REFRESH_FLAG);
         registerReceiver(broad, intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broad);
     }
 
     /**
@@ -863,7 +870,7 @@ public class UserInfoEditActivity extends BaseActivity implements
                     LogHelper.d(responseString);
                 } else {
                     // fail
-                    LogHelper.d("----------upload fail" + response.getStatusLine().getStatusCode() + "--" + EntityUtils.toString(responseEntity));
+                    LogHelper.d(responseEntity.getContentType() + "----------upload fail" + response.getStatusLine().getStatusCode() + "--" + EntityUtils.toString(responseEntity));
                 }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();

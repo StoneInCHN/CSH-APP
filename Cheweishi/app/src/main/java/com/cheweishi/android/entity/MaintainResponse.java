@@ -2,25 +2,23 @@ package com.cheweishi.android.entity;
 
 import com.cheweishi.android.response.BaseResponse;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/3/26.
+ * Created by tangce on 3/27/2016.
  */
-public class ServiceDetialResponse extends BaseResponse implements Serializable{
-
+public class MaintainResponse extends BaseResponse {
 
     /**
      * address : null
-     * tenantName : 爱车
+     * tenantName : 爱车帮
      * latitude : 10.000021
-     * photo : http://10.50.40.56:8081/csh-interface/upload/Koala.jpg
+     * photo : null
      * id : 1
      * businessTime : null
      * contactPhone : null
      * longitude : 10.000021
-     * carServices : [{"subServices":[{"promotionPrice":30,"price":20,"id":1,"serviceName":"车身保养"},{"promotionPrice":30,"price":99,"id":10,"serviceName":"轮胎保养"}],"categoryName":"保养"},{"subServices":[{"promotionPrice":30,"price":88,"id":9,"serviceName":"普通洗车"}],"categoryName":"洗车"}]
+     * carServices : [{"promotionPrice":30,"price":50,"serviceStatus":"ENABLED","id":1,"serviceName":"车身美容","serviceCategory":{"categoryName":"美容"}},{"promotionPrice":30,"price":50,"serviceStatus":"ENABLED","id":2,"serviceName":"打蜡","serviceCategory":{"categoryName":"美容"}}]
      */
 
     private MsgBean msg;
@@ -37,14 +35,18 @@ public class ServiceDetialResponse extends BaseResponse implements Serializable{
         private Object address;
         private String tenantName;
         private double latitude;
-        private String photo;
+        private Object photo;
         private int id;
         private Object businessTime;
         private Object contactPhone;
         private double longitude;
         /**
-         * subServices : [{"promotionPrice":30,"price":20,"id":1,"serviceName":"车身保养"},{"promotionPrice":30,"price":99,"id":10,"serviceName":"轮胎保养"}]
-         * categoryName : 保养
+         * promotionPrice : 30
+         * price : 50
+         * serviceStatus : ENABLED
+         * id : 1
+         * serviceName : 车身美容
+         * serviceCategory : {"categoryName":"美容"}
          */
 
         private List<CarServicesBean> carServices;
@@ -73,11 +75,11 @@ public class ServiceDetialResponse extends BaseResponse implements Serializable{
             this.latitude = latitude;
         }
 
-        public String getPhoto() {
+        public Object getPhoto() {
             return photo;
         }
 
-        public void setPhoto(String photo) {
+        public void setPhoto(Object photo) {
             this.photo = photo;
         }
 
@@ -122,68 +124,74 @@ public class ServiceDetialResponse extends BaseResponse implements Serializable{
         }
 
         public static class CarServicesBean {
-            private String categoryName;
+            private int promotionPrice;
+            private int price;
+            private String serviceStatus;
+            private int id;
+            private String serviceName;
             /**
-             * promotionPrice : 30
-             * price : 20
-             * id : 1
-             * serviceName : 车身保养
+             * categoryName : 美容
              */
 
-            private List<SubServicesBean> subServices;
+            private ServiceCategoryBean serviceCategory;
 
-            public String getCategoryName() {
-                return categoryName;
+            public int getPromotionPrice() {
+                return promotionPrice;
             }
 
-            public void setCategoryName(String categoryName) {
-                this.categoryName = categoryName;
+            public void setPromotionPrice(int promotionPrice) {
+                this.promotionPrice = promotionPrice;
             }
 
-            public List<SubServicesBean> getSubServices() {
-                return subServices;
+            public int getPrice() {
+                return price;
             }
 
-            public void setSubServices(List<SubServicesBean> subServices) {
-                this.subServices = subServices;
+            public void setPrice(int price) {
+                this.price = price;
             }
 
-            public static class SubServicesBean {
-                private int promotionPrice;
-                private int price;
-                private int id;
-                private String serviceName;
+            public String getServiceStatus() {
+                return serviceStatus;
+            }
 
-                public int getPromotionPrice() {
-                    return promotionPrice;
+            public void setServiceStatus(String serviceStatus) {
+                this.serviceStatus = serviceStatus;
+            }
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getServiceName() {
+                return serviceName;
+            }
+
+            public void setServiceName(String serviceName) {
+                this.serviceName = serviceName;
+            }
+
+            public ServiceCategoryBean getServiceCategory() {
+                return serviceCategory;
+            }
+
+            public void setServiceCategory(ServiceCategoryBean serviceCategory) {
+                this.serviceCategory = serviceCategory;
+            }
+
+            public static class ServiceCategoryBean {
+                private String categoryName;
+
+                public String getCategoryName() {
+                    return categoryName;
                 }
 
-                public void setPromotionPrice(int promotionPrice) {
-                    this.promotionPrice = promotionPrice;
-                }
-
-                public int getPrice() {
-                    return price;
-                }
-
-                public void setPrice(int price) {
-                    this.price = price;
-                }
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
-
-                public String getServiceName() {
-                    return serviceName;
-                }
-
-                public void setServiceName(String serviceName) {
-                    this.serviceName = serviceName;
+                public void setCategoryName(String categoryName) {
+                    this.categoryName = categoryName;
                 }
             }
         }

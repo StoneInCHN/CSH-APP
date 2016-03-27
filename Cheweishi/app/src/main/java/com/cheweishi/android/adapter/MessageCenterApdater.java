@@ -1,6 +1,8 @@
 package com.cheweishi.android.adapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -24,12 +26,13 @@ import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.activity.MessagerCenterActivity;
 import com.cheweishi.android.entity.CheckEntity;
 import com.cheweishi.android.entity.MessagCenterInfo;
+import com.cheweishi.android.entity.MessageResponse;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.DbUtils;
 
 public class MessageCenterApdater extends BaseAdapter {
-	private List<MessagCenterInfo> textlist;
+	private List<MessageResponse.MsgBean> textlist;
 	private Context mContext;
 	private LayoutInflater mInflater;
 	// 0正常状态，1编辑状态
@@ -38,8 +41,8 @@ public class MessageCenterApdater extends BaseAdapter {
 	private int isShowJianTou = 1;
 	public boolean flag = false;
 	private List<CheckEntity> checkEntities;
-	private MessagCenterInfo messagCenterInfo = null;
-	private int isRead = 0;
+	private MessageResponse.MsgBean messagCenterInfo = null;
+	private boolean isRead = false;
 	public int check = 0;
 
 	// 展开
@@ -54,7 +57,7 @@ public class MessageCenterApdater extends BaseAdapter {
 		this.flag = true;
 	}
 
-	public MessageCenterApdater(List<MessagCenterInfo> textlist,
+	public MessageCenterApdater(List<MessageResponse.MsgBean> textlist,
 			Context mContext) {
 		super();
 		this.textlist = textlist;
@@ -93,17 +96,23 @@ public class MessageCenterApdater extends BaseAdapter {
 		return position;
 	}
 
-	public void setData(List<MessagCenterInfo> textlist) {
+	public void setData(List<MessageResponse.MsgBean> textlist) {
 		this.textlist = textlist;
 		this.notifyDataSetChanged();
 		initCheckEntities();
 	}
 
-	public void setDeleteData(List<MessagCenterInfo> textlist) {
+	public void setDeleteData(List<MessageResponse.MsgBean> textlist) {
 		this.textlist = textlist;
 		this.notifyDataSetChanged();
 		initCheckEntities();
 		this.flag = false;
+	}
+
+	private String transferLongToDate(Long millSec){
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		Date date= new Date(millSec);
+		return sdf.format(date);
 	}
 
 	@SuppressLint("InflateParams")
@@ -120,30 +129,39 @@ public class MessageCenterApdater extends BaseAdapter {
 		if (textlist != null && textlist.size() > position) {
 			messagCenterInfo = textlist.get(position);
 			// String type = messagCenterInfo.getType();
-			isRead = messagCenterInfo.getIsRead();
-			
-			//图片设置
-			if (StringUtil.isEquals("1", messagCenterInfo.getType(), true)) {
-				viewHolder.img_logo.setImageResource(R.drawable.message_baojing);
-			} else if(StringUtil.isEquals("2", messagCenterInfo.getType(), true)){
+			isRead = messagCenterInfo.isIsRead();
+
+
+
+			if("NEWSMSG".equals(messagCenterInfo.getMessageType())){ // 新闻
 				viewHolder.img_logo.setImageResource(R.drawable.message_huodong);
-			}else if(StringUtil.isEquals("3", messagCenterInfo.getType(), true)){
-				viewHolder.img_logo.setImageResource(R.drawable.message_banben);
-			}else if(StringUtil.isEquals("4", messagCenterInfo.getType(), true)){
-				viewHolder.img_logo.setImageResource(R.drawable.message_jiaoyi);
-			}else if(StringUtil.isEquals("5", messagCenterInfo.getType(), true)){
-				viewHolder.img_logo.setImageResource(R.drawable.message_dongtai);
+			}else if("PERSONALMSG".equals(messagCenterInfo.getMessageType())){ //个人消息
+				viewHolder.img_logo.setImageResource(R.drawable.message_baojing);
 			}
-			
+
+
+			//图片设置
+//			if (StringUtil.isEquals("1", messagCenterInfo.getType(), true)) {
+//				viewHolder.img_logo.setImageResource(R.drawable.message_baojing);
+//			} else if(StringUtil.isEquals("2", messagCenterInfo.getType(), true)){
+//				viewHolder.img_logo.setImageResource(R.drawable.message_huodong);
+//			}else if(StringUtil.isEquals("3", messagCenterInfo.getType(), true)){
+//				viewHolder.img_logo.setImageResource(R.drawable.message_banben);
+//			}else if(StringUtil.isEquals("4", messagCenterInfo.getType(), true)){
+//				viewHolder.img_logo.setImageResource(R.drawable.message_jiaoyi);
+//			}else if(StringUtil.isEquals("5", messagCenterInfo.getType(), true)){
+//				viewHolder.img_logo.setImageResource(R.drawable.message_dongtai);
+//			}
+
 			//标题
-			viewHolder.tv_title.setText(messagCenterInfo.getTitle());
+			viewHolder.tv_title.setText(messagCenterInfo.getMessageTitle());
 			//时间
-			viewHolder.tv_time.setText(messagCenterInfo.getAdd_time());
+			viewHolder.tv_time.setText(transferLongToDate(messagCenterInfo.getCreateDate()));
 			//内容
-			viewHolder.tv_content.setText(messagCenterInfo.getContent());
-			
+			viewHolder.tv_content.setText(messagCenterInfo.getMessageContent());
+
 			//是否已读
-			if (messagCenterInfo.getIsRead() == 0) {
+			if (!isRead) {
 				viewHolder.img_dian.setVisibility(View.VISIBLE);
 			} else {
 				viewHolder.img_dian.setVisibility(View.GONE);

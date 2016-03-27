@@ -5,8 +5,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,14 +17,18 @@ import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
+import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ImgDialog;
 import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.http.MyHttpUtils;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.AllCapTransformationMethod;
+import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.tools.RegularExpressionTools;
 import com.cheweishi.android.tools.ReturnBackDialogRemindTools;
 import com.cheweishi.android.utils.CommonUtils;
+import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
@@ -769,50 +775,105 @@ public class AddCarActivity extends BaseActivity {
 
             if (isLogined()) {
                 addCarFlag = true;
-                RequestParams params = new RequestParams();
-                params.addBodyParameter("uid", loginMessage.getUid());
-                params.addBodyParameter("mobile", loginMessage.getMobile());
-                // params.addBodyParameter("device", tv_car_device.getText()
-                // .toString().replaceAll(" ", ""));
+//                RequestParams params = new RequestParams();
+//                params.addBodyParameter("uid", loginMessage.getUid());
+//                params.addBodyParameter("mobile", loginMessage.getMobile());
+//                // params.addBodyParameter("device", tv_car_device.getText()
+//                // .toString().replaceAll(" ", ""));
+//
+//                params.addBodyParameter("plate", carPlate);
+//                params.addBodyParameter("brand", brandId);
+//                params.addBodyParameter("series", modelId);
+//                params.addBodyParameter("module", styleId);
+//                params.addBodyParameter("type", 2 + "");
+//                params.addBodyParameter("color", color);
+//                params.addBodyParameter("vin", tv_car_vin.getText().toString());
+//                params.addBodyParameter("note", tv_car_note.getText()
+//                        .toString());
+//                params.addBodyParameter("mileage", tv_car_mile.getText()
+//                        .toString());
+//                params.addBodyParameter("m_mile", tv_last_keepFit.getText()
+//                        .toString());
+//                params.addBodyParameter("oil", tv_used_oil.getText().toString());
+//                params.addBodyParameter("inspect", tv_annualSurvey.getText()
+//                        .toString());
+//                params.addBodyParameter("serial", tv_storeId.getText()
+//                        .toString());
+//                MyHttpUtils myHttpUtils = null;
+//                if (carManagerTemp == null) {
+//                    myHttpUtils = new MyHttpUtils(AddCarActivity.this, params,
+//                            API.ADD_CAR_URL, handler);
+//                } else {
+//                    System.out.println("编辑车辆====" + brandId + "_" + styleId
+//                            + "_" + modelId);
+//                    params.addBodyParameter("cid", carManagerTemp.getId());
+//                    System.out.println("SUCCESS==========="
+//                            + carManagerTemp.getCid());
+//                    // Toast.makeText(AddCarActivity.this,
+//                    // carManagerTemp.getCid(), Toast.LENGTH_LONG).show();
+//                    myHttpUtils = new MyHttpUtils(AddCarActivity.this, params,
+//                            API.CAR_DETAIL_EDIT_URL, handler);
+//                }
+//                myHttpUtils.PostHttpUtils();
 
-                params.addBodyParameter("plate", carPlate);
-                params.addBodyParameter("brand", brandId);
-                params.addBodyParameter("series", modelId);
-                params.addBodyParameter("module", styleId);
-                params.addBodyParameter("type", 2 + "");
-                params.addBodyParameter("color", color);
-                params.addBodyParameter("vin", tv_car_vin.getText().toString());
-                params.addBodyParameter("note", tv_car_note.getText()
-                        .toString());
-                params.addBodyParameter("mileage", tv_car_mile.getText()
-                        .toString());
-                params.addBodyParameter("m_mile", tv_last_keepFit.getText()
-                        .toString());
-                params.addBodyParameter("oil", tv_used_oil.getText().toString());
-                params.addBodyParameter("inspect", tv_annualSurvey.getText()
-                        .toString());
-                params.addBodyParameter("serial", tv_storeId.getText()
-                        .toString());
-                MyHttpUtils myHttpUtils = null;
-                if (carManagerTemp == null) {
-                    myHttpUtils = new MyHttpUtils(AddCarActivity.this, params,
-                            API.ADD_CAR_URL, handler);
-                } else {
-                    System.out.println("编辑车辆====" + brandId + "_" + styleId
-                            + "_" + modelId);
-                    params.addBodyParameter("cid", carManagerTemp.getId());
-                    System.out.println("SUCCESS==========="
-                            + carManagerTemp.getCid());
-                    // Toast.makeText(AddCarActivity.this,
-                    // carManagerTemp.getCid(), Toast.LENGTH_LONG).show();
-                    myHttpUtils = new MyHttpUtils(AddCarActivity.this, params,
-                            API.CAR_DETAIL_EDIT_URL, handler);
-                }
-                myHttpUtils.PostHttpUtils();
+                String url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.ADD + NetInterface.SUFFIX;
+                Map<String, Object> param = new HashMap<>();
+                param.put("userId", loginResponse.getDesc());
+                param.put("token", loginResponse.getToken());
+                param.put("brandDetailId", styleId);
+                param.put("plateNo", carPlate);
+                param.put("vehicleNo", tv_car_vin.getText().toString());
+                param.put("trafficInsuranceExpiration", tv_trafficSurvey.getText());
+                param.put("commercialInsuranceExpiration", tv_businessSurvey.getText());
+                param.put("nextAnnualInspection", tv_annualSurvey.getText());
+                param.put("driveMileage", tv_car_mile.getText());
+                param.put("lastMaintainMileage", tv_last_keepFit.getText());
+                netWorkHelper.PostJson(url, param, this);
+
             }
         } else {
             showToast(R.string.car_information_handle);
         }
+    }
+
+    @Override
+    public void receive(String data) {
+        addCarFlag = false;
+        BaseResponse response = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+        if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            showToast(response.getDesc());
+            return;
+        }
+
+
+        Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
+        Intent mIntent = new Intent();
+        mIntent.setAction(Constant.REFRESH_FLAG);
+        sendBroadcast(mIntent);
+        if (carManagerTemp == null) {
+            Intent intent = new Intent(AddCarActivity.this,
+                    AddDeviceActivity.class);
+            intent.putExtra("cid", response.getDesc());
+            startActivity(intent);
+
+        } else {
+            if (StringUtil.isEmpty(carManagerTemp.getDevice())) {
+                Intent intent = new Intent(AddCarActivity.this,
+                        AddDeviceActivity.class);
+                intent.putExtra(
+                        "cid", response.getDesc());
+                startActivity(intent);
+            }
+        }
+
+
+
+        loginResponse.setToken(response.getToken());
+        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+
+        finish();
+
+
     }
 
     private static class AddHandler extends Handler {

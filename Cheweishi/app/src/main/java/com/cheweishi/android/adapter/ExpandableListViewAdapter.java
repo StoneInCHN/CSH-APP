@@ -49,7 +49,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return washCar.get(childPosition);// child[groupPosition][childPosition];
+        return washCar.get(groupPosition).getSubServices().get(childPosition);// child[groupPosition][childPosition];
     }
 
     @Override
@@ -86,11 +86,11 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         } else {
             mViewChild = (ViewChild) convertView.getTag();
         }
-        mViewChild.tv_item_child_name.setText(washCar.get(groupPosition).getServiceName());
+        mViewChild.tv_item_child_name.setText(washCar.get(groupPosition).getSubServices().get(childPosition).getServiceName());
         mViewChild.tv_original_price.setText("￥"
-                + washCar.get(groupPosition).getPrice());
+                + washCar.get(groupPosition).getSubServices().get(childPosition).getPrice());
 
-        if (washCar.get(groupPosition).getServiceName().contains("保养")) {
+        if (washCar.get(groupPosition).getSubServices().get(childPosition).getServiceName().contains("保养")) {
             mViewChild.btn_pay
                     .setBackgroundResource(R.drawable.maintain_click_selector);
             mViewChild.btn_pay.setTextColor(context.getResources().getColor(
@@ -166,19 +166,19 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             });
         }
 
-        if (0 == washCar.get(groupPosition).getPromotionPrice()) {
+        if (0 == washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice()) {
             mViewChild.tv_item_child_discount_showOrNot
                     .setVisibility(View.VISIBLE);
             mViewChild.tv_discount_price_remind.setVisibility(View.VISIBLE);
             mViewChild.tv_original_price.setVisibility(View.VISIBLE);
             mViewChild.tv_discount_price.setText("￥"
-                    + washCar.get(groupPosition)
+                    + washCar.get(groupPosition).getSubServices().get(childPosition)
                     .getPrice());
             mViewChild.tv_original_price.setText("￥"
-                    + washCar.get(groupPosition).getPrice());
+                    + washCar.get(groupPosition).getSubServices().get(childPosition).getPrice());
         } else {
             mViewChild.tv_discount_price.setText("￥"
-                    + washCar.get(groupPosition).getPromotionPrice());
+                    + washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice());
             mViewChild.tv_item_child_discount_showOrNot
                     .setVisibility(View.VISIBLE);
             mViewChild.tv_discount_price_remind.setVisibility(View.VISIBLE);
@@ -228,7 +228,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return washCar.get(groupPosition) == null ? 0 : washCar.size();
+        return washCar.get(groupPosition).getSubServices() == null ? 0 : washCar.get(groupPosition).getSubServices().size();
     }
 
     @Override
@@ -240,7 +240,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public int getGroupCount() {
         // TODO Auto-generated method stub
-        return type == null ? 0 : washCar.size();// .length;
+        return washCar == null ? 0 : washCar.size();// .length;
     }
 
     @Override
@@ -277,7 +277,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             mViewChild.img_project_right
                     .setImageResource(R.drawable.channel_expandablelistview_bottom_icon);
         }
-        mViewChild.tv_project_name.setText(washCar.get(groupPosition).getServiceCategory().getCategoryName());
+        mViewChild.tv_project_name.setText(washCar.get(groupPosition).getCategoryName());
         return convertView;
     }
 

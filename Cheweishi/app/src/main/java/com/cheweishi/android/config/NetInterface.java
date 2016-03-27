@@ -5,8 +5,8 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-    public static final String BASE_URL = "http://139.129.5.114";// 基础路径
-//    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
+//    public static final String BASE_URL = "http://139.129.5.114";// 基础路径
+    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
 
     public static final String TEMP_URL = "/csh-interface/endUser/";// 中间路径
@@ -16,6 +16,14 @@ public class NetInterface {
     public static final String TEMP_CAR_URL = "/csh-interface/vehicle/";// 车辆管理
 
     public static final String TEMP_ADV_URL ="/csh-interface/advertisement/"; // 广告
+
+    public static final String TEMP_USER_BALANCE = "/csh-interface/balance/";// 钱包
+
+    public static final String TEMP_ORDER = "/csh-interface/carService/";// 用户订单
+
+    public static final String TEMP_MESSAGE="/csh-interface/message/";//消息中心
+
+    public static final String TEMP_FEEDBACK ="/csh-interface/feedback/";// 反馈
 
     public static final String HEADER_ALL=BASE_URL+ TEMP_URL;
 
@@ -43,5 +51,18 @@ public class NetInterface {
 
     public static final String GET_TENANT_INFO="getTenantById"; //获取租户信息
 
+    public static final String BALANCE="myWallet";// 钱包
+
+    public static final String USER_ORDER ="purchaseList" ;//我的订单
+
+    public static final String MESSAGE_CENTER ="getMsgList"; // 消息中心
+
+    public static final String MAINTAIN = "getTenantByUser";// 保养和美容
+
+    public static final String QUERY_CAR = "getVehicleBrandByCode";// 查询车辆
+
+    public static final String QUERY_CAR_TWO = "getVehicleBrandById";//查询车辆二级/三级
+
+    public static final String ADD ="add";// 添加反馈
 
 }
