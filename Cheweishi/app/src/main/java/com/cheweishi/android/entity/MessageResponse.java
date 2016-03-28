@@ -10,6 +10,8 @@ import java.util.List;
 public class MessageResponse extends BaseResponse {
 
 
+    private int id;
+
     /**
      * total : 6
      * pageNumber : 1
@@ -17,6 +19,15 @@ public class MessageResponse extends BaseResponse {
      */
 
     private PageBean page;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
      * messageType : PERSONALMSG
      * isRead : false
@@ -25,6 +36,8 @@ public class MessageResponse extends BaseResponse {
      * messageContent : 警告：您的爱车川ZG3626于2016-01-18 10:17:40发生【异常震动】，点击查看详情！
      * createDate : 1450860985000
      */
+
+
 
     private List<MsgBean> msg;
 
@@ -45,9 +58,18 @@ public class MessageResponse extends BaseResponse {
     }
 
     public static class PageBean {
+        private int id;
         private int total;
         private int pageNumber;
         private int pageSize;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
         public int getTotal() {
             return total;

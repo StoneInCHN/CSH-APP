@@ -8,6 +8,7 @@ import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.entity.MyCarManagerResponse;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.widget.FontAwesomeView;
 
 import android.view.LayoutInflater;
@@ -114,10 +115,9 @@ public class CarManagerAdapter extends BaseAdapter {
 
         if (listCarManager != null && listCarManager.size() > 0
                 && listCarManager.get(position).getPlate() != null) {
-//			System.out.println("车辆管理" + BaseActivity.loginMessage.getCarManager().getId()+ "_" +listCarManager
-//					.get(position)
-//					.getId());
-            if (BaseActivity.loginResponse.getMsg().getDefaultVehicle() != null) {
+            if (BaseActivity.loginResponse.getMsg().getDefaultVehicle().equals(listCarManager.get(position).getVehicleFullBrand())
+                    && BaseActivity.loginResponse.getMsg().getDefaultVehiclePlate().equals(listCarManager.get(position).getPlate())
+                    ) {
                 viewHolder.tv_plateCode.setText(listCarManager.get(position)
                         .getPlate() + "");
 

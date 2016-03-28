@@ -171,7 +171,6 @@ public class MainListViewAdapter extends BaseAdapter implements OnClickListener 
             case R.id.rl_seller_info:
                 Log.i("result", "====position====" + v.getTag());
                 Intent intent = new Intent(mContext, WashcarDetailsActivity.class);
-
                 intent.putExtra("id", list.get((Integer) v.getTag()).getId());
                 mContext.startActivity(intent);
                 break;

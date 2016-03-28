@@ -23,10 +23,13 @@ import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.CarManager;
+import com.cheweishi.android.entity.LoginUserInfoResponse;
 import com.cheweishi.android.entity.MyCarManagerResponse;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.EmptyTools;
+import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.ButtonUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.StringUtil;
@@ -72,6 +75,9 @@ public class CarManagerActivity extends BaseActivity implements
     private int itemIndex;
     private MyBroadcastReceiver broad;
     public static CarManagerActivity instance;
+    private String DefaultName = "";
+    private String DefaultPlate = "";
+    private String DefaultIcon = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +127,8 @@ public class CarManagerActivity extends BaseActivity implements
         super.onResume();
         if (broad == null) {
             broad = new MyBroadcastReceiver();
+        } else{
+            reconnect();
         }
 
         IntentFilter intentFilter = new IntentFilter(Constant.REFRESH_FLAG);
@@ -192,9 +200,23 @@ public class CarManagerActivity extends BaseActivity implements
      */
     private void ConnectItemToServer(MyCarManagerResponse.MsgBean msgBean) {
         ProgrosDialog.openDialog(this);
-        if (isLogined()) {
+        if (isLogined()
+                && !loginResponse.getMsg().getDefaultVehiclePlate().equals(msgBean.getPlate())
+                || !loginResponse.getMsg().getDefaultVehicle().equals(msgBean.getVehicleFullBrand())) {
 
-            // TODO
+            ProgrosDialog.openDialog(baseContext);
+            String url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.SET_DEFAULT_DEVICE + NetInterface.SUFFIX;
+            Map<String, Object> param = new HashMap<>();
+            param.put("userId", loginResponse.getDesc());
+            param.put("token", loginResponse.getToken());
+            param.put("vehicleId", msgBean.getId());
+            param.put(Constant.PARAMETER_TAG, NetInterface.SET_DEFAULT_DEVICE);
+            netWorkHelper.PostJson(url, param, this);
+
+            // TODO 更新UI和缓存.
+            DefaultName = msgBean.getVehicleFullBrand();
+            DefaultPlate = msgBean.getPlate();
+            DefaultIcon = msgBean.getBrandIcon();
         }
     }
 
@@ -229,7 +251,30 @@ public class CarManagerActivity extends BaseActivity implements
                     right_action.setVisibility(View.VISIBLE);
                 }
 
+                loginResponse.setToken(response.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                break;
+            case NetInterface.SET_DEFAULT_DEVICE:
 
+                MyCarManagerResponse baseResponse = (MyCarManagerResponse) GsonUtil.getInstance().convertJsonStringToObject(data, MyCarManagerResponse.class);
+                if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(baseResponse.getDesc());
+                    return;
+                }
+                adapter.setData(listCarManager);
+                listView_front.setVisibility(View.INVISIBLE);
+                if (listCarManager.size() >= 3) {
+                    right_action.setVisibility(View.GONE);
+                } else {
+                    right_action.setVisibility(View.VISIBLE);
+                }
+                LoginUserInfoResponse msg = loginResponse.getMsg();
+                msg.setDefaultVehicle(DefaultName);
+                msg.setDefaultVehicleIcon(DefaultIcon);
+                msg.setDefaultVehiclePlate(DefaultPlate);
+                loginResponse.setMsg(msg);
+                loginResponse.setToken(baseResponse.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }
     }
@@ -333,7 +378,7 @@ public class CarManagerActivity extends BaseActivity implements
         public void onReceive(Context context, Intent intent) {
             if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
                     Constant.CAR_MANAGER_REFRESH, true)) {
-                reconnect();
+//                reconnect();
 
             }
         }

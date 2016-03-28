@@ -19,6 +19,7 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ImgDialog;
+import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.http.MyHttpUtils;
 import com.cheweishi.android.response.BaseResponse;
@@ -816,6 +817,7 @@ public class AddCarActivity extends BaseActivity {
 //                }
 //                myHttpUtils.PostHttpUtils();
 
+                ProgrosDialog.openDialog(this);
                 String url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.ADD + NetInterface.SUFFIX;
                 Map<String, Object> param = new HashMap<>();
                 param.put("userId", loginResponse.getDesc());
@@ -838,6 +840,7 @@ public class AddCarActivity extends BaseActivity {
 
     @Override
     public void receive(String data) {
+        ProgrosDialog.closeProgrosDialog();
         addCarFlag = false;
         BaseResponse response = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
@@ -846,10 +849,10 @@ public class AddCarActivity extends BaseActivity {
         }
 
 
-        Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
-        Intent mIntent = new Intent();
-        mIntent.setAction(Constant.REFRESH_FLAG);
-        sendBroadcast(mIntent);
+//        Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
+//        Intent mIntent = new Intent();
+//        mIntent.setAction(Constant.REFRESH_FLAG);
+//        sendBroadcast(mIntent);
         if (carManagerTemp == null) {
             Intent intent = new Intent(AddCarActivity.this,
                     AddDeviceActivity.class);
@@ -867,13 +870,16 @@ public class AddCarActivity extends BaseActivity {
         }
 
 
-
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-
         finish();
 
 
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        ProgrosDialog.closeProgrosDialog();
     }
 
     private static class AddHandler extends Handler {

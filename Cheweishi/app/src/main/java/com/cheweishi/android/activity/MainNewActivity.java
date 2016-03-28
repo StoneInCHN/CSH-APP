@@ -681,9 +681,7 @@ public class MainNewActivity extends BaseActivity {
         } else {
             XUtilsImageLoader.getxUtilsImageLoader(this,
                     R.drawable.tianjiacar_img2x, ibtn_user,
-                    API.CSH_GET_IMG_BASE_URL
-                            + loginMessage.getCarManager().getBrand()
-                            .getBrandIcon());
+                    loginResponse.getMsg().getDefaultVehicleIcon());
             // DisplayImageOptions options = new DisplayImageOptions.Builder()
             // .cacheInMemory(true).cacheOnDisk(true)
             // .showImageForEmptyUri(R.drawable.tianjiacar_img2x)

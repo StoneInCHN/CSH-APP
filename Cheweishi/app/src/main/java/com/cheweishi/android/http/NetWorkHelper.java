@@ -63,7 +63,7 @@ public class NetWorkHelper {
      * @param jsonCallback
      */
 
-    public void PostJson(String url, Map<String, Object> params, final JSONCallback jsonCallback) {
+    public void PostJson(final String url, Map<String, Object> params, final JSONCallback jsonCallback) {
 
         if (!NetworkUtils.isNetworkAvailable(context) && null != jsonCallback) {
             jsonCallback.error("当前没有网络...");
@@ -82,7 +82,7 @@ public class NetWorkHelper {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
-                LogHelper.d(jsonObject.toString());
+                LogHelper.d("request url:" + url + "\n" + jsonObject.toString());
                 if (null == jsonCallback)
                     return;
                 if (null != RequestTag) {
@@ -132,7 +132,7 @@ public class NetWorkHelper {
      * @param Tag          标示
      */
 
-    public void GetJson(String url, final JSONCallback jsonCallback, String Tag) {
+    public void GetJson(final String url, final JSONCallback jsonCallback, String Tag) {
 
 
         if (!NetworkUtils.isNetworkAvailable(context) && null != jsonCallback) {

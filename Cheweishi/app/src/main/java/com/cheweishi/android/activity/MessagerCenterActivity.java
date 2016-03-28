@@ -62,6 +62,8 @@ import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
+import static com.cheweishi.android.tools.DBTools.*;
+
 /**
  * 消息中心
  *
@@ -159,11 +161,12 @@ public class MessagerCenterActivity extends BaseActivity {
                 drawable.getIntrinsicHeight());
         right_action.setCompoundDrawables(null, null, drawable, null); //
 
-        ininGetHttpData();
-
         httpList = new ArrayList<MessageResponse.MsgBean>();
-        httpList = (List<MessageResponse.MsgBean>) DBTools.getInstance(this).findAll(
-                MessagCenterInfo.class);
+//        List<MessageResponse> list = (List<MessageResponse>) getInstance(baseContext).findAll(MessageResponse.class);
+//        if (null != list && 0 < list.size())
+//            httpList = list.get(0).getMsg();
+//        else
+        ininGetHttpData();
         JPushInterface.clearAllNotifications(this);
         if (!StringUtil.isEmpty(httpList) && httpList.size() > 0) {
             Collections.reverse(httpList);
@@ -227,6 +230,7 @@ public class MessagerCenterActivity extends BaseActivity {
 
     @Override
     public void receive(String data) {
+        messagerCenterListView.stopRefresh();
         ProgrosDialog.closeProgrosDialog();
         MessageResponse response = (MessageResponse) GsonUtil.getInstance().convertJsonStringToObject(data, MessageResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
@@ -236,6 +240,7 @@ public class MessagerCenterActivity extends BaseActivity {
 
 
         httpList = response.getMsg();
+        DBTools.getInstance(baseContext).save(response);
         mMessageCenterApdater = new MessageCenterApdater(httpList, this);
         messagerCenterListView.setAdapter(mMessageCenterApdater);
 
@@ -406,12 +411,12 @@ public class MessagerCenterActivity extends BaseActivity {
     IXListViewListener ixlistener = new IXListViewListener() {
         @Override
         public void onRefresh() {
-            messagerCenterListView.setPullLoadEnable(true);
-            messagerCenterListView.setPullRefreshEnable(true);
-            messagerCenterListView.stopLoadMore();
-            pagei = 0;
-            SaveList();
-            httpList.clear();
+//            messagerCenterListView.setPullLoadEnable(true);
+//            messagerCenterListView.setPullRefreshEnable(true);
+//            messagerCenterListView.stopLoadMore();
+//            pagei = 0;
+//            SaveList();
+//            httpList.clear();
             ininGetHttpData();
         }
 
@@ -424,6 +429,7 @@ public class MessagerCenterActivity extends BaseActivity {
             // // initpage();
             // }
             // messagerCenterListView.stopLoadMore();
+            ininGetHttpData();
         }
     };
 
@@ -656,7 +662,9 @@ public class MessagerCenterActivity extends BaseActivity {
             MessageResponse.MsgBean messagCenterInfo = httpList.get(position - 1);
             Intent intent = new Intent();
             intent.putExtra("id", messagCenterInfo.getId());
-            // intent.putExtra("isread", position - 1);
+            intent.putExtra("title", messagCenterInfo.getMessageTitle());
+            intent.putExtra("content", messagCenterInfo.getMessageContent());
+            intent.putExtra("time", messagCenterInfo.getCreateDate());
             intent.setClass(MessagerCenterActivity.this,
                     MessageCenterDetailsActivity.class);
             mMessageCenterApdater.flag = false;
@@ -691,7 +699,7 @@ public class MessagerCenterActivity extends BaseActivity {
      */
     public void remevePageList(int position) {
         checkBoxDesiz++;
-        DBTools.getInstance(this).deleteById(MessagCenterInfo.class,
+        getInstance(this).deleteById(MessagCenterInfo.class,
                 httpList.get(position).getId() + "");
         httpList.remove(position);
     }
@@ -790,7 +798,7 @@ public class MessagerCenterActivity extends BaseActivity {
         msg_tv_allread.setText(R.string.delete);
         left_action.setText(R.string.cancel);
         mMessageCenterApdater.setDeleteData(httpList);
-        DBTools.getInstance(this).delete(MessagCenterInfo.class);
+        getInstance(this).delete(MessagCenterInfo.class);
         msg_linbottom.setVisibility(View.GONE);
         steLeftDeleta();
         isleftDelate = false;

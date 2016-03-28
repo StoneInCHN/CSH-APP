@@ -315,7 +315,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 //                loginResponse = loginResponses.get(0);
 //            }
         }
-        Log.i("result", "===loginMessage==" + String.valueOf(loginResponse));
         if (StringUtil.isEmpty(BaseActivity.loginResponse)
                 || StringUtil.isEmpty(loginResponse.getDesc())) {
             return false;
@@ -433,8 +432,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 
     public boolean hasBrandIcon() {
         if (isLogined()) {
-            if (!StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle())
-                    ) {
+            if (!StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicleIcon())) {
                 return true;
             }
         }
