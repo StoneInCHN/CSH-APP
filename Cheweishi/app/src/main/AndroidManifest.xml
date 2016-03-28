@@ -386,10 +386,11 @@
         <!-- 车生活  egzXtdHQN58stO0pccYl1pD9  -->
 
 
-        <!-- 张强创建的 GGmp0qlEwENBuZEXszErYAAg -->
+        <!-- 张强创建的 GGmp0qlEwENBuZEXszErYAAg -->  <!--egzXtdHQN58stO0pccYl1pD9-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="egzXtdHQN58stO0pccYl1pD9" />
+
+            android:value="OXaolwDQD85CXGIxypELgICHusQrcDf8" />
 
         <!-- Ping++ sdk -->
         <!-- <activity
@@ -1270,6 +1271,12 @@
 
         <!-- 商城-->
         <activity android:name="com.cheweishi.android.activity.CarShopActivity" />
+
+        <!--保养-->
+        <activity android:name="com.cheweishi.android.activity.MaintainDetailsActivity" />
+
+        <!--美容-->
+        <activity android:name="com.cheweishi.android.activity.BeautyDetailsActivity" />
     </application>
 
 </manifest>

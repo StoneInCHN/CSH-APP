@@ -100,11 +100,9 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
                 @Override
                 public void onClick(View arg0) {
-                    // TODO Auto-generated method stub
-                    System.out.println("预约===good");
                     // TODO 预约,因为要展示,所以暂时注释
-//					Intent intent = new Intent(context,
-//							OrderDetailsActivity.class);
+					Intent intent = new Intent(context,
+							OrderDetailsActivity.class);
 //					Bundle bundle = new Bundle();
 //					bundle.putSerializable("washCar", washCar.get(groupPosition));
 //					bundle.putString("goods_id", type.get(groupPosition)
@@ -123,7 +121,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 //								.getDiscount_price());
 //					}
 //					intent.putExtra("bundle", bundle);
-//					context.startActivity(intent);
+					context.startActivity(intent);
                 }
             });
         } else {
@@ -136,7 +134,6 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
                 @Override
                 public void onClick(View arg0) {
-                    System.out.println("预约===bad");
                     // TODO 预约,因为要展示,所以暂时注释
 //					Intent intent = new Intent(context,
 //							WashCarPayActivity.class);

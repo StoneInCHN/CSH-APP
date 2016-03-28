@@ -9,16 +9,17 @@ import java.util.List;
  */
 public class MaintainResponse extends BaseResponse {
 
+
     /**
-     * address : null
-     * tenantName : 爱车帮
-     * latitude : 10.000021
-     * photo : null
      * id : 1
-     * businessTime : null
+     * carServices : [{"subServices":[{"id":1,"promotionPrice":30,"serviceName":"车身保养","price":20},{"id":10,"promotionPrice":30,"serviceName":"轮胎保养","price":99}],"categoryName":"保养"}]
      * contactPhone : null
+     * address : null
+     * businessTime : null
      * longitude : 10.000021
-     * carServices : [{"promotionPrice":30,"price":50,"serviceStatus":"ENABLED","id":1,"serviceName":"车身美容","serviceCategory":{"categoryName":"美容"}},{"promotionPrice":30,"price":50,"serviceStatus":"ENABLED","id":2,"serviceName":"打蜡","serviceCategory":{"categoryName":"美容"}}]
+     * latitude : 10.000021
+     * photo : http://10.50.40.56:8081/csh-interface/upload/Koala.jpg
+     * tenantName : 爱车
      */
 
     private MsgBean msg;
@@ -32,56 +33,20 @@ public class MaintainResponse extends BaseResponse {
     }
 
     public static class MsgBean {
-        private Object address;
-        private String tenantName;
-        private double latitude;
-        private Object photo;
         private int id;
-        private Object businessTime;
         private Object contactPhone;
+        private Object address;
+        private Object businessTime;
         private double longitude;
+        private double latitude;
+        private String photo;
+        private String tenantName;
         /**
-         * promotionPrice : 30
-         * price : 50
-         * serviceStatus : ENABLED
-         * id : 1
-         * serviceName : 车身美容
-         * serviceCategory : {"categoryName":"美容"}
+         * subServices : [{"id":1,"promotionPrice":30,"serviceName":"车身保养","price":20},{"id":10,"promotionPrice":30,"serviceName":"轮胎保养","price":99}]
+         * categoryName : 保养
          */
 
         private List<CarServicesBean> carServices;
-
-        public Object getAddress() {
-            return address;
-        }
-
-        public void setAddress(Object address) {
-            this.address = address;
-        }
-
-        public String getTenantName() {
-            return tenantName;
-        }
-
-        public void setTenantName(String tenantName) {
-            this.tenantName = tenantName;
-        }
-
-        public double getLatitude() {
-            return latitude;
-        }
-
-        public void setLatitude(double latitude) {
-            this.latitude = latitude;
-        }
-
-        public Object getPhoto() {
-            return photo;
-        }
-
-        public void setPhoto(Object photo) {
-            this.photo = photo;
-        }
 
         public int getId() {
             return id;
@@ -89,14 +54,6 @@ public class MaintainResponse extends BaseResponse {
 
         public void setId(int id) {
             this.id = id;
-        }
-
-        public Object getBusinessTime() {
-            return businessTime;
-        }
-
-        public void setBusinessTime(Object businessTime) {
-            this.businessTime = businessTime;
         }
 
         public Object getContactPhone() {
@@ -107,12 +64,52 @@ public class MaintainResponse extends BaseResponse {
             this.contactPhone = contactPhone;
         }
 
+        public Object getAddress() {
+            return address;
+        }
+
+        public void setAddress(Object address) {
+            this.address = address;
+        }
+
+        public Object getBusinessTime() {
+            return businessTime;
+        }
+
+        public void setBusinessTime(Object businessTime) {
+            this.businessTime = businessTime;
+        }
+
         public double getLongitude() {
             return longitude;
         }
 
         public void setLongitude(double longitude) {
             this.longitude = longitude;
+        }
+
+        public double getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(double latitude) {
+            this.latitude = latitude;
+        }
+
+        public String getPhoto() {
+            return photo;
+        }
+
+        public void setPhoto(String photo) {
+            this.photo = photo;
+        }
+
+        public String getTenantName() {
+            return tenantName;
+        }
+
+        public void setTenantName(String tenantName) {
+            this.tenantName = tenantName;
         }
 
         public List<CarServicesBean> getCarServices() {
@@ -124,74 +121,68 @@ public class MaintainResponse extends BaseResponse {
         }
 
         public static class CarServicesBean {
-            private int promotionPrice;
-            private int price;
-            private String serviceStatus;
-            private int id;
-            private String serviceName;
+            private String categoryName;
             /**
-             * categoryName : 美容
+             * id : 1
+             * promotionPrice : 30
+             * serviceName : 车身保养
+             * price : 20
              */
 
-            private ServiceCategoryBean serviceCategory;
+            private List<SubServicesBean> subServices;
 
-            public int getPromotionPrice() {
-                return promotionPrice;
+            public String getCategoryName() {
+                return categoryName;
             }
 
-            public void setPromotionPrice(int promotionPrice) {
-                this.promotionPrice = promotionPrice;
+            public void setCategoryName(String categoryName) {
+                this.categoryName = categoryName;
             }
 
-            public int getPrice() {
-                return price;
+            public List<SubServicesBean> getSubServices() {
+                return subServices;
             }
 
-            public void setPrice(int price) {
-                this.price = price;
+            public void setSubServices(List<SubServicesBean> subServices) {
+                this.subServices = subServices;
             }
 
-            public String getServiceStatus() {
-                return serviceStatus;
-            }
+            public static class SubServicesBean {
+                private int id;
+                private int promotionPrice;
+                private String serviceName;
+                private int price;
 
-            public void setServiceStatus(String serviceStatus) {
-                this.serviceStatus = serviceStatus;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getServiceName() {
-                return serviceName;
-            }
-
-            public void setServiceName(String serviceName) {
-                this.serviceName = serviceName;
-            }
-
-            public ServiceCategoryBean getServiceCategory() {
-                return serviceCategory;
-            }
-
-            public void setServiceCategory(ServiceCategoryBean serviceCategory) {
-                this.serviceCategory = serviceCategory;
-            }
-
-            public static class ServiceCategoryBean {
-                private String categoryName;
-
-                public String getCategoryName() {
-                    return categoryName;
+                public int getId() {
+                    return id;
                 }
 
-                public void setCategoryName(String categoryName) {
-                    this.categoryName = categoryName;
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public int getPromotionPrice() {
+                    return promotionPrice;
+                }
+
+                public void setPromotionPrice(int promotionPrice) {
+                    this.promotionPrice = promotionPrice;
+                }
+
+                public String getServiceName() {
+                    return serviceName;
+                }
+
+                public void setServiceName(String serviceName) {
+                    this.serviceName = serviceName;
+                }
+
+                public int getPrice() {
+                    return price;
+                }
+
+                public void setPrice(int price) {
+                    this.price = price;
                 }
             }
         }

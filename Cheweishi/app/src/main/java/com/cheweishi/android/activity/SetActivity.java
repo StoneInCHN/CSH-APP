@@ -101,7 +101,7 @@ public class SetActivity extends BaseActivity implements OnClickListener,
     @Override
     public void receive(String TAG, String data) {
         ProgrosDialog.closeProgrosDialog();
-        switch (TAG){
+        switch (TAG) {
             case NetInterface.LOGOUT:
                 clearData();
 
@@ -263,8 +263,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
     /**
      * 设置checkbox状态
      *
-     * @param type
-     * @param status
      */
     // private void setCheckBox(int type, String status) {
     // switch (type) {
@@ -516,11 +514,13 @@ public class SetActivity extends BaseActivity implements OnClickListener,
             clearData();
         } else {
             // 请求退出接口
-            RequestParams params = new RequestParams();
-            params.addBodyParameter("uid", loginMessage.getUid());
-            HttpBiz httpBiz = new HttpBiz(SetActivity.this);
             ProgrosDialog.openDialog(this);
-            httpBiz.httPostData(10008, API.CSH_LOGOUT_URL, params, this);
+            String url = NetInterface.HEADER_ALL + NetInterface.LOGOUT + NetInterface.SUFFIX;
+            Map<String, Object> param = new HashMap<>();
+            param.put("userId", loginResponse.getDesc());
+            param.put("token", loginResponse.getToken());
+            param.put(Constant.PARAMETER_TAG, NetInterface.LOGOUT);
+            netWorkHelper.PostJson(url, param, this);
         }
     }
 
@@ -660,7 +660,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
     /**
      * 清除缓存
      *
-     * @param status
      */
     private void clearPhoneCache() {
 
