@@ -19,6 +19,11 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.ServiceDetialResponse;
+import com.cheweishi.android.entity.ServiceListResponse;
+import com.cheweishi.android.tools.LoginMessageUtils;
+import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
@@ -39,6 +44,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -103,22 +109,39 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
         locationClient.registerLocationListener(this);
         baiduMap.setOnMarkerClickListener(this);
 
+        ProgrosDialog.openDialog(this);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
-        Map<String,Object> param = new HashMap<>();
-        param.put("userId",loginResponse.getDesc());
-        param.put("token",loginResponse.getToken());
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
         param.put("latitude", MyMapUtils.getLatitude(baseContext));
         param.put("longitude", MyMapUtils.getLongitude(baseContext));
         param.put("serviceCategoryId", 4); // 紧急救援
-        param.put("pageSize",5);
-        param.put("pageNumber",1);
-        netWorkHelper.PostJson(url,param,this);
+        param.put("pageSize", 5);
+        param.put("pageNumber", 1);
+        netWorkHelper.PostJson(url, param, this);
 
     }
 
     @Override
     public void receive(String data) {
+        ProgrosDialog.closeProgrosDialog();
 
+        ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceDetialResponse.class);
+        if (null != response && !response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            showToast(response.getDesc());
+            return;
+        }
+
+        List<ServiceListResponse.MsgBean> datalist = response.getMsg();
+        if (null != datalist) {
+            for (int i = 0; i < datalist.size(); i++) {
+                addData(datalist.get(i).getLatitude(), datalist.get(i).getLatitude(), datalist.get(i));
+            }
+        }
+
+        loginResponse.setToken(response.getToken());
+        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
     }
 
@@ -253,14 +276,17 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     }
 
 
-    private void addData(double Latitude, double Longitude, String string) {
+    private void addData(double Latitude, double Longitude, ServiceListResponse.MsgBean response) {
         LatLng latLng = new LatLng(Latitude, Longitude);
-        baiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(latLng));
+//        baiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(latLng));
         bitmapDescriptor = BitmapDescriptorFactory
                 .fromResource(R.drawable.jiuyuan_chepaihao2x);
         OverlayOptions ooA = new MarkerOptions().position(latLng)
                 .icon(bitmapDescriptor).zIndex(9).draggable(true);
-        baiduMap.addOverlay(ooA);
+        Marker marker = (Marker) baiduMap.addOverlay(ooA);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data", response);
+        marker.setExtraInfo(bundle);
     }
 
     /**
@@ -271,7 +297,6 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
         // TODO Auto-generated method stub
         if (flag == false) {
             flag = true;
-
             setData(arg0.getLatitude(), arg0.getLongitude(), arg0.getAddrStr());
         }
     }
@@ -286,7 +311,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
         location.setBackgroundResource(R.drawable.jiuyuan_kuang);// location_tips
 
         if (isLogined() && hasCar()) {
-            location.setText(loginMessage.getCarManager().getPlate());
+            location.setText(loginResponse.getMsg().getDefaultVehiclePlate());
         } else {
             location.setText(Sos_address.getText().toString());
         }

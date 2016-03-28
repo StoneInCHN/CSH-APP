@@ -2,29 +2,32 @@ package com.cheweishi.android.entity;
 
 import com.cheweishi.android.response.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by tangce on 3/24/2016.
  */
-public class ServiceListResponse extends BaseResponse {
+public class ServiceListResponse extends BaseResponse implements Serializable {
 
     /**
-     * total : 6
-     * pageNumber : 1
      * pageSize : 5
+     * total : 7
+     * pageNumber : 1
      */
 
     private PageBean page;
     /**
-     * tenant_name : 中和汽修
-     * praiseRate : 0.4
+     * id : 1
+     * distance : 3.28
+     * price : 88
      * address : null
      * service_category_name : 洗车
-     * distance : 3.36
-     * price : 50
-     * photo : null
-     * id : 3
+     * praiseRate : 3
+     * longitude : 10.000021
+     * tenant_name : 爱车
+     * latitude : 10.000021
+     * photo : http://10.50.40.56:8081/csh-interface/upload/Koala.jpg
      * promotion_price : 30
      */
 
@@ -46,10 +49,18 @@ public class ServiceListResponse extends BaseResponse {
         this.msg = msg;
     }
 
-    public static class PageBean {
+    public static class PageBean implements Serializable {
+        private int pageSize;
         private int total;
         private int pageNumber;
-        private int pageSize;
+
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
+        }
 
         public int getTotal() {
             return total;
@@ -66,57 +77,27 @@ public class ServiceListResponse extends BaseResponse {
         public void setPageNumber(int pageNumber) {
             this.pageNumber = pageNumber;
         }
-
-        public int getPageSize() {
-            return pageSize;
-        }
-
-        public void setPageSize(int pageSize) {
-            this.pageSize = pageSize;
-        }
     }
 
-    public static class MsgBean {
-        private String tenant_name;
-        private int praiseRate;
-        private String address;
-        private String service_category_name;
+    public static class MsgBean  implements Serializable{
+        private int id;
         private double distance;
         private int price;
+        private String address;
+        private String service_category_name;
+        private int praiseRate;
+        private double longitude;
+        private String tenant_name;
+        private double latitude;
         private String photo;
-        private int id;
         private int promotion_price;
 
-        public String getTenant_name() {
-            return tenant_name;
+        public int getId() {
+            return id;
         }
 
-        public void setTenant_name(String tenant_name) {
-            this.tenant_name = tenant_name;
-        }
-
-        public int getPraiseRate() {
-            return praiseRate;
-        }
-
-        public void setPraiseRate(int praiseRate) {
-            this.praiseRate = praiseRate;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-        public String getService_category_name() {
-            return service_category_name;
-        }
-
-        public void setService_category_name(String service_category_name) {
-            this.service_category_name = service_category_name;
+        public void setId(int id) {
+            this.id = id;
         }
 
         public double getDistance() {
@@ -135,20 +116,60 @@ public class ServiceListResponse extends BaseResponse {
             this.price = price;
         }
 
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getService_category_name() {
+            return service_category_name;
+        }
+
+        public void setService_category_name(String service_category_name) {
+            this.service_category_name = service_category_name;
+        }
+
+        public int getPraiseRate() {
+            return praiseRate;
+        }
+
+        public void setPraiseRate(int praiseRate) {
+            this.praiseRate = praiseRate;
+        }
+
+        public double getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(double longitude) {
+            this.longitude = longitude;
+        }
+
+        public String getTenant_name() {
+            return tenant_name;
+        }
+
+        public void setTenant_name(String tenant_name) {
+            this.tenant_name = tenant_name;
+        }
+
+        public double getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(double latitude) {
+            this.latitude = latitude;
+        }
+
         public String getPhoto() {
             return photo;
         }
 
         public void setPhoto(String photo) {
             this.photo = photo;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
         }
 
         public int getPromotion_price() {
