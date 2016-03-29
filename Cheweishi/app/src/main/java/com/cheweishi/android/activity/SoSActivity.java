@@ -337,6 +337,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
                 });
         // 显示InfoWindow
         baiduMap.showInfoWindow(mInfoWindow);
+        showSOSDialog();
         return false;
     }
 
