@@ -129,6 +129,10 @@ public class MessagerCenterActivity extends BaseActivity {
 
     private boolean isleftDelate = false;
 
+    private int page = 1;
+
+    private int pageSize = 10;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,25 +172,37 @@ public class MessagerCenterActivity extends BaseActivity {
 //        else
         ininGetHttpData();
         JPushInterface.clearAllNotifications(this);
-        if (!StringUtil.isEmpty(httpList) && httpList.size() > 0) {
-            Collections.reverse(httpList);
-            messagerCenterListView.setPullLoadEnable(false);
-            messagerCenterListView.setPullRefreshEnable(false);
-            messagerCenterListView.setCompileRefresh(true);
-            mMessageCenterApdater = new MessageCenterApdater(httpList, this);
-            messagerCenterListView.setAdapter(mMessageCenterApdater);
-            addDelete();
-            messagerCenterListView
-                    .setOnMenuItemClickListener(new myOnMenuItemClickListener());
-            initAnimation();
-        } else {
-            // messagerCenterListView.setVisibility(View.GONE);
-            // nodata.setVisibility(View.VISIBLE);
-            right_action.setVisibility(View.GONE);
-            EmptyTools.setEmptyView(this, messagerCenterListView);
-            EmptyTools.setImg(R.drawable.message_message);
-            EmptyTools.setMessage("您还没有相关消息");
-        }
+
+        messagerCenterListView.setPullLoadEnable(true);
+        messagerCenterListView.setPullLoadEnable(true);
+        // TODO 暂时不用设置
+//        mMessageCenterApdater = new MessageCenterApdater(httpList, this);
+//        messagerCenterListView.setAdapter(mMessageCenterApdater);
+//        addDelete();
+//        messagerCenterListView
+//                .setOnMenuItemClickListener(new myOnMenuItemClickListener());
+//        initAnimation();
+
+        // TODO 暂时去掉
+//        if (!StringUtil.isEmpty(httpList) && httpList.size() > 0) {
+//            Collections.reverse(httpList);
+//            messagerCenterListView.setPullLoadEnable(false);
+//            messagerCenterListView.setPullRefreshEnable(false);
+//            messagerCenterListView.setCompileRefresh(true);
+//            mMessageCenterApdater = new MessageCenterApdater(httpList, this);
+//            messagerCenterListView.setAdapter(mMessageCenterApdater);
+//            addDelete();
+//            messagerCenterListView
+//                    .setOnMenuItemClickListener(new myOnMenuItemClickListener());
+//            initAnimation();
+//        } else {
+//            // messagerCenterListView.setVisibility(View.GONE);
+//            // nodata.setVisibility(View.VISIBLE);
+//            right_action.setVisibility(View.GONE);
+//            EmptyTools.setEmptyView(this, messagerCenterListView);
+//            EmptyTools.setImg(R.drawable.message_message);
+//            EmptyTools.setMessage("您还没有相关消息");
+//        }
 
     }
 
@@ -223,8 +239,8 @@ public class MessagerCenterActivity extends BaseActivity {
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
-        param.put("pageNumber", 1);
-        param.put("pageSize", 10);
+        param.put("pageNumber", page);
+        param.put("pageSize", pageSize);
         netWorkHelper.PostJson(url, param, this);
     }
 
@@ -240,9 +256,19 @@ public class MessagerCenterActivity extends BaseActivity {
 
 
         httpList = response.getMsg();
-        DBTools.getInstance(baseContext).save(response);
-        mMessageCenterApdater = new MessageCenterApdater(httpList, this);
-        messagerCenterListView.setAdapter(mMessageCenterApdater);
+        if (null != httpList && 0 < httpList.size()) {
+            DBTools.getInstance(baseContext).save(response);
+            addDelete();
+            messagerCenterListView
+                    .setOnMenuItemClickListener(new myOnMenuItemClickListener());
+            initAnimation();
+            mMessageCenterApdater = new MessageCenterApdater(httpList, this);
+            messagerCenterListView.setAdapter(mMessageCenterApdater);
+        } else {
+            EmptyTools.setEmptyView(this, messagerCenterListView);
+            EmptyTools.setImg(R.drawable.message_message);
+            EmptyTools.setMessage("您还没有相关消息");
+        }
 
 
         loginResponse.setToken(response.getToken());
@@ -417,6 +443,7 @@ public class MessagerCenterActivity extends BaseActivity {
 //            pagei = 0;
 //            SaveList();
 //            httpList.clear();
+            page++;
             ininGetHttpData();
         }
 
@@ -429,6 +456,7 @@ public class MessagerCenterActivity extends BaseActivity {
             // // initpage();
             // }
             // messagerCenterListView.stopLoadMore();
+            page++;
             ininGetHttpData();
         }
     };

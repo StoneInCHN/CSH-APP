@@ -56,7 +56,7 @@ public class XUtilsImageLoader {
         mBitmapUtils = new BitmapUtils(mContext, Constant.BASE_IMG_CATCH_DIR
                 + path);
         mBitmapUtils.configDiskCacheEnabled(true); // 允许将图片缓存到sd�?
-        mBitmapUtils.configDiskCacheEnabled(true);
+//        mBitmapUtils.configDiskCacheEnabled(true);
         mBitmapUtils.configMemoryCacheEnabled(false);
         // }
         // }
