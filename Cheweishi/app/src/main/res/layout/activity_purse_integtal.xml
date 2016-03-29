@@ -44,6 +44,7 @@
                 android:layout_marginBottom="50dp"
                 android:textColor="@color/red_deep"
                 android:textSize="@dimen/ttf_twenty_four"
+                android:layout_centerHorizontal="true"
                 android:textStyle="bold" />
 
             <TextView

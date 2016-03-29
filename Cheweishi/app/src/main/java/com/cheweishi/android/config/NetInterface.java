@@ -5,9 +5,14 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-        public static final String BASE_URL = "http://139.129.5.114";// 基础路径
+    public static final String BASE_URL = "http://139.129.5.114";// 基础路径
 //    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
+    public static final String IMG_BASE_URL = BASE_URL;// 基础路径
+
+    public static final String IMG_PROJECT_NAME = "/csh-interface";
+
+    public static final String IMG_URL = NetInterface.IMG_BASE_URL + NetInterface.IMG_PROJECT_NAME;
 
     public static final String TEMP_URL = "/csh-interface/endUser/";// 中间路径
 
@@ -34,7 +39,7 @@ public class NetInterface {
     public static final String SUFFIX = ".jhtml";//后缀
 
 
-    /******************* 接口 *********************/
+    /********************* 接口 *********************/
     public static final String USER_LOGIN = "login";
 
     public static final String SMS_TOKEN = "getSmsToken"; // 验证码接口
@@ -69,8 +74,10 @@ public class NetInterface {
 
     public static final String SET_READ_MSG = "readMessage";//设置为已读
 
-    public static final String BIND_DEVICE ="bindDevice";//绑定设备
+    public static final String BIND_DEVICE = "bindDevice";//绑定设备
 
-    public static final String SET_DEFAULT_DEVICE ="setDefault";//设置默认设备
+    public static final String SET_DEFAULT_DEVICE = "setDefault";//设置默认设备
+
+    public static final String WALLET_RECORD = "walletRecordByType";//明细
 
 }

@@ -50,7 +50,7 @@ public class AboutUsNewActivity extends BaseActivity implements OnClickListener 
      */
     private void initViews() {
         left_action.setText(R.string.back);
-        loginMessage = LoginMessageUtils.getLoginMessage(this);
+//        loginResponse = LoginMessageUtils.getloginmsg(this);
         title.setText(R.string.about_us);
         phone_about_us.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         URL_about_us.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);

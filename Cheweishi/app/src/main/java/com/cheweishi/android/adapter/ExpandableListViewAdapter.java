@@ -135,8 +135,8 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                 @Override
                 public void onClick(View arg0) {
                     // TODO 预约,因为要展示,所以暂时注释
-//					Intent intent = new Intent(context,
-//							WashCarPayActivity.class);
+					Intent intent = new Intent(context,
+							WashCarPayActivity.class);
 //					intent.putExtra("seller_id", washCar.getId());
 //					intent.putExtra("service_id", type.get(groupPosition)
 //							.getGoodsList().get(childPosition).getId());
@@ -157,7 +157,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 //							.get(childPosition).getGoods_name().contains("普洗")) {
 //						intent.putExtra("type", "px");
 //					}
-//					context.startActivity(intent);
+					context.startActivity(intent);
 
                 }
             });

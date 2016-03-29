@@ -295,13 +295,14 @@ public class ReturnTheMoneyDatailsActivity extends BaseActivity implements
 						mList.addAll(list);
 
 					}
-					if (telephonEchargeDetailsAdapter == null) {
-						telephonEchargeDetailsAdapter = new TelephonEchargeDetailsAdapter(
-								ReturnTheMoneyDatailsActivity.this, mList);
-						listView.setAdapter(telephonEchargeDetailsAdapter);
-					} else {
-						telephonEchargeDetailsAdapter.setlist(mList);
-					}
+					// TODO 因调试余额而注释,2016-3-29 14:52:29
+//					if (telephonEchargeDetailsAdapter == null) {
+//						telephonEchargeDetailsAdapter = new TelephonEchargeDetailsAdapter(
+//								ReturnTheMoneyDatailsActivity.this, mList);
+//						listView.setAdapter(telephonEchargeDetailsAdapter);
+//					} else {
+//						telephonEchargeDetailsAdapter.setlist(mList);
+//					}
 				} else {
 					if (StringUtil.isEquals(
 							jsonObject.optString("operationState"),

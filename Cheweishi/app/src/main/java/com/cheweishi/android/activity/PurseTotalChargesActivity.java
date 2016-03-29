@@ -174,15 +174,15 @@ public class PurseTotalChargesActivity extends BaseActivity{
 					list = gson.fromJson(dataJsonObject.getString("list"), type);
 
 					mList.addAll(list);
-					// 把数据添加到adapter中
-					if (telephonEchargeDetailsAdapter == null) {
-						telephonEchargeDetailsAdapter = new TelephonEchargeDetailsAdapter(
-								PurseTotalChargesActivity.this, mList);
-						pullToRefreshListView.setAdapter(telephonEchargeDetailsAdapter);
-					} else {
-						// 上拉加载后的数据填充
-						telephonEchargeDetailsAdapter.setlist(mList);
-					}
+					// 把数据添加到adapter中 TODO 花费明细因调试余额注释 2016-3-29 14:51:26
+//					if (telephonEchargeDetailsAdapter == null) {
+//						telephonEchargeDetailsAdapter = new TelephonEchargeDetailsAdapter(
+//								PurseTotalChargesActivity.this, mList);
+//						pullToRefreshListView.setAdapter(telephonEchargeDetailsAdapter);
+//					} else {
+//						// 上拉加载后的数据填充
+//						telephonEchargeDetailsAdapter.setlist(mList);
+//					}
 				}
 			} else {
 				if (StringUtil.isEquals(jsonObject.optString("operationState"),

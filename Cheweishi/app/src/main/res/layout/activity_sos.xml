@@ -48,6 +48,7 @@
             android:background="@color/red"
             android:gravity="center"
             android:text="呼叫救援"
+            android:visibility="gone"
             android:textColor="@color/sliding_menu_background"
             android:textSize="@dimen/text_size_medium" />
 

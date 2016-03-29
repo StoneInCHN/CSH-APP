@@ -185,6 +185,12 @@ public class WashcarDetailsActivity extends BaseActivity implements
         LoginMessageUtils.saveloginmsg(baseContext,loginResponse);
     }
 
+    @Override
+    public void error(String errorMsg) {
+        ProgrosDialog.closeProgrosDialog();
+        showToast(R.string.server_link_fault);
+    }
+
     /**
      * 获取从服务器获取的json数据
      */

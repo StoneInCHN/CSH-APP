@@ -212,15 +212,15 @@ public class TelephoneChargeDetilsActivity extends BaseActivity implements
 							.fromJson(dataJsonObject.getString("list"), type);
 
 					mList.addAll(list);
-					// 把数据添加到adapter中
-					if (telephonEchargeDetailsAdapter == null) {
-						telephonEchargeDetailsAdapter = new TelephonEchargeDetailsAdapter(
-								TelephoneChargeDetilsActivity.this, mList);
-						mListView.setAdapter(telephonEchargeDetailsAdapter);
-					} else {
-						// 上拉加载后的数据填充
-						telephonEchargeDetailsAdapter.setlist(mList);
-					}
+					// 把数据添加到adapter中 TODO 因调试余额接口,暂时注释 2016-3-29 14:53:36
+//					if (telephonEchargeDetailsAdapter == null) {
+//						telephonEchargeDetailsAdapter = new TelephonEchargeDetailsAdapter(
+//								TelephoneChargeDetilsActivity.this, mList);
+//						mListView.setAdapter(telephonEchargeDetailsAdapter);
+//					} else {
+//						// 上拉加载后的数据填充
+//						telephonEchargeDetailsAdapter.setlist(mList);
+//					}
 				}
 			} else {
 				if (StringUtil.isEquals(jsonObject.optString("operationState"),

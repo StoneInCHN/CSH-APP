@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 
 public class API {
 	/** 新版基本路径 */
-	public static final String CSH_BASE_URL = "http://jfinal.chcws.com/";
+	public static final String CSH_BASE_URL = NetInterface.IMG_URL ;
 //	public static final String CSH_BASE_URL = "http://192.168.1.111/";
 	public static String CWS_BASE_URL = "http://125.86.116.228:81";
 	public static String BASE_URL = "http://app.chcws.com:8080/ZL/";// 基础路径
@@ -394,7 +394,7 @@ public class API {
 	public static String ADD_DEVICE_URL = CSH_BASE_URL
 			+ "app/vehicle/bindVehicle";
 	/** 获取图片基础路径 */
-	public static String CSH_GET_IMG_BASE_URL = "";
+	public static String CSH_GET_IMG_BASE_URL = NetInterface.IMG_URL ;
 	/** 商家详情接口 */
 	public static final String CSH_WASHCARDETAILS_URL = CSH_BASE_URL
 			+ "app/store/findStoreInfo";

@@ -258,7 +258,8 @@ public class PasswordForgetActivity extends BaseActivity implements
         String url = NetInterface.HEADER_ALL + NetInterface.SMS_TOKEN + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("mobileNo", phoneNumber);
-        param.put("tokenType", FORGET_PASSWORD);
+        param.put("tokenType", "FINDPWD");
+        param.put("sendType","SMS");
         netWorkHelper.PostJson(url, param, this);
 
     }

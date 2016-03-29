@@ -90,7 +90,16 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
         private String tenant_name;
         private double latitude;
         private String photo;
+        private String contact_phone;
         private int promotion_price;
+
+        public String getContact_phone() {
+            return contact_phone;
+        }
+
+        public void setContact_phone(String contact_phone) {
+            this.contact_phone = contact_phone;
+        }
 
         public int getId() {
             return id;

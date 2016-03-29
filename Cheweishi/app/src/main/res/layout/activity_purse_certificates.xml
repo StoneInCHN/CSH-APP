@@ -78,7 +78,7 @@
             android:src="@drawable/jifen_prize" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/tv_score_shop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -112,7 +112,7 @@
             android:src="@drawable/jifen_duihuan" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/tv_convert_record"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/small_marging"

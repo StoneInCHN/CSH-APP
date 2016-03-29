@@ -73,7 +73,9 @@ public class PurseActivity extends BaseActivity {
 
     private static final int URL_TYPE = 100000;
     private Intent intent;
+    private int walletId = 0;
     private String money = "";
+    private String redPacket = "";
     private String score;
     private MyBroadcastReceiver broad;
 
@@ -113,15 +115,19 @@ public class PurseActivity extends BaseActivity {
             case R.id.rel_purse_certificates:// 红包
                 intent = new Intent(PurseActivity.this,
                         PurseRedPacketsActivity.class);
+                intent.putExtra("walletId", walletId);
+                intent.putExtra("redPacket", redPacket);
                 startActivity(intent);
                 break;
             case R.id.rel_purse_integral:// 积分
                 intent = new Intent(PurseActivity.this, PurseIntegralActivity.class);
+                intent.putExtra("walletId", walletId);
                 intent.putExtra("score", score);
                 startActivity(intent);
                 break;
             case R.id.rel_purse_balance:// 账户余额
                 intent = new Intent(PurseActivity.this, PurseBalanceActivity.class);
+                intent.putExtra("walletId", walletId);
                 intent.putExtra("money", money);
                 startActivity(intent);
                 break;
@@ -169,8 +175,10 @@ public class PurseActivity extends BaseActivity {
 
         if (StringUtil.isEmpty(response.getMsg().getGiftAmount())) {
             tv_purse_certificates.setText(0 + "");
+            this.redPacket = 0+"";
         } else {
             tv_purse_certificates.setText(String.valueOf(response.getMsg().getGiftAmount()));
+            this.redPacket = String.valueOf(response.getMsg().getGiftAmount());
         }
         String money = String.valueOf(response.getMsg().getBalanceAmount());
         if (StringUtil.isEmpty(money)
@@ -191,8 +199,10 @@ public class PurseActivity extends BaseActivity {
             this.score = score;
         }
 
+        walletId = response.getMsg().getId();
+
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext,loginResponse);
+        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
     }
 
@@ -243,10 +253,8 @@ public class PurseActivity extends BaseActivity {
                     if (StringUtil.isEmpty(money)
                             || StringUtil.isEquals("null", money, true)) {
                         tv_purse_balance.setText(0 + "");
-                        this.money = 0 + "";
                     } else {
                         tv_purse_balance.setText(money);
-                        this.money = money;
                     }
                     String score = object.optString("score");
                     if (StringUtil.isEmpty(score)

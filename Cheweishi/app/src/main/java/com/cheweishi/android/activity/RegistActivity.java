@@ -119,7 +119,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     @ResInject(id = R.string.ba, type = ResType.String)
     private String str3;
     private boolean isclick = false;
-    private String path = "sms";
+    private String path = "SMS"; // 默认为短信
     private boolean passwordFlag = false;
     private boolean getCodeFlag = false;
     @ViewInject(R.id.edt_confirmpassword)
@@ -128,7 +128,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     private TextView tv_error;
 
 
-    private static final int REGISTER = 0;// 注册
+    private static final String REGISTER = "REG";// 注册
 
 
     @Override
@@ -172,7 +172,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                 RegistActivity.this.startActivity(intent);
                 break;
             case R.id.tv_voice:// 获取语音验证码
-                path = "voice";
+                path = "VOICE";
                 if (time != null) {
                     time.cancel();
                 }
@@ -476,6 +476,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
         Map<String, Object> param = new HashMap<>();
         param.put("mobileNo", phoneNumber);
         param.put("tokenType", REGISTER);
+        param.put("sendType",path);
         param.put(Constant.PARAMETER_TAG, NetInterface.SMS_TOKEN);
         netWorkHelper.PostJson(url, param, this);
     }
