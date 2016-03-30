@@ -372,7 +372,6 @@ public class MessageCenterApdater extends BaseAdapter {
 	}
 
 	public ArrayList<MessagCenterInfo> getList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

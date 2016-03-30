@@ -101,8 +101,9 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                 @Override
                 public void onClick(View arg0) {
                     // TODO 预约,因为要展示,所以暂时注释
-					Intent intent = new Intent(context,
-							OrderDetailsActivity.class);
+                    Toast.makeText(context,"非常抱歉,此功能正在开发中...",Toast.LENGTH_SHORT).show();
+//					Intent intent = new Intent(context,
+//							OrderDetailsActivity.class);
 //					Bundle bundle = new Bundle();
 //					bundle.putSerializable("washCar", washCar.get(groupPosition));
 //					bundle.putString("goods_id", type.get(groupPosition)
@@ -121,7 +122,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 //								.getDiscount_price());
 //					}
 //					intent.putExtra("bundle", bundle);
-					context.startActivity(intent);
+//					context.startActivity(intent);
                 }
             });
         } else {
@@ -135,8 +136,9 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                 @Override
                 public void onClick(View arg0) {
                     // TODO 预约,因为要展示,所以暂时注释
-					Intent intent = new Intent(context,
-							WashCarPayActivity.class);
+                    Toast.makeText(context,"非常抱歉,此功能正在开发中...",Toast.LENGTH_SHORT).show();
+//					Intent intent = new Intent(context,
+//							WashCarPayActivity.class);
 //					intent.putExtra("seller_id", washCar.getId());
 //					intent.putExtra("service_id", type.get(groupPosition)
 //							.getGoodsList().get(childPosition).getId());
@@ -157,7 +159,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 //							.get(childPosition).getGoods_name().contains("普洗")) {
 //						intent.putExtra("type", "px");
 //					}
-					context.startActivity(intent);
+//					context.startActivity(intent);
 
                 }
             });

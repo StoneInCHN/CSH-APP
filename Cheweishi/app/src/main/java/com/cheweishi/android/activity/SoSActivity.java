@@ -112,19 +112,17 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
         locationClient.registerLocationListener(this);
         baiduMap.setOnMarkerClickListener(this);
 
-//        ProgrosDialog.openDialog(this);
-//        String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
-//        Map<String, Object> param = new HashMap<>();
-//        param.put("userId", loginResponse.getDesc());
-//        param.put("token", loginResponse.getToken());
-////        param.put("latitude", MyMapUtils.getLatitude(baseContext));
-//        param.put("latitude", 10);
-////        param.put("longitude", MyMapUtils.getLongitude(baseContext));
-//        param.put("longitude", 10);
-//        param.put("serviceCategoryId", 4); // 紧急救援
-//        param.put("pageSize", 5);
-//        param.put("pageNumber", 1);
-//        netWorkHelper.PostJson(url, param, this);
+        ProgrosDialog.openDialog(this);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("latitude", MyMapUtils.getLatitude(baseContext));
+        param.put("longitude", MyMapUtils.getLongitude(baseContext));
+        param.put("serviceCategoryId", 4); // 紧急救援
+        param.put("pageSize", 5);
+        param.put("pageNumber", 1);
+        netWorkHelper.PostJson(url, param, this);
 
     }
 
@@ -132,7 +130,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     public void receive(String data) {
         ProgrosDialog.closeProgrosDialog();
 
-        ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceDetialResponse.class);
+        ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
             return;
@@ -233,8 +231,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     /**
      * 弹出呼叫对话框
      */
-    private void showSOSDialog(Marker marker) {
-        final ServiceListResponse.MsgBean response = (ServiceListResponse.MsgBean) marker.getExtraInfo().getSerializable("data");
+    private void showSOSDialog(final ServiceListResponse.MsgBean response) {
         if (null != response) {
             builder = new CustomDialog.Builder(this);
             builder.setTitle(response.getContact_phone());
@@ -327,17 +324,18 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
 //        InfoWindow mInfoWindow;
 //        TextView location = new TextView(SoSActivity.this);
 //        location.setBackgroundResource(R.drawable.jiuyuan_kuang);// location_tips
-//
-////        if (isLogined() && hasCar()) {
-////            location.setText(loginResponse.getMsg().getDefaultVehiclePlate());
-////        } else {
-////            location.setText(Sos_address.getText().toString());
-////        }
-//        Bundle bundle = arg0.getExtraInfo();
-//        if (null != bundle) {
-//            ServiceListResponse.MsgBean r = (ServiceListResponse.MsgBean) bundle.getSerializable("data");
-//            location.setText(r.getTenant_name() + " - " + r.getContact_phone());
+
+//        if (isLogined() && hasCar()) {
+//            location.setText(loginResponse.getMsg().getDefaultVehiclePlate());
+//        } else {
+//            location.setText(Sos_address.getText().toString());
 //        }
+        Bundle bundle = arg0.getExtraInfo();
+        if (null != bundle) {
+            ServiceListResponse.MsgBean r = (ServiceListResponse.MsgBean) bundle.getSerializable("data");
+//            location.setText(r.getTenant_name() + " - " + r.getContact_phone());
+            showSOSDialog(r);
+        }
 //        final LatLng ll = arg0.getPosition();
 //        Point p = baiduMap.getProjection().toScreenLocation(ll);
 //        p.y -= 60;
@@ -353,7 +351,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
 //                });
 //        // 显示InfoWindow
 //        baiduMap.showInfoWindow(mInfoWindow);
-        showSOSDialog(arg0);
+
         return false;
     }
 

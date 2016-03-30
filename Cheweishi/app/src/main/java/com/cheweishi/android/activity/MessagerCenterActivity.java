@@ -727,7 +727,7 @@ public class MessagerCenterActivity extends BaseActivity {
      */
     public void remevePageList(int position) {
         checkBoxDesiz++;
-        getInstance(this).deleteById(MessagCenterInfo.class,
+        getInstance(this).deleteById(MessageResponse.MsgBean.class,
                 httpList.get(position).getId() + "");
         httpList.remove(position);
     }
@@ -736,7 +736,8 @@ public class MessagerCenterActivity extends BaseActivity {
      * 刷新集合
      */
     public void Relafresh() {
-        this.mMessageCenterApdater.setDeleteData(pagelist);
+        if (null != pagelist)
+            this.mMessageCenterApdater.setDeleteData(pagelist);
 //    }
     }
 

@@ -182,9 +182,13 @@ public class MyorderAdapter extends BaseAdapter {
 
                 @Override
                 public void onClick(View arg0) {
-                    Intent intent = new Intent();
-                    intent.setClass(mContext, OrderDetailsActivity.class);
-                    mContext.startActivity(intent);
+
+                    // TODO
+
+                    Toast.makeText(mContext,"非常抱歉,此功能正在开发中...",Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent();
+//                    intent.setClass(mContext, OrderDetailsActivity.class);
+//                    mContext.startActivity(intent);
 
                 }
             });

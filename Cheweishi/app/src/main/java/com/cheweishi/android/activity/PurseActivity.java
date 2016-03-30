@@ -132,8 +132,9 @@ public class PurseActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.rel_purse_phone:// 话费余额
-                intent = new Intent(PurseActivity.this, WebPhoneActivity.class);
-                startActivity(intent);
+                showToast("非常抱歉,此功能正在开发中...");
+//                intent = new Intent(PurseActivity.this, WebPhoneActivity.class);
+//                startActivity(intent);
                 break;
             default:
                 break;

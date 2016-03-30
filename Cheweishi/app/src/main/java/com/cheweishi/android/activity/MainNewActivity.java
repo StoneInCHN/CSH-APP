@@ -786,7 +786,8 @@ public class MainNewActivity extends BaseActivity {
         intent = new Intent();
         switch (position) {
             case 0:// 买车险
-                isLoginOrHasCar(InsuranceActivity.class);
+                showToast("非常抱歉,此功能正在开发中...");
+//                isLoginOrHasCar(InsuranceActivity.class);
                 break;
             case 1:// 洗车
                 isLogin(WashcarListActivity.class);
@@ -813,7 +814,8 @@ public class MainNewActivity extends BaseActivity {
                 isLoginOrHasCar(CarDynamicActivity.class);
                 break;
             case 9:// 一键检测
-                isLoginOrHasCar(CarDetectionActivity.class);
+                showToast("非常抱歉,此功能正在开发中...");
+//                isLoginOrHasCar(CarDetectionActivity.class);
                 break;
             case 10:// 违章代办
                 isLoginOrHasCar(PessanySearchActivity.class);

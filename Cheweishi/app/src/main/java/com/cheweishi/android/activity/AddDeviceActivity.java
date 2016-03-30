@@ -61,7 +61,6 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
     private void initViews() {
         title.setText(R.string.title_activity_add_device);
         left_action.setText(R.string.back);
-        httpBiz = new HttpBiz(this);
     }
 
     @OnClick({R.id.left_action, R.id.bt_addDevice})
