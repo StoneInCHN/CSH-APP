@@ -41,6 +41,12 @@ import cn.jpush.android.api.TagAliasCallback;
 import com.baidu.lbsapi.auth.LBSAuthManagerListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
+import com.baidu.mapapi.search.core.PoiInfo;
+import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
+import com.baidu.mapapi.search.poi.PoiCitySearchOption;
+import com.baidu.mapapi.search.poi.PoiDetailResult;
+import com.baidu.mapapi.search.poi.PoiResult;
+import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
 import com.baidu.navisdk.BaiduNaviManager;
 import com.cheweishi.android.cheweishi.R;
@@ -194,6 +200,27 @@ public class MainNewActivity extends BaseActivity {
         initScrollView();
         iniBaiduNavi();
         initData();
+
+//        PoiSearch mPoiSearch = PoiSearch.newInstance();
+//        mPoiSearch.searchInCity((new PoiCitySearchOption())
+//                .city("成都")
+//                .keyword("加油站")
+//                .pageNum(10));
+//        mPoiSearch.setOnGetPoiSearchResultListener(new OnGetPoiSearchResultListener() {
+//            @Override
+//            public void onGetPoiResult(PoiResult poiResult) {
+//                List<PoiInfo> allPoi = poiResult.getAllPoi();
+//                for (int i = 0; i < allPoi.size(); i++) {
+//                    PoiInfo poiInfo = allPoi.get(i);
+//                    LogHelper.d("---" + poiInfo.address + "--" + poiInfo.city + "---" + poiInfo.type);
+//                }
+//            }
+//
+//            @Override
+//            public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+//
+//            }
+//        });
         // setJpush();
     }
 

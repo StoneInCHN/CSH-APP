@@ -56,6 +56,17 @@ public class CarManagerAdapter extends BaseAdapter {
         return 0;
     }
 
+    /**
+     * 置空
+     * @param listCarManager
+     */
+    public void setNullUpdateUi(List<MyCarManagerResponse.MsgBean> listCarManager) {
+        if (null != listCarManager) {
+            this.listCarManager = listCarManager;
+            this.notifyDataSetChanged();
+        }
+    }
+
     public void setData(List<MyCarManagerResponse.MsgBean> listCarManager) {
         if (listCarManager.size() > 0) {
             this.listCarManager = listCarManager;

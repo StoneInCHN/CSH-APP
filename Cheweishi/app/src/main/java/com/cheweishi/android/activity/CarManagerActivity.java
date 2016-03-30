@@ -123,7 +123,6 @@ public class CarManagerActivity extends BaseActivity implements
 
     @Override
     public void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
         if (broad == null) {
             broad = new MyBroadcastReceiver();
@@ -185,7 +184,7 @@ public class CarManagerActivity extends BaseActivity implements
      */
     private void connectToServer() {
         if (isLogined()) {
-            ProgrosDialog.openDialog(this);
+            ProgrosDialog.openDialog(baseContext);
             String url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.LIST + NetInterface.SUFFIX;
             Map<String, Object> param = new HashMap<>();
             param.put("userId", loginResponse.getDesc());
@@ -348,6 +347,7 @@ public class CarManagerActivity extends BaseActivity implements
         listView_front.setVisibility(View.VISIBLE);
         if (listCarManagerTemp != null) {
             listCarManagerTemp.clear();
+            adapter.setNullUpdateUi(listCarManagerTemp);
         }
         connectToServer();
     }
