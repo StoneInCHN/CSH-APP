@@ -58,6 +58,7 @@ public class CarManagerAdapter extends BaseAdapter {
 
     /**
      * 置空
+     *
      * @param listCarManager
      */
     public void setNullUpdateUi(List<MyCarManagerResponse.MsgBean> listCarManager) {
@@ -126,7 +127,9 @@ public class CarManagerAdapter extends BaseAdapter {
 
         if (listCarManager != null && listCarManager.size() > 0
                 && listCarManager.get(position).getPlate() != null) {
-            if (BaseActivity.loginResponse.getMsg().getDefaultVehicle().equals(listCarManager.get(position).getVehicleFullBrand())
+            if (null != BaseActivity.loginResponse.getMsg()
+                    && null != BaseActivity.loginResponse.getMsg().getDefaultVehicle()
+                    && BaseActivity.loginResponse.getMsg().getDefaultVehicle().equals(listCarManager.get(position).getVehicleFullBrand())
                     && BaseActivity.loginResponse.getMsg().getDefaultVehiclePlate().equals(listCarManager.get(position).getPlate())
                     ) {
                 viewHolder.tv_plateCode.setText(listCarManager.get(position)

@@ -358,7 +358,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
      */
     private void checkCode() {
         isclick = true;
-        path = "sms";
+        path = "SMS";
         mGetcodeButton.setClickable(false);
         if (mPhoneNumberEditText.getText().toString().equals("")) {
             showToast(getResources().getString(R.string.tel_cannot_null));

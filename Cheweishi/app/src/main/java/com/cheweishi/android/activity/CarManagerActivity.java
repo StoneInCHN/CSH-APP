@@ -126,7 +126,7 @@ public class CarManagerActivity extends BaseActivity implements
         super.onResume();
         if (broad == null) {
             broad = new MyBroadcastReceiver();
-        } else{
+        } else {
             reconnect();
         }
 
@@ -199,9 +199,14 @@ public class CarManagerActivity extends BaseActivity implements
      */
     private void ConnectItemToServer(MyCarManagerResponse.MsgBean msgBean) {
         ProgrosDialog.openDialog(this);
-        if (isLogined()
-                && !loginResponse.getMsg().getDefaultVehiclePlate().equals(msgBean.getPlate())
-                || !loginResponse.getMsg().getDefaultVehicle().equals(msgBean.getVehicleFullBrand())) {
+        if ((isLogined())) {
+
+            //  TODO 暂时没有判断
+//                ||
+//
+//                 null == loginResponse.getMsg().getDefaultVehiclePlate())
+//                || !loginResponse.getMsg().getDefaultVehiclePlate().equals(msgBean.getPlate())
+//                || !loginResponse.getMsg().getDefaultVehicle().equals(msgBean.getVehicleFullBrand())) {
 
             ProgrosDialog.openDialog(baseContext);
             String url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.SET_DEFAULT_DEVICE + NetInterface.SUFFIX;
@@ -216,7 +221,7 @@ public class CarManagerActivity extends BaseActivity implements
             DefaultName = msgBean.getVehicleFullBrand();
             DefaultPlate = msgBean.getPlate();
             DefaultIcon = msgBean.getBrandIcon();
-        }else{
+        } else {
             ProgrosDialog.closeProgrosDialog();
         }
     }
