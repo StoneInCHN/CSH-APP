@@ -21,6 +21,7 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ImgDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.CarManager;
+import com.cheweishi.android.entity.MyCarManagerResponse;
 import com.cheweishi.android.http.MyHttpUtils;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.AllCapTransformationMethod;
@@ -43,6 +44,8 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -50,6 +53,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -127,7 +131,7 @@ public class AddCarActivity extends BaseActivity {
     private LinearLayout ll_color_layout;
     @ViewInject(R.id.ll_top_top)
     private LinearLayout ll_top_top;
-    private CarManager carManagerTemp;
+    private MyCarManagerResponse.MsgBean carManagerTemp;
     @ViewInject(R.id.tv_nodevice)
     private TextView tv_nodevice;
     private AddHandler handler;
@@ -258,23 +262,18 @@ public class AddCarActivity extends BaseActivity {
                 getResources().getStringArray(R.array.color_item));
         if (getIntent().getExtras() != null
                 && getIntent().getExtras().getSerializable("car") != null) {
-            carManagerTemp = (CarManager) getIntent().getExtras()
+            carManagerTemp = (MyCarManagerResponse.MsgBean) getIntent().getExtras()
                     .getSerializable("car");
             if (carManagerTemp != null) {
                 title.setText(R.string.car_edit);
-                brandId = carManagerTemp.getBrand().getBrand();
-                styleId = carManagerTemp.getBrand().getModule();
-                modelId = carManagerTemp.getBrand().getSeries();
-                System.out.println("编辑车辆====" + brandId + "_" + styleId + "_"
-                        + modelId);
-                color = carManagerTemp.getColor();
+                brandId = carManagerTemp.getVehicleFullBrand();
+                styleId = String.valueOf(carManagerTemp.getId());
+                // TODO 暂时不需要
+//                modelId = carManagerTemp.getBrand().getSeries();
+//                color = carManagerTemp.getColor();
                 carPlate = carManagerTemp.getPlate();
-                if (!StringUtil.isEmpty(carManagerTemp.getBrand()
-                        .getBrandName())) {
-                    tv_car_style.setText(carManagerTemp.getBrand()
-                            .getBrandName()
-                            + "-"
-                            + carManagerTemp.getBrand().getSeriesName());
+                if (!StringUtil.isEmpty(brandId)) {
+                    tv_car_style.setText(brandId);
                 }
                 if (!StringUtil.isEmpty(carManagerTemp.getPlate())) {
                     tv_car_plate.setText(carManagerTemp.getPlate());
@@ -290,34 +289,38 @@ public class AddCarActivity extends BaseActivity {
 
                     }
                 }
-                if (!StringUtil.isEmpty(carManagerTemp.getDevice())) {
+                if (!StringUtil.isEmpty(carManagerTemp.getDeviceNo())) {
                     ll_boundDeviceID.setVisibility(View.VISIBLE);
-                    tv_car_device.setText(carManagerTemp.getDevice());
+                    tv_car_device.setText(carManagerTemp.getDeviceNo());
                     tv_car_device.setEnabled(false);
 
                 } else {
                     ll_boundDeviceID.setOnClickListener(listener);
                     tv_car_device.setOnClickListener(listener);
                 }
-                if (!StringUtil.isEmpty(carManagerTemp.getDevice())) {
-                    tv_storeId.setText(carManagerTemp.getSerial());
+                if (!StringUtil.isEmpty(carManagerTemp.getDeviceNo())) {
+                    tv_storeId.setText(carManagerTemp.getDeviceNo());
                     // tv_storeId.setEnabled(false);
                 } else {
 
                 }
-                if (!StringUtil.isEmpty(carManagerTemp.getNote())) {
-                    tv_car_note.setText(carManagerTemp.getNote());
-                }
-                if (!StringUtil.isEmpty(carManagerTemp.getVinNo())) {
-                    tv_car_vin.setText(carManagerTemp.getVinNo());
-                }
-                if (!StringUtil.isEmpty(carManagerTemp.getColor())) {
-                    tv_car_color.setHint(R.string.null_hint);
-                    tv_car_color.setVisibility(View.GONE);
-                    color_spinner.setText(carManagerTemp.getColor());
-                }
-                if (!StringUtil.isEmpty(carManagerTemp.getInspection())) {
-                    tv_annualSurvey.setText(carManagerTemp.getInspection());
+                // TODO 不知道是什么
+//                if (!StringUtil.isEmpty(carManagerTemp.getNote())) {
+                tv_car_note.setText("unknow");
+//                }
+
+                // TODO 车架号服务器没有返回
+//                if (!StringUtil.isEmpty(carManagerTemp.get)) {
+//                    tv_car_vin.setText(carPlate);
+//                }
+                // TODO 没有颜色这个选项
+//                if (!StringUtil.isEmpty(carManagerTemp.getColor())) {
+//                    tv_car_color.setHint(R.string.null_hint);
+//                    tv_car_color.setVisibility(View.GONE);
+//                    color_spinner.setText(carManagerTemp.getColor());
+//                }
+                if (!StringUtil.isEmpty(carManagerTemp.getNextAnnualInspection())) {
+                    tv_annualSurvey.setText(carManagerTemp.getNextAnnualInspection());
                 } else {
                     Date date = new Date();
                     SimpleDateFormat sp = new SimpleDateFormat("yyyy-MM-dd",
@@ -325,25 +328,25 @@ public class AddCarActivity extends BaseActivity {
                     String dateStr = sp.format(date);
                     tv_annualSurvey.setText(dateStr);
                 }
-                if (!StringUtil.isEmpty(carManagerTemp.getMileage())) {
-                    tv_car_mile.setText(carManagerTemp.getMileage() + "");
+                if (!StringUtil.isEmpty(carManagerTemp.getDriveMileage())) {
+                    tv_car_mile.setText(carManagerTemp.getDriveMileage() + "");
                 }
-                if (!StringUtil.isEmpty(carManagerTemp.getMaintain())) {
-                    tv_last_keepFit.setText(carManagerTemp.getMaintain() + "");
+                if (!StringUtil.isEmpty(carManagerTemp.getLastMaintainMileage())) {
+                    tv_last_keepFit.setText(carManagerTemp.getLastMaintainMileage() + "");
                 }
                 if (!StringUtil.isEmpty(carManagerTemp)) {
-                    carModelUrl = carManagerTemp.getBrand().getBrandIcon();
+                    carModelUrl = carManagerTemp.getBrandIcon();
                 }
 
                 XUtilsImageLoader.getxUtilsImageLoader(AddCarActivity.this,
                         R.drawable.car_default, img_car_xcRoundImg,
-                        API.DOWN_IMAGE_URL + carModelUrl);
+                        carModelUrl);
                 ll_top_top.setVisibility(View.VISIBLE);
-                carPlate = carManagerTemp.getPlate();
-                brandId = carManagerTemp.getBrand().getBrand();
-                modelId = carManagerTemp.getBrand().getSeries();
-                styleId = carManagerTemp.getBrand().getModule();
-                color = carManagerTemp.getColor();
+//                carPlate = carManagerTemp.getPlate();
+//                brandId = carManagerTemp.getBrand().getBrand();
+//                modelId = carManagerTemp.getBrand().getSeries();
+//                styleId = carManagerTemp.getBrand().getModule();
+//                color = carManagerTemp.getColor();
                 int index = colorArray.indexOf(color);
                 if (index >= 0) {
                     tv_color_flag.setBackgroundResource(colorIndexArray
@@ -735,6 +738,16 @@ public class AddCarActivity extends BaseActivity {
                     if (addCarFlag == false) {
                         intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
                                 + "4007930888"));
+                        if (ActivityCompat.checkSelfPermission(baseContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
                         startActivity(intent);
                     } else {
                         showToast(R.string.car_information_handle);
@@ -776,49 +789,8 @@ public class AddCarActivity extends BaseActivity {
 
             if (isLogined()) {
                 addCarFlag = true;
-//                RequestParams params = new RequestParams();
-//                params.addBodyParameter("uid", loginMessage.getUid());
-//                params.addBodyParameter("mobile", loginMessage.getMobile());
-//                // params.addBodyParameter("device", tv_car_device.getText()
-//                // .toString().replaceAll(" ", ""));
-//
-//                params.addBodyParameter("plate", carPlate);
-//                params.addBodyParameter("brand", brandId);
-//                params.addBodyParameter("series", modelId);
-//                params.addBodyParameter("module", styleId);
-//                params.addBodyParameter("type", 2 + "");
-//                params.addBodyParameter("color", color);
-//                params.addBodyParameter("vin", tv_car_vin.getText().toString());
-//                params.addBodyParameter("note", tv_car_note.getText()
-//                        .toString());
-//                params.addBodyParameter("mileage", tv_car_mile.getText()
-//                        .toString());
-//                params.addBodyParameter("m_mile", tv_last_keepFit.getText()
-//                        .toString());
-//                params.addBodyParameter("oil", tv_used_oil.getText().toString());
-//                params.addBodyParameter("inspect", tv_annualSurvey.getText()
-//                        .toString());
-//                params.addBodyParameter("serial", tv_storeId.getText()
-//                        .toString());
-//                MyHttpUtils myHttpUtils = null;
-//                if (carManagerTemp == null) {
-//                    myHttpUtils = new MyHttpUtils(AddCarActivity.this, params,
-//                            API.ADD_CAR_URL, handler);
-//                } else {
-//                    System.out.println("编辑车辆====" + brandId + "_" + styleId
-//                            + "_" + modelId);
-//                    params.addBodyParameter("cid", carManagerTemp.getId());
-//                    System.out.println("SUCCESS==========="
-//                            + carManagerTemp.getCid());
-//                    // Toast.makeText(AddCarActivity.this,
-//                    // carManagerTemp.getCid(), Toast.LENGTH_LONG).show();
-//                    myHttpUtils = new MyHttpUtils(AddCarActivity.this, params,
-//                            API.CAR_DETAIL_EDIT_URL, handler);
-//                }
-//                myHttpUtils.PostHttpUtils();
 
                 ProgrosDialog.openDialog(this);
-                String url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.ADD + NetInterface.SUFFIX;
                 Map<String, Object> param = new HashMap<>();
                 param.put("userId", loginResponse.getDesc());
                 param.put("token", loginResponse.getToken());
@@ -830,6 +802,14 @@ public class AddCarActivity extends BaseActivity {
                 param.put("nextAnnualInspection", tv_annualSurvey.getText());
                 param.put("driveMileage", tv_car_mile.getText());
                 param.put("lastMaintainMileage", tv_last_keepFit.getText());
+                String url;
+                if (null == carManagerTemp) { // 添加
+                    url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.ADD + NetInterface.SUFFIX;
+                } else { // 编辑
+                    url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.EDIT + NetInterface.SUFFIX;
+                    param.put("vehicleId", carManagerTemp.getId());
+                }
+
                 netWorkHelper.PostJson(url, param, this);
 
             }
@@ -860,7 +840,7 @@ public class AddCarActivity extends BaseActivity {
             startActivity(intent);
 
         } else {
-            if (StringUtil.isEmpty(carManagerTemp.getDevice())) {
+            if (StringUtil.isEmpty(carManagerTemp.getDeviceNo())) {
                 Intent intent = new Intent(AddCarActivity.this,
                         AddDeviceActivity.class);
                 intent.putExtra(
@@ -948,15 +928,15 @@ public class AddCarActivity extends BaseActivity {
                         startActivity(intent);
 
                     } else {
-                        if (StringUtil.isEmpty(carManagerTemp.getDevice())) {
-                            Intent intent = new Intent(AddCarActivity.this,
-                                    AddDeviceActivity.class);
-                            intent.putExtra(
-                                    "cid",
-                                    jsonObject.optJSONObject("data").optString(
-                                            "id"));
-                            startActivity(intent);
-                        }
+//                        if (StringUtil.isEmpty(carManagerTemp.getDevice())) {
+//                            Intent intent = new Intent(AddCarActivity.this,
+//                                    AddDeviceActivity.class);
+//                            intent.putExtra(
+//                                    "cid",
+//                                    jsonObject.optJSONObject("data").optString(
+//                                            "id"));
+//                            startActivity(intent);
+//                        }
                     }
                     finish();
 
@@ -994,7 +974,7 @@ public class AddCarActivity extends BaseActivity {
                             + "-" + data.getStringExtra("mResultLastName"));
                     XUtilsImageLoader.getxUtilsImageLoader(AddCarActivity.this,
                             R.drawable.car_default, img_car_xcRoundImg,
-                            API.DOWN_IMAGE_URL + carModelUrl);
+                            carModelUrl);
                     ll_top_top.setVisibility(View.VISIBLE);
                 }
                 break;

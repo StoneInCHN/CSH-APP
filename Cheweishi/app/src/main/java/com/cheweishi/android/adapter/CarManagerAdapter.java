@@ -142,13 +142,13 @@ public class CarManagerAdapter extends BaseAdapter {
             viewHolder.tv_serielsName.setText(listCarManager.get(position)
                     .getVehicleFullBrand());
 
-            // TODO 暂时不需要展示绑定车辆是否绑定了设备
-//            if (listCarManager.get(position).getDevice() == null
-//                    || listCarManager.get(position).getDevice().equals("")) {
-//                viewHolder.tv_device_state
-//                        .setText(R.string.car_manager_no_device);
-//            } else {
-            viewHolder.tv_device_state.setText("");
+            if (listCarManager.get(position).getDeviceNo() == null
+                    || listCarManager.get(position).getDeviceNo().equals("")) {
+                viewHolder.tv_device_state
+                        .setText(R.string.car_manager_no_device);
+            } else {
+                viewHolder.tv_device_state.setText("");
+            }
             // if (listCarManager.get(position).getFeed() == 0) {
             // viewHolder.tv_device_state.setText("");
             // } else {

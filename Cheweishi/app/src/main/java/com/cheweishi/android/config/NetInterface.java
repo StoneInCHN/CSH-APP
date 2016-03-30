@@ -5,8 +5,8 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-    public static final String BASE_URL = "http://139.129.5.114";// 基础路径
-//    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
+//    public static final String BASE_URL = "http://139.129.5.114";// 基础路径
+    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
 
@@ -79,5 +79,7 @@ public class NetInterface {
     public static final String SET_DEFAULT_DEVICE = "setDefault";//设置默认设备
 
     public static final String WALLET_RECORD = "walletRecordByType";//明细
+
+    public static final String EDIT = "edit";// 编辑
 
 }

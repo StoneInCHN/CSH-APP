@@ -47,6 +47,61 @@ public class MyCarManagerResponse extends BaseResponse implements Serializable{
         private int id;
         private String brandIcon;
         private String vehicleFullBrand;
+        private String deviceNo;
+        private String nextAnnualInspection;
+        private String trafficInsuranceExpiration;
+        private String lastMaintainMileage;
+        private String commercialInsuranceExpiration;
+        private String driveMileage;
+
+
+        public String getDriveMileage() {
+            return driveMileage;
+        }
+
+        public void setDriveMileage(String driveMileage) {
+            this.driveMileage = driveMileage;
+        }
+
+        public String getCommercialInsuranceExpiration() {
+            return commercialInsuranceExpiration;
+        }
+
+        public void setCommercialInsuranceExpiration(String commercialInsuranceExpiration) {
+            this.commercialInsuranceExpiration = commercialInsuranceExpiration;
+        }
+
+        public String getLastMaintainMileage() {
+            return lastMaintainMileage;
+        }
+
+        public void setLastMaintainMileage(String lastMaintainMileage) {
+            this.lastMaintainMileage = lastMaintainMileage;
+        }
+
+        public String getTrafficInsuranceExpiration() {
+            return trafficInsuranceExpiration;
+        }
+
+        public void setTrafficInsuranceExpiration(String trafficInsuranceExpiration) {
+            this.trafficInsuranceExpiration = trafficInsuranceExpiration;
+        }
+
+        public String getNextAnnualInspection() {
+            return nextAnnualInspection;
+        }
+
+        public void setNextAnnualInspection(String nextAnnualInspection) {
+            this.nextAnnualInspection = nextAnnualInspection;
+        }
+
+        public String getDeviceNo() {
+            return deviceNo;
+        }
+
+        public void setDeviceNo(String deviceNo) {
+            this.deviceNo = deviceNo;
+        }
 
         public boolean isDefault() {
             return isDefault;
