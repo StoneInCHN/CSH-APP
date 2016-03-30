@@ -31,11 +31,14 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -166,7 +169,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     public void onClick(View arg0) {
         switch (arg0.getId()) {
             case R.id.SosPhone:
-                showSOSDialog();
+                showSOSDialog(null);
                 break;
             case R.id.left_action:
                 finish();
@@ -230,31 +233,44 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     /**
      * 弹出呼叫对话框
      */
-    private void showSOSDialog() {
-        builder = new CustomDialog.Builder(this);
-        builder.setTitle(R.string.customerServicePhone);
-        builder.setPositiveButton(R.string.call_out,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        Intent intent = new Intent(Intent.ACTION_CALL, Uri
-                                .parse("tel:"
-                                        + getResources().getString(
-                                        R.string.customerServicePhone)));
-                        startActivity(intent);
+    private void showSOSDialog(Marker marker) {
+        final ServiceListResponse.MsgBean response = (ServiceListResponse.MsgBean) marker.getExtraInfo().getSerializable("data");
+        if (null != response) {
+            builder = new CustomDialog.Builder(this);
+            builder.setTitle(response.getContact_phone());
+            builder.setPositiveButton(R.string.call_out,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            Intent intent = new Intent(Intent.ACTION_CALL, Uri
+                                    .parse("tel:"
+                                            + response.getContact_phone()));
+                            if (ActivityCompat.checkSelfPermission(baseContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                // TODO: Consider calling
+                                //    ActivityCompat#requestPermissions
+                                // here to request the missing permissions, and then overriding
+                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                //                                          int[] grantResults)
+                                // to handle the case where the user grants the permission. See the documentation
+                                // for ActivityCompat#requestPermissions for more details.
+                                showToast("当前没有权限,请手动添加权限");
+                                return;
+                            }
+                            startActivity(intent);
 
-                    }
-                });
+                        }
+                    });
 
-        builder.setNegativeButton(R.string.cancel,
-                new android.content.DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        // setRadioButtonLight();
-                    }
-                });
-        sosDialog = builder.create();
-        sosDialog.show();
+            builder.setNegativeButton(R.string.cancel,
+                    new android.content.DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            // setRadioButtonLight();
+                        }
+                    });
+            sosDialog = builder.create();
+            sosDialog.show();
+        }
 
     }
 
@@ -308,36 +324,36 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
      */
     @Override
     public boolean onMarkerClick(Marker arg0) {
-        InfoWindow mInfoWindow;
-        TextView location = new TextView(SoSActivity.this);
-        location.setBackgroundResource(R.drawable.jiuyuan_kuang);// location_tips
-
-//        if (isLogined() && hasCar()) {
-//            location.setText(loginResponse.getMsg().getDefaultVehiclePlate());
-//        } else {
-//            location.setText(Sos_address.getText().toString());
+//        InfoWindow mInfoWindow;
+//        TextView location = new TextView(SoSActivity.this);
+//        location.setBackgroundResource(R.drawable.jiuyuan_kuang);// location_tips
+//
+////        if (isLogined() && hasCar()) {
+////            location.setText(loginResponse.getMsg().getDefaultVehiclePlate());
+////        } else {
+////            location.setText(Sos_address.getText().toString());
+////        }
+//        Bundle bundle = arg0.getExtraInfo();
+//        if (null != bundle) {
+//            ServiceListResponse.MsgBean r = (ServiceListResponse.MsgBean) bundle.getSerializable("data");
+//            location.setText(r.getTenant_name() + " - " + r.getContact_phone());
 //        }
-        Bundle bundle = arg0.getExtraInfo();
-        if (null != bundle) {
-            ServiceListResponse.MsgBean r = (ServiceListResponse.MsgBean) bundle.getSerializable("data");
-            location.setText(r.getTenant_name() + " - " + r.getContact_phone());
-        }
-        final LatLng ll = arg0.getPosition();
-        Point p = baiduMap.getProjection().toScreenLocation(ll);
-        p.y -= 60;
-        LatLng llInfo = baiduMap.getProjection().fromScreenLocation(p);
-        mInfoWindow = new InfoWindow(
-                BitmapDescriptorFactory.fromView(location), llInfo, 10,
-                new OnInfoWindowClickListener() {
-
-                    @Override
-                    public void onInfoWindowClick() {
-                        baiduMap.hideInfoWindow();
-                    }
-                });
-        // 显示InfoWindow
-        baiduMap.showInfoWindow(mInfoWindow);
-        showSOSDialog();
+//        final LatLng ll = arg0.getPosition();
+//        Point p = baiduMap.getProjection().toScreenLocation(ll);
+//        p.y -= 60;
+//        LatLng llInfo = baiduMap.getProjection().fromScreenLocation(p);
+//        mInfoWindow = new InfoWindow(
+//                BitmapDescriptorFactory.fromView(location), llInfo, 10,
+//                new OnInfoWindowClickListener() {
+//
+//                    @Override
+//                    public void onInfoWindowClick() {
+//                        baiduMap.hideInfoWindow();
+//                    }
+//                });
+//        // 显示InfoWindow
+//        baiduMap.showInfoWindow(mInfoWindow);
+        showSOSDialog(arg0);
         return false;
     }
 
