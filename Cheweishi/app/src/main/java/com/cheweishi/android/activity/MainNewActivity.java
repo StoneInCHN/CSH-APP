@@ -201,6 +201,7 @@ public class MainNewActivity extends BaseActivity {
         iniBaiduNavi();
         initData();
 
+
 //        PoiSearch mPoiSearch = PoiSearch.newInstance();
 //        mPoiSearch.searchInCity((new PoiCitySearchOption())
 //                .city("成都")

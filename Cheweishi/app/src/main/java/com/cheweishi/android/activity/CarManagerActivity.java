@@ -216,6 +216,8 @@ public class CarManagerActivity extends BaseActivity implements
             DefaultName = msgBean.getVehicleFullBrand();
             DefaultPlate = msgBean.getPlate();
             DefaultIcon = msgBean.getBrandIcon();
+        }else{
+            ProgrosDialog.closeProgrosDialog();
         }
     }
 

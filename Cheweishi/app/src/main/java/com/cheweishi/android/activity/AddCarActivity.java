@@ -267,7 +267,7 @@ public class AddCarActivity extends BaseActivity {
             if (carManagerTemp != null) {
                 title.setText(R.string.car_edit);
                 brandId = carManagerTemp.getVehicleFullBrand();
-                styleId = String.valueOf(carManagerTemp.getId());
+//                styleId = String.valueOf(carManagerTemp.getId());
                 // TODO 暂时不需要
 //                modelId = carManagerTemp.getBrand().getSeries();
 //                color = carManagerTemp.getColor();
@@ -794,7 +794,8 @@ public class AddCarActivity extends BaseActivity {
                 Map<String, Object> param = new HashMap<>();
                 param.put("userId", loginResponse.getDesc());
                 param.put("token", loginResponse.getToken());
-                param.put("brandDetailId", styleId);
+                if (null != styleId)
+                    param.put("brandDetailId", styleId);
                 param.put("plateNo", carPlate);
                 param.put("vehicleNo", tv_car_vin.getText().toString());
                 param.put("trafficInsuranceExpiration", tv_trafficSurvey.getText());
