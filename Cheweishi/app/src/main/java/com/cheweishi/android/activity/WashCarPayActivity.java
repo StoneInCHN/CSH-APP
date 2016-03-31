@@ -134,7 +134,6 @@ public class WashCarPayActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_washcar_pay);
 		ViewUtils.inject(this);
-		httpBiz = new HttpBiz(this);
 		init();
 
 	}

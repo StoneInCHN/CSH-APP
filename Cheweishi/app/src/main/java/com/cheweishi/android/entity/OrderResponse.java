@@ -2,12 +2,13 @@ package com.cheweishi.android.entity;
 
 import com.cheweishi.android.response.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by tangce on 3/27/2016.
  */
-public class OrderResponse extends BaseResponse {
+public class OrderResponse extends BaseResponse implements Serializable {
 
 
     /**
@@ -43,7 +44,7 @@ public class OrderResponse extends BaseResponse {
         this.msg = msg;
     }
 
-    public static class PageBean {
+    public static class PageBean implements Serializable {
         private int total;
         private int pageNumber;
         private int pageSize;
@@ -73,7 +74,7 @@ public class OrderResponse extends BaseResponse {
         }
     }
 
-    public static class MsgBean {
+    public static class MsgBean implements Serializable {
         private String tenantName;
         private int price;
         /**
@@ -125,7 +126,7 @@ public class OrderResponse extends BaseResponse {
             this.createDate = createDate;
         }
 
-        public static class CarServiceBean {
+        public static class CarServiceBean implements Serializable{
             private String serviceName;
             /**
              * id : 1
@@ -152,7 +153,7 @@ public class OrderResponse extends BaseResponse {
                 this.serviceCategory = serviceCategory;
             }
 
-            public static class ServiceCategoryBean {
+            public static class ServiceCategoryBean implements Serializable {
                 private int id;
                 private long createDate;
                 private long modifyDate;

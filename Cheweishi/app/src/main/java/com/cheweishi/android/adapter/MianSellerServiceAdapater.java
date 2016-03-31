@@ -76,22 +76,25 @@ public class MianSellerServiceAdapater extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     // TODO 点击跳转到洗车界面
-//					Intent intent = new Intent(mContext, WashCarPayActivity.class);
-//					intent.putExtra("seller", mainSellerInfo.getName());
+                    Intent intent = new Intent(mContext, WashCarPayActivity.class);
+                    intent.putExtra("seller", list.getTenant_name());
+                    // TODO 不知道是什么
 //					intent.putExtra("seller_id", mainSellerInfo.getId());
-//					intent.putExtra("service", list.get(position).getName());
+                    intent.putExtra("service", list.getService_category_name());
+                    // TODO 不知道是什么
 //					intent.putExtra("service_id", list.get(position).getId());
-//					if (StringUtil.isEmpty(list.get(position).getfPrice()) || StringUtil.isEquals("null", list.get(position).getfPrice(), true)) {
-//						intent.putExtra("price", list.get(position).getPrice());
-//					} else {
-//						intent.putExtra("price", list.get(position).getfPrice());
-//					}
-//					if (StringUtil.isEquals(list.get(position).getCate_id_2(), "30", true)) {
-//						intent.putExtra("type", "px");
-//					} else {
-//						intent.putExtra("type", "");
-//					}
-//					mContext.startActivity(intent);
+                    if (StringUtil.isEmpty(list.getPromotion_price()) || StringUtil.isEquals("null", String.valueOf(list.getPromotion_price()), true)) {
+                        intent.putExtra("price", String.valueOf(list.getPrice()));
+                    } else {
+                        intent.putExtra("price", String.valueOf(list.getPromotion_price()));
+                    }
+                    // TODO 不知道是什么
+//                    if (StringUtil.isEquals(list.get(position).getCate_id_2(), "30", true)) {
+//                        intent.putExtra("type", "px");
+//                    } else {
+//                        intent.putExtra("type", "");
+//                    }
+                    mContext.startActivity(intent);
                 }
             });
             convertView.setTag(holder);

@@ -3,8 +3,12 @@ package com.cheweishi.android.activity;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,9 +18,15 @@ import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
+import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.OrderDetail;
+import com.cheweishi.android.entity.OrderDetailResponse;
+import com.cheweishi.android.entity.OrderGoods;
+import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
+import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.QRImageUtil;
 import com.cheweishi.android.utils.StringUtil;
@@ -38,6 +48,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -81,7 +92,6 @@ public class OrderDetailsActivity extends BaseActivity implements
     private String store_id;
     private String goods_id;
     private String price;
-    private OrderDetail orderDetail;
     private MyBroadcastReceiver broad;
     @ViewInject(R.id.rl_order)
     private LinearLayout rl_order;
@@ -113,7 +123,10 @@ public class OrderDetailsActivity extends BaseActivity implements
     private ImageView img_daodian;
     @ViewInject(R.id.tv_daodian)
     private TextView tv_daodian;
+    @ViewInject(R.id.ll_order_detail)
+    private LinearLayout ll_order_detail;
     private Bitmap qrBitmap;
+    private OrderDetailResponse response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,7 +159,7 @@ public class OrderDetailsActivity extends BaseActivity implements
             flag = false;
         }
 
-		connectToServer();
+        connectToServer();
     }
 
     @OnClick({R.id.left_action, R.id.right_action, R.id.img_nav, R.id.imgphone})
@@ -174,7 +187,7 @@ public class OrderDetailsActivity extends BaseActivity implements
      */
     public void turnToPhone() {
         Intent tel = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
-                + orderDetail.getMobile()));
+                + response.getMsg().getTenantInfo().getContactPhone()));
         tel.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(tel);
     }
@@ -187,8 +200,8 @@ public class OrderDetailsActivity extends BaseActivity implements
         baiduMapView.initMap(this);
         baiduMapView.baiduNavigation(MyMapUtils.getLatitude(this),
                 MyMapUtils.getLongitude(this), MyMapUtils.getAddress(this),
-                orderDetail.getIm_lat(), orderDetail.getIm_lng(),
-                orderDetail.getAddress());
+                response.getMsg().getTenantInfo().getLatitude(), response.getMsg().getTenantInfo().getLongitude(),
+                response.getMsg().getTenantInfo().getAddress());
     }
 
     /**
@@ -197,7 +210,7 @@ public class OrderDetailsActivity extends BaseActivity implements
     private void cancelOrder() {
         Intent intent = new Intent();
         intent.setClass(OrderDetailsActivity.this, MaintainCancelActivity.class);
-        intent.putExtra("orderId", orderDetail.getOrderId());
+//        intent.putExtra("orderId", orderDetail.getOrderId());
         startActivity(intent);
     }
 
@@ -205,25 +218,39 @@ public class OrderDetailsActivity extends BaseActivity implements
      * 请求服务器
      */
     private void connectToServer() {
-        RequestParams rp = new RequestParams();
-        ProgrosDialog.openDialog(this);
-        httpBiz = new HttpBiz(this);
-        rp.addBodyParameter("uid", loginMessage.getUid());
-        rp.addBodyParameter("mobile", loginMessage.getMobile());
-        if (flag == true) {// 生成订单网络请求
-            rp.addBodyParameter("store_id", store_id);
-            rp.addBodyParameter("goods_id", goods_id);
-            rp.addBodyParameter("price", price);
-            httpBiz.httPostData(10001, API.CSH_MAKE_ORDER_URL, rp, this);
-        } else {// 订单详情请求
-            if (cancelFlag == false) {
-                rp.addBodyParameter("orderId",
-                        getIntent().getStringExtra("order_id"));
-            } else {
-                rp.addBodyParameter("orderId", orderDetail.getOrderId());
-            }
-            httpBiz.httPostData(10001, API.ORDER_DETAIL_URL, rp, this);
+        String recordId = getIntent().getStringExtra("recordId");
+        if (null != recordId) {
+            ProgrosDialog.openDialog(this);
+            String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER + NetInterface.ORDER_DETIAL + NetInterface.SUFFIX;
+            LogHelper.d("url"+url);
+            Map<String, Object> param = new HashMap<>();
+            param.put("userId", loginResponse.getDesc());
+            param.put("token", loginResponse.getToken());
+            param.put("recordId", recordId);
+            netWorkHelper.PostJson(url, param, this);
         }
+
+    }
+
+
+    @Override
+    public void receive(String data) {
+        ProgrosDialog.closeProgrosDialog();
+        response = (OrderDetailResponse) GsonUtil.getInstance().convertJsonStringToObject(data, OrderDetailResponse.class);
+        if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            showToast(response.getDesc());
+            return;
+        }
+
+        setValues();
+        loginResponse.setToken(response.getToken());
+        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        ProgrosDialog.closeProgrosDialog();
+        showToast(R.string.server_link_fault);
     }
 
     /**
@@ -256,8 +283,8 @@ public class OrderDetailsActivity extends BaseActivity implements
                 Gson gson = new Gson();
                 java.lang.reflect.Type type = new TypeToken<OrderDetail>() {
                 }.getType();
-                orderDetail = gson.fromJson(jsonObject.optString("data"), type);
-                setValues();
+//                orderDetail = gson.fromJson(jsonObject.optString("data"), type);
+//                setValues();
             } else if (StringUtil.isEquals(jsonObject.optString("state"),
                     API.returnRelogin, true)) {
                 ReLoginDialog.getInstance(this).showDialog(
@@ -297,21 +324,38 @@ public class OrderDetailsActivity extends BaseActivity implements
     }
 
     private void setValues() {
-        car_tv_car_iv_location.setText(orderDetail.getStore_name());
-        car_xlocation.setText(orderDetail.getAddress());
+        car_tv_car_iv_location.setText(response.getMsg().getTenantInfo().getTenantName());
+        car_xlocation.setText(response.getMsg().getTenantInfo().getAddress());
         // tv_reputation.setText(orderDetail.getReputation());
         tv_reputation.setText("");
-        tv_order_sn.setText(orderDetail.getOrder_sn());
+        tv_order_sn.setText(response.getMsg().getRecordNo());
         XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.zhaochewei_img,
-                car_iv_location, API.CSH_BASE_URL + orderDetail.getImage_1());
-        progress_pay_statue(orderDetail.getStatus());
-        adapter = new OrderExLvAdapter(this, orderDetail.getOrderGoodsList());
-        if (!StringUtil.isEmpty(orderDetail.getBarcodes())) {
-            ll_erweima.setVisibility(View.VISIBLE);
-            qrBitmap = QRImageUtil.createQRImage(orderDetail.getBarcodes(),
-                    OrderDetailsActivity.this);
-            img_erweima.setImageBitmap(qrBitmap);
+                car_iv_location, response.getMsg().getTenantInfo().getPhoto());
+
+
+        ll_order_detail.removeAllViews();
+        // TODO 添加钻石
+        for (int i = 0; i < response.getMsg().getTenantInfo().getPraiseRate(); i++) {
+            ImageView imageView = new ImageView(baseContext);
+            imageView.setLayoutParams(new AbsListView.LayoutParams(
+                    AbsListView.LayoutParams.WRAP_CONTENT, AbsListView.LayoutParams.WRAP_CONTENT));
+            imageView.setPadding(0, 0, 2, 0);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageView.setImageResource(R.drawable.haoping);
+            ll_order_detail.addView(imageView);
         }
+
+        progress_pay_statue(response.getMsg().getTenantInfo().getChargeStatus());
+        adapter = new OrderExLvAdapter(this, response);
+
+        // TODO 条形码先不管.
+
+//        if (!StringUtil.isEmpty(orderDetail.getBarcodes())) {
+//            ll_erweima.setVisibility(View.VISIBLE);
+//            qrBitmap = QRImageUtil.createQRImage(orderDetail.getBarcodes(),
+//                    OrderDetailsActivity.this);
+//            img_erweima.setImageBitmap(qrBitmap);
+//        }
         listView.setAdapter(adapter);
     }
 
@@ -367,55 +411,100 @@ public class OrderDetailsActivity extends BaseActivity implements
     }
 
     private void progress_pay_statue(String str) {
-        if (StringUtil.isEquals(str, "0", true)) {// 订单已取消(支付流程)
-            img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
-            img_daodian.setImageResource(R.drawable.dingdanxiangqing_quxiao2x);
-            tv_yuyue.setText("预约下单");
-            tv_daodian.setText("已取消");
-            red_img_order(R.string.order_cancel_oen);
-            tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
-            tv_time1_first.setText(formateDate(orderDetail.getAdd_time()));
-            tv_time1_second
-                    .setText(formateDate(orderDetail.getFinished_time()));
-        } else if (StringUtil.isEquals(str, "1", true)) {// 确认付款(支付流程)
-            img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
-            img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang2x);
-            tv_yuyue.setText("预约下单");
-            tv_daodian.setText("到店洗车");
-            green_img_order(R.string.order_not_pay);
-            tv_daodian.setTextColor(getResources().getColor(R.color.gray));
-            tv_time1_first.setText(formateDate(orderDetail.getAdd_time()));
-            tv_time1_second.setText("");
-        } else if (StringUtil.isEquals(str, "12", true)) {// 订单进行中(支付流程)
-            img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
-            img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang2x);
-            tv_yuyue.setText("预约下单");
-            tv_daodian.setText("到店洗车");
-            green_img_order(R.string.order_win_middle);
-            tv_daodian.setTextColor(getResources().getColor(R.color.gray));
-            tv_time1_first.setText(formateDate(orderDetail.getAdd_time()));
-            tv_time1_second.setText("");
-        } else if (StringUtil.isEquals(str, "3", true)) {// 订单完成(支付流程)
-            img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
-            img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang1);
-            tv_yuyue.setText("预约下单");
-            tv_daodian.setText("到店洗车");
-            green_img_order(R.string.order_win_complete);
-            tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
-            tv_time1_first.setText(formateDate(orderDetail.getAdd_time()));
-            tv_time1_second
-                    .setText(formateDate(orderDetail.getFinished_time()));
-        } else if (StringUtil.isEquals(str, "4", true)) {// 过期(支付流程)
-            img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
-            img_daodian.setImageResource(R.drawable.dingdanxiangqing_quxiao2x);
-            tv_yuyue.setText("预约下单");
-            tv_daodian.setText("已过期");
-            red_img_order(R.string.order_out_of_dateline);
-            tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
-            tv_time1_first.setText(formateDate(orderDetail.getAdd_time()));
-            tv_time1_second
-                    .setText(formateDate(orderDetail.getFinished_time()));
+        if(null == str)
+            return;
+        /*** 预约
+         RESERVATION,
+         未支付
+         UNPAID,
+         已支付
+         PAID
+         */
+        switch (str) {
+            case "RESERVATION": // 预约
+                img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+                img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang2x);
+                tv_yuyue.setText("预约下单");
+                tv_daodian.setText("到店洗车");
+                green_img_order(R.string.order_not_pay);
+                tv_daodian.setTextColor(getResources().getColor(R.color.gray));
+                tv_time1_first.setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
+                tv_time1_second.setText("");
+                break;
+            case "UNPAID": // 未支付
+                img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+                img_daodian.setImageResource(R.drawable.dingdanxiangqing_quxiao2x);
+                tv_yuyue.setText("预约下单");
+                tv_daodian.setText("未支付");
+                red_img_order(R.string.order_cancel_oen);
+                tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
+                tv_time1_first.setText(formateDate(formateDate(String.valueOf(response.getMsg().getCreateDate()))));
+                tv_time1_second
+                        .setText(formateDate(formateDate(String.valueOf(response.getMsg().getCreateDate()))));
+                break;
+            case "PAID":  //已支付
+                img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+                img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang1);
+                tv_yuyue.setText("预约下单");
+                tv_daodian.setText("到店洗车");
+                green_img_order(R.string.order_win_complete);
+                tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
+                tv_time1_first.setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
+                tv_time1_second
+                        .setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
+                break;
         }
+
+
+//        if (StringUtil.isEquals(str, "0", true)) {// 订单已取消(支付流程)
+//            img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+//            img_daodian.setImageResource(R.drawable.dingdanxiangqing_quxiao2x);
+//            tv_yuyue.setText("预约下单");
+//            tv_daodian.setText("已取消");
+//            red_img_order(R.string.order_cancel_oen);
+//            tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
+//            tv_time1_first.setText(formateDate(orderDetail.getAdd_time()));
+//            tv_time1_second
+//                    .setText(formateDate(orderDetail.getFinished_time()));
+//        } else if (StringUtil.isEquals(str, "1", true)) {// 确认付款(支付流程)
+//            img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+//            img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang2x);
+//            tv_yuyue.setText("预约下单");
+//            tv_daodian.setText("到店洗车");
+//            green_img_order(R.string.order_not_pay);
+//            tv_daodian.setTextColor(getResources().getColor(R.color.gray));
+//            tv_time1_first.setText(formateDate(orderDetail.getAdd_time()));
+//            tv_time1_second.setText("");
+//        } else if (StringUtil.isEquals(str, "12", true)) {// 订单进行中(支付流程)
+//            img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+//            img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang2x);
+//            tv_yuyue.setText("预约下单");
+//            tv_daodian.setText("到店洗车");
+//            green_img_order(R.string.order_win_middle);
+//            tv_daodian.setTextColor(getResources().getColor(R.color.gray));
+//            tv_time1_first.setText(formateDate(orderDetail.getAdd_time()));
+//            tv_time1_second.setText("");
+//        } else if (StringUtil.isEquals(str, "3", true)) {// 订单完成(支付流程)
+//            img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+//            img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang1);
+//            tv_yuyue.setText("预约下单");
+//            tv_daodian.setText("到店洗车");
+//            green_img_order(R.string.order_win_complete);
+//            tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
+//            tv_time1_first.setText(formateDate(orderDetail.getAdd_time()));
+//            tv_time1_second
+//                    .setText(formateDate(orderDetail.getFinished_time()));
+//        } else if (StringUtil.isEquals(str, "4", true)) {// 过期(支付流程)
+//            img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+//            img_daodian.setImageResource(R.drawable.dingdanxiangqing_quxiao2x);
+//            tv_yuyue.setText("预约下单");
+//            tv_daodian.setText("已过期");
+//            red_img_order(R.string.order_out_of_dateline);
+//            tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
+//            tv_time1_first.setText(formateDate(orderDetail.getAdd_time()));
+//            tv_time1_second
+//                    .setText(formateDate(orderDetail.getFinished_time()));
+//        }
     }
 
 }

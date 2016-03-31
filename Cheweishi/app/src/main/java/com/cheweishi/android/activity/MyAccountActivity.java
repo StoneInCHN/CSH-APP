@@ -287,4 +287,11 @@ public class MyAccountActivity extends BaseActivity implements OnClickListener {
             }
         }
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broad);
+    }
 }

@@ -266,7 +266,7 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        showToast("非常抱歉,此功能正在开发中...");
+//        showToast("非常抱歉,此功能正在开发中...");
 //        Intent intent = new Intent(this, OrderDetailsActivity.class);
 //        intent.putExtra("order_id", list.get(arg2 - 1).getCarService().getServiceCategory().getId());
 //        startActivity(intent);

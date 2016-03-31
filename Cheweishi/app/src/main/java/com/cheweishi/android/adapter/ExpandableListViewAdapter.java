@@ -101,28 +101,27 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                 @Override
                 public void onClick(View arg0) {
                     // TODO 预约,因为要展示,所以暂时注释
-                    Toast.makeText(context,"非常抱歉,此功能正在开发中...",Toast.LENGTH_SHORT).show();
-//					Intent intent = new Intent(context,
-//							OrderDetailsActivity.class);
-//					Bundle bundle = new Bundle();
-//					bundle.putSerializable("washCar", washCar.get(groupPosition));
-//					bundle.putString("goods_id", type.get(groupPosition)
-//							.getGoodsList().get(childPosition).getId());
-//					bundle.putString("store_id", type.get(groupPosition)
-//							.getGoodsList().get(childPosition).getStore_id());
-//
-//					if (type.get(groupPosition).getGoodsList()
-//							.get(childPosition).getIs_discount_price()
-//							.equals("0")) {
-//						bundle.putString("price", type.get(groupPosition)
-//								.getGoodsList().get(childPosition).getPrice());
-//					} else {
-//						bundle.putString("price", type.get(groupPosition)
-//								.getGoodsList().get(childPosition)
-//								.getDiscount_price());
-//					}
-//					intent.putExtra("bundle", bundle);
-//					context.startActivity(intent);
+					Intent intent = new Intent(context,
+							OrderDetailsActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("washCar", washCar.get(groupPosition));
+					bundle.putString("goods_id", type.get(groupPosition)
+							.getGoodsList().get(childPosition).getId());
+					bundle.putString("store_id", type.get(groupPosition)
+							.getGoodsList().get(childPosition).getStore_id());
+
+					if (type.get(groupPosition).getGoodsList()
+							.get(childPosition).getIs_discount_price()
+							.equals("0")) {
+						bundle.putString("price", type.get(groupPosition)
+								.getGoodsList().get(childPosition).getPrice());
+					} else {
+						bundle.putString("price", type.get(groupPosition)
+								.getGoodsList().get(childPosition)
+								.getDiscount_price());
+					}
+					intent.putExtra("bundle", bundle);
+					context.startActivity(intent);
                 }
             });
         } else {

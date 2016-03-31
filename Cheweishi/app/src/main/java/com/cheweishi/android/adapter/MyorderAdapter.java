@@ -117,9 +117,11 @@ public class MyorderAdapter extends BaseAdapter {
             holder.tv_order_time = (TextView) arg1
                     .findViewById(R.id.tv_order_time);
             arg1.setTag(holder);
+            holder.btn_order_detail.setTag(arg0);
 
         } else {
             holder = (ViewHolder) arg1.getTag();
+            holder.btn_order_detail.setTag(arg0);
         }
 
         // TODO 自己服务器参数
@@ -139,17 +141,19 @@ public class MyorderAdapter extends BaseAdapter {
             holder.tv_order_class_name.setTextColor(mContext.getResources()
                     .getColor(R.color.gray_pressed));
             holder.btn_order_comment.setVisibility(View.GONE);
-            holder.btn_order_detail.setVisibility(View.GONE);
+            holder.btn_order_detail.setVisibility(View.VISIBLE);
 
             // holder.tv_order_class.setText("现代朗动保养");
             holder.btn_order_detail.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View arg0) {
-                    Intent intent = new Intent();
-                    intent.setClass(mContext, CancelOrderActivity.class);
-                    mContext.startActivity(intent);
 
+                    // TODO 查看详情
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, OrderDetailsActivity.class);
+                    intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getCarService().getServiceCategory().getId()));
+                    mContext.startActivity(intent);
                 }
             });
         } else if (mData.get(arg0).getChargeStatus().equals("UNPAID")) {// 订单进行中
@@ -167,6 +171,22 @@ public class MyorderAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View arg1) {
                     // TODO 付款
+
+                    Intent intent = new Intent(mContext, WashCarPayActivity.class);
+                    intent.putExtra("seller", mData.get(arg0).getTenantName());
+                    // TODO 不知道是什么
+//					intent.putExtra("seller_id", mainSellerInfo.getId());
+                    intent.putExtra("service", mData.get(arg0).getCarService().getServiceName());
+                    // TODO 不知道是什么
+//					intent.putExtra("service_id", list.get(position).getId());
+                    intent.putExtra("price", String.valueOf(mData.get(arg0).getPrice()));
+                    // TODO 不知道是什么
+//                    if (StringUtil.isEquals(list.get(position).getCate_id_2(), "30", true)) {
+//                        intent.putExtra("type", "px");
+//                    } else {
+//                        intent.putExtra("type", "");
+//                    }
+                    mContext.startActivity(intent);
                 }
             });
         } else if (mData.get(arg0).getChargeStatus().equals("PAID")) {// 订单进行中
@@ -185,10 +205,10 @@ public class MyorderAdapter extends BaseAdapter {
 
                     // TODO
 
-                    Toast.makeText(mContext,"非常抱歉,此功能正在开发中...",Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent();
-//                    intent.setClass(mContext, OrderDetailsActivity.class);
-//                    mContext.startActivity(intent);
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, OrderDetailsActivity.class);
+                    intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getCarService().getServiceCategory().getId()));
+                    mContext.startActivity(intent);
 
                 }
             });
