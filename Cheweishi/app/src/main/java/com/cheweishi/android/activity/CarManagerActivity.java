@@ -369,7 +369,6 @@ public class CarManagerActivity extends BaseActivity implements
 
     @Override
     public void onDestroy() {
-        // TODO Auto-generated method stub
         super.onDestroy();
         if (listCarManager != null) {
             listCarManager.clear();
@@ -393,7 +392,6 @@ public class CarManagerActivity extends BaseActivity implements
 
     @Override
     public void dealCallBackFromAdapter(int pos, Object obj) {
-        // TODO Auto-generated method stub
         super.dealCallBackFromAdapter(pos, obj);
         if (ButtonUtils.isFastClick()) {
             return;

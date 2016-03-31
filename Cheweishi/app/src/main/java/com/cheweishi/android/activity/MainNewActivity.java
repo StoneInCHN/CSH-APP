@@ -567,7 +567,7 @@ public class MainNewActivity extends BaseActivity {
         param.put("serviceCategoryId", 2); // TODO 目前只有一种
         param.put("pageSize", 5);
         param.put("pageNumber", 1);
-        param.put(Constant.PARAMETER_TAG, NetInterface.LIST);
+        param.put(Constant.PARAMETER_TAG, NetInterface.LIST + "HOME");
         netWorkHelper.PostJson(url, param, this);
     }
 
@@ -575,7 +575,7 @@ public class MainNewActivity extends BaseActivity {
     public void receive(String TAG, String data) {
         ProgrosDialog.closeProgrosDialog();
         switch (TAG) {
-            case NetInterface.LIST:
+            case NetInterface.LIST + "HOME":
                 ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
                 if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     // TODO 成功
@@ -599,6 +599,7 @@ public class MainNewActivity extends BaseActivity {
 
                 AdvResponse advResponse = (AdvResponse) GsonUtil.getInstance().convertJsonStringToObject(data, AdvResponse.class);
                 if (!advResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(advResponse.getDesc());
                     return;
                 }
 
