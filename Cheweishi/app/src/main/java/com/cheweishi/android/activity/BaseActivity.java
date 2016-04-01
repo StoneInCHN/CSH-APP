@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.JSONCallback;
+import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.http.NetWorkHelper;
@@ -291,7 +292,8 @@ public abstract class BaseActivity extends FragmentActivity implements
      */
     @Override
     public void error(String errorMsg) {
-
+        ProgrosDialog.closeProgrosDialog();
+        showToast(R.string.server_link_fault);
     }
 
     /**
