@@ -275,6 +275,12 @@ public class MessagerCenterActivity extends BaseActivity {
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
 
+    @Override
+    public void error(String errorMsg) {
+        ProgrosDialog.closeProgrosDialog();
+        showToast(R.string.server_link_fault);
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public void receive(int type, String data) {
