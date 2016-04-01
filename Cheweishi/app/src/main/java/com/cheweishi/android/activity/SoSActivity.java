@@ -149,6 +149,12 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     }
 
     @Override
+    public void error(String errorMsg) {
+        ProgrosDialog.closeProgrosDialog();
+        showToast(R.string.server_link_fault);
+    }
+
+    @Override
     protected void onStart() {
         locationClient.start();
         baiduMap.setMyLocationEnabled(true);
