@@ -127,6 +127,7 @@ public class PurseBalanceActivity extends BaseActivity implements
         }
     }
 
+
     // 网络请求方法
     private void request() {
         ProgrosDialog.openDialog(baseContext);
