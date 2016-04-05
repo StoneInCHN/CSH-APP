@@ -354,7 +354,6 @@ public class MessageCenterApdater extends BaseAdapter {
 		for (int i = size - 1; i >= 0; i--) {
 			CheckEntity checkEntity = checkEntities.get(i);
 			if (checkEntity.isCheck() == true) {
-				Log.i("hujian", "=======hujian=========" + i);
 				((MessagerCenterActivity) mContext).remevePageList(i);
 			}
 		}

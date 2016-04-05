@@ -47,6 +47,7 @@ import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.ACache;
 import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.SwipeMenu;
 import com.cheweishi.android.widget.SwipeMenuCreator;
@@ -627,27 +628,7 @@ public class MessagerCenterActivity extends BaseActivity {
         ;
     };
 
-    /**
-     * 删除选中
-     */
-    public void checkDe() {
-        this.mMessageCenterApdater.deletaCheackAll();
-        msg_tv_allread.setEnabled(false);
-        msg_tv_allread.setText(R.string.delete);
-        this.msg_tv_allread.setTextColor(MessagerCenterActivity.this
-                .getResources().getColor(R.color.gray_normal));
-        int a = httpList.size();
-        System.out.println("SUCCESS==============size =" + a);
-        if (a == 0) {
-            isleftDelate = false;
-            steLeftDeleta();
-            this.msg_linbottom.setVisibility(View.GONE);
-            right_action.setVisibility(View.GONE);
-            EmptyTools.setEmptyView(this, messagerCenterListView);
-            EmptyTools.setImg(R.drawable.message_message);
-            EmptyTools.setMessage("您还没有相关消息");
-        }
-    }
+
 
     /**
      * 设置左边的字体 编辑状态
@@ -827,9 +808,32 @@ public class MessagerCenterActivity extends BaseActivity {
     }
 
     /**
+     * 删除选中
+     */
+    public void checkDe() {
+        LogHelper.d("删除checkDe");
+        this.mMessageCenterApdater.deletaCheackAll();
+        msg_tv_allread.setEnabled(false);
+        msg_tv_allread.setText(R.string.delete);
+        this.msg_tv_allread.setTextColor(MessagerCenterActivity.this
+                .getResources().getColor(R.color.gray_normal));
+        int a = httpList.size();
+        if (a == 0) {
+            isleftDelate = false;
+            steLeftDeleta();
+            this.msg_linbottom.setVisibility(View.GONE);
+            right_action.setVisibility(View.GONE);
+            EmptyTools.setEmptyView(this, messagerCenterListView);
+            EmptyTools.setImg(R.drawable.message_message);
+            EmptyTools.setMessage("您还没有相关消息");
+        }
+    }
+
+    /**
      * 清空数据
      */
     public void setAllClear() {
+        LogHelper.d("清空所有数据");
         clearAllize += httpList.size();
         httpList.clear();
         msg_tv_allread.setText(R.string.delete);

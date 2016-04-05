@@ -5,8 +5,8 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-    //    public static final String BASE_URL = "http://139.129.5.114:8080";// 基础路径
-    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
+    public static final String BASE_URL = "http://139.129.5.114:8080";// 基础路径
+//    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
 
@@ -91,5 +91,9 @@ public class NetInterface {
     public static final String BUY_SERVICE = "payService";//购买服务
 
     public static final String UPDATE_PAY_STATUS = "updatePayStatus";//更新购买状态
+
+    public static final String CHARGE_PAY = "chargeIn";//充值到钱包的交易凭证
+
+    public static final String PAY_CALLBACK = "walletCharge";//充值成功后回调
 
 }

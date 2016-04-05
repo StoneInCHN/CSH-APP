@@ -25,8 +25,13 @@ import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
+import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.ChargePayResponse;
+import com.cheweishi.android.response.BaseResponse;
+import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
+import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.PayUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.utils.weixinpay.WeiXinPay;
@@ -36,6 +41,9 @@ import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 支付界面
  *
@@ -43,7 +51,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
  */
 @ContentView(R.layout.activity_pay_choice)
 public class PayActivty extends BaseActivity implements OnClickListener,
-        OnCheckedChangeListener {
+        OnCheckedChangeListener, PayUtils.OnPayListener {
     @ViewInject(R.id.left_action)
     private TextView left_action;
 
@@ -139,6 +147,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
             case R.id.btn_pay:
                 btn_pay.setClickable(false);
 
+                payMoney();
 //                getPingCharge();
                 // if (StringUtil.isEquals(payment_type, "zfb", true)) {
                 // connectToServer();
@@ -189,6 +198,18 @@ public class PayActivty extends BaseActivity implements OnClickListener,
             default:
                 break;
         }
+    }
+
+    private void payMoney() {
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_USER_BALANCE + NetInterface.CHARGE_PAY + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("amount", moneyAccount);
+        param.put("paymentType", channel);
+        param.put(Constant.PARAMETER_TAG, NetInterface.CHARGE_PAY);
+        netWorkHelper.PostJson(url, param, this);
     }
 
     @Override
@@ -332,6 +353,53 @@ public class PayActivty extends BaseActivity implements OnClickListener,
             }
 
         }
+    }
+
+    @Override
+    public void receive(String TAG, String data) {
+        ProgrosDialog.closeProgrosDialog();
+        btn_pay.setClickable(true);
+        switch (TAG) {
+            case NetInterface.CHARGE_PAY:
+                ChargePayResponse response = (ChargePayResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ChargePayResponse.class);
+                if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(response.getDesc());
+                    return;
+                }
+
+                switch (channel) {
+                    case CHANNEL_ALIPAY: //支付宝
+                        payUtils = new PayUtils();
+                        payUtils.setOutTradeNo(response.getMsg().getOut_trade_no());
+                        payUtils.setPayListener(this);
+                        payUtils.pay(PayActivty.this, "车生活", "钱包充值", moneyAccount);
+                        break;
+                    case CHANNEL_WECHAT: // 微信
+                        break;
+                }
+
+
+                loginResponse.setToken(response.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                break;
+            case NetInterface.PAY_CALLBACK:
+                BaseResponse baseResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+                if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(baseResponse.getDesc());
+                    return;
+                }
+
+                loginResponse.setToken(baseResponse.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        ProgrosDialog.closeProgrosDialog();
+        btn_pay.setClickable(true);
     }
 
     @Override
@@ -484,7 +552,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
             if (resultCode == Activity.RESULT_OK) {
                 String result = data.getExtras().getString("pay_result");
                 /*
-				 * 处理返回值 "success" - payment succeed "fail" - payment failed
+                 * 处理返回值 "success" - payment succeed "fail" - payment failed
 				 * "cancel" - user canceld "invalid" - payment plugin not
 				 * installed
 				 */
@@ -530,6 +598,28 @@ public class PayActivty extends BaseActivity implements OnClickListener,
         if (!StringUtil.isEmpty(broad)) {
             unregisterReceiver(broad);
         }
+    }
+
+    @Override
+    public void onPaySuccess() {
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_USER_BALANCE + NetInterface.PAY_CALLBACK + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("amount", moneyAccount);
+        param.put(Constant.PARAMETER_TAG, NetInterface.PAY_CALLBACK);
+        netWorkHelper.PostJson(url, param, this);
+    }
+
+    @Override
+    public void onPayConfirm() {
+
+    }
+
+    @Override
+    public void onPayFail() {
+
     }
 
     private class MyBroadcastReceiver extends BroadcastReceiver {
