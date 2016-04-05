@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/3/26.
  */
-public class ServiceDetialResponse extends BaseResponse implements Serializable{
+public class ServiceDetailResponse extends BaseResponse implements Serializable{
 
 
     /**

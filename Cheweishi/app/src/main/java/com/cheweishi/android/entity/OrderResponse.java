@@ -77,6 +77,7 @@ public class OrderResponse extends BaseResponse implements Serializable {
     public static class MsgBean implements Serializable {
         private String tenantName;
         private int price;
+        private int id;
         /**
          * serviceName : 车身保养
          * serviceCategory : {"id":1,"createDate":1450860985000,"modifyDate":1450860985000,"categoryName":"保养"}
@@ -85,6 +86,15 @@ public class OrderResponse extends BaseResponse implements Serializable {
         private CarServiceBean carService;
         private String chargeStatus;
         private long createDate;
+
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
         public String getTenantName() {
             return tenantName;
@@ -135,7 +145,17 @@ public class OrderResponse extends BaseResponse implements Serializable {
              * categoryName : 保养
              */
 
+            private int id;
+
             private ServiceCategoryBean serviceCategory;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
 
             public String getServiceName() {
                 return serviceName;

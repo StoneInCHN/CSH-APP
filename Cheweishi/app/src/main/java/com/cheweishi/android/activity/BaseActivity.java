@@ -170,9 +170,6 @@ public abstract class BaseActivity extends FragmentActivity implements
     protected void onDestroy() {
         ActivityControl.removeActivity(this);
         super.onDestroy();
-        if (httpBiz != null) {
-            httpBiz.removeAllHandler();
-        }
         if (progress != null) {
             progress.dismiss();
         }
@@ -495,5 +492,25 @@ public abstract class BaseActivity extends FragmentActivity implements
 
     public void dealCallBackFromAdapter(int pos, Object obj) {
 
+    }
+
+
+    public String getUserId() {
+        if (null != loginResponse)
+            return loginResponse.getDesc();
+        return null;
+    }
+
+    public String getToken() {
+        if (null != loginResponse)
+            return loginResponse.getToken();
+        return null;
+    }
+
+    public void setUserToken(String token) {
+        if (null != token && null != loginResponse) {
+            loginResponse.setToken(token);
+            LoginMessageUtils.saveloginmsg(baseContext,loginResponse);
+        }
     }
 }

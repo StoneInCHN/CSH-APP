@@ -5,7 +5,7 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-//    public static final String BASE_URL = "http://139.129.5.114:8080";// 基础路径
+    //    public static final String BASE_URL = "http://139.129.5.114:8080";// 基础路径
     public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
@@ -39,7 +39,9 @@ public class NetInterface {
     public static final String SUFFIX = ".jhtml";//后缀
 
 
-    /********************* 接口 *********************/
+    /**********************
+     * 接口
+     *********************/
     public static final String USER_LOGIN = "login";
 
     public static final String SMS_TOKEN = "getSmsToken"; // 验证码接口
@@ -82,6 +84,12 @@ public class NetInterface {
 
     public static final String EDIT = "edit";// 编辑
 
-    public static final String ORDER_DETIAL="recordDetail";// 订单详情
+    public static final String ORDER_DETIAL = "recordDetail";// 订单详情
+
+    public static final String SUBSCRIBE = "subscribeService";// 预约
+
+    public static final String BUY_SERVICE = "payService";//购买服务
+
+    public static final String UPDATE_PAY_STATUS = "updatePayStatus";//更新购买状态
 
 }

@@ -19,7 +19,7 @@ import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.ServiceDetialResponse;
+import com.cheweishi.android.entity.ServiceDetailResponse;
 import com.cheweishi.android.entity.UserComment;
 import com.cheweishi.android.entity.WashCar;
 import com.cheweishi.android.tools.EmptyTools;
@@ -112,7 +112,7 @@ public class MaintainDetailsActivity extends BaseActivity implements
     private WashCarCommentAdapter commentAdapter;
     private ExpandableListViewAdapter exListAdapter;
     String id = "";
-    ServiceDetialResponse washCar;
+    ServiceDetailResponse washCar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,7 +170,7 @@ public class MaintainDetailsActivity extends BaseActivity implements
     @Override
     public void receive(String data) {
         ProgrosDialog.closeProgrosDialog();
-        washCar = (ServiceDetialResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceDetialResponse.class);
+        washCar = (ServiceDetailResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceDetailResponse.class);
         if (!washCar.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(washCar.getDesc());
             return;
@@ -256,7 +256,7 @@ public class MaintainDetailsActivity extends BaseActivity implements
         tv_time_interval.setText(String.valueOf(washCar.getMsg().getBusinessTime()));
         car_xlocation.setText(String.valueOf(washCar.getMsg().getAddress()));
         exListAdapter = new ExpandableListViewAdapter(this,
-                washCar.getMsg().getCarServices());
+                washCar.getMsg().getCarServices(),washCar.getMsg().getTenantName());
         lv_washcar_detils.setOnGroupClickListener(onGroupClickListener);
         lv_washcar_detils.setAdapter(exListAdapter);
         for (int i = 0; i < washCar.getMsg().getCarServices().size(); i++) {

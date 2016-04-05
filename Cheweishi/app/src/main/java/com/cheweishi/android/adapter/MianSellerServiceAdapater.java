@@ -18,6 +18,7 @@ import com.cheweishi.android.activity.WashCarPayActivity;
 import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.MainSellerServiceInfo;
 import com.cheweishi.android.entity.ServiceListResponse;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 
 /**
@@ -75,14 +76,15 @@ public class MianSellerServiceAdapater extends BaseAdapter {
 
                 @Override
                 public void onClick(View v) {
+
+                    LogHelper.d("name:" + list.getTenant_name());
                     // TODO 点击跳转到洗车界面
                     Intent intent = new Intent(mContext, WashCarPayActivity.class);
                     intent.putExtra("seller", list.getTenant_name());
                     // TODO 不知道是什么
 //					intent.putExtra("seller_id", mainSellerInfo.getId());
                     intent.putExtra("service", list.getService_category_name());
-                    // TODO 不知道是什么
-//					intent.putExtra("service_id", list.get(position).getId());
+                    intent.putExtra("service_id", list.getService_id());
                     if (StringUtil.isEmpty(list.getPromotion_price()) || StringUtil.isEquals("null", String.valueOf(list.getPromotion_price()), true)) {
                         intent.putExtra("price", String.valueOf(list.getPrice()));
                     } else {

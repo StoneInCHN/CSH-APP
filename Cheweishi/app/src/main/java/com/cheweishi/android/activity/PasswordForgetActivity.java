@@ -73,7 +73,7 @@ public class PasswordForgetActivity extends BaseActivity implements
     private String str2;
     @ResInject(id = R.string.ba, type = ResType.String)
     private String str3;
-    private String path = "sms";
+    private String path = "SMS";
 
 
     private static final int FORGET_PASSWORD = 1;
@@ -149,7 +149,7 @@ public class PasswordForgetActivity extends BaseActivity implements
                     .getApplicationContext().getResources()
                     .getColor(R.color.orange_text_color));
         } else {
-            path = "voice";
+            path = "VOICE";
 
             btn_pass_forget_getcode.setTextColor(PasswordForgetActivity.this
                     .getApplicationContext().getResources()
@@ -171,7 +171,7 @@ public class PasswordForgetActivity extends BaseActivity implements
             showToast(R.string.tel_error);
             initColorTextView(true);
         } else {
-            path = "sms";
+            path = "SMS";
             tv_notSms.setVisibility(View.VISIBLE);
             tv_voice.setVisibility(View.VISIBLE);
             initColorTextView(true);
@@ -259,7 +259,7 @@ public class PasswordForgetActivity extends BaseActivity implements
         Map<String, Object> param = new HashMap<>();
         param.put("mobileNo", phoneNumber);
         param.put("tokenType", "FINDPWD");
-        param.put("sendType","SMS");
+        param.put("sendType",path);
         netWorkHelper.PostJson(url, param, this);
 
     }

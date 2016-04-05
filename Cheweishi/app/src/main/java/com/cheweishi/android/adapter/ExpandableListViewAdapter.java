@@ -1,26 +1,29 @@
 package com.cheweishi.android.adapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.activity.BaseActivity;
-import com.cheweishi.android.activity.BaskOrderActivity;
 import com.cheweishi.android.activity.OrderDetailsActivity;
 import com.cheweishi.android.activity.WashCarPayActivity;
-import com.cheweishi.android.entity.ServiceDetialResponse;
-import com.cheweishi.android.entity.WashCar;
-import com.cheweishi.android.entity.WashCarType;
-import com.cheweishi.android.utils.StringUtil;
+import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.ServiceDetailResponse;
+import com.cheweishi.android.http.NetWorkHelper;
+import com.cheweishi.android.response.BaseResponse;
+import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.widget.UnSlidingListView;
+import com.lidroid.xutils.http.ResponseInfo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,21 +33,22 @@ import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     private String type;
-    private List<ServiceDetialResponse.MsgBean.CarServicesBean> washCar;
+    private List<ServiceDetailResponse.MsgBean.CarServicesBean> washCar;
     LayoutInflater mInflater;
     Context context;
+    private String tenantName;
 
     public ExpandableListViewAdapter(Context context,
-                                     List<ServiceDetialResponse.MsgBean.CarServicesBean> washCar) {
+                                     List<ServiceDetailResponse.MsgBean.CarServicesBean> washCar, String tenantName) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
         this.washCar = washCar;
+        this.tenantName = tenantName;
     }
 
     @Override
@@ -101,6 +105,9 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                 @Override
                 public void onClick(View arg0) {
                     // TODO 预约,因为要展示,所以暂时注释,调用预约接口
+
+                    subscript(washCar.get(groupPosition).getSubServices().get(childPosition).getId(), washCar.get(groupPosition).getSubServices().get(childPosition).getPrice());
+
 //					Intent intent = new Intent(context,
 //							OrderDetailsActivity.class);
 //					Bundle bundle = new Bundle();
@@ -134,8 +141,15 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
                 @Override
                 public void onClick(View arg0) {
-                    // TODO 预约,因为要展示,所以暂时注释
-                    Toast.makeText(context,"非常抱歉,此功能正在开发中...",Toast.LENGTH_SHORT).show();
+                    // TODO 支付,因为要展示,所以暂时注释
+
+                    Intent intent = new Intent(context, WashCarPayActivity.class);
+                    intent.putExtra("seller", tenantName);
+                    intent.putExtra("service", washCar.get(groupPosition).getCategoryName());
+                    intent.putExtra("service_id", String.valueOf(washCar.get(groupPosition).getSubServices().get(childPosition).getId()));
+                    intent.putExtra("price", String.valueOf(washCar.get(groupPosition).getSubServices().get(childPosition).getPrice()));
+                    LogHelper.d("price:" + String.valueOf(washCar.get(groupPosition).getSubServices().get(childPosition).getPrice()));
+                    context.startActivity(intent);
 //					Intent intent = new Intent(context,
 //							WashCarPayActivity.class);
 //					intent.putExtra("seller_id", washCar.getId());
@@ -166,7 +180,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
         if (0 == washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice()) {
             mViewChild.tv_item_child_discount_showOrNot
-                    .setVisibility(View.VISIBLE);
+                    .setVisibility(View.GONE);
             mViewChild.tv_discount_price_remind.setVisibility(View.VISIBLE);
             mViewChild.tv_original_price.setVisibility(View.VISIBLE);
             mViewChild.tv_discount_price.setText("￥"
@@ -178,11 +192,63 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             mViewChild.tv_discount_price.setText("￥"
                     + washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice());
             mViewChild.tv_item_child_discount_showOrNot
-                    .setVisibility(View.VISIBLE);
+                    .setVisibility(View.GONE);
             mViewChild.tv_discount_price_remind.setVisibility(View.VISIBLE);
             mViewChild.tv_original_price.setVisibility(View.VISIBLE);
         }
         return convertView;
+    }
+
+    /**
+     * 预约发包
+     *
+     * @param id
+     * @param price
+     */
+    private void subscript(int id, int price) {
+        ProgrosDialog.openDialog(context);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER + NetInterface.SUBSCRIBE + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", ((BaseActivity) context).getUserId());
+        param.put("token", ((BaseActivity) context).getToken());
+        param.put("serviceId", id);
+        param.put("price", price);
+        LogHelper.d(id + "----" + price);
+        NetWorkHelper.getInstance(context).PostJson(url, param, new JSONCallback() {
+            @Override
+            public void receive(int type, String data) {
+
+            }
+
+            @Override
+            public void downFile(int type, ResponseInfo<File> arg0) {
+
+            }
+
+            @Override
+            public void receive(String TAG, String data) {
+
+            }
+
+            @Override
+            public void receive(String data) {
+                ProgrosDialog.closeProgrosDialog();
+                BaseResponse response = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+                if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    Toast.makeText(context, R.string.server_link_fault, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(context, OrderDetailsActivity.class);
+                intent.putExtra("recordId", response.getDesc());
+                context.startActivity(intent);
+                ((BaseActivity) context).setUserToken(response.getToken());
+            }
+
+            @Override
+            public void error(String errorMsg) {
+                ProgrosDialog.closeProgrosDialog();
+            }
+        });
     }
 
     /**

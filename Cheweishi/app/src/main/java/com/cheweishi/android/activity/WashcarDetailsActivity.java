@@ -23,18 +23,16 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.adapter.ExpandableListViewAdapter;
 import com.cheweishi.android.adapter.WashCarCommentAdapter;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.ServiceDetialResponse;
+import com.cheweishi.android.entity.ServiceDetailResponse;
 import com.cheweishi.android.entity.UserComment;
 import com.cheweishi.android.entity.WashCar;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.BaiduMapView;
@@ -43,7 +41,6 @@ import com.cheweishi.android.widget.UnSlidingListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -114,7 +111,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
     private WashCarCommentAdapter commentAdapter;
     private ExpandableListViewAdapter exListAdapter;
     String id = "";
-    ServiceDetialResponse washCar;
+    ServiceDetailResponse washCar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +170,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
     @Override
     public void receive(String data) {
         ProgrosDialog.closeProgrosDialog();
-        washCar = (ServiceDetialResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceDetialResponse.class);
+        washCar = (ServiceDetailResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceDetailResponse.class);
         if (!washCar.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(washCar.getDesc());
             return;
@@ -259,7 +256,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
         tv_time_interval.setText(String.valueOf(washCar.getMsg().getBusinessTime()));
         car_xlocation.setText(String.valueOf(washCar.getMsg().getAddress()));
         exListAdapter = new ExpandableListViewAdapter(this,
-                washCar.getMsg().getCarServices());
+                washCar.getMsg().getCarServices(),washCar.getMsg().getTenantName());
         lv_washcar_detils.setOnGroupClickListener(onGroupClickListener);
         lv_washcar_detils.setAdapter(exListAdapter);
         for (int i = 0; i < washCar.getMsg().getCarServices().size(); i++) {

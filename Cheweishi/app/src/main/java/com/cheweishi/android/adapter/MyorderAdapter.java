@@ -177,8 +177,9 @@ public class MyorderAdapter extends BaseAdapter {
                     // TODO 不知道是什么
 //					intent.putExtra("seller_id", mainSellerInfo.getId());
                     intent.putExtra("service", mData.get(arg0).getCarService().getServiceName());
-                    // TODO 不知道是什么
-//					intent.putExtra("service_id", list.get(position).getId());
+                    //TODO 服务id暂时获取不了.
+                    intent.putExtra("service_id", String.valueOf(mData.get(arg0).getCarService().getId()));
+                    intent.putExtra("recordId", String.valueOf(mData.get(arg0).getId()));
                     intent.putExtra("price", String.valueOf(mData.get(arg0).getPrice()));
                     // TODO 不知道是什么
 //                    if (StringUtil.isEquals(list.get(position).getCate_id_2(), "30", true)) {

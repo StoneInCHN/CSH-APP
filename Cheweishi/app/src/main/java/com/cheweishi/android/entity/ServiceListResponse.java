@@ -81,6 +81,7 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
 
     public static class MsgBean  implements Serializable{
         private int id;
+        private String service_id;
         private double distance;
         private int price;
         private String address;
@@ -92,6 +93,14 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
         private String photo;
         private String contact_phone;
         private int promotion_price;
+
+        public String getService_id() {
+            return service_id;
+        }
+
+        public void setService_id(String service_id) {
+            this.service_id = service_id;
+        }
 
         public String getContact_phone() {
             return contact_phone;

@@ -125,6 +125,8 @@ public class OrderDetailsActivity extends BaseActivity implements
     private TextView tv_daodian;
     @ViewInject(R.id.ll_order_detail)
     private LinearLayout ll_order_detail;
+    @ViewInject(R.id.tv_line_left)
+    private TextView tv_line_left;
     private Bitmap qrBitmap;
     private OrderDetailResponse response;
 
