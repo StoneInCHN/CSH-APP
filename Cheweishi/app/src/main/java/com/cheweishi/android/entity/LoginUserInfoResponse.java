@@ -10,11 +10,21 @@ public class LoginUserInfoResponse implements Serializable {
     private String nickName;
     private String photo;
     private String id;
+    private String defaultDeviceNo;
     private String userName;
     private String defaultVehicle;
     private String defaultVehiclePlate;
 
     private String defaultVehicleIcon;
+
+
+    public String getDefaultDeviceNo() {
+        return defaultDeviceNo;
+    }
+
+    public void setDefaultDeviceNo(String defaultDeviceNo) {
+        this.defaultDeviceNo = defaultDeviceNo;
+    }
 
     public String getDefaultVehicleIcon() {
         return defaultVehicleIcon;

@@ -211,22 +211,50 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                     @Override
                     public void onCheckedChanged(CompoundButton arg0,
                                                  boolean arg1) {
-                        balance = amount;
+
+                        // TODO 余额支付
+
                         if (cb_balance.isChecked()) {
-                            balance_status = 0;
-                            redCompute(mRed, mMoney, mScore);
+                            img_alipay.setImageResource(R.drawable.dian12x);
+                            img_weixin.setImageResource(R.drawable.dian12x);
+                            img_upacp.setImageResource(R.drawable.dian12x);
+                            ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
+                                    .setChecked(false);
+                            ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
+                                    .setChecked(false);
+                            ((RadioButton) pay_rg.findViewById(R.id.rb_upacp))
+                                    .setChecked(false);
+                            channel = CHANNEL_WALLET;
                         } else {
-                            balance_status = 1;
-                            remainder = 0.0;
-                            // if (red == 0) {
-                            // balance = amount;
-                            // }else {
-                            // balance = amount - red;
-                            // }
-                            // tv_wash_money.setText("￥" + balance + "元");
-                            tv_balance_hint.setText("使用余额支付");
-                            redCompute(mRed, mMoney, mScore);
+                            img_alipay.setImageResource(R.drawable.dian22x);
+                            img_weixin.setImageResource(R.drawable.dian12x);
+                            img_upacp.setImageResource(R.drawable.dian12x);
+                            ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
+                                    .setChecked(true);
+                            ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
+                                    .setChecked(false);
+                            ((RadioButton) pay_rg.findViewById(R.id.rb_upacp))
+                                    .setChecked(false);
+                            channel = CHANNEL_ALIPAY;
                         }
+
+
+//                        balance = amount;
+//                        if (cb_balance.isChecked()) {
+//                            balance_status = 0;
+//                            redCompute(mRed, mMoney, mScore);
+//                        } else {
+//                            balance_status = 1;
+//                            remainder = 0.0;
+//                            // if (red == 0) {
+//                            // balance = amount;
+//                            // }else {
+//                            // balance = amount - red;
+//                            // }
+//                            // tv_wash_money.setText("￥" + balance + "元");
+//                            tv_balance_hint.setText("使用余额支付");
+//                            redCompute(mRed, mMoney, mScore);
+//                        }
                     }
                 });
 
@@ -315,6 +343,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 img_alipay.setImageResource(R.drawable.dian22x);
                 img_weixin.setImageResource(R.drawable.dian12x);
                 img_upacp.setImageResource(R.drawable.dian12x);
+                cb_balance.setChecked(false);
                 ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
                         .setChecked(true);
                 ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
@@ -324,6 +353,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 channel = CHANNEL_ALIPAY;
                 break;
             case R.id.ll_weixin:
+                cb_balance.setChecked(false);
                 img_weixin.setImageResource(R.drawable.dian22x);
                 img_alipay.setImageResource(R.drawable.dian12x);
                 img_upacp.setImageResource(R.drawable.dian12x);
@@ -338,6 +368,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 break;
 
             case R.id.ll_upacp:
+                cb_balance.setChecked(false);
                 img_weixin.setImageResource(R.drawable.dian12x);
                 img_alipay.setImageResource(R.drawable.dian12x);
                 img_upacp.setImageResource(R.drawable.dian22x);
@@ -406,6 +437,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                         payUtils.setOutTradeNo(out_trade_no); // 设置订单号
                         payUtils.setPayListener(this);
                         payUtils.pay(WashCarPayActivity.this, tv_pay_name.getText() + "", tv_pay_service_name.getText() + "", Double.valueOf(price));
+//                        payUtils.pay(WashCarPayActivity.this, tv_pay_name.getText() + "", tv_pay_service_name.getText() + "", 0.01);
                         break;
                     case CHANNEL_WECHAT:// 微信
                         String prepay_id = preparePayResponse.getMsg().getPrepay_id();
@@ -414,7 +446,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                         WeiXinPay.getinstance(this).pay(prepay_id, nonce_str);
                         break;
                     case CHANNEL_WALLET://钱包
-
+                        showToast("支付成功");
                         break;
                 }
 
@@ -436,6 +468,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
         }
 
     }
+
 
     @Override
     public void error(String errorMsg) {
@@ -822,12 +855,16 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     @Override
     public void onPaySuccess() {
         // TODO 调用状态接口
+        if (null == recordId && "".equals(recordId)) {
+            showToast("更新订单状态失败");
+            return;
+        }
         ProgrosDialog.openDialog(baseContext);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER + NetInterface.UPDATE_PAY_STATUS + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
-//        param.put("recordId",)
+        param.put("recordId", recordId);
         param.put("chargeStatus", "PAID");//已支付
         param.put(Constant.PARAMETER_TAG, NetInterface.UPDATE_PAY_STATUS);
         netWorkHelper.PostJson(url, param, this);

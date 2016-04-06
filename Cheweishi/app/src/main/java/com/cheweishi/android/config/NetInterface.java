@@ -5,8 +5,8 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-    public static final String BASE_URL = "http://139.129.5.114:8080";// 基础路径
-//    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
+    //    public static final String BASE_URL = "http://139.129.5.114:8080";// 基础路径
+    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
 
@@ -29,6 +29,8 @@ public class NetInterface {
     public static final String TEMP_MESSAGE = "/csh-interface/message/";//消息中心
 
     public static final String TEMP_FEEDBACK = "/csh-interface/feedback/";// 反馈
+
+    public static final String TEMP_OBD = "/csh-interface/obd/"; // 检测obd相关
 
     public static final String HEADER_ALL = BASE_URL + TEMP_URL;
 
@@ -95,5 +97,9 @@ public class NetInterface {
     public static final String CHARGE_PAY = "chargeIn";//充值到钱包的交易凭证
 
     public static final String PAY_CALLBACK = "walletCharge";//充值成功后回调
+
+    public static final String DETECTION = "oneKeyDetection";//车辆检测报告
+
+    public static final String CAR_SCAN = "vehicleScan";//车辆扫描
 
 }

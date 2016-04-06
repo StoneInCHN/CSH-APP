@@ -121,7 +121,6 @@ public class CarDynamicActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_car_dynamic);
 		ViewUtils.inject(this);
-		httpBiz = new HttpBiz(this);
 		init();
 	}
 

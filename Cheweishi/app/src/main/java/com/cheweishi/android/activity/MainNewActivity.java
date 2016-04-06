@@ -844,8 +844,7 @@ public class MainNewActivity extends BaseActivity {
                 isLoginOrHasCar(CarDynamicActivity.class);
                 break;
             case 9:// 一键检测
-                showToast("非常抱歉,此功能正在开发中...");
-//                isLoginOrHasCar(CarDetectionActivity.class);
+                isLoginOrHasCar(CarDetectionActivity.class);
                 break;
             case 10:// 违章代办
                 isLoginOrHasCar(PessanySearchActivity.class);

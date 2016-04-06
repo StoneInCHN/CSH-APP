@@ -78,6 +78,7 @@ public class CarManagerActivity extends BaseActivity implements
     private String DefaultName = "";
     private String DefaultPlate = "";
     private String DefaultIcon = "";
+    private String DefaultNo = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,6 +222,7 @@ public class CarManagerActivity extends BaseActivity implements
             DefaultName = msgBean.getVehicleFullBrand();
             DefaultPlate = msgBean.getPlate();
             DefaultIcon = msgBean.getBrandIcon();
+            DefaultNo = msgBean.getDeviceNo();
         } else {
             ProgrosDialog.closeProgrosDialog();
         }
@@ -278,6 +280,7 @@ public class CarManagerActivity extends BaseActivity implements
                 msg.setDefaultVehicle(DefaultName);
                 msg.setDefaultVehicleIcon(DefaultIcon);
                 msg.setDefaultVehiclePlate(DefaultPlate);
+                msg.setDefaultDeviceNo(DefaultNo);
                 loginResponse.setMsg(msg);
                 loginResponse.setToken(baseResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);

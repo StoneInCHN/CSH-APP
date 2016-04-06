@@ -87,6 +87,15 @@ public class OrderResponse extends BaseResponse implements Serializable {
         private String chargeStatus;
         private long createDate;
 
+        private long paymentDate;
+
+        public long getPaymentDate() {
+            return paymentDate;
+        }
+
+        public void setPaymentDate(long paymentDate) {
+            this.paymentDate = paymentDate;
+        }
 
         public int getId() {
             return id;

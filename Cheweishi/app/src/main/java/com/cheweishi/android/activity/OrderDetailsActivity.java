@@ -127,8 +127,15 @@ public class OrderDetailsActivity extends BaseActivity implements
     private LinearLayout ll_order_detail;
     @ViewInject(R.id.tv_line_left)
     private TextView tv_line_left;
+    @ViewInject(R.id.rel_ok)
+    private RelativeLayout rel_ok;
+    @ViewInject(R.id.img_ok)
+    private ImageView img_ok;
+    @ViewInject(R.id.tv_ok)
+    private TextView tv_ok;
     private Bitmap qrBitmap;
     private OrderDetailResponse response;
+    private String chargeStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -224,7 +231,7 @@ public class OrderDetailsActivity extends BaseActivity implements
         if (null != recordId) {
             ProgrosDialog.openDialog(this);
             String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER + NetInterface.ORDER_DETIAL + NetInterface.SUFFIX;
-            LogHelper.d("url"+url);
+            LogHelper.d("url" + url);
             Map<String, Object> param = new HashMap<>();
             param.put("userId", loginResponse.getDesc());
             param.put("token", loginResponse.getToken());
@@ -319,8 +326,10 @@ public class OrderDetailsActivity extends BaseActivity implements
                 e.printStackTrace();
             }
             DateFormat sf1 = new SimpleDateFormat("MM-dd HH:mm", Locale.CHINA);
-            String str = sf1.format(date);
-            return str;
+            if (null != date) {
+                String str = sf1.format(date);
+                return str;
+            }
         }
         return "";
     }
@@ -347,7 +356,8 @@ public class OrderDetailsActivity extends BaseActivity implements
             ll_order_detail.addView(imageView);
         }
 
-        progress_pay_statue(response.getMsg().getTenantInfo().getChargeStatus());
+        chargeStatus = response.getMsg().getTenantInfo().getChargeStatus();
+        progress_pay_statue(chargeStatus);
         adapter = new OrderExLvAdapter(this, response);
 
         // TODO 条形码先不管.
@@ -413,8 +423,11 @@ public class OrderDetailsActivity extends BaseActivity implements
     }
 
     private void progress_pay_statue(String str) {
-        if(null == str)
-            return;
+        if (null == str) {
+            str = getIntent().getStringExtra("chargeStatus");
+            if (null == str)
+                return;
+        }
         /*** 预约
          RESERVATION,
          未支付
@@ -447,13 +460,17 @@ public class OrderDetailsActivity extends BaseActivity implements
             case "PAID":  //已支付
                 img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
                 img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang1);
+                img_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
+                tv_line_left.setVisibility(View.VISIBLE);
+                rel_ok.setVisibility(View.VISIBLE);
+                tv_ok.setTextColor(getResources().getColor(R.color.order_dr));
                 tv_yuyue.setText("预约下单");
                 tv_daodian.setText("到店洗车");
                 green_img_order(R.string.order_win_complete);
                 tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
                 tv_time1_first.setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
                 tv_time1_second
-                        .setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
+                        .setText(formateDate(String.valueOf(getIntent().getLongExtra("finishtime", 0))));
                 break;
         }
 

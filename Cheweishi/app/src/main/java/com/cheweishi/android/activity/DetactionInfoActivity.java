@@ -1,9 +1,13 @@
 package com.cheweishi.android.activity;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +28,8 @@ import com.cheweishi.android.adapter.DetectionInfoAdapter;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.Car;
+import com.cheweishi.android.entity.CarScanResponse;
 import com.cheweishi.android.entity.DTCInfo;
 import com.cheweishi.android.entity.DetectionInfo;
 import com.cheweishi.android.utils.CommonUtils;
@@ -37,53 +43,60 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 
 /**
  * 检测详情展示
- * 
+ *
  * @author mingdasen
- * 
  */
-public class DetactionInfoActivity extends BaseActivity{
-	@ViewInject(R.id.list_detection)
-	private ListView listView;
-	@ViewInject(R.id.left_action)
-	private Button tv_left;
-	@ViewInject(R.id.title)
-	private TextView tv_title;
-//	@ViewInject(R.id.right_action)
+public class DetactionInfoActivity extends BaseActivity {
+    @ViewInject(R.id.list_detection)
+    private ListView listView;
+    @ViewInject(R.id.left_action)
+    private Button tv_left;
+    @ViewInject(R.id.title)
+    private TextView tv_title;
+    //	@ViewInject(R.id.right_action)
 //	private ImageView rigth_action;
-	private Context context;
-	private DetectionInfoAdapter adapter;
-	private CustomEditDialog.Builder builder;
-	private CustomEditDialog dialog;
-	// private LoginMessage loginMessage;
-	// private String uid = "";
-	// private String key = "";
-	// private String cid = "";
-	private String date = "";
+    private Context context;
+    private DetectionInfoAdapter adapter;
+    private CustomEditDialog.Builder builder;
+    private CustomEditDialog dialog;
+    // private LoginMessage loginMessage;
+    // private String uid = "";
+    // private String key = "";
+    // private String cid = "";
+    private String date = "";
 //	private AkeytestInfo akeytestInfo;
 //	private AkeyTextAllInfo akeyTextAllInfo;// 检测数据
 //	private String DTCName = "";// 故障码
 //	private String DTCdes = "";// 故障码说明
 //	private String status;
-	
-	private List<DetectionInfo> detectionInfos;
-	private List<DTCInfo> dtcInfos;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_detection_info);
-		ViewUtils.inject(this);
-		context = this;
-		tv_title.setText(R.string.test_info);
-		Bundle bundle = getIntent().getExtras();
-		detectionInfos = bundle.getParcelableArrayList("obdList");
-		dtcInfos = bundle.getParcelableArrayList("dtcList");
-		adapter = new DetectionInfoAdapter(context, detectionInfos,dtcInfos);
-		listView.setAdapter(adapter);
-		tv_left.setText(R.string.back);
+    private List<DetectionInfo> detectionInfos;
+    private List<DTCInfo> dtcInfos;
+
+    private CarScanResponse response;
+
+    private List<Map<String, Object>> data;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detection_info);
+        ViewUtils.inject(this);
+        context = this;
+        tv_title.setText(R.string.test_info);
+        Bundle bundle = getIntent().getExtras();
+        response = (CarScanResponse) bundle.getSerializable("data");
+
+        if (null != response) {
+            perpareData();
+
+            adapter = new DetectionInfoAdapter(context, data);
+            listView.setAdapter(adapter);
+            tv_left.setText(R.string.back);
+        }
 //		tv_left.setOnClickListener(onClick);
 //		rigth_action.setOnClickListener(onClick);
-		// 更改年检、保养状态处理
+        // 更改年检、保养状态处理
 //		adapter.setOnVIewClickListener(new DetectionInfoAdapter.OnViewClickListener() {
 //
 //			@Override
@@ -100,20 +113,89 @@ public class DetactionInfoActivity extends BaseActivity{
 //				}
 //			}
 //		});
-		// 获取登录信息
-		// loginMessage = LoginMessageUtils.getLoginMessage(context);
-		// if (loginMessage != null && loginMessage.getUid() != null) {
-		// uid = loginMessage.getUid();
-		// key = loginMessage.getKey();
-		// cid = loginMessage.getCar().getCid();
-		// }
-		// 故障码详情跳转
+        // 获取登录信息
+        // loginMessage = LoginMessageUtils.getLoginMessage(context);
+        // if (loginMessage != null && loginMessage.getUid() != null) {
+        // uid = loginMessage.getUid();
+        // key = loginMessage.getKey();
+        // cid = loginMessage.getCar().getCid();
+        // }
+        // 故障码详情跳转
 //		listView.setOnItemClickListener(itemClick);
-	}
+    }
 
-	/**
-//	 * 显示更改保养状态的提示框
-//	 */
+    private void perpareData() {
+        data = new ArrayList<>();
+
+        //totalMileAge
+        Map<String, Object> totalMileAge = new HashMap<>();
+        totalMileAge.put("data", "总里程(k)  " + response.getMsg().getTotalMileAge());
+        data.add(totalMileAge);
+
+        //obdAFR
+        Map<String, Object> obdAFR = new HashMap<>();
+        obdAFR.put("data", "空燃比系数  " + response.getMsg().getObdAFR());
+        data.add(obdAFR);
+
+        //obdCTA
+        Map<String, Object> obdCTA = new HashMap<>();
+        obdCTA.put("data", "气节门开度  " + response.getMsg().getObdCTA());
+        data.add(obdCTA);
+
+        //obdEngLoad
+        Map<String, Object> obdEngLoad = new HashMap<>();
+        obdEngLoad.put("data", "发动机负荷  " + response.getMsg().getObdEngLoad());
+        data.add(obdEngLoad);
+
+        //obdEngRuntime
+        Map<String, Object> obdEngRuntime = new HashMap<>();
+        obdEngRuntime.put("data", "发动机运行时间  " + response.getMsg().getObdEngRuntime());
+        data.add(obdEngRuntime);
+
+        //obdIFC
+        Map<String, Object> obdIFC = new HashMap<>();
+        obdIFC.put("data", "百公里油耗  " + response.getMsg().getObdIFC());
+        data.add(obdIFC);
+
+        //obdRemainingGas
+        Map<String, Object> obdRemainingGas = new HashMap<>();
+        obdRemainingGas.put("data", "剩余油量  " + response.getMsg().getObdRemainingGas());
+        data.add(obdRemainingGas);
+
+        //obdRPM
+        Map<String, Object> obdRPM = new HashMap<>();
+        obdRPM.put("data", "转速  " + response.getMsg().getObdRPM());
+        data.add(obdRPM);
+
+        //obdspeed
+        Map<String, Object> obdspeed = new HashMap<>();
+        obdspeed.put("data", "车速  " + response.getMsg().getObdspeed());
+        data.add(obdspeed);
+
+
+        //obdTemp
+        Map<String, Object> obdTemp = new HashMap<>();
+        obdTemp.put("data", "环境温度  " + response.getMsg().getObdTemp());
+        data.add(obdTemp);
+
+
+        //obdWaterTemp
+        Map<String, Object> obdWaterTemp = new HashMap<>();
+        obdWaterTemp.put("data", "水温  " + response.getMsg().getObdWaterTemp());
+        data.add(obdWaterTemp);
+
+
+        //obdDate
+        Map<String, Object> obdDate = new HashMap<>();
+        obdDate.put("data", "生成obd记录时间  " + response.getMsg().getObdDate());
+        data.add(obdDate);
+
+
+    }
+
+    /**
+     //	 * 显示更改保养状态的提示框
+     //	 */
 //	protected void showCustomEditDialog() {
 //		builder = new CustomEditDialog.Builder(context);
 //		builder.setTitle(context.getResources().getString(
@@ -216,11 +298,11 @@ public class DetactionInfoActivity extends BaseActivity{
 //		return day;
 //	}
 
-	/**
-//	 * 更新年检状态
-//	 * 
-//	 * @param inspect
-//	 */
+    /**
+     //	 * 更新年检状态
+     //	 *
+     //	 * @param inspect
+     //	 */
 //	private void updateInspectionStatuc(String inspect) {
 //		if (isLogined()) {
 //			RequestParams params = new RequestParams();
@@ -314,12 +396,12 @@ public class DetactionInfoActivity extends BaseActivity{
 //		}
 //	}
 
-	/**
-	 * 解析年检状态更新数据
-	 * 
-	 * @param data
-	 */
-	private void parseInspectionStatus(String data) {
+    /**
+     * 解析年检状态更新数据
+     *
+     * @param data
+     */
+    private void parseInspectionStatus(String data) {
 //		JSONObject jsonObject;
 //		try {
 //			jsonObject = new JSONObject(data);
@@ -342,13 +424,13 @@ public class DetactionInfoActivity extends BaseActivity{
 //		} catch (JSONException e) {
 //			e.printStackTrace();
 //		}
-	}
+    }
 
-	/**
-	 * 保养状态数据解析
-	 * 
-	 * @param data
-	 */
+    /**
+     * 保养状态数据解析
+     *
+     * @param data
+     */
 //	private void parseMaintenanceStatus(String data) {
 //		JSONObject jsonObject;
 //		try {
@@ -393,11 +475,11 @@ public class DetactionInfoActivity extends BaseActivity{
 //		}
 //	};
 
-	/**
-	 * 故障码处理
-	 * 
-	 * @param tv_nowvalue
-	 */
+    /**
+     * 故障码处理
+     *
+     * @param tv_nowvalue
+     */
 //	private void paseDtcValue(int index) {
 //		try {
 //			JSONArray jsonArray = new JSONArray(akeyTextAllInfo.getAkeythere()
@@ -411,49 +493,49 @@ public class DetactionInfoActivity extends BaseActivity{
 //		}
 //	}
 
-	/**
-	 * 退出此界面时的数据处理
-	 */
-	private void finishData() {
-		finish();
-	}
+    /**
+     * 退出此界面时的数据处理
+     */
+    private void finishData() {
+        finish();
+    }
 
-	/**
-	 * 点击事件
-	 */
+    /**
+     * 点击事件
+     */
 //	OnClickListener onClick = new OnClickListener() {
-		@OnClick({R.id.left_action,R.id.right_action})
-		public void onClick(View view) {
-			switch (view.getId()) {
-			case R.id.left_action:// 返回
-				finishData();
-				break;
-			case R.id.right_action:// 说明
-				Intent intent = new Intent(DetactionInfoActivity.this,
-						DetectionExplainActivity.class);
-				startActivity(intent);
-				break;
-			default:
-				break;
-			}
-		}
+    @OnClick({R.id.left_action, R.id.right_action})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.left_action:// 返回
+                finishData();
+                break;
+            case R.id.right_action:// 说明
+                Intent intent = new Intent(DetactionInfoActivity.this,
+                        DetectionExplainActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
+    }
 //	};
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		// if (list != null) {
-		// list.clear();
-		// list = null;
-		// }
-	}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // if (list != null) {
+        // list.clear();
+        // list = null;
+        // }
+    }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			finishData();
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finishData();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

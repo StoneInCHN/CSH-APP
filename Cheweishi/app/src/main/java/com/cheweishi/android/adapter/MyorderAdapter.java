@@ -190,29 +190,43 @@ public class MyorderAdapter extends BaseAdapter {
                     mContext.startActivity(intent);
                 }
             });
-        } else if (mData.get(arg0).getChargeStatus().equals("PAID")) {// 订单进行中
-            holder.tv_time.setText("下单时间");
-
-            holder.tv_order_class_name.setText("支付成功");
-            holder.tv_order_time.setText("" + transferLongToDate(mData.get(arg0).getCreateDate()));
+        } else if (mData.get(arg0).getChargeStatus().equals("PAID")) {// 订单完成
+            holder.tv_order_class_name.setText("已完成");
+            holder.tv_time.setText("支付时间");
+            holder.tv_order_time.setText("" + transferLongToDate(mData.get(arg0).getPaymentDate()));
             holder.tv_order_class_name.setTextColor(mContext.getResources()
-                    .getColor(R.color.green_deep));
+                    .getColor(R.color.main_orange));
+            holder.btn_order_comment.setText(R.string.btn_evaluate);
             holder.btn_order_comment.setVisibility(View.VISIBLE);
             holder.btn_order_detail.setVisibility(View.VISIBLE);
+            holder.btn_order_comment.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+
+                    // TODO 评价
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, BaskOrderActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
             holder.btn_order_detail.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View arg0) {
 
-                    // TODO
+                    // TODO 详情
 
                     Intent intent = new Intent();
                     intent.setClass(mContext, OrderDetailsActivity.class);
+                    intent.putExtra("chargeStatus", mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getChargeStatus());
+                    intent.putExtra("finishtime", mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getPaymentDate());
                     intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getCarService().getServiceCategory().getId()));
                     mContext.startActivity(intent);
 
                 }
             });
+
         }
 
         // 0订单完成1订单进行中2已取消3NO
