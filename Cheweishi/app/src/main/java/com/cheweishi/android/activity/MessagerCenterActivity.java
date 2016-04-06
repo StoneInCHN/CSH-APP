@@ -41,6 +41,7 @@ import com.cheweishi.android.dialog.MessageCenterDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.MessagCenterInfo;
 import com.cheweishi.android.entity.MessageResponse;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
@@ -630,7 +631,6 @@ public class MessagerCenterActivity extends BaseActivity {
     };
 
 
-
     /**
      * 设置左边的字体 编辑状态
      */
@@ -990,5 +990,41 @@ public class MessagerCenterActivity extends BaseActivity {
         intent.putExtras(bundle);
         // 设置返回数据
         MessagerCenterActivity.this.setResult(1053, intent);
+    }
+
+
+    private void sendDeleteMsg(List<MessageResponse.MsgBean> msg) {
+        if (null != msg && 0 < msg.size()) {
+
+            long[] ids = new long[msg.size()];
+            for (int i = 0; i < msg.size(); i++) {
+                ids[i] = msg.get(i).getId();
+            }
+
+
+            ProgrosDialog.openDialog(baseContext);
+            String url = NetInterface.BASE_URL + NetInterface.TEMP_MESSAGE + NetInterface.DELETE_MSG + NetInterface.SUFFIX;
+            Map<String, Object> param = new HashMap<>();
+            param.put("userId", loginResponse.getDesc());
+            param.put("token", loginResponse.getToken());
+            param.put("msgIds", ids);
+            netWorkHelper.PostJson(url, param, this);
+        }
+    }
+
+
+    @Override
+    public void receive(String TAG, String data) {
+        ProgrosDialog.closeProgrosDialog();
+        BaseResponse response = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+        if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            showToast(response.getDesc());
+            return;
+        }
+
+        // TODO 更新UI
+
+        loginResponse.setToken(response.getToken());
+        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
 }
