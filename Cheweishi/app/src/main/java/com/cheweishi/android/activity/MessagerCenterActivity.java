@@ -379,6 +379,7 @@ public class MessagerCenterActivity extends BaseActivity {
         public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
             switch (index) {
                 case 0:
+                    // TODO 滑动删除位置
                     deletaSize++;
                     httpList.remove(position);
                     mMessageCenterApdater.setDeleteData(httpList);
@@ -811,6 +812,7 @@ public class MessagerCenterActivity extends BaseActivity {
      * 删除选中
      */
     public void checkDe() {
+        // TODO 手动选择删除
         LogHelper.d("删除checkDe");
         this.mMessageCenterApdater.deletaCheackAll();
         msg_tv_allread.setEnabled(false);
@@ -833,6 +835,7 @@ public class MessagerCenterActivity extends BaseActivity {
      * 清空数据
      */
     public void setAllClear() {
+        //  TODO 全部删除
         LogHelper.d("清空所有数据");
         clearAllize += httpList.size();
         httpList.clear();
