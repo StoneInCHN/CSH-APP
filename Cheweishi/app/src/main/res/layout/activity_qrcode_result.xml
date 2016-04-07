@@ -7,24 +7,11 @@
 
     <include layout="@layout/title" />
 
-    <TextView
-        android:id="@+id/tv_result_content"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="@dimen/normal_marging"
-        android:textColor="@color/orange"
-        android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/btn_result"
+    <ListView
+        android:id="@+id/lv_qr_code_car_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/double_large_marging"
-        android:layout_marginLeft="@dimen/normal_marging"
-        android:layout_marginRight="@dimen/normal_marging"
-        android:layout_marginTop="@dimen/normal_marging"
-        android:text="提交数据"
-        android:textSize="18sp" />
+        android:layout_height="match_parent"
+        android:scrollbars="none" />
 
 </LinearLayout>

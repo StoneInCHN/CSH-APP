@@ -154,7 +154,6 @@ public class SecurityScanActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewUtils.inject(this);
-        httpBiz = new HttpBiz(this);
         DETECTION_STATE = 0;
         initView();
     }

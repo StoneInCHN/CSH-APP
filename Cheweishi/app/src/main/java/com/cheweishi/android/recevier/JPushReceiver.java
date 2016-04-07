@@ -40,7 +40,7 @@ import com.lidroid.xutils.http.ResponseInfo;
  * 
  */
 public class JPushReceiver extends BroadcastReceiver {
-	private static final String TAG = "JPush";
+	private static final String TAG = "Tanck";
 	private static CustomDialog.Builder builder;
 	private static CustomDialog phoneDialog;
 	private static int NOTIFICATION_ID;

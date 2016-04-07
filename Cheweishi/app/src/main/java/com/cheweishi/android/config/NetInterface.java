@@ -5,8 +5,8 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-    public static final String BASE_URL = "http://139.129.5.114:8080";// 基础路径
-//    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
+    //    public static final String BASE_URL = "http://139.129.5.114:8080";// 基础路径
+    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
 
@@ -103,5 +103,9 @@ public class NetInterface {
     public static final String CAR_SCAN = "vehicleScan";//车辆扫描
 
     public static final String DELETE_MSG = "deleteMsgs";//删除消息
+
+    public static final String DYNAMIC = "vehicleTrends";// 车辆动态
+
+    public static final String BIND_QR = "bindTenant";//绑定
 
 }

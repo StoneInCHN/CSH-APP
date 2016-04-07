@@ -99,7 +99,7 @@ public class NetWorkHelper {
                 LogHelper.d(error.getMessage());
                 if (null != error.networkResponse) {
                     byte[] htmlBodyBytes = error.networkResponse.data;
-                    LogHelper.d(new String(htmlBodyBytes));
+                    LogHelper.d("request url:" + url + "\n" + new String(htmlBodyBytes));
                 }
                 if (null == jsonCallback)
                     return;

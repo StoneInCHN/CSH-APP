@@ -9,6 +9,7 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.QRServerResponse;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.GsonUtil;
@@ -92,12 +93,12 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         ProgrosDialog.openDialog(this);
 
         String url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.BIND_DEVICE + NetInterface.SUFFIX;
-        Map<String,Object> param = new HashMap<>();
-        param.put("userId",loginResponse.getDesc());
-        param.put("token",loginResponse.getToken());
-        param.put("deviceNo",tv_car_device.getText().toString());
-        param.put("vihicleId",getIntent().getStringExtra("cid"));
-        netWorkHelper.PostJson(url,param,this);
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("deviceNo", tv_car_device.getText().toString());
+        param.put("vehicleId", getIntent().getStringExtra("cid"));
+        netWorkHelper.PostJson(url, param, this);
 
     }
 
@@ -105,13 +106,14 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
     @Override
     public void receive(String data) {
         ProgrosDialog.closeProgrosDialog();
-        BaseResponse response = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data,BaseResponse.class);
-        if(!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)){
+        QRServerResponse response = (QRServerResponse) GsonUtil.getInstance().convertJsonStringToObject(data, QRServerResponse.class);
+        if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
             return;
         }
 
 
+        setTitle(response.getDesc());
         Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
         Intent mIntent = new Intent();
         mIntent.setAction(Constant.REFRESH_FLAG);
@@ -119,7 +121,7 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         this.finish();
 
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext,loginResponse);
+        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
 
 

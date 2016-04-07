@@ -121,6 +121,12 @@ public abstract class BaseActivity extends FragmentActivity implements
         return res;
     }
 
+    public void setTitle(String desc) {
+        if (null != desc && !"".equals(desc)) {
+            MainNewActivity.tv_home_title.setText(desc);
+        }
+    }
+
     /**
      * 重回前台显示调用
      */
@@ -510,7 +516,7 @@ public abstract class BaseActivity extends FragmentActivity implements
     public void setUserToken(String token) {
         if (null != token && null != loginResponse) {
             loginResponse.setToken(token);
-            LoginMessageUtils.saveloginmsg(baseContext,loginResponse);
+            LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         }
     }
 }

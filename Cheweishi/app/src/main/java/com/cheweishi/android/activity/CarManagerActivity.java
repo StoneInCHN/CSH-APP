@@ -269,6 +269,9 @@ public class CarManagerActivity extends BaseActivity implements
                     showToast(baseResponse.getDesc());
                     return;
                 }
+
+                // 设置主页标题
+                setTitle(baseResponse.getDesc());
                 adapter.setData(listCarManager);
                 listView_front.setVisibility(View.INVISIBLE);
                 if (listCarManager.size() >= 3) {

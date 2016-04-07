@@ -126,69 +126,72 @@ public class DetactionInfoActivity extends BaseActivity {
 
     private void perpareData() {
         data = new ArrayList<>();
+        try {
 
-        //totalMileAge
-        Map<String, Object> totalMileAge = new HashMap<>();
-        totalMileAge.put("data", "总里程(k)  " + response.getMsg().getTotalMileAge());
-        data.add(totalMileAge);
+            //totalMileAge
+            Map<String, Object> totalMileAge = new HashMap<>();
+            totalMileAge.put("data", "总里程(k)  " + response.getMsg().getTotalMileAge());
+            data.add(totalMileAge);
 
-        //obdAFR
-        Map<String, Object> obdAFR = new HashMap<>();
-        obdAFR.put("data", "空燃比系数  " + response.getMsg().getObdAFR());
-        data.add(obdAFR);
+            //obdAFR
+            Map<String, Object> obdAFR = new HashMap<>();
+            obdAFR.put("data", "空燃比系数  " + response.getMsg().getObdAFR());
+            data.add(obdAFR);
 
-        //obdCTA
-        Map<String, Object> obdCTA = new HashMap<>();
-        obdCTA.put("data", "气节门开度  " + response.getMsg().getObdCTA());
-        data.add(obdCTA);
+            //obdCTA
+            Map<String, Object> obdCTA = new HashMap<>();
+            obdCTA.put("data", "气节门开度  " + response.getMsg().getObdCTA());
+            data.add(obdCTA);
 
-        //obdEngLoad
-        Map<String, Object> obdEngLoad = new HashMap<>();
-        obdEngLoad.put("data", "发动机负荷  " + response.getMsg().getObdEngLoad());
-        data.add(obdEngLoad);
+            //obdEngLoad
+            Map<String, Object> obdEngLoad = new HashMap<>();
+            obdEngLoad.put("data", "发动机负荷  " + response.getMsg().getObdEngLoad());
+            data.add(obdEngLoad);
 
-        //obdEngRuntime
-        Map<String, Object> obdEngRuntime = new HashMap<>();
-        obdEngRuntime.put("data", "发动机运行时间  " + response.getMsg().getObdEngRuntime());
-        data.add(obdEngRuntime);
+            //obdEngRuntime
+            Map<String, Object> obdEngRuntime = new HashMap<>();
+            obdEngRuntime.put("data", "发动机运行时间  " + response.getMsg().getObdEngRuntime());
+            data.add(obdEngRuntime);
 
-        //obdIFC
-        Map<String, Object> obdIFC = new HashMap<>();
-        obdIFC.put("data", "百公里油耗  " + response.getMsg().getObdIFC());
-        data.add(obdIFC);
+            //obdIFC
+            Map<String, Object> obdIFC = new HashMap<>();
+            obdIFC.put("data", "百公里油耗  " + response.getMsg().getObdIFC());
+            data.add(obdIFC);
 
-        //obdRemainingGas
-        Map<String, Object> obdRemainingGas = new HashMap<>();
-        obdRemainingGas.put("data", "剩余油量  " + response.getMsg().getObdRemainingGas());
-        data.add(obdRemainingGas);
+            //obdRemainingGas
+            Map<String, Object> obdRemainingGas = new HashMap<>();
+            obdRemainingGas.put("data", "剩余油量  " + response.getMsg().getObdRemainingGas());
+            data.add(obdRemainingGas);
 
-        //obdRPM
-        Map<String, Object> obdRPM = new HashMap<>();
-        obdRPM.put("data", "转速  " + response.getMsg().getObdRPM());
-        data.add(obdRPM);
+            //obdRPM
+            Map<String, Object> obdRPM = new HashMap<>();
+            obdRPM.put("data", "转速  " + response.getMsg().getObdRPM());
+            data.add(obdRPM);
 
-        //obdspeed
-        Map<String, Object> obdspeed = new HashMap<>();
-        obdspeed.put("data", "车速  " + response.getMsg().getObdspeed());
-        data.add(obdspeed);
-
-
-        //obdTemp
-        Map<String, Object> obdTemp = new HashMap<>();
-        obdTemp.put("data", "环境温度  " + response.getMsg().getObdTemp());
-        data.add(obdTemp);
+            //obdspeed
+            Map<String, Object> obdspeed = new HashMap<>();
+            obdspeed.put("data", "车速  " + response.getMsg().getObdspeed());
+            data.add(obdspeed);
 
 
-        //obdWaterTemp
-        Map<String, Object> obdWaterTemp = new HashMap<>();
-        obdWaterTemp.put("data", "水温  " + response.getMsg().getObdWaterTemp());
-        data.add(obdWaterTemp);
+            //obdTemp
+            Map<String, Object> obdTemp = new HashMap<>();
+            obdTemp.put("data", "环境温度  " + response.getMsg().getObdTemp());
+            data.add(obdTemp);
 
 
-        //obdDate
-        Map<String, Object> obdDate = new HashMap<>();
-        obdDate.put("data", "生成obd记录时间  " + response.getMsg().getObdDate());
-        data.add(obdDate);
+            //obdWaterTemp
+            Map<String, Object> obdWaterTemp = new HashMap<>();
+            obdWaterTemp.put("data", "水温  " + response.getMsg().getObdWaterTemp());
+            data.add(obdWaterTemp);
+
+
+            //obdDate
+            Map<String, Object> obdDate = new HashMap<>();
+            obdDate.put("data", "生成obd记录时间  " + response.getMsg().getObdDate());
+            data.add(obdDate);
+        } catch (Exception e) {
+        }
 
 
     }

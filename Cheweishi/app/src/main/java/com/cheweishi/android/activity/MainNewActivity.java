@@ -103,6 +103,9 @@ import com.lidroid.xutils.view.annotation.event.OnItemClick;
 @ContentView(R.layout.activity_main2)
 public class MainNewActivity extends BaseActivity {
 
+    @ViewInject(R.id.tv_home_title)
+    public static TextView tv_home_title;
+
     @ViewInject(R.id.ibtn_user)
     // title左边按钮
     private ImageButton ibtn_user;

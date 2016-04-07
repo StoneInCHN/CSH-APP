@@ -446,7 +446,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                         WeiXinPay.getinstance(this).pay(prepay_id, nonce_str);
                         break;
                     case CHANNEL_WALLET://钱包
-                        showToast("支付成功");
+                        updatePacket();
                         break;
                 }
 
@@ -461,9 +461,11 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                     return;
                 }
 
-
+                if (CHANNEL_WALLET.equals(channel))
+                    showToast("支付成功");
                 loginResponse.setToken(response.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                finish();
                 break;
         }
 
@@ -855,6 +857,23 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     @Override
     public void onPaySuccess() {
         // TODO 调用状态接口
+        updatePacket();
+
+
+    }
+
+    @Override
+    public void onPayConfirm() {
+
+    }
+
+    @Override
+    public void onPayFail() {
+
+    }
+
+
+    private void updatePacket() {
         if (null == recordId && "".equals(recordId)) {
             showToast("更新订单状态失败");
             return;
@@ -868,18 +887,6 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
         param.put("chargeStatus", "PAID");//已支付
         param.put(Constant.PARAMETER_TAG, NetInterface.UPDATE_PAY_STATUS);
         netWorkHelper.PostJson(url, param, this);
-
-
-    }
-
-    @Override
-    public void onPayConfirm() {
-
-    }
-
-    @Override
-    public void onPayFail() {
-
     }
 
     private class MyBroadcastReceiver extends BroadcastReceiver {

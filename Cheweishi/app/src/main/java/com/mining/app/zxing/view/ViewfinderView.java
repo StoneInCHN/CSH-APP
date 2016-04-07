@@ -41,7 +41,7 @@ import com.mining.app.zxing.camera.CameraManager;
  * 
  */
 public final class ViewfinderView extends View {
-	private static final String TAG = "log";
+	private static final String TAG = "Tanck";
 	/**
 	 * 刷新界面的时间
 	 */

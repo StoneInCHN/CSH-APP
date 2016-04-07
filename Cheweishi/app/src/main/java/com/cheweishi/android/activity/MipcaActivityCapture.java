@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.entity.QRCodeResponse;
+import com.cheweishi.android.utils.GsonUtil;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.mining.app.zxing.camera.CameraManager;
@@ -124,18 +126,27 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
         if (resultString.equals("")) {
             Toast.makeText(MipcaActivityCapture.this, "扫描失败!", Toast.LENGTH_SHORT).show();
         } else {
-            Intent resultIntent = new Intent();
 
-            Bundle bundle = new Bundle();
-            bundle.putString("result", resultString);
-//			bundle.putParcelable("bitmap", barcode);
 
-            resultIntent.setClass(MipcaActivityCapture.this, QRCodeResultActivity.class);
-            resultIntent.putExtras(bundle);
+            String flag = "f50b421982ca1c32875a4fc60e4f69af";
 
-            Log.i("result", "====" + resultString + "====" + resultIntent);
-            MipcaActivityCapture.this.startActivity(resultIntent);
-//			this.setResult(RESULT_OK, resultIntent);
+            try {
+                QRCodeResponse response = (QRCodeResponse) GsonUtil.getInstance().convertJsonStringToObject(resultString, QRCodeResponse.class);
+                if (flag.equals(response.getFlag())) {
+                    Intent resultIntent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("result", "" + response.getTenantInfo());
+                    resultIntent.setClass(MipcaActivityCapture.this, QRCodeResultActivity.class);
+                    resultIntent.putExtras(bundle);
+
+                    MipcaActivityCapture.this.startActivity(resultIntent);
+                    MipcaActivityCapture.this.finish();
+                    return;
+                }
+            } catch (Exception e) {
+
+            }
+            showToast("该二维码不支持");
         }
         MipcaActivityCapture.this.finish();
     }

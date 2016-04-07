@@ -124,7 +124,7 @@ public class CarDetectionActivity extends BaseActivity {
             Map<String, Object> param = new HashMap<>();
             param.put("userId", loginResponse.getDesc());
             param.put("token", loginResponse.getToken());
-            param.put("deviceId", loginResponse.getMsg().getDefaultDeviceNo());
+            param.put("deviceNo", loginResponse.getMsg().getDefaultDeviceNo());
             param.put("searchDate", StringUtil.getDate(StringUtil.getLastDate(), "yyyy-MM-dd"));
             netWorkHelper.PostJson(url, param, this);
 
@@ -154,44 +154,46 @@ public class CarDetectionActivity extends BaseActivity {
         }
 
         CarDetectionResponse.MsgBean msg = response.getMsg();
-        String oil = String.valueOf(msg.getFuelConsumption());
-        String avgOil = String.valueOf(msg.getAverageFuelConsumption());
-        String avgSpeed = String.valueOf(msg.getAverageSpeed());
-        String time = String.valueOf(msg.getRunningTime());
-        String licheng = String.valueOf(msg.getMileAge());
-        String total = String.valueOf(msg.getTotalMileAge());
+        try {
+            String oil = String.valueOf(msg.getFuelConsumption());
+            String avgOil = String.valueOf(msg.getAverageFuelConsumption());
+            String avgSpeed = String.valueOf(msg.getAverageSpeed());
+            String time = String.valueOf(msg.getRunningTime());
+            String licheng = String.valueOf(msg.getMileAge());
+            String total = String.valueOf(msg.getTotalMileAge());
 
 
-        tv_car_state.setText("总里程" + total + "km");
+            tv_car_state.setText("总里程" + total + "km");
 
-        if (StringUtil.isEmpty(oil)) {
-            oil_wear.setText("--");
-        } else {
-            oil_wear.setText(oil);
+            if (StringUtil.isEmpty(oil)) {
+                oil_wear.setText("--");
+            } else {
+                oil_wear.setText(oil);
+            }
+            if (StringUtil.isEmpty(avgOil)) {
+                tv_average_iol.setText("--" + "升/百公里");
+            } else {
+                tv_average_iol.setText(avgOil + "升/百公里");
+            }
+            if (StringUtil.isEmpty(avgSpeed)) {
+                tv_speed.setText("--");
+            } else {
+                tv_speed.setText(avgSpeed);
+            }
+            if (StringUtil.isEmpty(time)) {
+                tv_date.setText("--");
+            } else {
+                tv_date.setText(time + "分钟");
+            }
+            if (StringUtil.isEmpty(licheng)) {
+                tv_mile.setText("--");
+            } else {
+                tv_mile.setText(licheng + "公里");
+            }
+            tv_trip_date.setText(StringUtil.getDate(
+                    StringUtil.getLastDate(), "yyyy-MM-dd"));
+        } catch (Exception e) {
         }
-        if (StringUtil.isEmpty(avgOil)) {
-            tv_average_iol.setText("--" + "升/百公里");
-        } else {
-            tv_average_iol.setText(avgOil + "升/百公里");
-        }
-        if (StringUtil.isEmpty(avgSpeed)) {
-            tv_speed.setText("--");
-        } else {
-            tv_speed.setText(avgSpeed);
-        }
-        if (StringUtil.isEmpty(time)) {
-            tv_date.setText("--");
-        } else {
-            tv_date.setText(time + "分钟");
-        }
-        if (StringUtil.isEmpty(licheng)) {
-            tv_mile.setText("--");
-        } else {
-            tv_mile.setText(licheng + "公里");
-        }
-        tv_trip_date.setText(StringUtil.getDate(
-                StringUtil.getLastDate(), "yyyy-MM-dd"));
-
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
