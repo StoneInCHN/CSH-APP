@@ -70,6 +70,7 @@ import com.cheweishi.android.entity.ServiceListResponse;
 import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
+import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.ButtonUtils;
 import com.cheweishi.android.utils.GsonUtil;
@@ -583,6 +584,7 @@ public class MainNewActivity extends BaseActivity {
                 ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
                 if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     // TODO 成功
+                    setTitle(response.getDesc());
                     showData(response);
                     loginResponse.setToken(response.getToken());
                     DBTools.getInstance(baseContext).save(loginResponse);
@@ -608,6 +610,9 @@ public class MainNewActivity extends BaseActivity {
                 }
 
                 showData(advResponse);
+                loginResponse.setToken(advResponse.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+
                 break;
         }
 
