@@ -125,7 +125,7 @@ public class MessageCenterApdater extends BaseAdapter {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		Log.i("result", "==textlist===" + textlist.size());
+		Log.i("Tanck", "==textlist===" + textlist.size());
 		if (textlist != null && textlist.size() > position) {
 			messagCenterInfo = textlist.get(position);
 			// String type = messagCenterInfo.getType();

@@ -166,46 +166,13 @@ public class MessagerCenterActivity extends BaseActivity {
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight());
         right_action.setCompoundDrawables(null, null, drawable, null); //
+        right_action.setVisibility(View.GONE);
 
         httpList = new ArrayList<MessageResponse.MsgBean>();
-//        List<MessageResponse> list = (List<MessageResponse>) getInstance(baseContext).findAll(MessageResponse.class);
-//        if (null != list && 0 < list.size())
-//            httpList = list.get(0).getMsg();
-//        else
         ininGetHttpData();
         JPushInterface.clearAllNotifications(this);
 
-        messagerCenterListView.setPullLoadEnable(true);
-        messagerCenterListView.setPullLoadEnable(true);
-        // TODO 暂时不用设置
-//        mMessageCenterApdater = new MessageCenterApdater(httpList, this);
-//        messagerCenterListView.setAdapter(mMessageCenterApdater);
-//        addDelete();
-//        messagerCenterListView
-//                .setOnMenuItemClickListener(new myOnMenuItemClickListener());
-//        initAnimation();
-
-        // TODO 暂时去掉
-//        if (!StringUtil.isEmpty(httpList) && httpList.size() > 0) {
-//            Collections.reverse(httpList);
-//            messagerCenterListView.setPullLoadEnable(false);
-//            messagerCenterListView.setPullRefreshEnable(false);
-//            messagerCenterListView.setCompileRefresh(true);
-//            mMessageCenterApdater = new MessageCenterApdater(httpList, this);
-//            messagerCenterListView.setAdapter(mMessageCenterApdater);
-//            addDelete();
-//            messagerCenterListView
-//                    .setOnMenuItemClickListener(new myOnMenuItemClickListener());
-//            initAnimation();
-//        } else {
-//            // messagerCenterListView.setVisibility(View.GONE);
-//            // nodata.setVisibility(View.VISIBLE);
-//            right_action.setVisibility(View.GONE);
-//            EmptyTools.setEmptyView(this, messagerCenterListView);
-//            EmptyTools.setImg(R.drawable.message_message);
-//            EmptyTools.setMessage("您还没有相关消息");
-//        }
-
+        messagerCenterListView.setPullLoadEnable(false);
     }
 
     /**
@@ -248,6 +215,7 @@ public class MessagerCenterActivity extends BaseActivity {
 
     @Override
     public void receive(String data) {
+        messagerCenterListView.stopLoadMore();
         messagerCenterListView.stopRefresh();
         ProgrosDialog.closeProgrosDialog();
         MessageResponse response = (MessageResponse) GsonUtil.getInstance().convertJsonStringToObject(data, MessageResponse.class);
@@ -259,6 +227,11 @@ public class MessagerCenterActivity extends BaseActivity {
 
         httpList = response.getMsg();
         if (null != httpList && 0 < httpList.size()) {
+
+            if (pageSize <= httpList.size())
+                messagerCenterListView.setPullLoadEnable(true);
+            else
+                messagerCenterListView.setPullLoadEnable(false);
             DBTools.getInstance(baseContext).save(response);
             addDelete();
             messagerCenterListView
@@ -381,20 +354,21 @@ public class MessagerCenterActivity extends BaseActivity {
             switch (index) {
                 case 0:
                     // TODO 滑动删除位置
-                    deletaSize++;
+                    sendDeleteMsg(new int[]{httpList.get(position).getId()});
+//                    deletaSize++;
                     httpList.remove(position);
-                    mMessageCenterApdater.setDeleteData(httpList);
-                    // mMessageCenterApdater.danHangDelete(position);
-                    if (StringUtil.isEmpty(httpList) || httpList.size() == 0) {
-                        isleftDelate = false;
-                        steLeftDeleta();
-                        msg_linbottom.setVisibility(View.GONE);
-                        right_action.setVisibility(View.GONE);
-                        EmptyTools.setEmptyView(MessagerCenterActivity.this,
-                                messagerCenterListView);
-                        EmptyTools.setImg(R.drawable.message_message);
-                        EmptyTools.setMessage("您还没有相关消息");
-                    }
+//                    mMessageCenterApdater.setDeleteData(httpList);
+//                    // mMessageCenterApdater.danHangDelete(position);
+//                    if (StringUtil.isEmpty(httpList) || httpList.size() == 0) {
+//                        isleftDelate = false;
+//                        steLeftDeleta();
+//                        msg_linbottom.setVisibility(View.GONE);
+//                        right_action.setVisibility(View.GONE);
+//                        EmptyTools.setEmptyView(MessagerCenterActivity.this,
+//                                messagerCenterListView);
+//                        EmptyTools.setImg(R.drawable.message_message);
+//                        EmptyTools.setMessage("您还没有相关消息");
+//                    }
                     break;
             }
             return false;
@@ -1013,6 +987,22 @@ public class MessagerCenterActivity extends BaseActivity {
     }
 
 
+    private void sendDeleteMsg(int[] ids) {
+        if (null != ids && 0 < ids.length) {
+
+
+            ProgrosDialog.openDialog(baseContext);
+            String url = NetInterface.BASE_URL + NetInterface.TEMP_MESSAGE + NetInterface.DELETE_MSG + NetInterface.SUFFIX;
+            Map<String, Object> param = new HashMap<>();
+            param.put("userId", loginResponse.getDesc());
+            param.put("token", loginResponse.getToken());
+            param.put("msgIds", ids);
+            param.put(Constant.PARAMETER_TAG, NetInterface.DELETE_MSG);
+            netWorkHelper.PostJson(url, param, this);
+        }
+    }
+
+
     @Override
     public void receive(String TAG, String data) {
         ProgrosDialog.closeProgrosDialog();
@@ -1023,7 +1013,19 @@ public class MessagerCenterActivity extends BaseActivity {
         }
 
         // TODO 更新UI
-
+//        ininGetHttpData();
+        mMessageCenterApdater.setDeleteData(httpList);
+        // mMessageCenterApdater.danHangDelete(position);
+        if (StringUtil.isEmpty(httpList) || httpList.size() == 0) {
+            isleftDelate = false;
+            steLeftDeleta();
+            msg_linbottom.setVisibility(View.GONE);
+            right_action.setVisibility(View.GONE);
+            EmptyTools.setEmptyView(MessagerCenterActivity.this,
+                    messagerCenterListView);
+            EmptyTools.setImg(R.drawable.message_message);
+            EmptyTools.setMessage("您还没有相关消息");
+        }
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }

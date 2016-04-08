@@ -32,6 +32,8 @@ public class NetInterface {
 
     public static final String TEMP_OBD = "/csh-interface/obd/"; // 检测obd相关
 
+    public static final String TEMP_EVALUATE = "/csh-interface/tenantEvaluate/";// 评价相关
+
     public static final String HEADER_ALL = BASE_URL + TEMP_URL;
 
     public static final String RESPONSE_SUCCESS = "0000"; // success
@@ -107,5 +109,7 @@ public class NetInterface {
     public static final String DYNAMIC = "vehicleTrends";// 车辆动态
 
     public static final String BIND_QR = "bindTenant";//绑定
+
+    public static final String RATE = "doRate";//用户对商户打分
 
 }

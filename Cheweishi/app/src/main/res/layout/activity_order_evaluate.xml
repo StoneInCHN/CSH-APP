@@ -8,6 +8,7 @@
     <include layout="@layout/title" />
 
     <ScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -168,12 +169,14 @@
                         android:rating="3" />
                 </LinearLayout>
 
+                <!--2016-4-8 15:18:36 暂时去掉-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small_marging"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
@@ -192,12 +195,14 @@
                         android:rating="3" />
                 </LinearLayout>
 
+                <!--2016-4-8 15:18:53 暂时去掉-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small_marging"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
@@ -217,10 +222,12 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!--2016-4-8 15:17:03 暂时去掉-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -297,7 +304,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/xlarge_marging"
                 android:background="@color/white"
-                android:numColumns="5"></com.cheweishi.android.widget.UnslidingGridView>
+                android:numColumns="5" />
 
             <View
                 android:layout_width="match_parent"
@@ -305,6 +312,7 @@
                 android:background="@color/white" />
 
             <Button
+                android:id="@+id/bt_evaluate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/main_blue"

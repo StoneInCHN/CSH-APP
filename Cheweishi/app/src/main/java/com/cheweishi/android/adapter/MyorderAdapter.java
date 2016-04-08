@@ -56,6 +56,7 @@ public class MyorderAdapter extends BaseAdapter {
     }
 
     public void setData(List<OrderResponse.MsgBean> mData) {
+//        this.mData.clear();
         this.mData = mData;
         this.notifyDataSetChanged();
     }
@@ -117,11 +118,13 @@ public class MyorderAdapter extends BaseAdapter {
             holder.tv_order_time = (TextView) arg1
                     .findViewById(R.id.tv_order_time);
             arg1.setTag(holder);
+            holder.btn_order_comment.setTag(arg0);
             holder.btn_order_detail.setTag(arg0);
 
         } else {
             holder = (ViewHolder) arg1.getTag();
             holder.btn_order_detail.setTag(arg0);
+            holder.btn_order_comment.setTag(arg0);
         }
 
         // TODO 自己服务器参数
@@ -152,7 +155,7 @@ public class MyorderAdapter extends BaseAdapter {
                     // TODO 查看详情
                     Intent intent = new Intent();
                     intent.setClass(mContext, OrderDetailsActivity.class);
-                    intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getCarService().getServiceCategory().getId()));
+                    intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getId()));
                     mContext.startActivity(intent);
                 }
             });
@@ -205,7 +208,12 @@ public class MyorderAdapter extends BaseAdapter {
                 public void onClick(View arg0) {
 
                     // TODO 评价
+                    int po = Integer.valueOf(String.valueOf(arg0.getTag()));
                     Intent intent = new Intent();
+//                    intent.putExtra("price",mData.get(po).getPrice());
+//                    intent.putExtra("tenantname",mData.get(po).getTenantName());
+//                    intent.putExtra("servicename",mData.get(po).getCarService().getServiceName());
+//                    intent.putExtra("tenantname",mData.get(po).());
                     intent.setClass(mContext, BaskOrderActivity.class);
                     mContext.startActivity(intent);
                 }
@@ -221,7 +229,7 @@ public class MyorderAdapter extends BaseAdapter {
                     intent.setClass(mContext, OrderDetailsActivity.class);
                     intent.putExtra("chargeStatus", mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getChargeStatus());
                     intent.putExtra("finishtime", mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getPaymentDate());
-                    intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getCarService().getServiceCategory().getId()));
+                    intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getId()));
                     mContext.startActivity(intent);
 
                 }

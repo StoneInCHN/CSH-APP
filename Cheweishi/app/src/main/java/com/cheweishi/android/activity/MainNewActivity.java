@@ -239,7 +239,7 @@ public class MainNewActivity extends BaseActivity {
                 .getDeviceId();
         JPushInterface.setAlias(getApplicationContext(), alias, mTagsCallback);
         String JPushId = JPushInterface.getRegistrationID(this);
-        Log.i("result", "=JPushRegistrationID==" + JPushId + "==alias=" + alias);
+        LogHelper.d("=JPushRegistrationID==" + JPushId + "==alias=" + alias);
     }
 
     /**

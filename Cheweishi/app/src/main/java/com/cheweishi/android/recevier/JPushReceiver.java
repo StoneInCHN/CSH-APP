@@ -51,7 +51,7 @@ public class JPushReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		Bundle bundle = intent.getExtras();
 		this.mContext = context;
-		Log.i("result", "===Jpush=bundle==" + bundle.getString(JPushInterface.EXTRA_EXTRA));
+		Log.i(TAG, "===Jpush=bundle==" + bundle.getString(JPushInterface.EXTRA_EXTRA));
 //		Log.d("result", "[JPushReceiver] onReceive - " + intent.getAction()
 //				+ ", extras: " + printBundle(bundle));
 		
@@ -132,7 +132,7 @@ public class JPushReceiver extends BroadcastReceiver {
 		// msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
 		// }
 		// } catch (JSONException e) {
-		Log.i("result", " ===发送推送显示广播== ");
+		Log.i(TAG, " ===发送推送显示广播== ");
 		//
 		// }
 		// }

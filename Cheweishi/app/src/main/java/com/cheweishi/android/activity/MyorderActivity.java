@@ -12,11 +12,13 @@ import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.adapter.MyorderAdapter;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
+import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.MyOrderBean;
 import com.cheweishi.android.entity.OrderResponse;
 import com.cheweishi.android.tools.EmptyTools;
+import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.StringUtil;
@@ -62,6 +64,7 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
     private int pageNumber = 1;
     private CustomDialog.Builder builder;
     private CustomDialog deleteDialog;
+    private static boolean refresh = false;
 
     // WashcarHistoryActivity
     @Override
@@ -90,28 +93,9 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
         adapter = new MyorderAdapter(list, this);
         mListView.setAdapter(adapter);
 
-        httpBiz = new HttpBiz(this);
         connectToServer();
     }
 
-    @Override
-    public void receive(int type, String data) {
-        super.receive(type, data);
-        lv_myOrder.onRefreshComplete();
-
-        ProgrosDialog.closeProgrosDialog();
-        System.out.println("订单====" + data);
-        switch (type) {
-            case 400:
-                showToast(R.string.server_link_fault);
-                break;
-            case 10002:
-                parseJSON(data);
-                break;
-            case 10003:
-                break;
-        }
-    }
 
     @OnClick({R.id.left_action, R.id.right_action})
     public void onClick(View arg0) {
@@ -170,32 +154,74 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
         param.put("token", loginResponse.getToken());
         param.put("pageNumber", pageNumber);
         param.put("pageSize", 10);
+        param.put(Constant.PARAMETER_TAG, "normal");
         netWorkHelper.PostJson(url, param, this);
     }
 
 
     @Override
-    public void receive(String data) {
+    public void receive(String TAG, String data) {
         lv_myOrder.onRefreshComplete();
         ProgrosDialog.closeProgrosDialog();
-        OrderResponse response = (OrderResponse) GsonUtil.getInstance().convertJsonStringToObject(data, OrderResponse.class);
-        if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-            showToast(response.getDesc());
-            return;
-        }
+        switch (TAG) {
+            case "normal":
+                OrderResponse response = (OrderResponse) GsonUtil.getInstance().convertJsonStringToObject(data, OrderResponse.class);
+                if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(response.getDesc());
+                    return;
+                }
 
 
-        listTemp = response.getMsg();
-        if (listTemp.size() == 0 && list.size() == 0) {
-            // layoutNoData.setVisibility(View.VISIBLE);
-            EmptyTools.setImg(R.drawable.dingdanwu_icon);
-            EmptyTools.setMessage("您还没有订单");
-        } else if (!(StringUtil.isEmpty(listTemp) || listTemp.size() == 0)) {
-            list.addAll(listTemp);
-        } else {
-            showToast(R.string.no_more);
+                listTemp = response.getMsg();
+                if (listTemp.size() == 0 && list.size() == 0) {
+                    // layoutNoData.setVisibility(View.VISIBLE);
+                    EmptyTools.setEmptyView(baseContext, lv_myOrder);
+                    EmptyTools.setImg(R.drawable.dingdanwu_icon);
+                    EmptyTools.setMessage("您还没有订单");
+                } else if (!(StringUtil.isEmpty(listTemp) || listTemp.size() == 0)) {
+                    list.addAll(listTemp);
+                } else {
+                    showToast(R.string.no_more);
+                    return;
+                }
+                adapter.setData(list);
+
+                loginResponse.setToken(response.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                break;
+            case "reconnection":
+                OrderResponse orderResponse = (OrderResponse) GsonUtil.getInstance().convertJsonStringToObject(data, OrderResponse.class);
+                if (!orderResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(orderResponse.getDesc());
+                    return;
+                }
+
+
+                listTemp = orderResponse.getMsg();
+                if (listTemp.size() == 0 && list.size() == 0) {
+                    // layoutNoData.setVisibility(View.VISIBLE);
+                    EmptyTools.setEmptyView(baseContext, lv_myOrder);
+                    EmptyTools.setImg(R.drawable.dingdanwu_icon);
+                    EmptyTools.setMessage("您还没有订单");
+                } else if (!(StringUtil.isEmpty(listTemp) || listTemp.size() == 0)) {
+                    list.clear();
+                    list.addAll(listTemp);
+                } else {
+                    showToast(R.string.no_more);
+                    return;
+                }
+                adapter.setData(list);
+                loginResponse.setToken(orderResponse.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                break;
         }
-        adapter.setData(list);
+    }
+
+    @Override
+    public void receive(String data) {
+
+
+//        lv_myOrder.setAdapter(adapter);
 
 
     }
@@ -206,43 +232,6 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
         ProgrosDialog.closeProgrosDialog();
     }
 
-    private void parseJSON(String result) {
-        if (StringUtil.isEmpty(result)) {
-            return;
-        }
-
-        try {
-            JSONObject jsonObject = new JSONObject(result);
-            if (StringUtil.isEquals(jsonObject.optString("state"),
-                    API.returnSuccess, true)) {
-                System.out.println("订单====" + result);
-                Gson gson = new Gson();
-                java.lang.reflect.Type type = new TypeToken<List<MyOrderBean>>() {
-                }.getType();
-                listTemp = gson.fromJson(jsonObject.optString("data"), type);
-                if (listTemp.size() == 0 && list.size() == 0) {
-                    // layoutNoData.setVisibility(View.VISIBLE);
-                    EmptyTools.setImg(R.drawable.dingdanwu_icon);
-                    EmptyTools.setMessage("您还没有订单");
-                } else if (!(StringUtil.isEmpty(listTemp) || listTemp.size() == 0)) {
-                    list.addAll(listTemp);
-                } else {
-                    showToast(R.string.no_more);
-                }
-                System.out.println("订单=====" + list.size());
-                adapter.setData(list);
-            } else if (StringUtil.isEquals(jsonObject.optString("state"),
-                    API.returnRelogin, true)) {
-                ReLoginDialog.getInstance(this).showDialog(
-                        jsonObject.optString("message"));
-            } else {
-                showToast(jsonObject.optString("message") + "haha");
-            }
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -270,6 +259,31 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
 //        Intent intent = new Intent(this, OrderDetailsActivity.class);
 //        intent.putExtra("order_id", list.get(arg2 - 1).getCarService().getServiceCategory().getId());
 //        startActivity(intent);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!refresh) {
+            refresh = true;
+        } else {
+            // 重新连接
+            reConnection();
+        }
+    }
+
+
+    private void reConnection() {
+        ProgrosDialog.openDialog(this);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER + NetInterface.USER_ORDER + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("pageNumber", pageNumber);
+        param.put("pageSize", 10);
+        param.put(Constant.PARAMETER_TAG, "reconnection");
+        netWorkHelper.PostJson(url, param, this);
     }
 
 }
