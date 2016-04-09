@@ -53,14 +53,21 @@ public class PessanySearchActivity extends BaseActivity implements
 	private void initViews() {
 		title.setText(R.string.title_activity_pessany_search);
 		left_action.setText(R.string.back);
+		getData();
 		adapter = new PessanyAdapter(this, listPessanySearch);
 		lv_pessanySearch.setAdapter(adapter);
+	}
+
+	private void getData() {
+
+
+
+
 	}
 
 	@OnClick({ R.id.left_action })
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		case R.id.left_action:
 			finish();
@@ -70,7 +77,6 @@ public class PessanySearchActivity extends BaseActivity implements
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
 		Intent intent = new Intent(this, PessanySearchResultActivity.class);
 		if (!StringUtil.isEmpty(listPessanySearch)
 				&& listPessanySearch.size() > arg2) {

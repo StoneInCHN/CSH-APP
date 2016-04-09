@@ -262,7 +262,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 设置checkbox状态
-     *
      */
     // private void setCheckBox(int type, String status) {
     // switch (type) {
@@ -410,15 +409,7 @@ public class SetActivity extends BaseActivity implements OnClickListener,
             // break;
             case R.id.cb_push:
                 // 推送
-                // if (isChecked) {
-                // messageConnectToServer("1");
-                // loginMessage.setIsPush(1);
-                // } else {
-                // messageConnectToServer("0");
-                // loginMessage.setIsPush(0);
-                // }
-                LoginMessageUtils.saveProduct(loginMessage, SetActivity.this);
-
+                LoginMessageUtils.setPush(baseContext, isChecked);
                 break;
 
             default:
@@ -659,7 +650,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 清除缓存
-     *
      */
     private void clearPhoneCache() {
 

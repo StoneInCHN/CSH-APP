@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_backgroud"
-    android:orientation="vertical"
-    tools:context=".PessanySearchActivity">
+    android:orientation="vertical">
 
     <include layout="@layout/title" />
 
@@ -14,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/large_marging"
         android:divider="@color/gray_backgroud"
-        android:dividerHeight="@dimen/large_marging"></ListView>
+        android:dividerHeight="@dimen/large_marging"
+        android:scrollbars="none" />
 
     <TextView
         android:layout_width="match_parent"

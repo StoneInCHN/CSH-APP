@@ -69,7 +69,6 @@ public class WelcomeActivity extends BaseActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    // TODO Auto-generated method stub
                     if (isLogined()) {
                         Intent intent = new Intent(WelcomeActivity.this,
                                 MainNewActivity.class);
@@ -164,7 +163,7 @@ public class WelcomeActivity extends BaseActivity {
     TimerTask task = new TimerTask() {
         @Override
         public void run() {
-            if (isLogined()) {
+            if (isLogined() && LoginMessageUtils.isLogined(baseContext)) {
                 Intent intent = new Intent(WelcomeActivity.this,
                         MainNewActivity.class);
                 intent.putExtra("className", "WelcomeActivity");

@@ -18,6 +18,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/itme_heigth"
                 android:layout_marginTop="@dimen/large_marging"

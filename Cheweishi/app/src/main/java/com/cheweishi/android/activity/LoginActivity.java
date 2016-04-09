@@ -142,7 +142,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
      */
     private void init() {
         handler = new Handler(this);
-        httpBiz = new HttpBiz(this);
         left_action.setText(R.string.back);
         title.setText(R.string.login);
         mPhoneNumberEditText.setText(SharePreferenceTools

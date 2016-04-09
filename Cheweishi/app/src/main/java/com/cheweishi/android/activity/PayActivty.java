@@ -32,6 +32,7 @@ import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.PayUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.utils.weixinpay.WeiXinPay;
@@ -374,7 +375,12 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                         payUtils.setPayListener(this);
                         payUtils.pay(PayActivty.this, "车生活", "钱包充值", moneyAccount);
                         break;
-                    case CHANNEL_WECHAT: // 微信
+                    case CHANNEL_WECHAT: // 微信 // TODO 暂时不支持
+                        showToast("钱包充值暂时不支持微信.敬请期待.");
+//                        String prepay_id = response.getMsg().get();
+//                        String nonce_str = preparePayResponse.getMsg().getNonce_str();
+//                        LogHelper.d(prepay_id + "----" + nonce_str);
+//                        WeiXinPay.getinstance(this).pay(prepay_id, nonce_str);
                         break;
                 }
 

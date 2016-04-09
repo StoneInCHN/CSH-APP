@@ -287,7 +287,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
     @Override
     public void receive(int type, String data) {
         super.receive(type, data);
-        Log.i("result", "===退出数据===" + data);
+        Log.i("Tanck", "===退出数据===" + data);
         clearData();
     }
 

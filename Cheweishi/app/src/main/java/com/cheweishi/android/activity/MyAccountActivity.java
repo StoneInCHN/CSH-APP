@@ -51,7 +51,7 @@ public class MyAccountActivity extends BaseActivity implements OnClickListener {
     @ViewInject(R.id.ll_setting)
     private LinearLayout ll_setting;
     @ViewInject(R.id.iv_myAccountUserIcon)
-    private ImageView iv_myAccountUserIcon;
+    public static ImageView iv_myAccountUserIcon;
     @ViewInject(R.id.tv_nickName)
     private TextView tv_nickName;
     @ViewInject(R.id.tv_myDefaultCar)
@@ -146,7 +146,7 @@ public class MyAccountActivity extends BaseActivity implements OnClickListener {
             case R.id.ll_setting:// 设置
                 turnToSetting();
                 break;
-            case R.id.ll_my_order:// 设置
+            case R.id.ll_my_order:// 订单
                 turnToMyOrder();
                 break;
             case R.id.left_action:// 返回

@@ -843,7 +843,7 @@ public class UserInfoEditActivity extends BaseActivity implements
 //        httpBiz = new HttpBiz(this);
 //        httpBiz.uploadMethod(UPLOAD_IMG_TYPE, params,url, this,
 //                this);
-        ProgrosDialog.openDialog(this);
+        ProgrosDialog.openDialog(baseContext);
 
         // TODO 需要在子线程中run
         new UploadImage().execute(pathString);
@@ -865,6 +865,10 @@ public class UserInfoEditActivity extends BaseActivity implements
 
                 XUtilsImageLoader.getxUtilsImageLoader(UserInfoEditActivity.this,
                         R.drawable.info_touxiang_moren, img_userEdit_userIcon,
+                        photoResponse.getMsg().getPhoto());
+
+                XUtilsImageLoader.getxUtilsImageLoader(UserInfoEditActivity.this,
+                        R.drawable.info_touxiang_moren, MyAccountActivity.iv_myAccountUserIcon,
                         photoResponse.getMsg().getPhoto());
                 loginResponse.getMsg().setPhoto(photoResponse.getMsg().getPhoto());
                 loginResponse.setToken(photoResponse.getToken());

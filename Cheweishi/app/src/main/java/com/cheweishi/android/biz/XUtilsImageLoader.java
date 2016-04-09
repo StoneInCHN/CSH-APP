@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.utils.LogHelper;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.BitmapCommonUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
@@ -149,15 +150,12 @@ public class XUtilsImageLoader {
     public static synchronized XUtilsImageLoader getxUtilsImageLoader(
             Context context, int resid, ImageView imageView, String uri) {
         mImageLoader = getInstance(context, resid);
-        if (mBitmapUtils != null) {
-
-            Picasso.with(context)
-                    .load(NetInterface.IMG_URL + uri)
-                    .placeholder(resid)
-                    .error(resid)
-                    .centerCrop()
-                    .into(imageView);
-        }
+        Picasso.with(context)
+                .load(NetInterface.IMG_URL + uri)
+                .placeholder(resid)
+                .error(resid)
+                .config(Bitmap.Config.RGB_565)
+                .into(imageView);
         return mImageLoader;
     }
 

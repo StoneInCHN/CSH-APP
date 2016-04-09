@@ -42,6 +42,28 @@ public class LoginMessageUtils {
         editor.commit();
     }
 
+    public static boolean isLogined(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(
+                "loginData", Context.MODE_PRIVATE);
+        boolean result = sharedPreferences.getBoolean("isLogined", false);
+        return result;
+    }
+
+    public static void setPush(Context context, boolean push) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(
+                "pushData", Context.MODE_PRIVATE);
+        Editor editor = sharedPreferences.edit();
+        editor.putBoolean("push", push);
+        editor.commit();
+    }
+
+    public static boolean getPush(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(
+                "pushData", Context.MODE_PRIVATE);
+        boolean result = sharedPreferences.getBoolean("push", true);
+        return result;
+    }
+
     public static void saveProduct(LoginResponse pr, Context context) {
         BaseActivity.loginResponse = pr;
         BaseFragment.loginResponse = pr;
