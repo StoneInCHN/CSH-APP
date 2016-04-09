@@ -10,6 +10,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.adapter.BaskOrderAdapter;
 import com.cheweishi.android.biz.HttpBiz;
@@ -87,11 +88,22 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
     private ImageView img_store_comment;
     @ViewInject(R.id.bt_evaluate)
     private Button bt_evaluate;
+    @ViewInject(R.id.tv_evaluate_tenant_name)
+    private TextView tv_evaluate_tenant_name;
+    @ViewInject(R.id.tv_evaluate_tenant_service_name)
+    private TextView tv_evaluate_tenant_service_name;
+    @ViewInject(R.id.tv_evaluate_price)
+    private TextView tv_evaluate_price;
     private boolean resetText;
     private int cursorPos;
     // 输入表情前EditText中的文本
     private String tmp;
     private float mCurrentRate;
+    private String price;
+    private String tenantname;
+    private String servicename;
+    private String tenantPhoto;
+    private String tenantID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,16 +241,36 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
                 .setOnRatingBarChangeListener(new RatingBarChangeListenerImpl());
         rtb_environment
                 .setOnRatingBarChangeListener(new RatingBarChangeListenerImpl());
-        int max1 = rtb_skill.getMax();
-        int max2 = rtb_manner.getMax();
-        int max3 = rtb_environment.getMax();
+//        int max1 = rtb_skill.getMax();
+//        int max2 = rtb_manner.getMax();
+//        int max3 = rtb_environment.getMax();
+//
+//        float currentRating1 = rtb_skill.getRating();
+//        float currentRating2 = rtb_manner.getRating();
+//        float currentRating3 = rtb_environment.getRating();
+//        System.out.println("max=" + max1 + ",currentRating" + currentRating1);
+//        System.out.println("max=" + max2 + ",currentRating" + currentRating2);
+//        System.out.println("max=" + max3 + ",currentRating" + currentRating3);
 
-        float currentRating1 = rtb_skill.getRating();
-        float currentRating2 = rtb_manner.getRating();
-        float currentRating3 = rtb_environment.getRating();
-        System.out.println("max=" + max1 + ",currentRating" + currentRating1);
-        System.out.println("max=" + max2 + ",currentRating" + currentRating2);
-        System.out.println("max=" + max3 + ",currentRating" + currentRating3);
+
+//        intent.putExtra("price", mData.get(po).getPrice());
+//        intent.putExtra("tenantname", mData.get(po).getTenantName());
+//        intent.putExtra("servicename", mData.get(po).getCarService().getServiceName());
+//        intent.putExtra("tenantID", mData.get(po).getTenantID());
+//        intent.putExtra("tenantPhoto", mData.get(po).getTenantPhoto());
+        price = getIntent().getStringExtra("price");
+        tenantname = getIntent().getStringExtra("tenantname");
+        servicename = getIntent().getStringExtra("servicename");
+        tenantID = getIntent().getStringExtra("tenantID");
+        tenantPhoto = getIntent().getStringExtra("tenantPhoto");
+
+        // TODO 更新UI
+        tv_evaluate_price.setText(price);
+        tv_evaluate_tenant_name.setText(tenantname);
+        tv_evaluate_tenant_service_name.setText(servicename);
+        XUtilsImageLoader.getxUtilsImageLoader(this,
+                R.drawable.tianjiacar_img2x, img_store_comment,
+                tenantPhoto);
     }
 
     @OnClick({R.id.left_action, R.id.rl_orderphotograph, R.id.xiangji,
@@ -288,8 +320,7 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
     }
 
     private void sendEvluate() {
-        String tenantId = getIntent().getStringExtra("tenantId");
-        if (null == tenantId && "".equals(tenantId)) {
+        if (null == tenantID && "".equals(tenantID)) {
             showToast("评论初始化失败");
             finish();
             return;
@@ -300,7 +331,7 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
-        param.put("tenantId", tenantId);
+        param.put("tenantId", tenantID);
         param.put("score", mCurrentRate);
         netWorkHelper.PostJson(url, param, this);
 

@@ -5,8 +5,8 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-    //    public static final String BASE_URL = "http://139.129.5.114:8080";// 基础路径
-    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
+        public static final String BASE_URL = "http://139.129.5.114:8080";// 基础路径
+//    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
 
@@ -34,6 +34,8 @@ public class NetInterface {
 
     public static final String TEMP_EVALUATE = "/csh-interface/tenantEvaluate/";// 评价相关
 
+    public static final String TEMP_JPUSH = "/csh-interface/jpush/";//极光推送
+
     public static final String HEADER_ALL = BASE_URL + TEMP_URL;
 
     public static final String RESPONSE_SUCCESS = "0000"; // success
@@ -55,6 +57,8 @@ public class NetInterface {
     public static final String REGISTER = "reg"; // 注册
 
     public static final String EDIT_USER_INFO = "editUserInfo";//昵称修改
+
+    public static final String USER_PHOTO = "editUserPhoto";//修改用户头型
 
     public static final String LIST = "list";// 列表
 
@@ -111,5 +115,7 @@ public class NetInterface {
     public static final String BIND_QR = "bindTenant";//绑定
 
     public static final String RATE = "doRate";//用户对商户打分
+
+    public static final String SET_ID = "setRegId";//设置极光ID
 
 }

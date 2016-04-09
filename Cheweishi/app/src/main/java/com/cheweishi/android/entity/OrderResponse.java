@@ -82,12 +82,30 @@ public class OrderResponse extends BaseResponse implements Serializable {
          * serviceName : 车身保养
          * serviceCategory : {"id":1,"createDate":1450860985000,"modifyDate":1450860985000,"categoryName":"保养"}
          */
-
+        private String tenantPhoto;
         private CarServiceBean carService;
         private String chargeStatus;
         private long createDate;
 
+        private String tenantID;
+
         private long paymentDate;
+
+        public String getTenantID() {
+            return tenantID;
+        }
+
+        public void setTenantID(String tenantID) {
+            this.tenantID = tenantID;
+        }
+
+        public String getTenantPhoto() {
+            return tenantPhoto;
+        }
+
+        public void setTenantPhoto(String tenantPhoto) {
+            this.tenantPhoto = tenantPhoto;
+        }
 
         public long getPaymentDate() {
             return paymentDate;
@@ -145,7 +163,7 @@ public class OrderResponse extends BaseResponse implements Serializable {
             this.createDate = createDate;
         }
 
-        public static class CarServiceBean implements Serializable{
+        public static class CarServiceBean implements Serializable {
             private String serviceName;
             /**
              * id : 1

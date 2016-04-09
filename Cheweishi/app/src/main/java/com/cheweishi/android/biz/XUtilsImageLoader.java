@@ -1,18 +1,17 @@
 package com.cheweishi.android.biz;
 
-import java.io.File;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
-import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
-import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.BitmapCommonUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 //import com.nostra13.universalimageloader.core.DisplayImageOptions;
 //import com.nostra13.universalimageloader.core.ImageLoader;
 //import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -40,6 +39,17 @@ public class XUtilsImageLoader {
     private XUtilsImageLoader(Context context) {
     }
 
+
+    public static XUtilsImageLoader getInstance(Context con, int id) {
+        if (null == mImageLoader) {
+            synchronized (XUtilsImageLoader.class) {
+                if (null == mImageLoader)
+                    mImageLoader = new XUtilsImageLoader(con, id);
+            }
+        }
+        return mImageLoader;
+    }
+
     public static void clearCache() {
         mBitmapUtils.clearCache();
         mBitmapUtils.clearDiskCache();
@@ -57,7 +67,7 @@ public class XUtilsImageLoader {
                 + path);
         mBitmapUtils.configDiskCacheEnabled(true); // 允许将图片缓存到sd�?
 //        mBitmapUtils.configDiskCacheEnabled(true);
-        mBitmapUtils.configMemoryCacheEnabled(false);
+        mBitmapUtils.configMemoryCacheEnabled(true);
         // }
         // }
         // 创建缓存目录
@@ -129,6 +139,7 @@ public class XUtilsImageLoader {
 //		return mImageLoader;
 //	}
 
+
     /**
      * 单例拿到对象
      *
@@ -137,8 +148,29 @@ public class XUtilsImageLoader {
      */
     public static synchronized XUtilsImageLoader getxUtilsImageLoader(
             Context context, int resid, ImageView imageView, String uri) {
+        mImageLoader = getInstance(context, resid);
+        if (mBitmapUtils != null) {
+
+            Picasso.with(context)
+                    .load(NetInterface.IMG_URL + uri)
+                    .placeholder(resid)
+                    .error(resid)
+                    .centerCrop()
+                    .into(imageView);
+        }
+        return mImageLoader;
+    }
+
+    /**
+     * 单例拿到对象
+     *
+     * @param context
+     * @return
+     */
+    public static synchronized XUtilsImageLoader getxUtilsImageLoader_(
+            Context context, int resid, ImageView imageView, String uri) {
         setBitmap2FileDir(context, "cws");
-        mImageLoader = new XUtilsImageLoader(context, resid);
+        mImageLoader = getInstance(context, resid);
         // ImageLoader.getInstance().init(
         // ImageLoaderConfiguration.createDefault(context));
         // options = new DisplayImageOptions.Builder().cacheInMemory(true)
@@ -161,7 +193,14 @@ public class XUtilsImageLoader {
         bigPicDisplayConfig.setLoadingDrawable(context.getResources()
                 .getDrawable(resid));
         if (mBitmapUtils != null) {
-            mBitmapUtils.display(imageView, NetInterface.IMG_URL + uri, bigPicDisplayConfig);
+
+            Picasso.with(context)
+                    .load(NetInterface.IMG_URL + uri)
+                    .placeholder(resid)
+                    .error(resid)
+                    .centerCrop()
+                    .into(imageView);
+//            mBitmapUtils.display(imageView, NetInterface.IMG_URL + uri, bigPicDisplayConfig);
         }
 
         return mImageLoader;

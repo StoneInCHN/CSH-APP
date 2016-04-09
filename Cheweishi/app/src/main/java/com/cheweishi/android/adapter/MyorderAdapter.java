@@ -210,10 +210,11 @@ public class MyorderAdapter extends BaseAdapter {
                     // TODO 评价
                     int po = Integer.valueOf(String.valueOf(arg0.getTag()));
                     Intent intent = new Intent();
-//                    intent.putExtra("price",mData.get(po).getPrice());
-//                    intent.putExtra("tenantname",mData.get(po).getTenantName());
-//                    intent.putExtra("servicename",mData.get(po).getCarService().getServiceName());
-//                    intent.putExtra("tenantname",mData.get(po).());
+                    intent.putExtra("price", "" + mData.get(po).getPrice());
+                    intent.putExtra("tenantname", mData.get(po).getTenantName());
+                    intent.putExtra("servicename", mData.get(po).getCarService().getServiceName());
+                    intent.putExtra("tenantID", mData.get(po).getTenantID());
+                    intent.putExtra("tenantPhoto", mData.get(po).getTenantPhoto());
                     intent.setClass(mContext, BaskOrderActivity.class);
                     mContext.startActivity(intent);
                 }

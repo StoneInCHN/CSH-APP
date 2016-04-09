@@ -68,6 +68,7 @@ import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.MainSellerServiceInfo;
 import com.cheweishi.android.entity.ServiceListResponse;
 import com.cheweishi.android.http.NetWorkHelper;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
@@ -150,6 +151,9 @@ public class MainNewActivity extends BaseActivity {
     @ViewInject(R.id.ll_focus_indicator_container)
     // 小圆点容器
     private LinearLayout ll_focus_indicator_container;
+
+    @ViewInject(R.id.tv_msg_center_num)
+    public static TextView tv_msg_center_num;//消息数量
 
     // 可下拉刷新的scrollview
     @ViewInject(R.id.refresh_scrollview)
@@ -240,6 +244,16 @@ public class MainNewActivity extends BaseActivity {
         JPushInterface.setAlias(getApplicationContext(), alias, mTagsCallback);
         String JPushId = JPushInterface.getRegistrationID(this);
         LogHelper.d("=JPushRegistrationID==" + JPushId + "==alias=" + alias);
+
+        if (null != JPushId && !"".equals(JPushId)) {
+            String url = NetInterface.BASE_URL + NetInterface.TEMP_JPUSH + NetInterface.SET_ID + NetInterface.SUFFIX;
+            Map<String, Object> param = new HashMap<>();
+            param.put("userId", loginResponse.getDesc());
+            param.put("token", loginResponse.getToken());
+            param.put("regId", JPushId);
+            param.put(Constant.PARAMETER_TAG, NetInterface.SET_ID);
+            netWorkHelper.PostJson(url, param, this);
+        }
     }
 
     /**
@@ -264,19 +278,19 @@ public class MainNewActivity extends BaseActivity {
             switch (code) {
                 case 0:
                     logs = "Set tag and alias success";
-                    Log.i("result", logs);
+                    Log.i("Tanck", logs);
                     if (!StringUtil.isEmpty(alias)) {
-                        Log.i("result", "==alias=" + alias);
+                        LogHelper.d("==alias=" + alias);
                     }
 
                     if (!StringUtil.isEmpty(tags)) {
-                        Log.i("result", "==tags=" + tags.toString());
+                        LogHelper.d("==tags=" + tags.toString());
                     }
                     break;
 
                 case 6002:
                     logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
-                    Log.i("result", logs);
+                    LogHelper.d(logs);
                     if (!StringUtil.isEmpty(alias)) {
                         mHandler.sendMessageDelayed(
                                 mHandler.obtainMessage(MSG_SET_ALIAS, alias),
@@ -291,7 +305,7 @@ public class MainNewActivity extends BaseActivity {
 
                 default:
                     logs = "Failed with errorCode = " + code;
-                    Log.e("result", logs);
+                    LogHelper.d(logs);
             }
         }
     };
@@ -305,19 +319,19 @@ public class MainNewActivity extends BaseActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case MSG_SET_ALIAS:
-                    Log.d("result", "Set alias in handler.");
+                    Log.d("Tanck", "Set alias in handler.");
                     JPushInterface.setAlias(getApplicationContext(),
                             (String) msg.obj, mTagsCallback);
                     break;
 
                 case MSG_SET_TAGS:
-                    Log.d("result", "Set tags in handler.");
+                    Log.d("Tanck", "Set tags in handler.");
                     JPushInterface.setTags(getApplicationContext(),
                             (Set<String>) msg.obj, mTagsCallback);
                     break;
 
                 default:
-                    Log.i("result", "Unhandled msg - " + msg.what);
+                    Log.i("Tanck", "Unhandled msg - " + msg.what);
             }
         }
     };
@@ -375,7 +389,7 @@ public class MainNewActivity extends BaseActivity {
         IntentFilter intentFilter = new IntentFilter(Constant.REFRESH_FLAG);
         registerReceiver(broad, intentFilter);
 
-        setJpush();
+//        setJpush();
         setJpushTags();
     }
 
@@ -577,7 +591,8 @@ public class MainNewActivity extends BaseActivity {
     }
 
     @Override
-    public void receive(String TAG, String data) {
+    public void
+    receive(String TAG, String data) {
         ProgrosDialog.closeProgrosDialog();
         switch (TAG) {
             case NetInterface.LIST + "HOME":
@@ -609,15 +624,38 @@ public class MainNewActivity extends BaseActivity {
                     return;
                 }
 
+                // TODO 更新消息UI
+                if (null != advResponse.getDesc() && !"".equals(advResponse.getDesc())) {
+                    int number = Integer.valueOf(advResponse.getDesc());
+                    if (0 < number) {
+                        tv_msg_center_num.setVisibility(View.VISIBLE);
+                        tv_msg_center_num.setText(advResponse.getDesc());
+                    }
+                }
                 showData(advResponse);
                 loginResponse.setToken(advResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
+
+                setJpush();
                 break;
+
+            case NetInterface.SET_ID:
+                BaseResponse baseResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+                if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(baseResponse.getDesc());
+                    return;
+                }
+
+                loginResponse.setToken(baseResponse.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                break;
+
         }
 
 
     }
+
 
     private void requestAdv() {
         String url = NetInterface.BASE_URL + NetInterface.TEMP_ADV_URL + NetInterface.HOME_ADV + NetInterface.SUFFIX;

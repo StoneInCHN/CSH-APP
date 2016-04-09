@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -18,6 +19,7 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
@@ -61,11 +63,13 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.UpLoadPhotoResponse;
 import com.cheweishi.android.tools.LangUtils;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.PhotoTools;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.BitmapUtils;
+import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.ClearEditText;
@@ -206,6 +210,7 @@ public class UserInfoEditActivity extends BaseActivity implements
      */
     private void initdata() {
         if (isLogined()) {
+            LogHelper.d("加载头像..." + loginResponse.getMsg().getPhoto());
             XUtilsImageLoader.getxUtilsImageLoader(this,
                     R.drawable.info_touxiang_moren, img_userEdit_userIcon,
                     loginResponse.getMsg().getPhoto());
@@ -829,13 +834,14 @@ public class UserInfoEditActivity extends BaseActivity implements
      */
     private void setImageView(String pathString) {
 //        System.out.println("imgpath===" + pathString);
+//        String url = NetInterface.HEADER_ALL + NetInterface.EDIT_USER_INFO + NetInterface.SUFFIX;
 //        File file = new File(pathString);
 //        RequestParams params = new RequestParams();
-//        params.addBodyParameter("file", file);
-//        params.addBodyParameter("uid", loginResponse.getDesc());
-//        params.addBodyParameter("key", loginResponse.getMsg().);
+//        params.addBodyParameter("photo", file);
+//        params.addBodyParameter("userId", loginResponse.getDesc());
+//        params.addBodyParameter("token", loginResponse.getToken());
 //        httpBiz = new HttpBiz(this);
-//        httpBiz.uploadMethod(UPLOAD_IMG_TYPE, params, API.UPLOAD_IMG_URL, this,
+//        httpBiz.uploadMethod(UPLOAD_IMG_TYPE, params,url, this,
 //                this);
         ProgrosDialog.openDialog(this);
 
@@ -849,20 +855,37 @@ public class UserInfoEditActivity extends BaseActivity implements
         @Override
         protected void onPostExecute(String string) {
             ProgrosDialog.closeProgrosDialog();
+            if (null != string) {
+                UpLoadPhotoResponse photoResponse = (UpLoadPhotoResponse) GsonUtil.getInstance().convertJsonStringToObject(string, UpLoadPhotoResponse.class);
+                if (!photoResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(photoResponse.getDesc());
+                    return;
+                }
+                showToast("上传成功");
+
+                XUtilsImageLoader.getxUtilsImageLoader(UserInfoEditActivity.this,
+                        R.drawable.info_touxiang_moren, img_userEdit_userIcon,
+                        photoResponse.getMsg().getPhoto());
+                loginResponse.getMsg().setPhoto(photoResponse.getMsg().getPhoto());
+                loginResponse.setToken(photoResponse.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+            } else {
+                showToast(R.string.server_link_fault);
+            }
         }
 
         @Override
         protected String doInBackground(String... params) {
             File file = new File(params[0]);
             try {
-                String url = NetInterface.HEADER_ALL + NetInterface.EDIT_USER_INFO + NetInterface.SUFFIX;
+                String url = NetInterface.HEADER_ALL + NetInterface.USER_PHOTO + NetInterface.SUFFIX;
                 HttpClient client = new DefaultHttpClient();
                 HttpPost post = new HttpPost(url);
                 LogHelper.d(url);
                 MultipartEntity httpEntity = new MultipartEntity();
+                httpEntity.addPart("photo", new FileBody(file));
                 httpEntity.addPart("userId", new StringBody(loginResponse.getDesc()));
                 httpEntity.addPart("token", new StringBody(loginResponse.getToken()));
-                httpEntity.addPart("photo", new FileBody(file));
                 post.setEntity(httpEntity);
                 HttpResponse response = client.execute(post);
                 HttpEntity responseEntity = response.getEntity();
@@ -870,6 +893,7 @@ public class UserInfoEditActivity extends BaseActivity implements
                     // success
                     String responseString = EntityUtils.toString(responseEntity);
                     LogHelper.d(responseString);
+                    return responseString;
                 } else {
                     // fail
                     LogHelper.d(responseEntity.getContentType() + "----------upload fail" + response.getStatusLine().getStatusCode() + "--" + EntityUtils.toString(responseEntity));

@@ -8,9 +8,9 @@
     <include layout="@layout/title" />
 
     <ScrollView
-        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,6 +51,7 @@
                             android:textSize="@dimen/titile_side_text_size" />
 
                         <TextView
+                            android:id="@+id/tv_evaluate_tenant_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/large_marging"
@@ -71,6 +72,7 @@
                             android:textSize="@dimen/titile_side_text_size" />
 
                         <TextView
+                            android:id="@+id/tv_evaluate_tenant_service_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/large_marging"
@@ -91,6 +93,7 @@
                             android:textSize="@dimen/titile_side_text_size" />
 
                         <TextView
+                            android:id="@+id/tv_evaluate_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/large_marging"

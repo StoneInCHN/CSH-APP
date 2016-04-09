@@ -58,12 +58,12 @@ public class MessageCenterDetailsActivity extends BaseActivity implements
     private TextView tv_centent_time;
     @ViewInject(R.id.tv_centent_details_content)
     private TextView tv_centent_details;
+    private String number = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewUtils.inject(this);
-        httpBiz = new HttpBiz(this);
         initData();
         // getMessageDetails();
 
@@ -182,6 +182,30 @@ public class MessageCenterDetailsActivity extends BaseActivity implements
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
+
+        // TODO 更新主页消息提示UI数量
+
+        if (null != number && !"".equals(number)) {
+            int msgnumber = Integer.valueOf(number);
+            if (0 < msgnumber && 1 != msgnumber) {
+                MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
+                MainNewActivity.tv_msg_center_num.setText("" + (msgnumber - 1));
+            } else {
+                MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
+            }
+        } else {
+            String tnumber = MainNewActivity.tv_msg_center_num.getText().toString();
+            if (null != tnumber && !"".equals(tnumber)) {
+                int mImsgNumber = Integer.valueOf(tnumber);
+                if (0 < mImsgNumber && 1 != mImsgNumber) {
+                    MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
+                    MainNewActivity.tv_msg_center_num.setText("" + (mImsgNumber - 1));
+                } else {
+                    MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
+                }
+            }
+        }
+
     }
 
     @Override
@@ -192,6 +216,7 @@ public class MessageCenterDetailsActivity extends BaseActivity implements
     private void initData() {
         this.title.setText(R.string.msg_details);
         this.left_action.setText(R.string.back);
+        number = getIntent().getStringExtra("number");
         int id = getIntent().getIntExtra("id", 0);
         ProgrosDialog.openDialog(baseContext);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_MESSAGE + NetInterface.SET_READ_MSG + NetInterface.SUFFIX;
