@@ -28,6 +28,7 @@ import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ChargePayResponse;
+import com.cheweishi.android.entity.PreparePayResponse;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
@@ -362,7 +363,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
         btn_pay.setClickable(true);
         switch (TAG) {
             case NetInterface.CHARGE_PAY:
-                ChargePayResponse response = (ChargePayResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ChargePayResponse.class);
+                PreparePayResponse response = (PreparePayResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PreparePayResponse.class);
                 if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(response.getDesc());
                     return;
@@ -376,11 +377,10 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                         payUtils.pay(PayActivty.this, "车生活", "钱包充值", moneyAccount);
                         break;
                     case CHANNEL_WECHAT: // 微信 // TODO 暂时不支持
-                        showToast("钱包充值暂时不支持微信.敬请期待.");
-//                        String prepay_id = response.getMsg().get();
-//                        String nonce_str = preparePayResponse.getMsg().getNonce_str();
-//                        LogHelper.d(prepay_id + "----" + nonce_str);
-//                        WeiXinPay.getinstance(this).pay(prepay_id, nonce_str);
+                        String prepay_id = response.getMsg().getPrepay_id();
+                        String nonce_str = response.getMsg().getNonce_str();
+                        LogHelper.d(prepay_id + "----" + nonce_str);
+                        WeiXinPay.getinstance(this).pay(prepay_id, nonce_str);
                         break;
                 }
 
