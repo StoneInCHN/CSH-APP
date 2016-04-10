@@ -5,7 +5,7 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-        public static final String BASE_URL = "http://139.129.5.114:8080";// 基础路径
+    public static final String BASE_URL = "http://139.129.5.114:8080";// 基础路径
 //    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
@@ -35,6 +35,8 @@ public class NetInterface {
     public static final String TEMP_EVALUATE = "/csh-interface/tenantEvaluate/";// 评价相关
 
     public static final String TEMP_JPUSH = "/csh-interface/jpush/";//极光推送
+
+    public static final String TEMP_RECORD = "/csh-interface/illegalRecord/";//违章记录
 
     public static final String HEADER_ALL = BASE_URL + TEMP_URL;
 
@@ -117,5 +119,7 @@ public class NetInterface {
     public static final String RATE = "doRate";//用户对商户打分
 
     public static final String SET_ID = "setRegId";//设置极光ID
+
+    public static final String ILLEGAL_RECORD = "getIllegalRecords";//违章记录
 
 }
