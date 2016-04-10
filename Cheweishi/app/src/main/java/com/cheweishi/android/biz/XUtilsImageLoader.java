@@ -149,6 +149,7 @@ public class XUtilsImageLoader {
      */
     public static synchronized XUtilsImageLoader getxUtilsImageLoader(
             Context context, int resid, ImageView imageView, String uri) {
+
         mImageLoader = getInstance(context, resid);
         Picasso.with(context)
                 .load(NetInterface.IMG_URL + uri)
