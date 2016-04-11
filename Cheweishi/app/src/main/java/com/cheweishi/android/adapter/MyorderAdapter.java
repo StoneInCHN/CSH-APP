@@ -199,7 +199,11 @@ public class MyorderAdapter extends BaseAdapter {
             holder.tv_order_time.setText("" + transferLongToDate(mData.get(arg0).getPaymentDate()));
             holder.tv_order_class_name.setTextColor(mContext.getResources()
                     .getColor(R.color.main_orange));
-            holder.btn_order_comment.setText(R.string.btn_evaluate);
+            if (!mData.get(arg0).isRate()) {
+                holder.btn_order_comment.setVisibility(View.VISIBLE);
+                holder.btn_order_comment.setText(R.string.btn_evaluate);
+            } else
+                holder.btn_order_comment.setVisibility(View.GONE);
             holder.btn_order_comment.setVisibility(View.VISIBLE);
             holder.btn_order_detail.setVisibility(View.VISIBLE);
             holder.btn_order_comment.setOnClickListener(new OnClickListener() {
@@ -215,6 +219,7 @@ public class MyorderAdapter extends BaseAdapter {
                     intent.putExtra("servicename", mData.get(po).getCarService().getServiceName());
                     intent.putExtra("tenantID", mData.get(po).getTenantID());
                     intent.putExtra("tenantPhoto", mData.get(po).getTenantPhoto());
+                    intent.putExtra("recordId", String.valueOf(mData.get(po).getId()));
                     intent.setClass(mContext, BaskOrderActivity.class);
                     mContext.startActivity(intent);
                 }

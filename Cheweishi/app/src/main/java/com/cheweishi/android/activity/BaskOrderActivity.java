@@ -104,6 +104,7 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
     private String servicename;
     private String tenantPhoto;
     private String tenantID;
+    private String recordId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -263,6 +264,7 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
         servicename = getIntent().getStringExtra("servicename");
         tenantID = getIntent().getStringExtra("tenantID");
         tenantPhoto = getIntent().getStringExtra("tenantPhoto");
+        recordId = getIntent().getStringExtra("recordId");
 
         // TODO 更新UI
         tv_evaluate_price.setText(price);
@@ -333,6 +335,7 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
         param.put("token", loginResponse.getToken());
         param.put("tenantId", tenantID);
         param.put("score", mCurrentRate);
+        param.put("recordId", recordId);
         netWorkHelper.PostJson(url, param, this);
 
     }

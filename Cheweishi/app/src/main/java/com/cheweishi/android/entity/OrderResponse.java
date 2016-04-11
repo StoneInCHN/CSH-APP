@@ -75,6 +75,7 @@ public class OrderResponse extends BaseResponse implements Serializable {
     }
 
     public static class MsgBean implements Serializable {
+        private boolean isRate;
         private String tenantName;
         private int price;
         private int id;
@@ -90,6 +91,15 @@ public class OrderResponse extends BaseResponse implements Serializable {
         private String tenantID;
 
         private long paymentDate;
+
+
+        public boolean isRate() {
+            return isRate;
+        }
+
+        public void setRate(boolean rate) {
+            isRate = rate;
+        }
 
         public String getTenantID() {
             return tenantID;

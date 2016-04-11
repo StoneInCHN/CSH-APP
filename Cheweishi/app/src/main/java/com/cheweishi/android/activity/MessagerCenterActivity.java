@@ -357,6 +357,18 @@ public class MessagerCenterActivity extends BaseActivity {
                     sendDeleteMsg(new int[]{httpList.get(position).getId()});
 //                    deletaSize++;
                     httpList.remove(position);
+
+
+                    String tnumber = MainNewActivity.tv_msg_center_num.getText().toString();
+                    if (null != tnumber && !"".equals(tnumber)) {
+                        int mImsgNumber = Integer.valueOf(tnumber);
+                        if (0 < mImsgNumber && 1 != mImsgNumber) {
+                            MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
+                            MainNewActivity.tv_msg_center_num.setText("" + (mImsgNumber - 1));
+                        } else {
+                            MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
+                        }
+                    }
 //                    mMessageCenterApdater.setDeleteData(httpList);
 //                    // mMessageCenterApdater.danHangDelete(position);
 //                    if (StringUtil.isEmpty(httpList) || httpList.size() == 0) {

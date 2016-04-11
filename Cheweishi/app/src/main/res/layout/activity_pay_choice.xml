@@ -23,12 +23,14 @@
             android:textSize="@dimen/ttf_sixteen" />
         -->
 
+        <!--因为没有活动,暂时注释掉-->
         <ImageView
             android:id="@+id/icon_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:src="@drawable/chongzhi_icon" />
+            android:src="@drawable/chongzhi_icon"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,7 +39,8 @@
             android:paddingLeft="@dimen/small_padding"
             android:text="@string/pay_hint"
             android:textColor="@color/gray_pressed"
-            android:textSize="@dimen/text_size_small" />
+            android:textSize="@dimen/text_size_small"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <TextView

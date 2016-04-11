@@ -1,16 +1,5 @@
 package com.cheweishi.android.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,41 +24,26 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
-
 import com.baidu.lbsapi.auth.LBSAuthManagerListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
-import com.baidu.mapapi.search.core.PoiInfo;
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiCitySearchOption;
-import com.baidu.mapapi.search.poi.PoiDetailResult;
-import com.baidu.mapapi.search.poi.PoiResult;
-import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
 import com.baidu.navisdk.BaiduNaviManager;
-import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.adapter.ImgAdapter;
 import com.cheweishi.android.adapter.MainGridViewAdapter;
 import com.cheweishi.android.adapter.MainListViewAdapter;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.XUtilsImageLoader;
+import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ADInfo;
 import com.cheweishi.android.entity.AdvResponse;
-import com.cheweishi.android.entity.Brand;
-import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.entity.MainGridInfo;
 import com.cheweishi.android.entity.MainSellerInfo;
-import com.cheweishi.android.entity.MainSellerServiceInfo;
 import com.cheweishi.android.entity.ServiceListResponse;
-import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.response.BaseResponse;
-import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
@@ -77,7 +51,6 @@ import com.cheweishi.android.utils.ButtonUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
-import com.cheweishi.android.utils.PayUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.utils.mapUtils.LocationUtil;
 import com.cheweishi.android.widget.CustomDialog;
@@ -85,17 +58,27 @@ import com.cheweishi.android.widget.CustomDialog.Builder;
 import com.cheweishi.android.widget.MyGallery;
 import com.cheweishi.android.widget.UnSlidingListView;
 import com.cheweishi.android.widget.UnslidingGridView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * 商城版首页
@@ -351,8 +334,9 @@ public class MainNewActivity extends BaseActivity {
             public void onRefresh(PullToRefreshBase refreshView) {
 
                 // 执行刷新函数
-                new GetDataTask().execute();
+//                new GetDataTask().execute();
                 getMainData();
+                refresh_scrollview.onRefreshComplete();
             }
 
         });
@@ -364,7 +348,7 @@ public class MainNewActivity extends BaseActivity {
         protected String[] doInBackground(Void... params) {
             // Simulates a background job.
             try {
-                Thread.sleep(50);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
             }
             return null;
@@ -409,15 +393,15 @@ public class MainNewActivity extends BaseActivity {
 
     private NaviEngineInitListener mNaviEngineInitListener = new NaviEngineInitListener() {
         public void engineInitSuccess() {
-            Log.i("result", "=========engineInitSuccess=========");
+            Log.i("Tanck", "=========engineInitSuccess=========");
         }
 
         public void engineInitStart() {
-            Log.i("result", "=========engineInitStart=========");
+            Log.i("Tanck", "=========engineInitStart=========");
         }
 
         public void engineInitFail() {
-            Log.i("result", "=========engineInitFail=========");
+            Log.i("Tanck", "=========engineInitFail=========");
         }
     };
 

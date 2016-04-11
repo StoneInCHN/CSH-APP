@@ -28,8 +28,9 @@
 
                 <ImageView
                     android:id="@+id/img_store_comment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/zhaochewei_img" />
 
                 <LinearLayout
@@ -162,14 +163,20 @@
                         android:text="@string/serve_skill"
                         android:textSize="@dimen/titile_side_text_size" />
 
-                    <RatingBar
-                        android:id="@+id/rtb_skill"
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="42px"
-                        android:isIndicator="false"
-                        android:numStars="5"
-                        android:progressDrawable="@drawable/food_rating_bar_full"
-                        android:rating="3" />
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical">
+
+                        <RatingBar
+                            android:id="@+id/rtb_skill"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="false"
+                            android:numStars="5"
+                            android:progressDrawable="@drawable/food_rating_bar_full"
+                            android:rating="3" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <!--2016-4-8 15:18:36 暂时去掉-->
