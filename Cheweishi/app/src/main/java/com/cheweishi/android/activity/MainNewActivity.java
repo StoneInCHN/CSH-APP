@@ -42,8 +42,10 @@ import com.cheweishi.android.entity.ADInfo;
 import com.cheweishi.android.entity.AdvResponse;
 import com.cheweishi.android.entity.MainGridInfo;
 import com.cheweishi.android.entity.MainSellerInfo;
+import com.cheweishi.android.entity.PushResponse;
 import com.cheweishi.android.entity.ServiceListResponse;
 import com.cheweishi.android.response.BaseResponse;
+import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
@@ -234,6 +236,7 @@ public class MainNewActivity extends BaseActivity {
             param.put("userId", loginResponse.getDesc());
             param.put("token", loginResponse.getToken());
             param.put("regId", JPushId);
+            param.put("versionCode", APPTools.getVersionCode(baseContext));
             param.put(Constant.PARAMETER_TAG, NetInterface.SET_ID);
             netWorkHelper.PostJson(url, param, this);
         }
@@ -625,10 +628,16 @@ public class MainNewActivity extends BaseActivity {
                 break;
 
             case NetInterface.SET_ID:
-                BaseResponse baseResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+                PushResponse baseResponse = (PushResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PushResponse.class);
                 if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(baseResponse.getDesc());
                     return;
+                }
+
+                // TODO 版本更新
+                if (null != baseResponse.getMsg()) {
+                    app_new_download_url = baseResponse.getMsg().getApkPath();
+                    showVersionDialog(baseResponse.getMsg().getUpdateContent());
                 }
 
                 loginResponse.setToken(baseResponse.getToken());

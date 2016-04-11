@@ -35,6 +35,24 @@ public class APPTools {
         return null;
     }
 
+
+    public static int getVersionCode(Context context) {
+        // 获取packagemanager的实例
+        PackageManager packageManager = context.getPackageManager();
+        // getPackageName()是你当前类的包名，0代表是获取版本信息
+        try {
+            Log.d("Tanck", context.getPackageName());
+            PackageInfo packInfo = packageManager.getPackageInfo(
+                    context.getPackageName(), 0);
+            int version = packInfo.versionCode;
+            return version;
+        } catch (NameNotFoundException e) {
+            Log.d("Tanck", e.getMessage());
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     /**
      * 关闭键盘
      *
