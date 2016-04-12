@@ -12,18 +12,23 @@ public class OrderResponse extends BaseResponse implements Serializable {
 
 
     /**
-     * total : 1
+     * pageSize : 10
+     * total : 37
      * pageNumber : 1
-     * pageSize : 12
      */
 
     private PageBean page;
     /**
-     * tenantName : 爱车
-     * price : 20
-     * carService : {"serviceName":"车身保养","serviceCategory":{"id":1,"createDate":1450860985000,"modifyDate":1450860985000,"categoryName":"保养"}}
+     * id : 63
+     * paymentDate : 1460362894000
+     * tenantID : 3
+     * price : 30
      * chargeStatus : PAID
-     * createDate : 1458724731000
+     * tenantPhoto : /upload/tenant/photo/2.jpg
+     * carService : {"id":3,"serviceCategory":{"createDate":1458524450000,"id":2,"categoryName":"洗车","modifyDate":1458524451000},"serviceName":"普通洗车"}
+     * createDate : 1460362894000
+     * tenantEvaluate : {"createDate":1460425066000,"id":10,"modifyDate":1460425066000}
+     * tenantName : 中和汽修
      */
 
     private List<MsgBean> msg;
@@ -45,9 +50,17 @@ public class OrderResponse extends BaseResponse implements Serializable {
     }
 
     public static class PageBean implements Serializable {
+        private int pageSize;
         private int total;
         private int pageNumber;
-        private int pageSize;
+
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
+        }
 
         public int getTotal() {
             return total;
@@ -64,57 +77,38 @@ public class OrderResponse extends BaseResponse implements Serializable {
         public void setPageNumber(int pageNumber) {
             this.pageNumber = pageNumber;
         }
-
-        public int getPageSize() {
-            return pageSize;
-        }
-
-        public void setPageSize(int pageSize) {
-            this.pageSize = pageSize;
-        }
     }
 
     public static class MsgBean implements Serializable {
-        private boolean isRate;
-        private String tenantName;
-        private int price;
         private int id;
-        /**
-         * serviceName : 车身保养
-         * serviceCategory : {"id":1,"createDate":1450860985000,"modifyDate":1450860985000,"categoryName":"保养"}
-         */
-        private String tenantPhoto;
-        private CarServiceBean carService;
-        private String chargeStatus;
-        private long createDate;
-
-        private String tenantID;
-
         private long paymentDate;
+        private String tenantID;
+        private int price;
+        private String chargeStatus;
+        private String tenantPhoto;
+        /**
+         * id : 3
+         * serviceCategory : {"createDate":1458524450000,"id":2,"categoryName":"洗车","modifyDate":1458524451000}
+         * serviceName : 普通洗车
+         */
 
+        private CarServiceBean carService;
+        private long createDate;
+        /**
+         * createDate : 1460425066000
+         * id : 10
+         * modifyDate : 1460425066000
+         */
 
-        public boolean isRate() {
-            return isRate;
+        private TenantEvaluateBean tenantEvaluate;
+        private String tenantName;
+
+        public int getId() {
+            return id;
         }
 
-        public void setRate(boolean rate) {
-            isRate = rate;
-        }
-
-        public String getTenantID() {
-            return tenantID;
-        }
-
-        public void setTenantID(String tenantID) {
-            this.tenantID = tenantID;
-        }
-
-        public String getTenantPhoto() {
-            return tenantPhoto;
-        }
-
-        public void setTenantPhoto(String tenantPhoto) {
-            this.tenantPhoto = tenantPhoto;
+        public void setId(int id) {
+            this.id = id;
         }
 
         public long getPaymentDate() {
@@ -125,20 +119,12 @@ public class OrderResponse extends BaseResponse implements Serializable {
             this.paymentDate = paymentDate;
         }
 
-        public int getId() {
-            return id;
+        public String getTenantID() {
+            return tenantID;
         }
 
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getTenantName() {
-            return tenantName;
-        }
-
-        public void setTenantName(String tenantName) {
-            this.tenantName = tenantName;
+        public void setTenantID(String tenantID) {
+            this.tenantID = tenantID;
         }
 
         public int getPrice() {
@@ -149,20 +135,28 @@ public class OrderResponse extends BaseResponse implements Serializable {
             this.price = price;
         }
 
-        public CarServiceBean getCarService() {
-            return carService;
-        }
-
-        public void setCarService(CarServiceBean carService) {
-            this.carService = carService;
-        }
-
         public String getChargeStatus() {
             return chargeStatus;
         }
 
         public void setChargeStatus(String chargeStatus) {
             this.chargeStatus = chargeStatus;
+        }
+
+        public String getTenantPhoto() {
+            return tenantPhoto;
+        }
+
+        public void setTenantPhoto(String tenantPhoto) {
+            this.tenantPhoto = tenantPhoto;
+        }
+
+        public CarServiceBean getCarService() {
+            return carService;
+        }
+
+        public void setCarService(CarServiceBean carService) {
+            this.carService = carService;
         }
 
         public long getCreateDate() {
@@ -173,18 +167,33 @@ public class OrderResponse extends BaseResponse implements Serializable {
             this.createDate = createDate;
         }
 
+        public TenantEvaluateBean getTenantEvaluate() {
+            return tenantEvaluate;
+        }
+
+        public void setTenantEvaluate(TenantEvaluateBean tenantEvaluate) {
+            this.tenantEvaluate = tenantEvaluate;
+        }
+
+        public String getTenantName() {
+            return tenantName;
+        }
+
+        public void setTenantName(String tenantName) {
+            this.tenantName = tenantName;
+        }
+
         public static class CarServiceBean implements Serializable {
-            private String serviceName;
+            private int id;
             /**
-             * id : 1
-             * createDate : 1450860985000
-             * modifyDate : 1450860985000
-             * categoryName : 保养
+             * createDate : 1458524450000
+             * id : 2
+             * categoryName : 洗车
+             * modifyDate : 1458524451000
              */
 
-            private int id;
-
             private ServiceCategoryBean serviceCategory;
+            private String serviceName;
 
             public int getId() {
                 return id;
@@ -192,14 +201,6 @@ public class OrderResponse extends BaseResponse implements Serializable {
 
             public void setId(int id) {
                 this.id = id;
-            }
-
-            public String getServiceName() {
-                return serviceName;
-            }
-
-            public void setServiceName(String serviceName) {
-                this.serviceName = serviceName;
             }
 
             public ServiceCategoryBean getServiceCategory() {
@@ -210,19 +211,19 @@ public class OrderResponse extends BaseResponse implements Serializable {
                 this.serviceCategory = serviceCategory;
             }
 
+            public String getServiceName() {
+                return serviceName;
+            }
+
+            public void setServiceName(String serviceName) {
+                this.serviceName = serviceName;
+            }
+
             public static class ServiceCategoryBean implements Serializable {
-                private int id;
                 private long createDate;
-                private long modifyDate;
+                private int id;
                 private String categoryName;
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
+                private long modifyDate;
 
                 public long getCreateDate() {
                     return createDate;
@@ -232,12 +233,12 @@ public class OrderResponse extends BaseResponse implements Serializable {
                     this.createDate = createDate;
                 }
 
-                public long getModifyDate() {
-                    return modifyDate;
+                public int getId() {
+                    return id;
                 }
 
-                public void setModifyDate(long modifyDate) {
-                    this.modifyDate = modifyDate;
+                public void setId(int id) {
+                    this.id = id;
                 }
 
                 public String getCategoryName() {
@@ -247,6 +248,44 @@ public class OrderResponse extends BaseResponse implements Serializable {
                 public void setCategoryName(String categoryName) {
                     this.categoryName = categoryName;
                 }
+
+                public long getModifyDate() {
+                    return modifyDate;
+                }
+
+                public void setModifyDate(long modifyDate) {
+                    this.modifyDate = modifyDate;
+                }
+            }
+        }
+
+        public static class TenantEvaluateBean implements Serializable {
+            private long createDate;
+            private int id;
+            private long modifyDate;
+
+            public long getCreateDate() {
+                return createDate;
+            }
+
+            public void setCreateDate(long createDate) {
+                this.createDate = createDate;
+            }
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public long getModifyDate() {
+                return modifyDate;
+            }
+
+            public void setModifyDate(long modifyDate) {
+                this.modifyDate = modifyDate;
             }
         }
     }

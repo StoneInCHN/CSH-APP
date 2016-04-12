@@ -313,7 +313,7 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
                 dialog1.dismiss();
                 break;
             case R.id.bt_evaluate:
-                sendEvluate();
+                sendEvaluate();
                 break;
             default:
                 break;
@@ -321,7 +321,7 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
 
     }
 
-    private void sendEvluate() {
+    private void sendEvaluate() {
         if (null == tenantID && "".equals(tenantID)) {
             showToast("评论初始化失败");
             finish();

@@ -95,12 +95,12 @@ public class TelephonEchargeDetailsAdapter extends BaseAdapter {
 
         if (info.getBalanceType().equals("OUTCOME")) {
             viewHolder.Money.setTextColor(context.getResources().getColor(
-                    R.color.green));
+                    R.color.red));
             viewHolder.Money.setText("-" + info.getMoney());
 
         } else if (info.getBalanceType().equals("INCOME")) {
 
-            viewHolder.Money.setTextColor(Color.RED);
+            viewHolder.Money.setTextColor(Color.GREEN);
 //            if (!StringUtil.isEmpty(info.getRedPacket())) {
 //                viewHolder.Money.setText("+" + info.getRedPacket());
 //            } else {

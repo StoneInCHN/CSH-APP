@@ -18,6 +18,7 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.entity.MyOrderBean;
 import com.cheweishi.android.entity.OrderResponse;
 import com.cheweishi.android.tools.DialogTool;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -199,12 +200,11 @@ public class MyorderAdapter extends BaseAdapter {
             holder.tv_order_time.setText("" + transferLongToDate(mData.get(arg0).getPaymentDate()));
             holder.tv_order_class_name.setTextColor(mContext.getResources()
                     .getColor(R.color.main_orange));
-            if (!mData.get(arg0).isRate()) {
+            if (null == mData.get(arg0).getTenantEvaluate()) {
                 holder.btn_order_comment.setVisibility(View.VISIBLE);
                 holder.btn_order_comment.setText(R.string.btn_evaluate);
             } else
                 holder.btn_order_comment.setVisibility(View.GONE);
-            holder.btn_order_comment.setVisibility(View.VISIBLE);
             holder.btn_order_detail.setVisibility(View.VISIBLE);
             holder.btn_order_comment.setOnClickListener(new OnClickListener() {
 
@@ -214,13 +214,13 @@ public class MyorderAdapter extends BaseAdapter {
                     // TODO 评价
                     int po = Integer.valueOf(String.valueOf(arg0.getTag()));
                     Intent intent = new Intent();
+                    intent.setClass(mContext, BaskOrderActivity.class);
                     intent.putExtra("price", "" + mData.get(po).getPrice());
                     intent.putExtra("tenantname", mData.get(po).getTenantName());
                     intent.putExtra("servicename", mData.get(po).getCarService().getServiceName());
                     intent.putExtra("tenantID", mData.get(po).getTenantID());
                     intent.putExtra("tenantPhoto", mData.get(po).getTenantPhoto());
                     intent.putExtra("recordId", String.valueOf(mData.get(po).getId()));
-                    intent.setClass(mContext, BaskOrderActivity.class);
                     mContext.startActivity(intent);
                 }
             });
