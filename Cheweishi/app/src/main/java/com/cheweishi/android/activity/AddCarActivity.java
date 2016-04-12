@@ -310,9 +310,31 @@ public class AddCarActivity extends BaseActivity {
 //                }
 
                 // TODO 车架号服务器没有返回
-//                if (!StringUtil.isEmpty(carManagerTemp.get)) {
-//                    tv_car_vin.setText(carPlate);
-//                }
+                if (!StringUtil.isEmpty(carManagerTemp.getVehicleNo())) {
+                    tv_car_vin.setText(carManagerTemp.getVehicleNo());
+                }
+
+                // TODO 设置交强险
+                if (!StringUtil.isEmpty(carManagerTemp.getTrafficInsuranceExpiration())) {
+                    tv_trafficSurvey.setText(carManagerTemp.getTrafficInsuranceExpiration());
+                }
+
+
+                // TODO 商业保险
+                if (!StringUtil.isEmpty(carManagerTemp.getCommercialInsuranceExpiration())) {
+                    tv_businessSurvey.setText(carManagerTemp.getCommercialInsuranceExpiration());
+                }
+
+                // TODO 里程
+                if (!StringUtil.isEmpty(carManagerTemp.getDriveMileage())) {
+                    tv_car_mile.setText(carManagerTemp.getDriveMileage());
+                }
+
+                // TODO 上次里程
+                if (!StringUtil.isEmpty(carManagerTemp.getLastMaintainMileage())) {
+                    tv_last_keepFit.setText(carManagerTemp.getLastMaintainMileage());
+                }
+
                 // TODO 没有颜色这个选项
 //                if (!StringUtil.isEmpty(carManagerTemp.getColor())) {
 //                    tv_car_color.setHint(R.string.null_hint);
@@ -341,7 +363,7 @@ public class AddCarActivity extends BaseActivity {
                 XUtilsImageLoader.getxUtilsImageLoader(AddCarActivity.this,
                         R.drawable.car_default, img_car_xcRoundImg,
                         carModelUrl);
-                ll_top_top.setVisibility(View.VISIBLE);
+//                ll_top_top.setVisibility(View.VISIBLE);
 //                carPlate = carManagerTemp.getPlate();
 //                brandId = carManagerTemp.getBrand().getBrand();
 //                modelId = carManagerTemp.getBrand().getSeries();
@@ -491,6 +513,7 @@ public class AddCarActivity extends BaseActivity {
             tv_car_mileValue = Double.parseDouble(tv_car_mile.getText()
                     .toString());
         }
+
         if (StringUtil.isEmpty(brandId)) {
             showToast(R.string.car_model_choose_not_yet);
         } else if (StringUtil.isEmpty(carPlate)) {
@@ -505,6 +528,10 @@ public class AddCarActivity extends BaseActivity {
             showToast(R.string.car_mile_choose_not_yet);
         } else if (tv_car_mileValue > 1000000f) {
             showToast(R.string.car_mile_error);
+        } else if (StringUtil.isEmpty(tv_car_mile.getText().toString())) {
+            showToast("里程数不能为空");
+        } else if (StringUtil.isEmpty(tv_last_keepFit.getText().toString())) {
+            showToast("上次保养里程不能为空");
         } else {
             String str = tv_annualSurvey.getText().toString()
                     .replaceAll(" ", "");
@@ -738,16 +765,16 @@ public class AddCarActivity extends BaseActivity {
                     if (addCarFlag == false) {
                         intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
                                 + "4007930888"));
-//                        if (ActivityCompat.checkSelfPermission(baseContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-//                            // TODO: Consider calling
-//                            //    ActivityCompat#requestPermissions
-//                            // here to request the missing permissions, and then overriding
-//                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                            //                                          int[] grantResults)
-//                            // to handle the case where the user grants the permission. See the documentation
-//                            // for ActivityCompat#requestPermissions for more details.
-//                            return;
-//                        }
+                        if (ActivityCompat.checkSelfPermission(baseContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
                         startActivity(intent);
                     } else {
                         showToast(R.string.car_information_handle);
@@ -801,8 +828,8 @@ public class AddCarActivity extends BaseActivity {
                 param.put("trafficInsuranceExpiration", tv_trafficSurvey.getText());
                 param.put("commercialInsuranceExpiration", tv_businessSurvey.getText());
                 param.put("nextAnnualInspection", tv_annualSurvey.getText());
-                param.put("driveMileage", tv_car_mile.getText());
-                param.put("lastMaintainMileage", tv_last_keepFit.getText());
+                param.put("driveMileage", Long.parseLong(tv_car_mile.getText().toString()));
+                param.put("lastMaintainMileage", Long.parseLong(tv_last_keepFit.getText().toString()));
                 String url;
                 if (null == carManagerTemp) { // 添加
                     url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.ADD + NetInterface.SUFFIX;

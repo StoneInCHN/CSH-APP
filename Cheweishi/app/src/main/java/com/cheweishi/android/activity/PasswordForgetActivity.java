@@ -77,6 +77,7 @@ public class PasswordForgetActivity extends BaseActivity implements
 
 
     private static final int FORGET_PASSWORD = 1;
+    private boolean TIME_OUT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,7 @@ public class PasswordForgetActivity extends BaseActivity implements
     public void onClick(View arg0) {
         switch (arg0.getId()) {
             case R.id.btn_pass_forget_getcode:// 获取验证码
+                TIME_OUT = false;
                 checkCode();
                 break;
             case R.id.btn_next:
@@ -120,6 +122,7 @@ public class PasswordForgetActivity extends BaseActivity implements
                 PasswordForgetActivity.this.finish();
                 break;
             case R.id.tv_voice:// 语音验证码
+                TIME_OUT = false;
                 initColorTextView(false);
                 tv_voice.setClickable(false);
                 checkVoiceCode();
@@ -218,6 +221,10 @@ public class PasswordForgetActivity extends BaseActivity implements
      * 点击下一步
      */
     private void checkNext() {
+        if(TIME_OUT){
+            showToast("验证码获取超时");
+            return;
+        }
         String phoneNum = pass_forget_phonenumber.getText().toString()
                 .replaceAll(" ", "");
         String code = pass_forget_edt_code.getText().toString()
@@ -259,7 +266,7 @@ public class PasswordForgetActivity extends BaseActivity implements
         Map<String, Object> param = new HashMap<>();
         param.put("mobileNo", phoneNumber);
         param.put("tokenType", "FINDPWD");
-        param.put("sendType",path);
+        param.put("sendType", path);
         netWorkHelper.PostJson(url, param, this);
 
     }
@@ -392,6 +399,7 @@ public class PasswordForgetActivity extends BaseActivity implements
 
         @Override
         public void onFinish() {
+            TIME_OUT = true;
             btn_pass_forget_getcode.setText(R.string.get_again);
             btn_pass_forget_getcode.setClickable(true);
             tv_voice.setClickable(true);

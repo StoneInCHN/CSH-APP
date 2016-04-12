@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by tangce on 3/25/2016.
  */
-public class MyCarManagerResponse extends BaseResponse implements Serializable{
+public class MyCarManagerResponse extends BaseResponse implements Serializable {
 
     /**
      * msg : [{"isDefault":true,"plate":"川A00AKJ","id":1,"vehicleFullBrand":"一汽大众-奥迪A3"}]
@@ -41,10 +41,11 @@ public class MyCarManagerResponse extends BaseResponse implements Serializable{
         this.msg = msg;
     }
 
-    public static class MsgBean implements Serializable{
+    public static class MsgBean implements Serializable {
         private boolean isDefault;
         private String plate;
         private int id;
+        private String vehicleNo;
         private String brandIcon;
         private String vehicleFullBrand;
         private String deviceNo;
@@ -54,6 +55,14 @@ public class MyCarManagerResponse extends BaseResponse implements Serializable{
         private String commercialInsuranceExpiration;
         private String driveMileage;
 
+
+        public String getVehicleNo() {
+            return vehicleNo;
+        }
+
+        public void setVehicleNo(String vehicleNo) {
+            this.vehicleNo = vehicleNo;
+        }
 
         public String getDriveMileage() {
             return driveMileage;

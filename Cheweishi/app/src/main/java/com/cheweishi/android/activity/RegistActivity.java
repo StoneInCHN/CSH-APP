@@ -127,6 +127,8 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     @ViewInject(R.id.tv_error)
     private TextView tv_error;
 
+    private boolean TIME_OUT;
+
 
     private static final String REGISTER = "REG";// 注册
 
@@ -140,7 +142,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     }
 
     private void initView() {
-        httpBiz = new HttpBiz(this);
         time = new TimeCount(60000, 1000);
         leftaction.setText(getResources().getString(R.string.back));
         rightaction.setVisibility(View.GONE);
@@ -153,6 +154,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     public void onClick(View arg0) {
         switch (arg0.getId()) {
             case R.id.btn_getcode:
+                TIME_OUT = false;
                 checkCode();
                 break;
             case R.id.left_action:
@@ -172,6 +174,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                 RegistActivity.this.startActivity(intent);
                 break;
             case R.id.tv_voice:// 获取语音验证码
+                TIME_OUT = false;
                 path = "VOICE";
                 if (time != null) {
                     time.cancel();
@@ -196,6 +199,11 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
      * 点击下一步
      */
     private void goOn() {
+        if (TIME_OUT) {
+            showToast("验证码超时");
+            return;
+        }
+
         if (ll_phone.getVisibility() == View.VISIBLE) {// 当前显示的为手机号码获取验证码界面
             if (StringUtil.isEmpty(mPhoneNumberEditText.getText().toString()
                     .replaceAll(" ", ""))) {
@@ -476,7 +484,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
         Map<String, Object> param = new HashMap<>();
         param.put("mobileNo", phoneNumber);
         param.put("tokenType", REGISTER);
-        param.put("sendType",path);
+        param.put("sendType", path);
         param.put(Constant.PARAMETER_TAG, NetInterface.SMS_TOKEN);
         netWorkHelper.PostJson(url, param, this);
     }
@@ -732,6 +740,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 
         @Override
         public void onFinish() {
+            TIME_OUT = true;
             mGetcodeButton.setTextColor(RegistActivity.this
                     .getApplicationContext().getResources()
                     .getColor(R.color.orange_text_color));
