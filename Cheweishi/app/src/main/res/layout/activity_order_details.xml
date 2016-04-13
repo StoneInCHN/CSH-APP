@@ -302,7 +302,7 @@
                                 android:layout_height="wrap_content"
                                 android:paddingLeft="@dimen/large_padding"
                                 android:paddingRight="@dimen/large_padding"
-                                android:src="@drawable/baoyang_phone" />
+                                android:src="@drawable/baoyang_phone_new" />
 
                             <TextView
                                 android:id="@+id/tv_phone"
@@ -315,7 +315,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingLeft="@dimen/large_padding"
-                                android:src="@drawable/baoyang_daohang" />
+                                android:src="@drawable/baoyang_daohang_new" />
                         </LinearLayout>
                     </LinearLayout>
 
