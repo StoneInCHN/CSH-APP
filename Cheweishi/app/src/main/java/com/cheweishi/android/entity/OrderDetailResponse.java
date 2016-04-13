@@ -9,16 +9,17 @@ public class OrderDetailResponse extends BaseResponse {
 
 
     /**
-     * id : 71
-     * tenantInfo : {"id":1,"contactPhone":null,"chargeStatus":null,"address":null,"businessTime":null,"praiseRate":3,"longitude":10.000021,"latitude":10.000021,"photo":"/upload/tenant/photo/12.jpg","tenantName":"爱车"}
+     * id : 74
+     * paymentDate : 1460556149000
+     * tenantInfo : {"id":1,"contactPhone":null,"address":null,"businessTime":null,"praiseRate":3,"longitude":10.000021,"latitude":10.000021,"photo":"/upload/tenant/photo/12.jpg","tenantName":"爱车"}
      * price : 30
-     * recordNo : 201604131626091235158001
+     * recordNo : 201604132202281239410001
+     * chargeStatus : PAID
      * finishDate : null
-     * payDate : null
      * serviceFlag : 0
-     * createDate : 1460535969000
+     * createDate : 1460556148000
      * subscribeDate : null
-     * serviceName : 普通洗车
+     * serviceName : 精洗
      */
 
     private MsgBean msg;
@@ -33,10 +34,10 @@ public class OrderDetailResponse extends BaseResponse {
 
     public static class MsgBean {
         private int id;
+        private long paymentDate;
         /**
          * id : 1
          * contactPhone : null
-         * chargeStatus : null
          * address : null
          * businessTime : null
          * praiseRate : 3
@@ -49,8 +50,8 @@ public class OrderDetailResponse extends BaseResponse {
         private TenantInfoBean tenantInfo;
         private int price;
         private String recordNo;
+        private String chargeStatus;
         private String finishDate;
-        private String payDate;
         private int serviceFlag;
         private long createDate;
         private String subscribeDate;
@@ -62,6 +63,14 @@ public class OrderDetailResponse extends BaseResponse {
 
         public void setId(int id) {
             this.id = id;
+        }
+
+        public long getPaymentDate() {
+            return paymentDate;
+        }
+
+        public void setPaymentDate(long paymentDate) {
+            this.paymentDate = paymentDate;
         }
 
         public TenantInfoBean getTenantInfo() {
@@ -88,20 +97,20 @@ public class OrderDetailResponse extends BaseResponse {
             this.recordNo = recordNo;
         }
 
+        public String getChargeStatus() {
+            return chargeStatus;
+        }
+
+        public void setChargeStatus(String chargeStatus) {
+            this.chargeStatus = chargeStatus;
+        }
+
         public String getFinishDate() {
             return finishDate;
         }
 
         public void setFinishDate(String finishDate) {
             this.finishDate = finishDate;
-        }
-
-        public String getPayDate() {
-            return payDate;
-        }
-
-        public void setPayDate(String payDate) {
-            this.payDate = payDate;
         }
 
         public int getServiceFlag() {
@@ -139,7 +148,6 @@ public class OrderDetailResponse extends BaseResponse {
         public static class TenantInfoBean {
             private int id;
             private String contactPhone;
-            private String chargeStatus;
             private String address;
             private String businessTime;
             private int praiseRate;
@@ -162,14 +170,6 @@ public class OrderDetailResponse extends BaseResponse {
 
             public void setContactPhone(String contactPhone) {
                 this.contactPhone = contactPhone;
-            }
-
-            public String getChargeStatus() {
-                return chargeStatus;
-            }
-
-            public void setChargeStatus(String chargeStatus) {
-                this.chargeStatus = chargeStatus;
             }
 
             public String getAddress() {

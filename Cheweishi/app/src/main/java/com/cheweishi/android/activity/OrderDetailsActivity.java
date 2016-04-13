@@ -366,7 +366,7 @@ public class OrderDetailsActivity extends BaseActivity implements
             ll_order_detail.addView(imageView);
         }
 
-        chargeStatus = response.getMsg().getTenantInfo().getChargeStatus();
+        chargeStatus = response.getMsg().getChargeStatus();
         progress_pay_statue(chargeStatus);
         adapter = new OrderExLvAdapter(this, response);
 
@@ -466,6 +466,7 @@ public class OrderDetailsActivity extends BaseActivity implements
          */
 
         lv_order_detail_icon.setVerticalGravity(View.VISIBLE);
+        LogHelper.d("TYPE:" + response.getMsg().getServiceFlag());
         if (1 == response.getMsg().getServiceFlag()) {
             switch (str) {
                 case "RESERVATION": // 预约
@@ -523,7 +524,7 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_time1_second.setVisibility(View.VISIBLE);
                     tv_time1_second.setText(formateDate(String.valueOf(response.getMsg().getSubscribeDate())));
                     tv_order_paid.setVisibility(View.VISIBLE);
-                    tv_order_paid.setText(formateDate(String.valueOf(response.getMsg().getPayDate())));
+                    tv_order_paid.setText(formateDate(String.valueOf(response.getMsg().getPaymentDate())));
                     break;
 
                 case "FINISH": // 订单完成
@@ -541,7 +542,7 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_time1_second.setVisibility(View.VISIBLE);
                     tv_time1_second.setText(formateDate(String.valueOf(response.getMsg().getSubscribeDate())));
                     tv_order_paid.setVisibility(View.VISIBLE);
-                    tv_order_paid.setText(formateDate(String.valueOf(response.getMsg().getPayDate())));
+                    tv_order_paid.setText(formateDate(String.valueOf(response.getMsg().getPaymentDate())));
                     tv_order_complete.setVisibility(View.VISIBLE);
                     tv_order_complete.setText(formateDate(String.valueOf(response.getMsg().getFinishDate())));
                     break;
