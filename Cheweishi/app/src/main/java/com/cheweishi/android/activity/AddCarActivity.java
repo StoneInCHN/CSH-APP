@@ -529,7 +529,7 @@ public class AddCarActivity extends BaseActivity {
         } else if (tv_car_mileValue > 1000000f) {
             showToast(R.string.car_mile_error);
         } else if (StringUtil.isEmpty(tv_car_mile.getText().toString())) {
-            showToast("里程数不能为空");
+            showToast(R.string.car_mile_choose_not_yet);
         } else if (StringUtil.isEmpty(tv_last_keepFit.getText().toString())) {
             showToast("上次保养里程不能为空");
         } else {

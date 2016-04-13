@@ -1452,7 +1452,7 @@
     <string name="serve_environment">服务环境</string>
     <string name="serve_manner">服务态度</string>
     <string name="serve_skill">服务评分</string>
-    <string name="bask_order">评价晒单</string>
+    <string name="bask_order">评价</string>
     <string name="cancel_Order">取消订单</string>
     <string name="myorder">我的订单</string>
     <string name="normal_car">普通洗车</string>
@@ -1460,7 +1460,7 @@
     <string name="order_proceed">进行中</string>
     <string name="order_overdue">订单过期</string>
     <string name="order_details">订单详情</string>
-    <string name="order_win">预约成功,等待商家接单......</string>
+    <string name="order_win">预约成功,等待商家确认</string>
     <string name="order_out_of_dateline">订单已过期</string>
     <string name="order_win_middle">请在72个小时之内到店洗车</string>
     <string name="order_not_pay">请在15分钟之内确认支付</string>

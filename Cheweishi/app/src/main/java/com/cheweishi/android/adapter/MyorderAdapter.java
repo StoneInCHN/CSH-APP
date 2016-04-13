@@ -154,13 +154,14 @@ public class MyorderAdapter extends BaseAdapter {
          OVERDUE,
          */
 
-        if (mData.get(arg0).getChargeStatus().equals("RESERVATION")) {// 订单已取消
-            holder.tv_order_class_name.setText("预约");
+
+        if (mData.get(arg0).getChargeStatus().equals("RESERVATION")) {// 预约中
+            holder.tv_order_class_name.setText("预约中");
             holder.tv_time.setText("预约时间");
             holder.tv_order_time.setText(""
                     + transferLongToDate(mData.get(arg0).getCreateDate()));
             holder.tv_order_class_name.setTextColor(mContext.getResources()
-                    .getColor(R.color.gray_pressed));
+                    .getColor(R.color.service_green));
             holder.btn_order_comment.setVisibility(View.GONE);
             holder.btn_order_detail.setVisibility(View.VISIBLE);
 
@@ -177,7 +178,52 @@ public class MyorderAdapter extends BaseAdapter {
                     mContext.startActivity(intent);
                 }
             });
-        } else if (mData.get(arg0).getChargeStatus().equals("UNPAID")) {// 订单进行中
+        } else if (mData.get(arg0).getChargeStatus().equals("RESERVATION_SUCCESS")) { // 预约成功
+            holder.tv_order_class_name.setText("预约成功");
+            holder.tv_time.setText("预约时间");
+            holder.tv_order_time.setText(""
+                    + transferLongToDate(mData.get(arg0).getCreateDate()));
+            holder.tv_order_class_name.setTextColor(mContext.getResources()
+                    .getColor(R.color.service_orange));
+            holder.btn_order_comment.setVisibility(View.GONE);
+            holder.btn_order_detail.setVisibility(View.VISIBLE);
+
+            // holder.tv_order_class.setText("现代朗动保养");
+            holder.btn_order_detail.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+                    // TODO 查看详情
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, OrderDetailsActivity.class);
+                    intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getId()));
+                    mContext.startActivity(intent);
+                }
+            });
+        } else if (mData.get(arg0).getChargeStatus().equals("RESERVATION_FAIL")) { // 预约失败
+            holder.tv_order_class_name.setText("预约失败");
+            holder.tv_time.setText("预约时间");
+            holder.tv_order_time.setText(""
+                    + transferLongToDate(mData.get(arg0).getCreateDate()));
+            holder.tv_order_class_name.setTextColor(mContext.getResources()
+                    .getColor(R.color.viewfinder_mask));
+            holder.btn_order_comment.setVisibility(View.GONE);
+            holder.btn_order_detail.setVisibility(View.VISIBLE);
+
+            // holder.tv_order_class.setText("现代朗动保养");
+            holder.btn_order_detail.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+                    // TODO 查看详情
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, OrderDetailsActivity.class);
+                    intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getId()));
+                    mContext.startActivity(intent);
+                }
+            });
+
+        } else if (mData.get(arg0).getChargeStatus().equals("UNPAID")) {// 未支付
             holder.tv_order_class_name.setText("未付款");
             holder.tv_time.setText("下单时间");
             holder.tv_order_time
@@ -211,9 +257,30 @@ public class MyorderAdapter extends BaseAdapter {
                     mContext.startActivity(intent);
                 }
             });
-        } else if (mData.get(arg0).getChargeStatus().equals("PAID")) {// 订单完成
-            holder.tv_order_class_name.setText("已完成");
+        } else if (mData.get(arg0).getChargeStatus().equals("PAID")) { // 已支付
+            holder.tv_order_class_name.setText("已支付");
             holder.tv_time.setText("支付时间");
+            holder.tv_order_time.setText(""
+                    + transferLongToDate(mData.get(arg0).getCreateDate()));
+            holder.tv_order_class_name.setTextColor(mContext.getResources()
+                    .getColor(R.color.main_text_blue));
+            holder.btn_order_comment.setVisibility(View.GONE);
+            holder.btn_order_detail.setVisibility(View.VISIBLE);
+
+            holder.btn_order_detail.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+                    // TODO 查看详情
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, OrderDetailsActivity.class);
+                    intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getId()));
+                    mContext.startActivity(intent);
+                }
+            });
+        } else if (mData.get(arg0).getChargeStatus().equals("FINISH")) {// 订单完成
+            holder.tv_order_class_name.setText("已完成");
+            holder.tv_time.setText("完成时间");
             holder.tv_order_time.setText("" + transferLongToDate(mData.get(arg0).getPaymentDate()));
             holder.tv_order_class_name.setTextColor(mContext.getResources()
                     .getColor(R.color.main_orange));
@@ -258,8 +325,16 @@ public class MyorderAdapter extends BaseAdapter {
                 }
             });
 
+        } else {// 过期
+            holder.tv_order_class_name.setText("已过期");
+            holder.tv_time.setText("过期时间");
+            holder.tv_order_time.setText(""
+                    + mData.get(arg0).getCreateDate());
+            holder.tv_order_class_name.setTextColor(mContext.getResources()
+                    .getColor(R.color.gray_pressed));
+            holder.btn_order_comment.setVisibility(View.GONE);
+            holder.btn_order_detail.setVisibility(View.GONE);
         }
-
         // 0订单完成1订单进行中2已取消3NO
 //        if (mData.get(arg0).getChargeStatus().equals("0")) {// 订单已取消
 //            holder.tv_order_class_name.setText("已取消");

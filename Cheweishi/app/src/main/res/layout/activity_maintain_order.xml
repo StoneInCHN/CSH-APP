@@ -31,7 +31,7 @@
                     android:layout_toRightOf="@+id/img_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="预约成功，等待商家接单....."
+                    android:text="预约成功，等待商家确认"
                     android:textColor="@color/green_deep"
                     android:textSize="@dimen/ttf_fourteen"
                     android:padding="@dimen/normal_padding"
