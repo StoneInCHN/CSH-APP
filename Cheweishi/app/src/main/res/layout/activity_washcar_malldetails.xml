@@ -73,10 +73,10 @@
                             <ImageView
                                 android:id="@+id/img_maintain_phone"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:paddingLeft="@dimen/large_padding"
                                 android:paddingRight="@dimen/large_padding"
-                                android:src="@drawable/baoyang_phone" />
+                                android:src="@drawable/baoyang_phone_new" />
 
                             <TextView
                                 android:layout_width="1dp"
@@ -89,9 +89,9 @@
                             <ImageView
                                 android:id="@+id/img_maintain_ditu"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:paddingLeft="@dimen/large_padding"
-                                android:src="@drawable/baoyang_daohang" />
+                                android:src="@drawable/baoyang_daohang_new" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -202,7 +202,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <com.cheweishi.android.widget.UnSlidingExpandableListView
                 android:id="@+id/lv_washcar_detils"

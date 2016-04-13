@@ -81,7 +81,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
 //	@ViewInject(R.id.ll_weixin)
 //	private LinearLayout ll_weixin;
 
-    private float moneyAccount = 600f;// 默认支付金额
+    private double moneyAccount = 600f;// 默认支付金额
     private float testMoney = 0.01f;
     private String payment_type = "zfb";// 默认支付方式
     private MyBroadcastReceiver broad;

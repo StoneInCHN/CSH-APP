@@ -121,9 +121,9 @@ public class WeiXinPay {
 		sb.append("sign\n"+req.sign+"\n\n");
 
 //		show.setText(sb.toString());
-		Log.i("result", sb.toString());
+		Log.i("Tanck", sb.toString());
 
-		Log.e("orion", "==1="+signParams.toString());
+		Log.e("Tanck", "==1="+signParams.toString());
 		//第三步 发送支付请求
 		sendPayReq();
 

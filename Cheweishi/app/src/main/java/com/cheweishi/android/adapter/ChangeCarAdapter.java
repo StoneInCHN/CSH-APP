@@ -44,7 +44,7 @@ public class ChangeCarAdapter extends BaseAdapter {
         convertView = View.inflate(context, R.layout.item_change_car, null);
 
         TextView textView = (TextView) convertView.findViewById(R.id.tv_change_car_name);
-        textView.setText(msgBeen.get(position).getVehicleFullBrand() + "  " + msgBeen.get(position).getPlate());
+        textView.setText(msgBeen.get(position).getPlate());
 
         return convertView;
     }

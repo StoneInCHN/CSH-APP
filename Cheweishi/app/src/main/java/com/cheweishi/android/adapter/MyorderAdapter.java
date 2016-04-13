@@ -137,6 +137,23 @@ public class MyorderAdapter extends BaseAdapter {
          PAID
          */
 
+        // TODO 最新状态
+        /*** 预约中
+         RESERVATION,
+         预约成功
+         RESERVATION_SUCCESS,
+         预约失败
+         RESERVATION_FAIL,
+         未支付
+         UNPAID,
+         已支付
+         PAID,
+         完成
+         FINISH,
+         过期
+         OVERDUE,
+         */
+
         if (mData.get(arg0).getChargeStatus().equals("RESERVATION")) {// 订单已取消
             holder.tv_order_class_name.setText("预约");
             holder.tv_time.setText("预约时间");

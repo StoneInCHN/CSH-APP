@@ -16,6 +16,7 @@ import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ScreenTools;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.widget.MyUnSlidingListView;
 import com.cheweishi.android.widget.UnSlidingListView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ContentView;
@@ -23,6 +24,8 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -54,6 +57,7 @@ public class PessanySearchActivity extends BaseActivity implements
     private List<PessanyResponse.MsgBean> listPessanySearch;
 
     private List<MyCarManagerResponse.MsgBean> msg;
+    private boolean isSearch = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,21 +73,27 @@ public class PessanySearchActivity extends BaseActivity implements
         title.setText(R.string.title_activity_pessany_search);
         left_action.setText(R.string.back);
         right_action.setText("切换车辆");
-        getData();
+        getData(loginResponse.getMsg().getDefaultVehiclePlate());
     }
 
-    private void getData() {
+    private void getData(String plate) {
+        if (null == plate && !"".equals(plate)) {
+            showToast("获取车牌号失败");
+            return;
+        }
         ProgrosDialog.openDialog(baseContext);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_RECORD + NetInterface.ILLEGAL_RECORD + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
-        param.put("plate", loginResponse.getMsg().getDefaultVehiclePlate());
+        param.put("plate", plate);
         netWorkHelper.PostJson(url, param, this);
     }
 
     @Override
     public void receive(String data) {
+        if (isSearch)
+            ProgrosDialog.closeProgrosDialog();
 
         PessanyResponse response = (PessanyResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PessanyResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
@@ -104,7 +114,8 @@ public class PessanySearchActivity extends BaseActivity implements
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
-        connectToServer();
+        if (!isSearch)
+            connectToServer();
     }
 
     @Override
@@ -145,7 +156,7 @@ public class PessanySearchActivity extends BaseActivity implements
     }
 
 
-    private UnSlidingListView listView;
+    private MyUnSlidingListView listView;
     private ChangeCarAdapter changeCarAdapter;
     private PopupWindow popupWindow;
 
@@ -154,15 +165,16 @@ public class PessanySearchActivity extends BaseActivity implements
             return;
         if (null == popupWindow) {
             View view = View.inflate(baseContext, R.layout.change_car, null);
-            int screen = ScreenTools.getScreentWidth(PessanySearchActivity.this);
-            popupWindow = new PopupWindow(view, screen / 2, ViewGroup.LayoutParams.WRAP_CONTENT);
-            listView = (UnSlidingListView) view.findViewById(R.id.lv_change_car);
+//            int screen = ScreenTools.getScreentWidth(PessanySearchActivity.this);
+            popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            listView = (MyUnSlidingListView) view.findViewById(R.id.lv_change_car);
         }
-        if(popupWindow.isShowing()) {
+        if (popupWindow.isShowing()) {
             popupWindow.dismiss();
             return;
         }
         popupWindow.setOutsideTouchable(true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
         changeCarAdapter = new ChangeCarAdapter(baseContext, msg);
         listView.setAdapter(changeCarAdapter);
         listView.setOnItemClickListener(new OnItemClickListener() {
@@ -171,9 +183,14 @@ public class PessanySearchActivity extends BaseActivity implements
                                     int position, long id) {
                 if (popupWindow != null)
                     popupWindow.dismiss();
+
+                // TODO 提交查询记录
+                isSearch = true;
+                getData(msg.get(position).getPlate());
             }
         });
-        popupWindow.showAsDropDown(down, ScreenTools.getScreentWidth(PessanySearchActivity.this) / 10, 0);
+//        popupWindow.showAsDropDown(down, ScreenTools.getScreentWidth(PessanySearchActivity.this) / 10, 0);
+        popupWindow.showAsDropDown(down, (int) (down.getWidth() / 2.5), 0);
     }
 
 
