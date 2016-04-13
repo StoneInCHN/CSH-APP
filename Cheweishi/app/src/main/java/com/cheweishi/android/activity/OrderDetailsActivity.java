@@ -135,8 +135,6 @@ public class OrderDetailsActivity extends BaseActivity implements
     private TextView tv_ok;
     private Bitmap qrBitmap;
     private OrderDetailResponse response;
-    @ViewInject(R.id.lv_order_detail_icon)
-    private LinearLayout lv_order_detail_icon;
     @ViewInject(R.id.tv_order_ok)
     private TextView tv_order_ok;
     @ViewInject(R.id.img_order_ok)
@@ -349,6 +347,54 @@ public class OrderDetailsActivity extends BaseActivity implements
         return "";
     }
 
+
+    /**
+     * 格式化日期
+     *
+     * @param dateStr
+     * @return
+     */
+    private String formateDate(Long dateStr) {
+//        return transferLongToDate(dateStr);
+        return formatTime(dateStr);
+    }
+
+
+    private String formatTime(long ms) {
+
+        int ss = 1000;
+        int mi = ss * 60;
+        int hh = mi * 60;
+        int dd = hh * 24;
+
+        long day = ms / dd;
+        long hour = (ms - day * dd) / hh;
+        long minute = (ms - day * dd - hour * hh) / mi;
+//        long second = (ms - day * dd - hour * hh - minute * mi) / ss;
+//        long milliSecond = ms - day * dd - hour * hh - minute * mi - second * ss;
+
+//        String strDay = day < 10 ? "0" + day : "" + day; //天
+        String strHour = hour < 10 ? "0" + hour : "" + hour;//小时
+        String strMinute = minute < 10 ? "0" + minute : "" + minute;//分钟
+//        String strSecond = second < 10 ? "0" + second : "" + second;//秒
+//        String strMilliSecond = milliSecond < 10 ? "0" + milliSecond : "" + milliSecond;//毫秒
+//        strMilliSecond = milliSecond < 100 ? "0" + strMilliSecond : "" + strMilliSecond;
+
+        return strHour + "时" + strMinute + "分";
+    }
+
+    /**
+     * 把毫秒转化成日期
+     *
+     * @param millSec(毫秒数)
+     * @return
+     */
+    private String transferLongToDate(Long millSec) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        Date date = new Date(millSec);
+        return sdf.format(date);
+    }
+
     private void setValues() {
         car_tv_car_iv_location.setText(response.getMsg().getTenantInfo().getTenantName());
         car_xlocation.setText(response.getMsg().getTenantInfo().getAddress());
@@ -470,7 +516,6 @@ public class OrderDetailsActivity extends BaseActivity implements
          OVERDUE,
          */
 
-        lv_order_detail_icon.setVerticalGravity(View.VISIBLE);
         LogHelper.d("TYPE:" + response.getMsg().getServiceFlag());
         if (1 == response.getMsg().getServiceFlag()) {
             switch (str) {
@@ -481,7 +526,7 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_daodian.setText("到店服务");
                     green_img_order(R.string.order_win);
                     tv_daodian.setTextColor(getResources().getColor(R.color.gray));
-                    tv_time1_first.setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
+                    tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
                     tv_time1_second.setText("");
                     break;
                 case "RESERVATION_SUCCESS": // 预约成功
@@ -491,7 +536,7 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_daodian.setText("到店服务");
                     green_img_order(R.string.order_details_re);
                     tv_daodian.setTextColor(getResources().getColor(R.color.gray));
-                    tv_time1_first.setText(formateDate(formateDate(String.valueOf(response.getMsg().getCreateDate()))));
+                    tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
                     tv_time1_second.setText("");
                     break;
 
@@ -502,7 +547,7 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_daodian.setText("订单取消");
                     red_img_order("预约失败,您可以选择新的时间段进行重新预约");
                     tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
-                    tv_time1_first.setText(formateDate(formateDate(String.valueOf(response.getMsg().getCreateDate()))));
+                    tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
                     tv_time1_second.setText("");
                     break;
                 case "UNPAID": // 未支付
@@ -512,9 +557,9 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_daodian.setText("完成服务");
                     green_img_order("您已完成服务,请确认支付信息");
                     tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
-                    tv_time1_first.setText(formateDate(formateDate(String.valueOf(response.getMsg().getCreateDate()))));
+                    tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
                     tv_time1_second.setVisibility(View.VISIBLE);
-                    tv_time1_second.setText(formateDate(formateDate(String.valueOf(response.getMsg().getSubscribeDate()))));
+                    tv_time1_second.setText(formateDate(response.getMsg().getSubscribeDate()));
                     break;
                 case "PAID":  //已支付
                     img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
@@ -525,11 +570,11 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_daodian.setText("完成服务");
                     green_img_order(R.string.order_paid);
                     tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
-                    tv_time1_first.setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
+                    tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
                     tv_time1_second.setVisibility(View.VISIBLE);
-                    tv_time1_second.setText(formateDate(String.valueOf(response.getMsg().getSubscribeDate())));
+                    tv_time1_second.setText(formateDate(response.getMsg().getSubscribeDate()));
                     tv_order_paid.setVisibility(View.VISIBLE);
-                    tv_order_paid.setText(formateDate(String.valueOf(response.getMsg().getPaymentDate())));
+                    tv_order_paid.setText(formateDate(response.getMsg().getPaymentDate()));
                     break;
 
                 case "FINISH": // 订单完成
@@ -543,13 +588,13 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_daodian.setText("完成服务");
                     green_img_order(R.string.order_win_complete);
                     tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
-                    tv_time1_first.setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
+                    tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
                     tv_time1_second.setVisibility(View.VISIBLE);
-                    tv_time1_second.setText(formateDate(String.valueOf(response.getMsg().getSubscribeDate())));
+                    tv_time1_second.setText(formateDate(response.getMsg().getSubscribeDate()));
                     tv_order_paid.setVisibility(View.VISIBLE);
-                    tv_order_paid.setText(formateDate(String.valueOf(response.getMsg().getPaymentDate())));
+                    tv_order_paid.setText(formateDate(response.getMsg().getPaymentDate()));
                     tv_order_complete.setVisibility(View.VISIBLE);
-                    tv_order_complete.setText(formateDate(String.valueOf(response.getMsg().getFinishDate())));
+                    tv_order_complete.setText(formateDate(response.getMsg().getFinishDate()));
                     break;
             }
         } else {
@@ -564,19 +609,20 @@ public class OrderDetailsActivity extends BaseActivity implements
                     rel_daodian.setVisibility(View.GONE);
                     tv_order_detail_yy_line.setVisibility(View.GONE);
                     tv_line_left.setVisibility(View.GONE);
+                    red_img_order("您还没有完成支付");
                     break;
                 case "PAID"://已支付
                     rel_yuyue.setVisibility(View.GONE);
                     rel_daodian.setVisibility(View.GONE);
                     tv_order_detail_yy_line.setVisibility(View.GONE);
                     tv_line_left.setVisibility(View.GONE);
-
+                    green_img_order(R.string.order_paid);
                     // 展示图标
                     img_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
                     tv_ok.setTextColor(getResources().getColor(R.color.order_dr));
                     // 设置支付时间
                     tv_order_paid.setVisibility(View.VISIBLE);
-                    tv_order_paid.setText(formateDate(String.valueOf(response.getMsg().getPaymentDate())));
+                    tv_order_paid.setText(formateDate(response.getMsg().getPaymentDate()));
                     break;
 
                 case "FINISH"://完成
@@ -584,19 +630,19 @@ public class OrderDetailsActivity extends BaseActivity implements
                     rel_daodian.setVisibility(View.GONE);
                     tv_order_detail_yy_line.setVisibility(View.GONE);
                     tv_line_left.setVisibility(View.GONE);
-
+                    green_img_order(R.string.order_win_complete);
                     //展示图标
                     img_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
                     tv_ok.setTextColor(getResources().getColor(R.color.order_dr));
                     // 设置支付时间
                     tv_order_paid.setVisibility(View.VISIBLE);
-                    tv_order_paid.setText(formateDate(String.valueOf(response.getMsg().getPaymentDate())));
+                    tv_order_paid.setText(formateDate(response.getMsg().getPaymentDate()));
 
                     //展示图标
                     img_order_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
                     tv_order_ok.setTextColor(getResources().getColor(R.color.order_dr));
                     tv_order_complete.setVisibility(View.VISIBLE);
-                    tv_order_complete.setText(formateDate(String.valueOf(response.getMsg().getFinishDate())));
+                    tv_order_complete.setText(formateDate(response.getMsg().getFinishDate()));
                     break;
 
 

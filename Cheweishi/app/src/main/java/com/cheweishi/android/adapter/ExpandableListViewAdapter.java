@@ -235,9 +235,11 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                 ProgrosDialog.closeProgrosDialog();
                 BaseResponse response = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
                 if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-                    Toast.makeText(context, R.string.server_link_fault, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, response.getDesc(), Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
                 Intent intent = new Intent(context, OrderDetailsActivity.class);
                 intent.putExtra("recordId", response.getDesc());
                 context.startActivity(intent);

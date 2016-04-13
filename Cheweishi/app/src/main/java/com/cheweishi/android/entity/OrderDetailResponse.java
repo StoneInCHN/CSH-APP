@@ -51,10 +51,10 @@ public class OrderDetailResponse extends BaseResponse {
         private int price;
         private String recordNo;
         private String chargeStatus;
-        private String finishDate;
+        private long finishDate;
         private int serviceFlag;
         private long createDate;
-        private String subscribeDate;
+        private long subscribeDate;
         private String serviceName;
 
         public int getId() {
@@ -105,11 +105,11 @@ public class OrderDetailResponse extends BaseResponse {
             this.chargeStatus = chargeStatus;
         }
 
-        public String getFinishDate() {
+        public long getFinishDate() {
             return finishDate;
         }
 
-        public void setFinishDate(String finishDate) {
+        public void setFinishDate(long finishDate) {
             this.finishDate = finishDate;
         }
 
@@ -129,11 +129,11 @@ public class OrderDetailResponse extends BaseResponse {
             this.createDate = createDate;
         }
 
-        public String getSubscribeDate() {
+        public long getSubscribeDate() {
             return subscribeDate;
         }
 
-        public void setSubscribeDate(String subscribeDate) {
+        public void setSubscribeDate(long subscribeDate) {
             this.subscribeDate = subscribeDate;
         }
 
