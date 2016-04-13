@@ -1465,7 +1465,7 @@
     <string name="order_win_middle">请在72个小时之内到店洗车</string>
     <string name="order_not_pay">请在15分钟之内确认支付</string>
     <string name="order_win_complete">订单已完成</string>
-    <string name="order_paid">订单已经支付</string>
+    <string name="order_paid">订单已经支付,等待商户确认订单信息</string>
     <string name="order_cancel">已取消</string>
     <string name="order_cancel_oen">订单已取消</string>
     <string name="order_details_re">商家已经确认,可以在预约时间享受服务</string>
