@@ -145,11 +145,16 @@ public class OrderDetailsActivity extends BaseActivity implements
     private TextView tv_order_paid; // 确认付款
     @ViewInject(R.id.tv_order_complete)
     private TextView tv_order_complete;// 订单完成
+    @ViewInject(R.id.rel_yuyue)
+    private RelativeLayout rel_yuyue;//预约大模块icon
+    @ViewInject(R.id.rel_daodian)
+    private RelativeLayout rel_daodian;//到店服务大模块icon
+    @ViewInject(R.id.tv_order_detail_yy_line)
+    private TextView tv_order_detail_yy_line;// 第一条横线
     private String chargeStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
         ViewUtils.inject(this);
@@ -549,7 +554,53 @@ public class OrderDetailsActivity extends BaseActivity implements
             }
         } else {
             // TODO 非预约类型
-            LogHelper.d("非预约类型");
+            switch (str) {
+                case "OVERDUE":// 过期
+                case "RESERVATION":// 预约中
+                case "RESERVATION_SUCCESS"://预约成功
+                case "RESERVATION_FAIL"://预约失败
+                case "UNPAID":// 未支付
+                    rel_yuyue.setVisibility(View.GONE);
+                    rel_daodian.setVisibility(View.GONE);
+                    tv_order_detail_yy_line.setVisibility(View.GONE);
+                    tv_line_left.setVisibility(View.GONE);
+                    break;
+                case "PAID"://已支付
+                    rel_yuyue.setVisibility(View.GONE);
+                    rel_daodian.setVisibility(View.GONE);
+                    tv_order_detail_yy_line.setVisibility(View.GONE);
+                    tv_line_left.setVisibility(View.GONE);
+
+                    // 展示图标
+                    img_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
+                    tv_ok.setTextColor(getResources().getColor(R.color.order_dr));
+                    // 设置支付时间
+                    tv_order_paid.setVisibility(View.VISIBLE);
+                    tv_order_paid.setText(formateDate(String.valueOf(response.getMsg().getPaymentDate())));
+                    break;
+
+                case "FINISH"://完成
+                    rel_yuyue.setVisibility(View.GONE);
+                    rel_daodian.setVisibility(View.GONE);
+                    tv_order_detail_yy_line.setVisibility(View.GONE);
+                    tv_line_left.setVisibility(View.GONE);
+
+                    //展示图标
+                    img_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
+                    tv_ok.setTextColor(getResources().getColor(R.color.order_dr));
+                    // 设置支付时间
+                    tv_order_paid.setVisibility(View.VISIBLE);
+                    tv_order_paid.setText(formateDate(String.valueOf(response.getMsg().getPaymentDate())));
+
+                    //展示图标
+                    img_order_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
+                    tv_order_ok.setTextColor(getResources().getColor(R.color.order_dr));
+                    tv_order_complete.setVisibility(View.VISIBLE);
+                    tv_order_complete.setText(formateDate(String.valueOf(response.getMsg().getFinishDate())));
+                    break;
+
+
+            }
         }
 
 
