@@ -318,7 +318,6 @@ public class MyorderAdapter extends BaseAdapter {
                     Intent intent = new Intent();
                     intent.setClass(mContext, OrderDetailsActivity.class);
                     intent.putExtra("chargeStatus", mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getChargeStatus());
-                    intent.putExtra("finishtime", mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getPaymentDate());
                     intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getId()));
                     mContext.startActivity(intent);
 

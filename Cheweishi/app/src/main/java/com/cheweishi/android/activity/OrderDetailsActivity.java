@@ -135,6 +135,16 @@ public class OrderDetailsActivity extends BaseActivity implements
     private TextView tv_ok;
     private Bitmap qrBitmap;
     private OrderDetailResponse response;
+    @ViewInject(R.id.lv_order_detail_icon)
+    private LinearLayout lv_order_detail_icon;
+    @ViewInject(R.id.tv_order_ok)
+    private TextView tv_order_ok;
+    @ViewInject(R.id.img_order_ok)
+    private ImageView img_order_ok;
+    @ViewInject(R.id.tv_order_paid)
+    private TextView tv_order_paid; // 确认付款
+    @ViewInject(R.id.tv_order_complete)
+    private TextView tv_order_complete;// 订单完成
     private String chargeStatus;
 
     @Override
@@ -417,7 +427,18 @@ public class OrderDetailsActivity extends BaseActivity implements
         tv_order_class.setText(res_str);
     }
 
+    private void green_img_order(String res_str) {
+        img_order.setImageResource(R.drawable.dingdanxiangqing_chenggong2x);
+        tv_order_class.setText(res_str);
+    }
+
     private void red_img_order(int res_str) {
+        img_order.setImageResource(R.drawable.dingdanxiangqing_cancel2x);
+        tv_order_class.setText(res_str);
+    }
+
+
+    private void red_img_order(String res_str) {
         img_order.setImageResource(R.drawable.dingdanxiangqing_cancel2x);
         tv_order_class.setText(res_str);
     }
@@ -428,50 +449,106 @@ public class OrderDetailsActivity extends BaseActivity implements
             if (null == str)
                 return;
         }
-        /*** 预约
+        /*** 预约中
          RESERVATION,
+         预约成功
+         RESERVATION_SUCCESS,
+         预约失败
+         RESERVATION_FAIL,
          未支付
          UNPAID,
          已支付
-         PAID
+         PAID,
+         完成
+         FINISH,
+         过期
+         OVERDUE,
          */
-        switch (str) {
-            case "RESERVATION": // 预约
-                img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
-                img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang2x);
-                tv_yuyue.setText("预约下单");
-                tv_daodian.setText("到店洗车");
-                green_img_order(R.string.order_not_pay);
-                tv_daodian.setTextColor(getResources().getColor(R.color.gray));
-                tv_time1_first.setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
-                tv_time1_second.setText("");
-                break;
-            case "UNPAID": // 未支付
-                img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
-                img_daodian.setImageResource(R.drawable.dingdanxiangqing_quxiao2x);
-                tv_yuyue.setText("预约下单");
-                tv_daodian.setText("未支付");
-                red_img_order(R.string.order_cancel_oen);
-                tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
-                tv_time1_first.setText(formateDate(formateDate(String.valueOf(response.getMsg().getCreateDate()))));
-                tv_time1_second
-                        .setText(formateDate(formateDate(String.valueOf(response.getMsg().getCreateDate()))));
-                break;
-            case "PAID":  //已支付
-                img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
-                img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang1);
-                img_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
-                tv_line_left.setVisibility(View.VISIBLE);
-                rel_ok.setVisibility(View.VISIBLE);
-                tv_ok.setTextColor(getResources().getColor(R.color.order_dr));
-                tv_yuyue.setText("预约下单");
-                tv_daodian.setText("到店洗车");
-                green_img_order(R.string.order_win_complete);
-                tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
-                tv_time1_first.setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
-                tv_time1_second
-                        .setText(formateDate(String.valueOf(getIntent().getLongExtra("finishtime", 0))));
-                break;
+
+        lv_order_detail_icon.setVerticalGravity(View.VISIBLE);
+        if (1 == response.getMsg().getServiceFlag()) {
+            switch (str) {
+                case "RESERVATION": // 预约
+                    img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+                    img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang2x);
+                    tv_yuyue.setText("预约下单");
+                    tv_daodian.setText("到店服务");
+                    green_img_order(R.string.order_win);
+                    tv_daodian.setTextColor(getResources().getColor(R.color.gray));
+                    tv_time1_first.setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
+                    tv_time1_second.setText("");
+                    break;
+                case "RESERVATION_SUCCESS": // 预约成功
+                    img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+                    img_daodian.setImageResource(R.drawable.dingdanxiangqing_quxiao2x);
+                    tv_yuyue.setText("预约成功");
+                    tv_daodian.setText("到店服务");
+                    green_img_order(R.string.order_details_re);
+                    tv_daodian.setTextColor(getResources().getColor(R.color.gray));
+                    tv_time1_first.setText(formateDate(formateDate(String.valueOf(response.getMsg().getCreateDate()))));
+                    tv_time1_second.setText("");
+                    break;
+
+                case "RESERVATION_FAIL":// 预约失败
+                    img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+                    img_daodian.setImageResource(R.drawable.dingdanxiangqing_quxiao2x);
+                    tv_yuyue.setText("预约下单");
+                    tv_daodian.setText("订单取消");
+                    red_img_order("预约失败,您可以选择新的时间段进行重新预约");
+                    tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
+                    tv_time1_first.setText(formateDate(formateDate(String.valueOf(response.getMsg().getCreateDate()))));
+                    tv_time1_second.setText("");
+                    break;
+                case "UNPAID": // 未支付
+                    img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+                    img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang1);
+                    tv_yuyue.setText("预约成功");
+                    tv_daodian.setText("完成服务");
+                    green_img_order("您已完成服务,请确认支付信息");
+                    tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
+                    tv_time1_first.setText(formateDate(formateDate(String.valueOf(response.getMsg().getCreateDate()))));
+                    tv_time1_second.setVisibility(View.VISIBLE);
+                    tv_time1_second.setText(formateDate(formateDate(String.valueOf(response.getMsg().getSubscribeDate()))));
+                    break;
+                case "PAID":  //已支付
+                    img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+                    img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang1);
+                    img_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
+                    tv_ok.setTextColor(getResources().getColor(R.color.order_dr));
+                    tv_yuyue.setText("预约成功");
+                    tv_daodian.setText("完成服务");
+                    green_img_order(R.string.order_paid);
+                    tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
+                    tv_time1_first.setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
+                    tv_time1_second.setVisibility(View.VISIBLE);
+                    tv_time1_second.setText(formateDate(String.valueOf(response.getMsg().getSubscribeDate())));
+                    tv_order_paid.setVisibility(View.VISIBLE);
+                    tv_order_paid.setText(formateDate(String.valueOf(response.getMsg().getPayDate())));
+                    break;
+
+                case "FINISH": // 订单完成
+                    img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+                    img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang1);
+                    img_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
+                    img_order_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
+                    tv_ok.setTextColor(getResources().getColor(R.color.order_dr));
+                    tv_order_ok.setTextColor(getResources().getColor(R.color.order_dr));
+                    tv_yuyue.setText("预约成功");
+                    tv_daodian.setText("完成服务");
+                    green_img_order(R.string.order_win_complete);
+                    tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
+                    tv_time1_first.setText(formateDate(String.valueOf(response.getMsg().getCreateDate())));
+                    tv_time1_second.setVisibility(View.VISIBLE);
+                    tv_time1_second.setText(formateDate(String.valueOf(response.getMsg().getSubscribeDate())));
+                    tv_order_paid.setVisibility(View.VISIBLE);
+                    tv_order_paid.setText(formateDate(String.valueOf(response.getMsg().getPayDate())));
+                    tv_order_complete.setVisibility(View.VISIBLE);
+                    tv_order_complete.setText(formateDate(String.valueOf(response.getMsg().getFinishDate())));
+                    break;
+            }
+        } else {
+            // TODO 非预约类型
+            LogHelper.d("非预约类型");
         }
 
 

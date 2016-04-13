@@ -9,12 +9,16 @@ public class OrderDetailResponse extends BaseResponse {
 
 
     /**
-     * price : 20
-     * tenantInfo : {"praiseRate":3,"address":null,"tenantName":"爱车","latitude":10.000021,"photo":"/upload/tenant/photo/12.jpg","id":1,"businessTime":null,"contactPhone":null,"longitude":10.000021}
-     * id : 1
-     * serviceName : 车身保养
-     * recordNo : null
-     * createDate : 1458724731000
+     * id : 71
+     * tenantInfo : {"id":1,"contactPhone":null,"chargeStatus":null,"address":null,"businessTime":null,"praiseRate":3,"longitude":10.000021,"latitude":10.000021,"photo":"/upload/tenant/photo/12.jpg","tenantName":"爱车"}
+     * price : 30
+     * recordNo : 201604131626091235158001
+     * finishDate : null
+     * payDate : null
+     * serviceFlag : 0
+     * createDate : 1460535969000
+     * subscribeDate : null
+     * serviceName : 普通洗车
      */
 
     private MsgBean msg;
@@ -28,31 +32,36 @@ public class OrderDetailResponse extends BaseResponse {
     }
 
     public static class MsgBean {
-        private int price;
+        private int id;
         /**
-         * praiseRate : 3
+         * id : 1
+         * contactPhone : null
+         * chargeStatus : null
          * address : null
-         * tenantName : 爱车
+         * businessTime : null
+         * praiseRate : 3
+         * longitude : 10.000021
          * latitude : 10.000021
          * photo : /upload/tenant/photo/12.jpg
-         * id : 1
-         * businessTime : null
-         * contactPhone : null
-         * longitude : 10.000021
+         * tenantName : 爱车
          */
 
         private TenantInfoBean tenantInfo;
-        private int id;
-        private String serviceName;
+        private int price;
         private String recordNo;
+        private String finishDate;
+        private String payDate;
+        private int serviceFlag;
         private long createDate;
+        private String subscribeDate;
+        private String serviceName;
 
-        public int getPrice() {
-            return price;
+        public int getId() {
+            return id;
         }
 
-        public void setPrice(int price) {
-            this.price = price;
+        public void setId(int id) {
+            this.id = id;
         }
 
         public TenantInfoBean getTenantInfo() {
@@ -63,20 +72,12 @@ public class OrderDetailResponse extends BaseResponse {
             this.tenantInfo = tenantInfo;
         }
 
-        public int getId() {
-            return id;
+        public int getPrice() {
+            return price;
         }
 
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getServiceName() {
-            return serviceName;
-        }
-
-        public void setServiceName(String serviceName) {
-            this.serviceName = serviceName;
+        public void setPrice(int price) {
+            this.price = price;
         }
 
         public String getRecordNo() {
@@ -87,6 +88,30 @@ public class OrderDetailResponse extends BaseResponse {
             this.recordNo = recordNo;
         }
 
+        public String getFinishDate() {
+            return finishDate;
+        }
+
+        public void setFinishDate(String finishDate) {
+            this.finishDate = finishDate;
+        }
+
+        public String getPayDate() {
+            return payDate;
+        }
+
+        public void setPayDate(String payDate) {
+            this.payDate = payDate;
+        }
+
+        public int getServiceFlag() {
+            return serviceFlag;
+        }
+
+        public void setServiceFlag(int serviceFlag) {
+            this.serviceFlag = serviceFlag;
+        }
+
         public long getCreateDate() {
             return createDate;
         }
@@ -95,17 +120,49 @@ public class OrderDetailResponse extends BaseResponse {
             this.createDate = createDate;
         }
 
+        public String getSubscribeDate() {
+            return subscribeDate;
+        }
+
+        public void setSubscribeDate(String subscribeDate) {
+            this.subscribeDate = subscribeDate;
+        }
+
+        public String getServiceName() {
+            return serviceName;
+        }
+
+        public void setServiceName(String serviceName) {
+            this.serviceName = serviceName;
+        }
+
         public static class TenantInfoBean {
-            private int praiseRate;
+            private int id;
+            private String contactPhone;
+            private String chargeStatus;
             private String address;
-            private String tenantName;
+            private String businessTime;
+            private int praiseRate;
+            private double longitude;
             private double latitude;
             private String photo;
-            private int id;
-            private String businessTime;
-            private String contactPhone;
-            private double longitude;
-            private String chargeStatus;
+            private String tenantName;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getContactPhone() {
+                return contactPhone;
+            }
+
+            public void setContactPhone(String contactPhone) {
+                this.contactPhone = contactPhone;
+            }
 
             public String getChargeStatus() {
                 return chargeStatus;
@@ -113,14 +170,6 @@ public class OrderDetailResponse extends BaseResponse {
 
             public void setChargeStatus(String chargeStatus) {
                 this.chargeStatus = chargeStatus;
-            }
-
-            public int getPraiseRate() {
-                return praiseRate;
-            }
-
-            public void setPraiseRate(int praiseRate) {
-                this.praiseRate = praiseRate;
             }
 
             public String getAddress() {
@@ -131,12 +180,28 @@ public class OrderDetailResponse extends BaseResponse {
                 this.address = address;
             }
 
-            public String getTenantName() {
-                return tenantName;
+            public String getBusinessTime() {
+                return businessTime;
             }
 
-            public void setTenantName(String tenantName) {
-                this.tenantName = tenantName;
+            public void setBusinessTime(String businessTime) {
+                this.businessTime = businessTime;
+            }
+
+            public int getPraiseRate() {
+                return praiseRate;
+            }
+
+            public void setPraiseRate(int praiseRate) {
+                this.praiseRate = praiseRate;
+            }
+
+            public double getLongitude() {
+                return longitude;
+            }
+
+            public void setLongitude(double longitude) {
+                this.longitude = longitude;
             }
 
             public double getLatitude() {
@@ -155,36 +220,12 @@ public class OrderDetailResponse extends BaseResponse {
                 this.photo = photo;
             }
 
-            public int getId() {
-                return id;
+            public String getTenantName() {
+                return tenantName;
             }
 
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getBusinessTime() {
-                return businessTime;
-            }
-
-            public void setBusinessTime(String businessTime) {
-                this.businessTime = businessTime;
-            }
-
-            public Object getContactPhone() {
-                return contactPhone;
-            }
-
-            public void setContactPhone(String contactPhone) {
-                this.contactPhone = contactPhone;
-            }
-
-            public double getLongitude() {
-                return longitude;
-            }
-
-            public void setLongitude(double longitude) {
-                this.longitude = longitude;
+            public void setTenantName(String tenantName) {
+                this.tenantName = tenantName;
             }
         }
     }

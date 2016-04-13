@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:padding="10dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="10dp">
 
     <RelativeLayout
         android:id="@+id/rl_date_time_title"
@@ -74,14 +74,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line_1"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <com.cheweishi.android.wheelview.WheelView
             android:id="@+id/wv_date_of_year"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5" />
+            android:layout_weight="1" />
 
         <com.cheweishi.android.wheelview.WheelView
             android:id="@+id/wv_date_of_month"
@@ -94,6 +94,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
+
+        <!--<com.cheweishi.android.wheelview.WheelView-->
+            <!--android:id="@+id/wv_date_of_hour"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1" />-->
+
+        <!--<com.cheweishi.android.wheelview.WheelView-->
+            <!--android:id="@+id/wv_date_of_minute"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1" />-->
     </LinearLayout>
 
 </RelativeLayout>

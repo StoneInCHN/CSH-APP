@@ -50,6 +50,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/lv_order_detail_icon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -57,7 +58,8 @@
                     android:background="@color/white"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal"
-                    android:padding="@dimen/normal_padding">
+                    android:padding="@dimen/normal_padding"
+                    android:visibility="visible">
 
                     <RelativeLayout
                         android:id="@+id/rel_yuyue"
@@ -112,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/img_daodian"
                             android:layout_marginTop="@dimen/small_marging"
-                            android:text="到店洗车"
+                            android:text="到店服务"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/ttf_fourteen" />
 
@@ -160,6 +162,7 @@
                             android:src="@drawable/dingdanxiangqing_pay2x" />
 
                         <TextView
+                            android:id="@+id/tv_order_paid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_ok"
@@ -208,6 +211,7 @@
                             android:src="@drawable/dingdanxiangqing_pay2x" />
 
                         <TextView
+                            android:id="@+id/tv_order_complete"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_order_ok"
