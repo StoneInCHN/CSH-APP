@@ -321,32 +321,6 @@ public class OrderDetailsActivity extends BaseActivity implements
 
     }
 
-    /**
-     * 格式化日期
-     *
-     * @param dateStr
-     * @return
-     */
-    private String formateDate(String dateStr) {
-        if (!dateStr.equals("null")) {
-            DateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-                    Locale.CHINA);
-            Date date = null;
-            try {
-                date = sf.parse(dateStr);
-            } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            DateFormat sf1 = new SimpleDateFormat("MM-dd HH:mm", Locale.CHINA);
-            if (null != date) {
-                String str = sf1.format(date);
-                return str;
-            }
-        }
-        return "";
-    }
-
 
     /**
      * 格式化日期
@@ -356,7 +330,10 @@ public class OrderDetailsActivity extends BaseActivity implements
      */
     private String formateDate(Long dateStr) {
 //        return transferLongToDate(dateStr);
-        return formatTime(dateStr);
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");//初始化Formatter的转换格式。
+
+        String hms = formatter.format(dateStr);
+        return hms;
     }
 
 

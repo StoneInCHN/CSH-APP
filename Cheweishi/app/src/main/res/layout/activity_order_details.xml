@@ -92,6 +92,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_yuyue"
                             android:padding="@dimen/two_dp_padding"
+                            android:layout_centerHorizontal="true"
                             android:textColor="@color/order_dr"
                             android:textSize="@dimen/ttf_ten" />
                     </RelativeLayout>
@@ -136,6 +137,7 @@
                             android:padding="@dimen/two_dp_padding"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/ttf_ten"
+                            android:layout_centerHorizontal="true"
                             android:visibility="gone" />
                     </RelativeLayout>
 
@@ -169,9 +171,9 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_ok"
                             android:padding="@dimen/two_dp_padding"
-                            android:text="12-04 11:33"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/ttf_ten"
+                            android:layout_centerHorizontal="true"
                             android:visibility="gone" />
 
                         <TextView
@@ -219,9 +221,9 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_order_ok"
                             android:padding="@dimen/two_dp_padding"
-                            android:text="12-04 11:33"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/ttf_ten"
+                            android:layout_centerHorizontal="true"
                             android:visibility="gone" />
 
                         <TextView
