@@ -110,7 +110,7 @@ public class MessageCenterApdater extends BaseAdapter {
 	}
 
 	private String transferLongToDate(Long millSec){
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date= new Date(millSec);
 		return sdf.format(date);
 	}

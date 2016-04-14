@@ -37,8 +37,8 @@ public class PessanySearchDetailActivity extends BaseActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewUtils.inject(this);
         setContentView(R.layout.activity_pessany_detail);
+        ViewUtils.inject(this);
         data = (PessanyResponse.MsgBean) getIntent().getSerializableExtra("PessanySearch");
         if (null == data) {
             showToast("页面初始化失败,请重试");
@@ -50,8 +50,8 @@ public class PessanySearchDetailActivity extends BaseActivity implements View.On
 
     private void setdata(PessanyResponse.MsgBean data) {
         tv_pessany_detail_plate.setText(data.getPlate());
-        tv_pessany_detail_score.setText(data.getScore());
-        tv_pessany_detail_money.setText(data.getFinesAmount());
+        tv_pessany_detail_score.setText("" + data.getScore());
+        tv_pessany_detail_money.setText("" + data.getFinesAmount());
         tv_pessany_detail_address.setText(data.getIllegalAddress());
         tv_pessany_detail_content.setText(data.getIllegalContent());
         tv_pessany_detail_date.setText(data.getIllegalDate());

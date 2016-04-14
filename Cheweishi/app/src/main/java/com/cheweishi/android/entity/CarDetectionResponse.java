@@ -7,14 +7,15 @@ import com.cheweishi.android.response.BaseResponse;
  */
 public class CarDetectionResponse extends BaseResponse {
 
+
     /**
-     * totalMileAge : 0
-     * fuelConsumption : -30
-     * averageSpeed : 0
-     * averageFuelConsumption : 0
-     * mileAge : -1000
-     * runningTime : 0
+     * averageSpeed : 11.443515
+     * mileAge : 0
+     * averageFuelConsumption : 3.2788703
      * cost : 0
+     * runningTime : 0
+     * fuelConsumption : 0
+     * totalMileAge : 0
      */
 
     private MsgBean msg;
@@ -28,44 +29,20 @@ public class CarDetectionResponse extends BaseResponse {
     }
 
     public static class MsgBean {
-        private int totalMileAge;
-        private int fuelConsumption;
-        private int averageSpeed;
-        private int averageFuelConsumption;
+        private double averageSpeed;
         private int mileAge;
-        private int runningTime;
+        private double averageFuelConsumption;
         private int cost;
+        private int runningTime;
+        private int fuelConsumption;
+        private int totalMileAge;
 
-        public int getTotalMileAge() {
-            return totalMileAge;
-        }
-
-        public void setTotalMileAge(int totalMileAge) {
-            this.totalMileAge = totalMileAge;
-        }
-
-        public int getFuelConsumption() {
-            return fuelConsumption;
-        }
-
-        public void setFuelConsumption(int fuelConsumption) {
-            this.fuelConsumption = fuelConsumption;
-        }
-
-        public int getAverageSpeed() {
+        public double getAverageSpeed() {
             return averageSpeed;
         }
 
-        public void setAverageSpeed(int averageSpeed) {
+        public void setAverageSpeed(double averageSpeed) {
             this.averageSpeed = averageSpeed;
-        }
-
-        public int getAverageFuelConsumption() {
-            return averageFuelConsumption;
-        }
-
-        public void setAverageFuelConsumption(int averageFuelConsumption) {
-            this.averageFuelConsumption = averageFuelConsumption;
         }
 
         public int getMileAge() {
@@ -76,12 +53,12 @@ public class CarDetectionResponse extends BaseResponse {
             this.mileAge = mileAge;
         }
 
-        public int getRunningTime() {
-            return runningTime;
+        public double getAverageFuelConsumption() {
+            return averageFuelConsumption;
         }
 
-        public void setRunningTime(int runningTime) {
-            this.runningTime = runningTime;
+        public void setAverageFuelConsumption(double averageFuelConsumption) {
+            this.averageFuelConsumption = averageFuelConsumption;
         }
 
         public int getCost() {
@@ -90,6 +67,30 @@ public class CarDetectionResponse extends BaseResponse {
 
         public void setCost(int cost) {
             this.cost = cost;
+        }
+
+        public int getRunningTime() {
+            return runningTime;
+        }
+
+        public void setRunningTime(int runningTime) {
+            this.runningTime = runningTime;
+        }
+
+        public int getFuelConsumption() {
+            return fuelConsumption;
+        }
+
+        public void setFuelConsumption(int fuelConsumption) {
+            this.fuelConsumption = fuelConsumption;
+        }
+
+        public int getTotalMileAge() {
+            return totalMileAge;
+        }
+
+        public void setTotalMileAge(int totalMileAge) {
+            this.totalMileAge = totalMileAge;
         }
     }
 }

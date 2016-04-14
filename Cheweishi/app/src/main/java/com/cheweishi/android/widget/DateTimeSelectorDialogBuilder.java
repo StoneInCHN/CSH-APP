@@ -17,185 +17,195 @@ import android.widget.RelativeLayout;
  * 下午2:15:14 版本: v1.0 类描述: 选择生日日期的Dialog
  */
 public class DateTimeSelectorDialogBuilder extends NiftyDialogBuilder implements
-		android.view.View.OnClickListener {
+        android.view.View.OnClickListener {
 
-	private Context context;
-	private RelativeLayout rlCustomLayout;
-	private DateSelectorWheelView dateWheelView;
-	private FrameLayout flSecondeCustomLayout;
-	private OnSaveListener saveListener;
-	/**
-	 * 默认方向标示
-	 */
-	private static int mOrientation = 1;
-	private static DateTimeSelectorDialogBuilder instance;
+    private Context context;
+    private RelativeLayout rlCustomLayout;
+    private DateSelectorWheelView dateWheelView;
+    private DateSelectorWheelViewByHour dateWheelViewHour;
+    private FrameLayout flSecondeCustomLayout;
+    private OnSaveListener saveListener;
+    /**
+     * 默认方向标示
+     */
+    private static int mOrientation = 1;
+    private static DateTimeSelectorDialogBuilder instance;
 
-	public interface OnSaveListener {
-		abstract void onSaveSelectedDate(String selectedDate);
-	}
+    public interface OnSaveListener {
+        abstract void onSaveSelectedDate(String selectedDate);
+    }
 
-	public DateTimeSelectorDialogBuilder(Context context) {
-		super(context);
-		this.context = context;
-		initDialog();
-	}
+    public DateTimeSelectorDialogBuilder(Context context) {
+        super(context);
+        this.context = context;
+        initDialog();
+    }
 
-	public DateTimeSelectorDialogBuilder(Context context, int theme) {
-		super(context, theme);
-		this.context = context;
-		initDialog();
-	}
+    public DateTimeSelectorDialogBuilder(Context context, int theme) {
+        super(context, theme);
+        this.context = context;
+        initDialog();
+    }
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		getWindow().setBackgroundDrawableResource(R.drawable.edit_dialog_coner);
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawableResource(R.drawable.edit_dialog_coner);
+    }
 
-	public static DateTimeSelectorDialogBuilder getInstance(Context context) {
+    public static DateTimeSelectorDialogBuilder getInstance(Context context) {
 
-		int ort = context.getResources().getConfiguration().orientation;
-		if (mOrientation != ort) {
-			mOrientation = ort;
-			instance = null;
-		}
+        int ort = context.getResources().getConfiguration().orientation;
+        if (mOrientation != ort) {
+            mOrientation = ort;
+            instance = null;
+        }
 
-		if (instance == null || ((Activity) context).isFinishing()) {
-			synchronized (DateTimeSelectorDialogBuilder.class) {
-				if (instance == null) {
-					instance = new DateTimeSelectorDialogBuilder(context,
-							R.style.dialog_untran);
-				}
-			}
-		}
-		return instance;
+        if (instance == null || ((Activity) context).isFinishing()) {
+            synchronized (DateTimeSelectorDialogBuilder.class) {
+                if (instance == null) {
+                    instance = new DateTimeSelectorDialogBuilder(context,
+                            R.style.dialog_untran);
+                }
+            }
+        }
+        return instance;
 
-	}
+    }
 
-	private void initDialog() {
-		rlCustomLayout = (RelativeLayout) LayoutInflater.from(context).inflate(
-				R.layout.date_time_selector_dialog_layout, null);
-		dateWheelView = (DateSelectorWheelView) rlCustomLayout
-				.findViewById(R.id.pdwv_date_time_selector_wheelView);
-		dateWheelView.setTitleClick(this);
-		flSecondeCustomLayout = (FrameLayout) rlCustomLayout
-				.findViewById(R.id.fl_date_time_custom_layout);
-		setDialogProperties();
-	}
+    private void initDialog() {
+        rlCustomLayout = (RelativeLayout) LayoutInflater.from(context).inflate(
+                R.layout.date_time_selector_dialog_layout, null);
+        dateWheelView = (DateSelectorWheelView) rlCustomLayout
+                .findViewById(R.id.pdwv_date_time_selector_wheelView);
+        dateWheelView.setTitleClick(this);
+        flSecondeCustomLayout = (FrameLayout) rlCustomLayout
+                .findViewById(R.id.fl_date_time_custom_layout);
+        setDialogProperties();
+    }
 
-	private void setDialogProperties() {
-		int width = DateUtils.getScreenWidth(context) * 3 / 4;
-		this.withDialogWindows(width, LayoutParams.WRAP_CONTENT)
-				.withTitleColor("#FFFFFF").withTitle("选择日期")
-				.setDialogClick(this).withPreviousText("取消")
-				.withPreviousTextColor("#3598da").withDuration(100)
-				.setPreviousLayoutClick(this).withNextText("保存")
-				.withMessageMiss(View.GONE).withNextTextColor("#3598da")
-				.setNextLayoutClick(this)
-				.setCustomView(rlCustomLayout, context);
+    private void setDialogProperties() {
+        int width = DateUtils.getScreenWidth(context) * 3 / 4;
+        this.withDialogWindows(width, LayoutParams.WRAP_CONTENT)
+                .withTitleColor("#FFFFFF").withTitle("选择日期")
+                .setDialogClick(this).withPreviousText("取消")
+                .withPreviousTextColor("#3598da").withDuration(100)
+                .setPreviousLayoutClick(this).withNextText("保存")
+                .withMessageMiss(View.GONE).withNextTextColor("#3598da")
+                .setNextLayoutClick(this)
+                .setCustomView(rlCustomLayout, context);
 
-	}
+    }
 
-	/**
-	 * 设置自定义布局
-	 * 
-	 * @param view
-	 * @param context
-	 * @return
-	 */
-	public DateTimeSelectorDialogBuilder setSencondeCustomView(View view,
-			Context context) {
-		if (flSecondeCustomLayout.getChildCount() > 0) {
-			flSecondeCustomLayout.removeAllViews();
-		}
-		flSecondeCustomLayout.addView(view);
-		return this;
-	}
+    /**
+     * 设置自定义布局
+     *
+     * @param view
+     * @param context
+     * @return
+     */
+    public DateTimeSelectorDialogBuilder setSencondeCustomView(View view,
+                                                               Context context) {
+        if (flSecondeCustomLayout.getChildCount() > 0) {
+            flSecondeCustomLayout.removeAllViews();
+        }
+        flSecondeCustomLayout.addView(view);
+        flSecondeCustomLayout.setVisibility(View.VISIBLE);
+        return this;
+    }
 
-	/**
-	 * 设置自定义布局
-	 * 
-	 * @param resId
-	 * @param context
-	 * @return
-	 */
-	public DateTimeSelectorDialogBuilder setSencondeCustomView(int resId,
-			Context context) {
-		View view = View.inflate(context, resId, null);
-		if (flSecondeCustomLayout.getChildCount() > 0) {
-			flSecondeCustomLayout.removeAllViews();
-		}
-		flSecondeCustomLayout.addView(view);
-		return this;
-	}
+    /**
+     * 设置自定义布局
+     *
+     * @param resId
+     * @param context
+     * @return
+     */
+    public DateTimeSelectorDialogBuilder setSencondeCustomView(int resId,
+                                                               Context context) {
+        View view = View.inflate(context, resId, null);
+        if (flSecondeCustomLayout.getChildCount() > 0) {
+            flSecondeCustomLayout.removeAllViews();
+        }
+        flSecondeCustomLayout.addView(view);
+        flSecondeCustomLayout.setVisibility(View.VISIBLE);
+        try {
+            dateWheelViewHour = (DateSelectorWheelViewByHour) findViewById(R.id.dwv_hour);
+        } catch (Exception e) {
+        }
+        return this;
+    }
 
-	@Override
-	public void onClick(View v) {
-		int id = v.getId();
-		switch (id) {
-		case R.id.rl_date_time_title:
-			if (dateWheelView.getDateSelectorVisibility() == View.VISIBLE) {
-				dateWheelView.setDateSelectorVisiblility(View.GONE);
-			} else {
-				dateWheelView.setDateSelectorVisiblility(View.VISIBLE);
-			}
-			break;
-		case R.id.fl_dialog_title_previous:
-			dismiss();
-			break;
-		case R.id.fl_dialog_title_next:
-			if (null != saveListener) {
-				saveListener
-						.onSaveSelectedDate(dateWheelView.getSelectedDate());
-			}
-			// dismiss();
-			break;
-		}
-	}
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.rl_date_time_title:
+                if (dateWheelView.getDateSelectorVisibility() == View.VISIBLE) {
+                    dateWheelView.setDateSelectorVisiblility(View.GONE);
+                } else {
+                    dateWheelView.setDateSelectorVisiblility(View.VISIBLE);
+                }
+                break;
+            case R.id.fl_dialog_title_previous:
+                dismiss();
+                break;
+            case R.id.fl_dialog_title_next:
+                dismiss();
+                if (null != saveListener) {
+                    if (null != dateWheelViewHour) {
+                        saveListener.onSaveSelectedDate(dateWheelView.getSelectedDate() + " " + dateWheelViewHour.getSelectedDate());
+                    } else {
+                        saveListener.onSaveSelectedDate(dateWheelView.getSelectedDate());
+                    }
+                }
+                break;
+        }
+    }
 
-	/**
-	 * 获取日期选择器
-	 * 
-	 * @return
-	 */
-	public DateSelectorWheelView getDateWheelView() {
-		return dateWheelView;
-	}
+    /**
+     * 获取日期选择器
+     *
+     * @return
+     */
 
-	/**
-	 * 设置保存监听
-	 * 
-	 * @param saveListener
-	 */
-	public void setOnSaveListener(OnSaveListener saveListener) {
-		this.saveListener = saveListener;
-	}
+    public DateSelectorWheelView getDateWheelView() {
+        return dateWheelView;
+    }
 
-	/**
-	 * 最初显示时是否可以可见
-	 * 
-	 * @param visibility
-	 */
-	public void setWheelViewVisibility(int visibility) {
-		dateWheelView.setDateSelectorVisiblility(visibility);
-	}
+    /**
+     * 设置保存监听
+     *
+     * @param saveListener
+     */
+    public void setOnSaveListener(OnSaveListener saveListener) {
+        this.saveListener = saveListener;
+    }
 
-	@Override
-	public void dismiss() {
-		super.dismiss();
-		instance = null;
-	}
+    /**
+     * 最初显示时是否可以可见
+     *
+     * @param visibility
+     */
+    public void setWheelViewVisibility(int visibility) {
+        dateWheelView.setDateSelectorVisiblility(visibility);
+    }
 
-	/**
-	 * 设置日期选择器时间
-	 * 
-	 * @param sDate
-	 *            格式"yyyy-MM-dd"
-	 */
-	public void setCurrentDate(String sDate) {
-		dateWheelView.setCurrentYear(sDate.split("-")[0]);
-		dateWheelView.setCurrentMonth(sDate.split("-")[1]);
-		dateWheelView.setCurrentDay(sDate.split("-")[2]);
-	}
+    @Override
+    public void dismiss() {
+        super.dismiss();
+        instance = null;
+    }
+
+    /**
+     * 设置日期选择器时间
+     *
+     * @param sDate 格式"yyyy-MM-dd"
+     */
+    public void setCurrentDate(String sDate) {
+        dateWheelView.setCurrentYear(sDate.split("-")[0]);
+        dateWheelView.setCurrentMonth(sDate.split("-")[1]);
+        dateWheelView.setCurrentDay(sDate.split("-")[2]);
+    }
 
 }

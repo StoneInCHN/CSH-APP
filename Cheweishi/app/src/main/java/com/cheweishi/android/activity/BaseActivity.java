@@ -384,7 +384,7 @@ public abstract class BaseActivity extends FragmentActivity implements
      * @return
      */
     public boolean hasDevice() {
-        if (hasCar() && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle())) {
+        if (hasCar() && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle()) && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultDeviceNo())) {
             return true;
         } else {
             return false;

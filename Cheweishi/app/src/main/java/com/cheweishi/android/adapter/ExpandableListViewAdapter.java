@@ -1,9 +1,13 @@
 package com.cheweishi.android.adapter;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.cheweishi.android.biz.JSONCallback;
@@ -18,6 +22,8 @@ import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
+import com.cheweishi.android.widget.DateSelectorDialogBuilder;
+import com.cheweishi.android.widget.DateTimeSelectorDialogBuilder;
 import com.cheweishi.android.widget.UnSlidingListView;
 import com.lidroid.xutils.http.ResponseInfo;
 
@@ -42,6 +48,8 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     LayoutInflater mInflater;
     Context context;
     private String tenantName;
+    private int Serviceid; // 服务id
+    private int ServicePrice;//服务价格
 
     public ExpandableListViewAdapter(Context context,
                                      List<ServiceDetailResponse.MsgBean.CarServicesBean> washCar, String tenantName) {
@@ -106,29 +114,17 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                 public void onClick(View arg0) {
                     // TODO 预约,因为要展示,所以暂时注释,调用预约接口
 
-                    subscript(washCar.get(groupPosition).getSubServices().get(childPosition).getId(), washCar.get(groupPosition).getSubServices().get(childPosition).getPrice());
 
-//					Intent intent = new Intent(context,
-//							OrderDetailsActivity.class);
-//					Bundle bundle = new Bundle();
-//					bundle.putSerializable("washCar", washCar.get(groupPosition));
-//					bundle.putString("goods_id", type.get(groupPosition)
-//							.getGoodsList().get(childPosition).getId());
-//					bundle.putString("store_id", type.get(groupPosition)
-//							.getGoodsList().get(childPosition).getStore_id());
-//
-//					if (type.get(groupPosition).getGoodsList()
-//							.get(childPosition).getIs_discount_price()
-//							.equals("0")) {
-//						bundle.putString("price", type.get(groupPosition)
-//								.getGoodsList().get(childPosition).getPrice());
-//					} else {
-//						bundle.putString("price", type.get(groupPosition)
-//								.getGoodsList().get(childPosition)
-//								.getDiscount_price());
-//					}
-//					intent.putExtra("bundle", bundle);
-//					context.startActivity(intent);
+                    DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(context);
+                    builder.setWheelViewVisibility(View.GONE);
+                    builder.setOnSaveListener(new mYSaveListener());
+                    builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, context);
+                    builder.show();
+
+                    Serviceid = washCar.get(groupPosition).getSubServices().get(childPosition).getId();
+//                    ServicePrice = washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
+//                    subscript(, );
+
                 }
             });
         } else {
@@ -147,32 +143,13 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                     intent.putExtra("seller", tenantName);
                     intent.putExtra("service", washCar.get(groupPosition).getCategoryName());
                     intent.putExtra("service_id", String.valueOf(washCar.get(groupPosition).getSubServices().get(childPosition).getId()));
-                    intent.putExtra("price", String.valueOf(washCar.get(groupPosition).getSubServices().get(childPosition).getPrice()));
-                    LogHelper.d("price:" + String.valueOf(washCar.get(groupPosition).getSubServices().get(childPosition).getPrice()));
+                    String price = "" + washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice();
+                    if (null == price || "".equals(price)) {
+                        price = "" + washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
+                    }
+                    intent.putExtra("price", price);
+                    LogHelper.d("price:" + price);
                     context.startActivity(intent);
-//					Intent intent = new Intent(context,
-//							WashCarPayActivity.class);
-//					intent.putExtra("seller_id", washCar.getId());
-//					intent.putExtra("service_id", type.get(groupPosition)
-//							.getGoodsList().get(childPosition).getId());
-//					intent.putExtra("seller", washCar.getStore_name());
-//					intent.putExtra("service", type.get(groupPosition)
-//							.getGoodsList().get(childPosition).getGoods_name());
-//					if (type.get(groupPosition).getGoodsList()
-//							.get(childPosition).getIs_discount_price()
-//							.equals("0")) {
-//						intent.putExtra("price", type.get(groupPosition)
-//								.getGoodsList().get(childPosition).getPrice());
-//					} else {
-//						intent.putExtra("price", type.get(groupPosition)
-//								.getGoodsList().get(childPosition)
-//								.getDiscount_price());
-//					}
-//					if (type.get(groupPosition).getGoodsList()
-//							.get(childPosition).getGoods_name().contains("普洗")) {
-//						intent.putExtra("type", "px");
-//					}
-//					context.startActivity(intent);
 
                 }
             });
@@ -199,21 +176,49 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+
+    private class mYSaveListener implements DateTimeSelectorDialogBuilder.OnSaveListener {
+
+        @Override
+        public void onSaveSelectedDate(String selectedDate) {
+            LogHelper.d("onSaveSelectedDate:" + selectedDate);
+
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm",
+                    Locale.CHINA);
+            try {
+                Date date1 = sf.parse(selectedDate);// 选择时间
+                Date date = new Date(); // 当前时间
+                String dateStr = sf.format(date);
+                date = sf.parse(dateStr);
+                if (date1.getTime() < date.getTime()) {
+
+                    Toast.makeText(context, "余额时间必须大于当前日期", Toast.LENGTH_SHORT).show();
+                } else {
+                    subscript(Serviceid, selectedDate);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
     /**
      * 预约发包
      *
      * @param id
-     * @param price
      */
-    private void subscript(int id, int price) {
+    private void subscript(int id, String date) {
+
         ProgrosDialog.openDialog(context);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER + NetInterface.SUBSCRIBE + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", ((BaseActivity) context).getUserId());
         param.put("token", ((BaseActivity) context).getToken());
         param.put("serviceId", id);
-        param.put("price", price);
-        LogHelper.d(id + "----" + price);
+        param.put("subscribeDate", date);
+//        param.put("price", price);
+//        LogHelper.d(id + "----" + price);
         NetWorkHelper.getInstance(context).PostJson(url, param, new JSONCallback() {
             @Override
             public void receive(int type, String data) {

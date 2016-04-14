@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/iv_pessany_detail"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:src="@drawable/car_default" />
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="我是车牌"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
 
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_marginRight="30dp"
                 android:text="100"
                 android:textColor="@color/red_background"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
 
             <TextView
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/tv_pessany_detail_money"
                 android:text="罚款金额:"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
 
             <TextView
@@ -61,7 +61,7 @@
                 android:layout_toLeftOf="@id/tv_pessany_detail_moneny_name"
                 android:text="2"
                 android:textColor="@color/red_background"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
 
             <TextView
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/tv_pessany_detail_score"
                 android:text="分数:"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -83,14 +83,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="违章内容:"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_pessany_detail_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="机动车通过有灯控路口时，不按所需行进方向驶入导向车道的"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 
@@ -104,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="违章地点:"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
 
@@ -112,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="锦江大道与锦华路三段交叉路口"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 
@@ -126,14 +126,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="处理站点:"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_pessany_detail_site"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="成都市公安局交通管理局第三分局"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 
@@ -147,14 +147,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="违章时间:"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_pessany_detail_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2016-01-29 12:53:28"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 </LinearLayout>

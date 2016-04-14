@@ -17,7 +17,7 @@ public class PushMsgResponse {
 
     private String msgId;
     private String content;
-    private String time;
+    private Long time;
     private String title;
     private String unreadCount;
 
@@ -37,11 +37,11 @@ public class PushMsgResponse {
         this.content = content;
     }
 
-    public String getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 

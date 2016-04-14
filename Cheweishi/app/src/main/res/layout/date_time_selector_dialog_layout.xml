@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/pdwv_date_time_selector_wheelView"
         android:layout_marginTop="5dp"
-        android:background="#FF0000"
-        android:visibility="gone"></FrameLayout>
+        android:visibility="gone" />
 
 </RelativeLayout>

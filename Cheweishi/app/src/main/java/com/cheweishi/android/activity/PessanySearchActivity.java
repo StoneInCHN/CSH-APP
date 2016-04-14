@@ -106,6 +106,7 @@ public class PessanySearchActivity extends BaseActivity implements
             listPessanySearch = response.getMsg();
             adapter = new PessanyAdapter(this, listPessanySearch);
             lv_pessanySearch.setAdapter(adapter);
+            lv_pessanySearch.setOnItemClickListener(this);
         } else {
             EmptyTools.setEmptyView(baseContext, lv_pessanySearch);
             EmptyTools.setImg(R.drawable.mycar_icon);

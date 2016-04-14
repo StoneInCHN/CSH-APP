@@ -73,8 +73,8 @@ public class PessanyAdapter extends BaseAdapter {
         }
 
         viewHolder.tv_peccany_plateCode.setText(listPessanySearch.get(position).getPlate());
-        viewHolder.tv_cut.setText(listPessanySearch.get(position).getScore());
-        viewHolder.tv_punish.setText(listPessanySearch.get(position).getFinesAmount());
+        viewHolder.tv_cut.setText("" + listPessanySearch.get(position).getScore());
+        viewHolder.tv_punish.setText("" + listPessanySearch.get(position).getFinesAmount());
 
 
         return convertView;

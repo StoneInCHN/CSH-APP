@@ -118,10 +118,12 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         Intent mIntent = new Intent();
         mIntent.setAction(Constant.REFRESH_FLAG);
         sendBroadcast(mIntent);// 发送广播，更新所有应为设备需要更新的Activity
-        this.finish();
 
+
+        loginResponse.getMsg().setDefaultDeviceNo(tv_car_device.getText().toString());
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+        this.finish();
     }
 
 

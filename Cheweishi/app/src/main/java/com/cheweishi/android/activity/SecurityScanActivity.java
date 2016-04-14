@@ -268,7 +268,7 @@ public class SecurityScanActivity extends BaseActivity {
             Map<String, Object> param = new HashMap<>();
             param.put("userId", loginResponse.getDesc());
             param.put("token", loginResponse.getToken());
-            param.put("deviceId", loginResponse.getMsg().getDefaultDeviceNo());
+            param.put("deviceNo", loginResponse.getMsg().getDefaultDeviceNo());
             netWorkHelper.PostJson(url, param, this);
         }
     }

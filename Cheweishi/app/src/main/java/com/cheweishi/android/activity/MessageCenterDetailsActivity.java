@@ -164,7 +164,7 @@ public class MessageCenterDetailsActivity extends BaseActivity implements
     }
 
     private String transferLongToDate(Long millSec) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
         Date date = new Date(millSec);
         return sdf.format(date);
     }
@@ -217,7 +217,7 @@ public class MessageCenterDetailsActivity extends BaseActivity implements
         this.title.setText(R.string.msg_details);
         this.left_action.setText(R.string.back);
         number = getIntent().getStringExtra("number");
-        int id = getIntent().getIntExtra("id", 0);
+        String id = getIntent().getStringExtra("id");
         ProgrosDialog.openDialog(baseContext);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_MESSAGE + NetInterface.SET_READ_MSG + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
