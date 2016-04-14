@@ -1474,7 +1474,7 @@
     <string name="Confirm_Payment">确认支付</string>
     <string name="service_order">服务须知</string>
     <string name="service_order_one">1.&#160;服务完成后请出示详情页的订单编号供服务商进行确认,才能完成此次服务哟。\n2.&#160;订单有效期为下单时间后的72个小时,如果未能及时进行服务,订单将自动过期。\n3.&#160;如果订单编号无法确认请及时与我们工作人员取得联系。</string>
-    <string name="service_order_two">2.&#160;订单有效期为下单时间后的72个小时,如果未能及时进行服务,订单将自动过期。</string>
+    <string name="service_order_two">2.&#160;订单有效期为下单时间后的24个小时,如果未能及时进行服务,订单将自动过期。</string>
     <string name="service_order_three">3.&#160;如果二维码无法扫描请及时与我们工作人员取得联系。</string>
     <!-- 我的钱包 -->
     <string name="purse">我的钱包</string>
