@@ -113,11 +113,12 @@ public class PurseActivity extends BaseActivity {
                 PurseActivity.this.finish();
                 break;
             case R.id.rel_purse_certificates:// 红包
-                intent = new Intent(PurseActivity.this,
-                        PurseRedPacketsActivity.class);
-                intent.putExtra("walletId", walletId);
-                intent.putExtra("redPacket", redPacket);
-                startActivity(intent);
+                showToast("敬请期待");
+//                intent = new Intent(PurseActivity.this,
+//                        PurseRedPacketsActivity.class);
+//                intent.putExtra("walletId", walletId);
+//                intent.putExtra("redPacket", redPacket);
+//                startActivity(intent);
                 break;
             case R.id.rel_purse_integral:// 积分
                 intent = new Intent(PurseActivity.this, PurseIntegralActivity.class);
