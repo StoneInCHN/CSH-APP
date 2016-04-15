@@ -175,7 +175,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
                 finish();
                 break;
             case R.id.ll_locate:
-                searchPlace();
+//                searchPlace();
                 break;
 
             default:

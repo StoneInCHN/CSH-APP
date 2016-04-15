@@ -58,14 +58,8 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener {
 		title.setText(R.string.title_activity_insurance);
 		left_action.setText(R.string.back);
 		if (isLogined() && hasCar()) {
-			tv_car_plate.setText(loginMessage.getCarManager().getPlate());
-			tv_brandSeries.setText(loginMessage.getCarManager().getBrand()
-					.getBrandName()
-					+ "-"
-					+ loginMessage.getCarManager().getBrand().getSeriesName());
-			tv_insurance_carModel.setText(loginMessage.getCarManager()
-					.getBrand().getModuleName());
-			tv_insurance_car.setText(loginMessage.getCarManager().getPlate());
+			tv_car_plate.setText(loginResponse.getMsg().getDefaultVehiclePlate());
+			tv_brandSeries.setText(loginResponse.getMsg().getDefaultVehicle());
 		}
 	}
 
@@ -88,9 +82,10 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.btn_insurance_calculate:
-			intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
-					+ getResources().getString(R.string.customerServicePhone)));
-			startActivity(intent);
+			// TODO 发包购买.
+//			intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
+//					+ getResources().getString(R.string.customerServicePhone)));
+//			startActivity(intent);
 			// intent = new Intent(this, InsuranceCalculationActivity.class);
 			// startActivity(intent);
 			break;

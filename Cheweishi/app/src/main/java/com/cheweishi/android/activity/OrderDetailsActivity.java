@@ -616,7 +616,7 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_order_paid.setText(formateDate(response.getMsg().getPaymentDate()));
 
                     //展示图标
-                    img_order_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
+                    img_order_ok.setImageResource(R.drawable.dingdanxiangqing_order_complete);
                     tv_order_ok.setTextColor(getResources().getColor(R.color.order_dr));
                     tv_order_complete.setVisibility(View.VISIBLE);
                     tv_order_complete.setText(formateDate(response.getMsg().getFinishDate()));

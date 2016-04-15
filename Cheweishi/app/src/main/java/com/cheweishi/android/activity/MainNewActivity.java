@@ -559,10 +559,10 @@ public class MainNewActivity extends BaseActivity {
         param.put("userId", loginResponse.getDesc());
         LogHelper.d("----send:" + loginResponse.getToken());
         param.put("token", loginResponse.getToken());
-//        param.put("latitude", MyMapUtils.getLatitude(this));//维度
-        param.put("latitude", "10");//维度
-//        param.put("longitude", MyMapUtils.getLongitude(this));//经度
-        param.put("longitude", "10");//经度
+        param.put("latitude", MyMapUtils.getLatitude(this));//维度
+//        param.put("latitude", "10");//维度
+        param.put("longitude", MyMapUtils.getLongitude(this));//经度
+//        param.put("longitude", "10");//经度
         /**
          * 1保养
          2	洗车

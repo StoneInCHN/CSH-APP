@@ -213,7 +213,7 @@
                             android:layout_height="30dp"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
-                            android:src="@drawable/dingdanxiangqing_pay2x" />
+                            android:src="@drawable/dingdanxiangqing_order_complete_normal" />
 
                         <TextView
                             android:id="@+id/tv_order_complete"
