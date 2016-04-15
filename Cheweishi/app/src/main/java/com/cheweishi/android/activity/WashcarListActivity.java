@@ -119,8 +119,15 @@ public class WashcarListActivity extends BaseActivity implements
                     if (null != response.getMsg()) {
                         washcarList.addAll(0 <= (washcarList.size() - 1) ? (washcarList.size() - 1) : 0, response.getMsg());
                     }
-                    listViewAdapter = new MainListViewAdapter(this, washcarList);
-                    mListView.setAdapter(listViewAdapter);
+
+                    if (0 == washcarList.size()) {
+                        EmptyTools.setEmptyView(baseContext, mListView);
+                        EmptyTools.setImg(R.drawable.mycar_icon);
+                        EmptyTools.setMessage("当前没有洗车信息");
+                    } else {
+                        listViewAdapter = new MainListViewAdapter(this, washcarList);
+                        mListView.setAdapter(listViewAdapter);
+                    }
                     loginResponse.setToken(response.getToken());
                     DBTools.getInstance(baseContext).save(loginResponse);
                 } else if (response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
