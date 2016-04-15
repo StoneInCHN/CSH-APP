@@ -154,8 +154,16 @@ public class OrderExLvAdapter extends BaseExpandableListAdapter {
                     .setImageResource(R.drawable.channel_expandablelistview_bottom_icon);
         }
         viewHolder.tv_order_name.setText(response.getMsg().getServiceName());
-        viewHolder.tv_order_LvNameCost.setText("￥"
-                + response.getMsg().getPrice());
+
+
+        String priceTemp = null;
+        int price = response.getMsg().getPrice();
+        if (-1 == price) { // 预约未定价
+            priceTemp = "当前服务暂时未定价";
+        } else {
+            priceTemp = "￥" + price;
+        }
+        viewHolder.tv_order_LvNameCost.setText(priceTemp);
         return arg2;
     }
 

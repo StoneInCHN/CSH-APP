@@ -453,7 +453,14 @@ public class MyorderAdapter extends BaseAdapter {
 
 
         holder.tv_order_owner_name.setText(mData.get(arg0).getTenantName());
-        holder.tv_order_price.setText("￥" + mData.get(arg0).getPrice());
+        String priceTemp = null;
+        int price = mData.get(arg0).getPrice();
+        if (-1 == price) { // 预约未定价
+            priceTemp = "当前服务暂时未定价";
+        } else {
+            priceTemp = "￥" + price;
+        }
+        holder.tv_order_price.setText(priceTemp);
         holder.tv_order_class.setText(mData.get(arg0).getCarService().getServiceName());
 
         return arg1;
