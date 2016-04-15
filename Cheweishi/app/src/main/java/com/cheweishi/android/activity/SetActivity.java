@@ -47,6 +47,8 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * @author zhangQ
  * @version 1.0
@@ -192,6 +194,13 @@ public class SetActivity extends BaseActivity implements OnClickListener,
             btn_setout.setText(R.string.logout);
         } else {
             btn_setout.setText(R.string.login);
+        }
+
+        cb_push.setOnCheckedChangeListener(this);
+        if (LoginMessageUtils.getPush(baseContext)) {
+            cb_push.setChecked(true);
+        } else {
+            cb_push.setChecked(false);
         }
 
         // if (isLogined()) {
@@ -410,6 +419,11 @@ public class SetActivity extends BaseActivity implements OnClickListener,
             case R.id.cb_push:
                 // 推送
                 LoginMessageUtils.setPush(baseContext, isChecked);
+                if (isChecked) {
+                    JPushInterface.resumePush(baseContext);
+                } else {
+                    JPushInterface.stopPush(baseContext);
+                }
                 break;
 
             default:
