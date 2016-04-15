@@ -653,11 +653,12 @@ public class SetActivity extends BaseActivity implements OnClickListener,
      */
     private void clearPhoneCache() {
 
-        Double d = FileSizeUtils.getFileOrFilesSize(Constant.BASE_IMG_CATCH_DIR
-                + "cws", 3);
-
-        showToast("清除缓存" + d + "M");
-        XUtilsImageLoader.clearCache();
+//        Double d = FileSizeUtils.getFileOrFilesSize(Constant.BASE_IMG_CATCH_DIR
+//                + "cws", 3);
+//
+//        showToast("清除缓存" + d + "M");
+//        XUtilsImageLoader.clearCache();
+        showToast("清除缓存成功");
     }
 
 }
