@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.utils.DateUtils;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.wheelview.OnWheelChangedListener;
 import com.cheweishi.android.wheelview.StrericWheelAdapter;
@@ -92,30 +93,50 @@ public class DateSelectorWheelViewByHour extends RelativeLayout implements
         hoursAdapter = new StrericWheelAdapter(hours);
         minutesAdapter = new StrericWheelAdapter(minutes);
         wvHour.setAdapter(hoursAdapter);
-        wvHour.setCurrentItem(0); // TODO 设置默认
+        wvHour.setCurrentItem(getTodayDayHour()); // TODO 设置默认
         wvHour.setCyclic(true);
         wvMinute.setAdapter(minutesAdapter);
-        wvMinute.setCurrentItem(0); // TODO 设置默认
+        wvMinute.setCurrentItem(getTodayDayMinute()); // TODO 设置默认
         wvMinute.setCyclic(true);
+
+
     }
 
     /**
-     * 获取当前日期的天数的日子
+     * 获取当前日期的天数的小时
      *
      * @return
      */
     private int getTodayDayHour() {
         // 2015年12月01日
         int position = 0;
-//        String today = getToday();
-//        String day = today.substring(8, 10);
-//        day = day + " 日";
-//        for (int i = 0; i < bigDays.length; i++) {
-//            if (day.equals(bigDays[i])) {
-//                position = i;
-//                break;
-//            }
-//        }
+        String today = getToday();
+        String hour = today.substring(0, 4);
+        for (int i = 0; i < hours.length; i++) {
+            if (hour.equals(hours[i])) {
+                position = i;
+                break;
+            }
+        }
+        return position;
+    }
+
+    /**
+     * 获取当前日期的天数的分钟
+     *
+     * @return
+     */
+    private int getTodayDayMinute() {
+        // 2015年12月01日
+        int position = 0;
+        String today = getToday();
+        String minute = today.substring(4, 8);
+        for (int i = 0; i < minutes.length; i++) {
+            if (minute.equals(minutes[i])) {
+                position = i;
+                break;
+            }
+        }
         return position;
     }
 
@@ -235,7 +256,7 @@ public class DateSelectorWheelViewByHour extends RelativeLayout implements
      */
     @SuppressLint("SimpleDateFormat")
     private String getToday() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat formatter = new SimpleDateFormat("HH 时mm 分");
         Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
         String str = formatter.format(curDate);
         return str;
