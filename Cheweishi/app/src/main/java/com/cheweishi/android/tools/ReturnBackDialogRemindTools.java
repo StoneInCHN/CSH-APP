@@ -18,7 +18,7 @@ public class ReturnBackDialogRemindTools {
 			instance = new ReturnBackDialogRemindTools();
 		}
 		builder = new CustomDialog.Builder(mContext);
-		builder.setMessage(R.string.message_reLogin);
+//		builder.setMessage(R.string.message_reLogin);
 		builder.setTitle(R.string.remind);
 		builder.setMessage(R.string.back_save_remind);
 		builder.setPositiveButton(R.string.sure,
@@ -43,5 +43,31 @@ public class ReturnBackDialogRemindTools {
 			phoneDialog = builder.create();
 			phoneDialog.show();
 		}
+	}
+
+	public static ReturnBackDialogRemindTools getCheckInstance(
+			final Activity mContext) {
+		if (instance == null) {
+			instance = new ReturnBackDialogRemindTools();
+		}
+		builder = new CustomDialog.Builder(mContext);
+//		builder.setMessage(R.string.message_reLogin);
+		builder.setTitle(R.string.remind);
+		builder.setMessage(R.string.back_save_remind);
+		builder.setPositiveButton(R.string.sure,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						mContext.finish();
+					}
+				});
+
+		builder.setNegativeButton(R.string.cancel,
+				new android.content.DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+		return instance;
 	}
 }

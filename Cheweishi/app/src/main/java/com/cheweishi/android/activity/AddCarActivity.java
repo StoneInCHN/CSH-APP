@@ -423,10 +423,10 @@ public class AddCarActivity extends BaseActivity {
      */
     private void checkCancel() {
         if (cancelFlag == false) {
-            Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
-            Intent mIntent = new Intent();
-            mIntent.setAction(Constant.REFRESH_FLAG);
-            sendBroadcast(mIntent);
+//            Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
+//            Intent mIntent = new Intent();
+//            mIntent.setAction(Constant.REFRESH_FLAG);
+//            sendBroadcast(mIntent);
             this.finish();
         } else {
             ReturnBackDialogRemindTools.getInstance(this).show();

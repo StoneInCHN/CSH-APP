@@ -3,6 +3,7 @@ package com.cheweishi.android.activity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.config.Constant;
+import com.cheweishi.android.tools.ReturnBackDialogRemindTools;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -51,6 +52,20 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener {
     private TextView bt_province; // 省份
     @ViewInject(R.id.bt_char)
     private TextView bt_char; // 城市标示
+    @ViewInject(R.id.tv_guohu_type)
+    private TextView tv_guohu_type; // 过户
+    @ViewInject(R.id.tv_daikuan_type)
+    private TextView tv_daikuan_type;//贷款
+    @ViewInject(R.id.tv_driver_license_type)
+    private TextView tv_driver_license_type;//行驶证
+    @ViewInject(R.id.tv_id_type)
+    private TextView tv_id_type;// 身份证
+    @ViewInject(R.id.tv_contact_sex)
+    private TextView tv_contact_sex;//性别
+    @ViewInject(R.id.ed_contact_name)
+    private TextView ed_contact_name;//联系人姓名
+    @ViewInject(R.id.ed_contact_phone_number)
+    private TextView ed_contact_phone_number;// 联系人投保手机号码
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +74,8 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener {
         ViewUtils.inject(this);
         initViews();
         setListener();
+
+        //ReturnBackDialogRemindTools.getInstance(this).show();
     }
 
     private void setListener() {
@@ -76,7 +93,7 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener {
     }
 
     @OnClick({R.id.btn_car_plate_upload, R.id.left_action, R.id.tv_changeCar,
-            R.id.btn_insurance_calculate})
+            R.id.btn_insurance_calculate, R.id.tv_guohu_type})
     @Override
     public void onClick(View arg0) {
         Intent intent;
@@ -115,6 +132,10 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener {
                         ProvinceAndCharGridActivity.class);
                 intent.putExtra("flag", false);
                 startActivityForResult(intent, 10002);
+                break;
+
+            case R.id.tv_guohu_type:// 过户
+                ReturnBackDialogRemindTools.getInstance(this).show();
                 break;
         }
     }
