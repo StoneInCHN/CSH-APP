@@ -149,6 +149,11 @@ public class PayActivty extends BaseActivity implements OnClickListener,
             case R.id.btn_pay:
                 btn_pay.setClickable(false);
 
+                if (CHANNEL_WECHAT.equals(channel) && !WeiXinPay.getinstance(baseContext).isWXAppInstalledAndSupported()) {
+                    btn_pay.setClickable(true);
+                    return;
+                }
+
                 payMoney();
 //                getPingCharge();
                 // if (StringUtil.isEquals(payment_type, "zfb", true)) {

@@ -37,6 +37,7 @@ import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.PayUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.utils.weixinpay.WeiXinPay;
+import com.cheweishi.android.wxapi.WXPayEntryActivity;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -273,6 +274,10 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             return;
         }
 
+        if (CHANNEL_WECHAT.equals(channel) && !WeiXinPay.getinstance(baseContext).isWXAppInstalledAndSupported()) {
+            tv_wash_affirm.setClickable(true);
+            return;
+        }
 
         ProgrosDialog.openDialog(baseContext);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER + NetInterface.BUY_SERVICE + NetInterface.SUFFIX;
