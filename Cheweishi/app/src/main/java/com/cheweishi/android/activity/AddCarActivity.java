@@ -1023,11 +1023,9 @@ public class AddCarActivity extends BaseActivity {
                 setListeners();
                 break;
             case 10001:
-                System.out.println("item========haha");
                 if (!StringUtil.isEmpty(data)
                         && !StringUtil.isEmpty(data.getStringExtra("item"))) {
                     String itemData = data.getStringExtra("item");
-                    System.out.println("item========" + itemData);
                     bt_province.setText(itemData);
                 }
                 break;
@@ -1035,14 +1033,12 @@ public class AddCarActivity extends BaseActivity {
                 if (data != null
                         && !StringUtil.isEmpty(data.getStringExtra("item"))) {
                     String itemData = data.getStringExtra("item");
-                    System.out.println("item========" + itemData);
                     bt_char.setText(itemData);
                 }
                 break;
         }
     }
 
-    ;
 
     private void initWheel(int id, String[] strContents) {
         WheelView wheel = getWheel(id);

@@ -665,7 +665,7 @@ public class MessagerCenterActivity extends BaseActivity {
                                 long arg3) {
             MessageResponse.MsgBean messagCenterInfo = httpList.get(position - 1);
             Intent intent = new Intent();
-            intent.putExtra("id", messagCenterInfo.getId());
+            intent.putExtra("id", "" + messagCenterInfo.getId());
             intent.putExtra("title", messagCenterInfo.getMessageTitle());
             intent.putExtra("content", messagCenterInfo.getMessageContent());
             intent.putExtra("time", messagCenterInfo.getCreateDate());
