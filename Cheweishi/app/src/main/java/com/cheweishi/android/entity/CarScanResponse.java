@@ -46,7 +46,7 @@ public class CarScanResponse extends BaseResponse implements Serializable {
         private String obdTemp;
         private String obdEngRuntime;
         private String obdEngLoad;
-        private String obdDate;
+        private Long obdDate;
         private String obdRPM;
         private String obdBV;
         private String obdIFC;
@@ -123,11 +123,11 @@ public class CarScanResponse extends BaseResponse implements Serializable {
             this.obdEngLoad = obdEngLoad;
         }
 
-        public String getObdDate() {
+        public Long getObdDate() {
             return obdDate;
         }
 
-        public void setObdDate(String obdDate) {
+        public void setObdDate(Long obdDate) {
             this.obdDate = obdDate;
         }
 
