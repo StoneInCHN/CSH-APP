@@ -77,6 +77,7 @@
     <string name="no_device">当前未绑定设备</string>
     <!-- 保存返回提示 -->
     <string name="back_save_remind">此操作会使未保存的信息丢失，您确定要返回吗？</string>
+    <string name="check_remind">此操作会使未保存的信息丢失，您确定要返回吗？</string>
     <!-- 我的车 -->
     <string name="home_no_device">请先绑定设备</string>
     <string name="home_goto_bind">前往绑定</string>

@@ -5,25 +5,29 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.cheweishi.android.cheweishi.R;
 
-public class CustomDialog extends Dialog {
-
-    public CustomDialog(Context context) {
-        super(context);
+/**
+ * Created by tangce on 4/18/2016.
+ */
+public class CustomCheckDialog extends Dialog {
+    public CustomCheckDialog(Context context) {
+        this(context, 0);
     }
 
-    public CustomDialog(Context context, int theme) {
-        super(context, theme);
+    public CustomCheckDialog(Context context, int themeResId) {
+        super(context, themeResId);
     }
 
-    public static class Builder {
+    protected CustomCheckDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+        super(context, cancelable, cancelListener);
+    }
+
+    public static class Builder implements View.OnClickListener {
         private Context context;
         private String title;
         private CharSequence message;
@@ -36,6 +40,11 @@ public class CustomDialog extends Dialog {
         private EditText et;
         private View bottom_line;
         private boolean flag;
+
+
+        private Button confirm;
+        private Button cancel;
+        private CustomCheckDialog dialog;
 
         public Builder(Context context) {
             this.context = context;
@@ -129,82 +138,23 @@ public class CustomDialog extends Dialog {
             bottom_line.setVisibility(View.GONE);
         }
 
-        public CustomDialog create() {
+        public CustomCheckDialog create() {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // instantiate the dialog with the custom Theme
-            final CustomDialog dialog = new CustomDialog(context,
+            dialog = new CustomCheckDialog(context,
                     R.style.Dialog);
-            View layout = inflater.inflate(R.layout.dialog_normal_layout, null);
-            dialog.addContentView(layout, new LayoutParams(
-                    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-            // set the dialog title
-            ((TextView) layout.findViewById(R.id.title)).setText(title);
-            // set the confirm button
-            if (positiveButtonText != null) {
-                ((Button) layout.findViewById(R.id.positiveButton))
-                        .setText(positiveButtonText);
-                if (positiveButtonClickListener != null) {
-                    ((Button) layout.findViewById(R.id.positiveButton))
-                            .setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View v) {
-                                    positiveButtonClickListener.onClick(dialog,
-                                            DialogInterface.BUTTON_POSITIVE);
-                                }
-                            });
-                }
-            } else {
-                // if no confirm button just set the visibility to GONE
-                layout.findViewById(R.id.positiveButton).setVisibility(
-                        View.GONE);
-            }
-            // set the cancel button
-            if (negativeButtonText != null) {
-                ((Button) layout.findViewById(R.id.negativeButton))
-                        .setText(negativeButtonText);
-                if (negativeButtonClickListener != null) {
-                    ((Button) layout.findViewById(R.id.negativeButton))
-                            .setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View v) {
-                                    negativeButtonClickListener.onClick(dialog,
-                                            DialogInterface.BUTTON_NEGATIVE);
-                                }
-                            });
-                }
-            } else {
-                // if no confirm button just set the visibility to GONE
-                layout.findViewById(R.id.negativeButton).setVisibility(
-                        View.GONE);
-            }
-            // set the content message
-            if (message != null) {
-                ((TextView) layout.findViewById(R.id.message)).setText(message);
-            } else if (contentView != null) {
-                // if no message set
-                // add the contentView to the dialog body
-                ((LinearLayout) layout.findViewById(R.id.content))
-                        .removeAllViews();
-                ((LinearLayout) layout.findViewById(R.id.content)).addView(
-                        contentView, new LayoutParams(LayoutParams.FILL_PARENT,
-                                LayoutParams.FILL_PARENT));
-            }
-            if (showEtFlag == true) {
-                ((TextView) layout.findViewById(R.id.message))
-                        .setVisibility(View.GONE);
-                ((EditText) layout.findViewById(R.id.et_message))
-                        .setVisibility(View.VISIBLE);
-                setEt(((EditText) layout.findViewById(R.id.et_message)));
-            } else {
-                ((TextView) layout.findViewById(R.id.message))
-                        .setVisibility(View.VISIBLE);
-                ((EditText) layout.findViewById(R.id.et_message))
-                        .setVisibility(View.GONE);
-            }
+            View layout = inflater.inflate(R.layout.insurance_check_view, null);
+            dialog.addContentView(layout, new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            bottom_line = (View) layout.findViewById(R.id.dialog_bottomLayout);
-            if (flag == true) {
-                hideLayout();
-            }
+
+            confirm = (Button) layout.findViewById(R.id.positiveButton);
+            cancel = (Button) layout.findViewById(R.id.negativeButton);
+            cancel.setOnClickListener(this);
+            confirm.setOnClickListener(this);
+
+
             dialog.setContentView(layout);
             return dialog;
         }
@@ -225,5 +175,21 @@ public class CustomDialog extends Dialog {
             this.et = et;
         }
 
+        @Override
+        public void onClick(View v) {
+
+            int id = v.getId();
+            switch (id) {
+                case R.id.positiveButton: // 确认
+
+                    break;
+                case R.id.negativeButton: // 取消
+                    if (null != dialog)
+                        dialog.dismiss();
+                    break;
+            }
+        }
     }
+
 }
+

@@ -5,6 +5,8 @@ import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.tools.ReturnBackDialogRemindTools;
 import com.cheweishi.android.utils.StringUtil;
+import com.cheweishi.android.widget.CustomCheckDialog;
+import com.cheweishi.android.widget.CustomDialog;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -135,7 +137,9 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener {
                 break;
 
             case R.id.tv_guohu_type:// 过户
-                ReturnBackDialogRemindTools.getInstance(this).show();
+                CustomCheckDialog.Builder builder = new CustomCheckDialog.Builder(baseContext);
+                CustomCheckDialog customDialog = builder.create();
+                customDialog.show();
                 break;
         }
     }
