@@ -1,5 +1,7 @@
 package com.cheweishi.android.adapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.view.LayoutInflater;
@@ -66,6 +68,8 @@ public class PessanyAdapter extends BaseAdapter {
                     .findViewById(R.id.tv_punish);
             viewHolder.img_peccany_item = (ImageView) convertView
                     .findViewById(R.id.img_peccany_item);
+            viewHolder.tv_address = (TextView) convertView.findViewById(R.id.tv_peccancy_address);
+            viewHolder.tv_date = (TextView) convertView.findViewById(R.id.tv_peccancy_time);
 
             convertView.setTag(viewHolder);
         } else {
@@ -75,7 +79,8 @@ public class PessanyAdapter extends BaseAdapter {
         viewHolder.tv_peccany_plateCode.setText(listPessanySearch.get(position).getPlate());
         viewHolder.tv_cut.setText("" + listPessanySearch.get(position).getScore());
         viewHolder.tv_punish.setText("" + listPessanySearch.get(position).getFinesAmount());
-
+        viewHolder.tv_date.setText(listPessanySearch.get(position).getIllegalDate());
+        viewHolder.tv_address.setText(listPessanySearch.get(position).getIllegalAddress());
 
         return convertView;
     }
@@ -83,11 +88,14 @@ public class PessanyAdapter extends BaseAdapter {
     class ViewHolder {
         ImageView img_peccany_item;
 
-        TextView tv_peccany_plateCode;
-        TextView tv_notDeal;
-        TextView tv_cut;
-        TextView tv_punish;
+        TextView tv_address; // 地址
+        TextView tv_date; // 时间
+        TextView tv_peccany_plateCode; // 车牌号码
+        TextView tv_notDeal; // 未处理
+        TextView tv_cut;// 金额
+        TextView tv_punish; // 分数
 
     }
+
 
 }
