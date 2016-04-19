@@ -188,12 +188,24 @@ public class DetactionInfoActivity extends BaseActivity {
 
             //obdDate
             Map<String, Object> obdDate = new HashMap<>();
-            obdDate.put("data", "生成obd记录时间  " + response.getMsg().getObdDate());
+            obdDate.put("data", "生成obd记录时间  " + transferLongToDate(response.getMsg().getObdDate()));
             data.add(obdDate);
         } catch (Exception e) {
         }
 
 
+    }
+
+    /**
+     * 把毫秒转化成日期
+     *
+     * @param millSec(毫秒数)
+     * @return
+     */
+    private String transferLongToDate(Long millSec) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = new Date(millSec);
+        return sdf.format(date);
     }
 
     /**
