@@ -252,11 +252,16 @@ public class BeautyDetailsActivity extends BaseActivity implements
     private void setData() {
         XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.zhaochewei_img,
                 car_iv_location, washCar.getMsg().getPhoto());
-        car_tv_car_iv_location.setText(washCar.getMsg().getTenantName());
-        tv_time_interval.setText(String.valueOf(washCar.getMsg().getBusinessTime()));
-        car_xlocation.setText(String.valueOf(washCar.getMsg().getAddress()));
+
+        if (!StringUtil.isNull(washCar.getMsg().getTenantName()))
+            car_tv_car_iv_location.setText(washCar.getMsg().getTenantName());
+        if (!StringUtil.isEmpty(washCar.getMsg().getBusinessTime()))
+            tv_time_interval.setText(String.valueOf(washCar.getMsg().getBusinessTime()));
+        if (!StringUtil.isEmpty(washCar.getMsg().getAddress()))
+            car_xlocation.setText(String.valueOf(washCar.getMsg().getAddress()));
+
         exListAdapter = new ExpandableListViewAdapter(this,
-                washCar.getMsg().getCarServices(),washCar.getMsg().getTenantName());
+                washCar.getMsg().getCarServices(), washCar.getMsg().getTenantName());
         lv_washcar_detils.setOnGroupClickListener(onGroupClickListener);
         lv_washcar_detils.setAdapter(exListAdapter);
         for (int i = 0; i < washCar.getMsg().getCarServices().size(); i++) {

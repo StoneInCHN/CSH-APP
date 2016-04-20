@@ -487,7 +487,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     protected void save(LoginResponse loginResponse) {
         if (!StringUtil.isEmpty(loginResponse)) {
 //            LruCacheUtils.addJsonLruCache(Constant.USER_ID, loginResponse.getDesc());
-            LoginMessageUtils.saveProduct(loginResponse,baseContext);
+            LoginMessageUtils.saveProduct(loginResponse, baseContext);
             DBTools.getInstance(this).save(loginResponse);
         }
         // saveProduct(loginMessage, LoginActivity.this);
@@ -561,11 +561,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
                 LoginActivity.this.finish();
                 break;
             case R.id.login_delete:
-                if (ll_loginLayout.getVisibility() == View.VISIBLE) {
-                    LoginActivity.this.finish();
-                    overridePendingTransition(R.anim.score_business_query_enter,
-                            R.anim.score_business_query_exit);
-                }
+//                if (ll_loginLayout.getVisibility() == View.VISIBLE) {
+                LoginActivity.this.finish();
+//                    overridePendingTransition(R.anim.score_business_query_enter,
+//                            R.anim.score_business_query_exit);
+//                }
                 break;
             case R.id.login_btn:
                 login();

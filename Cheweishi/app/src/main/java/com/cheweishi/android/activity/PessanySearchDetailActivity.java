@@ -5,6 +5,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.model.LatLng;
 import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.entity.PessanyResponse;
 import com.lidroid.xutils.ViewUtils;
@@ -12,7 +20,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
 /**
- * Created by Administrator on 2016/4/10.
+ * Created by Tanck on 2016/4/10.
  */
 public class PessanySearchDetailActivity extends BaseActivity implements View.OnClickListener {
     @ViewInject(R.id.left_action)
@@ -31,8 +39,12 @@ public class PessanySearchDetailActivity extends BaseActivity implements View.On
     private TextView tv_pessany_detail_site;
     @ViewInject(R.id.tv_pessany_detail_date)
     private TextView tv_pessany_detail_date;
+    @ViewInject(R.id.pessany_map)
+    private MapView mapView;
 
     private PessanyResponse.MsgBean data;
+    private BaiduMap baiduMap;
+    private BitmapDescriptor bitmapDescriptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +57,24 @@ public class PessanySearchDetailActivity extends BaseActivity implements View.On
             return;
         }
         left_action.setText(R.string.back);
+
+        // TODO 暂时未加上
+//        intMap();
+
         setdata(data);
     }
+
+    private void intMap(double Latitude, double Longitude) {
+        baiduMap = mapView.getMap();
+        LatLng latLng = new LatLng(Latitude, Longitude);
+        baiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(latLng));
+        bitmapDescriptor = BitmapDescriptorFactory
+                .fromResource(R.drawable.jiuyuan_chepaihao2x);
+        OverlayOptions ooA = new MarkerOptions().position(latLng)
+                .icon(bitmapDescriptor).zIndex(9).draggable(true);
+        baiduMap.addOverlay(ooA);
+    }
+
 
     private void setdata(PessanyResponse.MsgBean data) {
         tv_pessany_detail_plate.setText(data.getPlate());

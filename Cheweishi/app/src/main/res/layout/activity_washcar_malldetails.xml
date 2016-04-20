@@ -142,7 +142,6 @@
                         android:layout_marginLeft="5dp"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:text=""
                         android:textColor="@color/gray"
                         android:textSize="@dimen/ttf_twelve" />
 

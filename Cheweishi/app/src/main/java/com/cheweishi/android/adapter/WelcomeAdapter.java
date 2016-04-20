@@ -56,9 +56,9 @@ public class WelcomeAdapter extends BaseAdapter {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
-					Intent i = new Intent(_context, MainNewActivity.class);
-					_context.startActivity(i);
-					WelcomeActivity.instance.finish();
+//					Intent i = new Intent(_context, MainNewActivity.class);
+//					_context.startActivity(i);
+//					WelcomeActivity.instance.finish();
 
 					if (!(StringUtil.isEmpty(BaseActivity.loginMessage) || StringUtil
 							.isEmpty(BaseActivity.loginMessage.getUid()))) {

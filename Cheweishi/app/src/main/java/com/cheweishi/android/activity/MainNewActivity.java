@@ -551,8 +551,11 @@ public class MainNewActivity extends BaseActivity {
 //            Log.i("result", "===首页数据请求参数==lat=" + MyMapUtils.getLatitude(this) + "_" + MyMapUtils.getLongitude(this) + "_" + APPTools.getVersionName(this));
 //        }
 //        httpBiz.httPostData(10001, API.CSH_MAIN_DATA_URL, params, this);
-        if (!isLogined())
+        if (!isLogined()) {
+            Intent intent = new Intent(MainNewActivity.this,LoginActivity.class);
+            startActivity(intent);
             return;
+        }
         ProgrosDialog.openDialog(this);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
@@ -855,8 +858,8 @@ public class MainNewActivity extends BaseActivity {
         intent = new Intent();
         switch (position) {
             case 0:// 买车险
-//                showToast("此功能正在开发中,敬请期待...");
-                isLoginOrHasCar(InsuranceActivity.class);
+                showToast("此功能正在开发中,敬请期待...");
+//                isLoginOrHasCar(InsuranceActivity.class);
                 break;
             case 1:// 洗车
                 isLogin(WashcarListActivity.class);
