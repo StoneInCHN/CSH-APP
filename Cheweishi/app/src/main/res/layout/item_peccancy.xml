@@ -99,6 +99,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/coin_normal"
                         android:gravity="center_vertical"
                         android:text="@string/pessany_cut_second"
                         android:textColor="@color/gray_pressed"
@@ -134,6 +135,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/money_normal"
                         android:gravity="center_vertical"
                         android:text="@string/pessany_punish_second"
                         android:textColor="@color/gray_pressed"
