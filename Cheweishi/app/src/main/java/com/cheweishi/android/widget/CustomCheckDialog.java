@@ -8,8 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.interfaces.InsuranceListener;
+import com.cheweishi.android.utils.LogHelper;
 
 /**
  * Created by tangce on 4/18/2016.
@@ -45,6 +48,20 @@ public class CustomCheckDialog extends Dialog {
         private Button confirm;
         private Button cancel;
         private CustomCheckDialog dialog;
+        private InsuranceListener listener;
+        private RadioGroup radioGroup;
+
+        private int contentFlag = 0x10;
+
+        public static final int YES_NO = 0x10;
+
+        public static final int SEX = 0x11;
+
+        private String[] yesOrNo = new String[]{"否  ", "是  "};
+
+        private String[] sex = new String[]{"先生  ", "小姐  "};
+
+        private int viewId;
 
         public Builder(Context context) {
             this.context = context;
@@ -90,6 +107,17 @@ public class CustomCheckDialog extends Dialog {
 
         public Builder setTitle(String title) {
             this.title = title;
+            return this;
+        }
+
+        public Builder setMyOnClickListener(InsuranceListener listener) {
+            this.listener = listener;
+            return this;
+        }
+
+        public Builder setContentFlag(int id, int value) {
+            this.viewId = id;
+            this.contentFlag = value;
             return this;
         }
 
@@ -149,6 +177,16 @@ public class CustomCheckDialog extends Dialog {
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
 
+            // TODO Check的时候
+            if (YES_NO == contentFlag) { // 是和否
+                radioGroup = (RadioGroup) layout.findViewById(R.id.rg_insurance_yes_no);
+                radioGroup.setVisibility(View.VISIBLE);
+            } else if (SEX == contentFlag) {
+//                radioGroup = (RadioGroup) layout.findViewById(R.id.rg_insurance_sex);
+//                radioGroup.setVisibility(View.VISIBLE);
+            }
+
+
             confirm = (Button) layout.findViewById(R.id.positiveButton);
             cancel = (Button) layout.findViewById(R.id.negativeButton);
             cancel.setOnClickListener(this);
@@ -181,12 +219,36 @@ public class CustomCheckDialog extends Dialog {
             int id = v.getId();
             switch (id) {
                 case R.id.positiveButton: // 确认
+                    if (null != listener) {
+                        String data = "";
+                        int checkedId = radioGroup.getCheckedRadioButtonId();
+                        LogHelper.d("checkedId:" + checkedId);
+                        if (-1 == checkedId) {
+                            dismissDialog();
+                            return;
+                        }
+                        if (YES_NO == contentFlag) {
+                            data = yesOrNo[checkedId % 2];
+                        } else if (SEX == contentFlag) {
+                            data = sex[checkedId % 2];
+                        }
+                        listener.getResult(viewId, data);
+                    }
 
+
+                    dismissDialog();
                     break;
                 case R.id.negativeButton: // 取消
-                    if (null != dialog)
-                        dialog.dismiss();
+                    dismissDialog();
                     break;
+            }
+        }
+
+
+        private void dismissDialog() {
+            if (null != dialog) {
+                dialog.dismiss();
+                dialog = null;
             }
         }
     }

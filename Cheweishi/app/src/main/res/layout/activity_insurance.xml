@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:scrollbars="none"
         android:fillViewport="true">
 
         <LinearLayout
@@ -382,7 +383,7 @@
                         android:drawableRight="@drawable/right"
                         android:editable="false"
                         android:gravity="right"
-                        android:hint="中国人民财产保险  "
+                        android:text="中国人民财产保险  "
                         android:textColor="@color/black"
                         android:textSize="@dimen/titile_side_text_size" />
                 </LinearLayout>
@@ -428,7 +429,7 @@
                         android:drawableRight="@drawable/right"
                         android:editable="false"
                         android:gravity="right"
-                        android:hint="否  "
+                        android:text="否  "
                         android:textColor="@color/black"
                         android:textSize="@dimen/titile_side_text_size" />
                 </LinearLayout>
@@ -475,7 +476,7 @@
                         android:drawableRight="@drawable/right"
                         android:editable="false"
                         android:gravity="right"
-                        android:hint="否  "
+                        android:text="否  "
                         android:textColor="@color/black"
                         android:textSize="@dimen/titile_side_text_size" />
                 </LinearLayout>
@@ -724,7 +725,7 @@
                         android:drawableRight="@drawable/right"
                         android:editable="false"
                         android:gravity="right"
-                        android:hint="先生  "
+                        android:text="先生  "
                         android:textColor="@color/black"
                         android:textSize="@dimen/titile_side_text_size" />
                 </LinearLayout>

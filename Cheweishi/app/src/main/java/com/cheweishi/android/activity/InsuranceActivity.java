@@ -3,7 +3,9 @@ package com.cheweishi.android.activity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.config.Constant;
+import com.cheweishi.android.interfaces.InsuranceListener;
 import com.cheweishi.android.tools.ReturnBackDialogRemindTools;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomCheckDialog;
 import com.cheweishi.android.widget.CustomDialog;
@@ -22,7 +24,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class InsuranceActivity extends BaseActivity implements OnClickListener {
+public class InsuranceActivity extends BaseActivity implements OnClickListener, InsuranceListener {
 
     @ViewInject(R.id.tv_car_plate)
     private TextView tv_car_plate;
@@ -83,6 +85,8 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener {
     private void setListener() {
         bt_province.setOnClickListener(this);
         bt_char.setOnClickListener(this);
+        tv_daikuan_type.setOnClickListener(this);
+        tv_contact_sex.setOnClickListener(this);
     }
 
     private void initViews() {
@@ -137,9 +141,42 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener {
                 break;
 
             case R.id.tv_guohu_type:// 过户
-                CustomCheckDialog.Builder builder = new CustomCheckDialog.Builder(baseContext);
-                CustomCheckDialog customDialog = builder.create();
-                customDialog.show();
+                CustomCheckDialog.Builder guohu = new CustomCheckDialog.Builder(baseContext);
+                showDialog(R.id.tv_guohu_type, guohu.YES_NO, guohu);
+                break;
+
+            case R.id.tv_daikuan_type://贷款
+                CustomCheckDialog.Builder daikuan = new CustomCheckDialog.Builder(baseContext);
+                showDialog(R.id.tv_daikuan_type, daikuan.YES_NO, daikuan);
+                break;
+
+            case R.id.tv_contact_sex:// 性别
+                CustomCheckDialog.Builder sex = new CustomCheckDialog.Builder(baseContext);
+                showDialog(R.id.tv_contact_sex, sex.SEX, sex);
+                break;
+        }
+    }
+
+    private void showDialog(int flag, int value, CustomCheckDialog.Builder builder) {
+        if (null == builder)
+            return;
+        builder.setMyOnClickListener(this);
+        builder.setContentFlag(flag, value);
+        CustomCheckDialog customDialog = builder.create();
+        customDialog.show();
+    }
+
+    @Override
+    public void getResult(int tag, String result) {
+        switch (tag) {
+            case R.id.tv_guohu_type: // 过户
+                tv_guohu_type.setText(result);
+                break;
+            case R.id.tv_daikuan_type:// 贷款
+                tv_daikuan_type.setText(result);
+                break;
+            case R.id.tv_contact_sex: //性别
+                tv_contact_sex.setText(result);
                 break;
         }
     }
@@ -177,6 +214,7 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener {
         IntentFilter intentFilter = new IntentFilter(Constant.REFRESH_FLAG);
         registerReceiver(broad, intentFilter);
     }
+
 
     public class MyBroadcastReceiver extends BroadcastReceiver {
 

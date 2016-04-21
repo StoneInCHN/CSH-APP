@@ -868,6 +868,8 @@ public class MainNewActivity extends BaseActivity {
         switch (position) {
             case 0:// 买车险
                 showToast("此功能正在开发中,敬请期待...");
+//                Intent intent = new Intent(baseContext,InsuranceActivity.class);
+//                startActivity(intent);
 //                isLoginOrHasCar(InsuranceActivity.class);
                 break;
             case 1:// 洗车

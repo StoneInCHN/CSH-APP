@@ -34,25 +34,53 @@
             android:orientation="vertical">
 
             <RadioGroup
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
+                android:id="@+id/rg_insurance_yes_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
                 <!--仅仅是修改选择-->
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="男" />
+                    android:text="是" />
 
                 <RadioButton
-                    android:layout_marginLeft="80dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="女" />
+                    android:layout_marginLeft="80dp"
+                    android:checked="true"
+                    android:text="否" />
 
             </RadioGroup>
+
+
+            <!--<RadioGroup-->
+                <!--android:id="@+id/rg_insurance_sex"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="20dp"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:visibility="gone">-->
+                <!--&lt;!&ndash;仅仅是修改选择&ndash;&gt;-->
+                <!--<RadioButton-->
+                    <!--android:checked="true"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="先生  " />-->
+
+                <!--<RadioButton-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="80dp"-->
+                    <!--android:text="小姐  " />-->
+
+            <!--</RadioGroup>-->
 
         </LinearLayout>
 
