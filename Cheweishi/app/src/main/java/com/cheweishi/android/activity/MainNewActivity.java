@@ -27,6 +27,14 @@ import android.widget.TextView;
 import com.baidu.lbsapi.auth.LBSAuthManagerListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
+import com.baidu.mapapi.cloud.BoundSearchInfo;
+import com.baidu.mapapi.cloud.CloudListener;
+import com.baidu.mapapi.cloud.CloudManager;
+import com.baidu.mapapi.cloud.CloudSearchResult;
+import com.baidu.mapapi.cloud.DetailSearchInfo;
+import com.baidu.mapapi.cloud.DetailSearchResult;
+import com.baidu.mapapi.cloud.LocalSearchInfo;
+import com.baidu.mapapi.cloud.NearbySearchInfo;
 import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
 import com.baidu.navisdk.BaiduNaviManager;
 import com.cheweishi.android.adapter.ImgAdapter;
@@ -218,6 +226,7 @@ public class MainNewActivity extends BaseActivity {
 //        });
         // setJpush();
     }
+
 
     /**
      * 极光推送设置
@@ -552,7 +561,7 @@ public class MainNewActivity extends BaseActivity {
 //        }
 //        httpBiz.httPostData(10001, API.CSH_MAIN_DATA_URL, params, this);
         if (!isLogined()) {
-            Intent intent = new Intent(MainNewActivity.this,LoginActivity.class);
+            Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
             startActivity(intent);
             return;
         }

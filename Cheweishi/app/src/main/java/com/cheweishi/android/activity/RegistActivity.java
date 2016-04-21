@@ -543,6 +543,8 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     @Override
     public void error(String errorMsg) {
         ProgrosDialog.closeProgrosDialog();
+        mRegisterButton.setClickable(true);
+        showToast(R.string.server_link_fault);
     }
 
     public void receive(int type, String data) {

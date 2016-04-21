@@ -619,10 +619,11 @@ public class CarDynamicActivity extends BaseActivity {
                     finish();
                     break;
                 case R.id.right_action:
-                    intent = new Intent(CarDynamicActivity.this,
-                            NavigationActivity.class);
-                    intent.putExtra("isLogined", true);
-                    intent.putExtra("hasCar", true);
+                    // TODO 不支持GPS
+//                    intent = new Intent(CarDynamicActivity.this,
+//                            NavigationActivity.class);
+//                    intent.putExtra("isLogined", true);
+//                    intent.putExtra("hasCar", true);
                     break;
                 case R.id.cbox_person_location:
                     moveToPerson();

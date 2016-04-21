@@ -115,6 +115,7 @@ public class SetActivity extends BaseActivity implements OnClickListener,
     @Override
     public void error(String errorMsg) {
         ProgrosDialog.closeProgrosDialog();
+        clearData();
     }
 
     @Override
