@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.cheweishi.android.cheweishi.R;
@@ -181,9 +182,11 @@ public class CustomCheckDialog extends Dialog {
             if (YES_NO == contentFlag) { // 是和否
                 radioGroup = (RadioGroup) layout.findViewById(R.id.rg_insurance_yes_no);
                 radioGroup.setVisibility(View.VISIBLE);
+                ((RadioButton)radioGroup.getChildAt(1)).setChecked(true);
             } else if (SEX == contentFlag) {
-//                radioGroup = (RadioGroup) layout.findViewById(R.id.rg_insurance_sex);
-//                radioGroup.setVisibility(View.VISIBLE);
+                radioGroup = (RadioGroup) layout.findViewById(R.id.rg_insurance_sex);
+                radioGroup.setVisibility(View.VISIBLE);
+                ((RadioButton)radioGroup.getChildAt(1)).setChecked(true);
             }
 
 
@@ -224,7 +227,7 @@ public class CustomCheckDialog extends Dialog {
                         int checkedId = radioGroup.getCheckedRadioButtonId();
                         LogHelper.d("checkedId:" + checkedId);
                         if (-1 == checkedId) {
-//                            dismissDialog();
+                            dismissDialog();
                             return;
                         }
                         if (YES_NO == contentFlag) {
