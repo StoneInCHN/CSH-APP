@@ -224,7 +224,7 @@ public class CustomCheckDialog extends Dialog {
                         int checkedId = radioGroup.getCheckedRadioButtonId();
                         LogHelper.d("checkedId:" + checkedId);
                         if (-1 == checkedId) {
-                            dismissDialog();
+//                            dismissDialog();
                             return;
                         }
                         if (YES_NO == contentFlag) {

@@ -311,7 +311,6 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
      */
     @Override
     public void onReceiveLocation(BDLocation arg0) {
-        // TODO Auto-generated method stub
         if (flag == false) {
             flag = true;
             setData(arg0.getLatitude(), arg0.getLongitude(), arg0.getAddrStr());
