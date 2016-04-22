@@ -60,7 +60,7 @@ public class CustomCheckDialog extends Dialog {
 
         private String[] yesOrNo = new String[]{"否  ", "是  "};
 
-        private String[] sex = new String[]{"先生  ", "小姐  "};
+        private String[] sex = new String[]{"小姐  ", "先生  "};
 
         private int viewId;
 
@@ -186,7 +186,7 @@ public class CustomCheckDialog extends Dialog {
             } else if (SEX == contentFlag) {
                 radioGroup = (RadioGroup) layout.findViewById(R.id.rg_insurance_sex);
                 radioGroup.setVisibility(View.VISIBLE);
-                ((RadioButton)radioGroup.getChildAt(1)).setChecked(true);
+                ((RadioButton)radioGroup.getChildAt(0)).setChecked(true);
             }
 
 

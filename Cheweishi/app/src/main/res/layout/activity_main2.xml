@@ -13,8 +13,9 @@
 
         <ImageButton
             android:id="@+id/ibtn_user"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_width="@dimen/title_height"
+            android:layout_height="@dimen/title_height"
             android:background="@drawable/more_back"
             android:padding="@dimen/normal_marging"
             android:src="@drawable/tianjiacar_img2x" />
@@ -67,9 +68,9 @@
                     android:layout_gravity="right"
                     android:background="@drawable/message_notice"
                     android:gravity="center"
-                    android:visibility="gone"
                     android:textColor="@color/white"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:visibility="gone" />
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>

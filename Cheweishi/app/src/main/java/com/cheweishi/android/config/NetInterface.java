@@ -122,4 +122,6 @@ public class NetInterface {
 
     public static final String ILLEGAL_RECORD = "getIllegalRecords";//违章记录
 
+    public static final String UPDATE_CACHE = "updateLoginCacheInfo";//更新登录缓存
+
 }

@@ -48,6 +48,7 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ADInfo;
 import com.cheweishi.android.entity.AdvResponse;
+import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.entity.MainGridInfo;
 import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.PushResponse;
@@ -655,7 +656,30 @@ public class MainNewActivity extends BaseActivity {
                 loginResponse.setToken(baseResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
-
+            case "SOS": // 紧急救援
+                LoginResponse sos = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
+                loginResponse = sos;
+                LoginMessageUtils.saveloginmsg(baseContext, sos);
+                isLoginOrHasCar(SoSActivity.class);
+                break;
+            case "CAR_DYNAMIC":// 车辆动态
+                LoginResponse carDynamic = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
+                loginResponse = carDynamic;
+                LoginMessageUtils.saveloginmsg(baseContext, carDynamic);
+                isLoginOrHasCar(CarDynamicActivity.class);
+                break;
+            case "CAR_DETECTION":// 一键检测
+                LoginResponse carDetection = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
+                loginResponse = carDetection;
+                LoginMessageUtils.saveloginmsg(baseContext, carDetection);
+                isLoginOrHasCar(CarDetectionActivity.class);
+                break;
+            case "PESSANY":// 违章查询
+                LoginResponse pessany = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
+                loginResponse = pessany;
+                LoginMessageUtils.saveloginmsg(baseContext, pessany);
+                isLoginOrHasCar(PessanySearchActivity.class);
+                break;
         }
 
 
@@ -867,16 +891,17 @@ public class MainNewActivity extends BaseActivity {
         intent = new Intent();
         switch (position) {
             case 0:// 买车险
-                showToast("此功能正在开发中,敬请期待...");
-//                Intent intent = new Intent(baseContext,InsuranceActivity.class);
-//                startActivity(intent);
+//                showToast("此功能正在开发中,敬请期待...");
+                Intent intent = new Intent(baseContext, InsuranceActivity.class);
+                startActivity(intent);
 //                isLoginOrHasCar(InsuranceActivity.class);
                 break;
             case 1:// 洗车
                 isLogin(WashcarListActivity.class);
                 break;
             case 2:// 紧急救援
-                isLoginOrHasCar(SoSActivity.class);
+                updateCache("SOS");
+//                isLoginOrHasCar(SoSActivity.class);
                 break;
             case 3:// 保养
 //                isLogin(MaintainListActivity.class); // TODO 详情
@@ -894,17 +919,33 @@ public class MainNewActivity extends BaseActivity {
                 isLogin(BeautyDetailsActivity.class);
                 break;
             case 8:// 车辆动态
-                isLoginOrHasCar(CarDynamicActivity.class);
+                updateCache("CAR_DYNAMIC");
+//                isLoginOrHasCar(CarDynamicActivity.class);
                 break;
             case 9:// 一键检测
-                isLoginOrHasCar(CarDetectionActivity.class);
+                updateCache("CAR_DETECTION");
+//                isLoginOrHasCar(CarDetectionActivity.class);
                 break;
             case 10:// 违章代办
-                isLoginOrHasCar(PessanySearchActivity.class);
+                updateCache("PESSANY");
+//                isLoginOrHasCar(PessanySearchActivity.class);
                 break;
             case 11:// 找车位
                 isLogin(FindParkingSpaceActivity.class);
                 break;
+        }
+    }
+
+
+    private void updateCache(String tag) {
+        if (isLogined()) {
+            ProgrosDialog.openDialog(baseContext);
+            String url = NetInterface.HEADER_ALL + NetInterface.UPDATE_CACHE + NetInterface.SUFFIX;
+            Map<String, Object> param = new HashMap<>();
+            param.put("userId", loginResponse.getDesc());
+            param.put("token", loginResponse.getToken());
+            param.put(Constant.PARAMETER_TAG, tag);
+            netWorkHelper.PostJson(url, param, this);
         }
     }
 
