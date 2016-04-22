@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scrollbars="none"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -221,11 +221,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:visibility="gone"
                     android:paddingBottom="@dimen/small_padding"
                     android:paddingLeft="@dimen/normal_padding"
                     android:paddingRight="@dimen/normal_padding"
-                    android:paddingTop="@dimen/small_padding">
+                    android:paddingTop="@dimen/small_padding"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -530,6 +530,17 @@
                             android:paddingRight="5dp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/titile_side_text_size" />
+
+                        <ImageView
+                            android:id="@+id/iv_driver_license_type"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/buy_insurance_tv_bg"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -582,7 +593,19 @@
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/titile_side_text_size" />
+                            android:textSize="@dimen/titile_side_text_size"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/iv_id_type"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/buy_insurance_tv_bg"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone" />
                     </RelativeLayout>
 
                 </LinearLayout>

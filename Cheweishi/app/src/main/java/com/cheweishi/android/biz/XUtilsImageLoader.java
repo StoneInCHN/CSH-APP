@@ -160,6 +160,26 @@ public class XUtilsImageLoader {
         return mImageLoader;
     }
 
+
+    /**
+     * 单例拿到对象
+     *
+     * @param context
+     * @return
+     */
+    public static synchronized XUtilsImageLoader getxUtilsLocalImageLoader(
+            Context context, int resid, ImageView imageView, String uri) {
+
+        mImageLoader = getInstance(context, resid);
+        Picasso.with(context)
+                .load(new File(uri))
+                .placeholder(resid)
+                .error(resid)
+                .config(Bitmap.Config.RGB_565)
+                .into(imageView);
+        return mImageLoader;
+    }
+
     /**
      * 单例拿到对象
      *

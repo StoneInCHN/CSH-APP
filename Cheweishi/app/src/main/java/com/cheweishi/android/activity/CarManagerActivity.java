@@ -287,6 +287,13 @@ public class CarManagerActivity extends BaseActivity implements
                 loginResponse.setMsg(msg);
                 loginResponse.setToken(baseResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+
+
+
+                Intent intent = new Intent();
+                intent.setAction(Constant.REFRESH_FLAG);
+                Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
+                sendBroadcast(intent);
                 break;
         }
     }
