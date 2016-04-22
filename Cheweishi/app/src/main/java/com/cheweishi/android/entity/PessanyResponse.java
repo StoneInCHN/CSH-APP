@@ -2,12 +2,13 @@ package com.cheweishi.android.entity;
 
 import com.cheweishi.android.response.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by tangce on 4/9/2016.
  */
-public class PessanyResponse extends BaseResponse {
+public class PessanyResponse extends BaseResponse implements Serializable {
 
 
     /**
@@ -47,7 +48,7 @@ public class PessanyResponse extends BaseResponse {
         this.msg = msg;
     }
 
-    public static class MsgBean {
+    public static class MsgBean implements Serializable{
         private int score;
         private double lng;
         private String processingSite;
