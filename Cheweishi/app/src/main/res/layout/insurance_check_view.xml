@@ -80,6 +80,15 @@
 
             </RadioGroup>
 
+
+            <ListView
+                android:id="@+id/lv_insurance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:scrollbars="none"
+                android:visibility="gone" />
+
         </LinearLayout>
 
         <View

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -51,12 +53,16 @@ public class CustomCheckDialog extends Dialog {
         private CustomCheckDialog dialog;
         private InsuranceListener listener;
         private RadioGroup radioGroup;
+        private LinearLayout dialog_bottomLayout;
+        private ListView lv_insurance;
 
         private int contentFlag = 0x10;
 
         public static final int YES_NO = 0x10;
 
         public static final int SEX = 0x11;
+
+        public static final int LIST = 0x12;
 
         private String[] yesOrNo = new String[]{"否  ", "是  "};
 
@@ -177,23 +183,25 @@ public class CustomCheckDialog extends Dialog {
             dialog.addContentView(layout, new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-
-            // TODO Check的时候
-            if (YES_NO == contentFlag) { // 是和否
-                radioGroup = (RadioGroup) layout.findViewById(R.id.rg_insurance_yes_no);
-                radioGroup.setVisibility(View.VISIBLE);
-                ((RadioButton)radioGroup.getChildAt(1)).setChecked(true);
-            } else if (SEX == contentFlag) {
-                radioGroup = (RadioGroup) layout.findViewById(R.id.rg_insurance_sex);
-                radioGroup.setVisibility(View.VISIBLE);
-                ((RadioButton)radioGroup.getChildAt(0)).setChecked(true);
-            }
-
-
             confirm = (Button) layout.findViewById(R.id.positiveButton);
             cancel = (Button) layout.findViewById(R.id.negativeButton);
             cancel.setOnClickListener(this);
             confirm.setOnClickListener(this);
+            // TODO Check的时候
+            if (YES_NO == contentFlag) { // 是和否
+                radioGroup = (RadioGroup) layout.findViewById(R.id.rg_insurance_yes_no);
+                radioGroup.setVisibility(View.VISIBLE);
+                ((RadioButton) radioGroup.getChildAt(1)).setChecked(true);
+            } else if (SEX == contentFlag) {
+                radioGroup = (RadioGroup) layout.findViewById(R.id.rg_insurance_sex);
+                radioGroup.setVisibility(View.VISIBLE);
+                ((RadioButton) radioGroup.getChildAt(0)).setChecked(true);
+            } else if (LIST == contentFlag) {
+                dialog_bottomLayout = (LinearLayout) layout.findViewById(R.id.dialog_bottomLayout);
+                dialog_bottomLayout.setVisibility(View.GONE);
+                lv_insurance = (ListView) layout.findViewById(R.id.lv_insurance);
+                //TODO 开始填充数据
+            }
 
 
             dialog.setContentView(layout);
