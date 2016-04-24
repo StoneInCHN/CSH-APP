@@ -89,6 +89,8 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener, 
     private ImageView iv_driver_license_type;// 行驶证图标
     @ViewInject(R.id.iv_id_type)
     private ImageView iv_id_type;//身份证图标
+    @ViewInject(R.id.tv_insurance_type)
+    private TextView tv_insurance_type;// 保险
     private Dialog dialog1;
 
 
@@ -117,6 +119,7 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener, 
         tv_driver_license_type.setOnClickListener(this);
         iv_driver_license_type.setOnClickListener(this);
         iv_id_type.setOnClickListener(this);
+        tv_insurance_type.setOnClickListener(this);
     }
 
     private void initViews() {
@@ -196,6 +199,11 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener, 
             case R.id.tv_id_type: // 身份证
                 IMG_FLAG = false;
                 showImgDialog();
+                break;
+
+            case R.id.tv_insurance_type: // 保险
+                CustomCheckDialog.Builder insurance = new CustomCheckDialog.Builder(baseContext);
+                showDialog(R.id.tv_insurance_type, insurance.LIST, insurance);
                 break;
 
             // 调用手机相机

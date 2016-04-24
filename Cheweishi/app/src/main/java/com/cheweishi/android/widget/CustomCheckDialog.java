@@ -13,9 +13,13 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.cheweishi.android.adapter.CustomListAdapter;
 import com.cheweishi.android.cheweishi.R;
 import com.cheweishi.android.interfaces.InsuranceListener;
 import com.cheweishi.android.utils.LogHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tangce on 4/18/2016.
@@ -55,6 +59,7 @@ public class CustomCheckDialog extends Dialog {
         private RadioGroup radioGroup;
         private LinearLayout dialog_bottomLayout;
         private ListView lv_insurance;
+        private CustomListAdapter adapter;
 
         private int contentFlag = 0x10;
 
@@ -200,7 +205,14 @@ public class CustomCheckDialog extends Dialog {
                 dialog_bottomLayout = (LinearLayout) layout.findViewById(R.id.dialog_bottomLayout);
                 dialog_bottomLayout.setVisibility(View.GONE);
                 lv_insurance = (ListView) layout.findViewById(R.id.lv_insurance);
+                lv_insurance.setVisibility(View.VISIBLE);
+                List<String> data = new ArrayList<>();
+                for (int i = 0; i < 100; i++) {
+                    data.add("i");
+                }
                 //TODO 开始填充数据
+                adapter = new CustomListAdapter(data, context);
+                lv_insurance.setAdapter(adapter);
             }
 
 
