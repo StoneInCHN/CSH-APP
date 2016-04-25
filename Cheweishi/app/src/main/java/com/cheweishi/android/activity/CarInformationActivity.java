@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.CarInfoAdapter;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;

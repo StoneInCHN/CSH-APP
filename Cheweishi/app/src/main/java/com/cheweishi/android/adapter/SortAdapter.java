@@ -2,7 +2,7 @@ package com.cheweishi.android.adapter;
 
 import java.util.List;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.entity.SortModel;
 
 import android.content.Context;

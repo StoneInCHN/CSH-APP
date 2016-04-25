@@ -2,7 +2,7 @@ package cn.sharesdk.tpl;
 
 import java.util.HashMap;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 
 import android.app.Dialog;
 import android.content.Context;

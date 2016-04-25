@@ -12,7 +12,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.utils.ScreenUtils;
 import com.nineoldandroids.view.ViewHelper;
 

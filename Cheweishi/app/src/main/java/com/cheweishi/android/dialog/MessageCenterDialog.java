@@ -1,7 +1,7 @@
 package com.cheweishi.android.dialog;
 
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.activity.MessagerCenterActivity;
 import com.cheweishi.android.entity.MessagCenterInfo;
 import com.cheweishi.android.tools.DBTools;

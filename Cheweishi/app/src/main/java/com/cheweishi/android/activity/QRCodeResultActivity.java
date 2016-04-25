@@ -1,7 +1,7 @@
 package com.cheweishi.android.activity;
 
 import com.cheweishi.android.adapter.QrCodeAdapter;
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;

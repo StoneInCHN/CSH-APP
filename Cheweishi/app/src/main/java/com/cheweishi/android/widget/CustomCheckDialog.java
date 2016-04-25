@@ -14,7 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.cheweishi.android.adapter.CustomListAdapter;
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.interfaces.InsuranceListener;
 import com.cheweishi.android.utils.LogHelper;
 

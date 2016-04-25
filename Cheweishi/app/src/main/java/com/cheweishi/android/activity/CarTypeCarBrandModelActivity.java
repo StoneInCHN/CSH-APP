@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.cheweishi.android.adapter.CarTypeCarBrandExpandableListViewAdapter;
 import com.cheweishi.android.adapter.CarTypeCarModelExpandableListViewAdapter;
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;

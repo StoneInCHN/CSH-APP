@@ -12,7 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.LoginActivity;
 import com.cheweishi.android.activity.MainNewActivity;

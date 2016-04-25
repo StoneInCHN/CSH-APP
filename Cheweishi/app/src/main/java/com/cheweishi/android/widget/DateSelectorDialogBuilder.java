@@ -8,7 +8,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 
 /**
  * 选择生日日期的Dialog

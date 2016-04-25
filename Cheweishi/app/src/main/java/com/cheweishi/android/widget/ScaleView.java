@@ -3,7 +3,7 @@ package com.cheweishi.android.widget;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.nplatform.comapi.basestruct.GeoPoint;
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.utils.DisplayUtil;
 
 import android.annotation.SuppressLint;

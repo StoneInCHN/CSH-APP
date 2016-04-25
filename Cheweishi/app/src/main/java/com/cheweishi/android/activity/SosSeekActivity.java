@@ -1,6 +1,6 @@
 package com.cheweishi.android.activity;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 
 import android.os.Bundle;
 

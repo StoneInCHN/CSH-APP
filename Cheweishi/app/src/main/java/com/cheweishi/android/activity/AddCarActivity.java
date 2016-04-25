@@ -1,64 +1,17 @@
 package com.cheweishi.android.activity;
 
-import java.lang.ref.WeakReference;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.cheweishi.android.cheweishi.R;
-import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.config.API;
-import com.cheweishi.android.config.Constant;
-import com.cheweishi.android.config.NetInterface;
-import com.cheweishi.android.dialog.ImgDialog;
-import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.CarManager;
-import com.cheweishi.android.entity.MyCarManagerResponse;
-import com.cheweishi.android.http.MyHttpUtils;
-import com.cheweishi.android.response.BaseResponse;
-import com.cheweishi.android.tools.AllCapTransformationMethod;
-import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.tools.ReLoginDialog;
-import com.cheweishi.android.tools.RegularExpressionTools;
-import com.cheweishi.android.tools.ReturnBackDialogRemindTools;
-import com.cheweishi.android.utils.CommonUtils;
-import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.MyMapUtils;
-import com.cheweishi.android.utils.StringUtil;
-import com.cheweishi.android.widget.CustomDialog;
-import com.cheweishi.android.widget.DateTimeSelectorDialogBuilder;
-import com.cheweishi.android.widget.OnWheelChangedListener;
-import com.cheweishi.android.widget.StrericWheelAdapter;
-import com.cheweishi.android.widget.WheelView;
-import com.cheweishi.android.widget.XCRoundImageView;
-import com.cheweishi.android.widget.DateTimeSelectorDialogBuilder.OnSaveListener;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.view.annotation.ViewInject;
-
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.ActivityCompat;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -72,6 +25,47 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.cheweishi.android.R;
+import com.cheweishi.android.biz.XUtilsImageLoader;
+import com.cheweishi.android.config.API;
+import com.cheweishi.android.config.Constant;
+import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.dialog.ImgDialog;
+import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.MyCarManagerResponse;
+import com.cheweishi.android.response.BaseResponse;
+import com.cheweishi.android.tools.AllCapTransformationMethod;
+import com.cheweishi.android.tools.LoginMessageUtils;
+import com.cheweishi.android.tools.ReLoginDialog;
+import com.cheweishi.android.tools.RegularExpressionTools;
+import com.cheweishi.android.tools.ReturnBackDialogRemindTools;
+import com.cheweishi.android.utils.CommonUtils;
+import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.MyMapUtils;
+import com.cheweishi.android.utils.StringUtil;
+import com.cheweishi.android.widget.CustomDialog;
+import com.cheweishi.android.widget.DateTimeSelectorDialogBuilder;
+import com.cheweishi.android.widget.DateTimeSelectorDialogBuilder.OnSaveListener;
+import com.cheweishi.android.widget.OnWheelChangedListener;
+import com.cheweishi.android.widget.StrericWheelAdapter;
+import com.cheweishi.android.widget.WheelView;
+import com.cheweishi.android.widget.XCRoundImageView;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author Xiaojin车辆管理-绑定车辆/编辑车辆

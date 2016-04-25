@@ -22,7 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.activity.MaintainDetilsActivity;
 import com.cheweishi.android.activity.MaintainOrderDetilsActivity;
 import com.cheweishi.android.activity.WashCarPayActivity;

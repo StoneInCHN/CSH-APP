@@ -11,7 +11,7 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Gallery.LayoutParams;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 
 public class RepaireGalleryAdapter extends BaseAdapter {

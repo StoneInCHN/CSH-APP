@@ -3,7 +3,7 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/action_new_conversation"
-        android:title="@string/action_new_conversation"
+        android:title="会话"
         android:orderInCategory="100"
         android:showAsAction="never" />>
 </menu>

@@ -1,10 +1,10 @@
 package com.cheweishi.android.activity;
 
-import com.cheweishi.android.cheweishi.R;
-import com.cheweishi.android.cheweishi.R.array;
-import com.cheweishi.android.cheweishi.R.id;
-import com.cheweishi.android.cheweishi.R.layout;
-import com.cheweishi.android.cheweishi.R.string;
+import com.cheweishi.android.R;
+import com.cheweishi.android.R.array;
+import com.cheweishi.android.R.id;
+import com.cheweishi.android.R.layout;
+import com.cheweishi.android.R.string;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.dialog.ImgDialog;

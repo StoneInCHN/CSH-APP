@@ -3,7 +3,7 @@ package com.cheweishi.android.fragement;
 import java.util.List;
 
 import com.baidu.mapapi.model.LatLng;
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.MyStallAdapter;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.entity.ParkInfo;

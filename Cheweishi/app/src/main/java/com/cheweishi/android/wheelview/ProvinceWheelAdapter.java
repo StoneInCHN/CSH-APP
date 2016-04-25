@@ -3,7 +3,7 @@ package com.cheweishi.android.wheelview;
 import java.util.Arrays;
 import java.util.List;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 
 import android.content.Context;
 

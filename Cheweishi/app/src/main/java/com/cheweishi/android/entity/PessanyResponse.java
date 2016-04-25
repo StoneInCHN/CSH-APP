@@ -48,7 +48,7 @@ public class PessanyResponse extends BaseResponse implements Serializable {
         this.msg = msg;
     }
 
-    public static class MsgBean implements Serializable{
+    public static class MsgBean implements Serializable {
         private int score;
         private double lng;
         private String processingSite;

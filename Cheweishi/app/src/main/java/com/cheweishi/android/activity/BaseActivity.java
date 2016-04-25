@@ -18,7 +18,7 @@ import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.dialog.ProgrosDialog;

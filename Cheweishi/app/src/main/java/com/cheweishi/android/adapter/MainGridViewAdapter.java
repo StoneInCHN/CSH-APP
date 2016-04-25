@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import cn.jpush.android.helpers.h;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.entity.MainGridInfo;
 import com.cheweishi.android.tools.ScreenTools;
 import com.cheweishi.android.utils.DisplayUtil;

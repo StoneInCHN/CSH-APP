@@ -3,7 +3,7 @@ package com.cheweishi.android.adapter;
 import java.util.List;
 import java.util.Map;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.entity.IntegralInfo;
 
 import android.content.Context;

@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.activity.MaintainDetilsActivity;
 import com.cheweishi.android.activity.WashcarDetailsActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;

@@ -12,7 +12,7 @@ package cn.sharesdk.tpl;
 import android.app.Dialog;
 import android.content.Context;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 
 public class CommonDialog {
 	

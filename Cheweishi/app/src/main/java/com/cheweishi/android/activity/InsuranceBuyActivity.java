@@ -5,10 +5,10 @@ import java.lang.reflect.Type;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.cheweishi.android.cheweishi.R;
-import com.cheweishi.android.cheweishi.R.id;
-import com.cheweishi.android.cheweishi.R.layout;
-import com.cheweishi.android.cheweishi.R.string;
+import com.cheweishi.android.R;
+import com.cheweishi.android.R.id;
+import com.cheweishi.android.R.layout;
+import com.cheweishi.android.R.string;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;

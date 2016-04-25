@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import com.cheweishi.android.biz.JSONCallback;
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.OrderDetailsActivity;
 import com.cheweishi.android.activity.WashCarPayActivity;

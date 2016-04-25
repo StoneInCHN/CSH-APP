@@ -10,7 +10,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.model.LatLng;
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.widget.BaiduMapView;
 

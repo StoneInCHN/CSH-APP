@@ -5,7 +5,7 @@ import java.lang.reflect.Type;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.dialog.ProgrosDialog;

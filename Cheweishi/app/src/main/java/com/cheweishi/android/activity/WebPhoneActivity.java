@@ -3,7 +3,7 @@ package com.cheweishi.android.activity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.entity.LoginMessage;

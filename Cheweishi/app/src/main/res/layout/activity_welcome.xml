@@ -3,7 +3,7 @@
     android:id="@+id/rl_welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/qidong">
+    android:background="@drawable/qidong_new">
 
     <com.cheweishi.android.widget.WelcomeGallery
         android:id="@+id/welcomegallery"

@@ -23,7 +23,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.view.Gravity;
 import android.widget.ImageView;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
  
  /**
   * 执行耗时操作时弹出的dialog

@@ -8,7 +8,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.TelephonEchargeDetailsAdapter;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;

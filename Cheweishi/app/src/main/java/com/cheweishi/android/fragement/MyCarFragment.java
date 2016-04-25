@@ -42,7 +42,7 @@ import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.activity.AddCarActivity;
 import com.cheweishi.android.activity.CarDynamicActivity;
 import com.cheweishi.android.activity.CarInformationActivity;

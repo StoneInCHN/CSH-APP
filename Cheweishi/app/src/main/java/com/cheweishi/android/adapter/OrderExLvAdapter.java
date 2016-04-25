@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.entity.OrderDetailResponse;
 import com.cheweishi.android.entity.OrderGoods;
 import com.cheweishi.android.widget.UnSlidingListView;

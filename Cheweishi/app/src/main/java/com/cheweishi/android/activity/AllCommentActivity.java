@@ -3,7 +3,7 @@ package com.cheweishi.android.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.AllCommentAdapter;
 import com.cheweishi.android.entity.UserComment;
 import com.lidroid.xutils.ViewUtils;

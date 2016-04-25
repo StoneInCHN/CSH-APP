@@ -20,7 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ExpandableListView.OnGroupClickListener;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.ExpandableListViewAdapter;
 import com.cheweishi.android.adapter.WashCarCommentAdapter;
 import com.cheweishi.android.biz.XUtilsImageLoader;
@@ -179,7 +179,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
         setData();
 
         loginResponse.setToken(washCar.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext,loginResponse);
+        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
 
     @Override
@@ -253,10 +253,12 @@ public class WashcarDetailsActivity extends BaseActivity implements
         XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.zhaochewei_img,
                 car_iv_location, washCar.getMsg().getPhoto());
         car_tv_car_iv_location.setText(washCar.getMsg().getTenantName());
-        tv_time_interval.setText(String.valueOf(washCar.getMsg().getBusinessTime()));
-        car_xlocation.setText(String.valueOf(washCar.getMsg().getAddress()));
+        if (null != washCar.getMsg().getBusinessTime())
+            tv_time_interval.setText(String.valueOf(washCar.getMsg().getBusinessTime()));
+        if (null != washCar.getMsg().getAddress())
+            car_xlocation.setText(String.valueOf(washCar.getMsg().getAddress()));
         exListAdapter = new ExpandableListViewAdapter(this,
-                washCar.getMsg().getCarServices(),washCar.getMsg().getTenantName());
+                washCar.getMsg().getCarServices(), washCar.getMsg().getTenantName());
         lv_washcar_detils.setOnGroupClickListener(onGroupClickListener);
         lv_washcar_detils.setAdapter(exListAdapter);
         for (int i = 0; i < washCar.getMsg().getCarServices().size(); i++) {

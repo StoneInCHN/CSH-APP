@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.dialog.RechargeDialog.Builder;
 
 public class ImgDialog extends Dialog {

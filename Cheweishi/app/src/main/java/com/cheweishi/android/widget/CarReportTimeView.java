@@ -17,7 +17,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.entity.CarReportTimeInfo;
 import com.cheweishi.android.entity.CarReportTimeViewInfo;
 import com.cheweishi.android.tools.ScreenTools;

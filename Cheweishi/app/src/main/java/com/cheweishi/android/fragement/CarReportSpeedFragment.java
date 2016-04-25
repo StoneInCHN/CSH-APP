@@ -35,7 +35,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.activity.CarReportActivity;
 import com.cheweishi.android.activity.LoginActivity;
 import com.cheweishi.android.adapter.CarReportTimeAdapter;

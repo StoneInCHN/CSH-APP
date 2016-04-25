@@ -19,7 +19,7 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 
 /**
  * 

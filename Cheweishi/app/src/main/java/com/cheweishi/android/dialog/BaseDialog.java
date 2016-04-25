@@ -1,5 +1,5 @@
 package com.cheweishi.android.dialog;
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 
 import android.app.Dialog;
 import android.content.Context;

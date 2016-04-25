@@ -3,7 +3,7 @@ package com.cheweishi.android.adapter;
 import java.util.List;
 
 import com.cheweishi.android.activity.CarTypeCarBrandModelActivity;
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.entity.CarType;

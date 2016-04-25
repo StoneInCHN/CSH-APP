@@ -17,7 +17,7 @@ import android.graphics.Paint.Style;
 import android.graphics.PathEffect;
 import android.view.View;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.utils.DateUtils;
 import com.cheweishi.android.utils.StringUtil;
 

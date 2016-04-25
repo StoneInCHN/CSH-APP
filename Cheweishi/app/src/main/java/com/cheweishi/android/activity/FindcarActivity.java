@@ -69,7 +69,7 @@ import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionResult.SuggestionInfo;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.FindCarSearchAdapter;
 import com.cheweishi.android.adapter.FindcarViewpagerAdapter;
 import com.cheweishi.android.biz.HttpBiz;

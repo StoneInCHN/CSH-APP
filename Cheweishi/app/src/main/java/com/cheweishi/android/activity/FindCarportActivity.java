@@ -13,7 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.fragement.FindCarportListFragment;
 import com.cheweishi.android.fragement.FindCarportMapFragment;
 import com.lidroid.xutils.ViewUtils;

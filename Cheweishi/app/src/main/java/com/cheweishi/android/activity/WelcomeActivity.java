@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.WelcomeAdapter;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.widget.WelcomeGallery;

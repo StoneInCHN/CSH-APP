@@ -10,7 +10,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.activity.LoginActivity;
 import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.CommonUtils;

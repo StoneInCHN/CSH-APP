@@ -27,21 +27,13 @@ import android.widget.TextView;
 import com.baidu.lbsapi.auth.LBSAuthManagerListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
-import com.baidu.mapapi.cloud.BoundSearchInfo;
-import com.baidu.mapapi.cloud.CloudListener;
-import com.baidu.mapapi.cloud.CloudManager;
-import com.baidu.mapapi.cloud.CloudSearchResult;
-import com.baidu.mapapi.cloud.DetailSearchInfo;
-import com.baidu.mapapi.cloud.DetailSearchResult;
-import com.baidu.mapapi.cloud.LocalSearchInfo;
-import com.baidu.mapapi.cloud.NearbySearchInfo;
 import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
 import com.baidu.navisdk.BaiduNaviManager;
 import com.cheweishi.android.adapter.ImgAdapter;
 import com.cheweishi.android.adapter.MainGridViewAdapter;
 import com.cheweishi.android.adapter.MainListViewAdapter;
 import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
@@ -53,7 +45,6 @@ import com.cheweishi.android.entity.MainGridInfo;
 import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.PushResponse;
 import com.cheweishi.android.entity.ServiceListResponse;
-import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
@@ -678,7 +669,7 @@ public class MainNewActivity extends BaseActivity {
                 LoginResponse pessany = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = pessany;
                 LoginMessageUtils.saveloginmsg(baseContext, pessany);
-                isLoginOrHasCar(PessanySearchActivity.class);
+                isLoginOrHasCar_New(PessanySearchActivity.class);
                 break;
         }
 
@@ -716,7 +707,7 @@ public class MainNewActivity extends BaseActivity {
         }
     }
 
-    private String app_new_download_url;
+    private String app_new_download_url = "";
     private String compel;
 
     /**
@@ -978,7 +969,27 @@ public class MainNewActivity extends BaseActivity {
             overridePendingTransition(R.anim.score_business_query_enter,
                     R.anim.score_business_query_exit);
         } else if (!hasDevice()) {
-            showCustomDialog();
+            showCustomDialog(getString(R.string.home_no_device));
+        } else {
+            intent.setClass(MainNewActivity.this, cls);
+            startActivity(intent);
+        }
+    }
+
+
+    /**
+     * 是否有车新判断
+     *
+     * @param cls
+     */
+    private void isLoginOrHasCar_New(Class<?> cls) {
+        if (!isLogined()) {
+            intent.setClass(MainNewActivity.this, LoginActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.score_business_query_enter,
+                    R.anim.score_business_query_exit);
+        } else if (!hasCar()) {
+            showCustomDialog("你还没有添加车辆");
         } else {
             intent.setClass(MainNewActivity.this, cls);
             startActivity(intent);
@@ -988,9 +999,9 @@ public class MainNewActivity extends BaseActivity {
     /**
      * 绑定车辆提示dialog
      */
-    private void showCustomDialog() {
+    private void showCustomDialog(String msg) {
         Builder builder = new CustomDialog.Builder(this);
-        builder.setMessage(getString(R.string.home_no_device));
+        builder.setMessage(msg);
         builder.setTitle(getString(R.string.remind));
         builder.setPositiveButton(getString(R.string.home_goto_bind),
                 new DialogInterface.OnClickListener() {

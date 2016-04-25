@@ -3,7 +3,7 @@ package com.cheweishi.android.adapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

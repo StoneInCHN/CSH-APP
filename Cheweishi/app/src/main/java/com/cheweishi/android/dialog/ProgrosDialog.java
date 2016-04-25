@@ -1,6 +1,6 @@
 package com.cheweishi.android.dialog;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaseActivity;
 import android.content.Context;
 import android.content.DialogInterface;

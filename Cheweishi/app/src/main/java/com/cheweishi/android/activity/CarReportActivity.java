@@ -35,7 +35,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.DateAdapter;
 import com.cheweishi.android.fragement.BaseFragment;
 import com.cheweishi.android.fragement.CarReportMainFragment;

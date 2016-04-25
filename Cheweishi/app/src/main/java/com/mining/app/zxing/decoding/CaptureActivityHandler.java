@@ -27,7 +27,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.activity.MipcaActivityCapture;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;

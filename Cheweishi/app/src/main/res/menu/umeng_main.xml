@@ -8,7 +8,7 @@
         android:showAsAction="never" />
     <item
         android:id="@+id/action_feedback"
-        android:title="@string/action_feedback"
+        android:title="反馈"
         android:orderInCategory="100"
         android:showAsAction="never" />
 </menu>

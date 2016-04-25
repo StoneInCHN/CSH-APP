@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.cheweishi.android.cheweishi.R;
+import com.cheweishi.android.R;
 import com.cheweishi.android.fragement.GasStationListFragment;
 import com.cheweishi.android.fragement.GasStationMapFragment;
 import com.lidroid.xutils.ViewUtils;

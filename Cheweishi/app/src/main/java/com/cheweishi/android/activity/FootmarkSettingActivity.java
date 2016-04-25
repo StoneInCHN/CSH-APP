@@ -1,8 +1,8 @@
 package com.cheweishi.android.activity;
 
-import com.cheweishi.android.cheweishi.R;
-import com.cheweishi.android.cheweishi.R.layout;
-import com.cheweishi.android.cheweishi.R.menu;
+import com.cheweishi.android.R;
+import com.cheweishi.android.R.layout;
+import com.cheweishi.android.R.menu;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
