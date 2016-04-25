@@ -896,7 +896,8 @@ public class MainNewActivity extends BaseActivity {
                 break;
             case 3:// 保养
 //                isLogin(MaintainListActivity.class); // TODO 详情
-                isLogin(MaintainDetailsActivity.class);
+//                isLogin(MaintainDetailsActivity.class);
+                isLogin(MaintainListActivity_new.class);
                 break;
             case 4:// 找加油站
                 isLogin(GasStationActivity.class);
@@ -907,7 +908,8 @@ public class MainNewActivity extends BaseActivity {
                 break;
             case 7:// 美容
 //                isLogin(BeautyListActivity.class); // TODO 详情
-                isLogin(BeautyDetailsActivity.class);
+//                isLogin(BeautyDetailsActivity.class);
+                isLogin(BeautyListActivity_new.class);
                 break;
             case 8:// 车辆动态
                 updateCache("CAR_DYNAMIC");

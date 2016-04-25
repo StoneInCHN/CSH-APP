@@ -1,14 +1,5 @@
 package com.cheweishi.android.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +11,6 @@ import android.widget.TextView;
 import com.baidu.mapapi.model.LatLng;
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.MainListViewAdapter;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
@@ -40,16 +30,24 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhangq
  */
 @ContentView(R.layout.activity_washcar_list)
-public class WashcarListActivity extends BaseActivity implements
+public class BeautyListActivity_new extends BaseActivity implements
         OnRefreshListener2<ListView> {
     @ViewInject(R.id.title)
     private TextView tvTitle;
@@ -88,9 +86,9 @@ public class WashcarListActivity extends BaseActivity implements
             param.put("userId", loginResponse.getDesc());
             LogHelper.d("----send:" + loginResponse.getToken());
             param.put("token", loginResponse.getToken());
-        param.put("latitude", MyMapUtils.getLatitude(this));//维度
+            param.put("latitude", MyMapUtils.getLatitude(this));//维度
 //            param.put("latitude", "10");//维度
-        param.put("longitude", MyMapUtils.getLongitude(this));//经度
+            param.put("longitude", MyMapUtils.getLongitude(this));//经度
 //            param.put("longitude", "10");//经度
             /**
              * 1保养
@@ -99,7 +97,7 @@ public class WashcarListActivity extends BaseActivity implements
              4	紧急救援
              5	美容
              */
-            param.put("serviceCategoryId", 2); // TODO 目前只有一种
+            param.put("serviceCategoryId", 5); // TODO 目前只有一种
             param.put("pageSize", 5);
             param.put("pageNumber", page);
             param.put(Constant.PARAMETER_TAG, NetInterface.LIST);
@@ -123,7 +121,7 @@ public class WashcarListActivity extends BaseActivity implements
                     if (0 == washcarList.size()) {
                         EmptyTools.setEmptyView(baseContext, mListView);
                         EmptyTools.setImg(R.drawable.mycar_icon);
-                        EmptyTools.setMessage("当前没有洗车信息");
+                        EmptyTools.setMessage("当前没有美容信息");
                     } else {
                         listViewAdapter = new MainListViewAdapter(this, washcarList);
                         mListView.setAdapter(listViewAdapter);
@@ -132,7 +130,7 @@ public class WashcarListActivity extends BaseActivity implements
                     DBTools.getInstance(baseContext).save(loginResponse);
                 } else if (response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
                     // TODO 超时
-                    Intent intent = new Intent(WashcarListActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(BeautyListActivity_new.this, LoginActivity.class);
                     intent.putExtra(Constant.AUTO_LOGIN, true);
                     startActivity(intent);
                     this.finish();
@@ -165,7 +163,7 @@ public class WashcarListActivity extends BaseActivity implements
     }
 
     private void initView() {
-        tvTitle.setText(R.string.store_wash_the_car);
+        tvTitle.setText("到店美容");
         btnLeft.setText(R.string.back);
         mListView.setOnRefreshListener(this);
         mListView.setMode(Mode.BOTH);
