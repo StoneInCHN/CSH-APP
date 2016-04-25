@@ -98,11 +98,14 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         } else {
             mViewChild = (ViewChild) convertView.getTag();
         }
-        mViewChild.tv_item_child_name.setText(washCar.get(groupPosition).getSubServices().get(childPosition).getServiceName());
-        mViewChild.tv_original_price.setText("￥"
-                + washCar.get(groupPosition).getSubServices().get(childPosition).getPrice());
+        String tempServiceName = washCar.get(groupPosition).getSubServices().get(childPosition).getServiceName();
+        if (null != tempServiceName)
+            mViewChild.tv_item_child_name.setText(tempServiceName);
+        int price = washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
+//        mViewChild.tv_original_price.setText("￥");
 
-        if (washCar.get(groupPosition).getSubServices().get(childPosition).getServiceName().contains("保养")) {
+
+        if (-1 == price) {
             mViewChild.btn_pay
                     .setBackgroundResource(R.drawable.maintain_click_selector);
             mViewChild.btn_pay.setTextColor(context.getResources().getColor(

@@ -157,7 +157,7 @@ public class MainListViewAdapter extends BaseAdapter implements OnClickListener 
         private LinearLayout ll_seller_evaluate_content;// 好评图标容器
         private TextView tv_seller_name;// 商家名字
         private TextView tv_seller_evaluate;// 商家评价
-        private TextView tv_seller_address;// 商家地址
+        private TextView tv_seller_address;//a 商家地址
         private TextView tv_seller_distance;// 商家距离
         private ImageView tv_appoint;// 指定
         private View line;
