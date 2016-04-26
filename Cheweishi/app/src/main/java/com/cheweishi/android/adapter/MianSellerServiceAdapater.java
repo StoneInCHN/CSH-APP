@@ -40,12 +40,12 @@ public class MianSellerServiceAdapater extends BaseAdapter {
     // TODO 写死只展示一个
     @Override
     public int getCount() {
-        return StringUtil.isEmpty(list) ? 0 : 1;
+        return StringUtil.isEmpty(list.getWashCarService()) ? 0 : list.getWashCarService().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return list;
+        return list.getWashCarService();
     }
 
     @Override
@@ -83,12 +83,12 @@ public class MianSellerServiceAdapater extends BaseAdapter {
                     intent.putExtra("seller", list.getTenant_name());
                     // TODO 不知道是什么
 //					intent.putExtra("seller_id", mainSellerInfo.getId());
-                    intent.putExtra("service", list.getService_category_name());
-                    intent.putExtra("service_id", list.getService_id());
-                    if (StringUtil.isEmpty(list.getPromotion_price()) || StringUtil.isEquals("null", String.valueOf(list.getPromotion_price()), true)) {
-                        intent.putExtra("price", String.valueOf(list.getPrice()));
+                    intent.putExtra("service", list.getWashCarService().get(position).getServiceName());
+                    intent.putExtra("service_id", "" + list.getWashCarService().get(position).getService_id());
+                    if (StringUtil.isEmpty(list.getWashCarService().get(position).getPromotion_price()) || StringUtil.isEquals("null", String.valueOf(list.getWashCarService().get(position).getPromotion_price()), true)) {
+                        intent.putExtra("price", String.valueOf(list.getWashCarService().get(position).getPrice()));
                     } else {
-                        intent.putExtra("price", String.valueOf(list.getPromotion_price()));
+                        intent.putExtra("price", String.valueOf(list.getWashCarService().get(position).getPromotion_price()));
                     }
                     // TODO 不知道是什么
 //                    if (StringUtil.isEquals(list.get(position).getCate_id_2(), "30", true)) {
@@ -105,15 +105,14 @@ public class MianSellerServiceAdapater extends BaseAdapter {
         }
 
         if (!StringUtil.isEmpty(list)) {
-            holder.tv_service_name.setText(list.getService_category_name());
-            Log.i("result", "=======Price=======" + list.getPrice() + "===fPrice==" + list.getPromotion_price());
-            if (StringUtil.isEmpty(list.getPromotion_price())) {
-                holder.tv_service_fPrice.setText("￥" + list.getPrice());
+            holder.tv_service_name.setText(list.getWashCarService().get(position).getServiceName());
+            if (StringUtil.isEmpty(list.getWashCarService().get(position).getPromotion_price())) {
+                holder.tv_service_fPrice.setText("￥" + list.getWashCarService().get(position).getPrice());
             } else {
-                holder.tv_service_fPrice.setText("￥" + list.getPromotion_price());
+                holder.tv_service_fPrice.setText("￥" + list.getWashCarService().get(position).getPromotion_price());
             }
             holder.tv_service_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-            holder.tv_service_price.setText("￥" + list.getPrice());
+            holder.tv_service_price.setText("￥" + list.getWashCarService().get(position).getPrice());
             // TODO 暂时不忙显示出来
 //			if (StringUtil.isEquals("0", list.get(position).getIsRed(), true)) {
 //				holder.tv_red_packets.setVisibility(View.VISIBLE);

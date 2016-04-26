@@ -10,25 +10,25 @@ import java.util.List;
  */
 public class ServiceListResponse extends BaseResponse implements Serializable {
 
+
     /**
-     * pageSize : 5
-     * total : 7
+     * total : 1
      * pageNumber : 1
+     * pageSize : 5
      */
 
     private PageBean page;
     /**
-     * id : 1
-     * distance : 3.28
-     * price : 88
-     * address : null
-     * service_category_name : 洗车
-     * praiseRate : 3
-     * longitude : 10.000021
-     * tenant_name : 爱车
-     * latitude : 10.000021
-     * photo : http://10.50.40.56:8081/csh-interface/upload/Koala.jpg
-     * promotion_price : 30
+     * tenant_name : 环球汽修
+     * praiseRate : 5
+     * address : 高新区
+     * contact_phone : 13621245412
+     * distance : 0.5
+     * latitude : 30.558516
+     * photo : /upload/storePicture/2016-04-25/src_9bc4259f-327e-4d20-af6c-4d965576dff2.jpg
+     * id : 6
+     * washCarService : [{"price":1000,"service_id":5,"serviceName":"美女洗车","promotion_price":10},{"price":2,"service_id":23,"serviceName":"壮汉洗车","promotion_price":2}]
+     * longitude : 104.077873
      */
 
     private List<MsgBean> msg;
@@ -50,17 +50,9 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
     }
 
     public static class PageBean implements Serializable {
-        private int pageSize;
         private int total;
         private int pageNumber;
-
-        public int getPageSize() {
-            return pageSize;
-        }
-
-        public void setPageSize(int pageSize) {
-            this.pageSize = pageSize;
-        }
+        private int pageSize;
 
         public int getTotal() {
             return total;
@@ -77,77 +69,41 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
         public void setPageNumber(int pageNumber) {
             this.pageNumber = pageNumber;
         }
+
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
+        }
     }
 
-    public static class MsgBean  implements Serializable{
-        private int id;
-        private String service_id;
-        private double distance;
-        private int price;
-        private String address;
-        private String service_category_name;
-        private int praiseRate;
-        private double longitude;
+    public static class MsgBean implements Serializable {
         private String tenant_name;
+        private int praiseRate;
+        private String address;
+        private String contact_phone;
+        private String distance;
         private double latitude;
         private String photo;
-        private String contact_phone;
-        private int promotion_price;
+        private int id;
+        private double longitude;
+        /**
+         * price : 1000
+         * service_id : 5
+         * serviceName : 美女洗车
+         * promotion_price : 10
+         */
 
-        public String getService_id() {
-            return service_id;
+        private List<WashCarServiceBean> washCarService;
+
+        public String getTenant_name() {
+            return tenant_name;
         }
 
-        public void setService_id(String service_id) {
-            this.service_id = service_id;
-        }
-
-        public String getContact_phone() {
-            return contact_phone;
-        }
-
-        public void setContact_phone(String contact_phone) {
-            this.contact_phone = contact_phone;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public double getDistance() {
-            return distance;
-        }
-
-        public void setDistance(double distance) {
-            this.distance = distance;
-        }
-
-        public int getPrice() {
-            return price;
-        }
-
-        public void setPrice(int price) {
-            this.price = price;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-        public String getService_category_name() {
-            return service_category_name;
-        }
-
-        public void setService_category_name(String service_category_name) {
-            this.service_category_name = service_category_name;
+        public void setTenant_name(String tenant_name) {
+            this.tenant_name = tenant_name;
         }
 
         public int getPraiseRate() {
@@ -158,20 +114,28 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
             this.praiseRate = praiseRate;
         }
 
-        public double getLongitude() {
-            return longitude;
+        public String getAddress() {
+            return address;
         }
 
-        public void setLongitude(double longitude) {
-            this.longitude = longitude;
+        public void setAddress(String address) {
+            this.address = address;
         }
 
-        public String getTenant_name() {
-            return tenant_name;
+        public String getContact_phone() {
+            return contact_phone;
         }
 
-        public void setTenant_name(String tenant_name) {
-            this.tenant_name = tenant_name;
+        public void setContact_phone(String contact_phone) {
+            this.contact_phone = contact_phone;
+        }
+
+        public String getDistance() {
+            return distance;
+        }
+
+        public void setDistance(String distance) {
+            this.distance = distance;
         }
 
         public double getLatitude() {
@@ -190,12 +154,67 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
             this.photo = photo;
         }
 
-        public int getPromotion_price() {
-            return promotion_price;
+        public int getId() {
+            return id;
         }
 
-        public void setPromotion_price(int promotion_price) {
-            this.promotion_price = promotion_price;
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public double getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(double longitude) {
+            this.longitude = longitude;
+        }
+
+        public List<WashCarServiceBean> getWashCarService() {
+            return washCarService;
+        }
+
+        public void setWashCarService(List<WashCarServiceBean> washCarService) {
+            this.washCarService = washCarService;
+        }
+
+        public static class WashCarServiceBean implements Serializable {
+            private int price;
+            private int service_id;
+            private String serviceName;
+            private int promotion_price;
+
+            public int getPrice() {
+                return price;
+            }
+
+            public void setPrice(int price) {
+                this.price = price;
+            }
+
+            public int getService_id() {
+                return service_id;
+            }
+
+            public void setService_id(int service_id) {
+                this.service_id = service_id;
+            }
+
+            public String getServiceName() {
+                return serviceName;
+            }
+
+            public void setServiceName(String serviceName) {
+                this.serviceName = serviceName;
+            }
+
+            public int getPromotion_price() {
+                return promotion_price;
+            }
+
+            public void setPromotion_price(int promotion_price) {
+                this.promotion_price = promotion_price;
+            }
         }
     }
 }
