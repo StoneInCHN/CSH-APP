@@ -224,39 +224,62 @@ public class MyorderAdapter extends BaseAdapter {
             });
 
         } else if (mData.get(arg0).getChargeStatus().equals("UNPAID")) {// 未支付
-            holder.tv_order_class_name.setText("未付款");
-            holder.tv_time.setText("下单时间");
-            holder.tv_order_time
-                    .setText("" + transferLongToDate(mData.get(arg0).getCreateDate()));
-            holder.tv_order_class_name.setTextColor(mContext.getResources()
-                    .getColor(R.color.red));
-            holder.btn_order_comment.setVisibility(View.VISIBLE);
-            holder.btn_order_detail.setVisibility(View.GONE);
-            holder.btn_order_comment.setText("确认付款");
-            holder.btn_order_comment.setOnClickListener(new OnClickListener() {
+            int price = mData.get(arg0).getPrice();
+            if (-1 == price) {
+                holder.tv_order_class_name.setText("价格面谈中");
+                holder.tv_time.setText("下单时间");
+                holder.tv_order_time.setText("" + transferLongToDate(mData.get(arg0).getCreateDate()));
+                holder.tv_order_class_name.setTextColor(mContext.getResources()
+                        .getColor(R.color.service_orange));
+                holder.btn_order_comment.setVisibility(View.GONE);
+                holder.btn_order_detail.setVisibility(View.VISIBLE);
 
-                @Override
-                public void onClick(View arg1) {
-                    // TODO 付款
+                holder.btn_order_detail.setOnClickListener(new OnClickListener() {
 
-                    Intent intent = new Intent(mContext, WashCarPayActivity.class);
-                    intent.putExtra("seller", mData.get(arg0).getTenantName());
-                    // TODO 不知道是什么
+                    @Override
+                    public void onClick(View arg0) {
+                        // TODO 查看详情
+                        Intent intent = new Intent();
+                        intent.setClass(mContext, OrderDetailsActivity.class);
+                        intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getId()));
+                        mContext.startActivity(intent);
+                    }
+                });
+            } else {
+                holder.tv_order_class_name.setText("未付款");
+                holder.tv_time.setText("下单时间");
+                holder.tv_order_time
+                        .setText("" + transferLongToDate(mData.get(arg0).getCreateDate()));
+                holder.tv_order_class_name.setTextColor(mContext.getResources()
+                        .getColor(R.color.red));
+                holder.btn_order_comment.setVisibility(View.VISIBLE);
+                holder.btn_order_detail.setVisibility(View.GONE);
+                holder.btn_order_comment.setText("确认付款");
+                holder.btn_order_comment.setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View arg1) {
+                        // TODO 付款
+
+                        Intent intent = new Intent(mContext, WashCarPayActivity.class);
+                        intent.putExtra("seller", mData.get(arg0).getTenantName());
+                        // TODO 不知道是什么
 //					intent.putExtra("seller_id", mainSellerInfo.getId());
-                    intent.putExtra("service", mData.get(arg0).getCarService().getServiceName());
-                    //TODO 服务id暂时获取不了.
-                    intent.putExtra("service_id", String.valueOf(mData.get(arg0).getCarService().getId()));
-                    intent.putExtra("recordId", String.valueOf(mData.get(arg0).getId()));
-                    intent.putExtra("price", String.valueOf(mData.get(arg0).getPrice()));
-                    // TODO 不知道是什么
+                        intent.putExtra("service", mData.get(arg0).getCarService().getServiceName());
+                        //TODO 服务id暂时获取不了.
+                        intent.putExtra("service_id", String.valueOf(mData.get(arg0).getCarService().getId()));
+                        intent.putExtra("recordId", String.valueOf(mData.get(arg0).getId()));
+                        intent.putExtra("price", String.valueOf(mData.get(arg0).getPrice()));
+                        // TODO 不知道是什么
 //                    if (StringUtil.isEquals(list.get(position).getCate_id_2(), "30", true)) {
 //                        intent.putExtra("type", "px");
 //                    } else {
 //                        intent.putExtra("type", "");
 //                    }
-                    mContext.startActivity(intent);
-                }
-            });
+                        mContext.startActivity(intent);
+                    }
+                });
+            }
         } else if (mData.get(arg0).getChargeStatus().equals("PAID")) { // 已支付
             holder.tv_order_class_name.setText("已支付");
             holder.tv_time.setText("支付时间");

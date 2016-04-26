@@ -37,7 +37,7 @@ import java.util.Map;
  * @author mingdasen
  */
 @ContentView(R.layout.activity_qrcode_result)
-public class QRCodeResultActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class QRCodeResultActivity extends BaseActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
     @ViewInject(R.id.left_action)
     private TextView left_action;
 
@@ -64,7 +64,7 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
     private void initView() {
         left_action.setText(R.string.back);
         title.setText("绑定租户");
-
+        left_action.setOnClickListener(this);
         Bundle bundle = getIntent().getExtras();
         result = bundle.getString("result");
 
@@ -141,5 +141,15 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
         param.put(Constant.PARAMETER_TAG, NetInterface.BIND_QR);
         netWorkHelper.PostJson(url, param, this);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.left_action:
+                QRCodeResultActivity.this.finish();
+                break;
+        }
     }
 }

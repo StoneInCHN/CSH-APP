@@ -537,6 +537,7 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
                     tv_time1_second.setVisibility(View.VISIBLE);
                     tv_time1_second.setText(formateDate(response.getMsg().getSubscribeDate()));
+                    tv_time1_second.setTextColor(getResources().getColor(R.color.order_dr));
                     break;
                 case "PAID":  //已支付
                     img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
@@ -550,8 +551,10 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
                     tv_time1_second.setVisibility(View.VISIBLE);
                     tv_time1_second.setText(formateDate(response.getMsg().getSubscribeDate()));
+                    tv_time1_second.setTextColor(getResources().getColor(R.color.order_dr));
                     tv_order_paid.setVisibility(View.VISIBLE);
                     tv_order_paid.setText(formateDate(response.getMsg().getPaymentDate()));
+                    tv_order_paid.setTextColor(getResources().getColor(R.color.order_dr));
                     break;
 
                 case "FINISH": // 订单完成
@@ -568,10 +571,13 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
                     tv_time1_second.setVisibility(View.VISIBLE);
                     tv_time1_second.setText(formateDate(response.getMsg().getSubscribeDate()));
+                    tv_time1_second.setTextColor(getResources().getColor(R.color.order_dr));
                     tv_order_paid.setVisibility(View.VISIBLE);
                     tv_order_paid.setText(formateDate(response.getMsg().getPaymentDate()));
+                    tv_order_paid.setTextColor(getResources().getColor(R.color.order_dr));
                     tv_order_complete.setVisibility(View.VISIBLE);
                     tv_order_complete.setText(formateDate(response.getMsg().getFinishDate()));
+                    tv_order_complete.setTextColor(getResources().getColor(R.color.order_dr));
                     break;
             }
         } else {
@@ -600,6 +606,7 @@ public class OrderDetailsActivity extends BaseActivity implements
                     // 设置支付时间
                     tv_order_paid.setVisibility(View.VISIBLE);
                     tv_order_paid.setText(formateDate(response.getMsg().getPaymentDate()));
+                    tv_order_paid.setTextColor(getResources().getColor(R.color.order_dr));
                     break;
 
                 case "FINISH"://完成
@@ -614,12 +621,13 @@ public class OrderDetailsActivity extends BaseActivity implements
                     // 设置支付时间
                     tv_order_paid.setVisibility(View.VISIBLE);
                     tv_order_paid.setText(formateDate(response.getMsg().getPaymentDate()));
-
+                    tv_order_paid.setTextColor(getResources().getColor(R.color.order_dr));
                     //展示图标
                     img_order_ok.setImageResource(R.drawable.dingdanxiangqing_order_complete);
                     tv_order_ok.setTextColor(getResources().getColor(R.color.order_dr));
                     tv_order_complete.setVisibility(View.VISIBLE);
                     tv_order_complete.setText(formateDate(response.getMsg().getFinishDate()));
+                    tv_order_complete.setTextColor(getResources().getColor(R.color.order_dr));
                     break;
 
 

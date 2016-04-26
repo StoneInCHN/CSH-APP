@@ -101,6 +101,9 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         String tempServiceName = washCar.get(groupPosition).getSubServices().get(childPosition).getServiceName();
         if (null != tempServiceName)
             mViewChild.tv_item_child_name.setText(tempServiceName);
+        else {
+            mViewChild.tv_item_child_name.setText("");
+        }
         int price = washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
 //        mViewChild.tv_original_price.setText("￥");
 
@@ -158,23 +161,31 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             });
         }
 
-        if (0 == washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice()) {
-            mViewChild.tv_item_child_discount_showOrNot
-                    .setVisibility(View.GONE);
-            mViewChild.tv_discount_price_remind.setVisibility(View.VISIBLE);
-            mViewChild.tv_original_price.setVisibility(View.VISIBLE);
-            mViewChild.tv_discount_price.setText("￥"
-                    + washCar.get(groupPosition).getSubServices().get(childPosition)
-                    .getPrice());
-            mViewChild.tv_original_price.setText("￥"
-                    + washCar.get(groupPosition).getSubServices().get(childPosition).getPrice());
+        if (-1 == price) {
+            mViewChild.tv_discount_price.setVisibility(View.GONE);
+            mViewChild.tv_discount_price_remind.setVisibility(View.GONE);
+            mViewChild.tv_original_price.setVisibility(View.GONE);
+
         } else {
-            mViewChild.tv_discount_price.setText("￥"
-                    + washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice());
-            mViewChild.tv_item_child_discount_showOrNot
-                    .setVisibility(View.GONE);
-            mViewChild.tv_discount_price_remind.setVisibility(View.VISIBLE);
-            mViewChild.tv_original_price.setVisibility(View.VISIBLE);
+
+            if (0 == washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice()) {
+                mViewChild.tv_item_child_discount_showOrNot
+                        .setVisibility(View.GONE);
+                mViewChild.tv_discount_price_remind.setVisibility(View.VISIBLE);
+                mViewChild.tv_original_price.setVisibility(View.VISIBLE);
+                mViewChild.tv_discount_price.setText("￥"
+                        + washCar.get(groupPosition).getSubServices().get(childPosition)
+                        .getPrice());
+                mViewChild.tv_original_price.setText("￥"
+                        + washCar.get(groupPosition).getSubServices().get(childPosition).getPrice());
+            } else {
+                mViewChild.tv_discount_price.setText("￥"
+                        + washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice());
+                mViewChild.tv_item_child_discount_showOrNot
+                        .setVisibility(View.GONE);
+                mViewChild.tv_discount_price_remind.setVisibility(View.VISIBLE);
+                mViewChild.tv_original_price.setVisibility(View.VISIBLE);
+            }
         }
         return convertView;
     }
