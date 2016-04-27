@@ -620,7 +620,10 @@ public class MainNewActivity extends BaseActivity {
                     int number = Integer.valueOf(advResponse.getDesc());
                     if (0 < number) {
                         tv_msg_center_num.setVisibility(View.VISIBLE);
-                        tv_msg_center_num.setText(advResponse.getDesc());
+                        if (number <= 99)
+                            tv_msg_center_num.setText(advResponse.getDesc());
+                        else
+                            tv_msg_center_num.setText("99+");
                     }
                 }
                 showData(advResponse);

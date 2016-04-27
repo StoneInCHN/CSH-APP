@@ -104,7 +104,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         else {
             mViewChild.tv_item_child_name.setText("");
         }
-        int price = washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
+        double price = washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
 //        mViewChild.tv_original_price.setText("￥");
 
 
@@ -165,7 +165,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             mViewChild.tv_discount_price.setVisibility(View.GONE);
             mViewChild.tv_discount_price_remind.setVisibility(View.GONE);
             mViewChild.tv_original_price.setVisibility(View.GONE);
-
+            mViewChild.tv_item_child_discount_showOrNot.setVisibility(View.GONE);
         } else {
 
             if (0 == washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice()) {

@@ -9,6 +9,7 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BaiduMap.OnMarkerClickListener;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
@@ -16,11 +17,14 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.cheweishi.android.R;
+import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ServiceListResponse;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
@@ -32,6 +36,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -77,6 +82,8 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     private double latitude = 0.0;
     private double longitude = 0.0;
     private boolean flag = false;
+    private String phoneNumber;
+    private List<ServiceListResponse.MsgBean> datalist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +131,6 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void receive(String data) {
-        ProgrosDialog.closeProgrosDialog();
 
         ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
@@ -132,16 +138,43 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
             return;
         }
 
-        List<ServiceListResponse.MsgBean> datalist = response.getMsg();
-        if (null != datalist) {
-            for (int i = 0; i < datalist.size(); i++) {
-                addData(datalist.get(i).getLatitude(), datalist.get(i).getLatitude(), datalist.get(i));
-            }
-        }
+        datalist = response.getMsg();
+
 
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
+    }
+
+
+    @Override
+    public void receive(String TAG, String data) {
+        ProgrosDialog.closeProgrosDialog();
+        switch (TAG) {
+            case NetInterface.SUBSCRIBE: // 预约
+                BaseResponse baseResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+                if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(baseResponse.getDesc());
+                    return;
+                }
+
+                turnToPhone();
+
+                loginResponse.setToken(baseResponse.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                break;
+        }
+    }
+
+
+    /**
+     * 拨打电话
+     */
+    public void turnToPhone() {
+        Intent tel = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
+                + phoneNumber));
+        tel.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(tel);
     }
 
     @Override
@@ -236,26 +269,15 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     private void showSOSDialog(final ServiceListResponse.MsgBean response) {
         if (null != response) {
             builder = new CustomDialog.Builder(this);
-            builder.setTitle(response.getContact_phone());
+            builder.setTitle("救援电话");
+            builder.setMessage(response.getContact_phone());
             builder.setPositiveButton(R.string.call_out,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            Intent intent = new Intent(Intent.ACTION_CALL, Uri
-                                    .parse("tel:"
-                                            + response.getContact_phone()));
-//                            if (ActivityCompat.checkSelfPermission(baseContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-//                                // TODO: Consider calling
-//                                //    ActivityCompat#requestPermissions
-//                                // here to request the missing permissions, and then overriding
-//                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                                //                                          int[] grantResults)
-//                                // to handle the case where the user grants the permission. See the documentation
-//                                // for ActivityCompat#requestPermissions for more details.
-//                                showToast("当前没有权限,请手动添加权限");
-//                                return;
-//                            }
-                            startActivity(intent);
+                            phoneNumber = response.getContact_phone();
+                            sendSOs(response.getCarService().get(0).getService_id());
+
 
                         }
                     });
@@ -271,6 +293,19 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
             sosDialog.show();
         }
 
+    }
+
+
+    private void sendSOs(int id) {
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER + NetInterface.SUBSCRIBE + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("serviceId", id);
+        param.put("chargeStatus", "UNPAID");
+        param.put(Constant.PARAMETER_TAG, NetInterface.SUBSCRIBE);
+        netWorkHelper.PostJson(url, param, this);
     }
 
     /**
@@ -293,17 +328,40 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     }
 
 
-    private void addData(double Latitude, double Longitude, ServiceListResponse.MsgBean response) {
+    private void addData(double Latitude, double Longitude, final ServiceListResponse.MsgBean response) {
         LatLng latLng = new LatLng(Latitude, Longitude);
-//        baiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(latLng));
-        bitmapDescriptor = BitmapDescriptorFactory
-                .fromResource(R.drawable.jiuyuan_chepaihao2x);
-        OverlayOptions ooA = new MarkerOptions().position(latLng)
-                .icon(bitmapDescriptor).zIndex(9).draggable(true);
-        Marker marker = (Marker) baiduMap.addOverlay(ooA);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", response);
-        marker.setExtraInfo(bundle);
+        baiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(latLng));
+//        bitmapDescriptor = BitmapDescriptorFactory
+//                .fromResource(R.drawable.jiuyuan_chepaihao2x);
+//        OverlayOptions ooA = new MarkerOptions().position(latLng)
+//                .icon(bitmapDescriptor).zIndex(1).draggable(true);
+//        Marker marker = (Marker) baiduMap.addOverlay(ooA);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("data", response);
+//        marker.setExtraInfo(bundle);
+
+        try {
+            InfoWindow mInfoWindow;
+            TextView location = new TextView(SoSActivity.this);
+            location.setBackgroundResource(R.drawable.jiuyuan_kuang);// location_tips
+            location.setText("商家名字:" + response.getTenant_name() + "\r\n" + "联系电话:" + response.getContact_phone());
+            LatLng ll = new LatLng(Latitude, Longitude);
+//            Point p = baiduMap.getProjection().toScreenLocation(ll);
+//            p.y -= 60;
+//            LatLng llInfo = baiduMap.getProjection().fromScreenLocation(p);
+            mInfoWindow = new InfoWindow(
+                    BitmapDescriptorFactory.fromView(location), ll, 10,
+                    new InfoWindow.OnInfoWindowClickListener() {
+
+                        @Override
+                        public void onInfoWindowClick() {
+                            showSOSDialog(response);
+                        }
+                    });
+            // 显示InfoWindow
+            baiduMap.showInfoWindow(mInfoWindow);
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -312,8 +370,18 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     @Override
     public void onReceiveLocation(BDLocation arg0) {
         if (flag == false) {
-            flag = true;
-            setData(arg0.getLatitude(), arg0.getLongitude(), arg0.getAddrStr());
+
+//            setData(arg0.getLatitude(), arg0.getLongitude(), arg0.getAddrStr());
+            if (null != datalist) {
+                flag = true;
+                ProgrosDialog.closeProgrosDialog();
+                Sos_address.setText(arg0.getAddrStr());
+                for (int i = 0; i < datalist.size(); i++) {
+                    addData(datalist.get(i).getLatitude(), datalist.get(i).getLongitude(), datalist.get(i));
+                }
+
+            }
+
         }
     }
 

@@ -149,24 +149,24 @@ public class ServiceDetailResponse extends BaseResponse implements Serializable{
             }
 
             public static class SubServicesBean {
-                private int promotionPrice;
-                private int price;
+                private double promotionPrice;
+                private double price;
                 private int id;
                 private String serviceName;
 
-                public int getPromotionPrice() {
+                public double getPromotionPrice() {
                     return promotionPrice;
                 }
 
-                public void setPromotionPrice(int promotionPrice) {
+                public void setPromotionPrice(double promotionPrice) {
                     this.promotionPrice = promotionPrice;
                 }
 
-                public int getPrice() {
+                public double getPrice() {
                     return price;
                 }
 
-                public void setPrice(int price) {
+                public void setPrice(double price) {
                     this.price = price;
                 }
 

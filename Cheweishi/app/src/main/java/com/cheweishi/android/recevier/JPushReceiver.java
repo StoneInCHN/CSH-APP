@@ -86,7 +86,10 @@ public class JPushReceiver extends BroadcastReceiver {
                 LogHelper.d("消息数量:" + number);
                 if (0 < number) {
                     MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
-                    MainNewActivity.tv_msg_center_num.setText(response.getUnreadCount());
+                    if (99 >= number)
+                        MainNewActivity.tv_msg_center_num.setText(response.getUnreadCount());
+                    else
+                        MainNewActivity.tv_msg_center_num.setText("99+");
                 } else {
                     MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
                 }

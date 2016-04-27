@@ -83,7 +83,7 @@ public class OrderResponse extends BaseResponse implements Serializable {
         private int id;
         private long paymentDate;
         private String tenantID;
-        private int price;
+        private double price;
         private String chargeStatus;
         private String tenantPhoto;
         /**
@@ -127,11 +127,11 @@ public class OrderResponse extends BaseResponse implements Serializable {
             this.tenantID = tenantID;
         }
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 

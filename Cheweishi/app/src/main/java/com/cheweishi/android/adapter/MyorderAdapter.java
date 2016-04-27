@@ -224,7 +224,7 @@ public class MyorderAdapter extends BaseAdapter {
             });
 
         } else if (mData.get(arg0).getChargeStatus().equals("UNPAID")) {// 未支付
-            int price = mData.get(arg0).getPrice();
+            double price = mData.get(arg0).getPrice();
             if (-1 == price) {
                 holder.tv_order_class_name.setText("价格面谈中");
                 holder.tv_time.setText("下单时间");
@@ -477,7 +477,7 @@ public class MyorderAdapter extends BaseAdapter {
 
         holder.tv_order_owner_name.setText(mData.get(arg0).getTenantName());
         String priceTemp = null;
-        int price = mData.get(arg0).getPrice();
+        double price = mData.get(arg0).getPrice();
         if (-1 == price) { // 预约未定价
             priceTemp = "当前服务暂时未定价";
         } else {

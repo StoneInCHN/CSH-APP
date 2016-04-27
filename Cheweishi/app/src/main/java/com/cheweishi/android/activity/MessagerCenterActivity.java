@@ -224,19 +224,18 @@ public class MessagerCenterActivity extends BaseActivity {
             return;
         }
 
+        List<MessageResponse.MsgBean> temp = response.getMsg();
 
-        httpList = response.getMsg();
-        if (null != httpList && 0 < httpList.size()) {
+        if (null != temp && 0 < temp.size()) {
 
-            if (pageSize <= httpList.size())
+            if (pageSize <= temp.size())
                 messagerCenterListView.setPullLoadEnable(true);
             else
                 messagerCenterListView.setPullLoadEnable(false);
-            DBTools.getInstance(baseContext).save(response);
             addDelete();
-            messagerCenterListView
-                    .setOnMenuItemClickListener(new myOnMenuItemClickListener());
+            messagerCenterListView.setOnMenuItemClickListener(new myOnMenuItemClickListener());
             initAnimation();
+            httpList.addAll(temp);
             mMessageCenterApdater = new MessageCenterApdater(httpList, this);
             messagerCenterListView.setAdapter(mMessageCenterApdater);
         } else {
@@ -364,7 +363,10 @@ public class MessagerCenterActivity extends BaseActivity {
                         int mImsgNumber = Integer.valueOf(tnumber);
                         if (0 < mImsgNumber && 1 != mImsgNumber) {
                             MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
-                            MainNewActivity.tv_msg_center_num.setText("" + (mImsgNumber - 1));
+                            if (99 >= mImsgNumber)
+                                MainNewActivity.tv_msg_center_num.setText("" + (mImsgNumber - 1));
+                            else
+                                MainNewActivity.tv_msg_center_num.setText("99+");
                         } else {
                             MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
                         }
@@ -437,8 +439,8 @@ public class MessagerCenterActivity extends BaseActivity {
 //            messagerCenterListView.stopLoadMore();
 //            pagei = 0;
 //            SaveList();
-//            httpList.clear();
-            page++;
+            httpList.clear();
+            page = 1;
             ininGetHttpData();
         }
 

@@ -96,7 +96,7 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
          * promotion_price : 10
          */
 
-        private List<WashCarServiceBean> washCarService;
+        private List<WashCarServiceBean> carService;
 
         public String getTenant_name() {
             return tenant_name;
@@ -170,25 +170,26 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
             this.longitude = longitude;
         }
 
-        public List<WashCarServiceBean> getWashCarService() {
-            return washCarService;
+
+        public List<WashCarServiceBean> getCarService() {
+            return carService;
         }
 
-        public void setWashCarService(List<WashCarServiceBean> washCarService) {
-            this.washCarService = washCarService;
+        public void setCarService(List<WashCarServiceBean> carService) {
+            this.carService = carService;
         }
 
         public static class WashCarServiceBean implements Serializable {
-            private int price;
+            private double price;
             private int service_id;
             private String serviceName;
-            private int promotion_price;
+            private double promotion_price;
 
-            public int getPrice() {
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 
@@ -208,11 +209,11 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
                 this.serviceName = serviceName;
             }
 
-            public int getPromotion_price() {
+            public double getPromotion_price() {
                 return promotion_price;
             }
 
-            public void setPromotion_price(int promotion_price) {
+            public void setPromotion_price(double promotion_price) {
                 this.promotion_price = promotion_price;
             }
         }

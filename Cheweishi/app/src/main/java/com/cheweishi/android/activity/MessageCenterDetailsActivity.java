@@ -189,7 +189,10 @@ public class MessageCenterDetailsActivity extends BaseActivity implements
             int msgnumber = Integer.valueOf(number);
             if (0 < msgnumber && 1 != msgnumber) {
                 MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
-                MainNewActivity.tv_msg_center_num.setText("" + (msgnumber - 1));
+                if (99 >= (msgnumber - 1))
+                    MainNewActivity.tv_msg_center_num.setText("" + (msgnumber - 1));
+                else
+                    MainNewActivity.tv_msg_center_num.setText("99+");
             } else {
                 MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
             }
@@ -199,7 +202,10 @@ public class MessageCenterDetailsActivity extends BaseActivity implements
                 int mImsgNumber = Integer.valueOf(tnumber);
                 if (0 < mImsgNumber && 1 != mImsgNumber) {
                     MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
-                    MainNewActivity.tv_msg_center_num.setText("" + (mImsgNumber - 1));
+                    if (99 >= (mImsgNumber - 1))
+                        MainNewActivity.tv_msg_center_num.setText("" + (mImsgNumber - 1));
+                    else
+                        MainNewActivity.tv_msg_center_num.setText("99+");
                 } else {
                     MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
                 }
