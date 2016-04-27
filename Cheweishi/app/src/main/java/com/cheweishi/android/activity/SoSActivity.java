@@ -134,7 +134,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
 
         ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-            showToast(response.getDesc());
+            showToast(R.string.server_link_fault);
             return;
         }
 
@@ -154,7 +154,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
             case NetInterface.SUBSCRIBE: // 预约
                 BaseResponse baseResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
                 if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-                    showToast(baseResponse.getDesc());
+                    showToast("您已经呼叫紧急救援了,请耐心等待救援");
                     return;
                 }
 

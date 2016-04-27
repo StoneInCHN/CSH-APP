@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.cheweishi.android.activity.SoSActivity;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaseActivity;
@@ -30,6 +31,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,14 +51,14 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     Context context;
     private String tenantName;
     private int Serviceid; // 服务id
-    private int ServicePrice;//服务价格
+    private ServiceDetailResponse.MsgBean msgBean;//
 
-    public ExpandableListViewAdapter(Context context,
-                                     List<ServiceDetailResponse.MsgBean.CarServicesBean> washCar, String tenantName) {
+    public ExpandableListViewAdapter(Context context, ServiceDetailResponse.MsgBean washCar, String tenantName) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
-        this.washCar = washCar;
+        this.washCar = washCar.getCarServices();
         this.tenantName = tenantName;
+        this.msgBean = washCar;
     }
 
     @Override
@@ -67,6 +69,20 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
+    }
+
+    /**
+     * 拨打电话
+     */
+    public void turnToPhone(String phoneNumber) {
+        if (null == phoneNumber) {
+            ((BaseActivity) context).showToast("当前商家没有提供电话号码");
+            return;
+        }
+        Intent tel = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
+                + phoneNumber));
+        tel.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(tel);
     }
 
     @Override
@@ -109,30 +125,64 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
 
         if (-1 == price) {
-            mViewChild.btn_pay
-                    .setBackgroundResource(R.drawable.maintain_click_selector);
-            mViewChild.btn_pay.setTextColor(context.getResources().getColor(
-                    R.color.main_orange));
-            mViewChild.btn_pay.setText("预约");
-            mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
 
-                @Override
-                public void onClick(View arg0) {
-                    // TODO 预约,因为要展示,所以暂时注释,调用预约接口
+            String nameType = washCar.get(groupPosition).getCategoryName();
+            switch (nameType) {
+                case "保险":
+                    mViewChild.btn_pay.setBackgroundResource(R.drawable.ask_click_selector);
+                    mViewChild.btn_pay.setTextColor(context.getResources().getColor(
+                            R.color.btn_green_pressed));
+                    mViewChild.btn_pay.setText("咨询");
+                    mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            turnToPhone("" + msgBean.getContactPhone());
+                        }
+                    });
+
+                    break;
+                case "紧急救援":
+                    mViewChild.btn_pay.setBackgroundResource(R.drawable.sos_click_selector);
+                    mViewChild.btn_pay.setTextColor(context.getResources().getColor(
+                            R.color.btn_unpress_color));
+                    mViewChild.btn_pay.setText("救援");
+                    mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(context, SoSActivity.class);
+                            context.startActivity(intent);
+                        }
+                    });
+                    break;
+                case "保养":
+                    mViewChild.btn_pay.setBackgroundResource(R.drawable.maintain_click_selector);
+                    mViewChild.btn_pay.setTextColor(context.getResources().getColor(
+                            R.color.main_orange));
+                    mViewChild.btn_pay.setText("预约");
+                    mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
+
+                        @Override
+                        public void onClick(View arg0) {
+                            // TODO 预约,因为要展示,所以暂时注释,调用预约接口
 
 
-                    DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(context);
-                    builder.setWheelViewVisibility(View.GONE);
-                    builder.setOnSaveListener(new mYSaveListener());
-                    builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, context);
-                    builder.show();
+                            DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(context);
+                            builder.setWheelViewVisibility(View.GONE);
+                            builder.setOnSaveListener(new mYSaveListener());
+                            builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, context);
+                            builder.show();
 
-                    Serviceid = washCar.get(groupPosition).getSubServices().get(childPosition).getId();
+                            Serviceid = washCar.get(groupPosition).getSubServices().get(childPosition).getId();
 //                    ServicePrice = washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
 //                    subscript(, );
 
-                }
-            });
+                        }
+                    });
+                    break;
+
+            }
+
+
         } else {
             mViewChild.btn_pay
                     .setBackgroundResource(R.drawable.pay_click_selector);
@@ -206,7 +256,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                 date = sf.parse(dateStr);
                 if (date1.getTime() < date.getTime()) {
 
-                    Toast.makeText(context, "余额时间必须大于当前日期", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "预约时间必须大于当前日期", Toast.LENGTH_SHORT).show();
                 } else {
                     subscript(Serviceid, selectedDate);
                 }

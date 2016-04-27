@@ -261,7 +261,7 @@ public class BeautyDetailsActivity extends BaseActivity implements
             car_xlocation.setText(String.valueOf(washCar.getMsg().getAddress()));
 
         exListAdapter = new ExpandableListViewAdapter(this,
-                washCar.getMsg().getCarServices(), washCar.getMsg().getTenantName());
+                washCar.getMsg(), washCar.getMsg().getTenantName());
         lv_washcar_detils.setOnGroupClickListener(onGroupClickListener);
         lv_washcar_detils.setAdapter(exListAdapter);
         for (int i = 0; i < washCar.getMsg().getCarServices().size(); i++) {

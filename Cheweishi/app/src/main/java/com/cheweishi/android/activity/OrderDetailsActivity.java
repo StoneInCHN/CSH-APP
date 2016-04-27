@@ -418,6 +418,7 @@ public class OrderDetailsActivity extends BaseActivity implements
             qrBitmap.recycle();
             qrBitmap = null;
         }
+        unregisterReceiver(broad);
         System.gc();
     }
 
@@ -508,7 +509,7 @@ public class OrderDetailsActivity extends BaseActivity implements
                     break;
                 case "RESERVATION_SUCCESS": // 预约成功
                     img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
-                    img_daodian.setImageResource(R.drawable.dingdanxiangqing_quxiao2x);
+                    img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang2x);
                     tv_yuyue.setText("预约成功");
                     tv_daodian.setText("到店服务");
                     green_img_order(R.string.order_details_re);

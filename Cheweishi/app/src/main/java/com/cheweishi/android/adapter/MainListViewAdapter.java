@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -23,6 +24,7 @@ import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.ServiceListResponse;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.UnSlidingListView;
 
@@ -144,12 +146,15 @@ public class MainListViewAdapter extends BaseAdapter implements OnClickListener 
             XUtilsImageLoader.getxUtilsImageLoader(mContext,
                     R.drawable.zhaochewei_img, hodler.img_sellser,
                     list.get(position).getPhoto());
-            serviceAdapater = new MianSellerServiceAdapater(mContext,
-                    list.get(position));
-            hodler.list_main_seller_service.setAdapter(serviceAdapater);
+            if (null == hodler.list_main_seller_service.getAdapter()) {
+                serviceAdapater = new MianSellerServiceAdapater(mContext,
+                        list.get(position));
+                hodler.list_main_seller_service.setAdapter(serviceAdapater);
+            }
         }
         return convertView;
     }
+
 
     private class ViewHodler {
         private RelativeLayout rl_seller_info;// 商家信息容器

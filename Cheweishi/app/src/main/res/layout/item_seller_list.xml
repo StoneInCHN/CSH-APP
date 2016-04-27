@@ -34,11 +34,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/tv_appoint"
             android:layout_toRightOf="@id/img_sellser"
             android:ellipsize="end"
             android:paddingLeft="10dp"
             android:singleLine="true"
-            android:layout_toLeftOf="@+id/tv_appoint"
             android:text="鑫飞汽车美容部dfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdf"
             android:textColor="@color/text_black_colcor"
             android:textSize="16sp" />
@@ -123,6 +123,6 @@
         android:divider="@color/gray_backgroud"
         android:dividerHeight="0.5dp"
         android:listSelector="#00000000"
-        android:scrollbars="none"></com.cheweishi.android.widget.UnSlidingListView>
+        android:scrollbars="none" />
 
 </LinearLayout>

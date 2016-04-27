@@ -470,9 +470,12 @@ public class MyorderAdapter extends BaseAdapter {
             holder.img_order.setBackgroundResource(R.drawable.baoyang);
         } else if (5 == mData.get(arg0).getCarService().getServiceCategory().getId()) {// 美容
             holder.img_order.setBackgroundResource(R.drawable.meirong);
-        } else {
-            holder.img_order.setBackgroundResource(R.drawable.xiche); // 剩下的需要图片
+        } else if (4 == mData.get(arg0).getCarService().getServiceCategory().getId()) {
+            holder.img_order.setBackgroundResource(R.drawable.jinjijiuyuan); // 紧急救援
         }
+//        }else{
+//            holder.img_order.setBackgroundResource(R.drawable.feiyong_baoxian2x); // 保险
+//        }
 
 
         holder.tv_order_owner_name.setText(mData.get(arg0).getTenantName());
@@ -484,7 +487,10 @@ public class MyorderAdapter extends BaseAdapter {
             priceTemp = "￥" + price;
         }
         holder.tv_order_price.setText(priceTemp);
-        holder.tv_order_class.setText(mData.get(arg0).getCarService().getServiceName());
+        String temp = mData.get(arg0).getCarService().getServiceName();
+        if (null == temp)
+            temp = mData.get(arg0).getCarService().getServiceCategory().getCategoryName();
+        holder.tv_order_class.setText(temp);
 
         return arg1;
 
