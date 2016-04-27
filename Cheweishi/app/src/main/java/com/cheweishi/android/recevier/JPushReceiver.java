@@ -82,7 +82,12 @@ public class JPushReceiver extends BroadcastReceiver {
             // TODO 更新消息数量
             PushMsgResponse response = (PushMsgResponse) GsonUtil.getInstance().convertJsonStringToObject(bundle.getString(JPushInterface.EXTRA_EXTRA), PushMsgResponse.class);
             if (null != response.getUnreadCount() && !"".equals(response.getUnreadCount())) {
-                int number = Integer.valueOf(response.getUnreadCount());
+                int number = 0;
+                try {
+                    number = Integer.valueOf(response.getUnreadCount());
+                } catch (Exception e) {
+                    number = Integer.valueOf(response.getUnreadCount().substring(0, 2));
+                }
                 LogHelper.d("消息数量:" + number);
                 if (0 < number) {
                     MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);

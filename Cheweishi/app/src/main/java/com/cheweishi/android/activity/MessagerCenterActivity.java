@@ -360,10 +360,15 @@ public class MessagerCenterActivity extends BaseActivity {
 
                     String tnumber = MainNewActivity.tv_msg_center_num.getText().toString();
                     if (null != tnumber && !"".equals(tnumber)) {
-                        int mImsgNumber = Integer.valueOf(tnumber);
+                        int mImsgNumber = 0;
+                        try {
+                            mImsgNumber = Integer.valueOf(tnumber);
+                        } catch (Exception e) {
+                            mImsgNumber = Integer.valueOf(tnumber.substring(0, 2));
+                        }
                         if (0 < mImsgNumber && 1 != mImsgNumber) {
                             MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
-                            if (99 >= mImsgNumber)
+                            if (99 > mImsgNumber)
                                 MainNewActivity.tv_msg_center_num.setText("" + (mImsgNumber - 1));
                             else
                                 MainNewActivity.tv_msg_center_num.setText("99+");

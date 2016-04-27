@@ -224,6 +224,7 @@ public class MainNewActivity extends BaseActivity {
      * 极光推送设置
      */
     private void setJpush() {
+        JPushInterface.resumePush(baseContext);
         // 获取极光推送
         String alias = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE))
                 .getDeviceId();

@@ -457,6 +457,8 @@ public class SetActivity extends BaseActivity implements OnClickListener,
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         // HXlogout();
+                        // TODO 取消Jpush推送
+                        JPushInterface.stopPush(baseContext);
                         logoutConnectToServer();
                     }
                 });

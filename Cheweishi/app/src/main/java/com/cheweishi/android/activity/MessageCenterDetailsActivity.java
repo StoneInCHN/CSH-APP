@@ -186,7 +186,12 @@ public class MessageCenterDetailsActivity extends BaseActivity implements
         // TODO 更新主页消息提示UI数量
 
         if (null != number && !"".equals(number)) {
-            int msgnumber = Integer.valueOf(number);
+            int msgnumber = 0;
+            try {
+                msgnumber = Integer.valueOf(number);
+            } catch (Exception e) {
+                msgnumber = Integer.valueOf(number.substring(0, 2));
+            }
             if (0 < msgnumber && 1 != msgnumber) {
                 MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
                 if (99 >= (msgnumber - 1))
@@ -199,10 +204,15 @@ public class MessageCenterDetailsActivity extends BaseActivity implements
         } else {
             String tnumber = MainNewActivity.tv_msg_center_num.getText().toString();
             if (null != tnumber && !"".equals(tnumber)) {
-                int mImsgNumber = Integer.valueOf(tnumber);
+                int mImsgNumber = 0;
+                try {
+                    mImsgNumber = Integer.valueOf(tnumber);
+                } catch (Exception e) {
+                    mImsgNumber = Integer.valueOf(tnumber.substring(0, 2));
+                }
                 if (0 < mImsgNumber && 1 != mImsgNumber) {
                     MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
-                    if (99 >= (mImsgNumber - 1))
+                    if (99 > (mImsgNumber - 1))
                         MainNewActivity.tv_msg_center_num.setText("" + (mImsgNumber - 1));
                     else
                         MainNewActivity.tv_msg_center_num.setText("99+");
