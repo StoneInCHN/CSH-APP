@@ -206,38 +206,37 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             }
         });
 
-        cb_balance
-                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        cb_balance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-                    @Override
-                    public void onCheckedChanged(CompoundButton arg0,
-                                                 boolean arg1) {
+            @Override
+            public void onCheckedChanged(CompoundButton arg0,
+                                         boolean arg1) {
 
-                        // TODO 余额支付
+                // TODO 余额支付
 
-                        if (cb_balance.isChecked()) {
-                            img_alipay.setImageResource(R.drawable.dian12x);
-                            img_weixin.setImageResource(R.drawable.dian12x);
-                            img_upacp.setImageResource(R.drawable.dian12x);
-                            ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
-                                    .setChecked(false);
-                            ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
-                                    .setChecked(false);
-                            ((RadioButton) pay_rg.findViewById(R.id.rb_upacp))
-                                    .setChecked(false);
-                            channel = CHANNEL_WALLET;
-                        } else {
-                            img_alipay.setImageResource(R.drawable.dian22x);
-                            img_weixin.setImageResource(R.drawable.dian12x);
-                            img_upacp.setImageResource(R.drawable.dian12x);
-                            ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
-                                    .setChecked(true);
-                            ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
-                                    .setChecked(false);
-                            ((RadioButton) pay_rg.findViewById(R.id.rb_upacp))
-                                    .setChecked(false);
-                            channel = CHANNEL_ALIPAY;
-                        }
+                if (cb_balance.isChecked()) {
+                    img_alipay.setImageResource(R.drawable.dian12x);
+                    img_weixin.setImageResource(R.drawable.dian12x);
+                    img_upacp.setImageResource(R.drawable.dian12x);
+                    ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
+                            .setChecked(false);
+                    ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
+                            .setChecked(false);
+                    ((RadioButton) pay_rg.findViewById(R.id.rb_upacp))
+                            .setChecked(false);
+                    channel = CHANNEL_WALLET;
+                } else {
+                    img_alipay.setImageResource(R.drawable.dian22x);
+                    img_weixin.setImageResource(R.drawable.dian12x);
+                    img_upacp.setImageResource(R.drawable.dian12x);
+                    ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
+                            .setChecked(true);
+                    ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
+                            .setChecked(false);
+                    ((RadioButton) pay_rg.findViewById(R.id.rb_upacp))
+                            .setChecked(false);
+                    channel = CHANNEL_ALIPAY;
+                }
 
 
 //                        balance = amount;
@@ -256,8 +255,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 //                            tv_balance_hint.setText("使用余额支付");
 //                            redCompute(mRed, mMoney, mScore);
 //                        }
-                    }
-                });
+            }
+        });
 
 
         showPay();

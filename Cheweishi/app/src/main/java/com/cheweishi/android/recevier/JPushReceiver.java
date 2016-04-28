@@ -88,15 +88,18 @@ public class JPushReceiver extends BroadcastReceiver {
                 } catch (Exception e) {
                     number = Integer.valueOf(response.getUnreadCount().substring(0, 2));
                 }
-                LogHelper.d("消息数量:" + number);
-                if (0 < number) {
-                    MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
-                    if (99 >= number)
-                        MainNewActivity.tv_msg_center_num.setText(response.getUnreadCount());
-                    else
-                        MainNewActivity.tv_msg_center_num.setText("99+");
-                } else {
-                    MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
+                try {
+                    LogHelper.d("消息数量:" + number);
+                    if (0 < number) {
+                        MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
+                        if (99 >= number)
+                            MainNewActivity.tv_msg_center_num.setText(response.getUnreadCount());
+                        else
+                            MainNewActivity.tv_msg_center_num.setText("99+");
+                    } else {
+                        MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
+                    }
+                } catch (Exception e) {
                 }
             }
 
