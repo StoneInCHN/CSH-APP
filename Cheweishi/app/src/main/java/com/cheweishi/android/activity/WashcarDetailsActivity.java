@@ -33,6 +33,7 @@ import com.cheweishi.android.entity.WashCar;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.BaiduMapView;
@@ -52,7 +53,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
  */
 @ContentView(R.layout.activity_washcar_malldetails)
 public class WashcarDetailsActivity extends BaseActivity implements
-        android.view.View.OnClickListener {
+        View.OnClickListener, ExpandableListView.OnChildClickListener {
     public static final String TAG = "WashcarDetailsActivity";
     /**
      * 详情界面
@@ -261,6 +262,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
                 washCar.getMsg(), washCar.getMsg().getTenantName());
         lv_washcar_detils.setOnGroupClickListener(onGroupClickListener);
         lv_washcar_detils.setAdapter(exListAdapter);
+        lv_washcar_detils.setOnChildClickListener(this);
         for (int i = 0; i < washCar.getMsg().getCarServices().size(); i++) {
             lv_washcar_detils.expandGroup(i);
         }
@@ -310,5 +312,12 @@ public class WashcarDetailsActivity extends BaseActivity implements
                 + washCar.getMsg().getContactPhone()));
         tel.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(tel);
+    }
+
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+
+        LogHelper.d("onChildClick:" + washCar.getMsg().getCarServices().get(groupPosition).getSubServices().get(childPosition).getServiceName());
+        return false;
     }
 }

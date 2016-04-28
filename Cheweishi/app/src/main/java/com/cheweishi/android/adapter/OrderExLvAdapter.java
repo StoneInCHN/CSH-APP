@@ -157,7 +157,7 @@ public class OrderExLvAdapter extends BaseExpandableListAdapter {
 
 
         String priceTemp = null;
-        int price = response.getMsg().getPrice();
+        double price = response.getMsg().getPrice();
         if (-1 == price) { // 预约未定价
             priceTemp = "当前服务暂时未定价";
         } else {

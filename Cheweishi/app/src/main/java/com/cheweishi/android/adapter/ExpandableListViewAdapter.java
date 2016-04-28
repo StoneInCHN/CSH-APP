@@ -154,6 +154,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                         }
                     });
                     break;
+                case "美容":
                 case "保养":
                     mViewChild.btn_pay.setBackgroundResource(R.drawable.maintain_click_selector);
                     mViewChild.btn_pay.setTextColor(context.getResources().getColor(
@@ -178,6 +179,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
                         }
                     });
+
                     break;
 
             }

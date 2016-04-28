@@ -150,7 +150,7 @@ public class WeiXinPay {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Log.e("orion", "==2=" + appSign);
+        Log.e("Tanck", "==2=" + appSign);
         return appSign;
     }
 
@@ -196,12 +196,12 @@ public class WeiXinPay {
                     .format("https://api.mch.weixin.qq.com/pay/unifiedorder");//统一下单接口
             String entity = genProductArgs();
 
-            Log.e("orion", "==3=" + entity);
+            Log.e("Tanck", "==3=" + entity);
 
             byte[] buf = Util.httpPost(url, entity);
-            Log.e("orion", "==9=" + buf);
+            Log.e("Tanck", "==9=" + buf);
             String content = new String(buf);
-            Log.e("orion", "==4=" + content);
+            Log.e("Tanck", "==4=" + content);
             Map<String, String> xml = decodeXml(content);
 
             return xml;
@@ -237,7 +237,7 @@ public class WeiXinPay {
 
             return xml;
         } catch (Exception e) {
-            Log.e("orion", "==10=" + e.toString());
+            Log.e("Tanck", "==10=" + e.toString());
         }
         return null;
 
@@ -304,7 +304,7 @@ public class WeiXinPay {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Log.e("orion", "==5=" + packageSign);
+        Log.e("Tanck", "==5=" + packageSign);
         return packageSign;
     }
 
@@ -319,7 +319,7 @@ public class WeiXinPay {
         }
         sb.append("</xml>");
 
-        Log.e("orion", "==6=" + sb.toString());
+        Log.e("Tanck", "==6=" + sb.toString());
         return sb.toString();
     }
 

@@ -48,7 +48,7 @@ public class OrderDetailResponse extends BaseResponse {
          */
 
         private TenantInfoBean tenantInfo;
-        private int price;
+        private double price;
         private String recordNo;
         private String chargeStatus;
         private long finishDate;
@@ -81,11 +81,11 @@ public class OrderDetailResponse extends BaseResponse {
             this.tenantInfo = tenantInfo;
         }
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 
