@@ -105,7 +105,7 @@ public class MainListViewAdapter extends BaseAdapter implements OnClickListener 
             hodler.line.setVisibility(View.VISIBLE);
         }
         if (!StringUtil.isEmpty(list) && list.size() > position) {
-            hodler.tv_seller_name.setText(list.get(position).getTenant_name());
+            hodler.tv_seller_name.setText(list.get(position).getTenantName());
 //            hodler.tv_seller_evaluate.setText(list.get(position).getPraiseRate() * 100 + "%好评");
             hodler.tv_seller_address.setText(list.get(position).getAddress());
             hodler.tv_seller_distance.setText(list.get(position).getDistance() + "km");

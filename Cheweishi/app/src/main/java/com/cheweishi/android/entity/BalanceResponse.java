@@ -27,8 +27,8 @@ public class BalanceResponse extends BaseResponse {
 
     public static class MsgBean {
         private int id;
-        private int score;
-        private int balanceAmount;
+        private double score;
+        private double balanceAmount;
         private int giftAmount;
 
         public int getId() {
@@ -39,19 +39,19 @@ public class BalanceResponse extends BaseResponse {
             this.id = id;
         }
 
-        public int getScore() {
+        public double getScore() {
             return score;
         }
 
-        public void setScore(int score) {
+        public void setScore(double score) {
             this.score = score;
         }
 
-        public int getBalanceAmount() {
+        public double getBalanceAmount() {
             return balanceAmount;
         }
 
-        public void setBalanceAmount(int balanceAmount) {
+        public void setBalanceAmount(double balanceAmount) {
             this.balanceAmount = balanceAmount;
         }
 

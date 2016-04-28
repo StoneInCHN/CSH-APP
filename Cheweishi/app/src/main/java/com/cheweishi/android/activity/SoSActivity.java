@@ -270,12 +270,12 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
         if (null != response) {
             builder = new CustomDialog.Builder(this);
             builder.setTitle("救援电话");
-            builder.setMessage(response.getContact_phone());
+            builder.setMessage(response.getContactPhone());
             builder.setPositiveButton(R.string.call_out,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            phoneNumber = response.getContact_phone();
+                            phoneNumber = response.getContactPhone();
                             sendSOs(response.getCarService().get(0).getService_id());
 
 
@@ -344,7 +344,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
             InfoWindow mInfoWindow;
             TextView location = new TextView(SoSActivity.this);
             location.setBackgroundResource(R.drawable.jiuyuan_kuang);// location_tips
-            location.setText("商家名字:" + response.getTenant_name() + "\r\n" + "联系电话:" + response.getContact_phone());
+            location.setText("商家名字:" + response.getTenantName() + "\r\n" + "联系电话:" + response.getContactPhone());
             LatLng ll = new LatLng(Latitude, Longitude);
 //            Point p = baiduMap.getProjection().toScreenLocation(ll);
 //            p.y -= 60;

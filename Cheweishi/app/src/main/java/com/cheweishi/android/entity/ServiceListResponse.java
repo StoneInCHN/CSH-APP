@@ -80,10 +80,10 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
     }
 
     public static class MsgBean implements Serializable {
-        private String tenant_name;
+        private String tenantName;
         private int praiseRate;
         private String address;
-        private String contact_phone;
+        private String contactPhone;
         private String distance;
         private double latitude;
         private String photo;
@@ -98,12 +98,21 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
 
         private List<WashCarServiceBean> carService;
 
-        public String getTenant_name() {
-            return tenant_name;
+
+        public String getTenantName() {
+            return tenantName;
         }
 
-        public void setTenant_name(String tenant_name) {
-            this.tenant_name = tenant_name;
+        public void setTenantName(String tenantName) {
+            this.tenantName = tenantName;
+        }
+
+        public String getContactPhone() {
+            return contactPhone;
+        }
+
+        public void setContactPhone(String contactPhone) {
+            this.contactPhone = contactPhone;
         }
 
         public int getPraiseRate() {
@@ -122,13 +131,6 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
             this.address = address;
         }
 
-        public String getContact_phone() {
-            return contact_phone;
-        }
-
-        public void setContact_phone(String contact_phone) {
-            this.contact_phone = contact_phone;
-        }
 
         public String getDistance() {
             return distance;

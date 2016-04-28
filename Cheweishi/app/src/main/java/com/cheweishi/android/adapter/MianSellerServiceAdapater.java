@@ -156,10 +156,10 @@ public class MianSellerServiceAdapater extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
 
-                        LogHelper.d("name:" + list.getTenant_name());
+                        LogHelper.d("name:" + list.getTenantName());
                         // TODO 点击跳转到洗车界面
                         Intent intent = new Intent(mContext, WashCarPayActivity.class);
-                        intent.putExtra("seller", list.getTenant_name());
+                        intent.putExtra("seller", list.getTenantName());
                         // TODO 不知道是什么
 //					intent.putExtra("seller_id", mainSellerInfo.getId());
                         intent.putExtra("service", list.getCarService().get(position).getServiceName());
