@@ -317,8 +317,14 @@ public class WashcarDetailsActivity extends BaseActivity implements
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
         //  TODO 增加一个新的页面
+        String desc = washCar.getMsg().getCarServices().get(groupPosition).getSubServices().get(childPosition).getServiceDesc();
+        String img = washCar.getMsg().getCarServices().get(groupPosition).getSubServices().get(childPosition).getImgPath();
+//        if (null == img && null == desc)
+//            return false;
         LogHelper.d("onChildClick:" + washCar.getMsg().getCarServices().get(groupPosition).getSubServices().get(childPosition).getServiceName());
         Intent intent = new Intent(baseContext, ServiceDetailActivity.class);
+        intent.putExtra("img", img);
+        intent.putExtra("desc", desc);
         startActivity(intent);
         return true;
     }

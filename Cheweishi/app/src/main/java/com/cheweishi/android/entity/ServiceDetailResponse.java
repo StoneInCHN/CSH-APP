@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/3/26.
  */
-public class ServiceDetailResponse extends BaseResponse implements Serializable{
+public class ServiceDetailResponse extends BaseResponse implements Serializable {
 
 
     /**
@@ -153,6 +153,25 @@ public class ServiceDetailResponse extends BaseResponse implements Serializable{
                 private double price;
                 private int id;
                 private String serviceName;
+
+                private String serviceDesc;
+                private String imgPath;
+
+                public String getServiceDesc() {
+                    return serviceDesc;
+                }
+
+                public void setServiceDesc(String serviceDesc) {
+                    this.serviceDesc = serviceDesc;
+                }
+
+                public String getImgPath() {
+                    return imgPath;
+                }
+
+                public void setImgPath(String imgPath) {
+                    this.imgPath = imgPath;
+                }
 
                 public double getPromotionPrice() {
                     return promotionPrice;

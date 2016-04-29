@@ -1423,8 +1423,8 @@
     <string name="choice_pay_hint">请选择支付方式</string>
     <string name="pay_money">请选择充值金额</string>
     <string name="account_pay">账户充值</string>
-    <string name="pay_100">100元</string>
-    <string name="pay_300">300元</string>
+    <string name="pay_200">200元</string>
+    <string name="pay_400">400元</string>
     <string name="pay_600">600元</string>
     <string name="pay_1000">1000元</string>
     <string name="pay_true">确认充值</string>

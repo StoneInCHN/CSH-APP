@@ -232,10 +232,10 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 // channel = CHANNEL_WECHAT;
                 break;
             case R.id.rb_money_100:// 支付金额100
-                moneyAccount = 100f;
+                moneyAccount = 200f;
                 break;
             case R.id.rb_money_300:// 支付金额300
-                moneyAccount = 300f;
+                moneyAccount = 400f;
                 break;
             case R.id.rb_money_600:// 支付金额600
                 moneyAccount = 600f;
