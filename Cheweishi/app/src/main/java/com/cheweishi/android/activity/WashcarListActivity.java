@@ -127,6 +127,10 @@ public class WashcarListActivity extends BaseActivity implements
                     } else {
                         listViewAdapter = new MainListViewAdapter(this, washcarList);
                         mListView.setAdapter(listViewAdapter);
+
+                        if(response.getPage().getTotal()<5){
+                            mListView.setMode(Mode.PULL_FROM_START);
+                        }
                     }
                     loginResponse.setToken(response.getToken());
                     DBTools.getInstance(baseContext).save(loginResponse);
