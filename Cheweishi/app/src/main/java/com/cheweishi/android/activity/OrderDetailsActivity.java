@@ -522,11 +522,12 @@ public class OrderDetailsActivity extends BaseActivity implements
                     img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
                     img_daodian.setImageResource(R.drawable.dingdanxiangqing_quxiao2x);
                     tv_yuyue.setText("预约下单");
-                    tv_daodian.setText("订单取消");
+                    tv_daodian.setText("预约失败");
                     red_img_order("预约失败,您可以选择新的时间段进行重新预约");
                     tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
                     tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
-                    tv_time1_second.setText("");
+                    tv_time1_second.setText(formateDate(response.getMsg().getSubscribeDate()));
+                    tv_time1_second.setTextColor(getResources().getColor(R.color.order_dr));
                     break;
                 case "UNPAID": // 未支付
                     img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);

@@ -166,7 +166,7 @@ public class MessagerCenterActivity extends BaseActivity {
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight());
         right_action.setCompoundDrawables(null, null, drawable, null); //
-        right_action.setVisibility(View.GONE);
+        right_action.setVisibility(View.VISIBLE);
 
         httpList = new ArrayList<MessageResponse.MsgBean>();
         ininGetHttpData();
@@ -565,34 +565,41 @@ public class MessagerCenterActivity extends BaseActivity {
 
                 break;
             case R.id.right_action:
-                if (null != httpList && 0 < httpList.size()) {
-                    if (ISSHOW == 0) {
-                        messagerCenterListView.setPullRefreshEnable(false);
-                        // this.right_action.setText(R.string.finish);
-                        this.msg_linbottom.setVisibility(View.VISIBLE);
-                        startAnimation(0);
-                        this.mMessageCenterApdater.setISSHOW(1, 0);
-                        // 设置不可以下拉刷新
-                        this.messagerCenterListView.setCompileRefresh(false);
-                        setLeftText();
-                        getPagelistWeiduSize();
-                        this.isleftDelate = true;
-                        ISSHOW = 1;
-                        this.right_action.setVisibility(View.GONE);
-                    } else if (ISSHOW == 1) {
-                        messagerCenterListView.setPullRefreshEnable(true);
-                        steLeftDeleta();
-                        colorHandler.sendEmptyMessage(0);
-                        startAnimation(1);
-                        // this.right_action.setText(R.string.car_manager_edit);
-                        this.isleftDelate = false;
-                        this.msg_linbottom.setVisibility(View.GONE);
-                        this.mMessageCenterApdater.setISSHOW(0, 1);
-                        // 设置可以下拉刷新
-                        this.messagerCenterListView.setCompileRefresh(true);
-                        this.ISSHOW = 0;
-                    }
+//                if (null != httpList && 0 < httpList.size()) {
+//                    if (ISSHOW == 0) {
+//                        messagerCenterListView.setPullRefreshEnable(false);
+//                        // this.right_action.setText(R.string.finish);
+//                        this.msg_linbottom.setVisibility(View.VISIBLE);
+//                        startAnimation(0);
+//                        this.mMessageCenterApdater.setISSHOW(1, 0);
+//                        // 设置不可以下拉刷新
+//                        this.messagerCenterListView.setCompileRefresh(false);
+//                        setLeftText();
+//                        getPagelistWeiduSize();
+//                        this.isleftDelate = true;
+//                        ISSHOW = 1;
+//                        this.right_action.setVisibility(View.GONE);
+//                    } else if (ISSHOW == 1) {
+//                        messagerCenterListView.setPullRefreshEnable(true);
+//                        steLeftDeleta();
+//                        colorHandler.sendEmptyMessage(0);
+//                        startAnimation(1);
+//                        // this.right_action.setText(R.string.car_manager_edit);
+//                        this.isleftDelate = false;
+//                        this.msg_linbottom.setVisibility(View.GONE);
+//                        this.mMessageCenterApdater.setISSHOW(0, 1);
+//                        // 设置可以下拉刷新
+//                        this.messagerCenterListView.setCompileRefresh(true);
+//                        this.ISSHOW = 0;
+//                    }
+//                }
+
+
+                if (null == httpList || 0 == httpList.size()) {
+                    showToast("当前没有可以删除的消息");
+                    return;
                 }
+                MessageCenterDialog.OpenDialog(this, 0);
                 break;
             case R.id.msg_tv_allread:
 
@@ -831,18 +838,19 @@ public class MessagerCenterActivity extends BaseActivity {
         //  TODO 全部删除
         LogHelper.d("清空所有数据");
         clearAllize += httpList.size();
+        sendDeleteMsg(httpList);
         httpList.clear();
-        msg_tv_allread.setText(R.string.delete);
-        left_action.setText(R.string.cancel);
-        mMessageCenterApdater.setDeleteData(httpList);
-        getInstance(this).delete(MessagCenterInfo.class);
-        msg_linbottom.setVisibility(View.GONE);
-        steLeftDeleta();
-        isleftDelate = false;
-        right_action.setVisibility(View.GONE);
-        EmptyTools.setEmptyView(this, messagerCenterListView);
-        EmptyTools.setImg(R.drawable.message_message);
-        EmptyTools.setMessage("您还没有相关消息");
+//        msg_tv_allread.setText(R.string.delete);
+//        left_action.setText(R.string.cancel);
+//        mMessageCenterApdater.setDeleteData(httpList);
+//        getInstance(this).delete(MessagCenterInfo.class);
+//        msg_linbottom.setVisibility(View.GONE);
+//        steLeftDeleta();
+//        isleftDelate = false;
+//        right_action.setVisibility(View.GONE);
+//        EmptyTools.setEmptyView(this, messagerCenterListView);
+//        EmptyTools.setImg(R.drawable.message_message);
+//        EmptyTools.setMessage("您还没有相关消息");
         // initpage();
 
     }

@@ -285,7 +285,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
         param.put("token", loginResponse.getToken());
         param.put("serviceId", service_id);
         param.put("paymentType", channel);
-        param.put("price", price);
+//        param.put("price", price);
         param.put(Constant.PARAMETER_TAG, NetInterface.BUY_SERVICE);
         // TODO 暂时未调试
         if (null != recordId && !"".equals(recordId))
@@ -433,7 +433,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 }
 
                 // 更新recordId
-                recordId = preparePayResponse.getDesc();
+                if (null != preparePayResponse.getDesc())
+                    recordId = preparePayResponse.getDesc();
                 switch (channel) {
                     case CHANNEL_ALIPAY: // 支付宝
                         payUtils = new PayUtils();
