@@ -1053,19 +1053,19 @@ public class MainNewActivity extends BaseActivity {
                     true)) {
                 return;
             }
-            if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-                    Constant.CAR_MANAGER_REFRESH, true)) {
-                Constant.EDIT_FLAG = true;
-                getMainData();
-                Log.i("result", "===========MainNewActivity================");
-            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-                    Constant.USER_NICK_EDIT_REFRESH, true)) {
-                Constant.EDIT_FLAG = true;
-                // initViews();
-            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-                    Constant.USER_NICK_EDIT_REFRESH_OTHER, true)) {
-                // connectToServer();
-            }
+//            if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
+//                    Constant.CAR_MANAGER_REFRESH, true)) {
+//                Constant.EDIT_FLAG = true;
+//                getMainData();
+//                Log.i("result", "===========MainNewActivity================");
+//            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
+//                    Constant.USER_NICK_EDIT_REFRESH, true)) {
+//                Constant.EDIT_FLAG = true;
+//                // initViews();
+//            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
+//                    Constant.USER_NICK_EDIT_REFRESH_OTHER, true)) {
+//                // connectToServer();
+//            }
         }
     }
 
