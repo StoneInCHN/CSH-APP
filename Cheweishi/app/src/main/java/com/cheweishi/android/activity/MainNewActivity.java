@@ -1092,7 +1092,7 @@ public class MainNewActivity extends BaseActivity {
                 });
 
         if (!StringUtil.isEquals(compel, "0", true)) {
-            builder.setMessage(message);
+            builder.setMessage(message, 1);
             builder.setNegativeButton(R.string.cancel,
                     new android.content.DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
