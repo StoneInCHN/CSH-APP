@@ -3,6 +3,7 @@ package com.cheweishi.android.widget;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -37,6 +38,8 @@ public class CustomDialog extends Dialog {
         private View bottom_line;
         private boolean flag;
 
+        private int gravity;
+
         public Builder(Context context) {
             this.context = context;
         }
@@ -48,6 +51,12 @@ public class CustomDialog extends Dialog {
 
         public Builder setMessage(CharSequence message) {
             this.message = message;
+            return this;
+        }
+
+        public Builder setMessage(CharSequence message, int gravity) {
+            this.message = message;
+            this.gravity = gravity;
             return this;
         }
 
@@ -178,7 +187,14 @@ public class CustomDialog extends Dialog {
             }
             // set the content message
             if (message != null) {
-                ((TextView) layout.findViewById(R.id.message)).setText(message);
+                TextView textView = ((TextView) layout.findViewById(R.id.message));
+                if (0 < gravity) {
+                    textView.setGravity(Gravity.LEFT);
+                    textView.setText(message);
+                } else {
+                    textView.setGravity(Gravity.CENTER);
+                    textView.setText(message);
+                }
             } else if (contentView != null) {
                 // if no message set
                 // add the contentView to the dialog body

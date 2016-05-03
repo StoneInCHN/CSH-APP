@@ -353,6 +353,8 @@ public class MessagerCenterActivity extends BaseActivity {
             switch (index) {
                 case 0:
                     // TODO 滑动删除位置
+                    if (null == httpList || 0 == httpList.size())
+                        return false;
                     sendDeleteMsg(new int[]{httpList.get(position).getId()});
 //                    deletaSize++;
                     httpList.remove(position);
@@ -997,18 +999,12 @@ public class MessagerCenterActivity extends BaseActivity {
     private void sendDeleteMsg(List<MessageResponse.MsgBean> msg) {
         if (null != msg && 0 < msg.size()) {
 
-            long[] ids = new long[msg.size()];
-            for (int i = 0; i < msg.size(); i++) {
-                ids[i] = msg.get(i).getId();
-            }
-
 
             ProgrosDialog.openDialog(baseContext);
             String url = NetInterface.BASE_URL + NetInterface.TEMP_MESSAGE + NetInterface.DELETE_MSG + NetInterface.SUFFIX;
             Map<String, Object> param = new HashMap<>();
             param.put("userId", loginResponse.getDesc());
             param.put("token", loginResponse.getToken());
-            param.put("msgIds", ids);
             netWorkHelper.PostJson(url, param, this);
         }
     }

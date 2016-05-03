@@ -679,4 +679,9 @@ public class SetActivity extends BaseActivity implements OnClickListener,
         showToast("清除缓存成功");
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broad);
+    }
 }

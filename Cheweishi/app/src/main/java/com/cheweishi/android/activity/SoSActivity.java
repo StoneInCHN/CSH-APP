@@ -10,6 +10,7 @@ import com.baidu.mapapi.map.BaiduMap.OnMarkerClickListener;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
+import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
@@ -36,6 +37,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
@@ -327,41 +329,62 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
         // 当前位置的详细信息
     }
 
+    private Bitmap getViewBitmap(View addViewContent) {
+
+        addViewContent.setDrawingCacheEnabled(true);
+
+        addViewContent.measure(
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        addViewContent.layout(0, 0,
+                addViewContent.getMeasuredWidth(),
+                addViewContent.getMeasuredHeight());
+
+        addViewContent.buildDrawingCache();
+        Bitmap cacheBitmap = addViewContent.getDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(cacheBitmap);
+        return bitmap;
+    }
 
     private void addData(double Latitude, double Longitude, final ServiceListResponse.MsgBean response) {
         LatLng latLng = new LatLng(Latitude, Longitude);
-        baiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(latLng));
+
 //        bitmapDescriptor = BitmapDescriptorFactory
 //                .fromResource(R.drawable.jiuyuan_chepaihao2x);
-//        OverlayOptions ooA = new MarkerOptions().position(latLng)
-//                .icon(bitmapDescriptor).zIndex(1).draggable(true);
-//        Marker marker = (Marker) baiduMap.addOverlay(ooA);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("data", response);
-//        marker.setExtraInfo(bundle);
+        View view = View.inflate(baseContext, R.layout.sos_item_popu, null);
+        TextView textView = (TextView) view.findViewById(R.id.tv_sos_content);
+        textView.setText("商家名字:" + response.getTenantName() + "\r\n" + "联系电话:" + response.getContactPhone());
+        Bitmap bitmap = getViewBitmap(view);
+        bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
+        OverlayOptions ooA = new MarkerOptions().position(latLng)
+                .icon(bitmapDescriptor).zIndex(1).draggable(true);
+        Marker marker = (Marker) baiduMap.addOverlay(ooA);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data", response);
+        marker.setExtraInfo(bundle);
 
-        try {
-            InfoWindow mInfoWindow;
-            TextView location = new TextView(SoSActivity.this);
-            location.setBackgroundResource(R.drawable.jiuyuan_kuang);// location_tips
-            location.setText("商家名字:" + response.getTenantName() + "\r\n" + "联系电话:" + response.getContactPhone());
-            LatLng ll = new LatLng(Latitude, Longitude);
-//            Point p = baiduMap.getProjection().toScreenLocation(ll);
-//            p.y -= 60;
-//            LatLng llInfo = baiduMap.getProjection().fromScreenLocation(p);
-            mInfoWindow = new InfoWindow(
-                    BitmapDescriptorFactory.fromView(location), ll, 10,
-                    new InfoWindow.OnInfoWindowClickListener() {
-
-                        @Override
-                        public void onInfoWindowClick() {
-                            showSOSDialog(response);
-                        }
-                    });
-            // 显示InfoWindow
-            baiduMap.showInfoWindow(mInfoWindow);
-        } catch (Exception e) {
-        }
+//        try {
+//            InfoWindow mInfoWindow;
+//            TextView location = new TextView(SoSActivity.this);
+//            location.setBackgroundResource(R.drawable.jiuyuan_kuang);// location_tips
+//            location.setText("商家名字:" + response.getTenantName() + "\r\n" + "联系电话:" + response.getContactPhone());
+//            LatLng ll = new LatLng(Latitude, Longitude);
+////            Point p = baiduMap.getProjection().toScreenLocation(ll);
+////            p.y -= 60;
+////            LatLng llInfo = baiduMap.getProjection().fromScreenLocation(p);
+//            mInfoWindow = new InfoWindow(
+//                    BitmapDescriptorFactory.fromView(location), ll, 10,
+//                    new InfoWindow.OnInfoWindowClickListener() {
+//
+//                        @Override
+//                        public void onInfoWindowClick() {
+//                            showSOSDialog(response);
+//                        }
+//                    });
+//            // 显示InfoWindow
+//            baiduMap.showInfoWindow(mInfoWindow);
+//        } catch (Exception e) {
+//        }
     }
 
     /**
@@ -379,6 +402,12 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
                 for (int i = 0; i < datalist.size(); i++) {
                     addData(datalist.get(i).getLatitude(), datalist.get(i).getLongitude(), datalist.get(i));
                 }
+
+                // 移动到最后
+                LatLng latLng = new LatLng(datalist.get(datalist.size() - 1).getLatitude(), datalist.get(datalist.size() - 1).getLongitude());
+                baiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(latLng));
+                MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(15);
+                baiduMap.animateMapStatus(u);
 
             }
 

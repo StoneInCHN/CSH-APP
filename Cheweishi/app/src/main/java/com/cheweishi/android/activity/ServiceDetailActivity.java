@@ -37,6 +37,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         title = (TextView) findViewById(R.id.title);
         title.setText("服务详情");
         left_action.setOnClickListener(this);
+        left_action.setText("返回");
 
         initView();
     }
