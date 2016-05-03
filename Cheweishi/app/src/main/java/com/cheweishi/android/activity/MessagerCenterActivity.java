@@ -353,6 +353,8 @@ public class MessagerCenterActivity extends BaseActivity {
             switch (index) {
                 case 0:
                     // TODO 滑动删除位置
+                    if (null == httpList || 0 == httpList.size())
+                        return false;
                     sendDeleteMsg(new int[]{httpList.get(position).getId()});
 //                    deletaSize++;
                     httpList.remove(position);
