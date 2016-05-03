@@ -3,6 +3,7 @@ package com.cheweishi.android.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ImageView.ScaleType;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaseActivity;
+import com.cheweishi.android.activity.WebActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.entity.ADInfo;
@@ -58,7 +60,7 @@ public class ImgAdapter extends BaseAdapter {
         return position;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             viewHolder = new ViewHolder();
@@ -98,6 +100,15 @@ public class ImgAdapter extends BaseAdapter {
                 // API.CSH_GET_IMG_BASE_URL
                 // + adInfos.get(position % adInfos.size()).getAdv_content(),
                 // viewHolder.imageView, options);
+
+                viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(_context, WebActivity.class);
+                        intent.putExtra("url", adInfos.getMsg().get(position % adInfos.getMsg().size()).getAdvImageUrl());
+                        _context.startActivity(intent);
+                    }
+                });
             }
         }
         return convertView;
