@@ -105,7 +105,7 @@ public class ImgAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(_context, WebActivity.class);
-                        intent.putExtra("url", adInfos.getMsg().get(position % adInfos.getMsg().size()).getAdvImageUrl());
+                        intent.putExtra("url", adInfos.getMsg().get(position % adInfos.getMsg().size()).getAdvContentLink());
                         _context.startActivity(intent);
                     }
                 });

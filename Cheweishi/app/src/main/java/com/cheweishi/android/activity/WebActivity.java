@@ -9,80 +9,87 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.WebViewView;
 
 /**
  * 网页
- * 
+ *
  * @author zhangq
- * 
  */
-public class WebActivity extends BaseActivity {
-	private WebView mWebView;
-	private Button tvLeft;
-	private TextView tvTitle;
+public class WebActivity extends BaseActivity implements OnClickListener {
+    private WebView mWebView;
+    private Button tvLeft;
+    private TextView tvTitle;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_web);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_web);
 
-		if (getIntent().getExtras() == null
-				|| StringUtil.isBlank(getIntent().getExtras().getString("url"))) {
-			Log.i("zzqq", "webview" + "没有url参数！");
-			finish();
-			return;
-		}
+        tvLeft = (Button) findViewById(R.id.left_action);
+        tvLeft.setOnClickListener(this);
 
-		initView();
+        if (getIntent().getExtras() == null
+                || StringUtil.isBlank(getIntent().getExtras().getString("url"))) {
+            Log.i("zzqq", "webview" + "没有url参数！");
+            finish();
+            return;
+        }
 
-		mWebView = (WebView) findViewById(R.id.webview);
-		WebViewView webViewUtil = new WebViewView();
-		webViewUtil.setWebView(mWebView);
-		webViewUtil.setContext(WebActivity.this);
-		webViewUtil.setJS(true);
-		webViewUtil.setSelfAdaption();
-		webViewUtil.setNoCache();
-		webViewUtil.openUrl(getIntent().getExtras().getString("url"));
-		webViewUtil.alarm404();
+        initView();
 
-	}
+        mWebView = (WebView) findViewById(R.id.webview);
+        WebViewView webViewUtil = new WebViewView();
+        webViewUtil.setWebView(mWebView);
+        webViewUtil.setContext(WebActivity.this);
+        webViewUtil.setJS(true);
+        webViewUtil.setSelfAdaption();
+        webViewUtil.setNoCache();
+        webViewUtil.openUrl("http://" + getIntent().getExtras().getString("url"));
+        webViewUtil.alarm404();
 
-	private void initView() {
-		// 是否设置标题
-		if (StringUtil.isBlank(getIntent().getExtras().getString("title"))) {
-			return;
-		}
-		tvTitle = (TextView) findViewById(R.id.title);
-		tvLeft = (Button) findViewById(R.id.left_action);
+    }
 
-		tvTitle.setText(getIntent().getExtras().getString("title"));
-		tvLeft.setOnClickListener(new OnClickListener() {
+    private void initView() {
+        // 是否设置标题
+        if (StringUtil.isBlank(getIntent().getExtras().getString("title"))) {
+            return;
+        }
+        tvTitle = (TextView) findViewById(R.id.title);
+        tvLeft = (Button) findViewById(R.id.left_action);
 
-			@Override
-			public void onClick(View v) {
-				WebActivity.this.finish();
-			}
-		});
-	}
+        tvTitle.setText(getIntent().getExtras().getString("title"));
+        tvLeft.setOnClickListener(new OnClickListener() {
 
-	@Override
-	protected void onResume() {
-		mWebView.onResume();
-		super.onResume();
-	}
+            @Override
+            public void onClick(View v) {
+                WebActivity.this.finish();
+            }
+        });
+    }
 
-	@Override
-	protected void onDestroy() {
-		mWebView.destroy();
-		super.onDestroy();
-	}
+    @Override
+    protected void onResume() {
+        mWebView.onResume();
+        super.onResume();
+    }
 
-	@Override
-	protected void onPause() {
-		mWebView.onPause();
-		super.onPause();
-	}
+    @Override
+    protected void onDestroy() {
+        mWebView.destroy();
+        super.onDestroy();
+    }
 
+    @Override
+    protected void onPause() {
+        mWebView.onPause();
+        super.onPause();
+    }
+
+    @Override
+    public void onClick(View v) {
+        finish();
+    }
 }
