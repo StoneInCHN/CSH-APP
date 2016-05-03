@@ -828,11 +828,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
      */
     private void getPaySuccessData() {
         if (isLogined()) {
-            RequestParams params = new RequestParams();
-            params.addBodyParameter("uid", loginMessage.getUid());
-            params.addBodyParameter("order_sn", out_trade_no);
-            ProgrosDialog.openDialog(this);
-            httpBiz.httPostData(1008, API.CSH_GET_PAY_SUCCESS_ORDER_URL, params, this);
+            updatePacket();
         }
     }
 

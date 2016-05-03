@@ -148,6 +148,22 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
         // moveTolocation(latLng);
     }
 
+    private void analList(List<ParkInfo> listmMaps) {
+        settext();
+        init();
+        for (int i = 0; i < listmMaps.size(); i++) {
+            double lat = StringUtil.getDouble(listmMaps.get(i).getLatitude()
+                    .toString());
+            double lng = StringUtil.getDouble(listmMaps.get(i).getLongitude()
+                    .toString());
+            LatLng latlng = new LatLng(lat, lng);
+            moveLatLng(latlng, i);
+            latlngList.add(latlng);
+        }
+        // 把第一个marker置顶
+        markersList.get(0).setToTop();
+    }
+
     /**
      * 初始化数据
      */
@@ -163,22 +179,6 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
             viewpager_relativelayout.setVisibility(View.INVISIBLE);
             // }
         }
-    }
-
-    private void analList(List<ParkInfo> listmMaps) {
-        settext();
-        init();
-        for (int i = 0; i < listmMaps.size(); i++) {
-            double lat = StringUtil.getDouble(listmMaps.get(i).getLatitude()
-                    .toString());
-            double lng = StringUtil.getDouble(listmMaps.get(i).getLongitude()
-                    .toString());
-            LatLng latlng = new LatLng(lat, lng);
-            moveLatLng(latlng, i);
-            latlngList.add(latlng);
-        }
-        // 把第一个marker置顶
-        markersList.get(0).setToTop();
     }
 
     private void moveLatLng(LatLng latlng, int i) {
