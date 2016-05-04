@@ -359,6 +359,8 @@ public class MessagerCenterActivity extends BaseActivity {
 //                    deletaSize++;
                     httpList.remove(position);
 
+                    if (httpList.get(position).isIsRead())
+                        return true;
 
                     String tnumber = MainNewActivity.tv_msg_center_num.getText().toString();
                     if (null != tnumber && !"".equals(tnumber)) {
