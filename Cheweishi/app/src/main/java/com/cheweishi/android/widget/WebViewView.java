@@ -33,8 +33,10 @@ import com.cheweishi.android.utils.LogHelper;
 
 public class WebViewView {
     protected static final String TAG = "WebViewView";
-    private Context mContext;
     private WebView mWebView;
+    private Context mContext;
+
+    private static final int DEFAULT_PROGRESS = 30;
 
     /**
      * 设置webview
@@ -93,7 +95,11 @@ public class WebViewView {
                     if (View.INVISIBLE == progress.getVisibility()) {
                         progress.setVisibility(View.VISIBLE);
                     }
-                    progress.setProgress(newProgress);
+
+                    if (newProgress >= DEFAULT_PROGRESS)
+                        progress.setProgress(DEFAULT_PROGRESS);
+                    else
+                        progress.setProgress(newProgress);
                 }
 //                ((Activity) mContext).setProgress(newProgress);
                 super.onProgressChanged(view, newProgress);
