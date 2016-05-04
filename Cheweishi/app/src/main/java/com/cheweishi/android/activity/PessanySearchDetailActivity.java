@@ -59,7 +59,7 @@ public class PessanySearchDetailActivity extends BaseActivity implements View.On
         left_action.setText(R.string.back);
 
         // TODO 暂时未加上
-        intMap(data.getLat(), data.getLng());
+//        intMap(data.getLat(), data.getLng());
         setdata(data);
     }
 

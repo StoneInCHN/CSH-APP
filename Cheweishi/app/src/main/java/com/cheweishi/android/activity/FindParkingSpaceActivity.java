@@ -424,7 +424,7 @@ public class FindParkingSpaceActivity extends BaseActivity {
             parkInfo.setDistance(response.getMsg().get(i).getDistance());
             parkInfo.setLatitude(response.getMsg().get(i).getLocation().getLat() + "");
             parkInfo.setLongitude(response.getMsg().get(i).getLocation().getLng() + "");
-            parkInfo.setLeftNum(0);// 不能展示剩余车位了.
+            parkInfo.setLeftNum(-1);// 不能展示剩余车位了.
             parkInfo.setName(response.getMsg().get(i).getName());
             if (null != response.getMsg().get(i).getAdditionalInformation()) {
                 if (null == response.getMsg().get(i).getAdditionalInformation().getPrice() || "".equals(response.getMsg().get(i).getAdditionalInformation().getPrice()))

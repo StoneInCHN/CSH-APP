@@ -9,16 +9,17 @@ import java.util.List;
  */
 public class AdvResponse extends BaseResponse {
 
+
     /**
      * page : null
-     * msg : [{"advContentLink":"http://www.baidu1.com","id":2,"advImageUrl":"http://www.baidu2.com"}]
+     * msg : [{"advContentLink":"https://www.baidu.com/","id":4,"advImageUrl":"/upload/advertisement/2016-05-04/src_420f3742-ef6d-495a-b34e-377558e93367.jpg"}]
      */
 
     private Object page;
     /**
-     * advContentLink : http://www.baidu1.com
-     * id : 2
-     * advImageUrl : http://www.baidu2.com
+     * advContentLink : https://www.baidu.com/
+     * id : 4
+     * advImageUrl : /upload/advertisement/2016-05-04/src_420f3742-ef6d-495a-b34e-377558e93367.jpg
      */
 
     private List<MsgBean> msg;
