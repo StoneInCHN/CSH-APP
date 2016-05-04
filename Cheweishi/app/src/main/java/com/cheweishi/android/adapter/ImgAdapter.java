@@ -21,6 +21,7 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.entity.ADInfo;
 import com.cheweishi.android.entity.AdvResponse;
 import com.cheweishi.android.tools.ScreenTools;
+import com.cheweishi.android.utils.LogHelper;
 
 public class ImgAdapter extends BaseAdapter {
 
@@ -89,8 +90,6 @@ public class ImgAdapter extends BaseAdapter {
                         .getScreentWidth(_context)) * (((float) 80) / ((float) 320)));
 
                 viewHolder.imageView.setLayoutParams(lp);
-                System.out.println("lp.width=============" + lp.width + "_"
-                        + lp.height);
                 XUtilsImageLoader.getxUtilsImageLoader(_context,
                         R.drawable.ad_default_back,
                         viewHolder.imageView, adInfos.getMsg().get(position % adInfos.getMsg().size()).getAdvImageUrl());

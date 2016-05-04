@@ -151,6 +151,7 @@ public class XUtilsImageLoader {
             Context context, int resid, ImageView imageView, String uri) {
 
         mImageLoader = getInstance(context, resid);
+//        LogHelper.d("loadimg:" + NetInterface.IMG_URL + uri);
         Picasso.with(context)
                 .load(NetInterface.IMG_URL + uri)
                 .placeholder(resid)
