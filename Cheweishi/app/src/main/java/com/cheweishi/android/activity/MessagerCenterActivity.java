@@ -357,10 +357,12 @@ public class MessagerCenterActivity extends BaseActivity {
                         return false;
                     sendDeleteMsg(new int[]{httpList.get(position).getId()});
 //                    deletaSize++;
-                    httpList.remove(position);
 
-                    if (httpList.get(position).isIsRead())
+
+                    if (httpList.get(position).isIsRead()) {
+                        httpList.remove(position);
                         return true;
+                    }
 
                     String tnumber = MainNewActivity.tv_msg_center_num.getText().toString();
                     if (null != tnumber && !"".equals(tnumber)) {
@@ -392,6 +394,7 @@ public class MessagerCenterActivity extends BaseActivity {
 //                        EmptyTools.setImg(R.drawable.message_message);
 //                        EmptyTools.setMessage("您还没有相关消息");
 //                    }
+                    httpList.remove(position);
                     break;
             }
             return false;
