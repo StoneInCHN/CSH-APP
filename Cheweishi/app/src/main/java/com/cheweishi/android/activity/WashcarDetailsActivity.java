@@ -272,7 +272,6 @@ public class WashcarDetailsActivity extends BaseActivity implements
             R.id.img_maintain_ditu})
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.rel_user_comm:// 评论
                 Intent intent = new Intent(WashcarDetailsActivity.this,

@@ -2,11 +2,15 @@ package com.cheweishi.android.activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.utils.LogHelper;
@@ -22,18 +26,21 @@ public class WebActivity extends BaseActivity implements OnClickListener {
     private WebView mWebView;
     private Button tvLeft;
     private TextView tvTitle;
+    private ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
 
+        loading = (ProgressBar) findViewById(R.id.pb_web_loading);
         tvLeft = (Button) findViewById(R.id.left_action);
         tvLeft.setOnClickListener(this);
 
         if (getIntent().getExtras() == null
                 || StringUtil.isBlank(getIntent().getExtras().getString("url"))) {
             Log.i("zzqq", "webview" + "没有url参数！");
+            showToast("url解析错误");
             finish();
             return;
         }
@@ -47,8 +54,10 @@ public class WebActivity extends BaseActivity implements OnClickListener {
         webViewUtil.setJS(true);
         webViewUtil.setSelfAdaption();
         webViewUtil.setNoCache();
-        webViewUtil.openUrl("http://" + getIntent().getExtras().getString("url"));
         webViewUtil.alarm404();
+//        webViewUtil.showShowProgress(this);
+        webViewUtil.setProgress(loading);
+        webViewUtil.openUrl(getIntent().getExtras().getString("url"));
 
     }
 
@@ -91,5 +100,17 @@ public class WebActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onClick(View v) {
         finish();
+    }
+
+
+    // 设置回退
+    // 覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
+            mWebView.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -486,6 +486,8 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
 
         @Override
         public boolean onMarkerClick(Marker marker) {
+            if (null == marker.getTitle())
+                return true;
             int i = Integer.parseInt(marker.getTitle());
             if (i < 10) {
                 if (viewPager.getVisibility() == View.GONE) {
@@ -595,7 +597,7 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
         public void onReceive(Context context, Intent intent) {
             if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
                     Constant.FIND_PARK_REFRESH, true)) {
-                Log.i("result", "=================找车位更新===============");
+                Log.i("Tanck", "=================找车位更新===============");
                 listmMaps = intent.getParcelableArrayListExtra("data");
                 latLng = new LatLng(intent.getDoubleExtra("lat", 0),
                         intent.getDoubleExtra("lng", 0));

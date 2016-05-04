@@ -47,6 +47,14 @@
             android:textSize="@dimen/titile_side_text_size" />
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/pb_web_loading"
+        android:layout_width="match_parent"
+        android:layout_height="5px"
+        android:indeterminateOnly="false"
+        android:max="100"
+        android:progressDrawable="@drawable/web_load_progressbar" />
+
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"

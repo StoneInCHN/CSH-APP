@@ -177,7 +177,7 @@ public class PurseActivity extends BaseActivity {
 
         if (StringUtil.isEmpty(response.getMsg().getGiftAmount())) {
             tv_purse_certificates.setText(0 + "");
-            this.redPacket = 0+"";
+            this.redPacket = 0 + "";
         } else {
             tv_purse_certificates.setText(String.valueOf(response.getMsg().getGiftAmount()));
             this.redPacket = String.valueOf(response.getMsg().getGiftAmount());
@@ -191,7 +191,7 @@ public class PurseActivity extends BaseActivity {
             tv_purse_balance.setText(money);
             this.money = money;
         }
-        String score = String.valueOf(response.getMsg().getBalanceAmount());
+        String score = String.valueOf(response.getMsg().getScore());
         if (StringUtil.isEmpty(score)
                 || StringUtil.isEquals("null", score, true)) {
             tv_purse_integral.setText(0 + "");
