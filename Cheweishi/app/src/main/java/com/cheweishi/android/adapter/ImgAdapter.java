@@ -27,7 +27,6 @@ public class ImgAdapter extends BaseAdapter {
 
     private BaseActivity _context;
     private List<Integer> imgList;
-    private List<String> imgListStr;
     private AdvResponse adInfos;
     private int returnCount = -1;
 
@@ -54,7 +53,7 @@ public class ImgAdapter extends BaseAdapter {
 
     public Object getItem(int position) {
 
-        return position;
+        return adInfos.getMsg().get(position);
     }
 
     public long getItemId(int position) {

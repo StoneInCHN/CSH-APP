@@ -506,13 +506,14 @@ public class MainNewActivity extends BaseActivity {
 
         // TODO 更新广告
         InitFocusIndicatorContainer(advResponse);
-        imgAdapter = new ImgAdapter(MainNewActivity.this, advResponse, 0);
+        imgAdapter = new ImgAdapter(MainNewActivity.this, advResponse, -1);
         mygallery.setAdapter(imgAdapter);
         mygallery.setFocusable(true);
         mygallery.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int selIndex, long arg3) {
+//                LogHelper.d("arg3:" + arg3 + "current:" + preSelImgIndex + "---selIndex:" + selIndex + "---size:" + advResponse.getMsg().size());
                 if (advResponse.getMsg() != null && advResponse.getMsg().size() > 0) {
                     selIndex = selIndex % advResponse.getMsg().size();
                     portImg.get(preSelImgIndex).setImageResource(
