@@ -626,6 +626,9 @@ public class MainNewActivity extends BaseActivity {
                             tv_msg_center_num.setText(advResponse.getDesc());
                         else
                             tv_msg_center_num.setText("99+");
+                    } else {
+                        tv_msg_center_num.setText("0");
+                        tv_msg_center_num.setVisibility(View.GONE);
                     }
                 }
                 showData(advResponse);
