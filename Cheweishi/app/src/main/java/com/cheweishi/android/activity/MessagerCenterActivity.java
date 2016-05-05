@@ -842,11 +842,15 @@ public class MessagerCenterActivity extends BaseActivity {
      * 清空数据
      */
     public void setAllClear() {
-        //  TODO 全部删除
+        //  TODO 全部删除 更新主页面UI
         LogHelper.d("清空所有数据");
         clearAllize += httpList.size();
         sendDeleteMsg(httpList);
         httpList.clear();
+
+        MainNewActivity.tv_msg_center_num.setText("0");
+        MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
+
 //        msg_tv_allread.setText(R.string.delete);
 //        left_action.setText(R.string.cancel);
 //        mMessageCenterApdater.setDeleteData(httpList);
