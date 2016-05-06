@@ -119,6 +119,9 @@
                 android:drawablePadding="@dimen/small_padding"
                 android:drawableLeft="@drawable/chewei_money"
                 android:textSize="13sp"
+                android:ellipsize="end"
+                android:maxEms="5"
+                android:singleLine="true"
                 android:textStyle="bold" />
 
             <TextView

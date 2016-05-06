@@ -179,7 +179,7 @@ public class FindParkingSpaceActivity extends BaseActivity {
                 switchFragment(baseFragment);
                 break;
             case R.id.ll_list:// 列表
-                right_action.setVisibility(View.GONE);
+                right_action.setVisibility(View.INVISIBLE);
                 showState = 1;
                 showBtnStatuc(showState);
                 baseFragment = new FindParkingSpaceListFragment();
