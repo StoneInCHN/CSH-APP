@@ -846,7 +846,7 @@ public class MessagerCenterActivity extends BaseActivity {
         LogHelper.d("清空所有数据");
         clearAllize += httpList.size();
         sendDeleteMsg(httpList);
-        httpList.clear();
+//        httpList.clear();
 
         MainNewActivity.tv_msg_center_num.setText("0");
         MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
@@ -1014,6 +1014,7 @@ public class MessagerCenterActivity extends BaseActivity {
             Map<String, Object> param = new HashMap<>();
             param.put("userId", loginResponse.getDesc());
             param.put("token", loginResponse.getToken());
+            param.put(Constant.PARAMETER_TAG, "ALL");
             netWorkHelper.PostJson(url, param, this);
         }
     }
@@ -1044,20 +1045,33 @@ public class MessagerCenterActivity extends BaseActivity {
             return;
         }
 
-        // TODO 更新UI
+        switch (TAG) {
+            case NetInterface.DELETE_MSG:
+                // TODO 更新UI
 //        ininGetHttpData();
-        mMessageCenterApdater.setDeleteData(httpList);
-        // mMessageCenterApdater.danHangDelete(position);
-        if (StringUtil.isEmpty(httpList) || httpList.size() == 0) {
-            isleftDelate = false;
-            steLeftDeleta();
-            msg_linbottom.setVisibility(View.GONE);
-            right_action.setVisibility(View.GONE);
-            EmptyTools.setEmptyView(MessagerCenterActivity.this,
-                    messagerCenterListView);
-            EmptyTools.setImg(R.drawable.message_message);
-            EmptyTools.setMessage("您还没有相关消息");
+                mMessageCenterApdater.setDeleteData(httpList);
+                // mMessageCenterApdater.danHangDelete(position);
+                if (StringUtil.isEmpty(httpList) || httpList.size() == 0) {
+                    isleftDelate = false;
+                    steLeftDeleta();
+                    msg_linbottom.setVisibility(View.GONE);
+                    right_action.setVisibility(View.GONE);
+                    EmptyTools.setEmptyView(MessagerCenterActivity.this,
+                            messagerCenterListView);
+                    EmptyTools.setImg(R.drawable.message_message);
+                    EmptyTools.setMessage("您还没有相关消息");
+                }
+                break;
+            case "ALL":
+                httpList.clear();
+                EmptyTools.setEmptyView(MessagerCenterActivity.this,
+                        messagerCenterListView);
+                EmptyTools.setImg(R.drawable.message_message);
+                EmptyTools.setMessage("您还没有相关消息");
+                break;
         }
+
+
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
