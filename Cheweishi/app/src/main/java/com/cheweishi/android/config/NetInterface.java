@@ -5,7 +5,7 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-        public static final String BASE_URL = "http://120.27.92.247:10001";// 基础路径
+    public static final String BASE_URL = "http://120.27.92.247:10001";// 基础路径
 //    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
@@ -52,9 +52,9 @@ public class NetInterface {
     /**********************
      * 接口
      *********************/
-    public static final String USER_LOGIN = "login";
+    public static final String USER_LOGIN = "login"; // 登录
 
-    public static final String SMS_TOKEN = "getSmsToken"; // 验证码接口
+    public static final String SMS_TOKEN = "getSmsToken"; // 验证码接口/忘记密码
 
     public static final String RESET_PASSWORD = "resetPwd"; // 修改密码
 
@@ -126,6 +126,6 @@ public class NetInterface {
 
     public static final String UPDATE_CACHE = "updateLoginCacheInfo";//更新登录缓存
 
-    public static final String SEARCH = "keyWordSearch.jhtml";//停车位+加油站
+    public static final String SEARCH = "keyWordSearch";//停车位+加油站
 
 }

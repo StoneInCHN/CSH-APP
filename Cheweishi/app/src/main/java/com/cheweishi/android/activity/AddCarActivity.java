@@ -533,6 +533,8 @@ public class AddCarActivity extends BaseActivity {
             showToast(R.string.car_mile_choose_not_yet);
         } else if (StringUtil.isEmpty(tv_last_keepFit.getText().toString())) {
             showToast("上次保养里程不能为空");
+        } else if (StringUtil.isEmpty(tv_car_vin.getText().toString())) {
+            showToast("车架号不能为空");
         } else {
             String str = tv_annualSurvey.getText().toString()
                     .replaceAll(" ", "");
@@ -889,6 +891,7 @@ public class AddCarActivity extends BaseActivity {
     @Override
     public void error(String errorMsg) {
         ProgrosDialog.closeProgrosDialog();
+        showToast(R.string.server_link_fault);
     }
 
     private static class AddHandler extends Handler {
