@@ -605,6 +605,7 @@ public class MainNewActivity extends BaseActivity {
                     this.finish();
                     overridePendingTransition(R.anim.score_business_query_enter,
                             R.anim.score_business_query_exit);
+                    return;
                 }
 
                 requestAdv();
