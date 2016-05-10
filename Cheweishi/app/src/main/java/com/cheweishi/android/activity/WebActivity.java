@@ -59,6 +59,8 @@ public class WebActivity extends BaseActivity implements OnClickListener {
         webViewUtil.setProgress(loading);
         webViewUtil.openUrl(getIntent().getExtras().getString("url"));
 
+        loading.setProgress(30);
+
     }
 
     private void initView() {

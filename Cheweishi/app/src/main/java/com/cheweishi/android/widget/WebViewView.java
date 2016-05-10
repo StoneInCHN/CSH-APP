@@ -96,10 +96,10 @@ public class WebViewView {
                         progress.setVisibility(View.VISIBLE);
                     }
 
-                    if (newProgress >= DEFAULT_PROGRESS)
-                        progress.setProgress(DEFAULT_PROGRESS);
-                    else
+                    if (newProgress > DEFAULT_PROGRESS)
                         progress.setProgress(newProgress);
+//                    else
+//                        progress.setProgress(newProgress);
                 }
 //                ((Activity) mContext).setProgress(newProgress);
                 super.onProgressChanged(view, newProgress);

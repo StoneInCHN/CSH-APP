@@ -230,6 +230,7 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
     public void error(String errorMsg) {
         lv_myOrder.onRefreshComplete();
         ProgrosDialog.closeProgrosDialog();
+        showToast(R.string.server_link_fault);
     }
 
 
