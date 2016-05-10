@@ -1479,7 +1479,7 @@
     <string name="service_order_three">3.&#160;如果二维码无法扫描请及时与我们工作人员取得联系。</string>
     <!-- 我的钱包 -->
     <string name="purse">我的钱包</string>
-    <string name="purse_certificates">红包</string>
+    <string name="purse_certificates">优惠券</string>
     <string name="purse_integral">积分</string>
     <string name="purse_my_integral">我的积分</string>
     <string name="purse_current_balance">余额</string>

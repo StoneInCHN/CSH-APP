@@ -29,7 +29,6 @@ public class RedPacketsDetailsAdapter extends BaseAdapter {
 
     public RedPacketsDetailsAdapter(Context context,
                                     List<ChargeResponse.MsgBean> list) {
-        // TODO Auto-generated constructor stub
         this.list = list;
         this.context = context;
 
@@ -48,24 +47,23 @@ public class RedPacketsDetailsAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
         return list.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
-        return 0;
+        return position;
     }
 
 
     @Override
     public boolean isEnabled(int position) {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     private String transferLongToDate(Long millSec) {
+        if (0 == millSec)
+            return null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date(millSec);
         return sdf.format(date);
@@ -91,7 +89,7 @@ public class RedPacketsDetailsAdapter extends BaseAdapter {
         }
 
         ChargeResponse.MsgBean info = list.get(position);
-        viewHolder.tv_time.setText(transferLongToDate(info.getCreateDate()) );//+ " - " + "getEFect");
+        viewHolder.tv_time.setText("到期时间:2016-5-10 10:58:04");//transferLongToDate(info.getCreateDate()));//+ " - " + "getEFect");
         viewHolder.tv_note.setText(info.getRemark());
         viewHolder.img_purse_draw.setText("￥" + info.getRedPacket());
         return convertView;

@@ -79,7 +79,7 @@ public class PurseRedPacketsActivity extends BaseActivity implements
         init();
 
         // info();
-        getData();
+//        getData();
     }
 
     private void init() {
@@ -87,9 +87,15 @@ public class PurseRedPacketsActivity extends BaseActivity implements
         left_action.setText(R.string.back);
 
         mListView.setOnRefreshListener(this);
-        mListView.setMode(Mode.BOTH);
+        mListView.setMode(Mode.DISABLED);
 
         mList = new ArrayList<ChargeResponse.MsgBean>();
+        for (int i = 0; i < 10; i++) {
+            ChargeResponse.MsgBean msgBean = new ChargeResponse.MsgBean();
+            msgBean.setRemark("1111");
+            msgBean.setRedPacket(10);
+            mList.add(msgBean);
+        }
         redPacketsAdapter = new RedPacketsDetailsAdapter(
                 PurseRedPacketsActivity.this, mList);
         mListView.setAdapter(redPacketsAdapter);
