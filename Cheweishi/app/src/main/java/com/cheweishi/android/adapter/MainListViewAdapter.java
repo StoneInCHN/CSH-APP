@@ -104,7 +104,7 @@ public class MainListViewAdapter extends BaseAdapter implements OnClickListener 
         } else {
             hodler.line.setVisibility(View.VISIBLE);
         }
-        if (!StringUtil.isEmpty(list) && list.size() > position) {
+//        if (!StringUtil.isEmpty(list) && list.size() > position) {
             hodler.tv_seller_name.setText(list.get(position).getTenantName());
 //            hodler.tv_seller_evaluate.setText(list.get(position).getPraiseRate() * 100 + "%好评");
             hodler.tv_seller_address.setText(list.get(position).getAddress());
@@ -159,7 +159,7 @@ public class MainListViewAdapter extends BaseAdapter implements OnClickListener 
                         list.get(position));
                 hodler.list_main_seller_service.setAdapter(serviceAdapater);
             }
-        }
+//        }
         return convertView;
     }
 
