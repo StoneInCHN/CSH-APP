@@ -27,6 +27,7 @@
         android:layout_below="@+id/include1"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/normal_marging"
+        android:visibility="gone"
         android:background="@drawable/hongbao_icon">
 
         <RelativeLayout
