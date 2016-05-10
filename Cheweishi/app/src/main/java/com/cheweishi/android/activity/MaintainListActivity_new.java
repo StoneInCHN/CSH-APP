@@ -65,6 +65,8 @@ public class MaintainListActivity_new extends BaseActivity implements
 
     private int page = 1;
 
+    private int total;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,7 +128,8 @@ public class MaintainListActivity_new extends BaseActivity implements
                         listViewAdapter = new MainListViewAdapter(this, washcarList);
                         mListView.setAdapter(listViewAdapter);
 
-                        if(response.getPage().getTotal()<5){
+                        total = response.getPage().getTotal();
+                        if (total < 5) {
                             mListView.setMode(Mode.PULL_FROM_START);
                         }
                     }
@@ -302,6 +305,11 @@ public class MaintainListActivity_new extends BaseActivity implements
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+        if (null != washcarList && total <= washcarList.size()) {
+            showToast("没有更多记录了");
+            mListView.setMode(Mode.PULL_FROM_START);
+            return;
+        }
         page++;
         getDataFromIntent();
     }

@@ -67,6 +67,8 @@ public class WashcarListActivity extends BaseActivity implements
 
     private int page = 1;
 
+    private int total;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,9 +90,9 @@ public class WashcarListActivity extends BaseActivity implements
             param.put("userId", loginResponse.getDesc());
             LogHelper.d("----send:" + loginResponse.getToken());
             param.put("token", loginResponse.getToken());
-        param.put("latitude", MyMapUtils.getLatitude(this));//维度
+            param.put("latitude", MyMapUtils.getLatitude(this));//维度
 //            param.put("latitude", "10");//维度
-        param.put("longitude", MyMapUtils.getLongitude(this));//经度
+            param.put("longitude", MyMapUtils.getLongitude(this));//经度
 //            param.put("longitude", "10");//经度
             /**
              * 1保养
@@ -127,10 +129,11 @@ public class WashcarListActivity extends BaseActivity implements
                     } else {
                         listViewAdapter = new MainListViewAdapter(this, washcarList);
                         mListView.setAdapter(listViewAdapter);
-
-                        if(response.getPage().getTotal()<5){
+                        total = response.getPage().getTotal();
+                        if (total < 5) {
                             mListView.setMode(Mode.PULL_FROM_START);
                         }
+
                     }
                     loginResponse.setToken(response.getToken());
                     DBTools.getInstance(baseContext).save(loginResponse);
@@ -304,6 +307,11 @@ public class WashcarListActivity extends BaseActivity implements
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+        if (null != washcarList && total <= washcarList.size()) {
+            showToast("没有更多记录了");
+            mListView.setMode(Mode.PULL_FROM_START);
+            return;
+        }
         page++;
         getDataFromIntent();
     }
