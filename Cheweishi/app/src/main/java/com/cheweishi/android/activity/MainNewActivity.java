@@ -865,9 +865,9 @@ public class MainNewActivity extends BaseActivity {
                 isLogin(MyorderActivity.class);
                 break;
             case R.id.rl_activity_area:// 活动专区
-                // intent.setClass(MainNewActivity.this,
-                // InformationSecondListActivity.class);
-                // startActivity(intent);
+//                 intent.setClass(MainNewActivity.this,
+//                 InformationSecondListActivity.class);
+//                 startActivity(intent);
                 break;
             case R.id.rl_integral_mall:// 积分商城
                 // intent.setClass(MainNewActivity.this, SCActivity.class);

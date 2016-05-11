@@ -64,7 +64,7 @@ public class MianSellerServiceAdapater extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return list.getCarService();
+        return list.getCarService().get(position);
     }
 
     @Override

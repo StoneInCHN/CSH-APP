@@ -105,18 +105,18 @@ public class MainListViewAdapter extends BaseAdapter implements OnClickListener 
             hodler.line.setVisibility(View.VISIBLE);
         }
 //        if (!StringUtil.isEmpty(list) && list.size() > position) {
-            hodler.tv_seller_name.setText(list.get(position).getTenantName());
+        hodler.tv_seller_name.setText(list.get(position).getTenantName());
 //            hodler.tv_seller_evaluate.setText(list.get(position).getPraiseRate() * 100 + "%好评");
-            hodler.tv_seller_address.setText(list.get(position).getAddress());
-            String temp = list.get(position).getDistance();
-            if (null == temp) {
-                temp = "";
-                hodler.tv_appoint.setVisibility(View.GONE);
-            } else {
-                temp = temp + "km";
-                hodler.tv_appoint.setVisibility(View.VISIBLE);
-            }
-            hodler.tv_seller_distance.setText(temp);
+        hodler.tv_seller_address.setText(list.get(position).getAddress());
+        String temp = list.get(position).getDistance();
+        if (null == temp) {
+            temp = "";
+            hodler.tv_appoint.setVisibility(View.GONE);
+        } else {
+            temp = temp + "km";
+            hodler.tv_appoint.setVisibility(View.VISIBLE);
+        }
+        hodler.tv_seller_distance.setText(temp);
 //			if (!StringUtil.isEmpty(list.get(position).getAppoint())
 //					&& StringUtil.isEquals("0",
 //							list.get(position).getAppoint(), true)) {
@@ -124,41 +124,42 @@ public class MainListViewAdapter extends BaseAdapter implements OnClickListener 
 //			} else {
 //				hodler.tv_appoint.setVisibility(View.GONE);
 //			}
-            hodler.ll_seller_evaluate_content.removeAllViews();
-            // TODO 添加钻石
-            for (int i = 0; i < list.get(position).getPraiseRate(); i++) {
-                ImageView imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new LayoutParams(
-                        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-                imageView.setPadding(0, 0, 2, 0);
-                imageView.setScaleType(ScaleType.FIT_XY);
-                imageView.setImageResource(R.drawable.haoping);
-                hodler.ll_seller_evaluate_content.addView(imageView);
-            }
+        hodler.ll_seller_evaluate_content.removeAllViews();
+        // TODO 添加钻石
+        for (int i = 0; i < list.get(position).getPraiseRate(); i++) {
+            ImageView imageView = new ImageView(mContext);
+            imageView.setLayoutParams(new LayoutParams(
+                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            imageView.setPadding(0, 0, 2, 0);
+            imageView.setScaleType(ScaleType.FIT_XY);
+            imageView.setImageResource(R.drawable.haoping);
+            hodler.ll_seller_evaluate_content.addView(imageView);
+        }
 
-            // ImageLoader imageLoader = ImageLoader.getInstance();
-            // imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
-            //
-            // DisplayImageOptions options = new DisplayImageOptions.Builder()
-            // .cacheInMemory(true).cacheOnDisk(true)
-            // .showImageForEmptyUri(R.drawable.zhaochewei_img)
-            // .showImageOnFail(R.drawable.zhaochewei_img)
-            // .showImageOnLoading(R.drawable.zhaochewei_img)
-            // .bitmapConfig(Bitmap.Config.RGB_565).build();
-            //
-            // // if (imgListStr != null && imgListStr.size() > 0) {
-            // imageLoader.getInstance().displayImage(
-            // API.CSH_GET_IMG_BASE_URL
-            // + list.get(position).getImgUrl(), hodler.img_sellser, options);
-            // }
-            XUtilsImageLoader.getxUtilsImageLoader(mContext,
-                    R.drawable.zhaochewei_img, hodler.img_sellser,
-                    list.get(position).getPhoto());
-            if (null == hodler.list_main_seller_service.getAdapter()) {
-                serviceAdapater = new MianSellerServiceAdapater(mContext,
-                        list.get(position));
-                hodler.list_main_seller_service.setAdapter(serviceAdapater);
-            }
+        // ImageLoader imageLoader = ImageLoader.getInstance();
+        // imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
+        //
+        // DisplayImageOptions options = new DisplayImageOptions.Builder()
+        // .cacheInMemory(true).cacheOnDisk(true)
+        // .showImageForEmptyUri(R.drawable.zhaochewei_img)
+        // .showImageOnFail(R.drawable.zhaochewei_img)
+        // .showImageOnLoading(R.drawable.zhaochewei_img)
+        // .bitmapConfig(Bitmap.Config.RGB_565).build();
+        //
+        // // if (imgListStr != null && imgListStr.size() > 0) {
+        // imageLoader.getInstance().displayImage(
+        // API.CSH_GET_IMG_BASE_URL
+        // + list.get(position).getImgUrl(), hodler.img_sellser, options);
+        // }
+        XUtilsImageLoader.getxUtilsImageLoader(mContext,
+                R.drawable.zhaochewei_img, hodler.img_sellser,
+                list.get(position).getPhoto());
+//            if (null == hodler.list_main_seller_service.getAdapter()) {
+        if (null != list.get(position) && 0 < list.get(position).getCarService().size()) {
+            serviceAdapater = new MianSellerServiceAdapater(mContext,
+                    list.get(position));
+            hodler.list_main_seller_service.setAdapter(serviceAdapater);
+        }
 //        }
         return convertView;
     }
