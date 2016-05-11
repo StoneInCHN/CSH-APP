@@ -868,6 +868,8 @@ public class MainNewActivity extends BaseActivity {
 //                 intent.setClass(MainNewActivity.this,
 //                 InformationSecondListActivity.class);
 //                 startActivity(intent);
+                intent.setClass(MainNewActivity.this, CouponActivity.class);
+                startActivity(intent);
                 break;
             case R.id.rl_integral_mall:// 积分商城
                 // intent.setClass(MainNewActivity.this, SCActivity.class);

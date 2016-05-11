@@ -14,6 +14,7 @@
     <color name="green_deep">#36bc99</color>
     <color name="grade_green">#32cd19</color>
     <color name="white">#FFFFFF</color>
+    <color name="white_alpha">#00FFFFFF</color>
     <color name="white_tr">#30FFFFFF</color>
     <color name="white_like">#FFFFEF</color>
     <color name="yellow">#fdaa4c</color>
