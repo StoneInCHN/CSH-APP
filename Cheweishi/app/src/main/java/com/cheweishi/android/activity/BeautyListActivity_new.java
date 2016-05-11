@@ -20,6 +20,7 @@ import com.cheweishi.android.entity.MainSellerServiceInfo;
 import com.cheweishi.android.entity.ServiceListResponse;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.EmptyTools;
+import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
@@ -125,16 +126,15 @@ public class BeautyListActivity_new extends BaseActivity implements
                         EmptyTools.setImg(R.drawable.mycar_icon);
                         EmptyTools.setMessage("当前没有美容信息");
                     } else {
-                        listViewAdapter = new MainListViewAdapter(this, washcarList);
-                        mListView.setAdapter(listViewAdapter);
 
+                        listViewAdapter.setData(washcarList);
                         total = response.getPage().getTotal();
                         if (total < 5) {
                             mListView.setMode(Mode.PULL_FROM_START);
                         }
                     }
                     loginResponse.setToken(response.getToken());
-                    DBTools.getInstance(baseContext).save(loginResponse);
+                    LoginMessageUtils.saveloginmsg(baseContext,loginResponse);
                 } else if (response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
                     // TODO 超时
                     Intent intent = new Intent(BeautyListActivity_new.this, LoginActivity.class);
@@ -307,7 +307,6 @@ public class BeautyListActivity_new extends BaseActivity implements
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
         if (null != washcarList && total <= washcarList.size()) {
             showToast("没有更多记录了");
-            mListView.setMode(Mode.PULL_FROM_START);
             return;
         }
         page++;
