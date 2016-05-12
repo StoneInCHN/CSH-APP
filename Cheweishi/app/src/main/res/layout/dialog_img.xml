@@ -15,6 +15,19 @@
             android:padding="@dimen/normal_padding"
             android:src="@drawable/weizhang_img" />
 
+
+        <TextView
+            android:id="@+id/tv_dialog_img_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:text="恭喜你获得了一个优惠券"
+            android:textColor="@color/main_orange"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:textStyle="bold" />
+
         <ImageButton
             android:id="@+id/ib_dialog"
             android:layout_width="wrap_content"

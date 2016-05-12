@@ -8,6 +8,7 @@ import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.dialog.ImgDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.QRServerResponse;
 import com.cheweishi.android.response.BaseResponse;
@@ -20,8 +21,10 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -47,6 +50,8 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
     private EditText tv_car_device;
     @ViewInject(R.id.bt_addCar)
     private Button bt_addCar;
+    private ImgDialog.Builder imgBuilder;
+    private ImgDialog imgDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,8 +129,26 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         this.finish();
+
+//        showImgDialog();
     }
 
+    private void showImgDialog() {
+        imgBuilder = new ImgDialog.Builder(this);
+        imgBuilder.setshowCoupon(true);
+        imgBuilder.setPositiveButton(R.string.customerServiceCall,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        AddDeviceActivity.this.finish();
+                    }
+                });
+
+        imgDialog = imgBuilder.create();
+        imgDialog.setCanceledOnTouchOutside(false);
+
+        imgDialog.show();
+    }
 
     @Override
     public void error(String errorMsg) {

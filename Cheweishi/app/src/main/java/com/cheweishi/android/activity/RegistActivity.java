@@ -3,6 +3,7 @@ package com.cheweishi.android.activity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -29,6 +30,7 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Config;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.dialog.ImgDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
@@ -129,8 +131,12 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 
     private boolean TIME_OUT;
 
+    private String userId;
+
 
     private static final String REGISTER = "REG";// 注册
+    private ImgDialog.Builder imgBuilder;
+    private ImgDialog imgDialog;
 
 
     @Override
@@ -147,6 +153,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
         rightaction.setVisibility(View.GONE);
         title1.setText(getResources().getString(R.string.register));
     }
+
 
     @OnClick({R.id.btn_getcode, R.id.left_action, R.id.btn_register,
             R.id.linear_saoma, R.id.ib_password, R.id.tv_service, R.id.tv_voice})
@@ -531,13 +538,32 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                 if (base.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast("注册成功");
                     LoginMessageUtils.setLogined(this, true);
-                    save(base.getDesc());
+                    userId = base.getDesc();
+//                    showImgDialog();
+//                    save(base.getDesc());
                 } else {
                     showToast(base.getDesc());
                 }
                 break;
 
         }
+    }
+
+    private void showImgDialog() {
+        imgBuilder = new ImgDialog.Builder(this);
+        imgBuilder.setshowCoupon(true);
+        imgBuilder.setPositiveButton(R.string.customerServiceCall,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        save(userId);
+                        dialog.dismiss();
+                    }
+                });
+
+        imgDialog = imgBuilder.create();
+        imgDialog.setCanceledOnTouchOutside(false);
+
+        imgDialog.show();
     }
 
     @Override
@@ -773,6 +799,11 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (null != userId || !"".equals(userId)) {
+            save(userId);
+            return true;
+        }
+
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             cancel();
             return false;

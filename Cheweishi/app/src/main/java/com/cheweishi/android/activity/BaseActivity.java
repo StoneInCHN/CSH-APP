@@ -15,6 +15,7 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -519,4 +520,5 @@ public abstract class BaseActivity extends FragmentActivity implements
             LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         }
     }
+
 }
