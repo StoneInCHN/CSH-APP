@@ -61,7 +61,7 @@
             android:id="@+id/iv_coupon_overtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/b_item_clicked"
+            android:src="@drawable/b_coupon_got"
             android:visibility="gone" />
 
         <TextView
