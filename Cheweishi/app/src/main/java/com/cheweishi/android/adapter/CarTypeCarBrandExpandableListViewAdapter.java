@@ -82,8 +82,6 @@ public class CarTypeCarBrandExpandableListViewAdapter extends
     @Override
     public View getChildView(int groupPosition, int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        Log.i("zhfy", "getChildView  groupPosition = " + groupPosition
-                + " childPosition = " + childPosition);
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(
                     R.layout.cartype_carbrand_child_listitem, null);

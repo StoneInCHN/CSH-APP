@@ -83,7 +83,6 @@ public class CarTypeCarBrandModelActivity extends BaseActivity implements
 
     @Override
     protected void onDestroy() {
-        // TODO Auto-generated method stub
         super.onDestroy();
         brandList.clear();
         mbrandList.clear();
@@ -165,7 +164,7 @@ public class CarTypeCarBrandModelActivity extends BaseActivity implements
             mDrawerLayout
                     .setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             CarTypeCarBrandModelActivity.this.modelList.clear();
-            setModelDataAdapter(carBrandName);
+            setModelDataAdapter();
         }
     };
 
@@ -297,7 +296,7 @@ public class CarTypeCarBrandModelActivity extends BaseActivity implements
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
-        param.put("vehicleLineId", id);
+        param.put("brandId", id);
         param.put(Constant.PARAMETER_TAG, NetInterface.QUERY_CAR_TWO);
         netWorkHelper.PostJson(url, param, this);
 
@@ -310,7 +309,7 @@ public class CarTypeCarBrandModelActivity extends BaseActivity implements
      */
     private void commitToServer(String parentId) {
         ProgrosDialog.openDialog(this);
-        String url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.QUERY_CAR_TWO + NetInterface.SUFFIX;
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.QUERY_CAR_THERE + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
@@ -423,7 +422,7 @@ public class CarTypeCarBrandModelActivity extends BaseActivity implements
 
                     break;
                 case CODE_MODEL:
-                    setModelDataAdapter(carBrandName);
+                    setModelDataAdapter();
                     break;
 
                 case CODE_STYLE:
@@ -436,9 +435,9 @@ public class CarTypeCarBrandModelActivity extends BaseActivity implements
         ;
     };
 
-    private void setModelDataAdapter(String name) {
+    private void setModelDataAdapter() {
         modelExpandableListViewAdapter = new CarTypeCarModelExpandableListViewAdapter(
-                CarTypeCarBrandModelActivity.this, modelList, name);
+                CarTypeCarBrandModelActivity.this, modelList);
         modelExpandableListView.setAdapter(modelExpandableListViewAdapter);
         // 展开某组的列表
         for (int i = 0; i < modelExpandableListViewAdapter.getGroupCount(); i++) {
@@ -488,10 +487,11 @@ public class CarTypeCarBrandModelActivity extends BaseActivity implements
         public boolean onChildClick(ExpandableListView arg0, View arg1,
                                     int groupPosition, int childPosition, long arg4) {
             // TODO Auto-generated method stub
-            mResultLastId = String.valueOf(modelList.get(childPosition).getId());
-            mResultLastName = modelList.get(childPosition).getName();
-            url = modelList.get(childPosition)
+            mResultLastId = String.valueOf(modelList.get(groupPosition).getChildLine().get(childPosition).getId());
+            mResultLastName = modelList.get(groupPosition).getChildLine().get(childPosition).getName();
+            url = modelList.get(groupPosition).getChildLine().get(childPosition)
                     .getIcon();
+            pinyinNum = modelList.get(groupPosition).getName();
             commitToServer(mResultLastId);
             return true;
         }
@@ -512,12 +512,13 @@ public class CarTypeCarBrandModelActivity extends BaseActivity implements
 
                 // 按钮按下，将抽屉打开
                 mDrawerLayout.openDrawer(Gravity.RIGHT);
-                connectToServerStyle(String.valueOf(brandList.get(groupPosition)
-                        .get(childPosition).getId()));
                 mResultFirstId = String.valueOf(brandList.get(groupPosition)
                         .get(childPosition).getId());
                 mResultFirstName = brandList.get(groupPosition)
                         .get(childPosition).getName();
+
+                connectToServerStyle(String.valueOf(brandList.get(groupPosition)
+                        .get(childPosition).getId()));
                 break;
             case R.id.elv_carmodel:
                 carModelName = modelList.get(groupPosition)

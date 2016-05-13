@@ -1,28 +1,5 @@
 package com.cheweishi.android.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.cheweishi.android.R;
-import com.cheweishi.android.adapter.CarTypeCarStyleExpandableListViewAdapter;
-import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.config.API;
-import com.cheweishi.android.entity.CarType;
-import com.cheweishi.android.entity.Carobject;
-import com.cheweishi.android.entity.QueryCarModeResponse;
-import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.StringUtil;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.lidroid.xutils.view.annotation.event.OnChildClick;
-import com.lidroid.xutils.view.annotation.event.OnClick;
-import com.lidroid.xutils.view.annotation.event.OnGroupClick;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +11,20 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.cheweishi.android.R;
+import com.cheweishi.android.adapter.CarTypeCarStyleExpandableListViewAdapter;
+import com.cheweishi.android.biz.XUtilsImageLoader;
+import com.cheweishi.android.entity.QueryCarModeResponse;
+import com.cheweishi.android.utils.GsonUtil;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnChildClick;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.lidroid.xutils.view.annotation.event.OnGroupClick;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 车辆型号选择
@@ -64,7 +55,6 @@ public class CarTypeCarStyleActivity extends BaseActivity implements
 
     @Override
     protected void onDestroy() {
-        // TODO Auto-generated method stub
         super.onDestroy();
         styleList.clear();
         setContentView(R.layout.null_view);
@@ -94,10 +84,10 @@ public class CarTypeCarStyleActivity extends BaseActivity implements
         carModelName = intent.getStringExtra("carModelName");
         carModelLogo = intent.getStringExtra("url");
         pinyinNum = intent.getStringExtra("brandGroup");
-        tvBrandGroupName.setText(pinyinNum);
-        tvBrandName.setText(brandGroupName);
+        tvBrandGroupName.setText(brandGroupName);
+        tvBrandName.setText(pinyinNum);
         XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.repaire_img,
-                carLogo, API.DOWN_IMAGE_URL + carModelLogo);
+                carLogo, carModelLogo);
         tvCarStyleName.setText(carModelName);
         tvCarStyleName.setText(modelGroupName);
         styleList = getCarStyleJsonData(json);

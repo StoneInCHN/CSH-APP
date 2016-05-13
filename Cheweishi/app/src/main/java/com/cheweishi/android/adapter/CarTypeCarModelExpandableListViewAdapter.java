@@ -23,18 +23,13 @@ public class CarTypeCarModelExpandableListViewAdapter extends
 
     private Context context;
     private List<QueryCarModeResponse.MsgBean> list;
-    private QueryCarModeResponse.MsgBean carType;
 
-    private String name;
 
     public CarTypeCarModelExpandableListViewAdapter(Context context,
-                                                    List<QueryCarModeResponse.MsgBean> list, String name) {
+                                                    List<QueryCarModeResponse.MsgBean> list) {
         super();
         this.context = context;
         this.list = list;
-
-        this.name = name;
-
     }
 
     public void setDataChanged(List<QueryCarModeResponse.MsgBean> list) {
@@ -43,12 +38,12 @@ public class CarTypeCarModelExpandableListViewAdapter extends
 
     @Override
     public int getGroupCount() {
-        return list == null ? 0 : 1;
+        return list == null ? 0 : list.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return list == null ? 0 : list.size();
+        return list.get(groupPosition) == null ? 0 : list.get(groupPosition).getChildLine().size();
     }
 
     @Override
@@ -58,7 +53,7 @@ public class CarTypeCarModelExpandableListViewAdapter extends
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return list.get(childPosition);
+        return list.get(groupPosition).getChildLine().get(childPosition);
     }
 
     @Override
@@ -83,15 +78,13 @@ public class CarTypeCarModelExpandableListViewAdapter extends
                 R.layout.cartype_carbrandmodel_group_listitem, null);
         TextView groupName = (TextView) convertView
                 .findViewById(R.id.tv_groupname);
-        groupName.setText(name);
+        groupName.setText(list.get(groupPosition).getName());
         return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        Log.i("zhfy", "getChildView  groupPosition = " + groupPosition
-                + " childPosition = " + childPosition);
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(
                     R.layout.cartype_carmodel_child_listitem, null);
@@ -104,9 +97,9 @@ public class CarTypeCarModelExpandableListViewAdapter extends
             holder = (ViewHolder) convertView.getTag();
         }
 
-        carType = list.get(childPosition);
-        XUtilsImageLoader.getxUtilsImageLoader(context, R.drawable.repaire_img, holder.logo, carType.getIcon());
-        holder.name.setText(carType.getName());
+        String icon = list.get(groupPosition).getChildLine().get(childPosition).getIcon();
+        XUtilsImageLoader.getxUtilsImageLoader(context, R.drawable.repaire_img, holder.logo, icon);
+        holder.name.setText(list.get(groupPosition).getChildLine().get(childPosition).getName());
         return convertView;
     }
 

@@ -5,8 +5,8 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-    public static final String BASE_URL = "http://120.27.92.247:10001";// 基础路径
-//    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
+    //    public static final String BASE_URL = "http://120.27.92.247:10001";// 基础路径
+    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
 
@@ -39,6 +39,8 @@ public class NetInterface {
     public static final String TEMP_RECORD = "/csh-interface/illegalRecord/";//违章记录
 
     public static final String TEMP_SEARCH = "/csh-interface/aroundSearch/";//停车位和加油站
+
+    public static final String TEMP_COUPON = "/csh-interface/coupon/";//优惠券相关
 
     public static final String HEADER_ALL = BASE_URL + TEMP_URL;
 
@@ -80,7 +82,9 @@ public class NetInterface {
 
     public static final String QUERY_CAR = "getVehicleBrandByCode";// 查询车辆
 
-    public static final String QUERY_CAR_TWO = "getVehicleBrandById";//查询车辆二级/三级
+    public static final String QUERY_CAR_TWO = "getVehicleLineByBrand";//查询车辆二级
+
+    public static final String QUERY_CAR_THERE = "getVehicleBrandDetailByLine";// 三级
 
     public static final String ADD = "add";// 添加反馈
 
@@ -127,5 +131,9 @@ public class NetInterface {
     public static final String UPDATE_CACHE = "updateLoginCacheInfo";//更新登录缓存
 
     public static final String SEARCH = "keyWordSearch";//停车位+加油站
+
+    public static final String GETLISTCOUPON = "availableCoupon";//获取活动的优惠券
+
+    public static final String MYCOUPON = "myCoupon";//我的优惠券列表
 
 }

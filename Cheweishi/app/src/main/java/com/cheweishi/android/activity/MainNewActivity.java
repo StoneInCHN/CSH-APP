@@ -238,6 +238,7 @@ public class MainNewActivity extends BaseActivity {
             Map<String, Object> param = new HashMap<>();
             param.put("userId", loginResponse.getDesc());
             param.put("token", loginResponse.getToken());
+            param.put("appPlatform","ANDROID"); // TODO 暂时不加
             param.put("regId", JPushId);
             param.put("versionCode", APPTools.getVersionCode(baseContext));
             param.put(Constant.PARAMETER_TAG, NetInterface.SET_ID);

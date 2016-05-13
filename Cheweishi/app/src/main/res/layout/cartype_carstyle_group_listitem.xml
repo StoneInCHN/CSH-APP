@@ -11,6 +11,7 @@
         android:padding="@dimen/small_padding">
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_groupname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -23,6 +24,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

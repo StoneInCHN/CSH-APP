@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
+import com.cheweishi.android.entity.ActivityCouponResponse;
+import com.cheweishi.android.utils.LogHelper;
 
 import java.util.List;
 
@@ -18,13 +20,20 @@ import java.util.List;
  */
 public class CouponAdapter extends BaseAdapter {
 
-    private List<String> list;
+    private List<ActivityCouponResponse.MsgBean> list;
 
     private Context context;
 
-    public CouponAdapter(Context context, List<String> list) {
+    public CouponAdapter(Context context, List<ActivityCouponResponse.MsgBean> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void setData(List<ActivityCouponResponse.MsgBean> list) {
+        if (list.size() > 0) {
+            this.list = list;
+            this.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -43,7 +52,7 @@ public class CouponAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
 
         if (null == convertView) {
@@ -65,25 +74,40 @@ public class CouponAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        // TODO 根据不同类型加载
 
-        if (position % 2 == 0) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                holder.left.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_pink_left));
-                holder.right.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_pink_right));
-            }
-//            holder.left.setBackgroundResource(R.drawable.b_item_coupon_pink_left);
-//            holder.right.setBackgroundResource(R.drawable.b_item_coupon_pink_left);
-        } else {
+        holder.money.setText("" + list.get(position).getAmount());
+        holder.date.setText("截止时间:" + list.get(position).getOverDueTime());
+        holder.desc.setText(list.get(position).getRemark());
+        holder.number.setText("" + list.get(position).getRemainNum());
+        if (null != list.get(position).getType() && "COMMON".equals(list.get(position).getType())) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 holder.left.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_left));
                 holder.right.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_right));
             }
-//            holder.left.setBackgroundResource(R.drawable.b_item_coupon_left);
-//            holder.right.setBackgroundResource(R.drawable.b_item_coupon_left);
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                holder.left.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_pink_left));
+                holder.right.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_pink_right));
+            }
         }
 
+        if (list.get(position).isIsGet()) {
+            holder.overTime.setVisibility(View.VISIBLE);
+            holder.overTime.setImageResource(R.drawable.b_coupon_got);
+            holder.number.setVisibility(View.GONE);
+            holder.get.setVisibility(View.GONE);
+        } else {
+            holder.overTime.setVisibility(View.GONE);
+            holder.get.setVisibility(View.VISIBLE);
+            holder.number.setVisibility(View.VISIBLE);
+        }
 
+        holder.get.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogHelper.d("onClick:" + position);
+            }
+        });
         return convertView;
     }
 
