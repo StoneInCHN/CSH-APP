@@ -96,7 +96,7 @@ public class CarTypeCarBrandExpandableListViewAdapter extends
         }
         QueryCarResponse.MsgBean carType = list.get(groupPosition).get(childPosition);
         holder.carName.setText(carType.getName());
-        XUtilsImageLoader.getxUtilsImageLoader(context, R.drawable.repaire_img,
+        XUtilsImageLoader.getxUtilsImageLoader(context, R.drawable.tianjiacar_img2x,
                 holder.carLogo, carType.getIcon());
         return convertView;
     }

@@ -24,6 +24,16 @@ public class CouponAdapter extends BaseAdapter {
 
     private Context context;
 
+    private OnCouponClickListener listener;
+
+    public interface OnCouponClickListener {
+        public void onCouponClick(int id, int position);
+    }
+
+    public void setOnCouponClickListener(OnCouponClickListener listener) {
+        this.listener = listener;
+    }
+
     public CouponAdapter(Context context, List<ActivityCouponResponse.MsgBean> list) {
         this.context = context;
         this.list = list;
@@ -91,7 +101,7 @@ public class CouponAdapter extends BaseAdapter {
             }
         }
 
-        if (list.get(position).isIsGet()) {
+        if (list.get(position).isIsGet()) { // 判断是否领取
             holder.overTime.setVisibility(View.VISIBLE);
             holder.overTime.setImageResource(R.drawable.b_coupon_got);
             holder.number.setVisibility(View.GONE);
@@ -105,7 +115,9 @@ public class CouponAdapter extends BaseAdapter {
         holder.get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogHelper.d("onClick:" + position);
+                if (null != listener) {
+                    listener.onCouponClick(list.get(position).getId(), position);
+                }
             }
         });
         return convertView;

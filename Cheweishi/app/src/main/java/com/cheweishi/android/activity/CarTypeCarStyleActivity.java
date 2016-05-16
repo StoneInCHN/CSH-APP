@@ -86,7 +86,7 @@ public class CarTypeCarStyleActivity extends BaseActivity implements
         pinyinNum = intent.getStringExtra("brandGroup");
         tvBrandGroupName.setText(brandGroupName);
         tvBrandName.setText(pinyinNum);
-        XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.repaire_img,
+        XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.home_color_car,
                 carLogo, carModelLogo);
         tvCarStyleName.setText(carModelName);
         tvCarStyleName.setText(modelGroupName);

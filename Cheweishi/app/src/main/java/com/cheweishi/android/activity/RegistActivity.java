@@ -35,6 +35,7 @@ import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.entity.LoginUserInfoResponse;
+import com.cheweishi.android.entity.RegisterResponse;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
@@ -500,9 +501,10 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     @Override
     public void receive(String TAG, String data) {
         ProgrosDialog.closeProgrosDialog();
-        BaseResponse base = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+
         switch (TAG) {
             case NetInterface.SMS_TOKEN:
+                BaseResponse base = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
                 //错误的时候
                 if (!base.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(getResources().getString(R.string.code_error));
@@ -535,14 +537,25 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 
             case NetInterface.REGISTER:
 
-                if (base.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                RegisterResponse response = (RegisterResponse) GsonUtil.getInstance().convertJsonStringToObject(data, RegisterResponse.class);
+                if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast("注册成功");
                     LoginMessageUtils.setLogined(this, true);
-                    userId = base.getDesc();
+                    userId = response.getDesc();
+                    if (null != response.getMsg()) {
+                        if (response.getMsg().isIsGetCoupon()) {
+                            showImgDialog();
+                        } else {
+                            save(response.getDesc());
+                        }
+                    } else {
+                        save(response.getDesc());
+                    }
 //                    showImgDialog();
-//                    save(base.getDesc());
+
+
                 } else {
-                    showToast(base.getDesc());
+                    showToast(response.getDesc());
                 }
                 break;
 

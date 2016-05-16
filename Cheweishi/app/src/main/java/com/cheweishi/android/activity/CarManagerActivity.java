@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.cheweishi.android.adapter.CarManagerAdapter;
 import com.cheweishi.android.R;
+import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
@@ -32,6 +33,7 @@ import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.ButtonUtils;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.SwipeListView;
 import com.lidroid.xutils.ViewUtils;
@@ -73,6 +75,7 @@ public class CarManagerActivity extends BaseActivity implements
     @ViewInject(R.id.ll_no_data)
     private LinearLayout ll_no_data;
     private int itemIndex;
+    private int currentDefaultIndex;
     private MyBroadcastReceiver broad;
     public static CarManagerActivity instance;
     private String DefaultName = "";
@@ -137,7 +140,6 @@ public class CarManagerActivity extends BaseActivity implements
 
     @Override
     public void onRightItemClick(View v, int position) {
-        // TODO Auto-generated method stub
         if (ButtonUtils.isFastClick()) {
             return;
         } else {
@@ -154,10 +156,10 @@ public class CarManagerActivity extends BaseActivity implements
     @OnItemClick({R.id.listView_carManager})
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        // TODO Auto-generated method stub
+        LogHelper.d(arg2 + "----" + currentDefaultIndex);
         if (ButtonUtils.isFastClick()) {
             return;
-        } else {
+        } else if (currentDefaultIndex != arg2) {
             itemIndex = arg2;
             carManagerItem = listCarManager.get(itemIndex);
             // if ((carManagerItem.getFeed()) == 0) {
@@ -251,6 +253,14 @@ public class CarManagerActivity extends BaseActivity implements
                 }
                 listView_carManager.hiddenRight(null);
                 listView_carManager.requestLayout();
+
+                for (int i = 0; i < listCarManager.size(); i++) { // 寻找默认车辆的索引
+                    if (listCarManager.get(i).isDefault()) {
+                        currentDefaultIndex = i;
+                        setMainIcon(listCarManager.get(i).getBrandIcon());
+                        break;
+                    }
+                }
                 adapter.setData(listCarManager);
                 listView_front.setVisibility(View.INVISIBLE);
                 if (listCarManager.size() >= 3) {
@@ -270,8 +280,15 @@ public class CarManagerActivity extends BaseActivity implements
                     return;
                 }
 
+                for (int i = 0; i < listCarManager.size(); i++) {
+                    listCarManager.get(i).setDefault(false);
+                }
+                currentDefaultIndex = itemIndex;
+                listCarManager.get(itemIndex).setDefault(true);
                 // 设置主页标题
                 setTitle(baseResponse.getDesc());
+                //设置主页车辆图标
+                setMainIcon(DefaultIcon);
                 adapter.setData(listCarManager);
                 listView_front.setVisibility(View.INVISIBLE);
                 if (listCarManager.size() >= 3) {
@@ -289,13 +306,18 @@ public class CarManagerActivity extends BaseActivity implements
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
 
-
                 Intent intent = new Intent();
                 intent.setAction(Constant.REFRESH_FLAG);
                 Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
                 sendBroadcast(intent);
                 break;
         }
+    }
+
+    private void setMainIcon(String defaultIcon) {
+        XUtilsImageLoader.getxUtilsImageLoader(this,
+                R.drawable.tianjiacar_img2x, MainNewActivity.ibtn_user,
+                defaultIcon);
     }
 
     @Override
@@ -408,7 +430,7 @@ public class CarManagerActivity extends BaseActivity implements
         super.dealCallBackFromAdapter(pos, obj);
         if (ButtonUtils.isFastClick()) {
             return;
-        } else {
+        } else if (currentDefaultIndex != pos) {
 
             itemIndex = pos;
             carManagerItem = listCarManager.get(itemIndex);

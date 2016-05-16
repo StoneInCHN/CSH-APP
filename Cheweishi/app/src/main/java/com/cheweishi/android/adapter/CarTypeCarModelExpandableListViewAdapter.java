@@ -98,7 +98,7 @@ public class CarTypeCarModelExpandableListViewAdapter extends
         }
 
         String icon = list.get(groupPosition).getChildLine().get(childPosition).getIcon();
-        XUtilsImageLoader.getxUtilsImageLoader(context, R.drawable.repaire_img, holder.logo, icon);
+        XUtilsImageLoader.getxUtilsImageLoader(context, R.drawable.home_color_car, holder.logo, icon);
         holder.name.setText(list.get(groupPosition).getChildLine().get(childPosition).getName());
         return convertView;
     }

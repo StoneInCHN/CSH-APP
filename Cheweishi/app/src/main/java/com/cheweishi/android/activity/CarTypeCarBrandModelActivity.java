@@ -391,6 +391,8 @@ public class CarTypeCarBrandModelActivity extends BaseActivity implements
                     showToast(R.string.no_infoForModel);
                 }
 
+                loginResponse.setToken(carModeResponse.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }
     }

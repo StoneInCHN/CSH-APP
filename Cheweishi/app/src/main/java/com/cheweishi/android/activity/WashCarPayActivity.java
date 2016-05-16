@@ -28,6 +28,7 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.PayCouponListResponse;
 import com.cheweishi.android.entity.PreparePayResponse;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.LoginMessageUtils;
@@ -79,10 +80,10 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     private TextView tv_wash_money;
     @ViewInject(R.id.img_upacp)
     private ImageView img_upacp;
-    @ViewInject(R.id.cb_red)
-    private CheckBox cb_red;
-    @ViewInject(R.id.tv_red_hint)
-    private TextView tv_red_hint;
+//    @ViewInject(R.id.cb_red)
+//    private CheckBox cb_red;
+//    @ViewInject(R.id.tv_red_hint)
+//    private TextView tv_red_hint;
 
     @ViewInject(R.id.rl_balance)
     private RelativeLayout rl_balance;
@@ -181,30 +182,30 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             amount = StringUtil.getDouble(price);
         }
 
-//		getRedData();
+        getRedData();
 
-        cb_red.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-                balance = amount;
-                if (cb_red.isChecked()) {
-                    red_status = 0;
-                    redCompute(mRed, mMoney, mScore);
-                } else {
-                    red_status = 1;
-                    red = 0.0;
-                    // if (remainder == 0) {
-                    // balance = amount;
-                    // }else {
-                    // balance = amount - remainder;
-                    // }
-                    // tv_wash_money.setText("￥" + balance + "元");
-                    tv_red_hint.setText("使用红包抵用");
-                    redCompute(mRed, mMoney, mScore);
-                }
-            }
-        });
+//        cb_red.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//            @Override
+//            public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+//                balance = amount;
+//                if (cb_red.isChecked()) {
+//                    red_status = 0;
+//                    redCompute(mRed, mMoney, mScore);
+//                } else {
+//                    red_status = 1;
+//                    red = 0.0;
+//                    // if (remainder == 0) {
+//                    // balance = amount;
+//                    // }else {
+//                    // balance = amount - remainder;
+//                    // }
+//                    // tv_wash_money.setText("￥" + balance + "元");
+////                    tv_red_hint.setText("使用红包抵用");
+//                    redCompute(mRed, mMoney, mScore);
+//                }
+//            }
+//        });
 
         cb_balance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -309,11 +310,19 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
      */
     protected void getRedData() {
         if (isLogined()) {
-            RequestParams params = new RequestParams();
-            params.addBodyParameter("uid", loginMessage.getUid());
-            params.addBodyParameter("mobile", loginMessage.getMobile());
-            ProgrosDialog.openDialog(this);
-            httpBiz.httPostData(10008, API.CSH_QUERY_WALLET_URL, params, this);
+            if (null == service_id && !"".equals(service_id)) {
+                showToast("订单初始化失败");
+                return;
+            }
+            ProgrosDialog.openDialog(baseContext);
+            String url = NetInterface.BASE_URL + NetInterface.TEMP_COUPON + NetInterface.PAY_COUPON + NetInterface.SUFFIX;
+            Map<String, Object> param = new HashMap<>();
+            param.put("userId", loginResponse.getDesc());
+            param.put("token", loginResponse.getToken());
+            param.put("serviceId", service_id);
+            param.put(Constant.PARAMETER_TAG, NetInterface.PAY_COUPON);
+            netWorkHelper.PostJson(url, param, this);
+
         } else {
             startActivity(new Intent(WashCarPayActivity.this,
                     LoginActivity.class));
@@ -323,8 +332,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     }
 
     @OnClick({R.id.left_action, R.id.rb_alipay, R.id.rb_weixin,
-            R.id.tv_wash_affirm, R.id.ll_alipay, R.id.ll_weixin, R.id.ll_upacp,
-            R.id.cb_red})
+            R.id.tv_wash_affirm, R.id.ll_alipay, R.id.ll_weixin, R.id.ll_upacp
+    })
     private void onClick(View v) {
         switch (v.getId()) {
             case R.id.left_action:
@@ -459,7 +468,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 loginResponse.setToken(preparePayResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
-            case NetInterface.UPDATE_PAY_STATUS:
+            case NetInterface.UPDATE_PAY_STATUS://更新支付状态
                 BaseResponse response = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
                 if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(R.string.server_link_fault);
@@ -472,6 +481,21 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 finish();
                 break;
+
+            case NetInterface.PAY_COUPON: // 支付请求可用优惠券
+
+                PayCouponListResponse couponListResponse = (PayCouponListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PayCouponListResponse.class);
+                if (!couponListResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(couponListResponse.getDesc());
+                    return;
+                }
+
+
+                loginResponse.setToken(couponListResponse.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+
+                break;
+
         }
 
     }
@@ -595,7 +619,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             redCount(red);
             double temp = balance - this.red;
             balance = convert(temp);
-            tv_red_hint.setText("可使用红包抵用" + this.red + "元");
+//            tv_red_hint.setText("可使用红包抵用" + this.red + "元");
         }
         // 是否显示余额支付
         if (remainder <= 0.0) {

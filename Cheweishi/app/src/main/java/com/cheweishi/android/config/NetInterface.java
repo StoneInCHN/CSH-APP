@@ -5,8 +5,8 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-    //    public static final String BASE_URL = "http://120.27.92.247:10001";// 基础路径
-    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
+    public static final String BASE_URL = "http://120.27.92.247:10001";// 基础路径
+//    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
 
@@ -135,5 +135,9 @@ public class NetInterface {
     public static final String GETLISTCOUPON = "availableCoupon";//获取活动的优惠券
 
     public static final String MYCOUPON = "myCoupon";//我的优惠券列表
+
+    public static final String GETCOUPON = "getCoupon";//领取优惠券
+
+    public static final String PAY_COUPON = "getCouponForPay";//支付时可用优惠券列表
 
 }

@@ -128,14 +128,6 @@ public class MyCarManagerResponse extends BaseResponse implements Serializable {
             this.brandIcon = brandIcon;
         }
 
-        public boolean isIsDefault() {
-            return isDefault;
-        }
-
-        public void setIsDefault(boolean isDefault) {
-            this.isDefault = isDefault;
-        }
-
         public String getPlate() {
             return plate;
         }

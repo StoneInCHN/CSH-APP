@@ -95,7 +95,7 @@ public class MainNewActivity extends BaseActivity {
 
     @ViewInject(R.id.ibtn_user)
     // title左边按钮
-    private ImageButton ibtn_user;
+    public static ImageButton ibtn_user;
 
     @ViewInject(R.id.gv_service)
     // 服务模块gridview
@@ -238,7 +238,7 @@ public class MainNewActivity extends BaseActivity {
             Map<String, Object> param = new HashMap<>();
             param.put("userId", loginResponse.getDesc());
             param.put("token", loginResponse.getToken());
-            param.put("appPlatform","ANDROID"); // TODO 暂时不加
+            param.put("appPlatform", "ANDROID"); // TODO 暂时不加
             param.put("regId", JPushId);
             param.put("versionCode", APPTools.getVersionCode(baseContext));
             param.put(Constant.PARAMETER_TAG, NetInterface.SET_ID);
