@@ -10,9 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="@dimen/double_large_marging"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/rel_purse_balance"
@@ -25,10 +25,10 @@
                 android:id="@+id/img_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/qianbao_yue"
+                android:paddingBottom="@dimen/large_padding"
                 android:paddingLeft="@dimen/large_padding"
                 android:paddingTop="@dimen/large_padding"
-                android:paddingBottom="@dimen/large_padding" />
+                android:src="@drawable/qianbao_yue" />
 
             <ImageView
                 android:id="@+id/img_purse_balance"
@@ -45,10 +45,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_balance"
                 android:layout_alignBottom="@+id/tv_balance"
+                android:layout_marginRight="@dimen/small_padding"
                 android:layout_toLeftOf="@+id/tv_yuan"
                 android:text="-"
                 android:textColor="@color/red_background"
-                android:layout_marginRight="@dimen/small_padding"
                 android:textSize="@dimen/ttf_sixteen" />
 
             <TextView
@@ -81,9 +81,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/line_gray"
             android:layout_marginLeft="@dimen/normal_padding"
-            android:layout_marginRight="@dimen/normal_padding" />
+            android:layout_marginRight="@dimen/normal_padding"
+            android:background="@color/line_gray" />
 
         <RelativeLayout
             android:id="@+id/rel_purse_certificates"
@@ -96,10 +96,10 @@
                 android:id="@+id/img_certif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/qianbao_hogbao"
+                android:paddingBottom="@dimen/large_padding"
                 android:paddingLeft="@dimen/large_padding"
                 android:paddingTop="@dimen/large_padding"
-                android:paddingBottom="@dimen/large_padding" />
+                android:src="@drawable/qianbao_hogbao" />
 
             <ImageView
                 android:id="@+id/img_purse_certificates"
@@ -116,11 +116,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView1"
                 android:layout_alignBottom="@+id/textView1"
+                android:layout_marginRight="@dimen/small_marging"
                 android:layout_toLeftOf="@+id/textView2"
                 android:text="-"
-                android:layout_marginRight="@dimen/small_marging"
                 android:textColor="@color/red_background"
-                android:textSize="@dimen/ttf_sixteen" />
+                android:textSize="@dimen/ttf_sixteen"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -131,9 +132,9 @@
                 android:layout_alignRight="@+id/img_purse_certificates"
                 android:layout_marginRight="@dimen/xxlarge_marging"
                 android:text="个"
-                android:visibility="gone"
                 android:textColor="@color/gray_normal"
-                android:textSize="@dimen/ttf_sixteen" />
+                android:textSize="@dimen/ttf_sixteen"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/textView1"
@@ -153,9 +154,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/line_gray"
             android:layout_marginLeft="@dimen/normal_padding"
-            android:layout_marginRight="@dimen/normal_padding" />
+            android:layout_marginRight="@dimen/normal_padding"
+            android:background="@color/line_gray" />
 
         <RelativeLayout
             android:id="@+id/rel_purse_integral"
@@ -168,23 +169,23 @@
                 android:id="@+id/img_integral"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/qianbao_jifen"
+                android:paddingBottom="@dimen/large_padding"
                 android:paddingLeft="@dimen/large_padding"
                 android:paddingTop="@dimen/large_padding"
-                android:paddingBottom="@dimen/large_padding" />
+                android:src="@drawable/qianbao_jifen" />
 
             <TextView
                 android:id="@+id/tv_integral"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/img_integral"
                 android:layout_centerVertical="true"
-                android:textSize="@dimen/ttf_sixteen"
-                android:paddingTop="@dimen/large_padding"
+                android:layout_toRightOf="@id/img_integral"
                 android:paddingBottom="@dimen/large_padding"
                 android:paddingLeft="@dimen/small_padding"
+                android:paddingTop="@dimen/large_padding"
+                android:text="@string/purse_integral"
                 android:textColor="@color/gray_normal"
-                android:text="@string/purse_integral" />
+                android:textSize="@dimen/ttf_sixteen" />
 
             <ImageView
                 android:id="@+id/img_purse_integral"
@@ -213,9 +214,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_integral"
                 android:layout_alignBottom="@+id/tv_integral"
+                android:layout_marginRight="@dimen/small_marging"
                 android:layout_toLeftOf="@+id/tv_fen"
                 android:text="-"
-                android:layout_marginRight="@dimen/small_marging"
                 android:textColor="@color/red_background"
                 android:textSize="@dimen/ttf_sixteen" />
 
@@ -224,9 +225,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/line_gray"
             android:layout_marginLeft="@dimen/normal_padding"
-            android:layout_marginRight="@dimen/normal_padding" />
+            android:layout_marginRight="@dimen/normal_padding"
+            android:background="@color/line_gray" />
 
         <RelativeLayout
             android:id="@+id/rel_purse_phone"
@@ -241,11 +242,11 @@
                 android:id="@+id/img_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/qianbao_dianhua"
-                android:paddingLeft="@dimen/large_padding"
-                android:paddingTop="@dimen/large_padding"
                 android:paddingBottom="@dimen/large_padding"
-                android:paddingRight="@dimen/small_padding" />
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/small_padding"
+                android:paddingTop="@dimen/large_padding"
+                android:src="@drawable/qianbao_dianhua" />
 
             <ImageView
                 android:id="@+id/img_purse_phone"
@@ -262,11 +263,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_phone"
                 android:layout_alignBottom="@+id/tv_phone"
-                android:layout_toLeftOf="@+id/tv_phone_yuan"
                 android:layout_marginRight="@dimen/small_marging"
+                android:layout_toLeftOf="@+id/tv_phone_yuan"
                 android:textColor="@color/red_background"
-                android:visibility="invisible"
-                android:textSize="@dimen/ttf_sixteen" />
+                android:textSize="@dimen/ttf_sixteen"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/tv_phone_yuan"
@@ -276,9 +277,9 @@
                 android:layout_alignBottom="@+id/tv_purse_fee_balance"
                 android:layout_alignRight="@+id/img_purse_phone"
                 android:layout_marginRight="@dimen/xxlarge_marging"
-                android:visibility="invisible"
                 android:textColor="@color/gray_normal"
-                android:textSize="@dimen/ttf_sixteen" />
+                android:textSize="@dimen/ttf_sixteen"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/tv_phone"
@@ -298,9 +299,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/line_gray"
             android:layout_marginLeft="@dimen/normal_padding"
-            android:layout_marginRight="@dimen/normal_padding" />
+            android:layout_marginRight="@dimen/normal_padding"
+            android:background="@color/line_gray" />
 
     </LinearLayout>
 </LinearLayout>
