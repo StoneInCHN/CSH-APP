@@ -98,9 +98,16 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
                     lv_qr_code_car_list.setAdapter(adapter);
                     lv_qr_code_car_list.setOnItemClickListener(this);
                 } else {
-                    EmptyTools.setEmptyView(this, lv_qr_code_car_list);
+                    EmptyTools.setEmptyView(this, lv_qr_code_car_list, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(baseContext, AddCarActivity.class);
+                            intent.putExtra("isNeedBingd", false);
+                            startActivityForResult(intent, 0x5555);
+                        }
+                    });
                     EmptyTools.setImg(R.drawable.mycar_icon);
-                    EmptyTools.setMessage("您还没有添加车辆");
+                    EmptyTools.setMessage("您还没有添加车辆,点击图标添加车辆");
                 }
 
                 loginResponse.setToken(response.getToken());
@@ -150,6 +157,15 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
             case R.id.left_action:
                 QRCodeResultActivity.this.finish();
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (0x5555 == resultCode) {
+            if (RESULT_OK == resultCode) {
+                getCarData(); // 更新界面
+            }
         }
     }
 }

@@ -189,12 +189,15 @@ public class AddCarActivity extends BaseActivity {
     @ViewInject(R.id.img_vin_desc)
     private ImageView img_vin_desc;
 
+    private boolean isNeedBingd = true;
+
     // private DateTimeSelectorDialog dateDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
         ViewUtils.inject(this);
+        isNeedBingd = getIntent().getBooleanExtra("isNeedBingd", true);
         handler = new AddHandler(this);
         initViews();
         setListeners();
@@ -864,30 +867,34 @@ public class AddCarActivity extends BaseActivity {
 //        Intent mIntent = new Intent();
 //        mIntent.setAction(Constant.REFRESH_FLAG);
 //        sendBroadcast(mIntent);
-        if (carManagerTemp == null) {
-            Intent intent = new Intent(AddCarActivity.this,
-                    AddDeviceActivity.class);
-            intent.putExtra("cid", response.getDesc());
-            startActivity(intent);
-
-        } else {
-            if (StringUtil.isEmpty(carManagerTemp.getDeviceNo())) {
-                Intent intent = new Intent(AddCarActivity.this,
-                        AddDeviceActivity.class);
-                intent.putExtra(
-                        "cid", response.getDesc());
-                startActivity(intent);
-            }
-        }
 
 
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-        finish();
+        if (isNeedBingd) {
+            if (carManagerTemp == null) {
+                Intent intent = new Intent(AddCarActivity.this,
+                        AddDeviceActivity.class);
+                intent.putExtra("cid", response.getDesc());
+                startActivity(intent);
+
+            } else {
+                if (StringUtil.isEmpty(carManagerTemp.getDeviceNo())) {
+                    Intent intent = new Intent(AddCarActivity.this,
+                            AddDeviceActivity.class);
+                    intent.putExtra(
+                            "cid", response.getDesc());
+                    startActivity(intent);
+                }
+            }
+            finish();
+        } else {
+            setResult(RESULT_OK, null);
+            finish();
+        }
 
 
     }
-
 
 
     @Override

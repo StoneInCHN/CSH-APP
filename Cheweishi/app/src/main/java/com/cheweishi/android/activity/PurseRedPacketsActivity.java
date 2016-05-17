@@ -17,12 +17,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
+import com.cheweishi.android.adapter.CouponAdapter;
+import com.cheweishi.android.adapter.MyCouponAdapter;
 import com.cheweishi.android.adapter.RedPacketsDetailsAdapter;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.ActivityCouponResponse;
+import com.cheweishi.android.entity.MyCouponResponse;
 import com.cheweishi.android.entity.RedPacketsInfo;
 import com.cheweishi.android.entity.ChargeResponse;
+import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
@@ -71,15 +76,17 @@ public class PurseRedPacketsActivity extends BaseActivity implements
 
     private boolean isNet = false;
 
+
+    private List<MyCouponResponse.MsgBean> list;
+
+    private MyCouponAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purse_integtal);
         ViewUtils.inject(this);
         init();
-
-        // info();
-//        getData();
     }
 
     private void init() {
@@ -87,30 +94,38 @@ public class PurseRedPacketsActivity extends BaseActivity implements
         left_action.setText(R.string.back);
 
         mListView.setOnRefreshListener(this);
-        mListView.setMode(Mode.DISABLED);
+        mListView.setMode(Mode.PULL_FROM_START);
 
-        mList = new ArrayList<ChargeResponse.MsgBean>();
-        for (int i = 0; i < 10; i++) {
-            ChargeResponse.MsgBean msgBean = new ChargeResponse.MsgBean();
-            msgBean.setRemark("1111");
-            msgBean.setRedPacket(10);
-            mList.add(msgBean);
-        }
-        redPacketsAdapter = new RedPacketsDetailsAdapter(
-                PurseRedPacketsActivity.this, mList);
-        mListView.setAdapter(redPacketsAdapter);
+        list = new ArrayList<>();
+        adapter = new MyCouponAdapter(baseContext, list);
+        mListView.setAdapter(adapter);
+        getData();
 
 
-        amount = getIntent().getStringExtra("redPacket");
-        if (!StringUtil.isEmpty(amount)) {
-            tv_red_purse.setText(amount);
-        } else {
-            double money = 0;
-            for (int i = 0; i < mList.size(); i++) {
-                money += mList.get(i).getMoney();
-            }
-            tv_red_purse.setText("￥" + money);
-        }
+//        mList = new ArrayList<ChargeResponse.MsgBean>();
+//        for (int i = 0; i < 10; i++) {
+//            ChargeResponse.MsgBean msgBean = new ChargeResponse.MsgBean();
+//            msgBean.setRemark("1111");
+//            msgBean.setRedPacket(10);
+//            mList.add(msgBean);
+//        }
+//        redPacketsAdapter = new RedPacketsDetailsAdapter(
+//                PurseRedPacketsActivity.this, mList);
+//        mListView.setAdapter(redPacketsAdapter);
+//
+//
+//        amount = getIntent().getStringExtra("redPacket");
+//        if (!StringUtil.isEmpty(amount)) {
+//            tv_red_purse.setText(amount);
+//        } else {
+//            double money = 0;
+//            for (int i = 0; i < mList.size(); i++) {
+//                money += mList.get(i).getMoney();
+//            }
+//            tv_red_purse.setText("￥" + money);
+//        }
+
+
     }
 
     @OnClick({R.id.left_action, R.id.title})
@@ -130,12 +145,10 @@ public class PurseRedPacketsActivity extends BaseActivity implements
      */
     private void getData() {
         if (isLogined()) {
-            String url = NetInterface.BASE_URL + NetInterface.TEMP_USER_BALANCE + NetInterface.WALLET_RECORD + NetInterface.SUFFIX;
+            String url = NetInterface.BASE_URL + NetInterface.TEMP_COUPON + NetInterface.MYCOUPON + NetInterface.SUFFIX;
             Map<String, Object> param = new HashMap<>();
             param.put("userId", loginResponse.getDesc());
             param.put("token", loginResponse.getToken());
-            param.put("walletType", "REDPACKET"); //  红包
-            param.put("walletId", getIntent().getIntExtra("walletId", 1));
             param.put("pageSize", 5);
             param.put("pageNumber", page);
             netWorkHelper.PostJson(url, param, this);
@@ -147,24 +160,32 @@ public class PurseRedPacketsActivity extends BaseActivity implements
         mListView.onRefreshComplete();
         ProgrosDialog.closeProgrosDialog();
 
-        ChargeResponse response = (ChargeResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ChargeResponse.class);
+        MyCouponResponse response = (MyCouponResponse) GsonUtil.getInstance().convertJsonStringToObject(data, MyCouponResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
             return;
         }
 
-        mList = response.getMsg();
-
-//        mList = new ArrayList<ChargeResponse.MsgBean>();//response.getMsg();
-//        for (int i = 0;i<10;i++){
-//            ChargeResponse.MsgBean msgBean = new ChargeResponse.MsgBean();
-//            msgBean.setMoney(33.33);
-//            msgBean.setRedPacket(55);
-//            msgBean.setRemark("测试咯");
-//            msgBean.setCreateDate(System.currentTimeMillis());
-//            mList.add(msgBean);
-//        }
-        showData();
+        if (null != response.getMsg()) {
+            List<MyCouponResponse.MsgBean> temp = response.getMsg();
+            list.addAll(temp);
+            if (0 < list.size()) {
+                if (response.getPage().getTotal() < list.size()) {
+                    mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                }
+                adapter.setData(list);
+            } else {
+                EmptyTools.setEmptyView(baseContext, mListView);
+                EmptyTools.setImg(R.drawable.dingdanwu_icon);
+                EmptyTools.setMessage("您还没有优惠券,赶快去领取吧");
+                mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+            }
+        } else {
+            EmptyTools.setEmptyView(baseContext, mListView);
+            EmptyTools.setImg(R.drawable.dingdanwu_icon);
+            EmptyTools.setMessage("您还没有优惠券,赶快去领取吧");
+            mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        }
 
 
         loginResponse.setToken(response.getToken());
@@ -178,81 +199,22 @@ public class PurseRedPacketsActivity extends BaseActivity implements
     public void error(String errorMsg) {
         mListView.onRefreshComplete();
         ProgrosDialog.closeProgrosDialog();
-
+        showToast(R.string.server_link_fault);
     }
 
-    @Override
-    public void receive(int type, String data) {
-        super.receive(type, data);
-        mListView.onRefreshComplete();
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case 1008:
-                parseJSONData(data);
-                break;
-        }
-    }
-
-    /**
-     * 解析数据
-     */
-    private void parseJSONData(String data) {
-        if (StringUtil.isEmpty(data)) {
-            showToast(R.string.FAIL);
-            return;
-        }
-
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            if (StringUtil.isEquals(API.returnSuccess,
-                    jsonObject.optString("state"), true)) {
-
-                JSONObject object = jsonObject.optJSONObject("data");
-                amount = object.optString("");
-                JSONArray array = object.optJSONArray("list");
-                RedPacketsInfo info = null;
-                JSONObject infoObject = null;
-                for (int i = 0; i < array.length(); i++) {
-                    infoObject = array.optJSONObject(i);
-                    info = new RedPacketsInfo();
-                    info.setId(infoObject.optInt("id"));
-                    info.setAdd_time(infoObject.optString("add_time"));
-                    info.setAdmin(infoObject.optString("admin"));
-                    info.setCode(infoObject.optString("code"));
-                    info.setEffect(infoObject.optString("effect"));
-                    info.setMoney(infoObject.optDouble("money"));
-                    info.setStatus(infoObject.optString("status"));
-                    info.setType(infoObject.optInt("type"));
-//					mList.add(info);
-                }
-                showData();
-
-            } else if (StringUtil.isEquals(API.returnRelogin,
-                    jsonObject.optString("state"), true)) {
-                ReLoginDialog.getInstance(this).showDialog(
-                        jsonObject.optString("message"));
-            } else {
-                showToast(jsonObject.optString("message"));
-            }
-//			redPacketsAdapter.setlist(mList);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     /**
      * 显示数据
      */
     private void showData() {
-        if (!StringUtil.isEmpty(mList)) {
-            redPacketsAdapter.setlist(mList);
+        if (!StringUtil.isEmpty(list)) {
+            adapter.setData(list);
         }
     }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-        mList.clear();
+        list.clear();
         page = 1;
         getData();
     }

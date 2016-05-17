@@ -220,25 +220,29 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             mViewChild.tv_item_child_discount_showOrNot.setVisibility(View.GONE);
         } else {
 
-            if (0 == washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice()) {
-                mViewChild.tv_item_child_discount_showOrNot
-                        .setVisibility(View.GONE);
-                mViewChild.tv_discount_price_remind.setVisibility(View.VISIBLE);
-                mViewChild.tv_original_price.setVisibility(View.VISIBLE);
+            if (0 != washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice()) {
+                mViewChild.tv_discount_price_remind.setVisibility(View.VISIBLE); // "优惠价"
+                mViewChild.tv_discount_price.setVisibility(View.VISIBLE); // 优惠价
+                mViewChild.tv_original_price.setVisibility(View.GONE); // 原价
                 mViewChild.tv_discount_price.setText("￥"
                         + washCar.get(groupPosition).getSubServices().get(childPosition)
-                        .getPrice());
+                        .getPromotionPrice());
+//                mViewChild.tv_original_price.setText("￥"
+//                        + washCar.get(groupPosition).getSubServices().get(childPosition).getPrice());
+            } else {
+                mViewChild.tv_discount_price_remind.setVisibility(View.GONE); // "优惠价"
+                mViewChild.tv_discount_price.setVisibility(View.GONE); // 优惠价
+                mViewChild.tv_original_price.setVisibility(View.VISIBLE); // 原价
+
                 mViewChild.tv_original_price.setText("￥"
                         + washCar.get(groupPosition).getSubServices().get(childPosition).getPrice());
-            } else {
-                mViewChild.tv_discount_price.setText("￥"
-                        + washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice());
-                mViewChild.tv_item_child_discount_showOrNot
-                        .setVisibility(View.GONE);
-                mViewChild.tv_discount_price_remind.setVisibility(View.VISIBLE);
-                mViewChild.tv_original_price.setVisibility(View.VISIBLE);
+//                mViewChild.tv_original_price.setVisibility(View.GONE);
+//                mViewChild.tv_discount_price_remind.setVisibility(View.GONE);
             }
         }
+
+        // 会员红包一直隐藏
+        mViewChild.tv_item_child_discount_showOrNot.setVisibility(View.GONE);
         return convertView;
     }
 
