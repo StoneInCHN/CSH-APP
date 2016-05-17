@@ -30,7 +30,7 @@ public class CarDynamicResponse extends BaseResponse {
     }
 
     public static class MsgBean {
-        private double lon;
+        private double lng;
         private String averageOil;
         private String speed;
         private int azimuth;
@@ -39,12 +39,12 @@ public class CarDynamicResponse extends BaseResponse {
         private String acc;
         private double lat;
 
-        public double getLon() {
-            return lon;
+        public double getLng() {
+            return lng;
         }
 
-        public void setLon(double lon) {
-            this.lon = lon;
+        public void setLng(double lng) {
+            this.lng = lng;
         }
 
         public String getAverageOil() {

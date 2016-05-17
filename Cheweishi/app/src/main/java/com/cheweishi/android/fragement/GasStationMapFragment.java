@@ -1057,7 +1057,7 @@ public class GasStationMapFragment extends BaseFragment implements
                 }
 
                 if (null != carDynamicResponse.getMsg())
-                    isLatlng(carDynamicResponse.getMsg().getLat(), carDynamicResponse.getMsg().getLon());
+                    isLatlng(carDynamicResponse.getMsg().getLat(), carDynamicResponse.getMsg().getLng());
                 else
                     showToast(R.string.gain_car_address_error);
                 loginResponse.setToken(carDynamicResponse.getToken());

@@ -280,9 +280,9 @@ public class CarDynamicActivity extends BaseActivity {
             SharePreferenceTools.setLatDynamic(CarDynamicActivity.this,
                     (float) response.getMsg().getLat());
             SharePreferenceTools.setLngDynamic(CarDynamicActivity.this,
-                    (float) response.getMsg().getLon());
+                    (float) response.getMsg().getLng());
             carLatLng = new LatLng(response.getMsg().getLat(),
-                    response.getMsg().getLon());
+                    response.getMsg().getLng());
 
             latlngs.add(carLatLng);
 
