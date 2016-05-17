@@ -128,10 +128,12 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         loginResponse.getMsg().setDefaultDeviceNo(tv_car_device.getText().toString());
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-        this.finish();
 
-//        showImgDialog();
+        showImgDialog();
     }
+
+
+    private boolean isExit = false;
 
     private void showImgDialog() {
         imgBuilder = new ImgDialog.Builder(this);
@@ -140,6 +142,7 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        isExit = true;
                         AddDeviceActivity.this.finish();
                     }
                 });
@@ -148,6 +151,14 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         imgDialog.setCanceledOnTouchOutside(false);
 
         imgDialog.show();
+        imgDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (!isExit) {
+                    AddDeviceActivity.this.finish();
+                }
+            }
+        });
     }
 
     @Override

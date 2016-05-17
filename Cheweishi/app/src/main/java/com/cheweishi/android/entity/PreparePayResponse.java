@@ -34,6 +34,15 @@ public class PreparePayResponse extends BaseResponse {
         private String sign;
         private String type;
         private String channel;
+        private boolean isNeedPay;
+
+        public boolean isNeedPay() {
+            return isNeedPay;
+        }
+
+        public void setNeedPay(boolean needPay) {
+            isNeedPay = needPay;
+        }
 
         public String getPrepay_id() {
             return prepay_id;

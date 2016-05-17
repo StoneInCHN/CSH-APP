@@ -171,15 +171,15 @@ public class OrderDetailsActivity extends BaseActivity implements
             tv_order_car.setText(loginResponse.getMsg().getDefaultVehicle());
         }
 
-        if (!StringUtil.isEmpty(getIntent().getBundleExtra("bundle"))) {// 生成订单
-            Bundle bundle = getIntent().getBundleExtra("bundle");
-            store_id = bundle.getString("store_id");
-            goods_id = bundle.getString("goods_id");
-            price = bundle.getString("price");
-            flag = true;
-        } else {// 订单详情
-            flag = false;
-        }
+//        if (!StringUtil.isEmpty(getIntent().getBundleExtra("bundle"))) {// 生成订单
+//            Bundle bundle = getIntent().getBundleExtra("bundle");
+//            store_id = bundle.getString("store_id");
+//            goods_id = bundle.getString("goods_id");
+//            price = bundle.getString("price");
+//            flag = true;
+//        } else {// 订单详情
+//            flag = false;
+//        }
 
         connectToServer();
     }
@@ -244,7 +244,6 @@ public class OrderDetailsActivity extends BaseActivity implements
         if (null != recordId) {
             ProgrosDialog.openDialog(this);
             String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER + NetInterface.ORDER_DETIAL + NetInterface.SUFFIX;
-            LogHelper.d("url" + url);
             Map<String, Object> param = new HashMap<>();
             param.put("userId", loginResponse.getDesc());
             param.put("token", loginResponse.getToken());
@@ -472,6 +471,52 @@ public class OrderDetailsActivity extends BaseActivity implements
         tv_order_class.setText(res_str);
     }
 
+    /**
+     * 预约
+     *
+     * @param res_str
+     */
+    private void orange_img_order(String res_str) {
+        img_order.setImageResource(R.drawable.yuyuezhong2x);
+        tv_order_class.setText(res_str);
+    }
+
+    private void orange_img_order(int res_str) {
+        img_order.setImageResource(R.drawable.yuyuezhong2x);
+        tv_order_class.setText(res_str);
+    }
+
+    /**
+     * 订单过期
+     *
+     * @param res
+     */
+    private void over_img_order(String res) {
+        img_order.setImageResource(R.drawable.dingdan_guoqi2x);
+        tv_order_class.setText(res);
+    }
+
+    private void over_img_order(int res) {
+        img_order.setImageResource(R.drawable.dingdan_guoqi2x);
+        tv_order_class.setText(res);
+    }
+
+    /**
+     * 订单已用
+     *
+     * @param res
+     */
+    private void success_img_order(String res) {
+        img_order.setImageResource(R.drawable.dingdan_yiyong2x);
+        tv_order_class.setText(res);
+    }
+
+
+    private void success_img_order(int res) {
+        img_order.setImageResource(R.drawable.dingdan_yiyong2x);
+        tv_order_class.setText(res);
+    }
+
     private void progress_pay_statue(String str) {
         if (null == str) {
             str = getIntent().getStringExtra("chargeStatus");
@@ -502,7 +547,7 @@ public class OrderDetailsActivity extends BaseActivity implements
                     img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang2x);
                     tv_yuyue.setText("预约下单");
                     tv_daodian.setText("到店服务");
-                    green_img_order(R.string.order_win);
+                    orange_img_order(R.string.order_win);
                     tv_daodian.setTextColor(getResources().getColor(R.color.gray));
                     tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
                     tv_time1_second.setText("");
@@ -548,7 +593,7 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_ok.setTextColor(getResources().getColor(R.color.order_dr));
                     tv_yuyue.setText("预约成功");
                     tv_daodian.setText("完成服务");
-                    green_img_order(R.string.order_paid);
+                    success_img_order(R.string.order_paid);
                     tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
                     tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
                     tv_time1_second.setVisibility(View.VISIBLE);
@@ -601,7 +646,7 @@ public class OrderDetailsActivity extends BaseActivity implements
                     rel_daodian.setVisibility(View.GONE);
                     tv_order_detail_yy_line.setVisibility(View.GONE);
                     tv_line_left.setVisibility(View.GONE);
-                    green_img_order(R.string.order_paid);
+                    success_img_order(R.string.order_paid);
                     // 展示图标
                     img_ok.setImageResource(R.drawable.dingdanxiangqing_pay1);
                     tv_ok.setTextColor(getResources().getColor(R.color.order_dr));

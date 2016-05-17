@@ -51,6 +51,16 @@ public class PayCouponListResponse extends BaseResponse {
         private CouponBean coupon;
         private int id;
 
+        private boolean isCheck;
+
+        public boolean isCheck() {
+            return isCheck;
+        }
+
+        public void setCheck(boolean check) {
+            isCheck = check;
+        }
+
         public String getOverDueTime() {
             return overDueTime;
         }

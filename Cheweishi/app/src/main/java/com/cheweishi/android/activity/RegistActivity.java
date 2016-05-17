@@ -539,7 +539,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 
                 RegisterResponse response = (RegisterResponse) GsonUtil.getInstance().convertJsonStringToObject(data, RegisterResponse.class);
                 if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-                    showToast("注册成功");
                     LoginMessageUtils.setLogined(this, true);
                     userId = response.getDesc();
                     if (null != response.getMsg()) {
@@ -562,6 +561,8 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    private boolean isExit = false;
+
     private void showImgDialog() {
         imgBuilder = new ImgDialog.Builder(this);
         imgBuilder.setshowCoupon(true);
@@ -569,6 +570,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         save(userId);
+                        isExit = true;
                         dialog.dismiss();
                     }
                 });
@@ -577,6 +579,14 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
         imgDialog.setCanceledOnTouchOutside(false);
 
         imgDialog.show();
+        imgDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (!isExit) {
+                    save(userId);
+                }
+            }
+        });
     }
 
     @Override

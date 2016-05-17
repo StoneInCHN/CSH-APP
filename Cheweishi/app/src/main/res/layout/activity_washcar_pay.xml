@@ -142,7 +142,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="10dp"
-                            android:text="72小时"
+                            android:text="24小时"
                             android:textSize="@dimen/ttf_sixteen" />
                     </LinearLayout>
 
@@ -160,7 +160,7 @@
                     android:layout_marginTop="@dimen/xlarge_marging"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -223,14 +223,6 @@
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/dian22x" />
 
-                            <RadioButton
-                                android:id="@+id/rb_alipay"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:button="@null"
-                                android:checked="true"
-                                android:drawableRight="@drawable/radio_button_check"
-                                android:visibility="gone" />
                         </LinearLayout>
 
                         <TextView
@@ -286,14 +278,6 @@
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/dian12x" />
 
-                            <RadioButton
-                                android:id="@+id/rb_weixin"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:button="@null"
-                                android:checked="false"
-                                android:drawableRight="@drawable/radio_button_check"
-                                android:visibility="gone" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -342,14 +326,6 @@
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/dian12x" />
 
-                            <RadioButton
-                                android:id="@+id/rb_upacp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:button="@null"
-                                android:checked="false"
-                                android:drawableRight="@drawable/radio_button_check"
-                                android:visibility="gone" />
                         </LinearLayout>
                     </RadioGroup>
                 </LinearLayout>
@@ -366,16 +342,34 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:orientation="horizontal"
                         android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/tv_red_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/purse_coupon"
+                            android:textColor="@color/red" />
+
+                        <CheckBox
+                            android:id="@+id/cb_red"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:button="@drawable/check"
+                            android:checked="false"
+                            android:padding="10dp" />
 
                         <com.cheweishi.android.widget.UnSlidingListView
                             android:id="@+id/unlist_washcar_pay"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_red_hint"
                             android:cacheColorHint="#00000000"
                             android:listSelector="#00000000"
-                            android:scrollbars="none" />
+                            android:scrollbars="none"
+                            android:visibility="gone" />
                     </RelativeLayout>
 
                     <RelativeLayout

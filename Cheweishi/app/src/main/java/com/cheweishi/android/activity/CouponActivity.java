@@ -107,7 +107,8 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
                 if (0 == list.size()) {
                     EmptyTools.setEmptyView(baseContext, pullListView);
                     EmptyTools.setImg(R.drawable.dingdanwu_icon);
-                    EmptyTools.setMessage("您还没有优惠券");
+                    EmptyTools.setMessage("当前暂时没有优惠券活动");
+                    pullListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                 } else {
                     total = list.size();
                     adapter.setData(list);
