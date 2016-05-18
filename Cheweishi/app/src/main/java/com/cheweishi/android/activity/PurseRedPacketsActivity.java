@@ -9,8 +9,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -46,7 +48,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
  * @author XMh
  */
 public class PurseRedPacketsActivity extends BaseActivity implements
-        OnRefreshListener2<ListView> {
+        OnRefreshListener2<ListView>, AdapterView.OnItemClickListener {
 
     private static final int TELEPHONE_CODE = 0;
     @ViewInject(R.id.left_action)
@@ -99,6 +101,7 @@ public class PurseRedPacketsActivity extends BaseActivity implements
         list = new ArrayList<>();
         adapter = new MyCouponAdapter(baseContext, list);
         mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(this);
         getData();
 
 
@@ -223,5 +226,12 @@ public class PurseRedPacketsActivity extends BaseActivity implements
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
         page++;
         getData();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(baseContext, CouponDetailActivity.class);
+        intent.putExtra("COUPON_DETAIL", list.get(position).getCoupon().getRemark());
+        startActivity(intent);
     }
 }

@@ -1,7 +1,9 @@
 package com.cheweishi.android.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +34,7 @@ import java.util.Map;
  * Created by tangce on 5/11/2016.
  */
 @ContentView(R.layout.activity_coupon)
-public class CouponActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener2<ListView>, CouponAdapter.OnCouponClickListener {
+public class CouponActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener2<ListView>, CouponAdapter.OnCouponClickListener, AdapterView.OnItemClickListener {
 
     @ViewInject(R.id.pl_list)
     private PullToRefreshListView pullListView;
@@ -70,6 +72,7 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
         pullListView.setAdapter(adapter);
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
         pullListView.setOnRefreshListener(this);
+        pullListView.setOnItemClickListener(this);
         getServerData();
     }
 
@@ -184,5 +187,12 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
         param.put("couponId", id);
         param.put(Constant.PARAMETER_TAG, NetInterface.GETCOUPON);
         netWorkHelper.PostJson(url, param, this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(baseContext, CouponDetailActivity.class);
+        intent.putExtra("COUPON_DETAIL", list.get(position).getRemark());
+        startActivity(intent);
     }
 }

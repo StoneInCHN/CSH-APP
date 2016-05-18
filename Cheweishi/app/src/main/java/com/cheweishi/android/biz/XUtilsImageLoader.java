@@ -10,6 +10,10 @@ import com.cheweishi.android.utils.LogHelper;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.BitmapCommonUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -29,12 +33,15 @@ public class XUtilsImageLoader {
     protected static BitmapUtils mBitmapUtils;
     // 加载图片设置信息
     protected static BitmapDisplayConfig bigPicDisplayConfig;
+    private static Picasso picasso;
 
     /**
      * @param context
      * @param resid   0为默认图片
      */
     private XUtilsImageLoader(Context context, int resid) {
+        picasso = Picasso.with(context);
+//        picasso.setDebugging(true);
     }
 
     private XUtilsImageLoader(Context context) {
@@ -152,7 +159,8 @@ public class XUtilsImageLoader {
 
         mImageLoader = getInstance(context, resid);
 //        LogHelper.d("loadimg:" + NetInterface.IMG_URL + uri);
-        Picasso.with(context)
+//        Picasso.with(context)
+        picasso
                 .load(NetInterface.IMG_URL + uri)
                 .placeholder(resid)
                 .error(resid)

@@ -87,16 +87,18 @@ public class MyCouponAdapter extends BaseAdapter {
 
         holder.money.setText("" + list.get(position).getCoupon().getAmount());
         holder.date.setText("截止时间:" + list.get(position).getOverDueTime());
-        holder.desc.setText(list.get(position).getCoupon().getRemark());
+//        holder.desc.setText(list.get(position).getCoupon().getRemark());
         if (null != list.get(position).getCoupon().getType() && "COMMON".equals(list.get(position).getCoupon().getType())) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 holder.left.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_left));
                 holder.right.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_right));
+                holder.desc.setText("全场通用优惠劵");
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 holder.left.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_pink_left));
                 holder.right.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_pink_right));
+                holder.desc.setText("指定优惠劵");
             }
         }
 

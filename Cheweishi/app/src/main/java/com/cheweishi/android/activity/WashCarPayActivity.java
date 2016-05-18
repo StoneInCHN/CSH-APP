@@ -664,6 +664,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
 
     private void updatePacket() {
+        if (CHANNEL_WECHAT.equals(channel))
+            return;
         if (null == recordId && "".equals(recordId)) {
             showToast("更新订单状态失败");
             return;
