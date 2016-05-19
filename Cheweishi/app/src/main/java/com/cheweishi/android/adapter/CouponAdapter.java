@@ -78,17 +78,16 @@ public class CouponAdapter extends BaseAdapter {
             holder.get = (TextView) convertView.findViewById(R.id.tv_coupon_get);
             holder.left = (LinearLayout) convertView.findViewById(R.id.ll_coupon_left);
             holder.right = (LinearLayout) convertView.findViewById(R.id.ll_coupon_right);
-
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
 
-        holder.money.setText("" + list.get(position).getAmount());
+        holder.money.setText(list.get(position).getAmount() + "元");
         holder.date.setText("截止时间:" + list.get(position).getOverDueTime());
 //        holder.desc.setText(list.get(position).getRemark()); // TODO 不显示remark
-        holder.number.setText("" + list.get(position).getRemainNum());
+
         if (null != list.get(position).getType() && "COMMON".equals(list.get(position).getType())) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 holder.left.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_left));
@@ -103,17 +102,26 @@ public class CouponAdapter extends BaseAdapter {
             }
         }
 
+        int numberCoupon = list.get(position).getRemainNum();
+
         if (list.get(position).isIsGet()) { // 判断是否领取
             holder.overTime.setVisibility(View.VISIBLE);
             holder.overTime.setImageResource(R.drawable.b_coupon_got);
             holder.number.setVisibility(View.GONE);
             holder.get.setVisibility(View.GONE);
-        } else {
-            holder.overTime.setVisibility(View.GONE);
-            holder.get.setVisibility(View.VISIBLE);
-            holder.number.setVisibility(View.VISIBLE);
+        } else { // 没有被领取
+            if (0 == numberCoupon) { // 判断是否抢光
+                holder.overTime.setVisibility(View.VISIBLE);
+                holder.overTime.setImageResource(R.drawable.b_coupon_no_one);
+                holder.number.setVisibility(View.GONE);
+                holder.get.setVisibility(View.GONE);
+            } else {
+                holder.overTime.setVisibility(View.GONE);
+                holder.get.setVisibility(View.VISIBLE);
+                holder.number.setVisibility(View.VISIBLE);
+                holder.number.setText(numberCoupon);
+            }
         }
-
         holder.get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +130,7 @@ public class CouponAdapter extends BaseAdapter {
                 }
             }
         });
+
         return convertView;
     }
 

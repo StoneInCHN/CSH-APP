@@ -149,7 +149,7 @@ public class PayUtils {
                                 }
                             } else {
                                 // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                                Toast.makeText(activity, "支付失败", Toast.LENGTH_SHORT)
+                                Toast.makeText(activity, "支付失败,错误代码:" + resultStatus, Toast.LENGTH_SHORT)
                                         .show();
                                 if (null != listener) {
                                     listener.onPayFail();

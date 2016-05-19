@@ -231,7 +231,7 @@ public class PurseRedPacketsActivity extends BaseActivity implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(baseContext, CouponDetailActivity.class);
-        intent.putExtra("COUPON_DETAIL", list.get(position).getCoupon().getRemark());
+        intent.putExtra("COUPON_DETAIL", list.get(position - 1).getCoupon().getRemark());
         startActivity(intent);
     }
 }

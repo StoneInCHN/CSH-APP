@@ -89,15 +89,15 @@ public class NetWorkHelper {
             public void onResponse(JSONObject jsonObject) {
 
                 // TODO 超时情况
-//                if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && -1 != url.indexOf("login")) {
-//                    Intent intent = new Intent(context, LoginActivity.class);
-//                    intent.putExtra(Constant.AUTO_LOGIN, true);
-//                    context.startActivity(intent);
-//                    ((BaseActivity) context).finish();
-//                    ((BaseActivity) context).overridePendingTransition(R.anim.score_business_query_enter,
-//                            R.anim.score_business_query_exit);
-//                    return;
-//                }
+                if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && !url.contains("login")) {
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    intent.putExtra(Constant.AUTO_LOGIN, true);
+                    context.startActivity(intent);
+                    ((BaseActivity) context).finish();
+                    ((BaseActivity) context).overridePendingTransition(R.anim.score_business_query_enter,
+                            R.anim.score_business_query_exit);
+                    return;
+                }
 
                 LogHelper.d("request url:" + url + "\n" + params + "\n" + jsonObject.toString());
                 if (null == jsonCallback)

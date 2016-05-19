@@ -192,7 +192,7 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(baseContext, CouponDetailActivity.class);
-        intent.putExtra("COUPON_DETAIL", list.get(position).getRemark());
+        intent.putExtra("COUPON_DETAIL", list.get(position - 1).getRemark());
         startActivity(intent);
     }
 }
