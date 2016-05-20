@@ -421,7 +421,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                         payUtils = new PayUtils();
                         payUtils.setOutTradeNo(out_trade_no); // 设置订单号
                         payUtils.setPayListener(this);
-                        payUtils.pay(WashCarPayActivity.this, tv_pay_name.getText() + "", tv_pay_service_name.getText() + "", Double.valueOf(price));
+                        payUtils.pay(WashCarPayActivity.this, tv_pay_name.getText() + "", tv_pay_service_name.getText() + "", amount);
 //                        payUtils.pay(WashCarPayActivity.this, tv_pay_name.getText() + "", tv_pay_service_name.getText() + "", 0.01);
                         break;
                     case CHANNEL_WECHAT:// 微信
@@ -694,6 +694,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     }
 
     private double calcMoney(double couponMoney) {
+        amount = Double.valueOf(price);
         amount = (amount - couponMoney) < 0 ? 0 : (amount - couponMoney);
         return amount;
     }
