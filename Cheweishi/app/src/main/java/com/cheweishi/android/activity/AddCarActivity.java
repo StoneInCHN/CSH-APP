@@ -399,16 +399,11 @@ public class AddCarActivity extends BaseActivity {
 
 
             String pro = MyMapUtils.getProvince(AddCarActivity.this);
-            boolean falg = false;
             for (int i = 0; i < longPro.length; i++) {
                 if (pro.contains(longPro[i])) {
-                    falg = true;
                     bt_province.setText(shortPro[i]);
                     break;
                 }
-            }
-            if (falg == false) {
-                bt_province.setText("渝");
             }
             bt_char.setText("A");
             tv_color_flag.setBackgroundResource(R.color.red);
