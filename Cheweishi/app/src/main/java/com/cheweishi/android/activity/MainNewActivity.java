@@ -857,6 +857,8 @@ public class MainNewActivity extends BaseActivity {
                             MipcaActivityCapture.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                } else {
+                    showToast("请为该应用添加打开相机权限");
                 }
                 break;
             case R.id.btn_my_wallet:// 我的钱包

@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Window;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cheweishi.android.R;
@@ -30,6 +31,8 @@ import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.StringUtil;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.umeng.analytics.MobclickAgent;
 
@@ -60,6 +63,17 @@ public abstract class BaseActivity extends FragmentActivity implements
     public static List<LoginResponse> loginResponses;
     public static Context baseContext;
     protected NetWorkHelper netWorkHelper;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (0x471 == msg.what) {
+                PullToRefreshBase<ListView> pullToRefreshListView = (PullToRefreshBase<ListView>) msg.obj;
+                pullToRefreshListView.onRefreshComplete();
+                pullToRefreshListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+            }
+        }
+    };
 
     /**
      * Activity的回调函数。当application进入前台时，该函数会被自动调用。
@@ -519,6 +533,13 @@ public abstract class BaseActivity extends FragmentActivity implements
             loginResponse.setToken(token);
             LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         }
+    }
+
+    public void onRefreshOver(PullToRefreshBase<ListView> refreshView) {
+        Message msg = Message.obtain();
+        msg.what = 0x471;
+        msg.obj = refreshView;
+        handler.sendMessage(msg);
     }
 
 }

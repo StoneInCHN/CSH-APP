@@ -2,6 +2,8 @@ package com.cheweishi.android.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -169,7 +171,7 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
         if (null != list && list.size() >= total) {
             showToast("没有更多了");
-            pullListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+            onRefreshOver(refreshView);
             return;
         }
         page++;

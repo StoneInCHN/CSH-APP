@@ -103,7 +103,7 @@ public class MyCouponAdapter extends BaseAdapter {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 holder.left.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_pink_left));
                 holder.right.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_pink_right));
-                holder.desc.setText("指定优惠劵");
+                holder.desc.setText("特殊优惠劵");
             }
         }
 
