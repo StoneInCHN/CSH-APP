@@ -78,7 +78,7 @@ public class ActivityCouponResponse extends BaseResponse{
     public static class MsgBean {
         private boolean isGet;
         private int amount;
-        private String overDueTime;
+        private String deadlineTime;
         private int remainNum;
         private String remark;
         private String type;
@@ -100,12 +100,20 @@ public class ActivityCouponResponse extends BaseResponse{
             this.amount = amount;
         }
 
-        public String getOverDueTime() {
-            return overDueTime;
+        public boolean isGet() {
+            return isGet;
         }
 
-        public void setOverDueTime(String overDueTime) {
-            this.overDueTime = overDueTime;
+        public void setGet(boolean get) {
+            isGet = get;
+        }
+
+        public String getDeadlineTime() {
+            return deadlineTime;
+        }
+
+        public void setDeadlineTime(String deadlineTime) {
+            this.deadlineTime = deadlineTime;
         }
 
         public int getRemainNum() {

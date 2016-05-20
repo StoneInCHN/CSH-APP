@@ -90,7 +90,7 @@ public class UseCouponAdapter extends BaseAdapter {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 holder.left.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_pink_left));
                 holder.right.setBackground(context.getResources().getDrawable(R.drawable.b_item_coupon_pink_right));
-                holder.type.setText("商家优惠券");
+                holder.type.setText("特殊优惠券");
             }
         }
 
@@ -111,6 +111,8 @@ public class UseCouponAdapter extends BaseAdapter {
     }
 
     private void setCheck(int p) {
+        if (p == getCheckCouponPosition())
+            return;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).isCheck())
                 list.get(i).setCheck(false);

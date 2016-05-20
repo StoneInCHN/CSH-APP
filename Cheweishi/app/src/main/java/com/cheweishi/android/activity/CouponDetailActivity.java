@@ -30,6 +30,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
     private void init() {
         tv_coupon_detail = (TextView) findViewById(R.id.tv_coupon_detail);
         left_action = (Button) findViewById(R.id.left_action);
+        left_action.setText("返回");
         title = (TextView) findViewById(R.id.title);
         left_action.setOnClickListener(this);
         title.setText("优惠券详情");

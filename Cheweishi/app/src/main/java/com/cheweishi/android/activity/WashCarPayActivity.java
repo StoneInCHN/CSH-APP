@@ -410,6 +410,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
                 // 优惠券抵用完了,直接更新了.
                 if (null != preparePayResponse.getMsg() && !preparePayResponse.getMsg().isNeedPay()) {
+                    loginResponse.setToken(preparePayResponse.getToken());
+                    LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                     updatePacket();
                     return;
                 }
@@ -444,10 +446,9 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                     return;
                 }
 
-                if (CHANNEL_WALLET.equals(channel)) {
-                    showToast("支付成功");
-                    paymentDone();
-                }
+                // TODO 已经判断过是否为微信支付.
+                showToast("支付成功");
+                paymentDone();
                 loginResponse.setToken(response.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 finish();
@@ -482,7 +483,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     public void error(String errorMsg) {
         ProgrosDialog.closeProgrosDialog();
         tv_wash_affirm.setClickable(true);
-
+        showToast(R.string.server_link_fault);
     }
 
 
@@ -664,8 +665,9 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
 
     private void updatePacket() {
-        if (CHANNEL_WECHAT.equals(channel))
-            return;
+        if (CHANNEL_WECHAT.equals(channel)) // 微信支付的情况下,
+            if (0 == red_status && 0 < amount)
+                return;
         if (null == recordId && "".equals(recordId)) {
             showToast("更新订单状态失败");
             return;

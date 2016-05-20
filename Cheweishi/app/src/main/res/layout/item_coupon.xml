@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:text="100"
-            android:textColor="@color/gray_backgroud"
+            android:textColor="@color/gray_backgroud_test"
             android:textSize="35sp"
             android:textStyle="bold" />
 

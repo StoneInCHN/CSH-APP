@@ -85,7 +85,11 @@ public class CouponAdapter extends BaseAdapter {
 
 
         holder.money.setText(list.get(position).getAmount() + "元");
-        holder.date.setText("截止时间:" + list.get(position).getOverDueTime());
+        String tempTime = list.get(position).getDeadlineTime();
+        if (null != tempTime)
+            holder.date.setText("截止时间:" + list.get(position).getDeadlineTime());
+        else
+            holder.date.setText("截止时间:");
 //        holder.desc.setText(list.get(position).getRemark()); // TODO 不显示remark
 
         if (null != list.get(position).getType() && "COMMON".equals(list.get(position).getType())) {
@@ -119,7 +123,7 @@ public class CouponAdapter extends BaseAdapter {
                 holder.overTime.setVisibility(View.GONE);
                 holder.get.setVisibility(View.VISIBLE);
                 holder.number.setVisibility(View.VISIBLE);
-                holder.number.setText(numberCoupon);
+                holder.number.setText(numberCoupon + "");
             }
         }
         holder.get.setOnClickListener(new View.OnClickListener() {
