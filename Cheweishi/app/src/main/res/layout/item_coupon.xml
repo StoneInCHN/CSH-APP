@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:text="100"
-            android:textColor="@color/gray_backgroud_test"
+            android:textColor="@color/gray_backgroud"
             android:textSize="35sp"
             android:textStyle="bold" />
 
@@ -64,19 +64,39 @@
             android:src="@drawable/b_coupon_got"
             android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/tv_coupon_number"
+        <LinearLayout
+            android:id="@+id/ll_item_coupon_number"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="88"
-            android:textColor="@color/gray_backgroud"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="还剩:"
+                android:textColor="@color/gray_backgroud" />
+
+            <TextView
+                android:id="@+id/tv_coupon_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="88"
+                android:textColor="@color/gray_backgroud"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个"
+                android:textColor="@color/gray_backgroud" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_coupon_get"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:background="@drawable/coupon_background"
             android:gravity="center"
             android:paddingBottom="2dp"

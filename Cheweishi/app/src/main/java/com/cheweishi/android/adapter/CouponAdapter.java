@@ -78,6 +78,7 @@ public class CouponAdapter extends BaseAdapter {
             holder.get = (TextView) convertView.findViewById(R.id.tv_coupon_get);
             holder.left = (LinearLayout) convertView.findViewById(R.id.ll_coupon_left);
             holder.right = (LinearLayout) convertView.findViewById(R.id.ll_coupon_right);
+            holder.totalnumber = (LinearLayout) convertView.findViewById(R.id.ll_item_coupon_number);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -111,18 +112,18 @@ public class CouponAdapter extends BaseAdapter {
         if (list.get(position).isIsGet()) { // 判断是否领取
             holder.overTime.setVisibility(View.VISIBLE);
             holder.overTime.setImageResource(R.drawable.b_coupon_got);
-            holder.number.setVisibility(View.GONE);
+            holder.totalnumber.setVisibility(View.GONE);
             holder.get.setVisibility(View.GONE);
         } else { // 没有被领取
             if (0 == numberCoupon) { // 判断是否抢光
                 holder.overTime.setVisibility(View.VISIBLE);
                 holder.overTime.setImageResource(R.drawable.b_coupon_no_one);
-                holder.number.setVisibility(View.GONE);
+                holder.totalnumber.setVisibility(View.GONE);
                 holder.get.setVisibility(View.GONE);
             } else {
                 holder.overTime.setVisibility(View.GONE);
                 holder.get.setVisibility(View.VISIBLE);
-                holder.number.setVisibility(View.VISIBLE);
+                holder.totalnumber.setVisibility(View.VISIBLE);
                 holder.number.setText(numberCoupon + "");
             }
         }
@@ -147,5 +148,6 @@ public class CouponAdapter extends BaseAdapter {
         private TextView get;
         private LinearLayout left;
         private LinearLayout right;
+        private LinearLayout totalnumber;
     }
 }

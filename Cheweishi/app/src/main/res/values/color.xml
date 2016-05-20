@@ -3,7 +3,6 @@
 
     <!-- app主体背景色 -->
     <color name="gray_backgroud">#f5f5f5</color>
-    <color name="gray_backgroud_test">#ffffffff</color>
     <!-- 各个基色 -->
     <color name="reside_bj">#1c2e42</color>
     <color name="red">#fe6270</color>

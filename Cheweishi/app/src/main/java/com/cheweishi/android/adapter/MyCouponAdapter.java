@@ -78,6 +78,7 @@ public class MyCouponAdapter extends BaseAdapter {
             holder.get = (TextView) convertView.findViewById(R.id.tv_coupon_get);
             holder.left = (LinearLayout) convertView.findViewById(R.id.ll_coupon_left);
             holder.right = (LinearLayout) convertView.findViewById(R.id.ll_coupon_right);
+            holder.totalnumber = (LinearLayout) convertView.findViewById(R.id.ll_item_coupon_number);
 
             convertView.setTag(holder);
         } else {
@@ -109,24 +110,24 @@ public class MyCouponAdapter extends BaseAdapter {
         if (list.get(position).isIsUsed()) { // 判断是否使用
             holder.overTime.setVisibility(View.VISIBLE);
             holder.overTime.setImageResource(R.drawable.b_item_clicked);// TODO 需要图片
-            holder.number.setVisibility(View.GONE);
+            holder.totalnumber.setVisibility(View.GONE);
             holder.get.setVisibility(View.GONE);
         } else {
             holder.overTime.setVisibility(View.VISIBLE);
             holder.overTime.setImageResource(R.drawable.b_coupon_got);
-            holder.number.setVisibility(View.GONE);
+            holder.totalnumber.setVisibility(View.GONE);
             holder.get.setVisibility(View.GONE);
         }
 
         if (list.get(position).isIsOverDue()) { // 判断是否过期
             holder.overTime.setVisibility(View.VISIBLE);
             holder.overTime.setImageResource(R.drawable.b_item_clicked);// TODO 需要图片
-            holder.number.setVisibility(View.GONE);
+            holder.totalnumber.setVisibility(View.GONE);
             holder.get.setVisibility(View.GONE);
         } else {
             holder.overTime.setVisibility(View.VISIBLE);
             holder.overTime.setImageResource(R.drawable.b_coupon_got);
-            holder.number.setVisibility(View.GONE);
+            holder.totalnumber.setVisibility(View.GONE);
             holder.get.setVisibility(View.GONE);
         }
 
@@ -142,5 +143,6 @@ public class MyCouponAdapter extends BaseAdapter {
         private TextView get;
         private LinearLayout left;
         private LinearLayout right;
+        private LinearLayout totalnumber;
     }
 }
