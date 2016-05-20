@@ -764,9 +764,11 @@
     <string name="add_used_oilChoose">请选择惯用油类型</string>
     <string name="add_annualSurvey">下次年检时间</string>
     <string name="add_trafficSurvey">交强险到期时间</string>
+    <string name="add_trafficSurvey_new">交保险到期时间</string>
     <string name="add_businessSurvey">商业险到期时间</string>
     <string name="add_annualSurveyChoose">选择下次年检时间</string>
     <string name="add_trafficSurveyChoose">选择交强险时间</string>
+    <string name="add_trafficSurveyChoose_new">选择交保险时间</string>
     <string name="add_businessSurveyChoose">选择商业险时间</string>
     <!-- 车辆管理 -->
     <string name="list">列表</string>

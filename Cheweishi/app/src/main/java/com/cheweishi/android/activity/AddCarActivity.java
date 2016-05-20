@@ -46,6 +46,7 @@ import com.cheweishi.android.tools.RegularExpressionTools;
 import com.cheweishi.android.tools.ReturnBackDialogRemindTools;
 import com.cheweishi.android.utils.CommonUtils;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
@@ -323,10 +324,10 @@ public class AddCarActivity extends BaseActivity {
                 }
 
 
-                // TODO 商业保险
-                if (!StringUtil.isEmpty(carManagerTemp.getCommercialInsuranceExpiration())) {
-                    tv_businessSurvey.setText(carManagerTemp.getCommercialInsuranceExpiration());
-                }
+                // TODO 商业保险 , 2016-5-20 16:03:22 不再展示
+//                if (!StringUtil.isEmpty(carManagerTemp.getCommercialInsuranceExpiration())) {
+//                    tv_businessSurvey.setText(carManagerTemp.getCommercialInsuranceExpiration());
+//                }
 
                 // TODO 里程
                 if (!StringUtil.isEmpty(carManagerTemp.getDriveMileage())) {
@@ -394,7 +395,7 @@ public class AddCarActivity extends BaseActivity {
             String dateStr = sp.format(date);
             tv_annualSurvey.setText(dateStr);
             tv_trafficSurvey.setText(dateStr);
-            tv_businessSurvey.setText(dateStr);
+//            tv_businessSurvey.setText(dateStr);
 
             String pro = MyMapUtils.getProvince(AddCarActivity.this);
             boolean falg = false;
@@ -405,10 +406,8 @@ public class AddCarActivity extends BaseActivity {
                     break;
                 }
             }
-            if (falg == true) {
+            if (falg == false) {
                 bt_province.setText("渝");
-            } else {
-                bt_province.setText(R.string.choose);
             }
             bt_char.setText("A");
             tv_color_flag.setBackgroundResource(R.color.red);
@@ -832,7 +831,8 @@ public class AddCarActivity extends BaseActivity {
                 param.put("plateNo", carPlate);
                 param.put("vehicleNo", tv_car_vin.getText().toString());
                 param.put("trafficInsuranceExpiration", tv_trafficSurvey.getText());
-                param.put("commercialInsuranceExpiration", tv_businessSurvey.getText());
+                // TODO 不需要了
+//                param.put("commercialInsuranceExpiration", tv_businessSurvey.getText());
                 param.put("nextAnnualInspection", tv_annualSurvey.getText());
                 param.put("driveMileage", Long.parseLong(tv_car_mile.getText().toString()));
                 param.put("lastMaintainMileage", Long.parseLong(tv_last_keepFit.getText().toString()));
