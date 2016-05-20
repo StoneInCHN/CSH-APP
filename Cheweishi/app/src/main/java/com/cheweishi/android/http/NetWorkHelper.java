@@ -89,7 +89,7 @@ public class NetWorkHelper {
             public void onResponse(JSONObject jsonObject) {
 
                 // TODO 超时情况
-                if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && !url.contains("login") && !url.contains("list")) {
+                if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && !url.contains("login") &&  !url.contains("tenantInfo/list")) {
                     Intent intent = new Intent(context, LoginActivity.class);
                     intent.putExtra(Constant.AUTO_LOGIN, true);
                     context.startActivity(intent);

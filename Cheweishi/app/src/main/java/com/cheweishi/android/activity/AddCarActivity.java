@@ -397,6 +397,7 @@ public class AddCarActivity extends BaseActivity {
             tv_trafficSurvey.setText(dateStr);
 //            tv_businessSurvey.setText(dateStr);
 
+
             String pro = MyMapUtils.getProvince(AddCarActivity.this);
             boolean falg = false;
             for (int i = 0; i < longPro.length; i++) {
