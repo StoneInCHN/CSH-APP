@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cheweishi.android.cheweishi">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.cheweishi.android">
 
     <!--<uses-sdk-->
     <!--android:minSdkVersion="11"-->
@@ -38,7 +39,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission
+        android:name="android.permission.ACCESS_MOCK_LOCATION"
+        tools:ignore="MockLocation" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- 读取联系人权限 -->
@@ -228,8 +231,13 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="37ada1a7a6d7a3b77cde69b8" />
-        <!-- 极光推送end -->
+
+
+            android:value="eb1ec435f9a7e7305c51621a" />
+        <!-- 极光推送end --><!--566a1897831b41d075ba7760-->
+
+        <!--苏:eb1ec435f9a7e7305c51621a-->
+        <!--原:37ada1a7a6d7a3b77cde69b8-->
 
 
         <!-- 友盟推送 -->
@@ -593,7 +601,7 @@
             android:name="com.cheweishi.android.activity.AddCarActivity"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.cheweishi.android.activity.CarTypeCarBrandModelActivity"
             android:screenOrientation="portrait"
@@ -1121,7 +1129,8 @@
             android:name="com.cheweishi.android.activity.InsuranceActivity"
             android:label="@string/title_activity_insurance"
             android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
+            android:theme="@style/myAnimationNoTileBar"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name="com.cheweishi.android.activity.InsuranceInformationUploadActivity"
             android:label="@string/title_activity_insurance_information_upload"
@@ -1277,6 +1286,24 @@
 
         <!--美容-->
         <activity android:name="com.cheweishi.android.activity.BeautyDetailsActivity" />
+
+        <!--违章详情-->
+        <activity android:name="com.cheweishi.android.activity.PessanySearchDetailActivity" />
+
+        <!--保养列表-->
+        <activity android:name="com.cheweishi.android.activity.MaintainListActivity_new" />
+
+        <!--美容列表-->
+        <activity android:name=".activity.BeautyListActivity_new" />
+
+        <!--服务详情-->
+        <activity android:name=".activity.ServiceDetailActivity" />
+
+        <!--活动优惠券-->
+        <activity android:name=".activity.CouponActivity" />
+
+        <!--优惠券详细列表-->
+        <activity android:name=".activity.CouponDetailActivity" />
     </application>
 
 </manifest>

@@ -98,11 +98,11 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
             case NetInterface.GETLISTCOUPON:
 
                 ActivityCouponResponse couponResponse = (ActivityCouponResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ActivityCouponResponse.class);
+
                 if (!couponResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(couponResponse.getDesc());
                     return;
                 }
-
 
                 List<ActivityCouponResponse.MsgBean> temp = couponResponse.getMsg();
 

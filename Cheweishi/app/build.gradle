@@ -8,8 +8,8 @@ android {
         applicationId "com.cheweishi.android"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 57
-        versionName "3.2.7"
+        versionCode 60
+        versionName "3.3.0"
     }
     buildTypes {
         release {

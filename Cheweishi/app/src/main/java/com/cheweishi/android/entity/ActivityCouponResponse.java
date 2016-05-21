@@ -11,20 +11,20 @@ public class ActivityCouponResponse extends BaseResponse{
 
 
     /**
-     * total : 3
+     * pageSize : 10
+     * total : 10
      * pageNumber : 1
-     * pageSize : 5
      */
 
     private PageBean page;
     /**
+     * id : 5
+     * remainNum : 0
+     * overDueTime : null
+     * amount : 10
      * isGet : false
-     * amount : 34
-     * overDueTime : 2016-05-14
-     * remainNum : 100
-     * remark : 租户服务红包
      * type : COMMON
-     * id : 1
+     * remark : Gggg
      */
 
     private List<MsgBean> msg;
@@ -46,9 +46,17 @@ public class ActivityCouponResponse extends BaseResponse{
     }
 
     public static class PageBean {
+        private int pageSize;
         private int total;
         private int pageNumber;
-        private int pageSize;
+
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
+        }
 
         public int getTotal() {
             return total;
@@ -65,55 +73,23 @@ public class ActivityCouponResponse extends BaseResponse{
         public void setPageNumber(int pageNumber) {
             this.pageNumber = pageNumber;
         }
-
-        public int getPageSize() {
-            return pageSize;
-        }
-
-        public void setPageSize(int pageSize) {
-            this.pageSize = pageSize;
-        }
     }
 
     public static class MsgBean {
-        private boolean isGet;
-        private int amount;
-        private String deadlineTime;
-        private int remainNum;
-        private String remark;
-        private String type;
         private int id;
+        private int remainNum;
+        private String deadlineTime;
+        private double amount;
+        private boolean isGet;
+        private String type;
+        private String remark;
 
-        public boolean isIsGet() {
-            return isGet;
+        public int getId() {
+            return id;
         }
 
-        public void setIsGet(boolean isGet) {
-            this.isGet = isGet;
-        }
-
-        public int getAmount() {
-            return amount;
-        }
-
-        public void setAmount(int amount) {
-            this.amount = amount;
-        }
-
-        public boolean isGet() {
-            return isGet;
-        }
-
-        public void setGet(boolean get) {
-            isGet = get;
-        }
-
-        public String getDeadlineTime() {
-            return deadlineTime;
-        }
-
-        public void setDeadlineTime(String deadlineTime) {
-            this.deadlineTime = deadlineTime;
+        public void setId(int id) {
+            this.id = id;
         }
 
         public int getRemainNum() {
@@ -124,12 +100,36 @@ public class ActivityCouponResponse extends BaseResponse{
             this.remainNum = remainNum;
         }
 
-        public String getRemark() {
-            return remark;
+        public String getDeadlineTime() {
+            return deadlineTime;
         }
 
-        public void setRemark(String remark) {
-            this.remark = remark;
+        public void setDeadlineTime(String deadlineTime) {
+            this.deadlineTime = deadlineTime;
+        }
+
+        public boolean isGet() {
+            return isGet;
+        }
+
+        public void setGet(boolean get) {
+            isGet = get;
+        }
+
+        public double getAmount() {
+            return amount;
+        }
+
+        public void setAmount(double amount) {
+            this.amount = amount;
+        }
+
+        public boolean isIsGet() {
+            return isGet;
+        }
+
+        public void setIsGet(boolean isGet) {
+            this.isGet = isGet;
         }
 
         public String getType() {
@@ -140,12 +140,12 @@ public class ActivityCouponResponse extends BaseResponse{
             this.type = type;
         }
 
-        public int getId() {
-            return id;
+        public String getRemark() {
+            return remark;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public void setRemark(String remark) {
+            this.remark = remark;
         }
     }
 }
