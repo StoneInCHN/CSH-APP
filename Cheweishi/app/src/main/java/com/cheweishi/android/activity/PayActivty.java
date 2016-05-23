@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -28,6 +29,7 @@ import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ChargePayResponse;
+import com.cheweishi.android.entity.DevicePriceResponse;
 import com.cheweishi.android.entity.PreparePayResponse;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.LoginMessageUtils;
@@ -76,6 +78,12 @@ public class PayActivty extends BaseActivity implements OnClickListener,
     private RadioButton rb_weixin;
     @ViewInject(R.id.money_rg)
     private RadioGroup money_rg;
+    @ViewInject(R.id.ll_pay_choice_normal)
+    private LinearLayout ll_pay_choice_normal;
+    @ViewInject(R.id.ll_pay_choice_device)
+    private LinearLayout ll_pay_choice_device;
+    @ViewInject(R.id.tv_pay_choice_device_price)
+    private TextView tv_pay_choice_device_price;
 //	@ViewInject(R.id.ll_alipay)
 //	private LinearLayout ll_alipay;
 //	@ViewInject(R.id.ll_weixin)
@@ -85,6 +93,8 @@ public class PayActivty extends BaseActivity implements OnClickListener,
     private float testMoney = 0.01f;
     private String payment_type = "zfb";// 默认支付方式
     private MyBroadcastReceiver broad;
+
+    private boolean buy_type;// 购买类型, true: 购买设备
 
     /**
      * 银联支付渠道
@@ -126,7 +136,24 @@ public class PayActivty extends BaseActivity implements OnClickListener,
 //		left_action.setOnClickListener(this);
 //		btn_pay.setOnClickListener(this);
         money_rg.setOnCheckedChangeListener(this);
+        buy_type = getIntent().getBooleanExtra("PAY_TYPE", false);
 
+        if (buy_type) {
+            ll_pay_choice_normal.setVisibility(View.GONE);
+            ll_pay_choice_device.setVisibility(View.VISIBLE);
+            initDevicePrice();
+        }
+
+    }
+
+    private void initDevicePrice() {
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_USER_BALANCE + NetInterface.GET_DEVICE_PRICE + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put(Constant.PARAMETER_TAG, NetInterface.GET_DEVICE_PRICE);
+        netWorkHelper.PostJson(url, param, this);
     }
 
     @Override
@@ -403,6 +430,21 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 loginResponse.setToken(baseResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 finish();
+                break;
+
+            case NetInterface.GET_DEVICE_PRICE: // 获取设备价格
+                DevicePriceResponse priceResponse = (DevicePriceResponse) GsonUtil.getInstance().convertJsonStringToObject(data, DevicePriceResponse.class);
+                if (!priceResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(priceResponse.getDesc());
+                    return;
+                }
+
+                if (null != priceResponse.getMsg()) {
+                    tv_pay_choice_device_price.setText(priceResponse.getMsg().getDevicePrice() + "");
+                }
+
+                loginResponse.setToken(priceResponse.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }
     }
