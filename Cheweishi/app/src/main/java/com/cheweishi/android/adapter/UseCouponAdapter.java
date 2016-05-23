@@ -77,7 +77,7 @@ public class UseCouponAdapter extends BaseAdapter {
         }
 
 
-        holder.money.setText(list.get(position).getCoupon().getAmount() + "元");
+        holder.money.setText((int) list.get(position).getCoupon().getAmount() + "元");
 //        holder.desc.setText(list.get(position).getCoupon().getRemark());
         // 根据类型展示不同的背景
         if (null != list.get(position).getCoupon().getType() && "COMMON".equals(list.get(position).getCoupon().getType())) {
@@ -113,8 +113,13 @@ public class UseCouponAdapter extends BaseAdapter {
     }
 
     private void setCheck(int p) {
-        if (p == getCheckCouponPosition())
+        if (p == getCheckCouponPosition()) {
+            list.get(p).setCheck(false);
+            notifyDataSetChanged();
+            if (null != listener)
+                listener.onCheckCoupon(-1);
             return;
+        }
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).isCheck())
                 list.get(i).setCheck(false);

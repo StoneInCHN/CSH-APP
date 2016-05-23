@@ -685,6 +685,13 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
     @Override
     public void onCheckCoupon(int position) {
+        if (-1 == position) {
+            tv_red_hint.setText("使用优惠券抵扣:￥0元");
+            tv_wash_pay_num.setText("￥" + Double.valueOf(price) + "元");
+            tv_wash_money.setText("￥" + Double.valueOf(price) + "元");
+            return;
+        }
+
         double couponMoney = couponListResponse.getMsg().get(position).getCoupon().getAmount();
         tv_red_hint.setText("使用优惠券抵扣:" + "￥" + (couponMoney > Double.valueOf(price) ? Double.valueOf(price) : couponMoney) + "元");
         double tempPrice = calcMoney(couponMoney);
