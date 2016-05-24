@@ -55,7 +55,7 @@ public class PurseBalanceActivity extends BaseActivity implements
     @ViewInject(R.id.title)
     private TextView title;
     @ViewInject(R.id.ll_purse_balance_pay)
-    private LinearLayout ley_top_up;
+    private LinearLayout ll_purse_balance_pay;
     @ViewInject(R.id.ll_purse_balance_device)
     private LinearLayout ll_purse_balance_device;
     @ViewInject(R.id.xcRoundImg)
@@ -114,13 +114,13 @@ public class PurseBalanceActivity extends BaseActivity implements
         request();
     }
 
-    @OnClick({R.id.left_action, R.id.title, R.id.ley_top_up})
+    @OnClick({R.id.left_action, R.id.title, R.id.ll_purse_balance_pay})
     private void onClick(View v) {
         switch (v.getId()) {
             case R.id.left_action:// 返回
                 PurseBalanceActivity.this.finish();
                 break;
-            case R.id.ley_top_up:
+            case R.id.ll_purse_balance_pay:
                 intent = new Intent(PurseBalanceActivity.this, PayActivty.class);
                 startActivity(intent);
                 break;
