@@ -20,6 +20,7 @@ import com.cheweishi.android.activity.LoginActivity;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.utils.LogHelper;
 
 import org.json.JSONObject;
@@ -71,9 +72,10 @@ public class NetWorkHelper {
     public void PostJson(final String url, final Map<String, Object> params, final JSONCallback jsonCallback) {
 
         if (!NetworkUtils.isNetworkAvailable(context) && null != jsonCallback) {
-            jsonCallback.error("当前没有网络...");
+            jsonCallback.error("当前网络不可用");
             Toast.makeText(context.getApplicationContext(),
-                    "当前网络不可用", Toast.LENGTH_SHORT);
+                    "当前网络不可用", Toast.LENGTH_SHORT).show();
+            ProgrosDialog.closeProgrosDialog();
             return;
         }
 
@@ -89,7 +91,7 @@ public class NetWorkHelper {
             public void onResponse(JSONObject jsonObject) {
 
                 // TODO 超时情况
-                if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && !url.contains("login") &&  !url.contains("tenantInfo/list")) {
+                if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && !url.contains("login") && !url.contains("tenantInfo/list")) {
                     Intent intent = new Intent(context, LoginActivity.class);
                     intent.putExtra(Constant.AUTO_LOGIN, true);
                     context.startActivity(intent);
