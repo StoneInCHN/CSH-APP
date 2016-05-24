@@ -1495,7 +1495,8 @@
     <string name="purse_balance">话费余额(元)</string>
     <string name="purse_balance_detail">余额明细</string>
     <string name="purse_phone_detail">话费明细</string>
-    <string name="purse_top_up">充值</string>
+    <string name="purse_top_up">充值余额</string>
+    <string name="purse_top_device">购买设备</string>
 
     <!-- 洗车支付页面 -->
     <string name="wash_pay">支付</string>

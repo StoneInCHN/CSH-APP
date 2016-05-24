@@ -248,102 +248,140 @@
         android:layout_marginLeft="@dimen/normal_padding"
         android:background="@color/line_gray" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/normal_marging"
-        android:layout_marginLeft="@dimen/normal_marging"
-        android:text="@string/pay_money"
-        android:textColor="@color/text_black_colcor"
-        android:textSize="@dimen/item_content_size" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="@dimen/normal_marging"
-        android:layout_marginLeft="@dimen/normal_padding"
-        android:background="@color/line_gray"
-        android:paddingBottom="@dimen/small_padding"
-        android:paddingTop="@dimen/small_padding" />
-
-    <RadioGroup
-        android:id="@+id/money_rg"
+    <LinearLayout
+        android:id="@+id/ll_pay_choice_normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/normal_marging"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/rb_money_100"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/normal_marging"
+            android:layout_marginLeft="@dimen/normal_marging"
+            android:text="@string/pay_money"
+            android:textColor="@color/text_black_colcor"
+            android:textSize="@dimen/item_content_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/normal_marging"
+            android:layout_marginLeft="@dimen/normal_padding"
+            android:background="@color/line_gray"
+            android:paddingBottom="@dimen/small_padding"
+            android:paddingTop="@dimen/small_padding" />
+
+        <RadioGroup
+            android:id="@+id/money_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/normal_marging"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_money_100"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/normal_marging"
+                android:layout_weight="1"
+                android:background="@drawable/pay_money_selector"
+                android:button="@null"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/normal_padding"
+                android:paddingLeft="@dimen/small_padding"
+                android:paddingRight="@dimen/small_padding"
+                android:paddingTop="@dimen/normal_padding"
+                android:text="@string/pay_200"
+                android:textColor="@color/text_color_white_blue"
+                android:textSize="@dimen/text_size_small" />
+
+            <RadioButton
+                android:id="@+id/rb_money_300"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/normal_marging"
+                android:layout_weight="1"
+                android:background="@drawable/pay_money_selector"
+                android:button="@null"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/normal_padding"
+                android:paddingLeft="@dimen/small_padding"
+                android:paddingRight="@dimen/small_padding"
+                android:paddingTop="@dimen/normal_padding"
+                android:text="@string/pay_400"
+                android:textColor="@color/text_color_white_blue"
+                android:textSize="@dimen/text_size_small" />
+
+            <RadioButton
+                android:id="@+id/rb_money_600"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/normal_marging"
+                android:layout_weight="1"
+                android:background="@drawable/pay_money_selector"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/normal_padding"
+                android:paddingLeft="@dimen/small_padding"
+                android:paddingRight="@dimen/small_padding"
+                android:paddingTop="@dimen/normal_padding"
+                android:text="@string/pay_600"
+                android:textColor="@color/text_color_white_blue"
+                android:textSize="@dimen/text_size_small" />
+
+            <RadioButton
+                android:id="@+id/rb_money_1000"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/pay_money_selector"
+                android:button="@null"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/normal_padding"
+                android:paddingLeft="@dimen/small_padding"
+                android:paddingRight="@dimen/small_padding"
+                android:paddingTop="@dimen/normal_padding"
+                android:text="@string/pay_1000"
+                android:textColor="@color/text_color_white_blue"
+                android:textSize="@dimen/text_size_small" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_pay_choice_device"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/normal_marging"
+            android:layout_marginLeft="@dimen/normal_marging"
+            android:text="购买设备金额:"
+            android:textColor="@color/text_black_colcor"
+            android:textSize="@dimen/item_content_size" />
+
+        <TextView
+            android:id="@+id/tv_pay_choice_device_price"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/normal_marging"
-            android:layout_weight="1"
-            android:background="@drawable/pay_money_selector"
-            android:button="@null"
-            android:clickable="true"
             android:gravity="center"
             android:paddingBottom="@dimen/normal_padding"
             android:paddingLeft="@dimen/small_padding"
             android:paddingRight="@dimen/small_padding"
             android:paddingTop="@dimen/normal_padding"
-            android:text="@string/pay_200"
             android:textColor="@color/text_color_white_blue"
-            android:textSize="@dimen/text_size_small" />
+            android:textSize="@dimen/text_size_large" />
 
-        <RadioButton
-            android:id="@+id/rb_money_300"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/normal_marging"
-            android:layout_weight="1"
-            android:background="@drawable/pay_money_selector"
-            android:button="@null"
-            android:clickable="true"
-            android:gravity="center"
-            android:paddingBottom="@dimen/normal_padding"
-            android:paddingLeft="@dimen/small_padding"
-            android:paddingRight="@dimen/small_padding"
-            android:paddingTop="@dimen/normal_padding"
-            android:text="@string/pay_400"
-            android:textColor="@color/text_color_white_blue"
-            android:textSize="@dimen/text_size_small" />
+    </LinearLayout>
 
-        <RadioButton
-            android:id="@+id/rb_money_600"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/normal_marging"
-            android:layout_weight="1"
-            android:background="@drawable/pay_money_selector"
-            android:button="@null"
-            android:checked="true"
-            android:gravity="center"
-            android:paddingBottom="@dimen/normal_padding"
-            android:paddingLeft="@dimen/small_padding"
-            android:paddingRight="@dimen/small_padding"
-            android:paddingTop="@dimen/normal_padding"
-            android:text="@string/pay_600"
-            android:textColor="@color/text_color_white_blue"
-            android:textSize="@dimen/text_size_small" />
-
-        <RadioButton
-            android:id="@+id/rb_money_1000"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/pay_money_selector"
-            android:button="@null"
-            android:clickable="true"
-            android:gravity="center"
-            android:paddingBottom="@dimen/normal_padding"
-            android:paddingLeft="@dimen/small_padding"
-            android:paddingRight="@dimen/small_padding"
-            android:paddingTop="@dimen/normal_padding"
-            android:text="@string/pay_1000"
-            android:textColor="@color/text_color_white_blue"
-            android:textSize="@dimen/text_size_small" />
-    </RadioGroup>
 
     <Button
         android:id="@+id/btn_pay"

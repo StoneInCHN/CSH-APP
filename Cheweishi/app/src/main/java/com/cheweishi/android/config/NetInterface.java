@@ -140,4 +140,8 @@ public class NetInterface {
 
     public static final String PAY_COUPON = "getCouponForPay";//支付时可用优惠券列表
 
+    public static final String GET_DEVICE_PRICE = "purDevicePage";//获取设备价钱
+
+    public static final String BUY_DEVICE = "purDeviceCharge";// 购买设备
+
 }

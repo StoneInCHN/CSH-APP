@@ -54,8 +54,10 @@ public class PurseBalanceActivity extends BaseActivity implements
     private Button left_action;
     @ViewInject(R.id.title)
     private TextView title;
-    @ViewInject(R.id.ley_top_up)
+    @ViewInject(R.id.ll_purse_balance_pay)
     private LinearLayout ley_top_up;
+    @ViewInject(R.id.ll_purse_balance_device)
+    private LinearLayout ll_purse_balance_device;
     @ViewInject(R.id.xcRoundImg)
     private XCRoundImageView xcRoundImg;
     @ViewInject(R.id.tv_balance_num)
@@ -122,6 +124,11 @@ public class PurseBalanceActivity extends BaseActivity implements
                 intent = new Intent(PurseBalanceActivity.this, PayActivty.class);
                 startActivity(intent);
                 break;
+            case R.id.ll_purse_balance_device:
+                intent = new Intent(PurseBalanceActivity.this, PayActivty.class);
+                intent.putExtra("PAY_TYPE", true);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -139,8 +146,8 @@ public class PurseBalanceActivity extends BaseActivity implements
             param.put("token", loginResponse.getToken());
             param.put("walletType", "MONEY"); //  余额
             param.put("walletId", getIntent().getIntExtra("walletId", 1));
-            param.put("pageSize",pageSize);
-            param.put("pageNumber",pageNumber);
+            param.put("pageSize", pageSize);
+            param.put("pageNumber", pageNumber);
             netWorkHelper.PostJson(url, param, this);
 
 //			params_insurance.addBodyParameter("uid", loginMessage.getUid());
