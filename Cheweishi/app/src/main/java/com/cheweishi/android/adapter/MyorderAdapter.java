@@ -351,11 +351,26 @@ public class MyorderAdapter extends BaseAdapter {
             holder.tv_order_class_name.setText("已过期");
             holder.tv_time.setText("过期时间");
             holder.tv_order_time.setText(""
-                    + mData.get(arg0).getCreateDate());
+                    + transferLongToDate(mData.get(arg0).getCreateDate()));
             holder.tv_order_class_name.setTextColor(mContext.getResources()
                     .getColor(R.color.gray_pressed));
             holder.btn_order_comment.setVisibility(View.GONE);
-            holder.btn_order_detail.setVisibility(View.GONE);
+            holder.btn_order_detail.setVisibility(View.VISIBLE);
+            holder.btn_order_detail.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+
+                    // TODO 详情
+
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, OrderDetailsActivity.class);
+                    intent.putExtra("chargeStatus", mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getChargeStatus());
+                    intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getId()));
+                    mContext.startActivity(intent);
+
+                }
+            });
         }
         // 0订单完成1订单进行中2已取消3NO
 //        if (mData.get(arg0).getChargeStatus().equals("0")) {// 订单已取消

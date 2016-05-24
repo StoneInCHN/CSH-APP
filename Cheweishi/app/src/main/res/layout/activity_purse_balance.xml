@@ -23,6 +23,7 @@
             android:id="@+id/xcRoundImg"
             android:layout_width="@dimen/purse_width"
             android:layout_height="@dimen/purse_height"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/shape_circle" />
 
         <RelativeLayout

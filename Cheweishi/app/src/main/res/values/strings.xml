@@ -1464,7 +1464,7 @@
     <string name="order_overdue">订单过期</string>
     <string name="order_details">订单详情</string>
     <string name="order_win">预约成功,等待商家确认</string>
-    <string name="order_out_of_dateline">订单已过期</string>
+    <string name="order_out_of_dateline">订单已经过期了</string>
     <string name="order_win_middle">请在72个小时之内到店洗车</string>
     <string name="order_not_pay">请在15分钟之内确认支付</string>
     <string name="order_win_complete">订单已完成</string>

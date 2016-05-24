@@ -626,6 +626,17 @@ public class OrderDetailsActivity extends BaseActivity implements
                     tv_order_complete.setText(formateDate(response.getMsg().getFinishDate()));
                     tv_order_complete.setTextColor(getResources().getColor(R.color.order_dr));
                     break;
+                case "OVERDUE": // 预约类型过期
+                    img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+                    img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang2x);
+                    tv_yuyue.setText("预约下单");
+                    tv_daodian.setText("到店服务");
+                    over_img_order(R.string.order_out_of_dateline);
+//                    orange_img_order(R.string.order_win);
+                    tv_daodian.setTextColor(getResources().getColor(R.color.gray));
+                    tv_time1_first.setText(formateDate(response.getMsg().getSubscribeDate()));
+                    tv_time1_second.setText("");
+                    break;
             }
         } else {
             // TODO 非预约类型

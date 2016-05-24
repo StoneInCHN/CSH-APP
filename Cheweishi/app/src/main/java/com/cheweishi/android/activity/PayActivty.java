@@ -233,12 +233,14 @@ public class PayActivty extends BaseActivity implements OnClickListener,
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
-        param.put("amount", moneyAccount);
         param.put("paymentType", channel);
-        if (buy_type)
+        if (buy_type) {
+            moneyAccount = Double.valueOf(tv_pay_choice_device_price.getText().toString());
             param.put("chargeType", "PD"); //CI:普通充值, PD:购买设备
-        else
+        } else {
             param.put("chargeType", "CI");
+        }
+        param.put("amount", moneyAccount);
         param.put(Constant.PARAMETER_TAG, NetInterface.CHARGE_PAY);
         netWorkHelper.PostJson(url, param, this);
     }

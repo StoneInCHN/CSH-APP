@@ -167,51 +167,5 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         showToast(R.string.server_link_fault);
     }
 
-    /**
-     * 接受服务器返回JSON数据
-     */
-    @Override
-    public void receive(int type, String data) {
-        // TODO Auto-generated method stub
-        super.receive(type, data);
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case 400:// 服务器连接失败
-                showToast(R.string.server_link_fault);
-                break;
-            case 10001:// 服务器连接成功
-                parseJSON(data);
-                break;
-        }
 
-    }
-
-    /**
-     * 解析服务器返回的JSON数据
-     *
-     * @param result
-     */
-    private void parseJSON(String result) {
-        if (StringUtil.isEmpty(result)) {
-            showToast(R.string.data_fail);
-        } else {
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-                if (StringUtil.isEquals(jsonObject.optString("state"),
-                        API.returnSuccess, true)) {
-                    Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
-                    Intent mIntent = new Intent();
-                    mIntent.setAction(Constant.REFRESH_FLAG);
-                    sendBroadcast(mIntent);// 发送广播，更新所有应为设备需要更新的Activity
-                    this.finish();
-                } else {
-                    showToast(jsonObject.optString("message"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-    }
 }

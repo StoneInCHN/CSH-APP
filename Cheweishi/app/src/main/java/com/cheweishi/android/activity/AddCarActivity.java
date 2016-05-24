@@ -198,7 +198,7 @@ public class AddCarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
         ViewUtils.inject(this);
-        isNeedBingd = getIntent().getBooleanExtra("isNeedBingd", true);
+        isNeedBingd = getIntent().getBooleanExtra("isNeedBingd", false);
         handler = new AddHandler(this);
         initViews();
         setListeners();
