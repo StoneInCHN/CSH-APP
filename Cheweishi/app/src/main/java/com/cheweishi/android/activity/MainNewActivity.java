@@ -849,17 +849,7 @@ public class MainNewActivity extends BaseActivity {
                 isLogin(MessagerCenterActivity.class);
                 break;
             case R.id.btn_scanning:// 扫一扫
-                PackageManager pkm = getPackageManager();
-                boolean has_permission = (PackageManager.PERMISSION_GRANTED == pkm
-                        .checkPermission("android.permission.CAMERA", baseContext.getPackageName()));//"packageName"));
-                if (has_permission) {
-                    intent.setClass(MainNewActivity.this,
-                            MipcaActivityCapture.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                } else {
-                    showToast("请为该应用添加打开相机权限");
-                }
+                OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
                 break;
             case R.id.btn_my_wallet:// 我的钱包
                 isLogin(PurseActivity.class);// PurseActivity
@@ -1025,8 +1015,7 @@ public class MainNewActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        startActivity(new Intent(MainNewActivity.this,
-                                AddCarActivity.class));
+                        OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
                     }
                 });
         builder.setNegativeButton(getString(R.string.cancel),
@@ -1037,6 +1026,27 @@ public class MainNewActivity extends BaseActivity {
                 });
 
         builder.create().show();
+    }
+
+
+    /**
+     * 打开相机
+     *
+     * @param cid
+     */
+    private void OpenCamera(String cid) {
+        PackageManager pkm = getPackageManager();
+        boolean has_permission = (PackageManager.PERMISSION_GRANTED == pkm
+                .checkPermission("android.permission.CAMERA", baseContext.getPackageName()));//"packageName"));
+        if (has_permission) {
+            Intent intent = new Intent(baseContext,
+                    MipcaActivityCapture.class);
+            intent.putExtra("cid", cid);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            showToast("请为该应用添加打开相机权限");
+        }
     }
 
     @Override

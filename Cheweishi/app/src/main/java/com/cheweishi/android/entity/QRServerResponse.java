@@ -9,7 +9,8 @@ public class QRServerResponse extends BaseResponse {
 
 
     /**
-     * appTitleName : 车生活2
+     * appTitleName : 车的范德萨
+     * isGetCoupon : true
      */
 
     private MsgBean msg;
@@ -24,6 +25,7 @@ public class QRServerResponse extends BaseResponse {
 
     public static class MsgBean {
         private String appTitleName;
+        private boolean isGetCoupon;
 
         public String getAppTitleName() {
             return appTitleName;
@@ -31,6 +33,14 @@ public class QRServerResponse extends BaseResponse {
 
         public void setAppTitleName(String appTitleName) {
             this.appTitleName = appTitleName;
+        }
+
+        public boolean isIsGetCoupon() {
+            return isGetCoupon;
+        }
+
+        public void setIsGetCoupon(boolean isGetCoupon) {
+            this.isGetCoupon = isGetCoupon;
         }
     }
 }

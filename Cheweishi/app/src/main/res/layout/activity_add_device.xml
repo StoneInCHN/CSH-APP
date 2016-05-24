@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_backgroud"
-    android:orientation="vertical"
-    tools:context=".AddDeviceActivity">
+    android:orientation="vertical">
 
     <include layout="@layout/title" />
 
@@ -24,16 +23,17 @@
             android:textColor="@color/gray_normal"
             android:textSize="@dimen/titile_side_text_size" />
 
-        <EditText
+        <TextView
             android:id="@+id/tv_car_device"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
+            android:clickable="false"
+            android:focusable="false"
             android:gravity="right"
             android:hint="@string/add_deviceChoose"
-            android:inputType="number"
-            android:maxLength="10"
+            android:maxLength="20"
             android:textColor="@color/black"
             android:textCursorDrawable="@null"
             android:textSize="@dimen/titile_side_text_size" />

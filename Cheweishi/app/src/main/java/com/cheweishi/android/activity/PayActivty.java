@@ -452,6 +452,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
         param.put("amount", moneyAccount);
+        param.put("recordNo", payUtils.getOutTradeNo());// TODO 增加订单号
         param.put(Constant.PARAMETER_TAG, NetInterface.PAY_CALLBACK);
         netWorkHelper.PostJson(url, param, this);
     }

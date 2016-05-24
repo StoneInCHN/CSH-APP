@@ -4,6 +4,7 @@ import com.cheweishi.android.adapter.QrCodeAdapter;
 import com.cheweishi.android.R;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.dialog.ImgDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.LoginUserInfoResponse;
 import com.cheweishi.android.entity.MyCarManagerResponse;
@@ -19,6 +20,7 @@ import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -52,6 +54,8 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
 
     private String result = "";
     private MyCarManagerResponse response;
+    private ImgDialog.Builder imgBuilder;
+    private ImgDialog imgDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +124,12 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
                     showToast(baseResponse.getDesc());
                     return;
                 }
+
+                if (baseResponse.getMsg().isIsGetCoupon()) {
+                    showImgDialog();
+                }
+
+
                 setTitle(baseResponse.getMsg().getAppTitleName());
                 loginResponse.setToken(baseResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
@@ -128,6 +138,34 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
         }
 
 
+    }
+
+    private boolean isExit = false;
+
+    private void showImgDialog() {
+        imgBuilder = new ImgDialog.Builder(this);
+        imgBuilder.setshowCoupon(true);
+        imgBuilder.setPositiveButton(R.string.customerServiceCall,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        isExit = true;
+                        QRCodeResultActivity.this.finish();
+                    }
+                });
+
+        imgDialog = imgBuilder.create();
+        imgDialog.setCanceledOnTouchOutside(false);
+
+        imgDialog.show();
+        imgDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (!isExit) {
+                    QRCodeResultActivity.this.finish();
+                }
+            }
+        });
     }
 
 

@@ -198,7 +198,7 @@ public class AddCarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
         ViewUtils.inject(this);
-        isNeedBingd = getIntent().getBooleanExtra("isNeedBingd", false);
+        isNeedBingd = getIntent().getBooleanExtra("isNeedBingd", true);
         handler = new AddHandler(this);
         initViews();
         setListeners();
@@ -869,18 +869,20 @@ public class AddCarActivity extends BaseActivity {
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         if (isNeedBingd) {
             if (carManagerTemp == null) {
-                Intent intent = new Intent(AddCarActivity.this,
-                        AddDeviceActivity.class);
-                intent.putExtra("cid", response.getDesc());
-                startActivity(intent);
+//                Intent intent = new Intent(AddCarActivity.this,
+//                        AddDeviceActivity.class);
+//                intent.putExtra("cid", response.getDesc());
+//                startActivity(intent);
+                OpenCamera(response.getDesc());
 
             } else {
                 if (StringUtil.isEmpty(carManagerTemp.getDeviceNo())) {
-                    Intent intent = new Intent(AddCarActivity.this,
-                            AddDeviceActivity.class);
-                    intent.putExtra(
-                            "cid", response.getDesc());
-                    startActivity(intent);
+//                    Intent intent = new Intent(AddCarActivity.this,
+//                            AddDeviceActivity.class);
+//                    intent.putExtra(
+//                            "cid", response.getDesc());
+//                    startActivity(intent);
+                    OpenCamera(response.getDesc());
                 }
             }
             finish();
@@ -892,6 +894,24 @@ public class AddCarActivity extends BaseActivity {
 
     }
 
+    /**
+     * 打开相机
+     * @param cid
+     */
+    private void OpenCamera(String cid) {
+        PackageManager pkm = getPackageManager();
+        boolean has_permission = (PackageManager.PERMISSION_GRANTED == pkm
+                .checkPermission("android.permission.CAMERA", baseContext.getPackageName()));//"packageName"));
+        if (has_permission) {
+            Intent intent = new Intent(baseContext,
+                    MipcaActivityCapture.class);
+            intent.putExtra("cid", cid);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            showToast("请为该应用添加打开相机权限");
+        }
+    }
 
     @Override
     public void error(String errorMsg) {

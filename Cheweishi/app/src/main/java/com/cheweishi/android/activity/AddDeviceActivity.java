@@ -22,6 +22,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.KeyEvent;
@@ -47,7 +48,7 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
     @ViewInject(R.id.right_action)
     private TextView right_action;
     @ViewInject(R.id.tv_car_device)
-    private EditText tv_car_device;
+    private TextView tv_car_device;
     @ViewInject(R.id.bt_addCar)
     private Button bt_addCar;
     private ImgDialog.Builder imgBuilder;
@@ -67,6 +68,7 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
     private void initViews() {
         title.setText(R.string.title_activity_add_device);
         left_action.setText(R.string.back);
+        tv_car_device.setText(getIntent().getStringExtra("resultString"));
     }
 
     @OnClick({R.id.left_action, R.id.bt_addDevice})
@@ -114,10 +116,13 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         QRServerResponse response = (QRServerResponse) GsonUtil.getInstance().convertJsonStringToObject(data, QRServerResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
+            OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
+            this.finish();
             return;
         }
 
 
+        showToast("绑定设备成功");
         setTitle(response.getDesc());
         Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
         Intent mIntent = new Intent();
@@ -129,9 +134,30 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
-        showImgDialog();
+        if (!response.getMsg().isIsGetCoupon())
+            showImgDialog();
     }
 
+
+    /**
+     * 打开相机
+     *
+     * @param cid
+     */
+    private void OpenCamera(String cid) {
+        PackageManager pkm = getPackageManager();
+        boolean has_permission = (PackageManager.PERMISSION_GRANTED == pkm
+                .checkPermission("android.permission.CAMERA", baseContext.getPackageName()));//"packageName"));
+        if (has_permission) {
+            Intent intent = new Intent(baseContext,
+                    MipcaActivityCapture.class);
+            intent.putExtra("cid", cid);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            showToast("请为该应用添加打开相机权限");
+        }
+    }
 
     private boolean isExit = false;
 

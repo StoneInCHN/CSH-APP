@@ -146,7 +146,21 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
             } catch (Exception e) {
 
             }
-            showToast("该二维码不支持");
+
+            String cid = getIntent().getStringExtra("cid");
+            if (null == cid || "".equals(cid)) {
+                showToast("当前没有获取到车辆Id");
+                MipcaActivityCapture.this.finish();
+                return;
+            }
+
+
+            Intent intent = new Intent(baseContext,
+                    AddDeviceActivity.class);
+            intent.putExtra("cid", cid);
+            intent.putExtra("resultString", resultString);
+            startActivity(intent);
+
         }
         MipcaActivityCapture.this.finish();
     }
