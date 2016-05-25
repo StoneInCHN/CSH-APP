@@ -136,15 +136,19 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
                     return;
                 }
 
-                if (baseResponse.getMsg().isIsGetCoupon()) {
-                    showImgDialog();
-                }
+
 
 
                 setTitle(baseResponse.getMsg().getAppTitleName());
                 loginResponse.setToken(baseResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-                finish();
+
+
+                if (baseResponse.getMsg().isIsGetCoupon()) {
+                    showImgDialog();
+                }else{
+                    finish();
+                }
                 break;
         }
 

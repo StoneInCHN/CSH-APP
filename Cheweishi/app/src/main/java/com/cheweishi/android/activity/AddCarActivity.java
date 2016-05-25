@@ -869,22 +869,13 @@ public class AddCarActivity extends BaseActivity {
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         if (isNeedBingd) {
             if (carManagerTemp == null) {
-//                Intent intent = new Intent(AddCarActivity.this,
-//                        AddDeviceActivity.class);
-//                intent.putExtra("cid", response.getDesc());
-//                startActivity(intent);
-//                OpenCamera(response.getDesc());
 
                 showCustomDialog(getString(R.string.no_device));
             } else {
                 if (StringUtil.isEmpty(carManagerTemp.getDeviceNo())) {
-//                    Intent intent = new Intent(AddCarActivity.this,
-//                            AddDeviceActivity.class);
-//                    intent.putExtra(
-//                            "cid", response.getDesc());
-//                    startActivity(intent);
-//                    OpenCamera(response.getDesc());
                     showCustomDialog(getString(R.string.no_device));
+                } else {
+                    finish();
                 }
             }
         } else {

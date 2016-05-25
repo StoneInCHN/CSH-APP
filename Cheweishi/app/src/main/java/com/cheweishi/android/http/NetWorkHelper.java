@@ -89,7 +89,7 @@ public class NetWorkHelper {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
-
+                LogHelper.d("request url:" + url + "\n" + params + "\n" + jsonObject.toString());
                 // TODO 超时情况
                 if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && !url.contains("login") && !url.contains("tenantInfo/list")) {
                     Intent intent = new Intent(context, LoginActivity.class);
@@ -101,7 +101,7 @@ public class NetWorkHelper {
                     return;
                 }
 
-                LogHelper.d("request url:" + url + "\n" + params + "\n" + jsonObject.toString());
+
                 if (null == jsonCallback)
                     return;
                 if (null != RequestTag) {
