@@ -795,10 +795,13 @@ public class MainNewActivity extends BaseActivity {
         intent = new Intent();
         switch (position) {
             case 0:// 买车险
-                showToast("此功能正在开发中,敬请期待...");
+//                showToast("此功能正在开发中,敬请期待...");
 //                Intent intent = new Intent(baseContext, InsuranceActivity.class);
 //                startActivity(intent);
 //                isLoginOrHasCar(InsuranceActivity.class);
+                Intent intent = new Intent(baseContext, WebActivity.class);
+                intent.putExtra("url", NetInterface.INSURANCE);
+                startActivity(intent);
                 break;
             case 1:// 洗车
                 isLogin(WashcarListActivity.class);
