@@ -285,6 +285,8 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 PreparePayResponse response = (PreparePayResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PreparePayResponse.class);
                 if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(response.getDesc());
+                    if (response.getCode().equals(NetInterface.RESPONSE_ERROR))
+                        finish();
                     return;
                 }
 

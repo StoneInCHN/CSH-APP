@@ -48,6 +48,8 @@ public class NetInterface {
 
     public static final String RESPONSE_TOKEN = "0004"; // ERROR
 
+    public static final String RESPONSE_ERROR = "1000"; // ERROR
+
     public static final String SUFFIX = ".jhtml";//后缀
 
 
