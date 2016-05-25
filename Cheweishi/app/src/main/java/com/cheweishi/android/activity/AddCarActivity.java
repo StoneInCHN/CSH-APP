@@ -875,7 +875,7 @@ public class AddCarActivity extends BaseActivity {
 //                startActivity(intent);
 //                OpenCamera(response.getDesc());
 
-                showCustomDialog(getString(R.string.home_no_device));
+                showCustomDialog(getString(R.string.no_device));
             } else {
                 if (StringUtil.isEmpty(carManagerTemp.getDeviceNo())) {
 //                    Intent intent = new Intent(AddCarActivity.this,
@@ -884,7 +884,7 @@ public class AddCarActivity extends BaseActivity {
 //                            "cid", response.getDesc());
 //                    startActivity(intent);
 //                    OpenCamera(response.getDesc());
-                    showCustomDialog(getString(R.string.home_no_device));
+                    showCustomDialog(getString(R.string.no_device));
                 }
             }
         } else {
@@ -909,7 +909,7 @@ public class AddCarActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         if (null != carManagerTemp) { // 编辑状态下直接取ID
-                            OpenCamera(carManagerTemp.getVehicleNo());
+                            OpenCamera("" + carManagerTemp.getId());
                         } else {
                             OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
                         }

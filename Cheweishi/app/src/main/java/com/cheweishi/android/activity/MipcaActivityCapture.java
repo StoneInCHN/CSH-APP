@@ -127,6 +127,7 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
             Toast.makeText(MipcaActivityCapture.this, "扫描失败!", Toast.LENGTH_SHORT).show();
         } else {
 
+            String cid = getIntent().getStringExtra("cid");
 
             String flag = "f50b421982ca1c32875a4fc60e4f69af";
 
@@ -147,9 +148,12 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
 
             }
 
-            String cid = getIntent().getStringExtra("cid");
-            if (null == cid || "".equals(cid)) {
-                showToast("当前没有获取到车辆Id");
+
+            if (null == cid || "".equals(cid)) { // 扫一扫过来的或者其他异常情况过来的
+                Intent resultIntent = new Intent();
+                resultIntent.setClass(MipcaActivityCapture.this, QRCodeResultActivity.class);
+                resultIntent.putExtra("resultString", resultString);
+                MipcaActivityCapture.this.startActivity(resultIntent);
                 MipcaActivityCapture.this.finish();
                 return;
             }

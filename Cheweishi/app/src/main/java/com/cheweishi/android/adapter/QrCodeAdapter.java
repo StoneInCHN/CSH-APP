@@ -22,9 +22,12 @@ public class QrCodeAdapter extends BaseAdapter {
 
     private List<MyCarManagerResponse.MsgBean> msg;
 
-    public QrCodeAdapter(Context context, List<MyCarManagerResponse.MsgBean> msgBeen) {
+    private boolean isAddDevice;
+
+    public QrCodeAdapter(Context context, List<MyCarManagerResponse.MsgBean> msgBeen, boolean isAddDevice) {
         this.context = context;
         this.msg = msgBeen;
+        this.isAddDevice = isAddDevice;
     }
 
     @Override
@@ -62,12 +65,25 @@ public class QrCodeAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        XUtilsImageLoader.getxUtilsImageLoader(context,
-                R.drawable.repaire_img, holder.imageView,
-                msg.get(position).getBrandIcon());
 
-        holder.textView.setText(msg.get(position).getVehicleFullBrand() + msg.get(position).getPlate());
-
+        if (isAddDevice) {
+            if (null != msg.get(position).getDeviceNo() && !"".equals(msg.get(position).getDeviceNo())) {
+                holder.textView.setVisibility(View.GONE);
+                holder.imageView.setVisibility(View.GONE);
+            } else {
+                holder.textView.setVisibility(View.VISIBLE);
+                holder.imageView.setVisibility(View.VISIBLE);
+                holder.textView.setText(msg.get(position).getVehicleFullBrand() + msg.get(position).getPlate());
+                XUtilsImageLoader.getxUtilsImageLoader(context,
+                        R.drawable.repaire_img, holder.imageView,
+                        msg.get(position).getBrandIcon());
+            }
+        } else {
+            holder.textView.setText(msg.get(position).getVehicleFullBrand() + msg.get(position).getPlate());
+            XUtilsImageLoader.getxUtilsImageLoader(context,
+                    R.drawable.repaire_img, holder.imageView,
+                    msg.get(position).getBrandIcon());
+        }
         return convertView;
     }
 

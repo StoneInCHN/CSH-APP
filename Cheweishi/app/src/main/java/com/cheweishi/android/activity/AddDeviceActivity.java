@@ -53,6 +53,7 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
     private Button bt_addCar;
     private ImgDialog.Builder imgBuilder;
     private ImgDialog imgDialog;
+    private boolean isAddDevice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         title.setText(R.string.title_activity_add_device);
         left_action.setText(R.string.back);
         tv_car_device.setText(getIntent().getStringExtra("resultString"));
+        isAddDevice = getIntent().getBooleanExtra("BD", false);
     }
 
     @OnClick({R.id.left_action, R.id.bt_addDevice})
@@ -116,6 +118,10 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         QRServerResponse response = (QRServerResponse) GsonUtil.getInstance().convertJsonStringToObject(data, QRServerResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
+            if (isAddDevice) {
+                OpenCamera(null); // 不传递id就是扫描
+                return;
+            }
             String temp = getIntent().getStringExtra("cid");
             if (null != temp && !"".equals(temp))
                 OpenCamera(temp);
@@ -158,6 +164,7 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
             intent.putExtra("cid", cid);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            AddDeviceActivity.this.finish();
         } else {
             showToast("请为该应用添加打开相机权限");
         }

@@ -235,7 +235,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/more_back"
             android:gravity="center_vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
 
             <ImageView

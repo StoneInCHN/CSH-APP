@@ -22,6 +22,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -57,6 +58,8 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
     private ImgDialog.Builder imgBuilder;
     private ImgDialog imgDialog;
 
+    private boolean isAddDevice = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +70,18 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
     // TODO 获取返回结果
     private void initView() {
         left_action.setText(R.string.back);
-        title.setText("绑定租户");
-        left_action.setOnClickListener(this);
+
         Bundle bundle = getIntent().getExtras();
         result = bundle.getString("result");
+        if (null != bundle.getString("resultString") && !"".equals(bundle.getString("resultString"))) {
+            title.setText("绑定设备车辆");
+            isAddDevice = true;
+        } else {
+            title.setText("绑定租户");
+            isAddDevice = false;
+        }
+        left_action.setOnClickListener(this);
+
 
         getCarData();
     }
@@ -98,7 +109,7 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
                 }
 
                 if (0 < response.getMsg().size()) {
-                    adapter = new QrCodeAdapter(baseContext, response.getMsg());
+                    adapter = new QrCodeAdapter(baseContext, response.getMsg(), isAddDevice);
                     lv_qr_code_car_list.setAdapter(adapter);
                     lv_qr_code_car_list.setOnItemClickListener(this);
                 } else {
@@ -172,7 +183,16 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //TODO 发送绑定请求
-        sendBind(response.getMsg().get(position).getId());
+        if (!isAddDevice) { // 绑定租户
+            sendBind(response.getMsg().get(position).getId());
+        } else { // 绑定设备
+            Intent intent = new Intent(QRCodeResultActivity.this, AddDeviceActivity.class);
+            intent.putExtra("resultString", getIntent().getStringExtra("resultString"));
+            intent.putExtra("cid", "" + response.getMsg().get(position).getId());
+            intent.putExtra("BD", true);
+            startActivity(intent);
+            QRCodeResultActivity.this.finish();
+        }
     }
 
     private void sendBind(int id) {
@@ -187,6 +207,7 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
         netWorkHelper.PostJson(url, param, this);
 
     }
+
 
     @Override
     public void onClick(View v) {

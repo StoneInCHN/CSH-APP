@@ -300,7 +300,7 @@ public class CarManagerActivity extends BaseActivity implements
                 loginResponse.getMsg().setDefaultVehicleIcon(DefaultIcon);
                 loginResponse.getMsg().setDefaultVehiclePlate(DefaultPlate);
                 loginResponse.getMsg().setDefaultDeviceNo(DefaultNo);
-                loginResponse.getMsg().setDefaultVehicleId(baseResponse.getMsg().get(currentDefaultIndex).getVehicleNo());
+                loginResponse.getMsg().setDefaultVehicleId("" + baseResponse.getMsg().get(currentDefaultIndex).getId());
                 loginResponse.setToken(baseResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
