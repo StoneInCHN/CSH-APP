@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -31,6 +32,7 @@ import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.StringUtil;
+import com.cheweishi.android.widget.CustomDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -541,5 +543,6 @@ public abstract class BaseActivity extends FragmentActivity implements
         msg.obj = refreshView;
         handler.sendMessage(msg);
     }
+
 
 }

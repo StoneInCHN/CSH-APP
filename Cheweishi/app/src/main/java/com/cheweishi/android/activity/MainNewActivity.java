@@ -474,27 +474,23 @@ public class MainNewActivity extends BaseActivity {
      */
     private void initData() {
 
+        setTitleLeft();
         gridInfos = new ArrayList<MainGridInfo>();
-        // adList = new ArrayList<Integer>();
         for (int i = 0; i < 12; i++) {
             MainGridInfo gridInfo = new MainGridInfo();
             gridInfo.setName(name[i]);
             gridInfo.setImgId(icon[i]);
             gridInfo.setImgUrl("asdasdas");
             gridInfos.add(gridInfo);
-            // adList.add(R.drawable.fuwu_bj);
         }
-
         gridViewAdapter = new MainGridViewAdapter(this, gridInfos);
         gv_service.setAdapter(gridViewAdapter);
         initLocation();
         getMainData();
-        // }
     }
 
 
     private void showData(ServiceListResponse response) {
-        setTitleLeft();
         setJpushTags();
         listViewAdapter = new MainListViewAdapter(this, response.getMsg());
         list_business.setAdapter(listViewAdapter);
@@ -535,27 +531,6 @@ public class MainNewActivity extends BaseActivity {
      * 获取主界面的数据
      */
     private void getMainData() {
-//        RequestParams params = new RequestParams();
-//        if (isLogined()) {
-//            params.addBodyParameter("uid", loginMessage.getUid());
-//            params.addBodyParameter("mobile", loginMessage.getMobile());
-//        }
-//        params.addBodyParameter("lat", MyMapUtils.getLatitude(this) + "");
-//        params.addBodyParameter("lon", MyMapUtils.getLongitude(this) + "");
-//        params.addBodyParameter("app", APPTools.getVersionName(this));
-//        httpBiz = new HttpBiz(this);
-//        ProgrosDialog.openDialog(this);
-//        // Log.i("result",
-//        // "===主界面数据请求参数==uid=" + loginMessage.getUid() + "==mobile="
-//        // + loginMessage.getMobile() + "==lat="
-//        // + MyMapUtils.getLatitude(this) + "==lon="
-//        // + MyMapUtils.getLongitude(this));
-//        if (isLogined()) {
-//            Log.i("result", "===首页数据请求参数===uid=" + loginMessage.getUid() + "_" + loginMessage.getMobile() + "_" + MyMapUtils.getLatitude(this) + "_" + MyMapUtils.getLongitude(this) + "_" + APPTools.getVersionName(this));
-//        } else {
-//            Log.i("result", "===首页数据请求参数==lat=" + MyMapUtils.getLatitude(this) + "_" + MyMapUtils.getLongitude(this) + "_" + APPTools.getVersionName(this));
-//        }
-//        httpBiz.httPostData(10001, API.CSH_MAIN_DATA_URL, params, this);
         if (!isLogined()) {
             Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -703,61 +678,8 @@ public class MainNewActivity extends BaseActivity {
         showToast(R.string.FAIL);
     }
 
-    @Override
-    public void receive(int type, String data) {
-        super.receive(type, data);
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case 10001:
-                parseJsonData(data);
-                break;
-
-            default:
-                showToast(R.string.FAIL);
-                break;
-        }
-    }
-
     private String app_new_download_url = "";
     private String compel;
-
-    /**
-     * //TODO 数据解析
-     *
-     * @param data
-     */
-    private void parseJsonData(String data) {
-        if (StringUtil.isEmpty(data)) {
-            showToast(R.string.FAIL);
-            return;
-        }
-
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            if (StringUtil.isEquals(API.returnSuccess,
-                    jsonObject.optString("state"), true)) {
-                // 数据处理
-//                processingData(jsonObject);
-            } else if (StringUtil.isEquals(API.returnRelogin,
-                    jsonObject.optString("state"), true)) {
-                ReLoginDialog.getInstance(this).showDialog(
-                        jsonObject.optString("message"));
-            } else if (StringUtil.isEquals("200010",
-                    jsonObject.optString("state"), true)) {
-                app_new_download_url = jsonObject.optJSONObject("data")
-                        .optString("url_android");
-                compel = jsonObject.optJSONObject("data").optString("compel");
-                // 版本更新处理
-                showVersionDialog(jsonObject.optString("message"));
-
-            } else {
-                showToast(jsonObject.optString("message"));
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     /**
@@ -789,20 +711,6 @@ public class MainNewActivity extends BaseActivity {
             XUtilsImageLoader.getxUtilsImageLoader(this,
                     R.drawable.tianjiacar_img2x, ibtn_user,
                     loginResponse.getMsg().getDefaultVehicleIcon());
-            // DisplayImageOptions options = new DisplayImageOptions.Builder()
-            // .cacheInMemory(true).cacheOnDisk(true)
-            // .showImageForEmptyUri(R.drawable.tianjiacar_img2x)
-            // .showImageOnFail(R.drawable.tianjiacar_img2x)
-            // .showImageOnLoading(R.drawable.tianjiacar_img2x)
-            // .bitmapConfig(Bitmap.Config.RGB_565).build();
-            //
-            // ImageLoader imageLoader = ImageLoader.getInstance();
-            // imageLoader.init(ImageLoaderConfiguration.createDefault(this));
-            // imageLoader.getInstance().displayImage(
-            // API.CSH_GET_IMG_BASE_URL
-            // + loginMessage.getCarManager().getBrand()
-            // .getBrandIcon(), ibtn_user, options);
-            // ibtn_user.setImageResource(R.drawable.tianjiacar_img2x);
         }
     }
 

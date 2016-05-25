@@ -296,12 +296,11 @@ public class CarManagerActivity extends BaseActivity implements
                 } else {
                     right_action.setVisibility(View.VISIBLE);
                 }
-                LoginUserInfoResponse msg = loginResponse.getMsg();
-                msg.setDefaultVehicle(DefaultName);
-                msg.setDefaultVehicleIcon(DefaultIcon);
-                msg.setDefaultVehiclePlate(DefaultPlate);
-                msg.setDefaultDeviceNo(DefaultNo);
-                loginResponse.setMsg(msg);
+                loginResponse.getMsg().setDefaultVehicle(DefaultName);
+                loginResponse.getMsg().setDefaultVehicleIcon(DefaultIcon);
+                loginResponse.getMsg().setDefaultVehiclePlate(DefaultPlate);
+                loginResponse.getMsg().setDefaultDeviceNo(DefaultNo);
+                loginResponse.getMsg().setDefaultVehicleId(baseResponse.getMsg().get(currentDefaultIndex).getVehicleNo());
                 loginResponse.setToken(baseResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
@@ -337,50 +336,6 @@ public class CarManagerActivity extends BaseActivity implements
         sendBroadcast(mIntent);
     }
 
-    /**
-     * 解析默认车辆
-     *
-     * @param result
-     */
-    private void parseJson(String result) {
-        if (StringUtil.isEmpty(result)) {
-            showToast(R.string.data_fail);
-        } else {
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-                String resultStr = jsonObject.optString("state");
-                if (StringUtil.isEquals(resultStr, API.returnSuccess, true)) {
-                    judgeCurrentRefreahGoBack();
-                    CarManager car = loginMessage.getCarManager();
-                    if (carManagerItem != null) {
-                        if (carManagerItem != null) {
-                            // car.setBrand(carManagerItem.getBrand());
-//                            car.setId(carManagerItem.getId());
-//                            car.setColor(carManagerItem.getColor());
-//                            car.setDevice(carManagerItem.getDevice());
-//                            car.setModule(carManagerItem.getModule());
-//                            car.setPlate(carManagerItem.getPlate());
-//                            car.setSeries(carManagerItem.getSeries());
-//                            car.setVinNo(carManagerItem.getVinNo());
-//                            car.setBrand(carManagerItem.getBrand());
-                        }
-                        BaseActivity.loginMessage.setCarManager(car);
-                        DBTools.getInstance(this).save(loginMessage);
-                        adapter.notifyDataSetChanged();
-                    }
-                } else if (StringUtil.isEquals(resultStr, API.returnRelogin,
-                        true)) {
-                    DialogTool.getInstance(this).showConflictDialog();
-                } else {
-                    showToast(jsonObject.optString("message"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-    }
 
     /**
      * 重新链接

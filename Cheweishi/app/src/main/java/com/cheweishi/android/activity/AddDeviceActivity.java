@@ -116,7 +116,11 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         QRServerResponse response = (QRServerResponse) GsonUtil.getInstance().convertJsonStringToObject(data, QRServerResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
-            OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
+            String temp = getIntent().getStringExtra("cid");
+            if (null != temp && !"".equals(temp))
+                OpenCamera(temp);
+            else
+                OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
             this.finish();
             return;
         }

@@ -873,8 +873,9 @@ public class AddCarActivity extends BaseActivity {
 //                        AddDeviceActivity.class);
 //                intent.putExtra("cid", response.getDesc());
 //                startActivity(intent);
-                OpenCamera(response.getDesc());
+//                OpenCamera(response.getDesc());
 
+                showCustomDialog(getString(R.string.home_no_device));
             } else {
                 if (StringUtil.isEmpty(carManagerTemp.getDeviceNo())) {
 //                    Intent intent = new Intent(AddCarActivity.this,
@@ -882,10 +883,10 @@ public class AddCarActivity extends BaseActivity {
 //                    intent.putExtra(
 //                            "cid", response.getDesc());
 //                    startActivity(intent);
-                    OpenCamera(response.getDesc());
+//                    OpenCamera(response.getDesc());
+                    showCustomDialog(getString(R.string.home_no_device));
                 }
             }
-            finish();
         } else {
             setResult(RESULT_OK, null);
             finish();
@@ -894,8 +895,41 @@ public class AddCarActivity extends BaseActivity {
 
     }
 
+
+    /**
+     * 绑定车辆提示dialog
+     */
+    private void showCustomDialog(String msg) {
+        CustomDialog.Builder builder = new CustomDialog.Builder(this);
+        builder.setMessage(msg);
+        builder.setTitle(getString(R.string.remind));
+        builder.setPositiveButton(getString(R.string.home_goto_bind),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        if (null != carManagerTemp) { // 编辑状态下直接取ID
+                            OpenCamera(carManagerTemp.getVehicleNo());
+                        } else {
+                            OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
+                        }
+                        AddCarActivity.this.finish();
+                    }
+                });
+        builder.setNegativeButton(getString(R.string.cancel),
+                new android.content.DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        AddCarActivity.this.finish();
+                    }
+                });
+
+        builder.create().show();
+    }
+
     /**
      * 打开相机
+     *
      * @param cid
      */
     private void OpenCamera(String cid) {
