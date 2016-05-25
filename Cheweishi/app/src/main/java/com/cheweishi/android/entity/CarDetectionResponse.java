@@ -30,12 +30,12 @@ public class CarDetectionResponse extends BaseResponse {
 
     public static class MsgBean {
         private double averageSpeed;
-        private int mileAge;
+        private float mileAge;
         private double averageFuelConsumption;
-        private int cost;
+        private double cost;
         private int runningTime;
-        private int fuelConsumption;
-        private int totalMileAge;
+        private double fuelConsumption;
+        private float totalMileAge;
 
         public double getAverageSpeed() {
             return averageSpeed;
@@ -45,11 +45,11 @@ public class CarDetectionResponse extends BaseResponse {
             this.averageSpeed = averageSpeed;
         }
 
-        public int getMileAge() {
+        public float getMileAge() {
             return mileAge;
         }
 
-        public void setMileAge(int mileAge) {
+        public void setMileAge(float mileAge) {
             this.mileAge = mileAge;
         }
 
@@ -61,11 +61,11 @@ public class CarDetectionResponse extends BaseResponse {
             this.averageFuelConsumption = averageFuelConsumption;
         }
 
-        public int getCost() {
+        public double getCost() {
             return cost;
         }
 
-        public void setCost(int cost) {
+        public void setCost(double cost) {
             this.cost = cost;
         }
 
@@ -77,19 +77,19 @@ public class CarDetectionResponse extends BaseResponse {
             this.runningTime = runningTime;
         }
 
-        public int getFuelConsumption() {
+        public double getFuelConsumption() {
             return fuelConsumption;
         }
 
-        public void setFuelConsumption(int fuelConsumption) {
+        public void setFuelConsumption(double fuelConsumption) {
             this.fuelConsumption = fuelConsumption;
         }
 
-        public int getTotalMileAge() {
+        public float getTotalMileAge() {
             return totalMileAge;
         }
 
-        public void setTotalMileAge(int totalMileAge) {
+        public void setTotalMileAge(float totalMileAge) {
             this.totalMileAge = totalMileAge;
         }
     }
