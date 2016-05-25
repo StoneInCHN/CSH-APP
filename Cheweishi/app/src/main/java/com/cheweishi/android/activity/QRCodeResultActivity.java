@@ -221,7 +221,7 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (0x5555 == resultCode) {
+        if (0x5555 == requestCode) {
             if (RESULT_OK == resultCode) {
                 getCarData(); // 更新界面
             }
