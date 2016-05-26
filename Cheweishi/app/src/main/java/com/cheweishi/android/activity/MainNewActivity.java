@@ -474,7 +474,6 @@ public class MainNewActivity extends BaseActivity {
      */
     private void initData() {
 
-        setTitleLeft();
         gridInfos = new ArrayList<MainGridInfo>();
         for (int i = 0; i < 12; i++) {
             MainGridInfo gridInfo = new MainGridInfo();
@@ -531,6 +530,7 @@ public class MainNewActivity extends BaseActivity {
      * 获取主界面的数据
      */
     private void getMainData() {
+
         if (!isLogined()) {
             Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -614,6 +614,7 @@ public class MainNewActivity extends BaseActivity {
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
 
+                setTitleLeft();
                 setJpush();
                 break;
 
