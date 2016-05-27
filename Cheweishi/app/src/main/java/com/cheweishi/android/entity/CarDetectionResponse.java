@@ -30,12 +30,63 @@ public class CarDetectionResponse extends BaseResponse {
 
     public static class MsgBean {
         private double averageSpeed;
-        private float mileAge;
+        private float mileAge; // 今日里程
         private double averageFuelConsumption;
         private double cost;
-        private int runningTime;
+        private int runningTime; // 今日行驶时间
         private double fuelConsumption;
         private float totalMileAge;
+
+        private String emergencybrakecount; // 急刹车
+
+        private String suddenturncount; // 急转弯次数
+
+        private String rapidlyspeedupcount;// 急加速
+
+        private String fatiguedrivingcount;//疲劳驾驶
+
+        private String drivingScore;//行驶分数
+
+
+        public String getEmergencybrakecount() {
+            return emergencybrakecount;
+        }
+
+        public void setEmergencybrakecount(String emergencybrakecount) {
+            this.emergencybrakecount = emergencybrakecount;
+        }
+
+        public String getSuddenturncount() {
+            return suddenturncount;
+        }
+
+        public void setSuddenturncount(String suddenturncount) {
+            this.suddenturncount = suddenturncount;
+        }
+
+        public String getRapidlyspeedupcount() {
+            return rapidlyspeedupcount;
+        }
+
+        public void setRapidlyspeedupcount(String rapidlyspeedupcount) {
+            this.rapidlyspeedupcount = rapidlyspeedupcount;
+        }
+
+        public String getFatiguedrivingcount() {
+            return fatiguedrivingcount;
+        }
+
+        public void setFatiguedrivingcount(String fatiguedrivingcount) {
+            this.fatiguedrivingcount = fatiguedrivingcount;
+        }
+
+        public String getDrivingScore() {
+            return drivingScore;
+        }
+
+        public void setDrivingScore(String drivingScore) {
+            this.drivingScore = drivingScore;
+        }
 
         public double getAverageSpeed() {
             return averageSpeed;

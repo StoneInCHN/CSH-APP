@@ -142,7 +142,6 @@ public class CarReportActivity extends BaseActivity implements
 	/**
 	 * 初始化girdview时间
 	 * 
-	 * @param date
 	 *            传入时间 yyyy-MM-dd
 	 */
 	private void initCalendarData(String sDate) {

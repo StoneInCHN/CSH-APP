@@ -287,7 +287,7 @@ public class CarDynamicActivity extends BaseActivity {
             latlngs.add(carLatLng);
 
             String acc = response.getMsg().getAcc();
-            if (null != acc && "0".equals(acc))
+            if (null != acc && "1".equals(acc))
                 isFired = true;
             else
                 isFired = false;
@@ -311,7 +311,7 @@ public class CarDynamicActivity extends BaseActivity {
                     lLayoutCarInfo.setVisibility(View.VISIBLE);
                 }
             }
-            tvMile.setText(getmile(response.getMsg().getMileAge()));
+            tvMile.setText(response.getMsg().getMileAge()+"km");
             tvOBDtime.setText(getSDate(new Date(response.getMsg().getEngineRuntime()), isFired));
             tvSpeed.setText(getSpeed(response.getMsg().getSpeed()));
             tvOil.setText(getStringOil(response.getMsg().getAverageOil()));

@@ -105,6 +105,6 @@ public class FontAwesomeView extends TextView {
 		}
 		canvas.translate(offsetX, 0);
 		super.draw(canvas);
-		canvas.restore();
+		canvas.restore(); // TODO 6.0系统上有Bug.
 	}
 }

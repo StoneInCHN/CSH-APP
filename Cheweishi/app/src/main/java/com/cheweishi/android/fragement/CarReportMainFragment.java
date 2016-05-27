@@ -121,14 +121,14 @@ public class CarReportMainFragment extends BaseFragment {
             String time = String.valueOf(msg.getRunningTime());
             String licheng = String.valueOf(msg.getMileAge());
             String fee = String.valueOf(msg.getCost());
-            String total = String.valueOf(msg.getTotalMileAge());
+            String driverScore = msg.getDrivingScore();
             values[0] = isStringNull(oil);
             values[1] = isStringNull(avgOil);
             values[2] = isStringNull(avgSpeed);
             values[3] = isStringNull(time);
             values[4] = isStringNull(licheng);
             values[5] = isStringNull(fee);
-            values[6] = isStringNull(total);
+            values[6] = isStringNull(driverScore);
         } catch (Exception e) {
         }
 
