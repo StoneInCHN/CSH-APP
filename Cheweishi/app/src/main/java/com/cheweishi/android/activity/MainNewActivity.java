@@ -144,6 +144,9 @@ public class MainNewActivity extends BaseActivity {
     @ViewInject(R.id.refresh_scrollview)
     private PullToRefreshScrollView refresh_scrollview;
 
+    @ViewInject(R.id.iv_home_hascoupon)
+    private ImageView iv_home_hascoupon;// 活动中心按钮
+
     private MainGridViewAdapter gridViewAdapter;// gv_service适配器
     private MainListViewAdapter listViewAdapter;// list_business适配器
     private ImgAdapter imgAdapter;// mygrallery适配器
@@ -625,10 +628,13 @@ public class MainNewActivity extends BaseActivity {
                     return;
                 }
 
-                // TODO 版本更新
                 if (null != baseResponse.getMsg()) {
-                    app_new_download_url = baseResponse.getMsg().getApkPath();
-                    showVersionDialog(baseResponse.getMsg().getUpdateContent());
+                    if (null != baseResponse.getMsg().getApkPath() && !"".equals(baseResponse.getMsg().getApkPath())) {
+                        app_new_download_url = baseResponse.getMsg().getApkPath();
+                        showVersionDialog(baseResponse.getMsg().getUpdateContent());
+                    } else if (baseResponse.getMsg().isHasCoupon()) { // 是否有优惠券可领取
+                        iv_home_hascoupon.setVisibility(View.VISIBLE);
+                    }
                 }
 
                 loginResponse.setToken(baseResponse.getToken());
@@ -770,6 +776,7 @@ public class MainNewActivity extends BaseActivity {
 //                 intent.setClass(MainNewActivity.this,
 //                 InformationSecondListActivity.class);
 //                 startActivity(intent);
+                iv_home_hascoupon.setVisibility(View.GONE);
                 intent.setClass(MainNewActivity.this, CouponActivity.class);
                 startActivity(intent);
                 break;

@@ -200,14 +200,26 @@
                     android:layout_weight="1"
                     android:background="@drawable/more_back"
                     android:gravity="center"
-                    android:paddingBottom="@dimen/large_padding"
-                    android:paddingTop="@dimen/large_padding">
+                    android:paddingBottom="@dimen/large_padding">
+
 
                     <ImageView
                         android:id="@+id/img_activity_area"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_padding"
                         android:src="@drawable/huodongqu" />
+
+
+                    <ImageView
+                        android:id="@+id/iv_home_hascoupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_alignLeft="@id/img_activity_area"
+                        android:layout_marginTop="@dimen/normal_padding"
+                        android:src="@drawable/mess_dain" />
+
 
                     <TextView
                         android:id="@+id/tv_activity_area"
@@ -215,6 +227,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_marginLeft="@dimen/small_marging"
+                        android:layout_marginTop="@dimen/large_padding"
                         android:layout_toRightOf="@id/img_activity_area"
                         android:text="@string/main_activity_area"
                         android:textColor="@color/text_black_colcor"
@@ -230,6 +243,7 @@
                         android:text="@string/main_area_content"
                         android:textColor="@color/gray_pressed"
                         android:textSize="14sp" />
+
                 </RelativeLayout>
 
                 <View

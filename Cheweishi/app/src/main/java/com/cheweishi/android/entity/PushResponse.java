@@ -33,6 +33,16 @@ public class PushResponse extends BaseResponse {
         private String updateContent;
         private int versionCode;
 
+        private boolean hasCoupon;
+
+        public boolean isHasCoupon() {
+            return hasCoupon;
+        }
+
+        public void setHasCoupon(boolean hasCoupon) {
+            this.hasCoupon = hasCoupon;
+        }
+
         public String getApkPath() {
             return apkPath;
         }
