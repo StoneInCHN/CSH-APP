@@ -776,7 +776,7 @@ public class MainNewActivity extends BaseActivity {
 //                 intent.setClass(MainNewActivity.this,
 //                 InformationSecondListActivity.class);
 //                 startActivity(intent);
-                iv_home_hascoupon.setVisibility(View.GONE);
+//                iv_home_hascoupon.setVisibility(View.GONE);
                 intent.setClass(MainNewActivity.this, CouponActivity.class);
                 startActivity(intent);
                 break;
