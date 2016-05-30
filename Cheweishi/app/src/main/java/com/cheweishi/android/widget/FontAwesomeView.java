@@ -90,21 +90,23 @@ public class FontAwesomeView extends TextView {
 
 	@Override
 	public void draw(Canvas canvas) {
-		canvas.setDrawFilter(pfd);
-		if (paint != null) {
-			// paint.setColor(Color.GREEN);
-			// RectF rf = new RectF(Math.max(getMeasuredWidth(),
-			// getMeasuredHeight()) / 2, Math.max(getMeasuredWidth(),
-			// getMeasuredHeight()) / 2, Math.max(getMeasuredWidth(),
-			// getMeasuredHeight()) / 2, Math.max(getMeasuredWidth(),
-			// getMeasuredHeight()) / 2);
-			// canvas.drawRect(rf, paint);
-			canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2,
-					Math.max(getMeasuredWidth(), getMeasuredHeight()) / 2,
-					paint);
-		}
-		canvas.translate(offsetX, 0);
-		super.draw(canvas);
-		canvas.restore(); // TODO 6.0系统上有Bug.
+		try {
+			canvas.setDrawFilter(pfd);
+			if (paint != null) {
+				// paint.setColor(Color.GREEN);
+				// RectF rf = new RectF(Math.max(getMeasuredWidth(),
+				// getMeasuredHeight()) / 2, Math.max(getMeasuredWidth(),
+				// getMeasuredHeight()) / 2, Math.max(getMeasuredWidth(),
+				// getMeasuredHeight()) / 2, Math.max(getMeasuredWidth(),
+				// getMeasuredHeight()) / 2);
+				// canvas.drawRect(rf, paint);
+				canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2,
+						Math.max(getMeasuredWidth(), getMeasuredHeight()) / 2,
+						paint);
+			}
+			canvas.translate(offsetX, 0);
+			super.draw(canvas);
+			canvas.restore(); // TODO 6.0系统上有Bug.
+		}catch (Exception e){}
 	}
 }

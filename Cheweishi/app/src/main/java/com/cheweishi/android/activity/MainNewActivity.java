@@ -1,5 +1,6 @@
 package com.cheweishi.android.activity;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -539,6 +540,9 @@ public class MainNewActivity extends BaseActivity {
             startActivity(intent);
             return;
         }
+
+        applyAdmin(Manifest.permission.ACCESS_FINE_LOCATION, MY_LOCATION_PREMESSION);
+        applyAdmin(Manifest.permission.ACCESS_COARSE_LOCATION, MY_LOCATION_PREMESSION);
         ProgrosDialog.openDialog(this);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
@@ -574,8 +578,6 @@ public class MainNewActivity extends BaseActivity {
                     // TODO 成功
                     setTitle(response.getDesc());
                     showData(response);
-                    loginResponse.setToken(response.getToken());
-                    DBTools.getInstance(baseContext).save(loginResponse);
                 } else if (response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
                     // TODO 超时
                     Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
@@ -587,6 +589,8 @@ public class MainNewActivity extends BaseActivity {
                     return;
                 }
 
+                loginResponse.setToken(response.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 requestAdv();
                 break;
 
@@ -954,6 +958,7 @@ public class MainNewActivity extends BaseActivity {
      * @param cid
      */
     private void OpenCamera(String cid) {
+        applyAdmin(Manifest.permission.CAMERA, MY_CAMEAR_PREMESSION);
         PackageManager pkm = getPackageManager();
         boolean has_permission = (PackageManager.PERMISSION_GRANTED == pkm
                 .checkPermission("android.permission.CAMERA", baseContext.getPackageName()));//"packageName"));

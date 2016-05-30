@@ -3,17 +3,23 @@ package com.cheweishi.android.activity;
 import java.io.File;
 import java.util.List;
 
+import android.Manifest;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -31,6 +37,7 @@ import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.ActivityControl;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -45,6 +52,8 @@ import com.umeng.analytics.MobclickAgent;
  */
 public abstract class BaseActivity extends FragmentActivity implements
         JSONCallback {
+    public static final int MY_CAMEAR_PREMESSION = 0; // 拍照
+    public static final int MY_LOCATION_PREMESSION = 1; // 定位
     /**
      * 上下文 当进入activity时必须 mContext = this 方可使用，否则会报空指针
      */
@@ -545,4 +554,54 @@ public abstract class BaseActivity extends FragmentActivity implements
     }
 
 
+    public boolean applyAdmin(String permission, int code) {
+
+        if (!hasPermission()) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {//Manifest.permission.CAMERA
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{permission},
+                        code);
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean hasPermission() {
+        int permissionCheck = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // 6.0
+
+            permissionCheck = ContextCompat.checkSelfPermission(baseContext, Manifest.permission.CAMERA);
+        }
+        return permissionCheck == PackageManager.PERMISSION_GRANTED ? true : false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case MY_CAMEAR_PREMESSION:
+
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //权限同一了.
+                } else {
+                    //权限被拒绝了
+                    showToast("拍照权限已经被拒绝,你可以在权限管理重新添加该权限");
+                }
+
+                break;
+            case MY_LOCATION_PREMESSION:
+
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //权限同一了.
+                } else {
+                    //权限被拒绝了
+                    showToast("定位权限已经被拒绝,你可以在权限管理重新添加该权限");
+                }
+
+                break;
+        }
+    }
 }
