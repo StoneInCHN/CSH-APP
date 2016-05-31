@@ -12,13 +12,13 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
-/**
+ /**
  * 使用fontAwesome做图标的VIEW
- * 
+ *
  * @author 陈国庆
  * @date 2015年5月7日
  */
- 
+
 public class FontAwesomeView extends TextView {
 	PaintFlagsDrawFilter pfd = new PaintFlagsDrawFilter(0,
 			Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);

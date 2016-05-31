@@ -636,7 +636,8 @@ public class MainNewActivity extends BaseActivity {
                     if (null != baseResponse.getMsg().getApkPath() && !"".equals(baseResponse.getMsg().getApkPath())) {
                         app_new_download_url = baseResponse.getMsg().getApkPath();
                         showVersionDialog(baseResponse.getMsg().getUpdateContent());
-                    } else if (baseResponse.getMsg().isHasCoupon()) { // 是否有优惠券可领取
+                    }
+                    if (baseResponse.getMsg().isHasCoupon()) { // 是否有优惠券可领取
                         iv_home_hascoupon.setVisibility(View.VISIBLE);
                     }
                 }
