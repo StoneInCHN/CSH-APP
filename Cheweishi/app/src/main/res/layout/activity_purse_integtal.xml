@@ -14,9 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/img_title_purse"
-        android:layout_marginLeft="@dimen/normal_marging"
-        android:layout_marginRight="@dimen/normal_marging"
-        android:layout_marginTop="@dimen/large_marging"
+        android:scrollbars="none"
         android:divider="@color/white"
         android:dividerHeight="15dp" />
 
