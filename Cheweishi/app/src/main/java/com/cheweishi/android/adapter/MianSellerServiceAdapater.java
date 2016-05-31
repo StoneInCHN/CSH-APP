@@ -69,7 +69,6 @@ public class MianSellerServiceAdapater extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
@@ -120,22 +119,7 @@ public class MianSellerServiceAdapater extends BaseAdapter {
                         builder.setOnSaveListener(new mYSaveListener());
                         builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, mContext);
                         builder.show();
-
                         Serviceid = list.getCarService().get(position).getService_id();
-
-
-//                    LogHelper.d("name:" + list.getTenant_name());
-//                    Intent intent = new Intent(mContext, WashCarPayActivity.class);
-//                    intent.putExtra("seller", list.getTenant_name());
-////					intent.putExtra("seller_id", mainSellerInfo.getId());
-//                    intent.putExtra("service", list.getCarService().get(position).getServiceName());
-//                    intent.putExtra("service_id", "" + list.getCarService().get(position).getService_id());
-//                    if (StringUtil.isEmpty(list.getCarService().get(position).getPromotion_price()) || StringUtil.isEquals("null", String.valueOf(list.getCarService().get(position).getPromotion_price()), true)) {
-//                        intent.putExtra("price", String.valueOf(list.getCarService().get(position).getPrice()));
-//                    } else {
-//                        intent.putExtra("price", String.valueOf(list.getCarService().get(position).getPromotion_price()));
-//                    }
-//                    mContext.startActivity(intent);
                     }
                 });
             } else {

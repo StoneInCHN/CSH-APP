@@ -910,6 +910,7 @@
     <string name="report_wash">洗车 </string>
     <string name="report_road">桥路 </string>
     <string name="report_maintenance">保养 </string>
+    <string name="car_maintain">车保养 </string>
     <string name="report_insure">保险 </string>
     <string name="report_fine">罚款 </string>
     <string name="report_oil">燃油 </string>
