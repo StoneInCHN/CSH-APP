@@ -1,0 +1,134 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/treasureLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".WithdrawDepositActivity">
+
+    <include layout="@layout/title" />
+
+    <LinearLayout
+        android:id="@+id/requestFocusLayout"
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <requestFocus />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/integral_xlistview_item_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/blue_sub_action_button_content_margin"
+            android:background="@color/main_light_blue"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/parent_expandable_list_group_padding_left"
+                android:layout_marginTop="@dimen/parent_expandable_list_group_padding_left"
+                android:text="@string/may_withdraw_deposit"
+                android:textColor="@color/main_blue"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/text_size_large" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/integral_xlistview_item_relativelayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/blue_sub_action_button_content_margin"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/withdraw_deposit_tv_can_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_blue"
+                android:padding="@dimen/large_padding"
+                android:textSize="@dimen/max_size" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sameday_oilwear_min"
+        android:layout_marginTop="@dimen/sameday_oilwear"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_withdraw_deposit"
+            android:textColor="@color/text_black_colcor"
+            android:textSize="@dimen/titile_side_text_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/withdraw_deposit_et_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/input_withdraw_deposit"
+                android:inputType="numberDecimal"
+                android:paddingLeft="@dimen/normal_padding"
+                android:singleLine="true"
+                android:textCursorDrawable="@null"
+                android:textColor="@color/main_blue"
+                android:textSize="@dimen/titile_side_text_size" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_thumbnail_spacing"
+                android:background="@color/line_gray" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/withdraw_deposit_tv_chongxingshuru"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/sorry_withdraw_deposit_insufficient"
+        android:textColor="@color/red"
+        android:textSize="@dimen/titile_side_text_size"
+        android:visibility="invisible"
+        android:layout_marginTop="@dimen/normal_marging" />
+
+    <Button
+        android:id="@+id/withdraw_deposit_btn_sumbit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sameday_oilwear_min"
+        android:layout_marginRight="@dimen/sameday_oilwear_min"
+        android:layout_marginTop="@dimen/parent_expandable_list_height"
+        android:background="@drawable/submit_money_shape"
+        android:padding="@dimen/normal_padding"
+        android:text="@string/Submit"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="@dimen/sameday_oilwear_min"
+        android:layout_marginTop="@dimen/sameday_oilwear_min"
+        android:text="@string/only_alipay"
+        android:textColor="@color/gray_normal"
+        android:textSize="@dimen/car_text_normal" />
+
+</LinearLayout>

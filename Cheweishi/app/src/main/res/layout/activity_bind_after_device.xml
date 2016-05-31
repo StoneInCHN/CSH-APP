@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <ImageView
+            android:id="@+id/img_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/bangding_xuanze" />
+    </RelativeLayout>
+    <!-- 话费/返费说明 -->
+
+    <RelativeLayout
+        android:id="@+id/rlayout_fanfei"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+
+        <TextView
+            android:id="@+id/tv_not_tips_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="感谢您选择车生活，极智车联"
+            android:textColor="@color/black"
+            android:textSize="@dimen/titile_side_text_size" />
+
+        <TextView
+            android:id="@+id/tv_not_tips_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_not_tips_1"
+            android:gravity="center"
+            android:text="由此开启!"
+            android:textColor="@color/black"
+            android:textSize="@dimen/titile_side_text_size" />
+
+        <Button
+            android:id="@+id/btn_return"
+            style="@style/car_bind_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="5dp"
+            android:text="返回"
+            android:textColor="@color/white"
+            android:textSize="@dimen/titile_side_text_size" />
+
+        <Button
+            android:id="@+id/btn_go"
+            style="@style/car_bind_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_return"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="5dp"
+            android:text="去看看"
+            android:textColor="@color/white"
+            android:textSize="@dimen/titile_side_text_size" />
+
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_go"
+            android:textColor="@color/black"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="您可以在个人中心-我的财富中查看话费/返费" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include_wash_condition"
+        layout="@layout/title" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_wash_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xlarge_marging"
+            android:layout_marginLeft="@dimen/xlarge_marging" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wash_no"
+            android:layout_marginTop="@dimen/xlarge_marging" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_wash_else"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_marging"
+            android:layout_marginLeft="@dimen/xlarge_marging" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wash_else"
+            android:layout_marginTop="@dimen/small_marging" />
+    </LinearLayout>
+
+    <EditText
+        android:background="@drawable/shape_circle"
+        android:id="@+id/ed_wash_cause"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wash_edit"
+        android:layout_marginLeft="@dimen/xlarge_marging"
+        android:layout_marginRight="@dimen/xlarge_marging"
+        android:hint="@string/wash_cause"
+        android:textSize="@dimen/ttf_ten"
+        android:gravity="left"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_wash_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/wash_submit"
+        android:background="@drawable/login_back"
+        android:textColor="@color/white"
+        android:layout_margin="@dimen/xlarge_marging"
+        android:padding="@dimen/nosmall_padding"
+        android:gravity="center" />
+</LinearLayout>

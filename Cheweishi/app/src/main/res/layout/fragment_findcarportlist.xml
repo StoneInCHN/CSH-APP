@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_backgroud"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/findcar_meiyouzhaodao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/double_large_marging"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/no_findcarport" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.cheweishi.android.widget.XListView
+            android:id="@+id/carportlist_listview"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:divider="@android:color/transparent" />
+
+        <RadioGroup
+            android:id="@+id/findcarport_list_rgroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/findcarportmap_bmapView"
+            android:layout_alignTop="@id/findcarportmap_bmapView"
+            android:layout_marginLeft="@dimen/large_marging"
+            android:layout_marginTop="@dimen/top_left_small_padding"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/findcarport_list_car_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cbox_carlocation_selector"
+                android:button="@null"
+                android:checked="true"
+                android:padding="@dimen/small_padding" />
+
+            <RadioButton
+                android:id="@+id/findcarport_list_person_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top_left_small_padding"
+                android:background="@drawable/cbox_personlocation_selector"
+                android:button="@null"
+                android:padding="@dimen/small_padding" />
+        </RadioGroup>
+    </RelativeLayout>
+
+</LinearLayout>

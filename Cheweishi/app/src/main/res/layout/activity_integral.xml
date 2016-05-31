@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".IntegralActivity">
+
+    <include layout="@layout/title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.handmark.pulltorefresh.library.PullToRefreshListView
+                android:id="@+id/integral_xlistview"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true">
+
+            <Button
+                android:id="@+id/integral_return_top"
+                android:layout_width="@dimen/image_thumbnail_size"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/top_margin"
+                android:layout_marginRight="@dimen/top_margin"
+                android:background="@drawable/shaple"
+                android:gravity="center"
+                android:paddingBottom="@dimen/normal_padding"
+                android:paddingTop="@dimen/normal_padding"
+                android:singleLine="true"
+                android:text="@string/back_top"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>
