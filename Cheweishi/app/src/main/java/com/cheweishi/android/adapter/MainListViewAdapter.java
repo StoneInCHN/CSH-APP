@@ -65,7 +65,7 @@ public class MainListViewAdapter extends BaseAdapter implements OnClickListener 
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHodler hodler;
         if (convertView == null) {
             hodler = new ViewHodler();
@@ -159,6 +159,12 @@ public class MainListViewAdapter extends BaseAdapter implements OnClickListener 
             serviceAdapater = new MianSellerServiceAdapater(mContext,
                     list.get(position));
             hodler.list_main_seller_service.setAdapter(serviceAdapater);
+//            hodler.list_main_seller_service.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int p, long id) {
+//                    LogHelper.d("onItemClick:" + position);
+//                }
+//            });
         }
 //        }
         return convertView;

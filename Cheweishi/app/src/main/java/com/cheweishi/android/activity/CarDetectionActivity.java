@@ -144,6 +144,15 @@ public class CarDetectionActivity extends BaseActivity {
         }
     }
 
+    private int getMinu(int data) {
+        if (0 >= data)
+            return 0;
+        if (60000 > data)
+            return 1;
+        data = data / 60000;
+        return data;
+    }
+
     @Override
     public void receive(String data) {
         ProgrosDialog.closeProgrosDialog();
@@ -158,7 +167,7 @@ public class CarDetectionActivity extends BaseActivity {
             String oil = String.valueOf(msg.getFuelConsumption());
             String avgOil = String.valueOf(msg.getAverageFuelConsumption());
             String avgSpeed = String.valueOf(msg.getAverageSpeed());
-            String time = String.valueOf(msg.getRunningTime());
+            String time = String.valueOf(getMinu(msg.getRunningTime())); // 计算分钟
             String licheng = String.valueOf(msg.getMileAge());
             String total = String.valueOf(msg.getTotalMileAge());
 
