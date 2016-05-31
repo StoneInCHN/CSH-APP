@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_backgroud"
+    android:orientation="vertical"
+    tools:context=".ReturnTheMoneyDatailsActivity">
+
+    <include layout="@layout/title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/returnthemoney_refteshlistview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/returnmoney_linearlayout_nodata"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.cheweishi.android.widget.FontAwesomeView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/icon_no_data"
+                android:textColor="@color/gray_normal"
+                android:textSize="@dimen/ttf_one_hundred" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normal_marging"
+                android:text="@string/no_data_match"
+                android:textColor="@color/light_gray"
+                android:textSize="@dimen/titile_side_text_size" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

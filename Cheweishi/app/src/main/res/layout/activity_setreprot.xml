@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_backgroud"
+    android:orientation="vertical">
+
+    <include layout="@layout/title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/itme_heigth"
+                android:layout_marginTop="@dimen/double_large_marging"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/large_marging"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/zhendong"
+                    android:textColor="@color/text_black_colcor"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <CheckBox
+                    android:id="@+id/checkbox1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:button="@drawable/check"
+                    android:paddingRight="@dimen/large_padding" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/large_marging"
+                android:layout_marginTop="@dimen/large_marging"
+                android:text="@string/zhengdong_hint"
+                android:textColor="@color/gray_pressed"
+                android:textSize="@dimen/text_size_small" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/large_marging"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/yidong"
+                    android:textColor="@color/text_black_colcor"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <CheckBox
+                    android:id="@+id/checkbox2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:button="@drawable/check"
+                    android:paddingRight="@dimen/large_padding" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/large_marging"
+                android:layout_marginTop="@dimen/large_marging"
+                android:text="@string/yidong_hint"
+                android:textColor="@color/gray_pressed"
+                android:textSize="@dimen/text_size_small" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/itme_heigth"
+                android:layout_marginTop="@dimen/top_left_small_padding"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/large_marging"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/shuiwen"
+                    android:textColor="@color/text_black_colcor"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <CheckBox
+                    android:id="@+id/checkbox3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:button="@drawable/check"
+                    android:paddingRight="@dimen/large_padding" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/large_marging"
+                android:layout_marginTop="@dimen/large_marging"
+                android:text="@string/shuiwen_hint"
+                android:textColor="@color/gray_pressed"
+                android:textSize="@dimen/text_size_small" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/itme_heigth"
+                android:layout_marginTop="@dimen/top_left_small_padding"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/large_marging"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/pengzhuang"
+                    android:textColor="@color/text_black_colcor"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <CheckBox
+                    android:id="@+id/checkbox4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:button="@drawable/check"
+                    android:paddingRight="@dimen/large_padding" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/large_marging"
+                android:layout_marginTop="@dimen/large_marging"
+                android:text="@string/pengzhuang_hint"
+                android:textColor="@color/gray_pressed"
+                android:textSize="@dimen/text_size_small" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/itme_heigth"
+                android:layout_marginTop="@dimen/top_left_small_padding"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/large_marging"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/dianpinchaichu"
+                    android:textColor="@color/text_black_colcor"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <CheckBox
+                    android:id="@+id/checkbox5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:button="@drawable/check"
+                    android:paddingRight="@dimen/large_padding" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/large_marging"
+                android:layout_marginTop="@dimen/large_marging"
+                android:layout_marginBottom="@dimen/large_marging"
+                android:text="@string/dianpinchaichu_hint"
+                android:textColor="@color/gray_pressed"
+                android:textSize="@dimen/text_size_small" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

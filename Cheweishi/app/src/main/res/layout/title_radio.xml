@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/main_blue"
+    android:orientation="horizontal"
+    android:padding="@dimen/normal_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_blue"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/left_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawableLeft="@drawable/left"
+                android:paddingRight="@dimen/top_left_large_padding"
+                android:textColor="@color/white"
+                android:textSize="@dimen/titile_side_text_size" />
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/listToMap"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/car_manager_left_back"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:padding="@dimen/small_padding"
+                android:text="@string/list"
+                android:textColor="@color/car_manager_top" />
+
+            <RadioButton
+                android:id="@+id/rb_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/car_manager_right_back"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="@dimen/small_padding"
+                android:text="@string/map"
+                android:textColor="@color/text_black_colcor" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/right_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/top_left_large_padding"
+                android:paddingRight="@dimen/normal_padding"
+                android:textColor="@color/white"
+                android:textSize="@dimen/titile_side_text_size" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

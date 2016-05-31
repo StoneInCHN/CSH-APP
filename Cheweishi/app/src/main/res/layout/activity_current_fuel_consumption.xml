@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.cheweishi.android.widget.YouhaoView
+        android:id="@+id/youhaoview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3" />
+
+    <RelativeLayout
+        android:id="@+id/linearlayout_fragment_CurrentFuelConsumptionFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/sameday_oilwear"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/youhao_icon1" />
+
+        <TextView
+            android:id="@+id/tv_noSpeedData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/normal_padding"
+            android:layout_marginRight="@dimen/normal_padding"
+            android:background="@color/gray_backgroud"
+            android:padding="@dimen/top_margin"
+            android:text="@string/car_report_no_data"
+            android:textColor="@color/gray_normal"
+            android:gravity="center"
+            android:textSize="@dimen/titile_side_text_size" />
+    </RelativeLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        layout="@layout/car_report_bottom" />
+
+</LinearLayout>

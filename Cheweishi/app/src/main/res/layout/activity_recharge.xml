@@ -1,0 +1,271 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".MyTreasureActivity">
+
+    <include layout="@layout/title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/integral_xlistview_item_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/main_light_blue">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/parent_expandable_list_group_padding_left"
+                        android:layout_marginTop="@dimen/parent_expandable_list_group_padding_left"
+                        android:text="余额(元)"
+                        android:textColor="@color/main_blue"
+                        android:textSize="@dimen/text_size_large" />
+
+                    <ImageView
+                        android:id="@+id/mytreasure_imageview_telephonecharge_declare"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/parent_expandable_list_group_padding_left"
+                        android:src="@drawable/jifen_fujia2x"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/integral_xlistview_item_relativelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/large_padding">
+
+                    <TextView
+                        android:id="@+id/tv_recharge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="@dimen/large_padding"
+                        android:text="123458"
+                        android:textColor="@color/main_blue"
+                        android:textSize="@dimen/max_size" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_insurance_protected"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_recharge"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/img_insurance_flag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/dunpai2x" />
+
+                        <TextView
+                            android:id="@+id/tv_insurance_protected"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/img_insurance_flag"
+                            android:gravity="center"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/key_text_small" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_rechargeDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="余额详情>>"
+                        android:textColor="@color/main_blue"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line_gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/normal_padding"
+                    android:paddingTop="@dimen/normal_padding">
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/line_gray"
+                        android:gravity="center_horizontal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_freezeMoney"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="300"
+                                android:textColor="@color/gray_normal"
+                                android:textSize="@dimen/titile_side_text_size" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="设备"
+                                android:textColor="@color/gray_pressed"
+                                android:textSize="@dimen/key_text_small" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_totalMoney"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text="10 "
+                                android:textColor="@color/gray_normal"
+                                android:textSize="@dimen/text_size_large" />
+
+                            <TextView
+                                android:id="@+id/mytreasure_tv_cancarry"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text="总金额"
+                                android:textColor="@color/gray_pressed"
+                                android:textSize="@dimen/key_text_small" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/main_light_blue">
+
+                <TextView
+                    android:id="@+id/mytreasure_tv_returnthemoney_help"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/parent_expandable_list_group_padding_left"
+                    android:text="话费余额(元)"
+                    android:textColor="@color/main_blue"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_netPhone_balance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="@dimen/large_padding"
+                android:paddingTop="@dimen/large_padding"
+                android:text="321"
+                android:textColor="@color/main_blue"
+                android:textSize="@dimen/large_textsize" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_netPhone_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="话费详情>>"
+                    android:textColor="@color/main_blue"
+                    android:textSize="@dimen/key_text_small" />
+
+                <Button
+                    android:id="@+id/bt_recharge"
+                    style="@style/car_bind_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/small_marging"
+                    android:layout_marginRight="@dimen/small_marging"
+                    android:layout_marginTop="@dimen/normal_marging"
+                    android:paddingBottom="@dimen/normal_padding"
+                    android:paddingTop="@dimen/normal_marging"
+                    android:text="账户充值"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/title__text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="账户资金安全由平安保险全额承包"
+                    android:textColor="@color/main_blue"
+                    android:textSize="@dimen/titile_side_text_size"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_rechargeProtocol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="@dimen/normal_padding"
+                    android:text="详情查看《账户充值须知和约定协议》"
+                    android:textColor="@color/main_blue"
+                    android:textSize="@dimen/key_text_small"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

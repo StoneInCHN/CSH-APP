@@ -1,0 +1,165 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_backgroud"
+    android:orientation="vertical"
+    tools:context=".PessanySearchResultActivity">
+
+    <include layout="@layout/title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/normal_padding">
+
+        <ImageView
+            android:id="@+id/img_peccany_result"
+            android:layout_width="@dimen/img_car_height"
+            android:layout_height="@dimen/img_car_height"
+            android:layout_marginLeft="@dimen/normal_marging"
+            android:src="@drawable/car_default" />
+
+        <TextView
+            android:id="@+id/tv_peccanyResult_plateCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/normal_marging"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="chepao"
+            android:textColor="@color/gray_normal"
+            android:textSize="@dimen/titile_side_text_size" />
+
+        <ImageView
+            android:id="@+id/img_peccany_result_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/normal_marging"
+            android:padding="@dimen/normal_padding"
+            android:background="@drawable/more_back"
+            android:src="@drawable/weizhang_refresh" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/normal_padding">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/normal_marging"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/pessany_desc"
+                android:textColor="@color/gray_pressed"
+                android:textSize="@dimen/home_car_text_size" />
+
+            <TextView
+                android:id="@+id/tv_notDeal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="2"
+                android:textColor="@color/gray_normal"
+                android:textSize="@dimen/home_car_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/normal_marging"
+            android:layout_marginRight="@dimen/normal_marging"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/pessany_cut"
+                android:textColor="@color/gray_pressed"
+                android:textSize="@dimen/home_car_text_size" />
+
+            <TextView
+                android:id="@+id/tv_cut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="2"
+                android:textColor="@color/gray_normal"
+                android:textSize="@dimen/home_car_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/pessany_punish"
+                android:textColor="@color/gray_pressed"
+                android:textSize="@dimen/home_car_text_size" />
+
+            <TextView
+                android:id="@+id/tv_punish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="200"
+                android:textColor="@color/gray_normal"
+                android:textSize="@dimen/home_car_text_size" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_pessany_search_result"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/large_marging"
+        android:layout_weight="1"
+        android:divider="@color/gray_backgroud"
+        android:dividerHeight="@dimen/large_marging"
+        android:scrollbars="none"></ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/normal_padding">
+
+        <Button
+            android:id="@+id/btn_peccany_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_back"
+            android:gravity="center"
+            android:padding="@dimen/normal_padding"
+            android:text="@string/pay_pessany"
+            android:textColor="@color/white"
+            android:textSize="@dimen/titile_side_text_size" />
+    </LinearLayout>
+
+</LinearLayout>

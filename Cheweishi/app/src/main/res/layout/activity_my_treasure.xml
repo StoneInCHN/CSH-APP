@@ -1,0 +1,215 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".MyTreasureActivity">
+
+    <include layout="@layout/title" />
+
+    <LinearLayout
+        android:id="@+id/integral_xlistview_item_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_light_blue">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/parent_expandable_list_group_padding_left"
+                android:layout_marginTop="@dimen/parent_expandable_list_group_padding_left"
+                android:text="话费余额（元）"
+                android:textColor="@color/main_blue"
+                android:textSize="@dimen/text_size_large" />
+
+            <ImageView
+                android:id="@+id/mytreasure_imageview_telephonecharge_declare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/parent_expandable_list_group_padding_left"
+                android:src="@drawable/jifen_fujia2x" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/integral_xlistview_item_relativelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/my_treasure_phone_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/large_padding"
+                android:paddingTop="@dimen/large_padding"
+                android:text="123458"
+                android:textColor="@color/main_blue"
+                android:textSize="@dimen/max_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/mytreasure_tv_checkdetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="查看详情>>"
+                android:textColor="@color/main_blue" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_light_blue"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/mytreasure_tv_returnthemoney_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/jifen_fujia2x"
+            android:gravity="center_vertical"
+            android:padding="@dimen/parent_expandable_list_group_padding_left"
+            android:text="返费（元）"
+            android:textColor="@color/main_blue"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/mytrwasure_tv_backmoney"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="@dimen/large_padding"
+        android:paddingTop="@dimen/large_padding"
+        android:text="321"
+        android:textColor="@color/main_blue"
+        android:textSize="@dimen/large_textsize"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/normal_padding"
+        android:paddingTop="@dimen/normal_padding"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/line_gray"
+            android:gravity="center_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/car_main_user"
+                    android:text="冻结(元)"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/key_text_small" />
+
+                <TextView
+                    android:id="@+id/mytreasure_tv_frostmoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_padding"
+                    android:text="311"
+                    android:textColor="@color/main_blue"
+                    android:textSize="@dimen/titile_side_text_size" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/mytreasure_tv_cancarry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/car_main_user"
+                    android:text="可提现"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/key_text_small" />
+
+                <TextView
+                    android:id="@+id/mytreasure_tv_cash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_left"
+                    android:layout_toRightOf="@+id/mytreasure_tv_cancarry"
+                    android:text="10 "
+                    android:textColor="@color/main_blue"
+                    android:textSize="@dimen/text_size_large" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/my_treasure_tv_backmoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="查看详情>>"
+            android:textColor="@color/main_blue"
+            android:textSize="@dimen/key_text_small"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/my_treasue_btn_sumbit"
+            style="@style/car_bind_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/small_marging"
+            android:layout_marginRight="@dimen/small_marging"
+            android:layout_marginTop="@dimen/normal_marging"
+            android:paddingBottom="@dimen/normal_padding"
+            android:paddingTop="@dimen/normal_marging"
+            android:text="我要提现"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title__text_size"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/line_gray"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xlarge_marging"
+                android:background="@color/white"
+                android:padding="@dimen/nosmall_padding">
+
+                <CheckBox
+                    android:id="@+id/cbtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:button="@drawable/login_jizhumima"
+                    android:checked="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/cbtime"
+                    android:padding="@dimen/normal_marging"
+                    android:text="等待时间过长"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/ttf_fourteen" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xlarge_marging"
+                android:background="@color/white"
+                android:padding="@dimen/nosmall_padding">
+
+                <CheckBox
+                    android:id="@+id/cbserve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:button="@drawable/login_jizhumima" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/cbserve"
+                    android:padding="@dimen/normal_marging"
+                    android:text="我已经不需要此服务"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/ttf_fourteen" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xlarge_marging"
+                android:background="@color/white"
+                android:padding="@dimen/nosmall_padding">
+
+                <CheckBox
+                    android:id="@+id/ckNone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:button="@drawable/login_jizhumima" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/ckNone"
+                    android:padding="@dimen/normal_marging"
+                    android:text="以上都不是？那请吐槽吧"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/ttf_fourteen" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/et_reason"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/car_main_item_space"
+                android:layout_marginTop="@dimen/xlarge_marging"
+                android:background="@color/white"
+                android:gravity="left"
+                android:hint="请尽情吐槽"
+                android:padding="@dimen/nosmall_padding"
+                android:textSize="@dimen/ttf_fourteen" />
+
+            <TextView
+                android:id="@+id/tv_cancel_sumbit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marging_hight"
+                android:layout_marginTop="@dimen/double_double_large_marging"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="@dimen/normal_padding"
+                android:text="确认提交"
+                android:textColor="@color/orange" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,221 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".InsuranceBuyActivity">
+
+    <include layout="@layout/title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/zhanghuanquan_img"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/normal_padding"
+                    android:textColor="@color/main_blue"
+                    android:textSize="@dimen/titile_side_text_size"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:background="@drawable/insurance_half_back"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="@dimen/normal_padding"
+                    android:paddingRight="@dimen/normal_padding"
+                    android:text="由平安商业保险提供"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/key_text_small"></TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/normal_padding"
+                    android:textColor="@color/main_blue"
+                    android:textSize="@dimen/titile_side_text_size"></TextView>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/normal_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/insurance_returnMoney"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/titile_side_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_insurance_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/titile_side_text_size" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_marging"
+                android:layout_marginRight="@dimen/normal_marging"
+                android:background="@color/line_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/normal_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/insurance_time"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/titile_side_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_insurance_num"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/titile_side_text_size" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_marging"
+                android:layout_marginRight="@dimen/normal_marging"
+                android:background="@color/line_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/normal_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/insurance_effect"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/titile_side_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_insurance_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/titile_side_text_size" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_marging"
+                android:layout_marginRight="@dimen/normal_marging"
+                android:background="@color/line_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/normal_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/insurance_payMoney"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/titile_side_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_insurance_total"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/main_blue"
+                    android:textSize="@dimen/titile_side_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/titile_side_text_size" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_marging"
+                android:layout_marginRight="@dimen/normal_marging"
+                android:background="@color/line_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/normal_marging"
+                android:padding="@dimen/normal_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/agree"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/titile_side_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_turnToProtocol1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/insurance_protocol"
+                    android:textColor="@color/main_blue"
+                    android:textSize="@dimen/titile_side_text_size" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_insurance_buy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/normal_marging"
+                android:background="@drawable/regist_back"
+                android:onClick="payInsurance"
+                android:padding="@dimen/normal_padding"
+                android:text="@string/insurance_buy"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
