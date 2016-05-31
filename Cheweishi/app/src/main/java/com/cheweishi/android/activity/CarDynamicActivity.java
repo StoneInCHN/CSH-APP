@@ -312,7 +312,8 @@ public class CarDynamicActivity extends BaseActivity {
                 }
             }
             tvMile.setText(response.getMsg().getMileAge()+"km");
-            tvOBDtime.setText(getSDate(new Date(response.getMsg().getEngineRuntime()), isFired));
+            // 因为要显示
+            tvOBDtime.setText(getSDate(new Date(response.getMsg().getEngineRuntime()), true));
             tvSpeed.setText(getSpeed(response.getMsg().getSpeed()));
             tvOil.setText(getStringOil(response.getMsg().getAverageOil()));
             // TODO isMode
