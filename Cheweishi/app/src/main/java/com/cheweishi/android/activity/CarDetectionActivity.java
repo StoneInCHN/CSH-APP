@@ -147,9 +147,9 @@ public class CarDetectionActivity extends BaseActivity {
     private int getMinu(int data) {
         if (0 >= data)
             return 0;
-        if (60000 > data)
+        if (60 > data)
             return 1;
-        data = data / 60000;
+        data = data / 60;
         return data;
     }
 

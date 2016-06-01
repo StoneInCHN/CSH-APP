@@ -311,9 +311,10 @@ public class CarDynamicActivity extends BaseActivity {
                     lLayoutCarInfo.setVisibility(View.VISIBLE);
                 }
             }
-            tvMile.setText(response.getMsg().getMileAge()+"km");
+            tvMile.setText(response.getMsg().getMileAge() + "km");
             // 因为要显示
-            tvOBDtime.setText(getSDate(new Date(response.getMsg().getEngineRuntime()), true));
+//            tvOBDtime.setText(getSDate(new Date(response.getMsg().getEngineRuntime()), true));
+            tvOBDtime.setText(getSDate(response.getMsg().getEngineRuntime()));
             tvSpeed.setText(getSpeed(response.getMsg().getSpeed()));
             tvOil.setText(getStringOil(response.getMsg().getAverageOil()));
             // TODO isMode
@@ -506,6 +507,9 @@ public class CarDynamicActivity extends BaseActivity {
         return days + "d:" + hours + "h:" + minutes + "m";
     }
 
+    private String getSDate(long time) {
+        return time / 60 / 60 + "h:" + time / 60 + "m:" + time % 60 + "s";
+    }
 
     private String getSDate(Date endTime, boolean isMoving) {
         if (endTime == null || isMoving == false) {
