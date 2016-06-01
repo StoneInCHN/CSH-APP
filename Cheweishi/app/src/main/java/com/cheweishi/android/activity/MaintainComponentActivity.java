@@ -7,19 +7,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
+import com.cheweishi.android.adapter.ComponentServiceAdapter;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ComponentServiceResponse;
+import com.cheweishi.android.entity.ComponentServiceShowResponse;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.widget.UnSlidingListView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,6 +58,9 @@ public class MaintainComponentActivity extends BaseActivity {
     @ViewInject(R.id.ll_maintain_component_content)
     private LinearLayout ll_maintain_component_content;// 配件内容头
 
+    private ComponentServiceAdapter adapter;
+
+    private List<ComponentServiceShowResponse> showData; // 组合界面需要展示的数据
 
 
     @Override
@@ -71,7 +78,9 @@ public class MaintainComponentActivity extends BaseActivity {
                 R.drawable.home_color_car, iv_maintain_icon,
                 loginResponse.getMsg().getDefaultVehicleIcon());
         tv_maintain_car_mode.setText(loginResponse.getMsg().getDefaultVehicle());
-
+        showData = new ArrayList<>();
+        adapter = new ComponentServiceAdapter(baseContext, showData);
+        usl_maintain_content.setAdapter(adapter);
 //        getData();
     }
 
@@ -92,15 +101,14 @@ public class MaintainComponentActivity extends BaseActivity {
         switch (TAG) {
             case NetInterface.GETSERVICEBYID: // 获取保养的组合套餐
                 ComponentServiceResponse response = (ComponentServiceResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ComponentServiceResponse.class);
-                if(!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)){
+                if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(response.getDesc());
                     return;
                 }
 
 
-
                 loginResponse.setToken(response.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext,loginResponse);
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }
     }

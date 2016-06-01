@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.entity.ComponentServiceResponse;
+import com.cheweishi.android.entity.ComponentServiceShowResponse;
 import com.cheweishi.android.response.BaseResponse;
 
 import java.util.List;
@@ -19,11 +20,18 @@ public class ComponentServiceAdapter extends BaseAdapter {
 
     private Context context;
 
-    private List<ComponentServiceResponse.MsgBean> list;
+    private List<ComponentServiceShowResponse> list;
 
-    public ComponentServiceAdapter(Context context, List<ComponentServiceResponse.MsgBean> list) {
+    public ComponentServiceAdapter(Context context, List<ComponentServiceShowResponse> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void setData(List<ComponentServiceShowResponse> list) {
+        if (null != list) {
+            this.list = list;
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -54,7 +62,8 @@ public class ComponentServiceAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-//        holder.name.setText();
+        holder.name.setText(list.get(position).getServiceName() + " - " + list.get(position).getMsg().getName());
+        holder.price.setText(list.get(position).getMsg().getPrice());
 
         return convertView;
     }
