@@ -20,6 +20,7 @@
             android:layout_alignParentBottom="true">
 
             <TextView
+                android:id="@+id/tv_maintain_money"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -31,6 +32,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_maintain_pay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -63,6 +65,7 @@
                     android:padding="30dp">
 
                     <ImageView
+                        android:id="@+id/iv_maintain_icon"
                         android:layout_width="80dp"
                         android:layout_height="80dp" />
 
@@ -73,6 +76,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_maintain_car_mode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="进口保时捷"
@@ -81,6 +85,7 @@
 
 
                         <TextView
+                            android:id="@+id/tv_maintain_car_mode_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -94,11 +99,13 @@
 
 
                 <LinearLayout
+                    android:id="@+id/ll_maintain_component_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:orientation="vertical"
+                    android:visibility="gone"
                     android:padding="10dp">
 
                     <RelativeLayout
@@ -106,6 +113,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/tv_maintain_service_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="电瓶保养"
@@ -114,6 +122,7 @@
 
 
                         <TextView
+                            android:id="@+id/tv_maintain_choice_component"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -135,6 +144,7 @@
 
                         <!--服务的具体项-->
                         <com.cheweishi.android.widget.UnSlidingListView
+                            android:id="@+id/usl_maintain_content"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:divider="@null"
