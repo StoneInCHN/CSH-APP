@@ -693,7 +693,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             return;
         }
 
-        double couponMoney = couponListResponse.getMsg().get(position).getCoupon().getAmount();
+        double couponMoney = Double.valueOf(couponListResponse.getMsg().get(position).getCoupon().getAmount());
         tv_red_hint.setText("使用优惠券抵扣:" + "￥" + (couponMoney > Double.valueOf(price) ? Double.valueOf(price) : couponMoney) + "元");
         double tempPrice = calcMoney(couponMoney);
         tv_wash_pay_num.setText("￥" + tempPrice + "元");

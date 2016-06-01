@@ -79,7 +79,7 @@ public class ActivityCouponResponse extends BaseResponse{
         private int id;
         private int remainNum;
         private String deadlineTime;
-        private double amount;
+        private String amount;
         private boolean isGet;
         private String type;
         private String remark;
@@ -116,11 +116,11 @@ public class ActivityCouponResponse extends BaseResponse{
             isGet = get;
         }
 
-        public double getAmount() {
+        public String getAmount() {
             return amount;
         }
 
-        public void setAmount(double amount) {
+        public void setAmount(String amount) {
             this.amount = amount;
         }
 

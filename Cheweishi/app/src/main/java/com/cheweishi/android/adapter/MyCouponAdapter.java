@@ -86,7 +86,7 @@ public class MyCouponAdapter extends BaseAdapter {
         }
 
 
-        holder.money.setText(((int) list.get(position).getCoupon().getAmount()) + "元");
+        holder.money.setText(list.get(position).getCoupon().getAmount() + "元");
         String tempTime = list.get(position).getOverDueTime();
         if (null != tempTime)
             holder.date.setText("截止时间:" + list.get(position).getOverDueTime());
