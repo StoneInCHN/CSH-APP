@@ -1,6 +1,7 @@
 package com.cheweishi.android.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,17 +10,18 @@ import android.widget.TextView;
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.ComponentServiceAdapter;
 import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ComponentServiceResponse;
 import com.cheweishi.android.entity.ComponentServiceShowResponse;
+import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.widget.UnSlidingListView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +31,7 @@ import java.util.Map;
 /**
  * Created by tangce on 5/31/2016.
  */
-public class MaintainComponentActivity extends BaseActivity {
+public class MaintainComponentActivity extends BaseActivity implements View.OnClickListener {
 
     @ViewInject(R.id.left_action)
     private Button left_action;
@@ -62,6 +64,8 @@ public class MaintainComponentActivity extends BaseActivity {
 
     private List<ComponentServiceShowResponse> showData; // 组合界面需要展示的数据
 
+    private int serviceID; // 服务id
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +85,13 @@ public class MaintainComponentActivity extends BaseActivity {
         showData = new ArrayList<>();
         adapter = new ComponentServiceAdapter(baseContext, showData);
         usl_maintain_content.setAdapter(adapter);
-//        getData();
+        serviceID = getIntent().getIntExtra("serviceid", 0);
+
+        if (0 == serviceID) {
+            showToast("初始化失败");
+            return;
+        }
+        getData(serviceID);
     }
 
     private void getData(int id) {
@@ -106,9 +116,65 @@ public class MaintainComponentActivity extends BaseActivity {
                     return;
                 }
 
+                if (null != response.getMsg()) {
+                    handlerResponse(response);
+                    if (null != showData || 0 == showData.size())
+                        adapter.setData(showData);
+                    else {
+                        EmptyTools.setEmptyView(this, usl_maintain_content);
+                        EmptyTools.setImg(R.drawable.dingdanwu_icon);
+                        EmptyTools.setMessage("亲，暂无相关数据");
+                    }
+                } else {
+                    EmptyTools.setEmptyView(this, usl_maintain_content);
+                    EmptyTools.setImg(R.drawable.dingdanwu_icon);
+                    EmptyTools.setMessage("亲，暂无相关数据");
+                }
+
 
                 loginResponse.setToken(response.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                break;
+        }
+    }
+
+
+    private void handlerResponse(ComponentServiceResponse response) {
+        try {
+            double totalMoneyTemp = 0;
+            ComponentServiceShowResponse show = new ComponentServiceShowResponse();
+            for (int i = 0; i < response.getMsg().size(); i++) {
+                show.setServiceName(response.getMsg().get(i).getServiceItemName());
+                if (null != response.getMsg().get(i)) {
+                    totalMoneyTemp = 0;
+                    for (int j = 0; j < response.getMsg().get(i).getItemParts().size(); j++) {
+                        if (response.getMsg().get(i).getItemParts().get(j).isIsDefault()) { // 找到有的了.
+                            ComponentServiceShowResponse.MsgBean msg = new ComponentServiceShowResponse.MsgBean();
+                            msg.setName(response.getMsg().get(i).getItemParts().get(j).getServiceItemPartName());
+                            msg.setPrice(response.getMsg().get(i).getItemParts().get(j).getPrice());
+                            totalMoneyTemp += Double.valueOf(response.getMsg().get(i).getItemParts().get(j).getPrice());// 计算总价格
+                            show.setMsg(msg);
+                            break;
+                        }
+                    }
+                    show.setTotalMoney(String.valueOf(totalMoneyTemp)); // 填充总价钱
+                }
+                showData.add(show);
+            }
+
+        } catch (Exception e) { // 可能会出现异常
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick({R.id.tv_maintain_choice_component, R.id.left_action})
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_maintain_choice_component:// 选配件
+                break;
+            case R.id.left_action:
+                finish();
                 break;
         }
     }

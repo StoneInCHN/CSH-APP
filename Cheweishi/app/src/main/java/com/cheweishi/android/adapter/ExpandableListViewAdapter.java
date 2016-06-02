@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.cheweishi.android.activity.MaintainComponentActivity;
+import com.cheweishi.android.activity.MaintainDetailsActivity;
 import com.cheweishi.android.activity.SoSActivity;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.R;
@@ -167,13 +169,17 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                             // TODO 预约,因为要展示,所以暂时注释,调用预约接口
 
 
-                            DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(context);
-                            builder.setWheelViewVisibility(View.GONE);
-                            builder.setOnSaveListener(new mYSaveListener());
-                            builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, context);
-                            builder.show();
+//                            DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(context);
+//                            builder.setWheelViewVisibility(View.GONE);
+//                            builder.setOnSaveListener(new mYSaveListener());
+//                            builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, context);
+//                            builder.show();
 
                             Serviceid = washCar.get(groupPosition).getSubServices().get(childPosition).getId();
+                            Intent intent = new Intent(context, MaintainComponentActivity.class);
+                            intent.putExtra("serviceid",Serviceid);
+                            intent.putExtra("servicename",washCar.get(groupPosition).getSubServices().get(childPosition).getServiceName());
+                            context.startActivity(intent);
 //                    ServicePrice = washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
 //                    subscript(, );
 
@@ -346,7 +352,6 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     * ����gridview����¼�����
      *
      * @param gridView
      */
@@ -374,26 +379,22 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        // TODO Auto-generated method stub
         return washCar.get(groupPosition);// [groupPosition];
     }
 
     @Override
     public int getGroupCount() {
-        // TODO Auto-generated method stub
         return washCar == null ? 0 : washCar.size();// .length;
     }
 
     @Override
     public long getGroupId(int groupPosition) {
-        // TODO Auto-generated method stub
         return groupPosition;
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         if (convertView == null) {
             mViewChild = new ViewChild();
             convertView = mInflater.inflate(R.layout.item_expandablellistview,
@@ -424,13 +425,11 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean hasStableIds() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        // TODO Auto-generated method stub
         return true;
     }
 

@@ -67,7 +67,7 @@ public class ComponentServiceResponse extends BaseResponse {
 
         public static class ItemPartsBean {
             private boolean isDefault;
-            private int price;
+            private String price;
             private String serviceItemPartName;
             private int id;
 
@@ -79,11 +79,11 @@ public class ComponentServiceResponse extends BaseResponse {
                 this.isDefault = isDefault;
             }
 
-            public int getPrice() {
+            public String getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(String price) {
                 this.price = price;
             }
 
