@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
@@ -59,6 +60,14 @@ public class MaintainComponentActivity extends BaseActivity implements View.OnCl
 
     @ViewInject(R.id.ll_maintain_component_content)
     private LinearLayout ll_maintain_component_content;// 配件内容头
+
+    @ViewInject(R.id.rl_maintain_content)
+    private RelativeLayout rl_maintain_content;// 配件头
+
+    @ViewInject(R.id.tv_maintain_money)
+    private TextView tv_maintain_money;// 价钱
+
+    private double totalMoneyTemp = 0; // 总价钱
 
     private ComponentServiceAdapter adapter;
 
@@ -118,14 +127,18 @@ public class MaintainComponentActivity extends BaseActivity implements View.OnCl
 
                 if (null != response.getMsg()) {
                     handlerResponse(response);
-                    if (null != showData || 0 == showData.size())
+                    if (null != showData && 0 != showData.size()) {
+                        rl_maintain_content.setVisibility(View.VISIBLE);
+                        tv_maintain_money.setText("￥" + tv_maintain_money + "元");
                         adapter.setData(showData);
-                    else {
+                    } else {
+                        rl_maintain_content.setVisibility(View.GONE);
                         EmptyTools.setEmptyView(this, usl_maintain_content);
                         EmptyTools.setImg(R.drawable.dingdanwu_icon);
                         EmptyTools.setMessage("亲，暂无相关数据");
                     }
                 } else {
+                    rl_maintain_content.setVisibility(View.GONE);
                     EmptyTools.setEmptyView(this, usl_maintain_content);
                     EmptyTools.setImg(R.drawable.dingdanwu_icon);
                     EmptyTools.setMessage("亲，暂无相关数据");
@@ -141,7 +154,7 @@ public class MaintainComponentActivity extends BaseActivity implements View.OnCl
 
     private void handlerResponse(ComponentServiceResponse response) {
         try {
-            double totalMoneyTemp = 0;
+            totalMoneyTemp = 0;
             ComponentServiceShowResponse show = new ComponentServiceShowResponse();
             for (int i = 0; i < response.getMsg().size(); i++) {
                 show.setServiceName(response.getMsg().get(i).getServiceItemName());
@@ -157,7 +170,6 @@ public class MaintainComponentActivity extends BaseActivity implements View.OnCl
                             break;
                         }
                     }
-                    show.setTotalMoney(String.valueOf(totalMoneyTemp)); // 填充总价钱
                 }
                 showData.add(show);
             }

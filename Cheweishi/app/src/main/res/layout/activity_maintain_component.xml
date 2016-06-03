@@ -26,7 +26,7 @@
                 android:layout_weight="3"
                 android:background="@color/text_saoyisao_color"
                 android:padding="15dp"
-                android:text="应付款:"
+                android:text="应付款:未生成价格"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -105,10 +105,10 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:visibility="gone"
                     android:padding="10dp">
 
                     <RelativeLayout
+                        android:id="@+id/rl_maintain_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -146,7 +146,7 @@
                         <com.cheweishi.android.widget.UnSlidingListView
                             android:id="@+id/usl_maintain_content"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:divider="@null"
                             android:dividerHeight="0dp"
                             android:scrollbars="none" />

@@ -7,15 +7,6 @@ public class ComponentServiceShowResponse {
 
     private String serviceName;
 
-    private String totalMoney;
-
-    public String getTotalMoney() {
-        return totalMoney;
-    }
-
-    public void setTotalMoney(String totalMoney) {
-        this.totalMoney = totalMoney;
-    }
 
     private ComponentServiceShowResponse.MsgBean msg;
 
