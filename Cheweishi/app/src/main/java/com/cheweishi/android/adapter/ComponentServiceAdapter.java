@@ -63,7 +63,7 @@ public class ComponentServiceAdapter extends BaseAdapter {
         }
 
         holder.name.setText(list.get(position).getServiceName() + " - " + list.get(position).getMsg().getName());
-        holder.price.setText(list.get(position).getMsg().getPrice());
+        holder.price.setText("￥" + list.get(position).getMsg().getPrice() + "元");
 
         return convertView;
     }

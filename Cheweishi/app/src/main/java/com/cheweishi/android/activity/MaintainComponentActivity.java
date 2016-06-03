@@ -129,7 +129,7 @@ public class MaintainComponentActivity extends BaseActivity implements View.OnCl
                     handlerResponse(response);
                     if (null != showData && 0 != showData.size()) {
                         rl_maintain_content.setVisibility(View.VISIBLE);
-                        tv_maintain_money.setText("￥" + tv_maintain_money + "元");
+                        tv_maintain_money.setText("￥" + totalMoneyTemp + "元");
                         adapter.setData(showData);
                     } else {
                         rl_maintain_content.setVisibility(View.GONE);
