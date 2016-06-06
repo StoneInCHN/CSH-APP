@@ -154,24 +154,23 @@ public class MaintainComponentActivity extends BaseActivity implements View.OnCl
 
     private void handlerResponse(ComponentServiceResponse response) {
         try {
+            showData.clear();
             totalMoneyTemp = 0;
-            ComponentServiceShowResponse show = new ComponentServiceShowResponse();
             for (int i = 0; i < response.getMsg().size(); i++) {
-                show.setServiceName(response.getMsg().get(i).getServiceItemName());
                 if (null != response.getMsg().get(i)) {
-                    totalMoneyTemp = 0;
                     for (int j = 0; j < response.getMsg().get(i).getItemParts().size(); j++) {
                         if (response.getMsg().get(i).getItemParts().get(j).isIsDefault()) { // 找到有的了.
+                            ComponentServiceShowResponse show = new ComponentServiceShowResponse();
+                            show.setServiceName(response.getMsg().get(i).getServiceItemName());
                             ComponentServiceShowResponse.MsgBean msg = new ComponentServiceShowResponse.MsgBean();
                             msg.setName(response.getMsg().get(i).getItemParts().get(j).getServiceItemPartName());
                             msg.setPrice(response.getMsg().get(i).getItemParts().get(j).getPrice());
                             totalMoneyTemp += Double.valueOf(response.getMsg().get(i).getItemParts().get(j).getPrice());// 计算总价格
                             show.setMsg(msg);
-                            break;
+                            showData.add(show);
                         }
                     }
                 }
-                showData.add(show);
             }
 
         } catch (Exception e) { // 可能会出现异常
