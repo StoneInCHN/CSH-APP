@@ -237,7 +237,10 @@ public class PayUtils {
 
         // 服务器异步通知页面路径
         orderInfo += "&notify_url=" + "\""
-                + "http://jfinal.chcws.com/notify/pay/notify_alipay" + "\"";
+                + "http://120.27.92.247:10001/csh-interface/payNotify/notify_alipay.jhtml" + "\"";
+
+        //http://120.27.92.247:10001/csh-interface/payNotify/notify_alipay.jhtml
+        //http://jfinal.chcws.com/notify/pay/notify_alipay
 
         // 服务接口名称， 固定值
         orderInfo += "&service=\"mobile.securitypay.pay\"";

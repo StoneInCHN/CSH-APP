@@ -157,6 +157,26 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                     });
                     break;
                 case "美容":
+                    mViewChild.btn_pay.setBackgroundResource(R.drawable.maintain_click_selector);
+                    mViewChild.btn_pay.setTextColor(context.getResources().getColor(
+                            R.color.main_orange));
+                    mViewChild.btn_pay.setText("预约");
+                    mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
+
+                        @Override
+                        public void onClick(View arg0) {
+                            // TODO 预约,因为要展示,所以暂时注释,调用预约接口
+
+
+                            DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(context);
+                            builder.setWheelViewVisibility(View.GONE);
+                            builder.setOnSaveListener(new mYSaveListener());
+                            builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, context);
+                            builder.show();
+
+
+                        }
+                    });
                 case "保养":
                     mViewChild.btn_pay.setBackgroundResource(R.drawable.maintain_click_selector);
                     mViewChild.btn_pay.setTextColor(context.getResources().getColor(
@@ -178,7 +198,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                             Serviceid = washCar.get(groupPosition).getSubServices().get(childPosition).getId();
                             Intent intent = new Intent(context, MaintainComponentActivity.class);
                             intent.putExtra("serviceid",Serviceid);
-                            intent.putExtra("servicename",washCar.get(groupPosition).getSubServices().get(childPosition).getServiceName());
+                            intent.putExtra("serviceName",washCar.get(groupPosition).getSubServices().get(childPosition).getServiceName());
                             context.startActivity(intent);
 //                    ServicePrice = washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
 //                    subscript(, );
@@ -330,6 +350,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             @Override
             public void error(String errorMsg) {
                 ProgrosDialog.closeProgrosDialog();
+                Toast.makeText(context,R.string.server_link_fault, Toast.LENGTH_SHORT).show();
             }
         });
     }

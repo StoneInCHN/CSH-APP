@@ -2,12 +2,13 @@ package com.cheweishi.android.entity;
 
 import com.cheweishi.android.response.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by tangce on 6/1/2016.
  */
-public class ComponentServiceResponse extends BaseResponse {
+public class ComponentServiceResponse extends BaseResponse implements Serializable {
 
     /**
      * msg : [{"serviceItemName":"车身保养","itemParts":[{"isDefault":true,"price":20,"serviceItemPartName":"保养1","id":1},{"isDefault":true,"price":12,"serviceItemPartName":"保养2","id":2},{"isDefault":false,"price":5,"serviceItemPartName":"保养3","id":3}]},{"serviceItemName":"车窗保养","itemParts":[{"isDefault":true,"price":30,"serviceItemPartName":"保养4","id":4}]}]
@@ -38,7 +39,7 @@ public class ComponentServiceResponse extends BaseResponse {
         this.msg = msg;
     }
 
-    public static class MsgBean {
+    public static class MsgBean implements Serializable {
         private String serviceItemName;
         /**
          * isDefault : true
@@ -65,7 +66,7 @@ public class ComponentServiceResponse extends BaseResponse {
             this.itemParts = itemParts;
         }
 
-        public static class ItemPartsBean {
+        public static class ItemPartsBean implements Serializable {
             private boolean isDefault;
             private String price;
             private String serviceItemPartName;

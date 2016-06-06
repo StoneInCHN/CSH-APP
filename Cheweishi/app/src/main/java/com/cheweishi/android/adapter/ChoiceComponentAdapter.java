@@ -64,7 +64,7 @@ public class ChoiceComponentAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean hasStableIds() {
-        return false;
+        return true;
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ChoiceComponentAdapter extends BaseExpandableListAdapter {
             holder = (ViewChildHolder) convertView.getTag();
         }
         holder.name.setText(response.getMsg().get(groupPosition).getItemParts().get(childPosition).getServiceItemPartName());
-        holder.price.setText(response.getMsg().get(groupPosition).getItemParts().get(childPosition).getPrice());
+        holder.price.setText("￥" + response.getMsg().get(groupPosition).getItemParts().get(childPosition).getPrice() + "元");
 
         if (response.getMsg().get(groupPosition).getItemParts().get(childPosition).isIsDefault()) {
             holder.rl_choice_child.setBackgroundResource(R.drawable.pay_money_false);
@@ -105,8 +105,8 @@ public class ChoiceComponentAdapter extends BaseExpandableListAdapter {
             holder.price.setTextColor(context.getResources().getColor(R.color.orange));
         } else {
             holder.rl_choice_child.setBackgroundResource(R.color.white_alpha);
-            holder.name.setTextColor(context.getResources().getColor(R.color.white));
-            holder.price.setTextColor(context.getResources().getColor(R.color.white));
+            holder.name.setTextColor(context.getResources().getColor(R.color.hyal));
+            holder.price.setTextColor(context.getResources().getColor(R.color.hyal));
         }
 
         return convertView;
@@ -114,7 +114,7 @@ public class ChoiceComponentAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 
     private class ViewGroupHolder {
