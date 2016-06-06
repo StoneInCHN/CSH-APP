@@ -177,6 +177,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
                         }
                     });
+                    break;
                 case "保养":
                     mViewChild.btn_pay.setBackgroundResource(R.drawable.maintain_click_selector);
                     mViewChild.btn_pay.setTextColor(context.getResources().getColor(
@@ -197,8 +198,8 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
                             Serviceid = washCar.get(groupPosition).getSubServices().get(childPosition).getId();
                             Intent intent = new Intent(context, MaintainComponentActivity.class);
-                            intent.putExtra("serviceid",Serviceid);
-                            intent.putExtra("serviceName",washCar.get(groupPosition).getSubServices().get(childPosition).getServiceName());
+                            intent.putExtra("serviceid", Serviceid);
+                            intent.putExtra("serviceName", washCar.get(groupPosition).getSubServices().get(childPosition).getServiceName());
                             context.startActivity(intent);
 //                    ServicePrice = washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
 //                    subscript(, );
@@ -350,7 +351,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             @Override
             public void error(String errorMsg) {
                 ProgrosDialog.closeProgrosDialog();
-                Toast.makeText(context,R.string.server_link_fault, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.server_link_fault, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -373,7 +374,6 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     *
      * @param gridView
      */
     private void setGridViewListener(final ListView gridView) {
