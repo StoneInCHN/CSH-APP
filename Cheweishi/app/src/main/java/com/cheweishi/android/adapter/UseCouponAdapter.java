@@ -77,7 +77,7 @@ public class UseCouponAdapter extends BaseAdapter {
         }
 
 
-        holder.money.setText((int) list.get(position).getCoupon().getAmount() + "元");
+        holder.money.setText(list.get(position).getCoupon().getAmount() + "元");
 //        holder.desc.setText(list.get(position).getCoupon().getRemark());
         // 根据类型展示不同的背景
         if (null != list.get(position).getCoupon().getType() && "COMMON".equals(list.get(position).getCoupon().getType())) {

@@ -70,9 +70,9 @@ public class MessageCenterDialog extends BaseDialog {
 		if (type==3) {
 			this.message.setText("您确认要将所有信息设置成为已读吗？？？");
 		}else if(type==0){
-			this.message.setText("您确认要将所有信息清空吗？？？");
+			this.message.setText("您确认要将所有信息清空吗？");
 		}else if (type==1){
-			this.message.setText("您确认要删除选中的信息吗？？？");
+			this.message.setText("您确认要删除选中的信息吗？");
 		}else if (type==5) {
 			this.message.setText(context.getString(R.string.no_band_gasstation));
 		}else if (type==6) {

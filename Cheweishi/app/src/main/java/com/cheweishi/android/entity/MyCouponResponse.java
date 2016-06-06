@@ -127,7 +127,7 @@ public class MyCouponResponse extends BaseResponse {
 
         public static class CouponBean {
             private String remark;
-            private double amount;
+            private String amount;
             private String type;
 
             public String getRemark() {
@@ -138,11 +138,11 @@ public class MyCouponResponse extends BaseResponse {
                 this.remark = remark;
             }
 
-            public double getAmount() {
+            public String getAmount() {
                 return amount;
             }
 
-            public void setAmount(double amount) {
+            public void setAmount(String amount) {
                 this.amount = amount;
             }
 

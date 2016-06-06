@@ -164,6 +164,15 @@ public class DrivingBehaviorFragment extends BaseFragment {
         netWorkHelper.PostJson(url, param, this);
     }
 
+
+    private int calcTime(int time) {
+        if (0 >= time)
+            return 0;
+        if (60 > time)
+            return 1;
+        return time / 60;
+    }
+
     @Override
     public void receive(String data) {
         ((CarReportActivity) mContext).disMissCustomDialog();
@@ -176,7 +185,7 @@ public class DrivingBehaviorFragment extends BaseFragment {
 
         if (null != response.getMsg()) {
             tv_drivingMile.setText(response.getMsg().getMileAge() + "km"); //当前行驶里程
-            tv_drivingTime.setText("" + response.getMsg().getRunningTime()); // 行驶时间
+            tv_drivingTime.setText(response.getMsg().getRunningTime() / 60 / 60 + "小时" + response.getMsg().getRunningTime() / 60 + "分钟" + response.getMsg().getRunningTime() % 60 + "秒");//行驶时间
             tv_drivingScore.setText(response.getMsg().getDrivingScore() // 行驶分数
                     + mContext.getResources().getString(
                     R.string.score));
