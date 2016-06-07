@@ -144,6 +144,8 @@ public class MyorderAdapter extends BaseAdapter {
          RESERVATION_SUCCESS,
          预约失败
          RESERVATION_FAIL,
+         正在服务
+         IN_SERVICE,
          未支付
          UNPAID,
          已支付
@@ -223,9 +225,30 @@ public class MyorderAdapter extends BaseAdapter {
                 }
             });
 
+        } else if (mData.get(arg0).getChargeStatus().equals("IN_SERVICE")) { // 正在服务
+            holder.tv_order_class_name.setText("正在享受服务中");
+            holder.tv_time.setText("下单时间");
+            holder.tv_order_time.setText("" + transferLongToDate(mData.get(arg0).getCreateDate()));
+            holder.tv_order_class_name.setTextColor(mContext.getResources()
+                    .getColor(R.color.service_orange));
+            holder.btn_order_comment.setVisibility(View.GONE);
+            holder.btn_order_detail.setVisibility(View.VISIBLE);
+
+            holder.btn_order_detail.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+                    // TODO 查看详情
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, OrderDetailsActivity.class);
+                    intent.putExtra("recordId", String.valueOf(mData.get(Integer.valueOf(String.valueOf(arg0.getTag()))).getId()));
+                    mContext.startActivity(intent);
+                }
+            });
+
         } else if (mData.get(arg0).getChargeStatus().equals("UNPAID")) {// 未支付
             double price = mData.get(arg0).getPrice();
-            if (-1 == price) {
+            if (-1 == price && 5 == mData.get(arg0).getCarService().getServiceCategory().getId()) { // 价格为-1,且为美容
                 holder.tv_order_class_name.setText("价格面谈中");
                 holder.tv_time.setText("下单时间");
                 holder.tv_order_time.setText("" + transferLongToDate(mData.get(arg0).getCreateDate()));
@@ -347,7 +370,7 @@ public class MyorderAdapter extends BaseAdapter {
                 }
             });
 
-        } else {// 过期
+        } else if (mData.get(arg0).getChargeStatus().equals("OVERDUE")) {// 过期
             holder.tv_order_class_name.setText("已过期");
             holder.tv_time.setText("过期时间");
             holder.tv_order_time.setText(""
@@ -486,6 +509,8 @@ public class MyorderAdapter extends BaseAdapter {
         } else if (5 == mData.get(arg0).getCarService().getServiceCategory().getId()) {// 美容
             holder.img_order.setBackgroundResource(R.drawable.meirong);
         } else if (4 == mData.get(arg0).getCarService().getServiceCategory().getId()) {
+            holder.img_order.setBackgroundResource(R.drawable.jinjijiuyuan); // 紧急救援
+        } else if (6 == mData.get(arg0).getCarService().getServiceCategory().getId()) { // 保险
             holder.img_order.setBackgroundResource(R.drawable.jinjijiuyuan); // 紧急救援
         }
 //        }else{

@@ -51,7 +51,7 @@ public class ChoiceComponentActivity extends BaseActivity implements View.OnClic
 
     private double totalMoneyTemp = 0; // 总价钱
 
-    private List<ComponentServiceShowResponse> showData = new ArrayList<>(); // 组合界面需要展示的数据
+//    private List<ComponentServiceShowResponse> showData = new ArrayList<>(); // 组合界面需要展示的数据
 
 
     @Override

@@ -186,6 +186,15 @@ public class ServiceListResponse extends BaseResponse implements Serializable {
             private int service_id;
             private String serviceName;
             private double promotion_price;
+            private int categoryId;
+
+            public int getCategoryId() {
+                return categoryId;
+            }
+
+            public void setCategoryId(int categoryId) {
+                this.categoryId = categoryId;
+            }
 
             public double getPrice() {
                 return price;

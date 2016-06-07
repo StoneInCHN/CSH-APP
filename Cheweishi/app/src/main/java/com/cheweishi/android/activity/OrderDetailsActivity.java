@@ -529,6 +529,8 @@ public class OrderDetailsActivity extends BaseActivity implements
          RESERVATION_SUCCESS,
          预约失败
          RESERVATION_FAIL,
+         正在服务中
+         IN_SERVICE,
          未支付
          UNPAID,
          已支付
@@ -571,6 +573,18 @@ public class OrderDetailsActivity extends BaseActivity implements
                     red_img_order("预约失败,您可以选择新的时间段进行重新预约");
                     tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
                     tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
+                    tv_time1_second.setText(formateDate(response.getMsg().getSubscribeDate()));
+                    tv_time1_second.setTextColor(getResources().getColor(R.color.order_dr));
+                    break;
+                case "IN_SERVICE": // 正在服务中
+                    img_yuyue.setImageResource(R.drawable.dingdanxiangqing_timexxx2xx);
+                    img_daodian.setImageResource(R.drawable.dingdanxiangqing_baoyang1);
+                    tv_yuyue.setText("预约成功");
+                    tv_daodian.setText("正在服务");
+                    green_img_order("您的爱车正在享受服务,请稍后确认支付信息");
+                    tv_daodian.setTextColor(getResources().getColor(R.color.order_dr));
+                    tv_time1_first.setText(formateDate(response.getMsg().getCreateDate()));
+                    tv_time1_second.setVisibility(View.VISIBLE);
                     tv_time1_second.setText(formateDate(response.getMsg().getSubscribeDate()));
                     tv_time1_second.setTextColor(getResources().getColor(R.color.order_dr));
                     break;

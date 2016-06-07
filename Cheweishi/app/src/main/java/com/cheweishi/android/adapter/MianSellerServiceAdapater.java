@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaseActivity;
+import com.cheweishi.android.activity.MaintainComponentActivity;
 import com.cheweishi.android.activity.OrderDetailsActivity;
 import com.cheweishi.android.activity.WashCarPayActivity;
 import com.cheweishi.android.biz.JSONCallback;
@@ -99,70 +100,101 @@ public class MianSellerServiceAdapater extends BaseAdapter {
         if (!StringUtil.isEmpty(list)) {
             holder.tv_service_name.setText(list.getCarService().get(position).getServiceName());
 
-            double price = list.getCarService().get(position).getPrice();
-            if (-1 == price) {
-                holder.btn_pay
-                        .setBackgroundResource(R.drawable.maintain_click_selector);
-                holder.btn_pay.setTextColor(mContext.getResources().getColor(
-                        R.color.main_orange));
-                holder.btn_pay.setText("预约");
-                holder.tv_service_fPrice_name.setVisibility(View.GONE);
-                holder.tv_service_fPrice.setVisibility(View.GONE);
-                holder.tv_service_price.setVisibility(View.GONE);
-                holder.btn_pay.setOnClickListener(new OnClickListener() {
+//            double price = list.getCarService().get(position).getPrice();
+            int id = list.getCarService().get(position).getCategoryId();
+            switch (id){
+                case 1: // 保养
+                    holder.btn_pay
+                            .setBackgroundResource(R.drawable.maintain_click_selector);
+                    holder.btn_pay.setTextColor(mContext.getResources().getColor(
+                            R.color.main_orange));
+                    holder.btn_pay.setText("预约");
+                    holder.tv_service_fPrice_name.setVisibility(View.GONE);
+                    holder.tv_service_fPrice.setVisibility(View.GONE);
+                    holder.tv_service_price.setVisibility(View.GONE);
+                    holder.btn_pay.setOnClickListener(new OnClickListener() {
 
-                    @Override
-                    public void onClick(View v) {
-                        //  TODO 预约
-                        DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(mContext);
-                        builder.setWheelViewVisibility(View.GONE);
-                        builder.setOnSaveListener(new mYSaveListener());
-                        builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, mContext);
-                        builder.show();
-                        Serviceid = list.getCarService().get(position).getService_id();
-                    }
-                });
-            } else {
-                holder.btn_pay
-                        .setBackgroundResource(R.drawable.pay_click_selector);
-                holder.btn_pay.setTextColor(mContext.getResources().getColor(
-                        R.color.main_blue));
-                holder.btn_pay.setText("支付");
-                if (StringUtil.isEmpty(list.getCarService().get(position).getPromotion_price())) {
-                    holder.tv_service_fPrice.setText("￥" + list.getCarService().get(position).getPrice());
-                } else {
-                    holder.tv_service_fPrice.setText("￥" + list.getCarService().get(position).getPromotion_price());
-                }
-                holder.tv_service_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-                holder.tv_service_price.setText("￥" + list.getCarService().get(position).getPrice());
-                holder.btn_pay.setOnClickListener(new OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-                        LogHelper.d("name:" + list.getTenantName());
-                        // TODO 点击跳转到洗车界面
-                        Intent intent = new Intent(mContext, WashCarPayActivity.class);
-                        intent.putExtra("seller", list.getTenantName());
-                        // TODO 不知道是什么
-//					intent.putExtra("seller_id", mainSellerInfo.getId());
-                        intent.putExtra("service", list.getCarService().get(position).getServiceName());
-                        intent.putExtra("service_id", "" + list.getCarService().get(position).getService_id());
-                        if (StringUtil.isEmpty(list.getCarService().get(position).getPromotion_price()) || StringUtil.isEquals("null", String.valueOf(list.getCarService().get(position).getPromotion_price()), true)) {
-                            intent.putExtra("price", String.valueOf(list.getCarService().get(position).getPrice()));
-                        } else {
-                            intent.putExtra("price", String.valueOf(list.getCarService().get(position).getPromotion_price()));
+                        @Override
+                        public void onClick(View v) {
+                            //  TODO 预约
+                            Serviceid = list.getCarService().get(position).getService_id();
+                            Intent intent = new Intent(mContext, MaintainComponentActivity.class);
+                            intent.putExtra("serviceid", Serviceid);
+                            intent.putExtra("serviceName", list.getCarService().get(position).getServiceName());
+                            mContext.startActivity(intent);
                         }
-                        // TODO 不知道是什么
+                    });
+                    break;
+                case 2: // 洗车
+                    holder.btn_pay
+                            .setBackgroundResource(R.drawable.pay_click_selector);
+                    holder.btn_pay.setTextColor(mContext.getResources().getColor(
+                            R.color.main_blue));
+                    holder.btn_pay.setText("支付");
+                    if (StringUtil.isEmpty(list.getCarService().get(position).getPromotion_price())) {
+                        holder.tv_service_fPrice.setText("￥" + list.getCarService().get(position).getPrice());
+                    } else {
+                        holder.tv_service_fPrice.setText("￥" + list.getCarService().get(position).getPromotion_price());
+                    }
+                    holder.tv_service_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+                    holder.tv_service_price.setText("￥" + list.getCarService().get(position).getPrice());
+                    holder.btn_pay.setOnClickListener(new OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+
+                            LogHelper.d("name:" + list.getTenantName());
+                            // TODO 点击跳转到洗车界面
+                            Intent intent = new Intent(mContext, WashCarPayActivity.class);
+                            intent.putExtra("seller", list.getTenantName());
+                            // TODO 不知道是什么
+//					intent.putExtra("seller_id", mainSellerInfo.getId());
+                            intent.putExtra("service", list.getCarService().get(position).getServiceName());
+                            intent.putExtra("service_id", "" + list.getCarService().get(position).getService_id());
+                            if (StringUtil.isEmpty(list.getCarService().get(position).getPromotion_price()) || StringUtil.isEquals("null", String.valueOf(list.getCarService().get(position).getPromotion_price()), true)) {
+                                intent.putExtra("price", String.valueOf(list.getCarService().get(position).getPrice()));
+                            } else {
+                                intent.putExtra("price", String.valueOf(list.getCarService().get(position).getPromotion_price()));
+                            }
+                            // TODO 不知道是什么
 //                    if (StringUtil.isEquals(list.get(position).getCate_id_2(), "30", true)) {
 //                        intent.putExtra("type", "px");
 //                    } else {
 //                        intent.putExtra("type", "");
 //                    }
-                        mContext.startActivity(intent);
-                    }
-                });
+                            mContext.startActivity(intent);
+                        }
+                    });
+                    break;
+                case 4: // 紧急救援
+                    break;
+                case 5: // 美容
+                    holder.btn_pay
+                            .setBackgroundResource(R.drawable.maintain_click_selector);
+                    holder.btn_pay.setTextColor(mContext.getResources().getColor(
+                            R.color.main_orange));
+                    holder.btn_pay.setText("预约");
+                    holder.tv_service_fPrice_name.setVisibility(View.GONE);
+                    holder.tv_service_fPrice.setVisibility(View.GONE);
+                    holder.tv_service_price.setVisibility(View.GONE);
+                    holder.btn_pay.setOnClickListener(new OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            //  TODO 预约
+                            DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(mContext);
+                            builder.setWheelViewVisibility(View.GONE);
+                            builder.setOnSaveListener(new mYSaveListener());
+                            builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, mContext);
+                            builder.show();
+                            Serviceid = list.getCarService().get(position).getService_id();
+                        }
+                    });
+                    break;
+                case 6: // 保险
+                    break;
             }
+
             // TODO 暂时不忙显示出来
 //			if (StringUtil.isEquals("0", list.get(position).getIsRed(), true)) {
 //				holder.tv_red_packets.setVisibility(View.VISIBLE);
