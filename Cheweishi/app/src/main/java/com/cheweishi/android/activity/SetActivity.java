@@ -538,11 +538,13 @@ public class SetActivity extends BaseActivity implements OnClickListener,
      */
     private void clearData() {
         LoginMessageUtils.setLogined(this, false);
-        btn_setout.setText(R.string.login);
+//        btn_setout.setText(R.string.login);
         // LoginMessageUtils.deleteLoginMessage(SetActivity.this);
-        DBTools.getInstance(this).delete(LoginResponse.class);
+//        DBTools.getInstance(this).delete(LoginResponse.class);
         // Log.i("result", "===uid==" + loginMessage.getUid() + "_"
         // +loginMessage.getMobile());
+        Intent intent = new Intent(baseContext, LoginActivity.class);
+        startActivity(intent);
         ActivityControl.finishProgrom();
     }
 
