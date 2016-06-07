@@ -508,7 +508,12 @@ public class CarDynamicActivity extends BaseActivity {
     }
 
     private String getSDate(long time) {
-        return time / 60 / 60 + "h:" + time / 60 + "m:" + time % 60 + "s";
+
+        long hour = time / 60 / 60;
+        long minutes = time / 60 - hour * 60;
+        long second = time - hour * 60 * 60 - minutes * 60;
+
+        return hour + "h:" + minutes + "m:" + second + "s";
     }
 
     private String getSDate(Date endTime, boolean isMoving) {
