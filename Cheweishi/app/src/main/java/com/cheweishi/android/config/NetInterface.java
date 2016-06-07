@@ -146,6 +146,8 @@ public class NetInterface {
 
     public static final String BUY_DEVICE = "purDeviceCharge";// 购买设备
 
+    public static final String GETSERVICEBYID = "getServiceById";// 获取保养,目前只有保养
+
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 
 }
