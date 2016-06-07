@@ -20,27 +20,27 @@
             android:layout_alignParentBottom="true">
 
             <TextView
+                android:id="@+id/tv_maintain_money"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="@color/text_saoyisao_color"
+                android:background="@color/white"
                 android:padding="15dp"
-                android:text="应付款:"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:text="应付款:未生成价格"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/tv_maintain_pay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/orange"
                 android:gravity="center"
                 android:padding="15dp"
-                android:text="下一步"
+                android:text="预约"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <ScrollView
@@ -63,6 +63,7 @@
                     android:padding="30dp">
 
                     <ImageView
+                        android:id="@+id/iv_maintain_icon"
                         android:layout_width="80dp"
                         android:layout_height="80dp" />
 
@@ -73,6 +74,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_maintain_car_mode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="进口保时捷"
@@ -81,10 +83,10 @@
 
 
                         <TextView
+                            android:id="@+id/tv_maintain_car_mode_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="进口保时捷"
                             android:textColor="@color/gray"
                             android:textSize="18sp" />
 
@@ -94,6 +96,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/ll_maintain_component_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -102,10 +105,12 @@
                     android:padding="10dp">
 
                     <RelativeLayout
+                        android:id="@+id/rl_maintain_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/tv_maintain_service_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="电瓶保养"
@@ -114,6 +119,7 @@
 
 
                         <TextView
+                            android:id="@+id/tv_maintain_choice_component"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -126,6 +132,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
+                        android:layout_marginTop="10dp"
                         android:background="@color/dark_gray" />
 
                     <LinearLayout
@@ -135,10 +142,13 @@
 
                         <!--服务的具体项-->
                         <com.cheweishi.android.widget.UnSlidingListView
+                            android:id="@+id/usl_maintain_content"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:cacheColorHint="#00000000"
                             android:divider="@null"
                             android:dividerHeight="0dp"
+                            android:listSelector="#00000000"
                             android:scrollbars="none" />
                     </LinearLayout>
 

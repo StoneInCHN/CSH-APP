@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.cheweishi.android.activity.MaintainComponentActivity;
+import com.cheweishi.android.activity.MaintainDetailsActivity;
 import com.cheweishi.android.activity.SoSActivity;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.R;
@@ -124,94 +126,146 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 //        mViewChild.tv_original_price.setText("￥");
 
 
-        if (-1 == price) {
+        int id = washCar.get(groupPosition).getCategoryId();
+        switch (id) {
+            case 1: // 保养
+                mViewChild.btn_pay.setBackgroundResource(R.drawable.maintain_click_selector);
+                mViewChild.btn_pay.setTextColor(context.getResources().getColor(
+                        R.color.main_orange));
+                mViewChild.btn_pay.setText("预约");
+                mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
 
-            String nameType = washCar.get(groupPosition).getCategoryName();
-            switch (nameType) {
-                case "保险":
-                    mViewChild.btn_pay.setBackgroundResource(R.drawable.ask_click_selector);
-                    mViewChild.btn_pay.setTextColor(context.getResources().getColor(
-                            R.color.btn_green_pressed));
-                    mViewChild.btn_pay.setText("咨询");
-                    mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            turnToPhone("" + msgBean.getContactPhone());
-                        }
-                    });
+                    @Override
+                    public void onClick(View arg0) {
+                        // TODO 预约,因为要展示,所以暂时注释,调用预约接口
 
-                    break;
-                case "紧急救援":
-                    mViewChild.btn_pay.setBackgroundResource(R.drawable.sos_click_selector);
-                    mViewChild.btn_pay.setTextColor(context.getResources().getColor(
-                            R.color.btn_unpress_color));
-                    mViewChild.btn_pay.setText("救援");
-                    mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(context, SoSActivity.class);
-                            context.startActivity(intent);
-                        }
-                    });
-                    break;
-                case "美容":
-                case "保养":
-                    mViewChild.btn_pay.setBackgroundResource(R.drawable.maintain_click_selector);
-                    mViewChild.btn_pay.setTextColor(context.getResources().getColor(
-                            R.color.main_orange));
-                    mViewChild.btn_pay.setText("预约");
-                    mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
+                        Serviceid = washCar.get(groupPosition).getSubServices().get(childPosition).getId();
+                        Intent intent = new Intent(context, MaintainComponentActivity.class);
+                        intent.putExtra("serviceid", Serviceid);
+                        intent.putExtra("serviceName", washCar.get(groupPosition).getSubServices().get(childPosition).getServiceName());
+                        context.startActivity(intent);
 
-                        @Override
-                        public void onClick(View arg0) {
-                            // TODO 预约,因为要展示,所以暂时注释,调用预约接口
-
-
-                            DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(context);
-                            builder.setWheelViewVisibility(View.GONE);
-                            builder.setOnSaveListener(new mYSaveListener());
-                            builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, context);
-                            builder.show();
-
-                            Serviceid = washCar.get(groupPosition).getSubServices().get(childPosition).getId();
-//                    ServicePrice = washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
-//                    subscript(, );
-
-                        }
-                    });
-
-                    break;
-
-            }
-
-
-        } else {
-            mViewChild.btn_pay
-                    .setBackgroundResource(R.drawable.pay_click_selector);
-            mViewChild.btn_pay.setTextColor(context.getResources().getColor(
-                    R.color.main_blue));
-            mViewChild.btn_pay.setText("支付");
-            mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-                    // TODO 支付,因为要展示,所以暂时注释
-
-                    Intent intent = new Intent(context, WashCarPayActivity.class);
-                    intent.putExtra("seller", tenantName);
-                    intent.putExtra("service", washCar.get(groupPosition).getCategoryName());
-                    intent.putExtra("service_id", String.valueOf(washCar.get(groupPosition).getSubServices().get(childPosition).getId()));
-                    String price = "" + washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice();
-                    if (null == price || "".equals(price)) {
-                        price = "" + washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
                     }
-                    intent.putExtra("price", price);
-                    LogHelper.d("price:" + price);
-                    context.startActivity(intent);
+                });
+                // 隐藏价格信息
+                mViewChild.tv_discount_price.setVisibility(View.GONE);
+                mViewChild.tv_discount_price_remind.setVisibility(View.GONE);
+                mViewChild.tv_original_price.setVisibility(View.GONE);
+                mViewChild.tv_item_child_discount_showOrNot.setVisibility(View.GONE);
+                break;
+            case 2: // 洗车
+                mViewChild.btn_pay
+                        .setBackgroundResource(R.drawable.pay_click_selector);
+                mViewChild.btn_pay.setTextColor(context.getResources().getColor(
+                        R.color.main_blue));
+                mViewChild.btn_pay.setText("支付");
+                mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
 
+                    @Override
+                    public void onClick(View arg0) {
+                        // TODO 支付,因为要展示,所以暂时注释
+
+                        Intent intent = new Intent(context, WashCarPayActivity.class);
+                        intent.putExtra("seller", tenantName);
+                        intent.putExtra("service", washCar.get(groupPosition).getCategoryName());
+                        intent.putExtra("service_id", String.valueOf(washCar.get(groupPosition).getSubServices().get(childPosition).getId()));
+                        String price = "" + washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice();
+                        if (null == price || "".equals(price)) {
+                            price = "" + washCar.get(groupPosition).getSubServices().get(childPosition).getPrice();
+                        }
+                        intent.putExtra("price", price);
+                        LogHelper.d("price:" + price);
+                        context.startActivity(intent);
+
+                    }
+                });
+
+                // 展示洗车的价格信息
+                if (0 != washCar.get(groupPosition).getSubServices().get(childPosition).getPromotionPrice()) {
+                    mViewChild.tv_discount_price_remind.setVisibility(View.VISIBLE); // "优惠价"
+                    mViewChild.tv_discount_price.setVisibility(View.VISIBLE); // 优惠价
+                    mViewChild.tv_original_price.setVisibility(View.GONE); // 原价
+                    mViewChild.tv_discount_price.setText("￥"
+                            + washCar.get(groupPosition).getSubServices().get(childPosition)
+                            .getPromotionPrice());
+//                mViewChild.tv_original_price.setText("￥"
+//                        + washCar.get(groupPosition).getSubServices().get(childPosition).getPrice());
+                } else {
+                    mViewChild.tv_discount_price_remind.setVisibility(View.GONE); // "优惠价"
+                    mViewChild.tv_discount_price.setVisibility(View.GONE); // 优惠价
+                    mViewChild.tv_original_price.setVisibility(View.VISIBLE); // 原价
+
+                    mViewChild.tv_original_price.setText("￥"
+                            + washCar.get(groupPosition).getSubServices().get(childPosition).getPrice());
+//                mViewChild.tv_original_price.setVisibility(View.GONE);
+//                mViewChild.tv_discount_price_remind.setVisibility(View.GONE);
                 }
-            });
+                break;
+            case 4: // 紧急救援
+                mViewChild.btn_pay.setBackgroundResource(R.drawable.sos_click_selector);
+                mViewChild.btn_pay.setTextColor(context.getResources().getColor(
+                        R.color.btn_unpress_color));
+                mViewChild.btn_pay.setText("救援");
+                mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, SoSActivity.class);
+                        context.startActivity(intent);
+                    }
+                });
+                // 隐藏价格信息
+                mViewChild.tv_discount_price.setVisibility(View.GONE);
+                mViewChild.tv_discount_price_remind.setVisibility(View.GONE);
+                mViewChild.tv_original_price.setVisibility(View.GONE);
+                mViewChild.tv_item_child_discount_showOrNot.setVisibility(View.GONE);
+                break;
+            case 5:// 美容
+                mViewChild.btn_pay.setBackgroundResource(R.drawable.maintain_click_selector);
+                mViewChild.btn_pay.setTextColor(context.getResources().getColor(
+                        R.color.main_orange));
+                mViewChild.btn_pay.setText("预约");
+                mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View arg0) {
+                        // TODO 预约,因为要展示,所以暂时注释,调用预约接口
+
+
+                        DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(context);
+                        builder.setWheelViewVisibility(View.GONE);
+                        builder.setOnSaveListener(new mYSaveListener());
+                        builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, context);
+                        builder.show();
+
+
+                    }
+                });
+                // 隐藏价格信息
+                mViewChild.tv_discount_price.setVisibility(View.GONE);
+                mViewChild.tv_discount_price_remind.setVisibility(View.GONE);
+                mViewChild.tv_original_price.setVisibility(View.GONE);
+                mViewChild.tv_item_child_discount_showOrNot.setVisibility(View.GONE);
+                break;
+            case 6://保险
+                mViewChild.btn_pay.setBackgroundResource(R.drawable.ask_click_selector);
+                mViewChild.btn_pay.setTextColor(context.getResources().getColor(
+                        R.color.btn_green_pressed));
+                mViewChild.btn_pay.setText("咨询");
+                mViewChild.btn_pay.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        turnToPhone("" + msgBean.getContactPhone());
+                    }
+                });
+                // 隐藏价格信息
+                mViewChild.tv_discount_price.setVisibility(View.GONE);
+                mViewChild.tv_discount_price_remind.setVisibility(View.GONE);
+                mViewChild.tv_original_price.setVisibility(View.GONE);
+                mViewChild.tv_item_child_discount_showOrNot.setVisibility(View.GONE);
+                ;
+                break;
         }
+
 
         if (-1 == price) {
             mViewChild.tv_discount_price.setVisibility(View.GONE);
@@ -324,6 +378,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             @Override
             public void error(String errorMsg) {
                 ProgrosDialog.closeProgrosDialog();
+                Toast.makeText(context, R.string.server_link_fault, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -346,8 +401,6 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     * ����gridview����¼�����
-     *
      * @param gridView
      */
     private void setGridViewListener(final ListView gridView) {
@@ -374,26 +427,22 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        // TODO Auto-generated method stub
         return washCar.get(groupPosition);// [groupPosition];
     }
 
     @Override
     public int getGroupCount() {
-        // TODO Auto-generated method stub
         return washCar == null ? 0 : washCar.size();// .length;
     }
 
     @Override
     public long getGroupId(int groupPosition) {
-        // TODO Auto-generated method stub
         return groupPosition;
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         if (convertView == null) {
             mViewChild = new ViewChild();
             convertView = mInflater.inflate(R.layout.item_expandablellistview,
@@ -424,13 +473,11 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean hasStableIds() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        // TODO Auto-generated method stub
         return true;
     }
 
