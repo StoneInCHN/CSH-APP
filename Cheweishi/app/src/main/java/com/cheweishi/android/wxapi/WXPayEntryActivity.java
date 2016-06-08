@@ -51,23 +51,23 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 
 	@Override
 	public void onResp(BaseResp resp) {
-		Log.i("result", "onPayFinish, errCode = " + resp.errCode);
-		Log.i("result", "onPayFinish, getType = " + resp.getType());
+		Log.i("Tanck", "onPayFinish, errCode = " + resp.errCode);
+		Log.i("Tanck", "onPayFinish, getType = " + resp.getType());
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 //			Intent intent;
 			if (resp.errCode == 0) {
 				Intent mIntent = new Intent();
 				Constant.CURRENT_REFRESH = Constant.WEIXIN_PAY_REFRESH;
 				mIntent.setAction(Constant.REFRESH_FLAG);
-				Log.i("result", "===发送微信支付成功广播==");
+				Log.i("Tanck", "===发送微信支付成功广播==");
 				sendBroadcast(mIntent);
 //				mIntent = new Intent(WXPayEntryActivity.this, RechargeActivity.class);
-				Log.i("result", "===微信支付成功==");
+				Log.i("Tanck", "===微信支付成功==");
 				showToast("支付成功");
 				finish();
 //				startActivity(mIntent);
 			} else {
-				Log.i("result", "===微信支付失败==");
+				Log.i("Tanck", "===微信支付失败==");
 				showToast("支付失败");
 				WXPayEntryActivity.this.finish();
 			}

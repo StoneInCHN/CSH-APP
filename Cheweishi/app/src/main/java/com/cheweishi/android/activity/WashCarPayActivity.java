@@ -448,10 +448,9 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
                 // TODO 已经判断过是否为微信支付.
                 showToast("支付成功");
-                paymentDone();
                 loginResponse.setToken(response.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-                finish();
+                paymentDone();
                 break;
 
             case NetInterface.PAY_COUPON: // 支付请求可用优惠券
@@ -606,7 +605,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                     }
                     String errorMsg = data.getExtras().getString("error_msg"); // 错误信息
                     String extraMsg = data.getExtras().getString("extra_msg"); // 错误信息
-                    Log.i("result", "===result==" + result + "==errorMsg=="
+                    Log.i("Tanck", "===result==" + result + "==errorMsg=="
                             + errorMsg + "==extraMsg=" + extraMsg);
                 }
             }
@@ -617,9 +616,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
      * 获取在线支付成功后的订单数据
      */
     private void getPaySuccessData() {
-        if (isLogined()) {
-            updatePacket();
-        }
+        updatePacket();
     }
 
     public void showMsg(String title, String msg1, String msg2) {
@@ -665,9 +662,12 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
 
     private void updatePacket() {
-        if (CHANNEL_WECHAT.equals(channel)) // 微信支付的情况下,
-            if (0 == red_status && 0 < amount)
+        if (!CHANNEL_WALLET.equals(channel)) { // 不是钱包的情况下,
+            if (0 == red_status && 0 < amount) { // 没使用红包,且价钱大于0
+                this.finish();
                 return;
+            }
+        }
         if (null == recordId && "".equals(recordId)) {
             showToast("更新订单状态失败");
             return;
@@ -720,16 +720,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                     Constant.WEIXIN_PAY_REFRESH, true)) {
                 Constant.EDIT_FLAG = true;
                 getPaySuccessData();
-                Log.i("result", "===========WashCarPayActivity=====Receiver===========");
-            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-                    Constant.USER_NICK_EDIT_REFRESH, true)) {
-                Constant.EDIT_FLAG = true;
-                // initViews();
-            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-                    Constant.USER_NICK_EDIT_REFRESH_OTHER, true)) {
-                // connectToServer();
+                Log.i("Tanck", "===========WashCarPayActivity=====Receiver===========");
             }
         }
     }
-
 }

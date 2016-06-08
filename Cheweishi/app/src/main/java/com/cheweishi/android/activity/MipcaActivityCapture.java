@@ -148,22 +148,31 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
 
             }
 
+            boolean payDevice = getIntent().getBooleanExtra("PAY_TYPE", false);
+            if (payDevice) { // 是购买设备
+                Intent intent = new Intent(MipcaActivityCapture.this, PayActivty.class);
+                intent.putExtra("PAY_TYPE", true);
+                intent.putExtra("resultString", resultString);
+                startActivity(intent);
+                MipcaActivityCapture.this.finish();
+                return;
+            }
 
-            if (null == cid || "".equals(cid)) { // 扫一扫过来的或者其他异常情况过来的
+
+            if (null == cid || "".equals(cid)) { // 扫一扫过来的或者其他异常情况过来的直接进入选择车辆
                 Intent resultIntent = new Intent();
                 resultIntent.setClass(MipcaActivityCapture.this, QRCodeResultActivity.class);
                 resultIntent.putExtra("resultString", resultString);
                 MipcaActivityCapture.this.startActivity(resultIntent);
                 MipcaActivityCapture.this.finish();
                 return;
+            } else { // 否则有设备需要直接绑定
+                Intent intent = new Intent(baseContext,
+                        AddDeviceActivity.class);
+                intent.putExtra("cid", cid);
+                intent.putExtra("resultString", resultString);
+                startActivity(intent);
             }
-
-
-            Intent intent = new Intent(baseContext,
-                    AddDeviceActivity.class);
-            intent.putExtra("cid", cid);
-            intent.putExtra("resultString", resultString);
-            startActivity(intent);
 
         }
         MipcaActivityCapture.this.finish();

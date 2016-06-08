@@ -15,11 +15,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
@@ -84,10 +87,14 @@ public class PayActivty extends BaseActivity implements OnClickListener,
     private LinearLayout ll_pay_choice_device;
     @ViewInject(R.id.tv_pay_choice_device_price)
     private TextView tv_pay_choice_device_price;
-//	@ViewInject(R.id.ll_alipay)
-//	private LinearLayout ll_alipay;
-//	@ViewInject(R.id.ll_weixin)
-//	private LinearLayout ll_weixin;
+    @ViewInject(R.id.rl_pay_balance)
+    private RelativeLayout rl_pay_balance; // 余额支付
+    @ViewInject(R.id.cb_pay_balance)
+    private CheckBox cb_pay_balance; // 余额选择
+    @ViewInject(R.id.ll_alipay)
+    private LinearLayout ll_alipay;
+    @ViewInject(R.id.ll_weixin)
+    private LinearLayout ll_weixin;
 
     private double moneyAccount = 600f;// 默认支付金额
     private float testMoney = 0.01f;
@@ -100,6 +107,10 @@ public class PayActivty extends BaseActivity implements OnClickListener,
      * 银联支付渠道
      */
     private static final String CHANNEL_UPACP = "upacp";
+    /**
+     * 钱包
+     */
+    private static final String CHANNEL_WALLET = "WALLET";
     /**
      * 微信支付渠道
      */
@@ -116,6 +127,8 @@ public class PayActivty extends BaseActivity implements OnClickListener,
     private PayUtils payUtils;
     private String out_trade_no;
     private static final int RELOGINType = 10007;
+
+    private String deviceNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,10 +150,33 @@ public class PayActivty extends BaseActivity implements OnClickListener,
 //		btn_pay.setOnClickListener(this);
         money_rg.setOnCheckedChangeListener(this);
         buy_type = getIntent().getBooleanExtra("PAY_TYPE", false);
+        deviceNo = getIntent().getStringExtra("resultString");
 
         if (buy_type) {
             ll_pay_choice_normal.setVisibility(View.GONE);
+            rl_pay_balance.setVisibility(View.VISIBLE);
             ll_pay_choice_device.setVisibility(View.VISIBLE);
+            cb_pay_balance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(CompoundButton arg0,
+                                             boolean arg1) {
+
+                    // TODO 余额支付
+
+                    if (cb_pay_balance.isChecked()) {
+                        img_alipay.setImageResource(R.drawable.dian12x);
+                        img_weixin.setImageResource(R.drawable.dian12x);
+                        img_upacp.setImageResource(R.drawable.dian12x);
+                        channel = CHANNEL_WALLET;
+                    } else {
+                        img_alipay.setImageResource(R.drawable.dian22x);
+                        img_weixin.setImageResource(R.drawable.dian12x);
+                        img_upacp.setImageResource(R.drawable.dian12x);
+                        channel = CHANNEL_ALIPAY;
+                    }
+                }
+            });
             initDevicePrice();
         }
 
@@ -189,12 +225,14 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 img_alipay.setImageResource(R.drawable.dian22x);
                 img_weixin.setImageResource(R.drawable.dian12x);
                 img_upacp.setImageResource(R.drawable.dian12x);
-                ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
-                        .setChecked(true);
-                ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
-                        .setChecked(false);
-                ((RadioButton) pay_rg.findViewById(R.id.rb_upacp))
-                        .setChecked(false);
+                rb_alipay.setChecked(true);
+                rb_weixin.setChecked(false);
+//                ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
+//                        .setChecked(true);
+//                ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
+//                        .setChecked(false);
+//                ((RadioButton) pay_rg.findViewById(R.id.rb_upacp))
+//                        .setChecked(false);
                 channel = CHANNEL_ALIPAY;
                 break;
             case R.id.ll_weixin:
@@ -202,12 +240,14 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 img_alipay.setImageResource(R.drawable.dian12x);
                 img_upacp.setImageResource(R.drawable.dian12x);
                 // payment_type = "";
-                ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
-                        .setChecked(false);
-                ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
-                        .setChecked(true);
-                ((RadioButton) pay_rg.findViewById(R.id.rb_upacp))
-                        .setChecked(false);
+                rb_alipay.setChecked(false);
+                rb_weixin.setChecked(true);
+//                ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
+//                        .setChecked(false);
+//                ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
+//                        .setChecked(true);
+//                ((RadioButton) pay_rg.findViewById(R.id.rb_upacp))
+//                        .setChecked(false);
                 channel = CHANNEL_WECHAT;
                 break;
 
@@ -237,6 +277,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
         if (buy_type) {
             moneyAccount = Double.valueOf(tv_pay_choice_device_price.getText().toString());
             param.put("chargeType", "PD"); //CI:普通充值, PD:购买设备
+            param.put("deviceNo", deviceNo);
         } else {
             param.put("chargeType", "CI");
         }
@@ -248,15 +289,15 @@ public class PayActivty extends BaseActivity implements OnClickListener,
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
-            case R.id.rb_alipay:// 支付宝支付
-                // payment_type = "zfb";
-                // channel = CHANNEL_ALIPAY;
-                break;
-
-            case R.id.rb_weixin:// 微信支付
-                // payment_type = "";
-                // channel = CHANNEL_WECHAT;
-                break;
+//            case R.id.rb_alipay:// 支付宝支付
+//                // payment_type = "zfb";
+//                channel = CHANNEL_ALIPAY;
+//                break;
+//
+//            case R.id.rb_weixin:// 微信支付
+//                // payment_type = "";
+//                channel = CHANNEL_WECHAT;
+//                break;
             case R.id.rb_money_100:// 支付金额100
                 moneyAccount = 200f;
                 break;
@@ -295,7 +336,11 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                         payUtils = new PayUtils();
                         payUtils.setOutTradeNo(response.getMsg().getOut_trade_no());
                         payUtils.setPayListener(this);
-                        payUtils.pay(PayActivty.this, "车生活", "钱包充值", moneyAccount);
+                        if (buy_type) {//CI:普通充值, PD:购买设备
+                            payUtils.pay(PayActivty.this, "车生活", "购买设备", moneyAccount);
+                        } else {
+                            payUtils.pay(PayActivty.this, "车生活", "钱包充值", moneyAccount);
+                        }
                         break;
                     case CHANNEL_WECHAT: // 微信
                         String prepay_id = response.getMsg().getPrepay_id();
@@ -344,6 +389,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 }
                 loginResponse.setToken(buyResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                finish();
                 break;
         }
     }
@@ -428,7 +474,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
         }
 
 
-        if (!channel.equals(CHANNEL_WECHAT)) {
+        if (channel.equals(CHANNEL_WALLET)) { // 为余额支付的时候需要callback
             updatePacket();
         }
     }
@@ -445,7 +491,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
 
 
     /**
-     * 更新充值,仅限于支付宝
+     * 更新充值
      */
     private void updatePacket() {
         ProgrosDialog.openDialog(baseContext);
@@ -454,7 +500,6 @@ public class PayActivty extends BaseActivity implements OnClickListener,
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
         param.put("amount", moneyAccount);
-        param.put("recordNo", payUtils.getOutTradeNo());// TODO 增加订单号
         param.put(Constant.PARAMETER_TAG, NetInterface.PAY_CALLBACK);
         netWorkHelper.PostJson(url, param, this);
     }

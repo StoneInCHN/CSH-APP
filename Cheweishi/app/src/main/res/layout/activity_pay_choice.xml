@@ -241,6 +241,32 @@
         </LinearLayout>
     </RadioGroup>
 
+    <RelativeLayout
+        android:id="@+id/rl_pay_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_pay_balance_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="使用账户余额支付"
+            android:textColor="@color/red" />
+
+        <CheckBox
+            android:id="@+id/cb_pay_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:button="@drawable/check"
+            android:checked="false"
+            android:padding="10dp" />
+    </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
