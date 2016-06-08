@@ -152,7 +152,7 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
             if (payDevice) { // 是购买设备
                 Intent intent = new Intent(MipcaActivityCapture.this, PayActivty.class);
                 intent.putExtra("PAY_TYPE", true);
-                intent.putExtra("resultString", "8856000542");
+                intent.putExtra("resultString", resultString);
                 startActivity(intent);
                 MipcaActivityCapture.this.finish();
                 return;
@@ -170,7 +170,7 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
                 Intent intent = new Intent(baseContext,
                         AddDeviceActivity.class);
                 intent.putExtra("cid", cid);
-                intent.putExtra("resultString", "8856000542");
+                intent.putExtra("resultString", resultString);
                 startActivity(intent);
             }
 
