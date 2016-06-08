@@ -42,7 +42,6 @@ public class RegistServiceActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_regist_service);
 		ViewUtils.inject(this);
-		httpBiz = new HttpBiz(this);
 		left_action.setText(R.string.back);
 		if (getIntent().getBooleanExtra("recharge", false) == true) {
 			title.setText(R.string.insurance_protocol_title);
@@ -62,15 +61,8 @@ public class RegistServiceActivity extends BaseActivity {
 		});
 		service_content
 				.setMovementMethod(ScrollingMovementMethod.getInstance());
-		connectToServer();
 	}
 
-	private void connectToServer() {
-		RequestParams rp = new RequestParams();
-		ProgrosDialog.openDialog(this);
-		httpBiz.httPostData(INSURANCE_CODE, API.PROTOCAL_Insurance_URL, rp,
-				this);
-	}
 
 	@Override
 	public void receive(int code, String data) {

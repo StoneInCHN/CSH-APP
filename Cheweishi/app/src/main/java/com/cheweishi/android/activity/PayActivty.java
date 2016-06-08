@@ -125,7 +125,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
     private String channel = CHANNEL_ALIPAY;
 
     private PayUtils payUtils;
-    private String out_trade_no;
+    private String out_trade_no;// 记录号
     private static final int RELOGINType = 10007;
 
     private String deviceNo;
@@ -151,6 +151,10 @@ public class PayActivty extends BaseActivity implements OnClickListener,
         money_rg.setOnCheckedChangeListener(this);
         buy_type = getIntent().getBooleanExtra("PAY_TYPE", false);
         deviceNo = getIntent().getStringExtra("resultString");
+        if (null == deviceNo || "".equals(deviceNo)) {
+            showToast("当前设备号获取不正常");
+            return;
+        }
 
         if (buy_type) {
             ll_pay_choice_normal.setVisibility(View.GONE);
@@ -227,6 +231,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 img_upacp.setImageResource(R.drawable.dian12x);
                 rb_alipay.setChecked(true);
                 rb_weixin.setChecked(false);
+                cb_pay_balance.setChecked(false);
 //                ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
 //                        .setChecked(true);
 //                ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
@@ -242,6 +247,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 // payment_type = "";
                 rb_alipay.setChecked(false);
                 rb_weixin.setChecked(true);
+                cb_pay_balance.setChecked(false);
 //                ((RadioButton) pay_rg.findViewById(R.id.rb_alipay))
 //                        .setChecked(false);
 //                ((RadioButton) pay_rg.findViewById(R.id.rb_weixin))
@@ -331,6 +337,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                     return;
                 }
 
+                out_trade_no = response.getMsg().getOut_trade_no();
                 switch (channel) {
                     case CHANNEL_ALIPAY: //支付宝
                         payUtils = new PayUtils();
@@ -348,23 +355,26 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                         LogHelper.d(prepay_id + "----" + nonce_str);
                         WeiXinPay.getinstance(this).pay(prepay_id, nonce_str);
                         break;
+                    case CHANNEL_WALLET: // 钱包
+                        updatePacket();
+                        break;
                 }
 
 
                 loginResponse.setToken(response.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
-            case NetInterface.PAY_CALLBACK:
-                BaseResponse baseResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
-                if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-                    showToast(baseResponse.getDesc());
-                    return;
-                }
-
-                loginResponse.setToken(baseResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-                finish();
-                break;
+//            case NetInterface.PAY_CALLBACK:
+//                BaseResponse baseResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+//                if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+//                    showToast(baseResponse.getDesc());
+//                    return;
+//                }
+//
+//                loginResponse.setToken(baseResponse.getToken());
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                finish();
+//                break;
 
             case NetInterface.GET_DEVICE_PRICE: // 获取设备价格
                 DevicePriceResponse priceResponse = (DevicePriceResponse) GsonUtil.getInstance().convertJsonStringToObject(data, DevicePriceResponse.class);
@@ -387,6 +397,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                     showToast(buyResponse.getDesc());
                     return;
                 }
+                showToast("购买成功");
                 loginResponse.setToken(buyResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 finish();
@@ -404,7 +415,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("result", "===Ping++支付结果==" + data);
+        Log.i("Tanck", "===Ping++支付结果==" + data);
         // 支付页面返回处理
         if (requestCode == REQUEST_CODE_PAYMENT) {
             if (resultCode == Activity.RESULT_OK) {
@@ -429,7 +440,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 }
                 String errorMsg = data.getExtras().getString("error_msg"); // 错误信息
                 String extraMsg = data.getExtras().getString("extra_msg"); // 错误信息
-                Log.i("result", "===result==" + result + "==errorMsg=="
+                Log.i("Tanck", "===result==" + result + "==errorMsg=="
                         + errorMsg + "==extraMsg=" + extraMsg);
             }
         }
@@ -460,23 +471,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
 
     @Override
     public void onPaySuccess() {
-        if (buy_type) {
-            if (!channel.equals(CHANNEL_WECHAT)) {
-                ProgrosDialog.openDialog(baseContext);
-                String url = NetInterface.BASE_URL + NetInterface.TEMP_USER_BALANCE + NetInterface.BUY_DEVICE + NetInterface.SUFFIX;
-                Map<String, Object> param = new HashMap<>();
-                param.put("userId", loginResponse.getDesc());
-                param.put("token", loginResponse.getToken());
-                param.put(Constant.PARAMETER_TAG, NetInterface.BUY_DEVICE);
-                netWorkHelper.PostJson(url, param, this);
-                return;
-            }
-        }
-
-
-        if (channel.equals(CHANNEL_WALLET)) { // 为余额支付的时候需要callback
-            updatePacket();
-        }
+        finish();
     }
 
     @Override
@@ -494,14 +489,26 @@ public class PayActivty extends BaseActivity implements OnClickListener,
      * 更新充值
      */
     private void updatePacket() {
-        ProgrosDialog.openDialog(baseContext);
-        String url = NetInterface.BASE_URL + NetInterface.TEMP_USER_BALANCE + NetInterface.PAY_CALLBACK + NetInterface.SUFFIX;
-        Map<String, Object> param = new HashMap<>();
-        param.put("userId", loginResponse.getDesc());
-        param.put("token", loginResponse.getToken());
-        param.put("amount", moneyAccount);
-        param.put(Constant.PARAMETER_TAG, NetInterface.PAY_CALLBACK);
-        netWorkHelper.PostJson(url, param, this);
+        if (buy_type) {
+            if (channel.equals(CHANNEL_WALLET)) { // 如果购买设备且是钱包余额购买的情况下
+                if (null == out_trade_no || "".equals(out_trade_no)) {
+                    showToast("没有获取到记录的编号,更新购买状态失败");
+                    return;
+                }
+                ProgrosDialog.openDialog(baseContext);
+                String url = NetInterface.BASE_URL + NetInterface.TEMP_USER_BALANCE + NetInterface.BUY_DEVICE + NetInterface.SUFFIX;
+                Map<String, Object> param = new HashMap<>();
+                param.put("userId", loginResponse.getDesc());
+                param.put("token", loginResponse.getToken());
+                param.put("paymentType", channel);
+                param.put("deviceNo", deviceNo);
+                param.put("recordNo", out_trade_no);
+                param.put(Constant.PARAMETER_TAG, NetInterface.BUY_DEVICE);
+                netWorkHelper.PostJson(url, param, this);
+                return;
+            }
+        }
+        finish();
     }
 
     private class MyBroadcastReceiver extends BroadcastReceiver {
@@ -517,15 +524,8 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                     Constant.WEIXIN_PAY_REFRESH, true)) {
                 Constant.EDIT_FLAG = true;
                 // setNow();
-                Log.i("result", "===========payActivity=====Receiver===========");
+                Log.i("Tanck", "===========payActivity=====Receiver===========");
                 finish();
-            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-                    Constant.USER_NICK_EDIT_REFRESH, true)) {
-                Constant.EDIT_FLAG = true;
-                // initViews();
-            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-                    Constant.USER_NICK_EDIT_REFRESH_OTHER, true)) {
-                // connectToServer();
             }
         }
     }
