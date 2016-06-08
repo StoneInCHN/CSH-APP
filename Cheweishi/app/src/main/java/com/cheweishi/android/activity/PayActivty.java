@@ -286,8 +286,8 @@ public class PayActivty extends BaseActivity implements OnClickListener,
             param.put("deviceNo", deviceNo);
         } else {
             param.put("chargeType", "CI");
+            param.put("amount", moneyAccount);
         }
-        param.put("amount", moneyAccount);
         param.put(Constant.PARAMETER_TAG, NetInterface.CHARGE_PAY);
         netWorkHelper.PostJson(url, param, this);
     }
