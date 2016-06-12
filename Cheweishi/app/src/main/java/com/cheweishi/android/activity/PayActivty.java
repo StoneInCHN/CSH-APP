@@ -214,6 +214,11 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 finish();
                 break;
             case R.id.btn_pay:
+                if(tv_pay_choice_device_price.getText().toString().equals("暂时未获得价格")){
+                    showToast("当前设备价格未设置,无法购买");
+                    return;
+                }
+
                 btn_pay.setClickable(false);
 
                 if (CHANNEL_WECHAT.equals(channel) && !WeiXinPay.getinstance(baseContext).isWXAppInstalledAndSupported()) {

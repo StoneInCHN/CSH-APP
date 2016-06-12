@@ -399,6 +399,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/normal_marging"
             android:gravity="center"
+            android:text="暂时未获得价格"
             android:paddingBottom="@dimen/normal_padding"
             android:paddingLeft="@dimen/small_padding"
             android:paddingRight="@dimen/small_padding"
