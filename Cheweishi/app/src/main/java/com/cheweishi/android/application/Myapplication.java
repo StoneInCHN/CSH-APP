@@ -47,7 +47,7 @@ public class Myapplication extends Application implements
 
 
 //		Thread.setDefaultUncaughtExceptionHandler(this);
-//		Thread.setDefaultUncaughtExceptionHandler(this);
+        Thread.setDefaultUncaughtExceptionHandler(this);
         //
 //		 CrashHandler crashHandler=CrashHandler.getInstance();
 //		 crashHandler.init(getApplicationContext());
@@ -183,11 +183,11 @@ public class Myapplication extends Application implements
             } catch (InterruptedException e1) {
             }
             Intent intent = new Intent();
-            intent.setClassName("com.cheweishi.android.cheweishi",// TODO com.cheweishi.android
+            intent.setClassName("com.cheweishi.android",// TODO com.cheweishi.android
                     "com.cheweishi.android.activity.WelcomeActivity");
             PendingIntent pendingIntent = PendingIntent.getActivity(
                     getApplicationContext(), 0, intent,
-                    Intent.FLAG_ACTIVITY_NEW_TASK);
+                    PendingIntent.FLAG_UPDATE_CURRENT); // TODO updte current
             Toast.makeText(getApplicationContext(), "抱歉，程序出现错误.即将退出重启",
                     Toast.LENGTH_LONG).show();
             AlarmManager mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
