@@ -285,8 +285,14 @@ public class CarManagerActivity extends BaseActivity implements
                 }
                 currentDefaultIndex = itemIndex;
                 listCarManager.get(itemIndex).setDefault(true);
-                // 设置主页标题
-                setTitle(baseResponse.getDesc());
+                String temp = baseResponse.getDesc();
+                if (null != temp && !"".equals(temp)) {
+                    // 设置主页标题
+                    setTitle(baseResponse.getDesc());
+                } else {
+                    // 设置主页标题
+                    setTitle("车生活");
+                }
                 //设置主页车辆图标
                 setMainIcon(DefaultIcon);
                 adapter.setData(listCarManager);
