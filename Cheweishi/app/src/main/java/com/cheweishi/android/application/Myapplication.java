@@ -47,7 +47,7 @@ public class Myapplication extends Application implements
 
 
 //		Thread.setDefaultUncaughtExceptionHandler(this);
-        Thread.setDefaultUncaughtExceptionHandler(this);
+//        Thread.setDefaultUncaughtExceptionHandler(this);
         //
 //		 CrashHandler crashHandler=CrashHandler.getInstance();
 //		 crashHandler.init(getApplicationContext());
@@ -57,7 +57,7 @@ public class Myapplication extends Application implements
      * 极光推送
      */
     private void JPushInit() {
-        JPushInterface.setDebugMode(true);
+        JPushInterface.setDebugMode(false);
         JPushInterface.init(this);
 //		JPushInterface.resumePush(applicationContext);
 //		JPushInterface.stopPush(applicationContext);

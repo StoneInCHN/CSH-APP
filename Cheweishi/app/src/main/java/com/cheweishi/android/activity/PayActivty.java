@@ -150,13 +150,14 @@ public class PayActivty extends BaseActivity implements OnClickListener,
 //		btn_pay.setOnClickListener(this);
         money_rg.setOnCheckedChangeListener(this);
         buy_type = getIntent().getBooleanExtra("PAY_TYPE", false);
-        deviceNo = getIntent().getStringExtra("resultString");
-        if (null == deviceNo || "".equals(deviceNo)) {
-            showToast("当前设备号获取不正常");
-            return;
-        }
+
 
         if (buy_type) {
+            deviceNo = getIntent().getStringExtra("resultString");
+            if (null == deviceNo || "".equals(deviceNo)) {
+                showToast("当前设备号获取不正常");
+                return;
+            }
             ll_pay_choice_normal.setVisibility(View.GONE);
             rl_pay_balance.setVisibility(View.VISIBLE);
             ll_pay_choice_device.setVisibility(View.VISIBLE);
@@ -214,10 +215,11 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 finish();
                 break;
             case R.id.btn_pay:
-                if(tv_pay_choice_device_price.getText().toString().equals("暂时未获得价格")){
-                    showToast("当前设备价格未设置,无法购买");
-                    return;
-                }
+                if (buy_type) // 如果是购买设备的情况
+                    if (tv_pay_choice_device_price.getText().toString().equals("暂时未获得价格")) {
+                        showToast("当前设备价格未设置,无法购买");
+                        return;
+                    }
 
                 btn_pay.setClickable(false);
 
@@ -286,7 +288,6 @@ public class PayActivty extends BaseActivity implements OnClickListener,
         param.put("token", loginResponse.getToken());
         param.put("paymentType", channel);
         if (buy_type) {
-            moneyAccount = Double.valueOf(tv_pay_choice_device_price.getText().toString());
             param.put("chargeType", "PD"); //CI:普通充值, PD:购买设备
             param.put("deviceNo", deviceNo);
         } else {
@@ -389,7 +390,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 }
 
                 if (null != priceResponse.getMsg()) {
-                    tv_pay_choice_device_price.setText(priceResponse.getMsg().getDevicePrice() + "");
+                    tv_pay_choice_device_price.setText("￥" + priceResponse.getMsg().getDevicePrice() + "元");
                 }
 
                 loginResponse.setToken(priceResponse.getToken());
