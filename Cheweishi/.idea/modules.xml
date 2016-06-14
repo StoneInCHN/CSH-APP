@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Cheweishi.iml" filepath="$PROJECT_DIR$/Cheweishi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/librarys/librarys.iml" filepath="$PROJECT_DIR$/librarys/librarys.iml" />
+      <module fileurl="file://$PROJECT_DIR$/richtext/richtext.iml" filepath="$PROJECT_DIR$/richtext/richtext.iml" />
     </modules>
   </component>
 </project>
