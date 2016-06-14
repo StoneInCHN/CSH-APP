@@ -1306,6 +1306,13 @@
 
         <!--优惠券详细列表-->
         <activity android:name=".activity.CouponDetailActivity" />
+
+        <!--保养-->
+        <activity android:name=".activity.MaintainComponentActivity" />
+
+        <!--选择-->
+        <activity android:name=".activity.ChoiceComponentActivity" />
+
     </application>
 
 </manifest>
