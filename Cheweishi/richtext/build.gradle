@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
 android {
-    compileSdkVersion 19
+    compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 4
-        targetSdkVersion 4
+        minSdkVersion 14
+        targetSdkVersion 23
     }
 
     buildTypes {
@@ -19,6 +19,7 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 }
-
 dependencies {
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }

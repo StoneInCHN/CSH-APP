@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cheweishi.android.R;
@@ -44,6 +45,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.umeng.analytics.MobclickAgent;
+import com.zzhoujay.richtext.ImageFixCallback;
+import com.zzhoujay.richtext.ImageHolder;
+import com.zzhoujay.richtext.RichText;
 
 /**
  * 所有Activity的父类
@@ -603,5 +607,16 @@ public abstract class BaseActivity extends FragmentActivity implements
 
                 break;
         }
+    }
+
+    public void setRitchText(String text, TextView textView) {
+        RichText.from(text).autoFix(false).fix(new ImageFixCallback() {
+            @Override
+            public void onFix(ImageHolder holder, boolean imageReady) {
+                if (holder.getWidth() > 500 && holder.getHeight() > 500) {
+                    holder.setAutoFix(true);
+                }
+            }
+        }).into(textView);
     }
 }

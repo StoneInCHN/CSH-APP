@@ -6,6 +6,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
+import com.zzhoujay.richtext.ImageFixCallback;
+import com.zzhoujay.richtext.ImageHolder;
+import com.zzhoujay.richtext.RichText;
 
 /**
  * Created by tangce on 5/18/2016.
@@ -34,7 +37,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
         title = (TextView) findViewById(R.id.title);
         left_action.setOnClickListener(this);
         title.setText("优惠券详情");
-        tv_coupon_detail.setText(getIntent().getStringExtra("COUPON_DETAIL"));
+        setRitchText(getIntent().getStringExtra("COUPON_DETAIL"), tv_coupon_detail);
     }
 
     @Override
