@@ -133,6 +133,12 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
      */
     private static final String CHANNEL_UPACP = "upacp";
 
+
+    /**
+     * 洗车券
+     */
+    private static final String CHANNEL_COUPON = "WASHCOUPON";
+
     /**
      * 钱包
      */
@@ -213,33 +219,45 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
         getRedData();
 
+        // 优惠券开关
         cb_red.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
                 if (cb_red.isChecked()) {
+                    if (cb_balance.isChecked()) {
+                        cb_balance.setChecked(false);
+                        img_alipay.setImageResource(R.drawable.dian22x);
+                        img_weixin.setImageResource(R.drawable.dian12x);
+                        img_upacp.setImageResource(R.drawable.dian12x);
+                        channel = CHANNEL_ALIPAY;
+                    }
                     red_status = 1;
-//                    unlist_washcar_pay.setVisibility(View.VISIBLE);
-//                    redCompute(mRed, mMoney, mScore);
                 } else {
                     red_status = 0;
                 }
             }
         });
 
+        // 洗车券开关
         cb_balance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton arg0,
                                          boolean arg1) {
 
-                // TODO 余额支付
+                // TODO 洗车券支付
 
                 if (cb_balance.isChecked()) {
+                    if (cb_red.isChecked()) { // 优惠券有勾选
+                        cb_red.setChecked(false);
+                        tv_red_hint.setText(R.string.purse_coupon);
+                        unlist_washcar_pay.setVisibility(View.GONE);
+                    }
                     img_alipay.setImageResource(R.drawable.dian12x);
                     img_weixin.setImageResource(R.drawable.dian12x);
                     img_upacp.setImageResource(R.drawable.dian12x);
-                    channel = CHANNEL_WALLET;
+                    channel = CHANNEL_COUPON;
                 } else {
                     img_alipay.setImageResource(R.drawable.dian22x);
                     img_weixin.setImageResource(R.drawable.dian12x);
@@ -323,7 +341,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     }
 
     @OnClick({R.id.left_action, R.id.rb_alipay, R.id.rb_weixin,
-            R.id.tv_wash_affirm, R.id.ll_alipay, R.id.ll_weixin, R.id.ll_upacp, R.id.cb_red
+            R.id.tv_wash_affirm, R.id.ll_alipay, R.id.ll_weixin, R.id.ll_wallet, R.id.cb_red
     })
     private void onClick(View v) {
         switch (v.getId()) {
@@ -350,14 +368,12 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 channel = CHANNEL_WECHAT;
                 break;
 
-            case R.id.ll_upacp:
-                cb_red.setChecked(false);
-                unlist_washcar_pay.setVisibility(View.GONE);
+            case R.id.ll_wallet: // 余额支付
                 cb_balance.setChecked(false);
                 img_weixin.setImageResource(R.drawable.dian12x);
                 img_alipay.setImageResource(R.drawable.dian12x);
                 img_upacp.setImageResource(R.drawable.dian22x);
-                channel = CHANNEL_UPACP;
+                channel = CHANNEL_WALLET;
                 break;
             case R.id.cb_red:
 
@@ -459,6 +475,10 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 if (!couponListResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(couponListResponse.getDesc());
                     return;
+                }
+
+                if (null != couponListResponse.getDesc() && "existWashing".equals(couponListResponse.getDesc())) { // 有洗车券
+                    rl_balance.setVisibility(View.VISIBLE);
                 }
 
                 if (null != couponListResponse.getMsg() && 0 < couponListResponse.getMsg().size()) {

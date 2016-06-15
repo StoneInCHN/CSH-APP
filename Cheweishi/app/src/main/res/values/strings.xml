@@ -1422,7 +1422,9 @@
     <string name="alipay_pay_hint">推荐有支付宝账号的用户使用</string>
     <string name="weixin_pay">微信支付</string>
     <string name="upacp_pay">银联支付</string>
+    <string name="wallet_pay">钱包支付</string>
     <string name="weixin_pay_hint">推荐安装微信5.0及以上版本的用户使用</string>
+    <string name="wallet_pay_hint">推荐用户优先使用钱包余额</string>
     <string name="choice_pay_hint">请选择支付方式</string>
     <string name="pay_money">请选择充值金额</string>
     <string name="account_pay">账户充值</string>

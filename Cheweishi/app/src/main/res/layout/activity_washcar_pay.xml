@@ -280,14 +280,22 @@
 
                         </LinearLayout>
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/normal_padding"
+                            android:background="@color/line_gray"
+                            android:paddingBottom="@dimen/small_padding"
+                            android:paddingTop="@dimen/small_padding" />
+
                         <LinearLayout
-                            android:id="@+id/ll_upacp"
+                            android:id="@+id/ll_wallet"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:padding="@dimen/normal_padding"
-                            android:visibility="gone">
+                            android:visibility="visible">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -306,7 +314,7 @@
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
                                     android:singleLine="true"
-                                    android:text="@string/upacp_pay"
+                                    android:text="@string/wallet_pay"
                                     android:textColor="@color/gray_normal"
                                     android:textSize="@dimen/titile_side_text_size" />
 
@@ -315,7 +323,7 @@
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
                                     android:singleLine="true"
-                                    android:text="@string/weixin_pay_hint"
+                                    android:text="@string/wallet_pay_hint"
                                     android:textColor="@color/gray_pressed"
                                     android:textSize="@dimen/item_medium_text_size" />
                             </LinearLayout>
@@ -378,14 +386,14 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:orientation="horizontal"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/tv_balance_hint"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
-                            android:text="使用账户余额支付"
+                            android:text="使用洗车券抵扣:"
                             android:textColor="@color/red" />
 
                         <CheckBox
