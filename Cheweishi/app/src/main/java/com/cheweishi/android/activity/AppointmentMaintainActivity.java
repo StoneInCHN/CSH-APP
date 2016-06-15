@@ -105,7 +105,7 @@ public class AppointmentMaintainActivity extends BaseActivity {
 
 		/* 1 */
 		ViewUtils.inject(this);
-		httpBiz = new HttpBiz(this);
+//		httpBiz = new HttpBiz(this);
 
 		/* 2 */
 		initView();
@@ -149,7 +149,7 @@ public class AppointmentMaintainActivity extends BaseActivity {
 				+ "");
 		Log.i("zqtest", "uid:" + loginMessage.getUid() + "--key--:"
 				+ loginMessage.getKey());
-		httpBiz.httPostData(1001, API.WASHCHAR_LIST_DATA, mRequestParams, this);
+//		httpBiz.httPostData(1001, API.WASHCHAR_LIST_DATA, mRequestParams, this);
 	}
 
 	Handler handler = new Handler() {
@@ -263,7 +263,6 @@ public class AppointmentMaintainActivity extends BaseActivity {
 	/**
 	 * 解析子控件
 	 * 
-	 * @param inflater
 	 */
 	private void inflateChildView() {
 		LayoutInflater inflater = LayoutInflater.from(this);
@@ -629,7 +628,7 @@ public class AppointmentMaintainActivity extends BaseActivity {
 
 		mRequestParams.addBodyParameter("cw_id", selectVO.getCwId());
 		mRequestParams.addBodyParameter("time", selectedDate);
-		httpBiz.httPostData(1002, API.WASHCAR_ORDER_SHOP, mRequestParams, this);
+//		httpBiz.httPostData(1002, API.WASHCAR_ORDER_SHOP, mRequestParams, this);
 	}
 
 	private CustomProgressDialog progressDialog;
