@@ -82,8 +82,12 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     private TextView tv_pay_service_name;// 服务名称
     @ViewInject(R.id.tv_wash_money)
     private TextView tv_wash_money;
-    @ViewInject(R.id.img_upacp)
-    private ImageView img_upacp;
+    @ViewInject(R.id.img_wallet_pay)
+    private ImageView img_wallet_pay;
+    @ViewInject(R.id.ll_washcar_pay)
+    private LinearLayout ll_washcar_pay; // 洗车券
+    @ViewInject(R.id.img_washcar_coupon)
+    private ImageView img_washcar_coupon; // 洗车券CheckBox
     @ViewInject(R.id.cb_red)
     private CheckBox cb_red;
     @ViewInject(R.id.tv_red_hint)
@@ -225,12 +229,13 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             @Override
             public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
                 if (cb_red.isChecked()) {
-                    if (cb_balance.isChecked()) {
-                        cb_balance.setChecked(false);
+                    if (channel.equals(CHANNEL_COUPON)) { // 如果优惠券打开,则关闭选择
                         img_alipay.setImageResource(R.drawable.dian22x);
                         img_weixin.setImageResource(R.drawable.dian12x);
-                        img_upacp.setImageResource(R.drawable.dian12x);
+                        img_wallet_pay.setImageResource(R.drawable.dian12x);
+                        img_washcar_coupon.setImageResource(R.drawable.dian12x);
                         channel = CHANNEL_ALIPAY;
+                        updateMoney();
                     }
                     red_status = 1;
                 } else {
@@ -254,14 +259,22 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                         tv_red_hint.setText(R.string.purse_coupon);
                         unlist_washcar_pay.setVisibility(View.GONE);
                     }
+                    amount = 0;
+                    tv_wash_pay_num.setText("￥" + amount + "元");
+                    tv_wash_money.setText("￥" + amount + "元");
                     img_alipay.setImageResource(R.drawable.dian12x);
                     img_weixin.setImageResource(R.drawable.dian12x);
-                    img_upacp.setImageResource(R.drawable.dian12x);
+                    img_wallet_pay.setImageResource(R.drawable.dian12x);
                     channel = CHANNEL_COUPON;
                 } else {
+                    if (!StringUtil.isEmpty(price)) {
+                        amount = StringUtil.getDouble(price);
+                    }
+                    tv_wash_pay_num.setText("￥" + amount + "元");
+                    tv_wash_money.setText("￥" + amount + "元");
                     img_alipay.setImageResource(R.drawable.dian22x);
                     img_weixin.setImageResource(R.drawable.dian12x);
-                    img_upacp.setImageResource(R.drawable.dian12x);
+                    img_wallet_pay.setImageResource(R.drawable.dian12x);
                     channel = CHANNEL_ALIPAY;
                 }
             }
@@ -288,7 +301,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
         param.put("serviceId", service_id);
-        if (0 != amount) // 表示价格已经被优惠券抵用完了
+        if (0 != amount || CHANNEL_COUPON.equals(channel)) // 表示价格已经被优惠券抵用完了
             param.put("paymentType", channel);
         if (1 == red_status && -1 != currentCouponId) // 表示使用了优惠券
             param.put("couponId", currentCouponId);
@@ -341,7 +354,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     }
 
     @OnClick({R.id.left_action, R.id.rb_alipay, R.id.rb_weixin,
-            R.id.tv_wash_affirm, R.id.ll_alipay, R.id.ll_weixin, R.id.ll_wallet, R.id.cb_red
+            R.id.tv_wash_affirm, R.id.ll_alipay, R.id.ll_weixin, R.id.ll_wallet, R.id.cb_red, R.id.ll_washcar_pay
     })
     private void onClick(View v) {
         switch (v.getId()) {
@@ -356,24 +369,45 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 // payment_type = "zfb";
                 img_alipay.setImageResource(R.drawable.dian22x);
                 img_weixin.setImageResource(R.drawable.dian12x);
-                img_upacp.setImageResource(R.drawable.dian12x);
+                img_washcar_coupon.setImageResource(R.drawable.dian12x);
+                img_wallet_pay.setImageResource(R.drawable.dian12x);
                 cb_balance.setChecked(false);
                 channel = CHANNEL_ALIPAY;
+                updateMoney();
                 break;
             case R.id.ll_weixin:
                 cb_balance.setChecked(false);
                 img_weixin.setImageResource(R.drawable.dian22x);
                 img_alipay.setImageResource(R.drawable.dian12x);
-                img_upacp.setImageResource(R.drawable.dian12x);
+                img_washcar_coupon.setImageResource(R.drawable.dian12x);
+                img_wallet_pay.setImageResource(R.drawable.dian12x);
                 channel = CHANNEL_WECHAT;
+                updateMoney();
                 break;
 
             case R.id.ll_wallet: // 余额支付
                 cb_balance.setChecked(false);
                 img_weixin.setImageResource(R.drawable.dian12x);
                 img_alipay.setImageResource(R.drawable.dian12x);
-                img_upacp.setImageResource(R.drawable.dian22x);
+                img_washcar_coupon.setImageResource(R.drawable.dian12x);
+                img_wallet_pay.setImageResource(R.drawable.dian22x);
                 channel = CHANNEL_WALLET;
+                updateMoney();
+                break;
+            case R.id.ll_washcar_pay: // 洗车券支付
+                img_weixin.setImageResource(R.drawable.dian12x);
+                img_alipay.setImageResource(R.drawable.dian12x);
+                img_wallet_pay.setImageResource(R.drawable.dian12x);
+                img_washcar_coupon.setImageResource(R.drawable.dian22x);
+                channel = CHANNEL_COUPON;
+                if (cb_red.isChecked()) { // 优惠券有勾选
+                    cb_red.setChecked(false);
+                    tv_red_hint.setText(R.string.purse_coupon);
+                    unlist_washcar_pay.setVisibility(View.GONE);
+                }
+                amount = 0;
+                tv_wash_pay_num.setText("￥" + amount + "元");
+                tv_wash_money.setText("￥" + amount + "元");
                 break;
             case R.id.cb_red:
 
@@ -406,6 +440,14 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
         }
     }
 
+
+    private void updateMoney() {
+        if (!StringUtil.isEmpty(price)) {
+            amount = StringUtil.getDouble(price);
+        }
+        tv_wash_pay_num.setText("￥" + amount + "元");
+        tv_wash_money.setText("￥" + amount + "元");
+    }
 
     @Override
     public void receive(String TAG, String data) {
@@ -449,6 +491,9 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                     case CHANNEL_WALLET://钱包
                         updatePacket();
                         break;
+                    case CHANNEL_COUPON: //洗车券
+                        updatePacket();
+                        break;
                 }
 
 
@@ -478,7 +523,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 }
 
                 if (null != couponListResponse.getDesc() && "existWashing".equals(couponListResponse.getDesc())) { // 有洗车券
-                    rl_balance.setVisibility(View.VISIBLE);
+                    ll_washcar_pay.setVisibility(View.VISIBLE);
                 }
 
                 if (null != couponListResponse.getMsg() && 0 < couponListResponse.getMsg().size()) {
