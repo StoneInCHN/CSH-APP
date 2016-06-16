@@ -22,6 +22,7 @@ import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.LoginActivity;
 import com.cheweishi.android.activity.MessageCenterDetailsActivity;
 import com.cheweishi.android.activity.MessagerCenterActivity;
+import com.cheweishi.android.activity.WebActivity;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.config.API;
@@ -108,14 +109,20 @@ public class JPushReceiver extends BroadcastReceiver {
             Log.d(TAG, "[MyReceiver] 用户点击打开了通知" + bundle.getString(JPushInterface.EXTRA_EXTRA));
             // 打开自定义的Activity
             PushMsgResponse response = (PushMsgResponse) GsonUtil.getInstance().convertJsonStringToObject(bundle.getString(JPushInterface.EXTRA_EXTRA), PushMsgResponse.class);
-            Intent msgDetail = new Intent(context, MessageCenterDetailsActivity.class);
-            msgDetail.putExtra("title", response.getTitle());
-            msgDetail.putExtra("content", response.getContent());
-            msgDetail.putExtra("time", response.getTime());
-            msgDetail.putExtra("id", response.getMsgId());
-            msgDetail.putExtra("number", response.getUnreadCount());
-            msgDetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(msgDetail);
+            if (null != response.getType() && "NEWSMSG".equals(response.getType())) { // 新闻消息
+                Intent web = new Intent(context, WebActivity.class);
+                web.putExtra("url", response.getContentUrl());
+                context.startActivity(web);
+            } else { // 常规消息
+                Intent msgDetail = new Intent(context, MessageCenterDetailsActivity.class);
+                msgDetail.putExtra("title", response.getTitle());
+                msgDetail.putExtra("content", response.getContent());
+                msgDetail.putExtra("time", response.getTime());
+                msgDetail.putExtra("id", response.getMsgId());
+                msgDetail.putExtra("number", response.getUnreadCount());
+                msgDetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(msgDetail);
+            }
 
 
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent
