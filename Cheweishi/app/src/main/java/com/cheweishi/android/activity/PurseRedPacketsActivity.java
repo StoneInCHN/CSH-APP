@@ -61,8 +61,13 @@ public class PurseRedPacketsActivity extends BaseActivity implements View.OnClic
     private TextView title;
     @ViewInject(R.id.ll_mycoupon_tab)
     private LinearLayout ll_mycoupon_tab; // 选项卡
+    @ViewInject(R.id.btn_coupon)
+    private Button btn_coupon; // 优惠券
+    @ViewInject(R.id.btn_washcar_coupon)
+    private Button btn_washcar_coupon;
     private MyConpouFragment myConpouFragment;
     private MyCarCouponFragment myCarCouponFragment;
+    private int currentIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,14 +97,27 @@ public class PurseRedPacketsActivity extends BaseActivity implements View.OnClic
         transaction.commit();
     }
 
-    @OnClick({R.id.left_action, R.id.ll_mycoupon_tab})
+    @OnClick({R.id.left_action, R.id.ll_mycoupon_tab, R.id.btn_coupon, R.id.btn_washcar_coupon})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.left_action:// 返回
                 this.finish();
                 break;
-            case R.id.ll_mycoupon_tab:
+            case R.id.btn_coupon:
+                if (0 == currentIndex)
+                    return;
+                btn_coupon.setBackgroundResource(R.drawable.baike_btn_trans_left_f_96);
+                btn_washcar_coupon.setBackgroundResource(R.drawable.baike_btn_pink_right_f_96);
                 showFragment(myCarCouponFragment, myConpouFragment);
+                currentIndex = 1;
+                break;
+            case R.id.btn_washcar_coupon:
+                if (1 == currentIndex)
+                    return;
+                btn_coupon.setBackgroundResource(R.drawable.baike_btn_pink_left_f_96);
+                btn_washcar_coupon.setBackgroundResource(R.drawable.baike_btn_trans_right_f_96);
+                showFragment(myConpouFragment, myCarCouponFragment);
+                currentIndex = 0;
                 break;
             default:
                 break;

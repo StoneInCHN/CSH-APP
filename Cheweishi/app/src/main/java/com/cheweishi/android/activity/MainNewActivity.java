@@ -635,6 +635,8 @@ public class MainNewActivity extends BaseActivity {
                 if (null != baseResponse.getMsg()) {
                     if (null != baseResponse.getMsg().getApkPath() && !"".equals(baseResponse.getMsg().getApkPath())) {
                         app_new_download_url = baseResponse.getMsg().getApkPath();
+                        if (baseResponse.getMsg().isForced())
+                            compel = "0";
                         showVersionDialog(baseResponse.getMsg().getUpdateContent());
                     }
                     if (baseResponse.getMsg().isHasCoupon()) { // 是否有优惠券可领取
@@ -1044,25 +1046,40 @@ public class MainNewActivity extends BaseActivity {
                             dialog.dismiss();
                         }
                     });
+            versionDialog = builder.create();
         } else {
-            builder.setMessage("当前版本过低，请更新到最新版本");
+            builder.setMessage(message, 1);
+            versionDialog = builder.create();
+            versionDialog.setCanceledOnTouchOutside(false);
+            versionDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                @Override
+                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_BACK:
+                            if (StringUtil.isEquals(compel, "0", true)) {
+                                finish();
+                            }
+                            break;
+                    }
+                    return true;
+                }
+            });
+//            versionDialog.setCancelable(false);
         }
-        versionDialog = builder.create();
         versionDialog.show();
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_BACK:
-                if (StringUtil.isEquals(compel, "0", true)) {
-                    finish();
-                }
-                break;
-        }
-        return super.onKeyDown(keyCode, event);
-
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        switch (keyCode) {
+//            case KeyEvent.KEYCODE_BACK:
+//                if (StringUtil.isEquals(compel, "0", true)) {
+//                    finish();
+//                }
+//                break;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//
+//    }
 
 }

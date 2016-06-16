@@ -32,8 +32,17 @@ public class PushResponse extends BaseResponse {
         private String versionName;
         private String updateContent;
         private int versionCode;
+        private boolean isForced;
 
         private boolean hasCoupon;
+
+        public boolean isForced() {
+            return isForced;
+        }
+
+        public void setForced(boolean forced) {
+            isForced = forced;
+        }
 
         public boolean isHasCoupon() {
             return hasCoupon;
