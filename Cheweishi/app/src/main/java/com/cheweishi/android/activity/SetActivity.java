@@ -546,6 +546,7 @@ public class SetActivity extends BaseActivity implements OnClickListener,
         Intent intent = new Intent(baseContext, LoginActivity.class);
         startActivity(intent);
         ActivityControl.finishProgrom();
+        this.finish();
     }
 
     public class MyBroadcastReceiver extends BroadcastReceiver {
