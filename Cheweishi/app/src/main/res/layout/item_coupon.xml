@@ -22,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="100"
             android:textColor="@color/gray_backgroud"
             android:textSize="35sp"
             android:textStyle="bold" />
@@ -33,7 +32,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:singleLine="true"
-            android:text="我是描述信息"
             android:textColor="@color/gray_backgroud"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -43,7 +41,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="截止时间:2016-5-11 13:49:58"
             android:textColor="@color/gray_backgroud"
             android:textSize="14sp" />
     </LinearLayout>

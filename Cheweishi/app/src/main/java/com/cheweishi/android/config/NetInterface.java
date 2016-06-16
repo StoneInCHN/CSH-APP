@@ -5,7 +5,8 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-    public static final String BASE_URL = "http://120.27.92.247:10001";// 基础路径
+    public static final String BASE_URL = "http://120.27.92.247:10001";// 生产服务器路径
+//    public static final String BASE_URL = "http://120.27.27.99:10001";// 测试服务器路径
 //    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
@@ -147,6 +148,8 @@ public class NetInterface {
     public static final String BUY_DEVICE = "purDeviceCharge";// 购买设备
 
     public static final String GETSERVICEBYID = "getServiceById";// 获取保养,目前只有保养
+
+    public static final String WASHCARCOUPON = "myWashingCoupon";//洗车劵
 
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 

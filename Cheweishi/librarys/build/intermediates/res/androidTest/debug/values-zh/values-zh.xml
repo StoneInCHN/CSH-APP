@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/carlifeapp/CSH-APP/Cheweishi/librarys/build/intermediates/bundles/debug/res/values-zh/values-zh.xml -->
+    <!-- From: file:/E:/carlife/CSH-APP/Cheweishi/librarys/build/intermediates/bundles/debug/res/values-zh/values-zh.xml -->
     <eat-comment/>
     <string name="Pull_Up_To_Refresh_pull_lable">上拉加载更多…</string>
     <string name="Pull_Up_To_Refresh_refreshing_lable">正在载入…</string>

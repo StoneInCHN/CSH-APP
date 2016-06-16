@@ -51,8 +51,9 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         if (null == desc || "".equals(desc)) {
             tv_service_detail_title.setVisibility(View.GONE);
             ll_service_detail_no.setVisibility(View.VISIBLE);
-        } else
-            tv_service_detail_desc.setText(desc);
+        } else {
+            setRitchText(desc, tv_service_detail_desc);
+        }
     }
 
     @Override

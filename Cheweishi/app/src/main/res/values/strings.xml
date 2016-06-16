@@ -1422,7 +1422,11 @@
     <string name="alipay_pay_hint">推荐有支付宝账号的用户使用</string>
     <string name="weixin_pay">微信支付</string>
     <string name="upacp_pay">银联支付</string>
+    <string name="wallet_pay">钱包支付</string>
+    <string name="washcar_coupon_pay">洗车券支付</string>
     <string name="weixin_pay_hint">推荐安装微信5.0及以上版本的用户使用</string>
+    <string name="wallet_pay_hint">推荐用户优先使用钱包余额</string>
+    <string name="washcar_coupon_pay_hint">洗车券可以抵扣当前洗车所需支付金额</string>
     <string name="choice_pay_hint">请选择支付方式</string>
     <string name="pay_money">请选择充值金额</string>
     <string name="account_pay">账户充值</string>
@@ -1483,6 +1487,7 @@
     <!-- 我的钱包 -->
     <string name="purse">我的钱包</string>
     <string name="purse_coupon">使用优惠券抵用</string>
+    <string name="washcar_purse_coupon">使用洗车券抵用</string>
     <string name="purse_coupon_register">提交成功!!!\n\n\n恭喜你获得了一个优惠券</string>
     <string name="purse_certificates">优惠券</string>
     <string name="purse_integral">积分</string>
