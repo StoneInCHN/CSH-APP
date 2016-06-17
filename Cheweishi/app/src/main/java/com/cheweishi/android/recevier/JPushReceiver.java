@@ -112,6 +112,7 @@ public class JPushReceiver extends BroadcastReceiver {
             if (null != response.getType() && "NEWSMSG".equals(response.getType())) { // 新闻消息
                 Intent web = new Intent(context, WebActivity.class);
                 web.putExtra("url", response.getContentUrl());
+                web.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(web);
             } else { // 常规消息
                 Intent msgDetail = new Intent(context, MessageCenterDetailsActivity.class);

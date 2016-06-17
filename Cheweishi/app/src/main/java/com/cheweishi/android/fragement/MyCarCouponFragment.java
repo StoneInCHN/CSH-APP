@@ -59,7 +59,7 @@ public class MyCarCouponFragment extends BaseFragment implements AdapterView.OnI
         adapter = new MyCarCouponAdapter(baseContext, list);
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
-//        getData(); // TODO 还未部署
+        getData(); // TODO 还未部署
     }
 
 

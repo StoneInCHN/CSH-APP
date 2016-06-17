@@ -229,15 +229,12 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                     @Override
                     public void onClick(View arg0) {
                         // TODO 预约,因为要展示,所以暂时注释,调用预约接口
-
-
+                        Serviceid = washCar.get(groupPosition).getSubServices().get(childPosition).getId();
                         DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(context);
                         builder.setWheelViewVisibility(View.GONE);
                         builder.setOnSaveListener(new mYSaveListener());
                         builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, context);
                         builder.show();
-
-
                     }
                 });
                 // 隐藏价格信息

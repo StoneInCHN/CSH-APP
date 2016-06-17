@@ -298,6 +298,6 @@ public class MaintainComponentActivity extends BaseActivity implements View.OnCl
         for (int i = 0; i < showData.size(); i++) {
             temp[i] = showData.get(i).getMsg().getId();
         }
-        return new long[0];
+        return temp;
     }
 }
