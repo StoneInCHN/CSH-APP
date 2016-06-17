@@ -64,7 +64,7 @@ public class MyCarCouponFragment extends BaseFragment implements AdapterView.OnI
 
 
     /**
-     * 获取红包详情数据
+     * 获取洗车券详情数据
      */
     private void getData() {
         if (isLogined()) {

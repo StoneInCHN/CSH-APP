@@ -67,7 +67,6 @@ public class PurseRedPacketsActivity extends BaseActivity implements View.OnClic
     private Button btn_washcar_coupon;
     private MyConpouFragment myConpouFragment;
     private MyCarCouponFragment myCarCouponFragment;
-    private int currentIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,20 +103,14 @@ public class PurseRedPacketsActivity extends BaseActivity implements View.OnClic
                 this.finish();
                 break;
             case R.id.btn_coupon:
-                if (0 == currentIndex)
-                    return;
-                btn_coupon.setBackgroundResource(R.drawable.baike_btn_trans_left_f_96);
-                btn_washcar_coupon.setBackgroundResource(R.drawable.baike_btn_pink_right_f_96);
-                showFragment(myCarCouponFragment, myConpouFragment);
-                currentIndex = 1;
-                break;
-            case R.id.btn_washcar_coupon:
-                if (1 == currentIndex)
-                    return;
                 btn_coupon.setBackgroundResource(R.drawable.baike_btn_pink_left_f_96);
                 btn_washcar_coupon.setBackgroundResource(R.drawable.baike_btn_trans_right_f_96);
                 showFragment(myConpouFragment, myCarCouponFragment);
-                currentIndex = 0;
+                break;
+            case R.id.btn_washcar_coupon:
+                btn_coupon.setBackgroundResource(R.drawable.baike_btn_trans_left_f_96);
+                btn_washcar_coupon.setBackgroundResource(R.drawable.baike_btn_pink_right_f_96);
+                showFragment(myCarCouponFragment, myConpouFragment);
                 break;
             default:
                 break;
