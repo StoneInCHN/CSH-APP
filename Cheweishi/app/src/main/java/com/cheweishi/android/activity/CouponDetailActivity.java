@@ -37,7 +37,9 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
         title = (TextView) findViewById(R.id.title);
         left_action.setOnClickListener(this);
         title.setText("优惠券详情");
-        setRitchText(getIntent().getStringExtra("COUPON_DETAIL"), tv_coupon_detail);
+        String temp = getIntent().getStringExtra("COUPON_DETAIL");
+        if (null != temp)
+            setRitchText(temp, tv_coupon_detail);
     }
 
     @Override
