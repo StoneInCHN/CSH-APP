@@ -151,6 +151,8 @@ public class NetInterface {
 
     public static final String WASHCARCOUPON = "myWashingCoupon";//洗车劵
 
+    public static final String GET_DEVICES_LIST = "getAvailableDevice"; // 获取可用设备列表
+
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 
 }

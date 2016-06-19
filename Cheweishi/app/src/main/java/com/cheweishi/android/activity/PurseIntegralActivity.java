@@ -18,8 +18,10 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.IntegralInfo;
 import com.cheweishi.android.entity.LoginMessage;
+import com.cheweishi.android.entity.PurseIntegralResponse;
 import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.LoginMessageUtils;
+import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.XCRoundImageView;
 import com.google.gson.Gson;
@@ -84,7 +86,7 @@ public class PurseIntegralActivity extends BaseActivity {
     // 装数据的容器
     private List<IntegralInfo> list;
 
-    private List<IntegralInfo> mList;
+    private List<PurseIntegralResponse.MsgBean> mList;
     // 页数
     private int page = 1;
     // 每页的条数
@@ -103,8 +105,8 @@ public class PurseIntegralActivity extends BaseActivity {
         ViewUtils.inject(this);
 
 
-        mList = new ArrayList<IntegralInfo>();
-
+        mList = new ArrayList<PurseIntegralResponse.MsgBean>();
+        mIntegralAdapter = new IntegralAdapter(baseContext, mList);
         init();
     }
 
@@ -137,7 +139,22 @@ public class PurseIntegralActivity extends BaseActivity {
     public void receive(String data) {
         ProgrosDialog.closeProgrosDialog();
 
+        PurseIntegralResponse response = (PurseIntegralResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PurseIntegralResponse.class);
+        if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            showToast(response.getDesc());
+            return;
+        }
+
+        if (null != response.getMsg()) {
+            mIntegralAdapter.setList(response.getMsg());
+        }
+
+        loginResponse.setToken(response.getToken());
+        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+
+
         // TODO 接收数据处理
+        tv_balance_num.setText(getIntent().getStringExtra("score"));
     }
 
     @Override
@@ -156,7 +173,6 @@ public class PurseIntegralActivity extends BaseActivity {
                         if (page == 1) {
                             getValue(dataJsonObject);
                         }
-                        analysis(dataJsonObject);
 
                     } else {
                         if (StringUtil.isEquals(
@@ -174,41 +190,6 @@ public class PurseIntegralActivity extends BaseActivity {
         }
     }
 
-    /***
-     * 解析json数据
-     *
-     * @param dataJsonObject
-     */
-    protected void analysis(JSONObject dataJsonObject) {
-        // TODO Auto-generated method stub
-        JSONArray historyJsonArray = dataJsonObject.optJSONArray("list");
-        if (historyJsonArray.length() == 0) {
-            if (page == 1) {
-                getNotInformation(getString(R.string.no_data));
-                IntegralAdapter integralAdapter = new IntegralAdapter(this,
-                        list);
-                listView.setAdapter(integralAdapter);
-
-            }
-            if (!isTwo) {
-                getNotInformation(getString(R.string.load_full));
-                isNet = true;
-                isTwo = true;
-            }
-        } else {
-            Gson gson = new Gson();
-            java.lang.reflect.Type type = new TypeToken<List<IntegralInfo>>() {
-            }.getType();
-            list = gson.fromJson(dataJsonObject.optString("list"), type);
-            mList.addAll(list);
-            if (mIntegralAdapter == null) {
-                mIntegralAdapter = new IntegralAdapter(this, mList);
-                mListView.setAdapter(mIntegralAdapter);
-            } else {
-                mIntegralAdapter.setList(mList);
-            }
-        }
-    }
 
     /***
      * 显示加载完成的数据

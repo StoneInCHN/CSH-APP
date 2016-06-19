@@ -39,7 +39,7 @@ public class WebActivity extends BaseActivity implements OnClickListener {
 
         if (getIntent().getExtras() == null
                 || StringUtil.isBlank(getIntent().getExtras().getString("url"))) {
-            Log.i("zzqq", "webview" + "没有url参数！");
+            Log.i("Tanck", "webview" + "没有url参数！");
             showToast("url解析错误");
             finish();
             return;
@@ -83,19 +83,25 @@ public class WebActivity extends BaseActivity implements OnClickListener {
 
     @Override
     protected void onResume() {
-        mWebView.onResume();
+        try {
+            mWebView.onResume();
+        }catch (Exception e){}
         super.onResume();
     }
 
     @Override
     protected void onDestroy() {
-        mWebView.destroy();
+        try {
+            mWebView.destroy();
+        }catch (Exception e){}
         super.onDestroy();
     }
 
     @Override
     protected void onPause() {
-        mWebView.onPause();
+        try {
+            mWebView.onPause();
+        }catch (Exception e){}
         super.onPause();
     }
 

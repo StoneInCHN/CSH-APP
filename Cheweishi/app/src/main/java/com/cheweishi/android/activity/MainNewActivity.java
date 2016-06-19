@@ -822,7 +822,9 @@ public class MainNewActivity extends BaseActivity {
                 isLogin(WashcarListActivity.class);
                 break;
             case 2:// 紧急救援
-                updateCache("SOS");
+//                updateCache("SOS");
+                Intent sos = new Intent(MainNewActivity.this, SoSActivity.class);
+                startActivity(sos);
 //                isLoginOrHasCar(SoSActivity.class);
                 break;
             case 3:// 保养

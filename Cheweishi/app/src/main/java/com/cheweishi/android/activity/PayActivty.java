@@ -8,10 +8,15 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -42,6 +47,7 @@ import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.PayUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.utils.weixinpay.WeiXinPay;
+import com.cheweishi.android.widget.CustomDialog;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ContentView;
@@ -129,6 +135,8 @@ public class PayActivty extends BaseActivity implements OnClickListener,
     private static final int RELOGINType = 10007;
 
     private String deviceNo;
+    private CustomDialog.Builder builder;
+    private CustomDialog versionDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +161,8 @@ public class PayActivty extends BaseActivity implements OnClickListener,
 
 
         if (buy_type) {
+            btn_pay.setText("确认购买");
+            title.setText(R.string.devices_pay);
             deviceNo = getIntent().getStringExtra("resultString");
             if (null == deviceNo || "".equals(deviceNo)) {
                 showToast("当前设备号获取不正常");
@@ -328,6 +338,14 @@ public class PayActivty extends BaseActivity implements OnClickListener,
         }
     }
 
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            PayActivty.this.finish();
+        }
+    };
+
+    private String hasCar;
 
     @Override
     public void receive(String TAG, String data) {
@@ -338,11 +356,13 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 PreparePayResponse response = (PreparePayResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PreparePayResponse.class);
                 if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(response.getDesc());
-                    if (response.getCode().equals(NetInterface.RESPONSE_ERROR))
-                        finish();
+                    handler.sendMessageDelayed(Message.obtain(), 1500);
+//                    if (response.getCode().equals(NetInterface.RESPONSE_ERROR))
+//                        finish();
                     return;
                 }
 
+                hasCar = response.getDesc();
                 out_trade_no = response.getMsg().getOut_trade_no();
                 switch (channel) {
                     case CHANNEL_ALIPAY: //支付宝
@@ -354,6 +374,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                         } else {
                             payUtils.pay(PayActivty.this, "车生活", "钱包充值", moneyAccount);
                         }
+
                         break;
                     case CHANNEL_WECHAT: // 微信
                         String prepay_id = response.getMsg().getPrepay_id();
@@ -390,6 +411,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 }
 
                 if (null != priceResponse.getMsg()) {
+                    moneyAccount = priceResponse.getMsg().getDevicePrice();
                     tv_pay_choice_device_price.setText("￥" + priceResponse.getMsg().getDevicePrice() + "元");
                 }
 
@@ -409,6 +431,40 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 finish();
                 break;
         }
+    }
+
+    private void jmp() {
+        if (null != hasCar && !"0".equals(hasCar)) { // 有车辆
+            showVersionDialog("当前没有绑定,是否需要绑定",AddCarActivity.class);
+        } else {
+            showVersionDialog("当前没有车辆,请添加车辆",AddCarActivity.class);
+        }
+    }
+
+    private void showVersionDialog(String message, final Class clzz) {
+
+        builder = new CustomDialog.Builder(this);
+
+        builder.setTitle(R.string.remind);
+        builder.setPositiveButton(R.string.banben_updata_remind,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Intent intent = new Intent(baseContext,clzz);
+                        intent.putExtra("resultString",deviceNo);
+                        startActivity(intent);
+                    }
+                });
+
+        builder.setMessage(message, 1);
+        builder.setNegativeButton(R.string.cancel,
+                new android.content.DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        versionDialog = builder.create();
+        versionDialog.show();
     }
 
     @Override

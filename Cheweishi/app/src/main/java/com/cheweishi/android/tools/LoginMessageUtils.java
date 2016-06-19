@@ -247,11 +247,11 @@ public class LoginMessageUtils {
     }
 
     public static void deleteLoginMessage(Context context) {
-        BaseActivity.loginMessage = null;
+        BaseActivity.loginResponse = null;
         SharedPreferences preferences = context.getSharedPreferences("base64",
                 Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.remove("loginMessage");
+        editor.remove("test_lg");
         editor.commit();
     }
 

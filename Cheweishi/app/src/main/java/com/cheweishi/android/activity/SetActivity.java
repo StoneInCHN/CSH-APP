@@ -679,6 +679,7 @@ public class SetActivity extends BaseActivity implements OnClickListener,
 //
 //        showToast("清除缓存" + d + "M");
 //        XUtilsImageLoader.clearCache();
+//        LoginMessageUtils.deleteLoginMessage(baseContext);
         showToast("清除缓存成功");
     }
 

@@ -398,16 +398,21 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
             if (null != datalist) {
                 flag = true;
                 ProgrosDialog.closeProgrosDialog();
-                Sos_address.setText(arg0.getAddrStr());
-                for (int i = 0; i < datalist.size(); i++) {
-                    addData(datalist.get(i).getLatitude(), datalist.get(i).getLongitude(), datalist.get(i));
-                }
 
-                // 移动到最后
-                LatLng latLng = new LatLng(datalist.get(datalist.size() - 1).getLatitude(), datalist.get(datalist.size() - 1).getLongitude());
-                baiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(latLng));
-                MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(15);
-                baiduMap.animateMapStatus(u);
+                Sos_address.setText(arg0.getAddrStr());
+                if(0<datalist.size()) {
+                    for (int i = 0; i < datalist.size(); i++) {
+                        addData(datalist.get(i).getLatitude(), datalist.get(i).getLongitude(), datalist.get(i));
+                    }
+
+                    // 移动到最后
+                    LatLng latLng = new LatLng(datalist.get(datalist.size() - 1).getLatitude(), datalist.get(datalist.size() - 1).getLongitude());
+                    baiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(latLng));
+                    MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(15);
+                    baiduMap.animateMapStatus(u);
+                }else{
+                    setData(arg0.getLatitude(), arg0.getLongitude(), arg0.getAddrStr());
+                }
 
             }
 

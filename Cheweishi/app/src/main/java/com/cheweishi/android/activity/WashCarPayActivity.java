@@ -442,11 +442,22 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
 
     private void updateMoney() {
-        if (!StringUtil.isEmpty(price)) {
-            amount = StringUtil.getDouble(price);
+        if (cb_red.isChecked()) {
+            unlist_washcar_pay.setVisibility(View.VISIBLE);
+            if (null != adapter) {
+                int position = adapter.getCheckCouponPosition();
+                if (-1 != position)
+                    onCheckCoupon(position);
+            }
+        } else {
+            unlist_washcar_pay.setVisibility(View.GONE);
+            tv_red_hint.setText(R.string.purse_coupon);
+            if (!StringUtil.isEmpty(price)) {
+                amount = StringUtil.getDouble(price);
+            }
+            tv_wash_pay_num.setText("￥" + amount + "元");
+            tv_wash_money.setText("￥" + amount + "元");
         }
-        tv_wash_pay_num.setText("￥" + amount + "元");
-        tv_wash_money.setText("￥" + amount + "元");
     }
 
     @Override

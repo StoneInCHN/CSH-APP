@@ -174,41 +174,7 @@ public class IntegralActivity extends BaseActivity implements OnScrollListener,
 		super.onDestroy();
 	}
 
-	/***
-	 * 解析json数据
-	 * 
-	 * @param dataJsonObject
-	 */
-	protected void analysis(JSONObject dataJsonObject) {
-		// TODO Auto-generated method stub
-		JSONArray historyJsonArray = dataJsonObject.optJSONArray("list");
-		if (historyJsonArray.length() == 0) {
-			if (page == 1) {
-				getNotInformation(getString(R.string.no_data));
-				IntegralAdapter integralAdapter = new IntegralAdapter(this,
-						list);
-				listView.setAdapter(integralAdapter);
 
-			}
-			if (!isTwo) {
-				getNotInformation(getString(R.string.load_full));
-				isNet = true;
-				isTwo = true;
-			}
-		} else {
-			Gson gson = new Gson();
-			java.lang.reflect.Type type = new TypeToken<List<IntegralInfo>>() {
-			}.getType();
-			list = gson.fromJson(dataJsonObject.optString("list"), type);
-			mList.addAll(list);
-			if (mIntegralAdapter == null) {
-				mIntegralAdapter = new IntegralAdapter(this, mList);
-				mListView.setAdapter(mIntegralAdapter);
-			} else {
-				mIntegralAdapter.setList(mList);
-			}
-		}
-	}
 
 	/***
 	 * 显示加载完成的数据
@@ -336,7 +302,7 @@ public class IntegralActivity extends BaseActivity implements OnScrollListener,
 					if (page == 1) {
 						getValue(dataJsonObject);
 					}
-					analysis(dataJsonObject);
+//					analysis(dataJsonObject);
 
 				} else {
 					if (StringUtil.isEquals(

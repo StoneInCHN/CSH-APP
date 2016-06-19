@@ -146,6 +146,9 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
 
         if (!response.getMsg().isIsGetCoupon())
             showImgDialog();
+        else{
+            finish();
+        }
     }
 
 
