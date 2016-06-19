@@ -84,9 +84,10 @@ public class DevicesListActivity extends BaseActivity implements View.OnClickLis
                     EmptyTools.setEmptyView(this, unl_devices_list, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(baseContext, PayActivty.class);
-                            intent.putExtra("PAY_TYPE", true);
-                            startActivity(intent);
+//                            Intent intent = new Intent(baseContext, PayActivty.class);
+//                            intent.putExtra("PAY_TYPE", true);
+//                            startActivity(intent);
+                            OpenCamera();
                         }
                     });
                     EmptyTools.setImg(R.drawable.mycar_icon);

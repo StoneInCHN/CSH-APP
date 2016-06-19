@@ -137,24 +137,24 @@ public class PurseBalanceActivity extends BaseActivity implements
         }
     }
 
-    /**
-     * 打开相机
-     */
-    private void OpenCamera() {
-        applyAdmin(Manifest.permission.CAMERA, MY_CAMEAR_PREMESSION);
-        PackageManager pkm = getPackageManager();
-        boolean has_permission = (PackageManager.PERMISSION_GRANTED == pkm
-                .checkPermission("android.permission.CAMERA", baseContext.getPackageName()));//"packageName"));
-        if (has_permission) {
-            Intent intent = new Intent(baseContext,
-                    MipcaActivityCapture.class);
-            intent.putExtra("PAY_TYPE", true);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        } else {
-            showToast("请为该应用添加打开相机权限");
-        }
-    }
+//    /**
+//     * 打开相机
+//     */
+//    private void OpenCamera() {
+//        applyAdmin(Manifest.permission.CAMERA, MY_CAMEAR_PREMESSION);
+//        PackageManager pkm = getPackageManager();
+//        boolean has_permission = (PackageManager.PERMISSION_GRANTED == pkm
+//                .checkPermission("android.permission.CAMERA", baseContext.getPackageName()));//"packageName"));
+//        if (has_permission) {
+//            Intent intent = new Intent(baseContext,
+//                    MipcaActivityCapture.class);
+//            intent.putExtra("PAY_TYPE", true);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+//        } else {
+//            showToast("请为该应用添加打开相机权限");
+//        }
+//    }
 
     // 网络请求方法
     private void request() {

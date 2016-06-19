@@ -428,44 +428,19 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 showToast("购买成功");
                 loginResponse.setToken(buyResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-                finish();
+                jmp();
                 break;
         }
     }
 
     private void jmp() {
         if (null != hasCar && !"0".equals(hasCar)) { // 有车辆
-            showVersionDialog("当前没有绑定,是否需要绑定",AddCarActivity.class);
+            showCustomDialog("当前没有绑定,是否需要绑定", "前往绑定", 1, this);
         } else {
-            showVersionDialog("当前没有车辆,请添加车辆",AddCarActivity.class);
+            showCustomDialog("当前没有车辆,请添加车辆", "前往添加", 0, this);
         }
     }
 
-    private void showVersionDialog(String message, final Class clzz) {
-
-        builder = new CustomDialog.Builder(this);
-
-        builder.setTitle(R.string.remind);
-        builder.setPositiveButton(R.string.banben_updata_remind,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        Intent intent = new Intent(baseContext,clzz);
-                        intent.putExtra("resultString",deviceNo);
-                        startActivity(intent);
-                    }
-                });
-
-        builder.setMessage(message, 1);
-        builder.setNegativeButton(R.string.cancel,
-                new android.content.DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        versionDialog = builder.create();
-        versionDialog.show();
-    }
 
     @Override
     public void error(String errorMsg) {
@@ -533,7 +508,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
 
     @Override
     public void onPaySuccess() {
-        finish();
+        jmp();
     }
 
     @Override
@@ -587,7 +562,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 Constant.EDIT_FLAG = true;
                 // setNow();
                 Log.i("Tanck", "===========payActivity=====Receiver===========");
-                finish();
+                jmp();
             }
         }
     }

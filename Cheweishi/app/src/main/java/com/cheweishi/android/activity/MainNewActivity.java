@@ -651,19 +651,19 @@ public class MainNewActivity extends BaseActivity {
                 LoginResponse sos = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = sos;
                 LoginMessageUtils.saveloginmsg(baseContext, sos);
-                isLoginOrHasCar(SoSActivity.class);
+                isLoginOrHasCar_New(SoSActivity.class);
                 break;
             case "CAR_DYNAMIC":// 车辆动态
                 LoginResponse carDynamic = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = carDynamic;
                 LoginMessageUtils.saveloginmsg(baseContext, carDynamic);
-                isLoginOrHasCar(CarDynamicActivity.class);
+                isLoginOrHasCar_New(CarDynamicActivity.class);
                 break;
             case "CAR_DETECTION":// 一键检测
                 LoginResponse carDetection = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = carDetection;
                 LoginMessageUtils.saveloginmsg(baseContext, carDetection);
-                isLoginOrHasCar(CarDetectionActivity.class);
+                isLoginOrHasCar_New(CarDetectionActivity.class);
                 break;
             case "PESSANY":// 违章查询
                 LoginResponse pessany = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
@@ -924,7 +924,7 @@ public class MainNewActivity extends BaseActivity {
             overridePendingTransition(R.anim.score_business_query_enter,
                     R.anim.score_business_query_exit);
         } else if (!hasCar()) {
-            showCustomDialog("你还没有添加车辆");
+            showCustomDialog("你还没有添加车辆", "添加车辆", 0);
         } else {
             intent.setClass(MainNewActivity.this, cls);
             startActivity(intent);
@@ -938,12 +938,15 @@ public class MainNewActivity extends BaseActivity {
         Builder builder = new CustomDialog.Builder(this);
         builder.setMessage(msg);
         builder.setTitle(getString(R.string.remind));
+
         builder.setPositiveButton(getString(R.string.home_goto_bind),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
+//                        OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
+                        Intent intent = new Intent(baseContext, DevicesListActivity.class);
+                        startActivity(intent);
                     }
                 });
         builder.setNegativeButton(getString(R.string.cancel),

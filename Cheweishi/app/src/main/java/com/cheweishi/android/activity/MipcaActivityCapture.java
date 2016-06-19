@@ -127,7 +127,7 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
             Toast.makeText(MipcaActivityCapture.this, "扫描失败!", Toast.LENGTH_SHORT).show();
         } else {
 
-            String cid = getIntent().getStringExtra("cid");
+//            String cid = getIntent().getStringExtra("cid");
 
             String flag = "f50b421982ca1c32875a4fc60e4f69af";
 
@@ -158,21 +158,22 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
                 return;
             }
 
+            showToast("目前不支持该扫描结果");
 
-            if (null == cid || "".equals(cid)) { // 扫一扫过来的或者其他异常情况过来的直接进入选择车辆
-                Intent resultIntent = new Intent();
-                resultIntent.setClass(MipcaActivityCapture.this, QRCodeResultActivity.class);
-                resultIntent.putExtra("resultString", resultString);
-                MipcaActivityCapture.this.startActivity(resultIntent);
-                MipcaActivityCapture.this.finish();
-                return;
-            } else { // 否则有设备需要直接绑定
-                Intent intent = new Intent(baseContext,
-                        AddDeviceActivity.class);
-                intent.putExtra("cid", cid);
-                intent.putExtra("resultString", resultString);
-                startActivity(intent);
-            }
+//            if (null == cid || "".equals(cid)) { // 扫一扫过来的或者其他异常情况过来的直接进入选择车辆
+//                Intent resultIntent = new Intent();
+//                resultIntent.setClass(MipcaActivityCapture.this, QRCodeResultActivity.class);
+//                resultIntent.putExtra("resultString", resultString);
+//                MipcaActivityCapture.this.startActivity(resultIntent);
+//                MipcaActivityCapture.this.finish();
+//                return;
+//            } else { // 否则有设备需要直接绑定
+//                Intent intent = new Intent(baseContext,
+//                        AddDeviceActivity.class);
+//                intent.putExtra("cid", cid);
+//                intent.putExtra("resultString", resultString);
+//                startActivity(intent);
+//            }
 
         }
         MipcaActivityCapture.this.finish();
