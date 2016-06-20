@@ -104,7 +104,7 @@ public class DevicesListActivity extends BaseActivity implements View.OnClickLis
                         }
                     });
                     EmptyTools.setImg(R.drawable.mycar_icon);
-                    EmptyTools.setMessage("您还没有绑定的设备,点击图标购买设备");
+                    EmptyTools.setMessage("您还没有可以绑定的设备,点击图标购买设备");
                 }
 
                 loginResponse.setToken(response.getToken());

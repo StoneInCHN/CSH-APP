@@ -775,4 +775,23 @@ public abstract class BaseActivity extends FragmentActivity implements
             showToast("请为该应用添加打开相机权限");
         }
     }
+
+    /**
+     * 打开相机 为了购买
+     */
+    public void OpenCamera(boolean buyDevice) {
+        applyAdmin(Manifest.permission.CAMERA, MY_CAMEAR_PREMESSION);
+        PackageManager pkm = getPackageManager();
+        boolean has_permission = (PackageManager.PERMISSION_GRANTED == pkm
+                .checkPermission("android.permission.CAMERA", baseContext.getPackageName()));//"packageName"));
+        if (has_permission) {
+            Intent intent = new Intent(baseContext,
+                    MipcaActivityCapture.class);
+            intent.putExtra("PAY_TYPE", buyDevice);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            showToast("请为该应用添加打开相机权限");
+        }
+    }
 }

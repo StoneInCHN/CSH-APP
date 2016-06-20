@@ -771,7 +771,7 @@ public class MainNewActivity extends BaseActivity {
                 isLogin(MessagerCenterActivity.class);
                 break;
             case R.id.btn_scanning:// 扫一扫
-                OpenCamera(null);
+                OpenCamera(false);
                 break;
             case R.id.btn_my_wallet:// 我的钱包
                 isLogin(PurseActivity.class);// PurseActivity

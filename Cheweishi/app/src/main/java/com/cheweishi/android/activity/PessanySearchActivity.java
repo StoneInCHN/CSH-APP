@@ -110,7 +110,7 @@ public class PessanySearchActivity extends BaseActivity implements
         } else {
             EmptyTools.setEmptyView(baseContext, lv_pessanySearch);
             EmptyTools.setImg(R.drawable.mycar_icon);
-            EmptyTools.setMessage("您还有没有违章记录");
+            EmptyTools.setMessage("您还没有违章记录");
         }
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);

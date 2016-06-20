@@ -425,7 +425,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                     showToast(buyResponse.getDesc());
                     return;
                 }
-                showToast("购买成功");
+//                showToast("购买成功");
                 loginResponse.setToken(buyResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
@@ -440,9 +440,9 @@ public class PayActivty extends BaseActivity implements OnClickListener,
 
     private void jmp() {
         if (null != hasCar && !"0".equals(hasCar)) { // 有车辆
-            showCustomDialog("当前没有绑定,是否需要绑定", "前往绑定", 1, this);
+            showCustomDialog("设备已购买,现在就绑定检查爱车状态", "前往绑定", 1, this);
         } else {
-            showCustomDialog("当前没有车辆,请添加车辆", "前往添加", 0, this);
+            showCustomDialog("还没有添加爱车信息", "前往添加", 0, this);
         }
     }
 
@@ -517,7 +517,8 @@ public class PayActivty extends BaseActivity implements OnClickListener,
         Intent mIntent = new Intent();
         mIntent.setAction(Constant.REFRESH_FLAG);
         sendBroadcast(mIntent);
-        jmp();
+        if (buy_type)
+            jmp();
     }
 
     @Override
@@ -571,7 +572,8 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 Constant.EDIT_FLAG = true;
                 // setNow();
                 Log.i("Tanck", "===========payActivity=====Receiver===========");
-                jmp();
+                if (buy_type)
+                    jmp();
             }
         }
     }
