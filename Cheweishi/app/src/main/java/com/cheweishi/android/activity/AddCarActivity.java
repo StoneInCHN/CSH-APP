@@ -848,6 +848,8 @@ public class AddCarActivity extends BaseActivity {
         }
     }
 
+    private String cid;
+
     @Override
     public void receive(String data) {
         ProgrosDialog.closeProgrosDialog();
@@ -864,16 +866,15 @@ public class AddCarActivity extends BaseActivity {
 //        mIntent.setAction(Constant.REFRESH_FLAG);
 //        sendBroadcast(mIntent);
 
-
+        cid = response.getDesc();
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         if (isNeedBingd) {
-            if (carManagerTemp == null) {
-
-                showCustomDialog(getString(R.string.no_device));
+            if (carManagerTemp == null && null != cid && !"".equals(cid)) {
+                showCustomDialog(getString(R.string.no_device), "前往绑定", 1, this, cid);
             } else {
-                if (StringUtil.isEmpty(carManagerTemp.getDeviceNo())) {
-                    showCustomDialog(getString(R.string.no_device));
+                if (StringUtil.isEmpty(carManagerTemp.getDeviceNo()) && !StringUtil.isEmpty(cid)) {
+                    showCustomDialog(getString(R.string.no_device), "前往绑定", 1, this, cid);
                 } else {
                     finish();
                 }
@@ -918,25 +919,6 @@ public class AddCarActivity extends BaseActivity {
         builder.create().show();
     }
 
-    /**
-     * 打开相机
-     *
-     * @param cid
-     */
-    private void OpenCamera(String cid) {
-        PackageManager pkm = getPackageManager();
-        boolean has_permission = (PackageManager.PERMISSION_GRANTED == pkm
-                .checkPermission("android.permission.CAMERA", baseContext.getPackageName()));//"packageName"));
-        if (has_permission) {
-            Intent intent = new Intent(baseContext,
-                    MipcaActivityCapture.class);
-            intent.putExtra("cid", cid);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        } else {
-            showToast("请为该应用添加打开相机权限");
-        }
-    }
 
     @Override
     public void error(String errorMsg) {

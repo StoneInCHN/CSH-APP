@@ -651,19 +651,19 @@ public class MainNewActivity extends BaseActivity {
                 LoginResponse sos = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = sos;
                 LoginMessageUtils.saveloginmsg(baseContext, sos);
-                isLoginOrHasCar_New(SoSActivity.class);
+                isLoginOrHasCar(SoSActivity.class);
                 break;
             case "CAR_DYNAMIC":// 车辆动态
                 LoginResponse carDynamic = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = carDynamic;
                 LoginMessageUtils.saveloginmsg(baseContext, carDynamic);
-                isLoginOrHasCar_New(CarDynamicActivity.class);
+                isLoginOrHasCar(CarDynamicActivity.class);
                 break;
             case "CAR_DETECTION":// 一键检测
                 LoginResponse carDetection = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = carDetection;
                 LoginMessageUtils.saveloginmsg(baseContext, carDetection);
-                isLoginOrHasCar_New(CarDetectionActivity.class);
+                isLoginOrHasCar(CarDetectionActivity.class);
                 break;
             case "PESSANY":// 违章查询
                 LoginResponse pessany = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
@@ -903,8 +903,12 @@ public class MainNewActivity extends BaseActivity {
             startActivity(intent);
             overridePendingTransition(R.anim.score_business_query_enter,
                     R.anim.score_business_query_exit);
+        } else if (!hasCar()) {
+            showCustomDialog("你还没有添加车辆", "添加车辆", 0);
+            return;
         } else if (!hasDevice()) {
-            showCustomDialog(getString(R.string.home_no_device));
+            showCustomDialog(getString(R.string.home_no_device), "前往绑定", 1);
+            return;
         } else {
             intent.setClass(MainNewActivity.this, cls);
             startActivity(intent);
@@ -925,6 +929,7 @@ public class MainNewActivity extends BaseActivity {
                     R.anim.score_business_query_exit);
         } else if (!hasCar()) {
             showCustomDialog("你还没有添加车辆", "添加车辆", 0);
+            return;
         } else {
             intent.setClass(MainNewActivity.this, cls);
             startActivity(intent);
@@ -959,27 +964,6 @@ public class MainNewActivity extends BaseActivity {
         builder.create().show();
     }
 
-
-    /**
-     * 打开相机
-     *
-     * @param cid
-     */
-    private void OpenCamera(String cid) {
-        applyAdmin(Manifest.permission.CAMERA, MY_CAMEAR_PREMESSION);
-        PackageManager pkm = getPackageManager();
-        boolean has_permission = (PackageManager.PERMISSION_GRANTED == pkm
-                .checkPermission("android.permission.CAMERA", baseContext.getPackageName()));//"packageName"));
-        if (has_permission) {
-            Intent intent = new Intent(baseContext,
-                    MipcaActivityCapture.class);
-            intent.putExtra("cid", cid);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        } else {
-            showToast("请为该应用添加打开相机权限");
-        }
-    }
 
     @Override
     public void onStop() {

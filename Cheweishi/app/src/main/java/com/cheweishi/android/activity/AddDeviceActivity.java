@@ -118,16 +118,16 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
         QRServerResponse response = (QRServerResponse) GsonUtil.getInstance().convertJsonStringToObject(data, QRServerResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
-            if (isAddDevice) {
-                OpenCamera(null); // 不传递id就是扫描
-                return;
-            }
-            String temp = getIntent().getStringExtra("cid");
-            if (null != temp && !"".equals(temp))
-                OpenCamera(temp);
-            else
-                OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
-            this.finish();
+//            if (isAddDevice) {
+//                OpenCamera(null); // 不传递id就是扫描
+//                return;
+//            }
+//            String temp = getIntent().getStringExtra("cid");
+//            if (null != temp && !"".equals(temp))
+//                OpenCamera(temp);
+//            else
+//                OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
+//            this.finish();
             return;
         }
 
@@ -152,26 +152,6 @@ public class AddDeviceActivity extends BaseActivity implements OnClickListener {
     }
 
 
-    /**
-     * 打开相机
-     *
-     * @param cid
-     */
-    private void OpenCamera(String cid) {
-        PackageManager pkm = getPackageManager();
-        boolean has_permission = (PackageManager.PERMISSION_GRANTED == pkm
-                .checkPermission("android.permission.CAMERA", baseContext.getPackageName()));//"packageName"));
-        if (has_permission) {
-            Intent intent = new Intent(baseContext,
-                    MipcaActivityCapture.class);
-            intent.putExtra("cid", cid);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            AddDeviceActivity.this.finish();
-        } else {
-            showToast("请为该应用添加打开相机权限");
-        }
-    }
 
     private boolean isExit = false;
 

@@ -657,6 +657,47 @@ public abstract class BaseActivity extends FragmentActivity implements
     }
 
     /**
+     * 结束型
+     *
+     * @param msg
+     * @param buttonMsg
+     * @param type      0 表示添加车辆,1表示绑定
+     */
+    public void showCustomDialog(String msg, String buttonMsg, final int type, final Activity activity, final String cid) {
+        CustomDialog.Builder builder = new CustomDialog.Builder(this);
+        builder.setMessage(msg);
+        builder.setTitle(getString(R.string.remind));
+
+        builder.setPositiveButton(buttonMsg,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        if (0 == type) { // 添加车辆
+                            Intent intent = new Intent(baseContext, AddCarActivity.class);
+                            startActivity(intent);
+                        } else { // 绑定
+                            Intent intent = new Intent(baseContext, DevicesListActivity.class);
+                            intent.putExtra("cid", cid);
+                            startActivity(intent);
+                        }
+                        activity.finish();
+                    }
+                });
+        builder.setNegativeButton(getString(R.string.cancel),
+                new android.content.DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        activity.finish();
+                    }
+                });
+
+        builder.create().show();
+    }
+
+    /**
+     * 结束型
+     *
      * @param msg
      * @param buttonMsg
      * @param type      0 表示添加车辆,1表示绑定
@@ -671,13 +712,15 @@ public abstract class BaseActivity extends FragmentActivity implements
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        if (0 == type) {
+                        if (0 == type) { // 添加车辆
                             Intent intent = new Intent(baseContext, AddCarActivity.class);
                             startActivity(intent);
-                        } else {
+                        } else { // 绑定
                             Intent intent = new Intent(baseContext, DevicesListActivity.class);
+                            intent.putExtra("cid", "0");
                             startActivity(intent);
                         }
+                        activity.finish();
                     }
                 });
         builder.setNegativeButton(getString(R.string.cancel),
@@ -689,6 +732,8 @@ public abstract class BaseActivity extends FragmentActivity implements
                 });
 
         builder.create().show();
+
+
     }
 
 
@@ -704,6 +749,26 @@ public abstract class BaseActivity extends FragmentActivity implements
             Intent intent = new Intent(baseContext,
                     MipcaActivityCapture.class);
             intent.putExtra("PAY_TYPE", true);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            showToast("请为该应用添加打开相机权限");
+        }
+    }
+
+    /**
+     * 打开相机 为了购买
+     */
+    public void OpenCamera(String cid) {
+        applyAdmin(Manifest.permission.CAMERA, MY_CAMEAR_PREMESSION);
+        PackageManager pkm = getPackageManager();
+        boolean has_permission = (PackageManager.PERMISSION_GRANTED == pkm
+                .checkPermission("android.permission.CAMERA", baseContext.getPackageName()));//"packageName"));
+        if (has_permission) {
+            Intent intent = new Intent(baseContext,
+                    MipcaActivityCapture.class);
+            intent.putExtra("PAY_TYPE", true);
+            intent.putExtra("cid", cid);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else {

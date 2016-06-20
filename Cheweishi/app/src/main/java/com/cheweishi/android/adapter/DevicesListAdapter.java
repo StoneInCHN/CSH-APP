@@ -27,7 +27,7 @@ public class DevicesListAdapter extends BaseAdapter {
 
     public void setData(List<DevicelistResponse.MsgBean> list) {
         this.list = list;
-        notifyDataSetChanged();
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -57,7 +57,7 @@ public class DevicesListAdapter extends BaseAdapter {
             holder.tenantName = (TextView) convertView.findViewById(R.id.tv_device_tenant_name);
             holder.deviceNo = (TextView) convertView.findViewById(R.id.tv_device_no);
 
-            convertView.setTag(this);
+            convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }

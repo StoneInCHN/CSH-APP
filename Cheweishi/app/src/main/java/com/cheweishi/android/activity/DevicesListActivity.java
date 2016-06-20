@@ -3,6 +3,7 @@ package com.cheweishi.android.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.cheweishi.android.entity.DevicelistResponse;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.widget.UnSlidingListView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -28,7 +30,7 @@ import java.util.Map;
 /**
  * Created by tangce on 6/19/2016.
  */
-public class DevicesListActivity extends BaseActivity implements View.OnClickListener {
+public class DevicesListActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     @ViewInject(R.id.unl_devices_list)
     private UnSlidingListView unl_devices_list; // devices list
@@ -41,6 +43,7 @@ public class DevicesListActivity extends BaseActivity implements View.OnClickLis
     private List<DevicelistResponse.MsgBean> list;
 
     private DevicesListAdapter adapter;
+    private String cid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +54,13 @@ public class DevicesListActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void init() {
+        left_action.setText(R.string.back);
         title.setText("选择设备");
         list = new ArrayList<>();
         adapter = new DevicesListAdapter(baseContext, list);
+        unl_devices_list.setAdapter(adapter);
+        unl_devices_list.setOnItemClickListener(this);
+        cid = getIntent().getStringExtra("cid");
         getData();
     }
 
@@ -79,6 +86,8 @@ public class DevicesListActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 if (null != response.getMsg() && 0 < response.getMsg().size()) {
+                    list.clear();
+                    list.addAll(response.getMsg());
                     adapter.setData(response.getMsg());
                 } else {
                     EmptyTools.setEmptyView(this, unl_devices_list, new View.OnClickListener() {
@@ -107,6 +116,25 @@ public class DevicesListActivity extends BaseActivity implements View.OnClickLis
             case R.id.left_action:
                 finish();
                 break;
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (null != cid) {
+            if ("0".equals(cid)) { // 表示没有指定车辆Id
+                Intent resultIntent = new Intent();
+                resultIntent.setClass(baseContext, QRCodeResultActivity.class);
+                resultIntent.putExtra("resultString", list.get(position).getDeviceNo());
+                startActivity(resultIntent);
+            } else { // 指定了车辆id.
+                Intent resultIntent = new Intent();
+                resultIntent.setClass(baseContext, AddDeviceActivity.class);
+                resultIntent.putExtra("resultString", list.get(position).getDeviceNo());
+                resultIntent.putExtra("cid", cid);
+                startActivity(resultIntent);
+            }
+            finish();
         }
     }
 }
