@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
@@ -34,6 +35,8 @@ public class DevicesListActivity extends BaseActivity implements View.OnClickLis
 
     @ViewInject(R.id.unl_devices_list)
     private UnSlidingListView unl_devices_list; // devices list
+    @ViewInject(R.id.ll_devices_list_title)
+    private LinearLayout ll_devices_list_title;//顶部标题
 
     @ViewInject(R.id.left_action)
     private Button left_action; // 左边按钮
@@ -86,6 +89,7 @@ public class DevicesListActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 if (null != response.getMsg() && 0 < response.getMsg().size()) {
+                    ll_devices_list_title.setVisibility(View.VISIBLE);
                     list.clear();
                     list.addAll(response.getMsg());
                     adapter.setData(response.getMsg());

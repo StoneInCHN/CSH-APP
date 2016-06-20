@@ -197,6 +197,8 @@ public class PurseBalanceActivity extends BaseActivity implements
             list.addAll(mList);
             telephonEchargeDetailsAdapter.setlist(list);
         }
+
+        tv_balance_num.setText(response.getDesc());
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
@@ -314,6 +316,12 @@ public class PurseBalanceActivity extends BaseActivity implements
                 request();
             } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
                     Constant.WEIXIN_PAY_REFRESH, true)) {
+                Constant.EDIT_FLAG = true;
+
+                list.clear();
+                pageNumber = 1;
+                request();
+            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.PAY_REFRESH, true)) {
                 Constant.EDIT_FLAG = true;
 
                 list.clear();

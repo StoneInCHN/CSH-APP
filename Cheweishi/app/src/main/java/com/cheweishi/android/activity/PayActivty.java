@@ -428,6 +428,11 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 showToast("购买成功");
                 loginResponse.setToken(buyResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+
+                Constant.CURRENT_REFRESH = Constant.PAY_REFRESH;
+                Intent mIntent = new Intent();
+                mIntent.setAction(Constant.REFRESH_FLAG);
+                sendBroadcast(mIntent);
                 jmp();
                 break;
         }
@@ -508,6 +513,10 @@ public class PayActivty extends BaseActivity implements OnClickListener,
 
     @Override
     public void onPaySuccess() {
+        Constant.CURRENT_REFRESH = Constant.PAY_REFRESH;
+        Intent mIntent = new Intent();
+        mIntent.setAction(Constant.REFRESH_FLAG);
+        sendBroadcast(mIntent);
         jmp();
     }
 
