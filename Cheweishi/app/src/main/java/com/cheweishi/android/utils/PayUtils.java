@@ -22,6 +22,7 @@ import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.PayActivty;
 import com.cheweishi.android.activity.RechargeActivity;
 import com.cheweishi.android.config.Constant;
+import com.cheweishi.android.config.NetInterface;
 
 public class PayUtils {
 
@@ -236,8 +237,8 @@ public class PayUtils {
         orderInfo += "&total_fee=" + "\"" + price + "\"";
 
         // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\""
-                + "http://120.27.92.247:10001/csh-interface/payNotify/notify_alipay.jhtml" + "\"";
+        orderInfo += "&notify_url=" + "\"" + NetInterface.IMG_URL
+                + "/payNotify/notify_alipay.jhtml" + "\"";
 
         //http://120.27.92.247:10001/csh-interface/payNotify/notify_alipay.jhtml
         //http://jfinal.chcws.com/notify/pay/notify_alipay

@@ -746,8 +746,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
     private void updatePacket() {
         tv_wash_affirm.setClickable(true);
-        if (!CHANNEL_WALLET.equals(channel)) { // 不是钱包的情况下,
-            if (0 == red_status && 0 < amount) { // 没使用红包,且价钱大于0
+        if (CHANNEL_ALIPAY.equals(channel) || CHANNEL_WECHAT.equals(channel)) { // 微信或者支付宝
+            if (0 < amount) { // 没使用红包,且价钱大于0
                 this.finish();
                 return;
             }

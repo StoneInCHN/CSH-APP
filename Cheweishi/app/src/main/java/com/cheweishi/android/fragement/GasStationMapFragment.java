@@ -967,8 +967,8 @@ public class GasStationMapFragment extends BaseFragment implements
                 param.put("userId", loginResponse.getDesc());
                 param.put("token", loginResponse.getToken());
                 param.put("keyWord", "加油站");
-                param.put("longitude", MyMapUtils.getLongitude(baseContext));
-                param.put("latitude", MyMapUtils.getLatitude(baseContext));
+                param.put("longitude",arg0.getLocation().longitude);
+                param.put("latitude", arg0.getLocation().latitude);
                 param.put(Constant.PARAMETER_TAG, NetInterface.SEARCH);
                 netWorkHelper.PostJson(url, param, GasStationMapFragment.this);
             } else {

@@ -17,7 +17,6 @@ import com.cheweishi.android.entity.DevicelistResponse;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.widget.UnSlidingListView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
