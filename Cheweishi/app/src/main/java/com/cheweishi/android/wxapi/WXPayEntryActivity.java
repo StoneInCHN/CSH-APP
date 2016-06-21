@@ -16,64 +16,68 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 /**
  * 微信支付返回数据处理
- * 
+ *
  * @author mingdasen
- * 
  */
 //com.cheweishi.android.wxapi.WXPayEntryActivity
 public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandler {
 //	private static final String TAG = "MicroMsg.SDKSample.WXPayEntryActivity";
 
-	private IWXAPI api;
+    private IWXAPI api;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.weixinpay_result_activity);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.weixinpay_result_activity);
 
-		api = WXAPIFactory.createWXAPI(this, Constant.APP_ID);
+        api = WXAPIFactory.createWXAPI(this, Constant.APP_ID);
 
-		api.handleIntent(getIntent(), this);
-	}
+        api.handleIntent(getIntent(), this);
+    }
 
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
-		api.handleIntent(intent, this);
-	}
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        api.handleIntent(intent, this);
+    }
 
-	@Override
-	public void onReq(BaseReq req) {
+    @Override
+    public void onReq(BaseReq req) {
 
-	}
+    }
 
-	@Override
-	public void onResp(BaseResp resp) {
-		Log.i("Tanck", "onPayFinish, errCode = " + resp.errCode);
-		Log.i("Tanck", "onPayFinish, getType = " + resp.getType());
-		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
+    @Override
+    public void onResp(BaseResp resp) {
+        Log.i("Tanck", "onPayFinish, errCode = " + resp.errCode);
+        Log.i("Tanck", "onPayFinish, getType = " + resp.getType());
+        if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 //			Intent intent;
-			if (resp.errCode == 0) {
-				Intent mIntent = new Intent();
-				Constant.CURRENT_REFRESH = Constant.WEIXIN_PAY_REFRESH;
-				mIntent.setAction(Constant.REFRESH_FLAG);
-				Log.i("Tanck", "===发送微信支付成功广播==");
-				sendBroadcast(mIntent);
+            if (resp.errCode == 0) {
+                Intent mIntent = new Intent();
+                Constant.CURRENT_REFRESH = Constant.WEIXIN_PAY_REFRESH;
+                mIntent.setAction(Constant.REFRESH_FLAG);
+                Log.i("Tanck", "===发送微信支付成功广播==");
+                sendBroadcast(mIntent);
 //				mIntent = new Intent(WXPayEntryActivity.this, RechargeActivity.class);
-				Log.i("Tanck", "===微信支付成功==");
-				showToast("支付成功");
-				finish();
+                Log.i("Tanck", "===微信支付成功==");
+                showToast("支付成功");
+                finish();
 //				startActivity(mIntent);
-			} else {
-				Log.i("Tanck", "===微信支付失败==");
-				showToast("支付失败");
-				WXPayEntryActivity.this.finish();
-			}
-		}
-	}
-	
+            } else {
+                Log.i("Tanck", "===微信支付失败==");
+                Intent mIntent = new Intent();
+                Constant.CURRENT_REFRESH = Constant.WEIXIN_PAY_FAIL_REFRESH;
+                mIntent.setAction(Constant.REFRESH_FLAG);
+                Log.i("Tanck", "===发送微信支付成功广播==");
+                sendBroadcast(mIntent);
+                showToast("支付失败");
+                WXPayEntryActivity.this.finish();
+            }
+        }
+    }
+
 //	void submitLogin() {
 //		Log.i("result", "===发送登录信息确认请求==");
 //		if (isLogined()) {

@@ -1,7 +1,7 @@
 package com.cheweishi.android.config;
 
 /**
- * Created by Administrator on 2016/3/20.
+ * Created by Tanck on 2016/3/20.
  */
 public class NetInterface {
 

@@ -51,6 +51,7 @@ public class Constant {
     public static String SUCCESS_OUTOFDATELINE_ORDER_REFRESH = "com.cheweishi.android.activity.OrderDetailsActivity.outofdateline";
     public static String CANCEL_ORDER_SUCCESS_REFRESH = "com.cheweishi.android.activity.OrderDetailsActivity.outofdateline";
     public static String WEIXIN_PAY_REFRESH = "com.cheweishi.android.wxapi.WXPayEntryActivity";
+    public static String WEIXIN_PAY_FAIL_REFRESH = "com.cheweishi.android.wxapi.WXPayEntryActivity.Fail";
 
     // public static String JPUSH_REFRESH =
     // "com.cheweishi.android.recevier.JPushReceiver";

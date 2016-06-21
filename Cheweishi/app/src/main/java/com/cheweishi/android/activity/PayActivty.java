@@ -350,7 +350,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
     @Override
     public void receive(String TAG, String data) {
         ProgrosDialog.closeProgrosDialog();
-        btn_pay.setClickable(true);
+//        btn_pay.setClickable(true);
         switch (TAG) {
             case NetInterface.CHARGE_PAY:
                 PreparePayResponse response = (PreparePayResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PreparePayResponse.class);
@@ -419,7 +419,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
             case NetInterface.BUY_DEVICE: // 购买成功后的call back
-
+                btn_pay.setClickable(true);
                 BaseResponse buyResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
                 if (!buyResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(buyResponse.getDesc());
@@ -451,6 +451,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
     public void error(String errorMsg) {
         ProgrosDialog.closeProgrosDialog();
         btn_pay.setClickable(true);
+        showToast(R.string.server_link_fault);
     }
 
 
@@ -528,7 +529,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
 
     @Override
     public void onPayFail() {
-
+        btn_pay.setClickable(true);
     }
 
 
@@ -536,6 +537,7 @@ public class PayActivty extends BaseActivity implements OnClickListener,
      * 更新充值
      */
     private void updatePacket() {
+        btn_pay.setClickable(true);
         if (buy_type) {
             if (channel.equals(CHANNEL_WALLET)) { // 如果购买设备且是钱包余额购买的情况下
                 if (null == out_trade_no || "".equals(out_trade_no)) {
@@ -565,15 +567,13 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                     true)) {
                 return;
             }
-            if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-                    Constant.RECHARGE_REFRESH, true)
-                    || StringUtil.isEquals(Constant.CURRENT_REFRESH,
-                    Constant.WEIXIN_PAY_REFRESH, true)) {
+            if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.WEIXIN_PAY_REFRESH, true)) {
                 Constant.EDIT_FLAG = true;
                 // setNow();
                 Log.i("Tanck", "===========payActivity=====Receiver===========");
-                if (buy_type)
-                    jmp();
+                onPaySuccess();
+            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.WEIXIN_PAY_FAIL_REFRESH, true)) {
+                onPayFail();
             }
         }
     }

@@ -420,6 +420,12 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
                 if (cb_red.isChecked()) {
                     unlist_washcar_pay.setVisibility(View.VISIBLE);
+                    tv_red_hint.setText(R.string.purse_coupon);
+                    if (!StringUtil.isEmpty(price)) {
+                        amount = StringUtil.getDouble(price);
+                    }
+                    tv_wash_pay_num.setText("￥" + amount + "元");
+                    tv_wash_money.setText("￥" + amount + "元");
                     if (null != adapter) {
                         int position = adapter.getCheckCouponPosition();
                         if (-1 != position)
@@ -463,7 +469,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     @Override
     public void receive(String TAG, String data) {
         ProgrosDialog.closeProgrosDialog();
-        tv_wash_affirm.setClickable(true);
+//        tv_wash_affirm.setClickable(true);
         switch (TAG) {
             case NetInterface.BUY_SERVICE: // 购买
                 PreparePayResponse preparePayResponse = (PreparePayResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PreparePayResponse.class);
@@ -512,6 +518,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
             case NetInterface.UPDATE_PAY_STATUS://更新支付状态
+                tv_wash_affirm.setClickable(true);
                 BaseResponse response = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
                 if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(R.string.server_link_fault);
@@ -733,11 +740,12 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
     @Override
     public void onPayFail() {
-
+        tv_wash_affirm.setClickable(true);
     }
 
 
     private void updatePacket() {
+        tv_wash_affirm.setClickable(true);
         if (!CHANNEL_WALLET.equals(channel)) { // 不是钱包的情况下,
             if (0 == red_status && 0 < amount) { // 没使用红包,且价钱大于0
                 this.finish();
@@ -772,8 +780,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
         double couponMoney = Double.valueOf(couponListResponse.getMsg().get(position).getCoupon().getAmount());
         tv_red_hint.setText("使用优惠券抵扣:" + "￥" + (couponMoney > Double.valueOf(price) ? Double.valueOf(price) : couponMoney) + "元");
         double tempPrice = calcMoney(couponMoney);
-        tv_wash_pay_num.setText("￥" + tempPrice + "元");
-        tv_wash_money.setText("￥" + tempPrice + "元");
+        tv_wash_pay_num.setText("￥" + String.format("%.2f", tempPrice) + "元");
+        tv_wash_money.setText("￥" + String.format("%.2f", tempPrice) + "元");
         currentCouponId = couponListResponse.getMsg().get(position).getId();
     }
 
@@ -790,13 +798,12 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                     true)) {
                 return;
             }
-            if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-                    Constant.RECHARGE_REFRESH, true)
-                    || StringUtil.isEquals(Constant.CURRENT_REFRESH,
-                    Constant.WEIXIN_PAY_REFRESH, true)) {
+            if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.WEIXIN_PAY_REFRESH, true)) {
                 Constant.EDIT_FLAG = true;
                 getPaySuccessData();
                 Log.i("Tanck", "===========WashCarPayActivity=====Receiver===========");
+            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.WEIXIN_PAY_FAIL_REFRESH, true)) {
+                onPayFail();
             }
         }
     }
