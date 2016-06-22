@@ -405,6 +405,7 @@ public class AddCarActivity extends BaseActivity {
                     break;
                 }
             }
+            LogHelper.d("---" + MyMapUtils.getCity(AddCarActivity.this));
             bt_char.setText("A");
             tv_color_flag.setBackgroundResource(R.color.red);
             color = getResources().getString(R.string.color_red);
