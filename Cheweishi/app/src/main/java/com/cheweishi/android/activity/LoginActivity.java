@@ -1,12 +1,5 @@
 package com.cheweishi.android.activity;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONObject;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,26 +21,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.sina.weibo.SinaWeibo;
-import cn.sharesdk.tencent.qzone.QZone;
-import cn.sharesdk.tpl.OnLoginListener;
-import cn.sharesdk.tpl.SignupPage;
-import cn.sharesdk.wechat.friends.Wechat;
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
-
 import com.cheweishi.android.R;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
-import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.RegularExpressionTools;
@@ -56,16 +36,31 @@ import com.cheweishi.android.utils.CommonUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.KeyGenerator;
 import com.cheweishi.android.utils.LogHelper;
-import com.cheweishi.android.utils.LruCacheUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qzone.QZone;
+//import cn.sharesdk.tpl.OnLoginListener;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
 
 /**
  * 登陆界面
@@ -106,7 +101,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     private static final int MSG_AUTH_COMPLETE = 4;
     private String smssdkAppkey = "76e53dba373b";// 三方登录key
     private String smssdkAppSecret = "5b0d10a9ef63766b8bcb1a8a3e739364";// 三方登录Secret
-    private OnLoginListener signupListener;
+//    private OnLoginListener signupListener;
     private Handler thirdHandler;
     // 短信验证的对话框
     private Dialog msgLoginDlg;
@@ -548,9 +543,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     /**
      * 设置授权回调，用于判断是否进入注册
      */
-    public void setOnLoginListener(OnLoginListener l) {
-        this.signupListener = l;
-    }
+//    public void setOnLoginListener(OnLoginListener l) {
+//        this.signupListener = l;
+//    }
 
     @OnClick({R.id.left_action, R.id.login_delete, R.id.login_btn,
             R.id.login_register, R.id.ll_loginLayout,
@@ -667,13 +662,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
                 Object[] objs = (Object[]) msg.obj;
                 String platform = (String) objs[0];
                 HashMap<String, Object> res = (HashMap<String, Object>) objs[1];
-                if (signupListener != null
-                        && signupListener.onSignin(platform, res)) {
-                    SignupPage signupPage = new SignupPage();
-                    signupPage.setOnLoginListener(signupListener);
-                    signupPage.setPlatform(platform);
-                    signupPage.show(LoginActivity.this, null);
-                }
+//                if (signupListener != null
+//                        && signupListener.onSignin(platform, res)) {
+//                    SignupPage signupPage = new SignupPage();
+//                    signupPage.setOnLoginListener(signupListener);
+//                    signupPage.setPlatform(platform);
+//                    signupPage.show(LoginActivity.this, null);
+//                }
             }
             break;
             case MSG_SMSSDK_CALLBACK: {

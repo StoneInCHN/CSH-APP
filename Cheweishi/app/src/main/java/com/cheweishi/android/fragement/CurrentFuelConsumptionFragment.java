@@ -1,9 +1,5 @@
 package com.cheweishi.android.fragement;
 
-import org.apache.http.protocol.HTTP;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,20 +13,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.CarReportActivity;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Config;
-import com.cheweishi.android.http.MyHttpUtils;
 import com.cheweishi.android.http.SimpleHttpUtils;
 import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.tools.ShareTools;
 import com.cheweishi.android.tools.TextViewTools;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.YouhaoView;
 import com.lidroid.xutils.http.RequestParams;
+
+import org.apache.http.protocol.HTTP;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class CurrentFuelConsumptionFragment extends BaseFragment {
 
@@ -285,8 +282,8 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 						+ slogan;
 				System.out.println(content);
 				System.out.println(imgUrl);
-				ShareTools.showShare(mContext, title, content, titleUrl,
-						imgUrl);
+//				ShareTools.showShare(mContext, title, content, titleUrl,
+//						imgUrl);
 				break;
 			default:
 				break;

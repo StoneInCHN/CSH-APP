@@ -1,13 +1,5 @@
 package com.cheweishi.android.fragement;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -44,13 +36,20 @@ import com.cheweishi.android.entity.Speed;
 import com.cheweishi.android.entity.SubSpeed;
 import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.ScreenTools;
-import com.cheweishi.android.tools.ShareTools;
 import com.cheweishi.android.tools.TextViewTools;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.AvgSpeedView;
 import com.cheweishi.android.widget.AvgSpeedViewY;
 import com.cheweishi.android.widget.SpeedFontView;
 import com.lidroid.xutils.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CarReportOilFrament extends BaseFragment {
 	private String time;
@@ -295,13 +294,13 @@ public class CarReportOilFrament extends BaseFragment {
 			switch (arg0.getId()) {
 			case R.id.btnShare:
 				if (status != 0) {
-					ShareTools.showShare(mContext, mContext.getResources()
-							.getString(R.string.share_title), tv_speedFlag
-							.getText().toString()
-							+ tv_speed.getText().toString()
-							+ tv_congestionTime.getText().toString()
-							+ "\n"
-							+ tv.getText().toString(), shareUrl, imgUrl);
+//					ShareTools.showShare(mContext, mContext.getResources()
+//							.getString(R.string.share_title), tv_speedFlag
+//							.getText().toString()
+//							+ tv_speed.getText().toString()
+//							+ tv_congestionTime.getText().toString()
+//							+ "\n"
+//							+ tv.getText().toString(), shareUrl, imgUrl);
 				}
 				break;
 			}

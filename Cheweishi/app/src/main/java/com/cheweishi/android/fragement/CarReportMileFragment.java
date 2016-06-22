@@ -1,12 +1,5 @@
 package com.cheweishi.android.fragement;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -42,13 +35,19 @@ import com.cheweishi.android.entity.CarReportTimeStrInfo;
 import com.cheweishi.android.http.MyHttpUtils;
 import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.ScreenTools;
-import com.cheweishi.android.tools.ShareTools;
 import com.cheweishi.android.tools.TextViewTools;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CarReportMileView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 驾驶里程报告
@@ -440,8 +439,8 @@ public class CarReportMileFragment extends BaseFragment {
 
 				@Override
 				public void onClick(View arg0) {
-					ShareTools.showShare(mContext, shareTitle, shareContent,
-							shareUrl, shareIcon);
+//					ShareTools.showShare(mContext, shareTitle, shareContent,
+//							shareUrl, shareIcon);
 				}
 			});
 		}

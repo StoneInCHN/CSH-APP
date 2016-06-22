@@ -1,11 +1,5 @@
 package com.cheweishi.android.fragement;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -46,11 +40,17 @@ import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.http.SimpleHttpUtils;
 import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.tools.ShareTools;
+//import com.cheweishi.android.tools.ShareTools;
 import com.cheweishi.android.tools.TextViewTools;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.WrapContentHeightViewPager;
 import com.lidroid.xutils.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 报告费用
@@ -180,9 +180,9 @@ public class CarReportFreeFragment extends BaseFragment {
 						+ tvTotal.getText().toString()
 						+ tvMessage.getText().toString()
 						+ tvBelow.getText().toString();
-				ShareTools.showShare(mContext, mContext
-						.getString(R.string.report_are_your_car_connect),
-						content, shareUrl, shareIcon);
+//				ShareTools.showShare(mContext, mContext
+//						.getString(R.string.report_are_your_car_connect),
+//						content, shareUrl, shareIcon);
 				break;
 
 			default:

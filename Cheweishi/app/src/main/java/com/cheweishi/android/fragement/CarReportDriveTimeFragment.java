@@ -42,7 +42,7 @@ import com.cheweishi.android.entity.CarReportTimeStrInfo;
 import com.cheweishi.android.http.MyHttpUtils;
 import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.ScreenTools;
-import com.cheweishi.android.tools.ShareTools;
+//import com.cheweishi.android.tools.ShareTools;
 import com.cheweishi.android.tools.TextViewTools;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CarReportTimeView;
@@ -490,8 +490,8 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 				@Override
 				public void onClick(View arg0) {
 
-					ShareTools.showShare(mContext, shareTitle, shareContent,
-							shareUrl, shareIcon);
+//					ShareTools.showShare(mContext, shareTitle, shareContent,
+//							shareUrl, shareIcon);
 				}
 			});
 		}
