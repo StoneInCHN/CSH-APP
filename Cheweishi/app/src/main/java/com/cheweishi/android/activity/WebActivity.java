@@ -40,7 +40,7 @@ public class WebActivity extends BaseActivity implements OnClickListener {
         if (getIntent().getExtras() == null
                 || StringUtil.isBlank(getIntent().getExtras().getString("url"))) {
             Log.i("Tanck", "webview" + "没有url参数！");
-            showToast("url解析错误");
+//            showToast("url解析错误");
             finish();
             return;
         }

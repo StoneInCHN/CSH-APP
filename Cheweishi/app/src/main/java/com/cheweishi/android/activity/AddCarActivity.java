@@ -560,6 +560,9 @@ public class AddCarActivity extends BaseActivity {
         }
     }
 
+    private boolean checkLast = false;
+
+
     /**
      * 控件点击事件监听
      */
@@ -634,6 +637,7 @@ public class AddCarActivity extends BaseActivity {
                     AddCarActivity.this.startActivityForResult(intent, 1000);
                     break;
                 case R.id.ll_annualSurvey:
+                    checkLast = true;
                     cancelFlag = true;
                     closeBoard(AddCarActivity.this);
                     hideLinearLayout();
@@ -663,6 +667,7 @@ public class AddCarActivity extends BaseActivity {
                     tv_car_mile.setCursorVisible(true);
                     break;
                 case R.id.tv_annualSurvey:
+                    checkLast = true;
                     cancelFlag = true;
                     hideLinearLayout();
                     showDateView(tv_annualSurvey);
@@ -1155,6 +1160,10 @@ public class AddCarActivity extends BaseActivity {
 
         @Override
         public void onSaveSelectedDate(String selectedDate) {
+            if (checkLast) {
+                checkLast = false;
+                tv_trafficSurvey.setText(selectedDate);
+            }
             mTv.setText(selectedDate);
             if (dateBuilder.isShowing()) {
                 dateBuilder.dismiss();

@@ -301,7 +301,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
         param.put("serviceId", service_id);
-        if (0 != amount || CHANNEL_COUPON.equals(channel)) // 表示价格已经被优惠券抵用完了
+        if (0 != amount || CHANNEL_COUPON.equals(channel)) // 表示价格已经被洗车券抵用完了
             param.put("paymentType", channel);
         if (1 == red_status && -1 != currentCouponId) // 表示使用了优惠券
             param.put("couponId", currentCouponId);
@@ -747,7 +747,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     private void updatePacket() {
         tv_wash_affirm.setClickable(true);
         if (CHANNEL_ALIPAY.equals(channel) || CHANNEL_WECHAT.equals(channel)) { // 微信或者支付宝
-            if (0 < amount) { // 没使用红包,且价钱大于0
+            if (0 < amount) { // 价钱大于0,就发起过微信和支付宝
                 this.finish();
                 return;
             }

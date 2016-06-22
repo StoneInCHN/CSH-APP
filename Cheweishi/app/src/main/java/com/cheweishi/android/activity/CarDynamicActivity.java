@@ -1,5 +1,6 @@
 package com.cheweishi.android.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -92,6 +93,8 @@ public class CarDynamicActivity extends BaseActivity {
     private TextView tvSpeed;// 速度信息
     @ViewInject(R.id.car_info)
     private LinearLayout lLayoutCarInfo;// 车辆信息
+    @ViewInject(R.id.tv_upload_time)
+    private TextView tv_upload_time;// 最后上传时间
     private CustomProgressDialog dialog;
     @ViewInject(R.id.ibtn_increse)
     private ImageView imgIncrese;//
@@ -317,6 +320,7 @@ public class CarDynamicActivity extends BaseActivity {
             tvOBDtime.setText(getSDate(response.getMsg().getEngineRuntime()));
             tvSpeed.setText(getSpeed(response.getMsg().getSpeed()));
             tvOil.setText(getStringOil(response.getMsg().getAverageOil()));
+            tv_upload_time.setText(getUpLoadDate(response.getMsg().getCreatetime()));
             // TODO isMode
             //if ("0".equalsIgnoreCase(isMode)) {
             // tvGps.setText("GPS");
@@ -513,7 +517,15 @@ public class CarDynamicActivity extends BaseActivity {
         long minutes = time / 60 - hour * 60;
         long second = time - hour * 60 * 60 - minutes * 60;
 
-        return hour + "h:" + minutes + "m:" + second + "s";
+        return hour + ":" + minutes + ":" + second ;
+    }
+
+    private String getUpLoadDate(long time) {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        Date curDate = new Date(time);// 获取当前时间
+        String str = formatter.format(curDate);
+        return str;
     }
 
     private String getSDate(Date endTime, boolean isMoving) {

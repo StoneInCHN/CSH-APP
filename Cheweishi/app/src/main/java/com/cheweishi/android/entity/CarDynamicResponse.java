@@ -38,6 +38,15 @@ public class CarDynamicResponse extends BaseResponse {
         private String mileAge;
         private String acc;
         private double lat;
+        private long createtime;
+
+        public long getCreatetime() {
+            return createtime;
+        }
+
+        public void setCreatetime(long createtime) {
+            this.createtime = createtime;
+        }
 
         public double getLng() {
             return lng;

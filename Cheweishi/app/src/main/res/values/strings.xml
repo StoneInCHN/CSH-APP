@@ -100,6 +100,7 @@
     <string name="mycar_drive_time">行驶时间</string>
     <string name="mycar_avg_oil">平均油耗</string>
     <string name="mycar_speed">速度</string>
+    <string name="mycar_upload">最后上传</string>
     <string name="mycar_input_destination">请输入你要导航的目的地</string>
     <string name="mycar_to_there">到这去</string>
     <string name="mycar_my_footprint">足迹</string>
