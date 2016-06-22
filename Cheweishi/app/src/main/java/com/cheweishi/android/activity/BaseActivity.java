@@ -117,7 +117,7 @@ public abstract class BaseActivity extends FragmentActivity implements
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 
-        baseContext = getApplicationContext();
+        baseContext = this;
         isLogined();
 
         netWorkHelper = NetWorkHelper.getInstance(baseContext);

@@ -1343,6 +1343,7 @@ public class FindcarActivity extends BaseActivity {
 		clear();
 		mapView.onDestroy();
 		mBaiduMapView.onDestory();
-
+		mapView= null;
+		mBaiduMapView = null;
 	}
 }
