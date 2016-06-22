@@ -243,7 +243,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 		disableSubView(false);
 		initData();
 		setImagePhoneGone();
-		leftsize = DisplayUtil.dip2px(mContext, 60);
+		leftsize = DisplayUtil.dip2px(baseContext, 60);
 		one_relayout.setVisibility(View.GONE);
 		mian_rel_two.setVisibility(View.VISIBLE);
 		this.main_iv_car.setVisibility(View.VISIBLE);
@@ -548,7 +548,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 			public boolean onPreDraw() {
 				if (isLsftSize) {
 					cartDistance = main_iv_car.getWidth();
-					scressWidth = ScreenUtils.getScressWidth(mContext);
+					scressWidth = ScreenUtils.getScressWidth(baseContext);
 					leftCarDistance = (scressWidth - cartDistance) / 2;
 					rightCarDistance = (scressWidth - cartDistance) / 2;
 					oneDistance = cartDistance / 16;
@@ -612,17 +612,17 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		specialLcoationChongqing = mContext
+		specialLcoationChongqing = baseContext
 				.getString(R.string.special_location_chongqing);
-		specialLcoationBeijing = mContext
+		specialLcoationBeijing = baseContext
 				.getString(R.string.special_location_beijing);
-		specialLcoationTianjin = mContext
+		specialLcoationTianjin = baseContext
 				.getString(R.string.special_location_tianjin);
-		specialLcoationShanghai = mContext
+		specialLcoationShanghai = baseContext
 				.getString(R.string.special_location_shanghai);
-		specialLcoationHongKong = mContext
+		specialLcoationHongKong = baseContext
 				.getString(R.string.special_location_hongkong);
-		specialLcoationAomen = mContext
+		specialLcoationAomen = baseContext
 				.getString(R.string.special_location_aomen);
 
 	}
@@ -632,7 +632,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.layout_main, container, false);
 
-		httpBiz = new HttpBiz(mContext);
+		httpBiz = new HttpBiz(baseContext);
 		init(view);
 		return view;
 	}
@@ -661,7 +661,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 	}
 
 	private void init(View view) {
-		message = LoginMessageUtils.getLoginMessage(mContext);
+		message = LoginMessageUtils.getLoginMessage(baseContext);
 		imgUser = (XCRoundImageView) view.findViewById(R.id.img_user);
 		lLayoutUser = (LinearLayout) view.findViewById(R.id.llayout_user);
 		tvMore = (LinearLayout) view.findViewById(R.id.panelHandle);
@@ -725,7 +725,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 		search_device_view.setWillNotDraw(false);
 		this.main_iv_check.setOnClickListener(onClickListener);
 
-		spLocation = mContext.getSharedPreferences(
+		spLocation = baseContext.getSharedPreferences(
 				MyMapUtils.LOCATION_PREFERENCES_NAME, Context.MODE_PRIVATE);
 
 		// 清空位置信息
@@ -754,11 +754,11 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 	public void setUserImage() {
 		isLogined = false;
 		hasCar = false;
-		message = LoginMessageUtils.getLoginMessage(mContext);
+		message = LoginMessageUtils.getLoginMessage(baseContext);
 		if (message == null) {
 			imgUser.setImageResource(R.drawable.info_touxiang_moren);
 			imgVip.setVisibility(View.INVISIBLE);
-			tvTitle.setText(mContext.getString(R.string.information_no_login));
+			tvTitle.setText(baseContext.getString(R.string.information_no_login));
 			setLeiDaGone();
 			return;
 		}
@@ -766,7 +766,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 		if (StringUtil.isEmpty(message.getUid())) {
 			imgUser.setImageResource(R.drawable.info_touxiang_moren);
 			imgVip.setVisibility(View.INVISIBLE);
-			tvTitle.setText(mContext.getString(R.string.information_no_login));
+			tvTitle.setText(baseContext.getString(R.string.information_no_login));
 			setLeiDaGone();
 
 			return;
@@ -777,7 +777,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 		if (!StringUtil.isEmpty(car) && !StringUtil.isEmpty(car.getDevice())) {
 			hasCar = true;// carid不为Null,判断为绑定有车
 		}
-		XUtilsImageLoader.getxUtilsImageLoader(mContext,
+		XUtilsImageLoader.getxUtilsImageLoader(baseContext,
 				R.drawable.info_touxiang_moren,imgUser,
 				API.DOWN_IMAGE_URL + message.getPhoto());
 		tvTitle.setText(message.getNick());
@@ -861,10 +861,10 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 	};
 
 	private void setResideMenu() {
-		MainNewActivity parentActivity = (MainNewActivity) mContext;
+		MainNewActivity parentActivity = (MainNewActivity) baseContext;
 //		layout = parentActivity.getLayout();
 		// try {
-		// MainActivity parentActivity = (MainActivity) mContext;
+		// MainActivity parentActivity = (MainActivity) baseContext;
 		// resideMenu = parentActivity.getResideMenu();
 		// // add gesture operation's ignored views
 		// // resideMenu.addIgnoredView(gallery);
@@ -875,18 +875,18 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 	}
 
 	private void showCustomDialog() {
-		Builder builder = new CustomDialog.Builder(mContext);
-		builder.setMessage(mContext.getString(R.string.home_no_device));
-		builder.setTitle(mContext.getString(R.string.remind));
-		builder.setPositiveButton(mContext.getString(R.string.home_goto_bind),
+		Builder builder = new CustomDialog.Builder(baseContext);
+		builder.setMessage(baseContext.getString(R.string.home_no_device));
+		builder.setTitle(baseContext.getString(R.string.remind));
+		builder.setPositiveButton(baseContext.getString(R.string.home_goto_bind),
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
-						startActivity(new Intent(mContext, AddCarActivity.class));
+						startActivity(new Intent(baseContext, AddCarActivity.class));
 					}
 				});
-		builder.setNegativeButton(mContext.getString(R.string.cancel),
+		builder.setNegativeButton(baseContext.getString(R.string.cancel),
 				new android.content.DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
@@ -903,11 +903,11 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 	 */
 	private void isLoginOrHasCar(Class<?> cls) {
 		if (!isLogined) {
-			intent.setClass(mContext, LoginActivity.class);
+			intent.setClass(baseContext, LoginActivity.class);
 		} else if (!hasCar) {
 			showCustomDialog();
 		} else {
-			intent.setClass(mContext, cls);
+			intent.setClass(baseContext, cls);
 		}
 	}
 
@@ -918,9 +918,9 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 	 */
 	private void isLogin(Class<?> cls) {
 		if (!isLogined) {
-			intent.setClass(mContext, LoginActivity.class);
+			intent.setClass(baseContext, LoginActivity.class);
 		} else {
-			intent.setClass(mContext, cls);
+			intent.setClass(baseContext, cls);
 		}
 	}
 
@@ -992,18 +992,18 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 			case R.id.llayout_user:
 				if (!isLogined) {
 					LoginMessageUtils.showDialogFlag = true;
-					intent.setClass(mContext, LoginActivity.class);
+					intent.setClass(baseContext, LoginActivity.class);
 				} else {
 					layout.openPane();
 
 				}
 				break;
 			case R.id.img_weather:
-				intent.setClass(mContext, WeatherActivity.class);
+				intent.setClass(baseContext, WeatherActivity.class);
 				break;
 			case R.id.img_message:
 
-//				((MainActivity) mContext).startMessageCenter();
+//				((MainActivity) baseContext).startMessageCenter();
 
 				break;
 			case R.id.panelHandle:
@@ -1020,13 +1020,13 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 			case R.id.img_phone:
 			case R.id.tv_phone:
 				if (!isLogined) {
-					intent.setClass(mContext, LoginActivity.class);
+					intent.setClass(baseContext, LoginActivity.class);
 				} else {
 					// turnToWashCar();
 					if (!hasCar()) {
 						showCustomDialog();
 					} else {
-						intent.setClass(mContext, WashCarActivity.class);
+						intent.setClass(baseContext, WashCarActivity.class);
 					}
 				}
 				break;
@@ -1034,16 +1034,16 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 				isLoginOrHasCar(CarDynamicActivity.class);
 				break;
 			case R.id.tv_navigation:
-				intent.setClass(mContext, NavigationActivity.class);
+				intent.setClass(baseContext, NavigationActivity.class);
 				intent.putExtra("isLogined", isLogined);
 				intent.putExtra("hasCar", hasCar);
 				break;
 			case R.id.tv_find_parkinglot:
-				intent.setClass(mContext, FindcarActivity.class);
+				intent.setClass(baseContext, FindcarActivity.class);
 				break;
 			// case R.id.mycar_check_violation:
 			// // TODO 查违章
-			// intent.setClass(mContext, QueryIllegalActivity.class);
+			// intent.setClass(baseContext, QueryIllegalActivity.class);
 			// break;
 			case R.id.mycar_my_footprint:
 				isLoginOrHasCar(FootmarkActivity.class);
@@ -1052,16 +1052,16 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 				isLoginOrHasCar(CarReportActivity.class);
 				break;
 			case R.id.mycar_car_consult:
-				intent.setClass(mContext, CarInformationActivity.class);
+				intent.setClass(baseContext, CarInformationActivity.class);
 				break;
 			case R.id.mycar_find_gasstation:
-				intent.setClass(mContext, GasStationActivity.class);
+				intent.setClass(baseContext, GasStationActivity.class);
 				break;
 			case R.id.main_iv_check:
-				message = LoginMessageUtils.getLoginMessage(mContext);
+				message = LoginMessageUtils.getLoginMessage(baseContext);
 				if (message == null || message.getUid() == null) {
 					intent = new Intent();
-					intent.setClass(mContext, LoginActivity.class);
+					intent.setClass(baseContext, LoginActivity.class);
 				} else {
 					if (message.getCar().getCid() == null
 							|| message.getCar().getDevice() == null
@@ -1073,7 +1073,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 						Intent mIntent = new Intent();
 						Constant.CURRENT_REFRESH = Constant.LOGIN_REFRESH;
 						mIntent.setAction(Constant.REFRESH_FLAG);
-						mContext.sendBroadcast(mIntent);
+						baseContext.sendBroadcast(mIntent);
 					} else {
 						/** 执行第二个动画 ***/
 						openTwoAnimation();
@@ -1184,7 +1184,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 				String state = json.getString("state");
 
 				if ("0".equals(state)) {
-					Intent intent = new Intent(mContext,
+					Intent intent = new Intent(baseContext,
 							WashcarDetailsActivity.class).putExtra("index",
 							WashcarDetailsActivity.INDEX_ORDER_DETAIL);
 					WashcarVO vo = new WashcarVO();
@@ -1202,12 +1202,12 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 					intent.putExtra("vo", vo);
 					startActivity(intent);
 				} else {
-					startActivity(new Intent(mContext, WashCarActivity.class));
+					startActivity(new Intent(baseContext, WashCarActivity.class));
 				}
 			} else if ("RELOGIN".equalsIgnoreCase(json
 					.getString("operationState"))) {
-				// DialogTool.getInstance(mContext).showConflictDialog();
-				startActivity(new Intent(mContext, WashCarActivity.class));
+				// DialogTool.getInstance(baseContext).showConflictDialog();
+				startActivity(new Intent(baseContext, WashCarActivity.class));
 			} else {
 				json = json.getJSONObject("data");
 				showToast(json.getString("msg"));
@@ -1275,7 +1275,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 				}
 				// 帐号其他地方登录
 				else if ("RELOGIN".equals(jsondata.getString("operationState"))) {
-					DialogTool.getInstance(mContext).showConflictDialog();
+					DialogTool.getInstance(baseContext).showConflictDialog();
 					isOhterLogin = false;
 				} else {
 				}
@@ -1299,7 +1299,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 	private Animation animationShow;
 
 	private void initAnimation() {
-		animationShow = AnimationUtils.loadAnimation(mContext,
+		animationShow = AnimationUtils.loadAnimation(baseContext,
 				R.anim.home_tv_show);
 	}
 
@@ -1339,7 +1339,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 
 	public void OnenFourAnimation() {
 
-		ainimation = AnimationUtils.loadAnimation(mContext,
+		ainimation = AnimationUtils.loadAnimation(baseContext,
 				R.anim.main_threr_in);
 	}
 
@@ -1350,7 +1350,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 		disableSubView(true);
 		this.setTwoTextGone();
 		getPBwideth();
-		ainimation = AnimationUtils.loadAnimation(mContext,
+		ainimation = AnimationUtils.loadAnimation(baseContext,
 				R.anim.main_threr_in);
 		if (there_relayout.getAnimation() != null) {
 			there_relayout.clearAnimation();
@@ -1420,10 +1420,10 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 			String maintainState = mAkeyTextAllInfo.getMaintainState();
 
 			main_tv_vehicle.setText(carState
-					+ mContext.getString(R.string.score));
+					+ baseContext.getString(R.string.score));
 
 			main_tv_yinfo.setText(maintainState
-					+ mContext.getString(R.string.score));
+					+ baseContext.getString(R.string.score));
 
 			int IntcarState = Integer.parseInt(carState);
 			int IntmaintainState = Integer.parseInt(maintainState);
@@ -1479,7 +1479,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 						.setBackgroundResource(R.drawable.home_jiance_weixian);
 			}
 
-			XUtilsImageLoader.getxUtilsImageLoader(mContext,
+			XUtilsImageLoader.getxUtilsImageLoader(baseContext,
 					R.drawable.car_default,main_iv_carlogo,
 					API.DOWN_IMAGE_URL + mAkeyTextAllInfo.getLogo());
 		}
@@ -1672,7 +1672,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 			bundle.putSerializable("list", mAkeyTextAllInfo);
 			Intent intent = new Intent();
 			intent.putExtras(bundle);
-			intent.setClass(mContext, DetactionInfoActivity.class);
+			intent.setClass(baseContext, DetactionInfoActivity.class);
 			startActivity(intent);
 		}
 	}
@@ -1706,7 +1706,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 	 * 第三个动画关闭
 	 */
 	public void closeAnimation() {
-		ainimation = AnimationUtils.loadAnimation(mContext,
+		ainimation = AnimationUtils.loadAnimation(baseContext,
 				R.anim.main_threr_out);
 		if (there_relayout.getAnimation() != null) {
 			there_relayout.clearAnimation();
@@ -1812,7 +1812,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 
 	private void showProgressDialog() {
 		if (progressDialog == null) {
-			progressDialog = CustomProgressDialog.getInstance(mContext);
+			progressDialog = CustomProgressDialog.getInstance(baseContext);
 			progressDialog.setCancelable(false);
 		}
 		progressDialog.show();
@@ -1826,7 +1826,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 	}
 
 	private int getLeiDaHeight() {
-		Resources res = mContext.getResources();
+		Resources res = baseContext.getResources();
 		int i1 = res.getDimensionPixelSize(R.dimen.marging_four_dp);
 		int i2 = res.getDimensionPixelSize(R.dimen.car_main_item_margin) * 2;
 		int i3 = res.getDimensionPixelSize(R.dimen.car_main_item_width) * 2;
@@ -1847,7 +1847,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 	public void onStart() {
 		super.onStart();
 
-		mLocationUtil = new LocationUtil(mContext,
+		mLocationUtil = new LocationUtil(baseContext,
 				LocationUtil.SCANSPAN_TYPE_LONG, locationListener);
 		mLocationUtil.onStart();
 	}

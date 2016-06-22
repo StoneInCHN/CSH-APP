@@ -156,7 +156,7 @@ public class GasStationMapFragment extends BaseFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mLocationUtil = new LocationUtil(mContext,
+        mLocationUtil = new LocationUtil(baseContext,
                 LocationUtil.SCANSPAN_TYPE_SHORT, LocationListener);
 
     }
@@ -220,7 +220,7 @@ public class GasStationMapFragment extends BaseFragment implements
         // mBaiduMapView.setMapStatus();
         // mBaiduMapView.setMyLocationEnable(true, 0);
 
-        mBaiduMapView = new BaiduMapView(mMapView, mContext);
+        mBaiduMapView = new BaiduMapView(mMapView, baseContext);
     }
 
     /***
@@ -248,12 +248,12 @@ public class GasStationMapFragment extends BaseFragment implements
      * 实例化sharedpreference
      */
     private void initSharedPreference() {
-        sharedPreferencesgasstation = mContext.getSharedPreferences(
+        sharedPreferencesgasstation = baseContext.getSharedPreferences(
                 "isindexgass", Context.MODE_PRIVATE);
-        sharedPreferences = mContext.getSharedPreferences("isgasstationDraw",
+        sharedPreferences = baseContext.getSharedPreferences("isgasstationDraw",
                 Context.MODE_PRIVATE);
         sharedPreferences.edit().putBoolean("isDraw", isDraw).commit();
-        sharedPreferences2 = mContext.getSharedPreferences("isgasstationdraw",
+        sharedPreferences2 = baseContext.getSharedPreferences("isgasstationdraw",
                 Context.MODE_PRIVATE);
     }
 
@@ -395,7 +395,7 @@ public class GasStationMapFragment extends BaseFragment implements
             System.out.println(distance1);
             mDistanceTextView.setText(distance1 + "");
         } else {
-            LatLng latLng = MyMapUtils.getLatLng(mContext);
+            LatLng latLng = MyMapUtils.getLatLng(baseContext);
             double distance1 = DistanceUtil.getDistance(latLng,
                     result.getLocation());
             System.out.println(distance1);
@@ -529,10 +529,10 @@ public class GasStationMapFragment extends BaseFragment implements
      */
     protected void personNavigation() {
         BaiduMapView baiduMapView = new BaiduMapView();
-        baiduMapView.initMap(mContext);
-        baiduMapView.baiduNavigation(MyMapUtils.getLatLng(mContext).latitude,
-                MyMapUtils.getLatLng(mContext).longitude,
-                MyMapUtils.getAddress(mContext), lat, lng, address);
+        baiduMapView.initMap(baseContext);
+        baiduMapView.baiduNavigation(MyMapUtils.getLatLng(baseContext).latitude,
+                MyMapUtils.getLatLng(baseContext).longitude,
+                MyMapUtils.getAddress(baseContext), lat, lng, address);
     }
 
     /***
@@ -540,7 +540,7 @@ public class GasStationMapFragment extends BaseFragment implements
      */
     protected void carNavigation() {
         BaiduMapView baiduMapView = new BaiduMapView();
-        baiduMapView.initMap(mContext);
+        baiduMapView.initMap(baseContext);
         if (latlngBean != null && latlngBean.getLatLng() != null) {
             baiduMapView.baiduNavigation(latlngBean.getLatLng().latitude,
                     latlngBean.getLatLng().longitude, null, lat, lng, address);
@@ -573,7 +573,7 @@ public class GasStationMapFragment extends BaseFragment implements
                     result.getLocation());
             mDistanceTextView.setText((int) distance + "");
         } else {
-            LatLng latLng = MyMapUtils.getLatLng(mContext);
+            LatLng latLng = MyMapUtils.getLatLng(baseContext);
             double distance = DistanceUtil.getDistance(latLng,
                     result.getLocation());
             mDistanceTextView.setText((int) distance + "");
@@ -785,7 +785,7 @@ public class GasStationMapFragment extends BaseFragment implements
                 distanceBean.setGetDistance(distance);
             } else {
                 double distance = DistanceUtil.getDistance(
-                        new LatLng(lat, lng), MyMapUtils.getLatLng(mContext));
+                        new LatLng(lat, lng), MyMapUtils.getLatLng(baseContext));
                 distanceBean.setGetDistance(distance);
 
             }
@@ -817,8 +817,8 @@ public class GasStationMapFragment extends BaseFragment implements
      * 获得人的位置
      */
     protected void moveToPerson() {
-        double lati = MyMapUtils.getLatitude(mContext);
-        double longi = MyMapUtils.getLongitude(mContext);
+        double lati = MyMapUtils.getLatitude(baseContext);
+        double longi = MyMapUtils.getLongitude(baseContext);
         personLatLng = new LatLng(lati, longi);
         mBaiduMap.setMyLocationEnabled(true);
         mBaiduMapView.updateOritentation(personLatLng,
@@ -826,7 +826,7 @@ public class GasStationMapFragment extends BaseFragment implements
         // mBaiduMapView.setMarker(personLatLng, R.drawable.chedongtai_person);
         // moveLatlng(personLatLng);
         mBaiduMapView.moveLatLng(personLatLng);
-        ProgrosDialog.openDialog(mContext);
+        ProgrosDialog.openDialog(baseContext);
         request(personLatLng);
     }
 
@@ -848,8 +848,8 @@ public class GasStationMapFragment extends BaseFragment implements
 //                params.addBodyParameter("uid", getUid());
 //                params.addBodyParameter("mobile", getMobile());
 //
-//                httpBiz = new HttpBiz(mContext);
-//                ProgrosDialog.openDialog(mContext);
+//                httpBiz = new HttpBiz(baseContext);
+//                ProgrosDialog.openDialog(baseContext);
 //                isFirst();
 //                clearText();
 //                mBaiduMap.setMyLocationEnabled(false);
@@ -858,7 +858,7 @@ public class GasStationMapFragment extends BaseFragment implements
 //                httpBiz.httPostData(CAR_CODE, API.CAR_DYNAMIC_URL, params, this);
 
 
-                ProgrosDialog.openDialog(mContext);
+                ProgrosDialog.openDialog(baseContext);
                 isFirst();
                 clearText();
                 mBaiduMap.setMyLocationEnabled(false);
@@ -883,7 +883,7 @@ public class GasStationMapFragment extends BaseFragment implements
 
     private void isBand() {
         if (login_type > 1) {
-            MapMenssageDialog.OpenDialog(mContext,
+            MapMenssageDialog.OpenDialog(baseContext,
                     getString(R.string.no_band_gasstation));
             loginaty = true;
             mpersonButton.setChecked(true);
@@ -894,7 +894,7 @@ public class GasStationMapFragment extends BaseFragment implements
 
     private void isLogin() {
         if (login_type > 1) {
-            MapMenssageDialog.OpenDialog(mContext,
+            MapMenssageDialog.OpenDialog(baseContext,
                     getString(R.string.no_login_gasstation));
             loginaty = true;
             mpersonButton.setChecked(true);
@@ -956,8 +956,8 @@ public class GasStationMapFragment extends BaseFragment implements
 //						+ "");
 //				params.addBodyParameter("size", 20 + "");
 //				params.addBodyParameter("page", 0 + "");
-//				ProgrosDialog.openDialog(mContext);
-//				httpBiz = new HttpBiz(mContext);
+//				ProgrosDialog.openDialog(baseContext);
+//				httpBiz = new HttpBiz(baseContext);
 //				httpBiz.httPostData(GASS_CODE, API.GASSTATIONLIST_URL, params,
 //						GasStationMapFragment.this);
 
@@ -1131,7 +1131,7 @@ public class GasStationMapFragment extends BaseFragment implements
                 ProgrosDialog.closeProgrosDialog();
                 if (StringUtil.isEquals(jsonObject.optString("state"),
                         API.returnRelogin, true)) {
-                    ReLoginDialog.getInstance(mContext).showDialog(
+                    ReLoginDialog.getInstance(baseContext).showDialog(
                             jsonObject.getString("message"));
                 } else {
                     showToast(jsonObject.optString("message"));

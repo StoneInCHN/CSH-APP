@@ -66,14 +66,14 @@ public class WelcomeAdapter extends BaseAdapter {
 								MainNewActivity.class);
 						intent.putExtra("className", "WelcomeActivity");
 						_context.startActivity(intent);
-						WelcomeActivity.instance.finish();
+						((WelcomeActivity)_context).finish();
 					} else {
 						Intent intent = new Intent(_context,
 								LoginActivity.class);
 						intent.putExtra("className", "WelcomeActivity");
 						LoginMessageUtils.showDialogFlag = true;
 						_context.startActivity(intent);
-						WelcomeActivity.instance.finish();
+						((WelcomeActivity)_context).finish();
 					}
 				}
 

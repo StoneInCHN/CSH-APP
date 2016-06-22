@@ -108,13 +108,12 @@ public class FindCarportMapFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mContext = getActivity();
 		init();
 
 	}
 
 	private void init() {
-		loginMessage = LoginMessageUtils.getLoginMessage(mContext);
+		loginMessage = LoginMessageUtils.getLoginMessage(baseContext);
 		markerList = new ArrayList<Marker>();
 		latlngBean = new LatlngBean();
 		mSearch = GeoCoder.newInstance();
@@ -154,7 +153,7 @@ public class FindCarportMapFragment extends BaseFragment implements
 		mMapView.showZoomControls(false);
 		mMapView.showScaleControl(false);
 		mBaiduMap = mMapView.getMap();
-		mBaiduMapView = new BaiduMapView(mMapView, mContext);
+		mBaiduMapView = new BaiduMapView(mMapView, baseContext);
 	}
 
 	private void isCarAndperson() {
@@ -184,11 +183,11 @@ public class FindCarportMapFragment extends BaseFragment implements
 	}
 
 	private void initSharedPreference() {
-		sharedPreferencesis = mContext.getSharedPreferences("isindex",
+		sharedPreferencesis = baseContext.getSharedPreferences("isindex",
 				Context.MODE_PRIVATE);
-		sharedPreferences = mContext.getSharedPreferences("isDraw",
+		sharedPreferences = baseContext.getSharedPreferences("isDraw",
 				Context.MODE_PRIVATE);
-		sharedPreferences2 = mContext.getSharedPreferences("isdraw",
+		sharedPreferences2 = baseContext.getSharedPreferences("isdraw",
 				Context.MODE_PRIVATE);
 	}
 
@@ -284,9 +283,9 @@ public class FindCarportMapFragment extends BaseFragment implements
 
 	private void pson(String result) {
 		if (result == null) {
-			Toast.makeText(mContext, "null", Toast.LENGTH_LONG).show();
+			Toast.makeText(baseContext, "null", Toast.LENGTH_LONG).show();
 		} else {
-			mContext.getSharedPreferences("resultSharedPreferences",
+			baseContext.getSharedPreferences("resultSharedPreferences",
 					Context.MODE_PRIVATE).edit().putString("result", result)
 					.commit();
 			try {
@@ -408,7 +407,7 @@ public class FindCarportMapFragment extends BaseFragment implements
 
 	protected void moveToPerson() {
 
-		LatLng personLatLng = MyMapUtils.getLatLng(mContext);
+		LatLng personLatLng = MyMapUtils.getLatLng(baseContext);
 		mBaiduMap.setMyLocationEnabled(true);
 
 		mBaiduMapView.updateOritentation(personLatLng,
@@ -480,7 +479,7 @@ public class FindCarportMapFragment extends BaseFragment implements
 	protected void setCarNavigation() {
 		if (latlngBean != null) {
 			BaiduMapView baiduMapView = new BaiduMapView();
-			baiduMapView.initMap(mContext);
+			baiduMapView.initMap(baseContext);
 			if (latlngBean!=null) {
 				baiduMapView.baiduNavigation(latlngBean.getLatLng().latitude,
 						latlngBean.getLatLng().longitude, null, lat, lng, address);	
@@ -495,11 +494,11 @@ public class FindCarportMapFragment extends BaseFragment implements
 	protected void setPersonNavigation() {
 		if (lat != 0 && lng != 0) {
 			BaiduMapView baiduMapView = new BaiduMapView();
-			baiduMapView.initMap(mContext);
+			baiduMapView.initMap(baseContext);
 			baiduMapView.baiduNavigation(
-					MyMapUtils.getLatLng(mContext).latitude,
-					MyMapUtils.getLatLng(mContext).longitude,
-					MyMapUtils.getAddress(mContext), lat, lng, address);
+					MyMapUtils.getLatLng(baseContext).latitude,
+					MyMapUtils.getLatLng(baseContext).longitude,
+					MyMapUtils.getAddress(baseContext), lat, lng, address);
 		}
 	}
 
@@ -545,8 +544,8 @@ public class FindCarportMapFragment extends BaseFragment implements
 				mfindcarportlistview_map_item_distance.setText((int) distance1
 						+ "");
 			} else {
-				LatLng latLng = new LatLng(MyMapUtils.getLatitude(mContext),
-						MyMapUtils.getLongitude(mContext));
+				LatLng latLng = new LatLng(MyMapUtils.getLatitude(baseContext),
+						MyMapUtils.getLongitude(baseContext));
 				double distance1 = DistanceUtil.getDistance(latLng,
 						result.getLocation());
 				mfindcarportlistview_map_item_distance.setText((int) distance1
@@ -601,8 +600,8 @@ public class FindCarportMapFragment extends BaseFragment implements
 							&& !loginMessage.getCar().getDevice().equals("")) {
 						RequestParams params = new RequestParams();
 						setparams(params);
-						HttpBiz httpBiz = new HttpBiz(mContext);
-						ProgrosDialog.openDialog(mContext);
+						HttpBiz httpBiz = new HttpBiz(baseContext);
+						ProgrosDialog.openDialog(baseContext);
 						baiduMapclear();
 						setTextNull();
 						isDraw = true;
@@ -635,7 +634,7 @@ public class FindCarportMapFragment extends BaseFragment implements
 	 */
 	private void isLogin() {
 		if (login_type > 1) {
-			MapMenssageDialog.OpenDialog(mContext,
+			MapMenssageDialog.OpenDialog(baseContext,
 					getString(R.string.no_login_findcarport));
 			loginaty = true;
 			mpersonButton.setChecked(true);
@@ -650,7 +649,7 @@ public class FindCarportMapFragment extends BaseFragment implements
 	 */
 	private void isBand() {
 		if (login_type > 1) {
-			MapMenssageDialog.OpenDialog(mContext,
+			MapMenssageDialog.OpenDialog(baseContext,
 					getString(R.string.no_band_findcarport));
 			loginaty = true;
 			mpersonButton.setChecked(true);
@@ -700,8 +699,8 @@ public class FindCarportMapFragment extends BaseFragment implements
 		params.addBodyParameter("keyWord", getString(R.string.findcarport) + "");
 		params.addBodyParameter("size", 20 + "");
 		params.addBodyParameter("page", 0 + "");
-		HttpBiz httpBiz = new HttpBiz(mContext);
-		ProgrosDialog.openDialog(mContext);
+		HttpBiz httpBiz = new HttpBiz(baseContext);
+		ProgrosDialog.openDialog(baseContext);
 		httpBiz.httPostData(FINDCARPORT_CODE, API.FINDCARPORT_URL, params, this);
 
 		System.out.println(API.FINDCARPORT_URL + "?latitude=" + lat
@@ -806,7 +805,7 @@ public class FindCarportMapFragment extends BaseFragment implements
 				}
 			} else {
 				if (jsonObject.optString("operationState").equals("RELOGIN")) {
-					DialogTool.getInstance(mContext).showConflictDialog();
+					DialogTool.getInstance(baseContext).showConflictDialog();
 				} else {
 					showToast(jsonObject.optJSONObject("data").optString("msg"));
 				}

@@ -67,9 +67,8 @@ public class FindCarportListFragment extends BaseFragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		mContext = getActivity();
 		list = new ArrayList<Map<String, String>>();
-		loginMessage = LoginMessageUtils.getLoginMessage(mContext);
+		loginMessage = LoginMessageUtils.getLoginMessage(baseContext);
 	}
 
 	@Override
@@ -104,13 +103,13 @@ public class FindCarportListFragment extends BaseFragment implements
 
 	private void isPerson() {
 		// TODO Auto-generated method stub
-		if (mContext.getSharedPreferences("resultSharedPreferences",
+		if (baseContext.getSharedPreferences("resultSharedPreferences",
 				Context.MODE_PRIVATE).getString("result", "") != null
-				&& !mContext
+				&& !baseContext
 						.getSharedPreferences("resultSharedPreferences",
 								Context.MODE_PRIVATE).getString("result", "")
 						.equals("")) {
-			ansisy(mContext.getSharedPreferences("resultSharedPreferences",
+			ansisy(baseContext.getSharedPreferences("resultSharedPreferences",
 					Context.MODE_PRIVATE).getString("result", ""));
 
 		} else {
@@ -121,15 +120,15 @@ public class FindCarportListFragment extends BaseFragment implements
 
 	private void isCar() {
 		// TODO Auto-generated method stub
-//		if (mContext.getSharedPreferences("resultSharedPreferences",
+//		if (baseContext.getSharedPreferences("resultSharedPreferences",
 //				Context.MODE_PRIVATE).getString("result", "") != null
-//				&& !mContext
+//				&& !baseContext
 //						.getSharedPreferences("resultSharedPreferences",
 //								Context.MODE_PRIVATE).getString("result", "")
 //						.equals("")) {
 //			
 //			getLalng();
-////			ansisy(mContext.getSharedPreferences("resultSharedPreferences",
+////			ansisy(baseContext.getSharedPreferences("resultSharedPreferences",
 ////					Context.MODE_PRIVATE).getString("result", ""));
 //		} else {
 //			getLalng();
@@ -140,9 +139,9 @@ public class FindCarportListFragment extends BaseFragment implements
 
 	private void initSharedpreference() {
 
-		sharedPreferences2 = mContext.getSharedPreferences("isdraw",
+		sharedPreferences2 = baseContext.getSharedPreferences("isdraw",
 				Context.MODE_PRIVATE);
-		sharedPreferences = mContext.getSharedPreferences("isDraw",
+		sharedPreferences = baseContext.getSharedPreferences("isDraw",
 				Context.MODE_PRIVATE);
 		sharedPreferences2.edit().putBoolean("isdraw", isDraw).commit();
 
@@ -192,8 +191,8 @@ public class FindCarportListFragment extends BaseFragment implements
 
 	protected void moveToPerson() {
 		// TODO Auto-generated method stub
-		double lati = MyMapUtils.getLatitude(mContext);
-		double longi = MyMapUtils.getLongitude(mContext);
+		double lati = MyMapUtils.getLatitude(baseContext);
+		double longi = MyMapUtils.getLongitude(baseContext);
 		LatLng personLatLng = new LatLng(lati, longi);
 		request(personLatLng);
 	}
@@ -224,8 +223,8 @@ public class FindCarportListFragment extends BaseFragment implements
 						&& !getCar().getDevice().equals("")) {
 					RequestParams params = new RequestParams();
 					setParams(params);
-					HttpBiz httpBiz = new HttpBiz(mContext);
-					ProgrosDialog.openDialog(mContext);
+					HttpBiz httpBiz = new HttpBiz(baseContext);
+					ProgrosDialog.openDialog(baseContext);
 					isAdapter();
 					list.clear();
 					isDraw = true;
@@ -250,7 +249,7 @@ public class FindCarportListFragment extends BaseFragment implements
 	private void isLogin() {
 		// TODO Auto-generated method stub
 		if (login_type > 1) {
-			MapMenssageDialog.OpenDialog(mContext,
+			MapMenssageDialog.OpenDialog(baseContext,
 					getString(R.string.no_login_findcarport));
 			loginaty = true;
 			mpersonButton.setChecked(true);
@@ -262,7 +261,7 @@ public class FindCarportListFragment extends BaseFragment implements
 	private void isband() {
 		// TODO Auto-generated method stub
 		if (login_type > 1) {
-			MapMenssageDialog.OpenDialog(mContext,
+			MapMenssageDialog.OpenDialog(baseContext,
 					getString(R.string.no_band_findcarport));
 			loginaty = true;
 			mpersonButton.setChecked(true);
@@ -326,7 +325,7 @@ public class FindCarportListFragment extends BaseFragment implements
 				JSONObject jsonObject2 = jsonObject.optJSONObject("data");
 				JSONObject jsonObject3 = jsonObject2.optJSONObject("data");
 				if (jsonObject3.optString("status").equals("Success")) {
-					// Toast.makeText(mContext, result,
+					// Toast.makeText(baseContext, result,
 					// Toast.LENGTH_LONG).show();
 					JSONArray jsonArray = jsonObject3.optJSONArray("pointList");
 					if (jsonArray.length() > 0) {
@@ -374,7 +373,7 @@ public class FindCarportListFragment extends BaseFragment implements
 			list.add(hashMap);
 		}
 		if (adapter == null) {
-			adapter = new FindCarportListAdapter(mContext, list, isDraw,
+			adapter = new FindCarportListAdapter(baseContext, list, isDraw,
 					latlngBean.getLatLng());
 			System.out.println(latlngBean.getLatLng()+"--------------------------------");
 			
@@ -444,8 +443,8 @@ public class FindCarportListFragment extends BaseFragment implements
 	public void request(LatLng latLng) {
 		RequestParams params = new RequestParams();
 		setRequestParams(params, latLng);
-		HttpBiz httpBiz = new HttpBiz(mContext);
-		ProgrosDialog.openDialog(mContext);
+		HttpBiz httpBiz = new HttpBiz(baseContext);
+		ProgrosDialog.openDialog(baseContext);
 		httpBiz.httPostData(FINDCARPORT_CODE, API.FINDCARPORT_URL, params, this);
 //		System.out.println(API.FINDCARPORT_URL + "?latitude="
 //				+ latLng.longitude + "&longitude=" + latLng.latitude
@@ -516,7 +515,7 @@ public class FindCarportListFragment extends BaseFragment implements
 				isLatlng(getLatlng(bodyJsonObject));
 			} else {
 				if (jsonObject.optString("operationState").equals("RELOGIN")) {
-					DialogTool.getInstance(mContext).showConflictDialog();
+					DialogTool.getInstance(baseContext).showConflictDialog();
 				} else {
 					showToast(jsonObject.optJSONObject("data").optString("msg"));
 				}

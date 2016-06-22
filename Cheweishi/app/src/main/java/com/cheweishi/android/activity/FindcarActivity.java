@@ -1339,9 +1339,10 @@ public class FindcarActivity extends BaseActivity {
 
 	@Override
 	protected void onDestroy() {
+		super.onDestroy();
 		clear();
 		mapView.onDestroy();
 		mBaiduMapView.onDestory();
-		super.onDestroy();
+
 	}
 }

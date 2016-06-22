@@ -139,13 +139,13 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 	 * 获取资源数据
 	 */
 	private void getResData() {
-		str1 = mContext.getResources().getString(
+		str1 = baseContext.getResources().getString(
 				R.string.drive_time_results_str1);
-		str2 = mContext.getResources().getString(
+		str2 = baseContext.getResources().getString(
 				R.string.drive_time_results_str2);
-		str3 = mContext.getResources().getString(
+		str3 = baseContext.getResources().getString(
 				R.string.drive_time_results_str3);
-		shareTitle = mContext.getResources().getString(R.string.share_title);
+		shareTitle = baseContext.getResources().getString(R.string.share_title);
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 	private void intitView(View view) {
 		list = new ArrayList<CarReportTimeStrInfo>();
 
-		timeView = new CarReportTimeView(mContext);
+		timeView = new CarReportTimeView(baseContext);
 		if (linearLayout.getChildCount() > 0) {
 			linearLayout.removeView(timeView);
 			linearLayout.addView(timeView);
@@ -165,30 +165,30 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 		}
 
 		lp = new RelativeLayout.LayoutParams(
-				(int) ((ScreenTools.getScreentWidth((Activity) mContext)) * 0.25),
-				(int) ((ScreenTools.getScreentHeight((Activity) mContext)) * 0.28f));
+				(int) ((ScreenTools.getScreentWidth((Activity) baseContext)) * 0.25),
+				(int) ((ScreenTools.getScreentHeight((Activity) baseContext)) * 0.28f));
 		lp.setMargins(
-				(int) ((ScreenTools.getScreentWidth((Activity) mContext)) * 0.70),
+				(int) ((ScreenTools.getScreentWidth((Activity) baseContext)) * 0.70),
 				0, 0, 0);
 		ll_listView.setLayoutParams(lp);
 		lp = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT);
 		lp.setMargins(
 				0,
-				(int) ((ScreenTools.getScreentHeight((Activity) mContext)) * 0.28f / 2 - 20),
+				(int) ((ScreenTools.getScreentHeight((Activity) baseContext)) * 0.28f / 2 - 20),
 				0, 0);
 		tv_noData.setLayoutParams(lp);
 		lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 		lp.setMargins(
-				(int) ((ScreenTools.getScreentWidth((Activity) mContext)) * 0.15),
+				(int) ((ScreenTools.getScreentWidth((Activity) baseContext)) * 0.15),
 				10, 0, 0);
 		tv_prompt.setLayoutParams(lp);
 		lp = new RelativeLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT,
-				(int) ((ScreenTools.getScreentHeight((Activity) mContext)) * 0.28f));
+				(int) ((ScreenTools.getScreentHeight((Activity) baseContext)) * 0.28f));
 		img_kuang.setLayoutParams(lp);
-		adapter = new CarReportTimeAdapter(mContext, list);
+		adapter = new CarReportTimeAdapter(baseContext, list);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(itemClick);
 		setViewData();
@@ -204,11 +204,11 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 		tv_congestion.setVisibility(View.VISIBLE);
 		tv_Evaluation.setVisibility(View.VISIBLE);
 		tv_mileFalg.setText(R.string.drive_time_sameday);
-		tv_dayMile.setText("0" + mContext.getString(R.string.drive_time_unit));
+		tv_dayMile.setText("0" + baseContext.getString(R.string.drive_time_unit));
 		tv_congestion.setText(str1 + str2 + str3);
 		tv_Evaluation.setText(R.string.drive_time_evaluation1);
 		btn_share.setBackgroundResource(R.drawable.shaiyishai_nodata);
-		btn_share.setTextColor(mContext.getResources().getColor(R.color.huise));
+		btn_share.setTextColor(baseContext.getResources().getColor(R.color.huise));
 		btn_share.setEnabled(false);
 	}
 
@@ -227,7 +227,7 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 	};
 
 	private void initData() {
-		if (!MyHttpUtils.isNetworkAvailable(mContext)) {
+		if (!MyHttpUtils.isNetworkAvailable(baseContext)) {
 			showToast(R.string.network_isnot_available);
 			status = "0";
 			setMileView();
@@ -241,14 +241,14 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 			params.addBodyParameter("rid", rid + "");
 			params.addBodyParameter("type", "time");
 			params.addBodyParameter("time", time);
-			httpBiz = new HttpBiz(mContext);
+			httpBiz = new HttpBiz(baseContext);
 			httpBiz.httPostData(10009, API.DRIVING_MILE_URL, params, this);
 		}
 	}
 
 	public void receive(int type, String data) {
 		Log.i("result", "=="+data);
-		((CarReportActivity) mContext).disMissCustomDialog();
+		((CarReportActivity) baseContext).disMissCustomDialog();
 		switch (type) {
 		case 10009:
 			parseJSONData(data);
@@ -306,7 +306,7 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 					showToast(jsonObject.optJSONObject("data").optString("msg"));
 				} else if (StringUtil.isEquals("RELOGIN", statu, true)) {
 					status = "0";
-					DialogTool.getInstance(mContext).showConflictDialog();
+					DialogTool.getInstance(baseContext).showConflictDialog();
 				} else if (StringUtil.isEquals("DEFAULT", statu, true)) {
 					// dialog.dismiss();
 					status = "0";
@@ -333,7 +333,7 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 			lp.setMargins(
 					0,
 					0,
-					(int) ((ScreenTools.getScreentWidth((Activity) mContext)) * 0.245),
+					(int) ((ScreenTools.getScreentWidth((Activity) baseContext)) * 0.245),
 					0);
 		}
 		scrollView.setLayoutParams(lp);
@@ -454,7 +454,7 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 			tv_congestion.setVisibility(View.INVISIBLE);
 			tv_Evaluation.setVisibility(View.INVISIBLE);
 			btn_share.setBackgroundResource(R.drawable.shaiyishai_nodata);
-			btn_share.setTextColor(mContext.getResources().getColor(
+			btn_share.setTextColor(baseContext.getResources().getColor(
 					R.color.huise));
 			btn_share.setEnabled(false);
 		} else {
@@ -470,16 +470,16 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 			int minute = StringUtil.getInt(total) % 60;
 			if (hour == 0) {
 				tv_dayMile.setText(minute + ""
-						+ mContext.getString(R.string.drive_time_unit));
+						+ baseContext.getString(R.string.drive_time_unit));
 			} else {
 				tv_dayMile.setText("" + hour
-						+ mContext.getString(R.string.drive_time_hour) + minute
-						+ mContext.getString(R.string.drive_time_minute));
+						+ baseContext.getString(R.string.drive_time_hour) + minute
+						+ baseContext.getString(R.string.drive_time_minute));
 			}
 			initColorTextView();
 			setEvaluation();
 			btn_share.setBackgroundResource(R.drawable.shaiyishai);
-			btn_share.setTextColor(mContext.getResources().getColor(
+			btn_share.setTextColor(baseContext.getResources().getColor(
 					R.color.orange_text_color));
 			btn_share.setEnabled(true);
 			shareContent = tv_mileFalg.getText().toString()
@@ -490,7 +490,7 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 				@Override
 				public void onClick(View arg0) {
 
-//					ShareTools.showShare(mContext, shareTitle, shareContent,
+//					ShareTools.showShare(baseContext, shareTitle, shareContent,
 //							shareUrl, shareIcon);
 				}
 			});
@@ -514,7 +514,7 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 		} else if (totalT >= 240) {
 			tv_Evaluation.setText(R.string.drive_time_evaluation4);
 		}
-		TextViewTools.setTextViewFontsStyle(mContext, tv_Evaluation);
+		TextViewTools.setTextViewFontsStyle(baseContext, tv_Evaluation);
 	}
 
 	/**
@@ -526,18 +526,18 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 		int hour = (int) (maxTime / 60);
 		int minute = (int) (maxTime % 60);
 		if (hour == 0) {
-			time = "" + minute + mContext.getString(R.string.drive_time_unit);
+			time = "" + minute + baseContext.getString(R.string.drive_time_unit);
 		} else {
-			time = "" + hour + mContext.getString(R.string.drive_time_hour) + minute
-					+ mContext.getString(R.string.drive_time_minute);
+			time = "" + hour + baseContext.getString(R.string.drive_time_hour) + minute
+					+ baseContext.getString(R.string.drive_time_minute);
 		}
 		sp = new SpannableString(str1 + time + str2 + percent + str3);
 		sp.setSpan(
-				new ForegroundColorSpan(mContext.getResources().getColor(
+				new ForegroundColorSpan(baseContext.getResources().getColor(
 						R.color.orange_text_color)), str1.length(),
 				(str1 + time).length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
 		sp.setSpan(
-				new ForegroundColorSpan(mContext.getResources().getColor(
+				new ForegroundColorSpan(baseContext.getResources().getColor(
 						R.color.orange_text_color)),
 				(str1 + time + str2).length(),
 				(str1 + time + str2 + percent).length(),

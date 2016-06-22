@@ -59,8 +59,6 @@ import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qzone.QZone;
 //import cn.sharesdk.tpl.OnLoginListener;
 import cn.sharesdk.wechat.friends.Wechat;
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
 
 /**
  * 登陆界面
@@ -527,7 +525,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SMSSDK.unregisterAllEventHandler();
+//        SMSSDK.unregisterAllEventHandler();
+        DBTools.getInstance(baseContext).destory();
         setContentView(R.layout.null_view);
         System.gc();
     }
@@ -671,31 +670,31 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
 //                }
             }
             break;
-            case MSG_SMSSDK_CALLBACK: {
-                if (msg.arg2 == SMSSDK.RESULT_ERROR) {
-                    showToast("操作失败");
-                } else {
-                    switch (msg.arg1) {
-                        case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE: {
-                            if (msgLoginDlg != null && msgLoginDlg.isShowing()) {
-                                msgLoginDlg.dismiss();
-                            }
-                            showToast("提交验证码成功");
-                            Message m = new Message();
-                            m.what = MSG_AUTH_COMPLETE;
-                            m.obj = new Object[]{"SMSSDK",
-                                    (HashMap<String, Object>) msg.obj};
-                            thirdHandler.sendMessage(m);
-                        }
-                        break;
-                        case SMSSDK.EVENT_GET_VERIFICATION_CODE: {
-                            showToast("验证码已经发送");
-                        }
-                        break;
-                    }
-                }
-            }
-            break;
+//            case MSG_SMSSDK_CALLBACK: {
+//                if (msg.arg2 == SMSSDK.RESULT_ERROR) {
+//                    showToast("操作失败");
+//                } else {
+//                    switch (msg.arg1) {
+//                        case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE: {
+//                            if (msgLoginDlg != null && msgLoginDlg.isShowing()) {
+//                                msgLoginDlg.dismiss();
+//                            }
+//                            showToast("提交验证码成功");
+//                            Message m = new Message();
+//                            m.what = MSG_AUTH_COMPLETE;
+//                            m.obj = new Object[]{"SMSSDK",
+//                                    (HashMap<String, Object>) msg.obj};
+//                            thirdHandler.sendMessage(m);
+//                        }
+//                        break;
+//                        case SMSSDK.EVENT_GET_VERIFICATION_CODE: {
+//                            showToast("验证码已经发送");
+//                        }
+//                        break;
+//                    }
+//                }
+//            }
+//            break;
         }
         // Toast.makeText(getContext(), "good", Toast.LENGTH_LONG).show();
         return false;
@@ -713,18 +712,18 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
 
         // 短信验证初始化，具体集成步骤看集成文档：
         // http://wiki.mob.com/Android_%E7%9F%AD%E4%BF%A1SDK%E9%9B%86%E6%88%90%E6%96%87%E6%A1%A3
-        SMSSDK.initSDK(context, smssdkAppkey, smssdkAppSecret);
-        EventHandler eh = new EventHandler() {
-            public void afterEvent(int event, int result, Object data) {
-                Message msg = new Message();
-                msg.arg1 = event;
-                msg.arg2 = result;
-                msg.obj = data;
-                handler.sendMessage(msg);
-            }
-        };
-        // 注册短信验证的监听
-        SMSSDK.registerEventHandler(eh);
+//        SMSSDK.initSDK(context, smssdkAppkey, smssdkAppSecret);
+//        EventHandler eh = new EventHandler() {
+//            public void afterEvent(int event, int result, Object data) {
+//                Message msg = new Message();
+//                msg.arg1 = event;
+//                msg.arg2 = result;
+//                msg.obj = data;
+//                handler.sendMessage(msg);
+//            }
+//        };
+//        // 注册短信验证的监听
+//        SMSSDK.registerEventHandler(eh);
     }
 
     /**

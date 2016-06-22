@@ -112,7 +112,7 @@ public class CarMangerFragment extends BaseFragment {
 	}
 
 	public void request() {
-		LoginMessage loginMessage = LoginMessageUtils.getLoginMessage(mContext);
+		LoginMessage loginMessage = LoginMessageUtils.getLoginMessage(baseContext);
 		if (loginMessage == null) {
 			return;
 		}
@@ -126,18 +126,18 @@ public class CarMangerFragment extends BaseFragment {
 
 		String url = API.CAR_DYNAMIC + "?uid=" + loginMessage.getUid()
 				+ "&key=" + loginMessage.getKey() + "&cid=" + cid;
-		SimpleHttpUtils myHttpUtils = new SimpleHttpUtils(mContext, null, url,
+		SimpleHttpUtils myHttpUtils = new SimpleHttpUtils(baseContext, null, url,
 				handler);
 		myHttpUtils.PostHttpUtils();
 	}
 
 	public void connectToServer() {
-		LoginMessage loginMessage = LoginMessageUtils.getLoginMessage(mContext);
+		LoginMessage loginMessage = LoginMessageUtils.getLoginMessage(baseContext);
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("uid", loginMessage.getUid());
 		params.addBodyParameter("key", loginMessage.getKey());
 		params.addBodyParameter("page", page + "");
-		SimpleHttpUtils MyHttpUtils = new SimpleHttpUtils(mContext, params,
+		SimpleHttpUtils MyHttpUtils = new SimpleHttpUtils(baseContext, params,
 				API.CAR_MANAGER_URL, handlercarid);
 		MyHttpUtils.PostHttpUtils();
 	}
@@ -146,7 +146,7 @@ public class CarMangerFragment extends BaseFragment {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case 404:
-				Toast.makeText(mContext, R.string.server_link_fault,
+				Toast.makeText(baseContext, R.string.server_link_fault,
 						Toast.LENGTH_LONG).show();
 				break;
 			default:
@@ -158,7 +158,7 @@ public class CarMangerFragment extends BaseFragment {
 
 	protected void parseUserDetailJSON(String result) {
 		if (result == null || result.equals("")) {
-			Toast.makeText(mContext, R.string.no_result, Toast.LENGTH_LONG)
+			Toast.makeText(baseContext, R.string.no_result, Toast.LENGTH_LONG)
 					.show();
 		} else {
 			try {
@@ -184,14 +184,14 @@ public class CarMangerFragment extends BaseFragment {
 					showToast(jsonObject.optJSONObject("data").optString("msg"));
 				} else if (jsonObject.optString("operationState").equals(
 						"RELOGIN")) {
-					DialogTool.getInstance(mContext).showConflictDialog();
+					DialogTool.getInstance(baseContext).showConflictDialog();
 				} else if (jsonObject.optString("operationState").equals(
 						"DEFAULT")) {
 					showToast(jsonObject.optJSONObject("data").optString("msg"));
 				}
 			} catch (JSONException e) {
-				Toast.makeText(mContext,
-						mContext.getString(R.string.location_failed),
+				Toast.makeText(baseContext,
+						baseContext.getString(R.string.location_failed),
 						Toast.LENGTH_LONG).show();
 			}
 

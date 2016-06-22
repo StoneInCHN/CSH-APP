@@ -28,6 +28,9 @@ public class ReturnBackDialogRemindTools {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         mContext.finish();
+                        builder = null;
+                        phoneDialog = null;
+                        instance = null;
                     }
                 });
 

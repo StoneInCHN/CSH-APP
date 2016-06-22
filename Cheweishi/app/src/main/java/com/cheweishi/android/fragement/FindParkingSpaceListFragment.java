@@ -57,7 +57,7 @@ public class FindParkingSpaceListFragment extends BaseFragment {
 //			latLng = new LatLng(getArguments().getDouble("lat"),getArguments().getDouble("lng"));
 		}
 //		Log.i("result", "=============list=onstart======" + parkInfos.size());
-		 adapter = new MyStallAdapter(mContext, parkInfos);
+		 adapter = new MyStallAdapter(baseContext, parkInfos);
 		 mycar_xlistview.setAdapter(adapter);
 	}
 
@@ -70,7 +70,7 @@ public class FindParkingSpaceListFragment extends BaseFragment {
 			broad = new FindParkBroadcastReceiver();
 		}
 		IntentFilter intentFilter = new IntentFilter(Constant.REFRESH_FLAG);
-		mContext.registerReceiver(broad, intentFilter);
+		baseContext.registerReceiver(broad, intentFilter);
 	}
 
 	public class FindParkBroadcastReceiver extends BroadcastReceiver {
@@ -84,7 +84,7 @@ public class FindParkingSpaceListFragment extends BaseFragment {
 				// latLng = new LatLng(intent.getDoubleExtra("lat", 0),
 				// intent.getDoubleExtra("lng", 0));
 				// moveTolocation(latLng);
-				adapter = new MyStallAdapter(mContext, parkInfos);
+				adapter = new MyStallAdapter(baseContext, parkInfos);
 				mycar_xlistview.setAdapter(adapter);
 			}
 		}

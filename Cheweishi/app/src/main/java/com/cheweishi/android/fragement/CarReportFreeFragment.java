@@ -114,7 +114,7 @@ public class CarReportFreeFragment extends BaseFragment {
 		/**
 		 * 根据手机实际密度设置viewpager行数
 		 */
-		WindowManager wm = (WindowManager) mContext
+		WindowManager wm = (WindowManager) baseContext
 				.getSystemService(Activity.WINDOW_SERVICE);
 		Display dp = wm.getDefaultDisplay();
 		DisplayMetrics outMetrics = new DisplayMetrics();
@@ -131,13 +131,13 @@ public class CarReportFreeFragment extends BaseFragment {
 		tvShow = (TextView) view.findViewById(R.id.tv_speedFlag);
 		ibtnClick = (Button) view.findViewById(R.id.btnShare);
 
-		tvShow.setText(mContext.getString(R.string.report_your_day_free));
+		tvShow.setText(baseContext.getString(R.string.report_your_day_free));
 		tvShow.setVisibility(View.VISIBLE);
-		TextViewTools.setTextViewFontsStyle(mContext, tvBelow);
+		TextViewTools.setTextViewFontsStyle(baseContext, tvBelow);
 		ibtnClick.setOnClickListener(onClickLister);
 		mViewPager.setOnPageChangeListener(onPagerChangeListener);
 
-		colorOriage = mContext.getResources().getColor(
+		colorOriage = baseContext.getResources().getColor(
 				R.color.orange_text_color);
 		initData();
 		return view;
@@ -175,12 +175,12 @@ public class CarReportFreeFragment extends BaseFragment {
 			switch (v.getId()) {
 			case R.id.btnShare:
 				// tvShow;
-				String content = mContext
+				String content = baseContext
 						.getString(R.string.report_your_day_free)
 						+ tvTotal.getText().toString()
 						+ tvMessage.getText().toString()
 						+ tvBelow.getText().toString();
-//				ShareTools.showShare(mContext, mContext
+//				ShareTools.showShare(baseContext, baseContext
 //						.getString(R.string.report_are_your_car_connect),
 //						content, shareUrl, shareIcon);
 				break;
@@ -210,7 +210,7 @@ public class CarReportFreeFragment extends BaseFragment {
 			}
 
 			if (subList != null && subList.size() > 0) {
-				GridView mGridView = new GridView(mContext);
+				GridView mGridView = new GridView(baseContext);
 				mGridView.setNumColumns(3);
 				mGridView.setGravity(Gravity.CENTER);
 				mGridView.setSelector(new ColorDrawable(
@@ -222,7 +222,7 @@ public class CarReportFreeFragment extends BaseFragment {
 				mGridView.setOnItemClickListener(onItemClickListener);
 
 				arReportFreeAdapter = new CarReportFreeAdapter(subList,
-						mContext);
+						baseContext);
 				mGridView.setAdapter(arReportFreeAdapter);
 				lists.add(mGridView);
 			}
@@ -285,7 +285,7 @@ public class CarReportFreeFragment extends BaseFragment {
 			CarReportFreeVO vo = datas.get(clickPosition);
 
 			int len = datas.size();
-			Intent intent = new Intent(mContext, CarReportFreeAddActivity.class);
+			Intent intent = new Intent(baseContext, CarReportFreeAddActivity.class);
 			if (clickPosition == len - 1) {
 				// 点击最后一项
 				intent.putExtra("index", "add");
@@ -322,7 +322,7 @@ public class CarReportFreeFragment extends BaseFragment {
 		}
 
 		for (int i = 0; i <= pager; i++) {
-			ImageView imgPoint = new ImageView(mContext);
+			ImageView imgPoint = new ImageView(baseContext);
 			LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
 					LayoutParams.WRAP_CONTENT);
 			imgPoint.setPadding(5, 0, 5, 0);
@@ -343,10 +343,10 @@ public class CarReportFreeFragment extends BaseFragment {
 
 	private void initData() {
 		// if (!MyHXSDKHelper.getInstance().isLogined()) {
-		// Toast.makeText(mContext, "当前未登录", Toast.LENGTH_SHORT).show();
+		// Toast.makeText(baseContext, "当前未登录", Toast.LENGTH_SHORT).show();
 		// return;
 		// }
-		LoginMessage message = LoginMessageUtils.getLoginMessage(mContext);
+		LoginMessage message = LoginMessageUtils.getLoginMessage(baseContext);
 		Car car = message.getCar();
 		if (car == null) {
 			return;
@@ -365,7 +365,7 @@ public class CarReportFreeFragment extends BaseFragment {
 		// + message.getKey() + "&cid=" + car.getCid() + "&type=" + "fee"
 		// + "&time=" + time + "&rid=" + rid;
 		// Log.i("zzqq", "---free url----" + url);
-		SimpleHttpUtils utils = new SimpleHttpUtils(mContext, params,
+		SimpleHttpUtils utils = new SimpleHttpUtils(baseContext, params,
 				API.REPORT_FREE_URL, handler);
 		utils.PostHttpUtils();
 	}
@@ -379,7 +379,7 @@ public class CarReportFreeFragment extends BaseFragment {
 	Handler handler = new Handler() {
 		@Override
 		public void handleMessage(android.os.Message msg) {
-			((CarReportActivity) mContext).disMissCustomDialog();
+			((CarReportActivity) baseContext).disMissCustomDialog();
 			if (datas.size() > 0) {
 				datas.clear();
 			}
@@ -395,7 +395,7 @@ public class CarReportFreeFragment extends BaseFragment {
 			datas.add(vo);
 
 			if (msg.what == 400) {
-				toastMessage(mContext.getString(R.string.server_link_fault));
+				toastMessage(baseContext.getString(R.string.server_link_fault));
 				setViewAfterNet();
 				return;
 			}
@@ -445,13 +445,13 @@ public class CarReportFreeFragment extends BaseFragment {
 					tvBelow.setText(getBelowText(total));
 				} else if ("RELOGIN".equalsIgnoreCase(json
 						.getString("operationState"))) {
-					DialogTool.getInstance(mContext).showConflictDialog();
+					DialogTool.getInstance(baseContext).showConflictDialog();
 				} else {
 					json = json.getJSONObject("data");
 					toastMessage(json.getString("msg"));
 				}
 			} catch (Exception e) {
-				// toastMessage(mContext.getString(R.string.no_result));
+				// toastMessage(baseContext.getString(R.string.no_result));
 			}
 
 			setViewAfterNet();
@@ -462,7 +462,7 @@ public class CarReportFreeFragment extends BaseFragment {
 			if (!"1".equals(status)) {
 				ibtnClick.setBackgroundResource(R.drawable.shaiyishai_nodata);
 				ibtnClick.setClickable(false);
-				ibtnClick.setTextColor(mContext.getResources().getColor(
+				ibtnClick.setTextColor(baseContext.getResources().getColor(
 						R.color.huise));
 			}
 
@@ -472,16 +472,16 @@ public class CarReportFreeFragment extends BaseFragment {
 	};
 
 	private void toastMessage(String message) {
-		Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
+		Toast.makeText(baseContext, message, Toast.LENGTH_LONG).show();
 	}
 
 	private SpannableString getMessage(String type, String money, String percent) {
-		String s1 = mContext.getString(R.string.report_most_free)
+		String s1 = baseContext.getString(R.string.report_most_free)
 				+ getType(type);
 		String s2 = getValue(money);
-		String s3 = mContext.getString(R.string.report_beat_country);
+		String s3 = baseContext.getString(R.string.report_beat_country);
 		String s4 = getPercent(percent);
-		String s5 = mContext.getString(R.string.report_car_friends);
+		String s5 = baseContext.getString(R.string.report_car_friends);
 		int point1 = s1.length();
 		int point2 = point1 + s2.length();
 		int point3 = point2 + s3.length();
@@ -498,30 +498,30 @@ public class CarReportFreeFragment extends BaseFragment {
 	private String getType(String type) {
 		// park、clean、road、maintain、insurance、fine
 		if ("park".equals(type)) {
-			return mContext.getString(R.string.report_park);
+			return baseContext.getString(R.string.report_park);
 		} else if ("clean".equals(type)) {
-			return mContext.getString(R.string.report_wash);
+			return baseContext.getString(R.string.report_wash);
 		} else if ("road".equals(type)) {
-			return mContext.getString(R.string.report_road);
+			return baseContext.getString(R.string.report_road);
 		} else if ("maintain".equals(type)) {
-			return mContext.getString(R.string.report_maintenance);
+			return baseContext.getString(R.string.report_maintenance);
 		} else if ("insurance".equals(type)) {
-			return mContext.getString(R.string.report_insure);
+			return baseContext.getString(R.string.report_insure);
 		} else if ("fine".equals(type)) {
-			return mContext.getString(R.string.report_fine);
+			return baseContext.getString(R.string.report_fine);
 		} else if ("oil".equals(type)) {
-			return mContext.getString(R.string.report_oil);
+			return baseContext.getString(R.string.report_oil);
 		}
-		return mContext.getString(R.string.report_oil);
+		return baseContext.getString(R.string.report_oil);
 	}
 
 	private String getBelowText(String total) {
 		double cost = StringUtil.getDouble(total.replace(",", "").trim());
-		String value = mContext.getString(R.string.report_myroad_myplace);
+		String value = baseContext.getString(R.string.report_myroad_myplace);
 		if (50 <= cost && cost < 300) {
-			value = mContext.getString(R.string.report_time_is_money);
+			value = baseContext.getString(R.string.report_time_is_money);
 		} else if (cost >= 300) {
-			value = mContext.getString(R.string.report_hao_you_hu);
+			value = baseContext.getString(R.string.report_hao_you_hu);
 		}
 		return value;
 	}

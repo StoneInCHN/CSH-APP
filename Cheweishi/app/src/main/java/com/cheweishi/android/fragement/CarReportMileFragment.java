@@ -117,10 +117,10 @@ public class CarReportMileFragment extends BaseFragment {
 		super.onCreate(savedInstanceState);
 		time = getArguments().getString("time");
 		rid = getArguments().getInt("rid");
-		str1 = mContext.getResources().getString(R.string.mile_hint1);
-		str2 = mContext.getResources().getString(R.string.mile_hint2);
-		str3 = mContext.getResources().getString(R.string.mile_hint3);
-		shareTitle = mContext.getResources().getString(
+		str1 = baseContext.getResources().getString(R.string.mile_hint1);
+		str2 = baseContext.getResources().getString(R.string.mile_hint2);
+		str3 = baseContext.getResources().getString(R.string.mile_hint3);
+		shareTitle = baseContext.getResources().getString(
 				R.string.mile_share_title);
 	}
 
@@ -142,7 +142,7 @@ public class CarReportMileFragment extends BaseFragment {
 	 */
 	private void intitView(View view) {
 		list = new ArrayList<CarReportTimeStrInfo>();
-		mileView = new CarReportMileView(mContext);
+		mileView = new CarReportMileView(baseContext);
 		if (linearLayout.getChildCount() > 0) {
 			linearLayout.removeView(mileView);
 			linearLayout.addView(mileView);
@@ -150,30 +150,30 @@ public class CarReportMileFragment extends BaseFragment {
 			linearLayout.addView(mileView);
 		}
 		lp = new RelativeLayout.LayoutParams(
-				(int) ((ScreenTools.getScreentWidth((Activity) mContext)) * 0.25),
-				(int) ((ScreenTools.getScreentHeight((Activity) mContext)) * 0.28f));
+				(int) ((ScreenTools.getScreentWidth((Activity) baseContext)) * 0.25),
+				(int) ((ScreenTools.getScreentHeight((Activity) baseContext)) * 0.28f));
 		lp.setMargins(
-				(int) ((ScreenTools.getScreentWidth((Activity) mContext)) * 0.70),
+				(int) ((ScreenTools.getScreentWidth((Activity) baseContext)) * 0.70),
 				0, 0, 0);
 		ll_listView.setLayoutParams(lp);
 		lp = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT);
 		lp.setMargins(
 				0,
-				(int) ((ScreenTools.getScreentHeight((Activity) mContext)) * 0.28f / 2 - 20),
+				(int) ((ScreenTools.getScreentHeight((Activity) baseContext)) * 0.28f / 2 - 20),
 				0, 0);
 		tv_noData.setLayoutParams(lp);
 		lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 		lp.setMargins(
-				(int) ((ScreenTools.getScreentWidth((Activity) mContext)) * 0.15),
+				(int) ((ScreenTools.getScreentWidth((Activity) baseContext)) * 0.15),
 				10, 0, 0);
 		tv_prompt.setLayoutParams(lp);
 		lp = new RelativeLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT,
-				(int) ((ScreenTools.getScreentHeight((Activity) mContext)) * 0.28f));
+				(int) ((ScreenTools.getScreentHeight((Activity) baseContext)) * 0.28f));
 		img_kuang.setLayoutParams(lp);
-		adapter = new CarReportTimeAdapter(mContext, list);
+		adapter = new CarReportTimeAdapter(baseContext, list);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(itemClick);
 		setViewData();
@@ -189,11 +189,11 @@ public class CarReportMileFragment extends BaseFragment {
 		tv_congestion.setVisibility(View.VISIBLE);
 		tv_Evaluation.setVisibility(View.VISIBLE);
 		tv_mileFalg.setText(R.string.mile_sameday);
-		tv_dayMile.setText("0" + mContext.getString(R.string.mile_unit));
+		tv_dayMile.setText("0" + baseContext.getString(R.string.mile_unit));
 		tv_congestion.setText(str1 + str2 + str3);
 		tv_Evaluation.setText(R.string.mile_evaluation1);
 		btn_share.setBackgroundResource(R.drawable.shaiyishai_nodata);
-		btn_share.setTextColor(mContext.getResources().getColor(R.color.huise));
+		btn_share.setTextColor(baseContext.getResources().getColor(R.color.huise));
 		btn_share.setEnabled(false);
 	}
 
@@ -215,8 +215,8 @@ public class CarReportMileFragment extends BaseFragment {
 	 * 获取数据
 	 */
 	private void initData() {
-		if (!MyHttpUtils.isNetworkAvailable(mContext)) {
-			((CarReportActivity) mContext).disMissCustomDialog();
+		if (!MyHttpUtils.isNetworkAvailable(baseContext)) {
+			((CarReportActivity) baseContext).disMissCustomDialog();
 			showToast(R.string.network_isnot_available);
 			status = "0";
 			setMileView();
@@ -230,14 +230,14 @@ public class CarReportMileFragment extends BaseFragment {
 			params.addBodyParameter("rid", rid + "");
 			params.addBodyParameter("type", "mile");
 			params.addBodyParameter("time", time);
-			httpBiz = new HttpBiz(mContext);
+			httpBiz = new HttpBiz(baseContext);
 			httpBiz.httPostData(10008, API.DRIVING_MILE_URL, params, this);
 		}
 	}
 
 	public void receive(int type, String data) {
 		Log.i("result", "=="+data);
-		((CarReportActivity) mContext).disMissCustomDialog();
+		((CarReportActivity) baseContext).disMissCustomDialog();
 		switch (type) {
 		case 10008:
 			parseJSONData(data);
@@ -296,18 +296,18 @@ public class CarReportMileFragment extends BaseFragment {
 					status = "0";
 					showToast(jsonObject.optJSONObject("data").optString("msg"));
 					// Toast.makeText(
-					// mContext,
+					// baseContext,
 					// , Toast.LENGTH_LONG).show();
 				} else if (StringUtil.isEquals("RELOGIN", statu, true)) {
 					status = "0";
 					// showDialog();
-					DialogTool.getInstance(mContext).showConflictDialog();
+					DialogTool.getInstance(baseContext).showConflictDialog();
 				} else if (StringUtil.isEquals("DEFAULT", statu, true)) {
 					status = "0";
 					// dialog.dismiss();
 					showToast(jsonObject.optJSONObject("data").optString("msg"));
 					// Toast.makeText(
-					// mContext,
+					// baseContext,
 					// , Toast.LENGTH_LONG).show();
 				}
 
@@ -331,7 +331,7 @@ public class CarReportMileFragment extends BaseFragment {
 			lp.setMargins(
 					0,
 					0,
-					(int) ((ScreenTools.getScreentWidth((Activity) mContext)) * 0.245),
+					(int) ((ScreenTools.getScreentWidth((Activity) baseContext)) * 0.245),
 					0);
 		}
 		scrollView.setLayoutParams(lp);
@@ -412,7 +412,7 @@ public class CarReportMileFragment extends BaseFragment {
 			tv_congestion.setVisibility(View.INVISIBLE);
 			tv_Evaluation.setVisibility(View.INVISIBLE);
 			btn_share.setBackgroundResource(R.drawable.shaiyishai_nodata);
-			btn_share.setTextColor(mContext.getResources().getColor(
+			btn_share.setTextColor(baseContext.getResources().getColor(
 					R.color.huise));
 			btn_share.setEnabled(false);
 		} else {
@@ -424,11 +424,11 @@ public class CarReportMileFragment extends BaseFragment {
 			tv_congestion.setVisibility(View.VISIBLE);
 			tv_Evaluation.setVisibility(View.VISIBLE);
 			// tv_mileFalg.setText("您当日驾驶里程为");
-			tv_dayMile.setText(total + mContext.getString(R.string.mile_unit));
+			tv_dayMile.setText(total + baseContext.getString(R.string.mile_unit));
 			initColorTextView();
 			setEvaluation();
 			btn_share.setBackgroundResource(R.drawable.shaiyishai);
-			btn_share.setTextColor(mContext.getResources().getColor(
+			btn_share.setTextColor(baseContext.getResources().getColor(
 					R.color.orange_text_color));
 			btn_share.setEnabled(true);
 			shareContent = tv_mileFalg.getText().toString()
@@ -439,7 +439,7 @@ public class CarReportMileFragment extends BaseFragment {
 
 				@Override
 				public void onClick(View arg0) {
-//					ShareTools.showShare(mContext, shareTitle, shareContent,
+//					ShareTools.showShare(baseContext, shareTitle, shareContent,
 //							shareUrl, shareIcon);
 				}
 			});
@@ -507,7 +507,7 @@ public class CarReportMileFragment extends BaseFragment {
 		} else if (totalT >= 200) {
 			tv_Evaluation.setText(R.string.mile_evaluation4);
 		}
-		TextViewTools.setTextViewFontsStyle(mContext, tv_Evaluation);
+		TextViewTools.setTextViewFontsStyle(baseContext, tv_Evaluation);
 	}
 
 	/**
@@ -517,11 +517,11 @@ public class CarReportMileFragment extends BaseFragment {
 		SpannableString sp;
 		sp = new SpannableString(str1 + max + str2 + percent + str3);
 		sp.setSpan(
-				new ForegroundColorSpan(mContext.getResources().getColor(
+				new ForegroundColorSpan(baseContext.getResources().getColor(
 						R.color.orange_text_color)), str1.length(),
 				(str1 + max).length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
 		sp.setSpan(
-				new ForegroundColorSpan(mContext.getResources().getColor(
+				new ForegroundColorSpan(baseContext.getResources().getColor(
 						R.color.orange_text_color)),
 				(str1 + max + str2).length(),
 				(str1 + max + str2 + percent).length(),

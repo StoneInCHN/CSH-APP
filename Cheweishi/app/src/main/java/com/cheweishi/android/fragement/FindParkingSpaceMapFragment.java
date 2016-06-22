@@ -143,7 +143,7 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
             broad = new FindParkBroadcastReceiver();
         }
         IntentFilter intentFilter = new IntentFilter(Constant.REFRESH_FLAG);
-        mContext.registerReceiver(broad, intentFilter);
+        baseContext.registerReceiver(broad, intentFilter);
         // initView();
         // moveTolocation(latLng);
     }
@@ -168,7 +168,7 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
      * 初始化数据
      */
     private void initView() {
-        // latLng = mContext.getL
+        // latLng = baseContext.getL
         // if (!StringUtil.isEmpty(getArguments())) {
         // bundle = getArguments();
         // listmMaps = (List<ParkInfo>) bundle.get("data");
@@ -288,27 +288,27 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
             double longitude = StringUtil.getDouble(listmMaps.get(index)
                     .getLongitude());
             String addr = listmMaps.get(index).getAddr();
-            mBaiduMapView.baiduNavigation(MyMapUtils.getLatitude(mContext),
-                    MyMapUtils.getLongitude(mContext),
-                    MyMapUtils.getAddress(mContext), latitude, longitude, addr);
+            mBaiduMapView.baiduNavigation(MyMapUtils.getLatitude(baseContext),
+                    MyMapUtils.getLongitude(baseContext),
+                    MyMapUtils.getAddress(baseContext), latitude, longitude, addr);
         }
     }
 
     private void init() {
         // left_action.setOnClickListener(listener);
         refreshScaleAndZoomControl();
-        viewPager = new GalleryViewPager(mContext);
+        viewPager = new GalleryViewPager(baseContext);
         viewPager.setClipChildren(false);
-        adatper = new FindcarViewpagerAdapter(mContext, lists);
+        adatper = new FindcarViewpagerAdapter(baseContext, lists);
         viewPager.setAdapter(adatper);
         viewPager.setOffscreenPageLimit(3);
-        viewPager.setPageMargin(DisplayUtil.dip2px(mContext, 10));
+        viewPager.setPageMargin(DisplayUtil.dip2px(baseContext, 10));
         viewPager.setCurrentItem(100);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.CENTER_HORIZONTAL, 1);
-        lp.width = ScreenTools.getScreentWidth((Activity) mContext) * 4 / 5;
+        lp.width = ScreenTools.getScreentWidth((Activity) baseContext) * 4 / 5;
         viewPager.setLayoutParams(lp);
         viewpager_relativelayout.addView(viewPager);
         initListener();
@@ -342,9 +342,9 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
      */
     private void initBaiduview() {
         mapView.showZoomControls(false);
-        mBaiduMapView = new BaiduMapView(mapView, mContext);
+        mBaiduMapView = new BaiduMapView(mapView, baseContext);
         mBaiduMap = mapView.getMap();
-        mScaleView = new ScaleView(mContext);
+        mScaleView = new ScaleView(baseContext);
         mScaleView.setMapView(mBaiduMap);
         linearlayout_scale.addView(mScaleView);
         initbaidu();
@@ -356,10 +356,10 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
         listBitmapDescriptorsNo = new ArrayList<BitmapDescriptor>();
         listBitmapDescriptors = new ArrayList<BitmapDescriptor>();
         for (int i = 0; i < 10; i++) {
-            listMarkers.add((TextView) LayoutInflater.from(mContext)
+            listMarkers.add((TextView) LayoutInflater.from(baseContext)
                     .inflate(R.layout.marker_bitmap, null)
                     .findViewById(R.id.marker_tv_bitmap));
-            listMarkersNo.add((TextView) LayoutInflater.from(mContext)
+            listMarkersNo.add((TextView) LayoutInflater.from(baseContext)
                     .inflate(R.layout.marker_tv_bitmap_noxuanzhong, null)
                     .findViewById(R.id.marker_tv_bitmap_no));
         }
@@ -373,14 +373,14 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
 
     private void initList() {
         for (int i = 0; i < 10; i++) {
-            lists.add(LayoutInflater.from(mContext).inflate(
+            lists.add(LayoutInflater.from(baseContext).inflate(
                     R.layout.findcar_viewpager_item, null));
         }
 
     }
 
     private void moveToMelocation() {
-        latLng = MyMapUtils.getLatLng(mContext);
+        latLng = MyMapUtils.getLatLng(baseContext);
         mBaiduMap.setMyLocationEnabled(true);
         mBaiduMapView.updateOritentation(latLng, R.drawable.chedongtai_person,
                 20, 20);
@@ -456,7 +456,7 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
                     }
                     break;
                 case R.id.findcar_location_icon:
-                    mBaiduMapView.moveLatLng(MyMapUtils.getLatLng(mContext));
+                    mBaiduMapView.moveLatLng(MyMapUtils.getLatLng(baseContext));
                     break;
                 default:
                     break;
@@ -517,7 +517,7 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
                         .fromBitmap(bitmap);
                 marker.setIcon(bitmapDescriptor);
                 if (view == null) {
-                    view = LayoutInflater.from(mContext).inflate(
+                    view = LayoutInflater.from(baseContext).inflate(
                             R.layout.findcar_viewpager_item, null);
                 } else {
                     viewpager_relativelayout.removeView(view);

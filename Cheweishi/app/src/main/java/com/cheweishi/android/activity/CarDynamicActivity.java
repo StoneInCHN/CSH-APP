@@ -1,20 +1,6 @@
 package com.cheweishi.android.activity;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -37,15 +23,11 @@ import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.cheweishi.android.R;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.CarDynamicResponse;
 import com.cheweishi.android.entity.CarDynamicVO;
-import com.cheweishi.android.entity.LoginMessage;
-import com.cheweishi.android.http.SimpleHttpUtils;
-import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.tools.SharePreferenceTools;
@@ -58,8 +40,20 @@ import com.cheweishi.android.utils.mapUtils.LocationUtil;
 import com.cheweishi.android.utils.mapUtils.MapSearchUtil;
 import com.google.gson.Gson;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 车动态界面
@@ -715,6 +709,8 @@ public class CarDynamicActivity extends BaseActivity {
         }
         mMapView.onDestroy();
         disMissPDialog();
+        checkedChangeListener = null;
+        handler = null;
     }
 
     @Override

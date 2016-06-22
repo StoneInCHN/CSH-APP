@@ -67,7 +67,7 @@ public class MyMapFragment extends BaseFragment {
 
 	private void setMapInfo() {
 		mMapView.showZoomControls(false);
-		mBaiduMapView = new BaiduMapView(mMapView, mContext);
+		mBaiduMapView = new BaiduMapView(mMapView, baseContext);
 
 		getLocation();
 
@@ -78,8 +78,8 @@ public class MyMapFragment extends BaseFragment {
 	}
 
 	private void getLocation() {
-		double lati = MyMapUtils.getLatitude(mContext);
-		double longi = MyMapUtils.getLongitude(mContext);
+		double lati = MyMapUtils.getLatitude(baseContext);
+		double longi = MyMapUtils.getLongitude(baseContext);
 		carLatLng = new LatLng(lati, longi);
 		personLatLng = new LatLng(lati, longi);
 	}

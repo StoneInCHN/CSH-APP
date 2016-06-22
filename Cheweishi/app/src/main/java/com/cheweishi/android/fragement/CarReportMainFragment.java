@@ -56,7 +56,7 @@ public class CarReportMainFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        time = ((CarReportActivity) mContext).getSTime();
+        time = ((CarReportActivity) baseContext).getSTime();
         View view = inflater.inflate(R.layout.fragment_carreport_main,
                 container, false);
         viewPagerBelow = (CarReportViewPager) view
@@ -98,13 +98,13 @@ public class CarReportMainFragment extends BaseFragment {
     @Override
     public void receive(String data) {
 
-        ((CarReportActivity) mContext).disMissCustomDialog();
+        ((CarReportActivity) baseContext).disMissCustomDialog();
         int rid = 0;
         CarDetectionResponse response = (CarDetectionResponse) GsonUtil.getInstance().convertJsonStringToObject(data, CarDetectionResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-            ((CarReportActivity) mContext).setInfoFromMain(false, -1);
-            toastMessage(mContext.getString(R.string.server_link_fault));
-            ((CarReportActivity) mContext).setInfoFromMain(true, rid);
+            ((CarReportActivity) baseContext).setInfoFromMain(false, -1);
+            toastMessage(baseContext.getString(R.string.server_link_fault));
+            ((CarReportActivity) baseContext).setInfoFromMain(true, rid);
             circleView.setValues(values);
             showToast(R.string.server_link_fault);
             return;
@@ -133,7 +133,7 @@ public class CarReportMainFragment extends BaseFragment {
         }
 
 
-        ((CarReportActivity) mContext).setInfoFromMain(true, rid);
+        ((CarReportActivity) baseContext).setInfoFromMain(true, rid);
         circleView.setValues(values);
 
         loginResponse.setToken(response.getToken());
@@ -142,11 +142,11 @@ public class CarReportMainFragment extends BaseFragment {
 
     @Override
     public void error(String errorMsg) {
-        ((CarReportActivity) mContext).disMissCustomDialog();
+        ((CarReportActivity) baseContext).disMissCustomDialog();
         int rid = 0;
-        ((CarReportActivity) mContext).setInfoFromMain(false, -1);
-        toastMessage(mContext.getString(R.string.server_link_fault));
-        ((CarReportActivity) mContext).setInfoFromMain(true, rid);
+        ((CarReportActivity) baseContext).setInfoFromMain(false, -1);
+        toastMessage(baseContext.getString(R.string.server_link_fault));
+        ((CarReportActivity) baseContext).setInfoFromMain(true, rid);
         circleView.setValues(values);
     }
 
@@ -154,12 +154,12 @@ public class CarReportMainFragment extends BaseFragment {
         @Override
         public void handleMessage(android.os.Message msg) {
 
-            ((CarReportActivity) mContext).disMissCustomDialog();
+            ((CarReportActivity) baseContext).disMissCustomDialog();
             int rid = 0;
             if (msg.what == 400) {
-                ((CarReportActivity) mContext).setInfoFromMain(false, -1);
-                toastMessage(mContext.getString(R.string.server_link_fault));
-                ((CarReportActivity) mContext).setInfoFromMain(true, rid);
+                ((CarReportActivity) baseContext).setInfoFromMain(false, -1);
+                toastMessage(baseContext.getString(R.string.server_link_fault));
+                ((CarReportActivity) baseContext).setInfoFromMain(true, rid);
                 circleView.setValues(values);
                 return;
             }
@@ -196,7 +196,7 @@ public class CarReportMainFragment extends BaseFragment {
                     values[6] = isStringNull(drivingScore);
                 } else if (StringUtil.isEquals(resultStr, API.returnRelogin,
                         true)) {
-                    DialogTool.getInstance(mContext).showConflictDialog();
+                    DialogTool.getInstance(baseContext).showConflictDialog();
                 } else {
                     showToast(json.optString("message"));
                 }
@@ -205,15 +205,15 @@ public class CarReportMainFragment extends BaseFragment {
                 for (int i = 0; i < 7; i++) {
                     values[i] = "";
                 }
-                // toastMessage(mContext.getString(R.string.no_result));
+                // toastMessage(baseContext.getString(R.string.no_result));
             }
-            ((CarReportActivity) mContext).setInfoFromMain(true, rid);
+            ((CarReportActivity) baseContext).setInfoFromMain(true, rid);
             circleView.setValues(values);
         }
     };
 
     private void toastMessage(String message) {
-        Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(baseContext, message, Toast.LENGTH_LONG).show();
     }
 
     private String isStringNull(String str) {
@@ -231,9 +231,9 @@ public class CarReportMainFragment extends BaseFragment {
         if (circleView != null) {
             offsetDegree = (int) circleView.overDegree;
         }
-        ReportCircleView circle1 = new ReportCircleView(mContext, offsetDegree);
-        ReportCircleView circle2 = new ReportCircleView(mContext, offsetDegree);
-        ReportCircleView circle3 = new ReportCircleView(mContext, offsetDegree);
+        ReportCircleView circle1 = new ReportCircleView(baseContext, offsetDegree);
+        ReportCircleView circle2 = new ReportCircleView(baseContext, offsetDegree);
+        ReportCircleView circle3 = new ReportCircleView(baseContext, offsetDegree);
 
         if (itemViews.size() > 0) {
             itemViews.clear();

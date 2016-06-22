@@ -62,7 +62,7 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = LayoutInflater.from(mContext).inflate(
+		View view = LayoutInflater.from(baseContext).inflate(
 				R.layout.activity_current_fuel_consumption, container, false);
 		this.view = view;
 		init(view);
@@ -104,19 +104,19 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 	@Override
 	public void updateData(String time) {
 		RequestParams params = new RequestParams(HTTP.UTF_8);
-		if (LoginMessageUtils.getLoginMessage(mContext) != null) {
+		if (LoginMessageUtils.getLoginMessage(baseContext) != null) {
 			params.addBodyParameter("uid",
-					LoginMessageUtils.getLoginMessage(mContext).getUid());
+					LoginMessageUtils.getLoginMessage(baseContext).getUid());
 			params.addBodyParameter("key",
-					LoginMessageUtils.getLoginMessage(mContext).getKey());
+					LoginMessageUtils.getLoginMessage(baseContext).getKey());
 			params.addBodyParameter("cid",
-					LoginMessageUtils.getLoginMessage(mContext).getCar()
+					LoginMessageUtils.getLoginMessage(baseContext).getCar()
 							.getCid());
 			params.addBodyParameter("type", "oil");
 			params.addBodyParameter("time", time);
 			params.addBodyParameter("rid", rid + "");
 			String utlString = API.ONTHATDAY_URL;
-			SimpleHttpUtils myHttpUtils = new SimpleHttpUtils(mContext,
+			SimpleHttpUtils myHttpUtils = new SimpleHttpUtils(baseContext,
 					params, utlString, handler);
 			myHttpUtils.PostHttpUtils();
 		}
@@ -125,7 +125,7 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 	@SuppressLint("HandlerLeak")
 	Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-			((CarReportActivity) mContext).disMissCustomDialog();
+			((CarReportActivity) baseContext).disMissCustomDialog();
 			if (msg.what == 400) {
 				showToast(Config.ERROR);
 				initView(view);
@@ -136,7 +136,7 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 				tv_app.setVisibility(View.GONE);
 				tv_congestionTime.setVisibility(View.GONE);
 				btnShare.setBackgroundResource(R.drawable.shaiyishai_nodata);
-				btnShare.setTextColor(mContext.getResources().getColor(R.color.huise));
+				btnShare.setTextColor(baseContext.getResources().getColor(R.color.huise));
 				btnShare.setClickable(false);
 			} else {
 
@@ -178,24 +178,24 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 					if (StringUtil.getDouble(oil) < 4) {
 						tv_app.setText("节能减排，我做贡献！");
 						slogan = "节能减排，我做贡献！";
-						TextViewTools.setTextViewFontsStyle(mContext,
+						TextViewTools.setTextViewFontsStyle(baseContext,
 								tv_app);
 					} else if (4 < StringUtil.getDouble(oil)
 							&& StringUtil.getDouble(oil) < 16) {
 						slogan = "晒晒太阳，我的生活在路上！";
 						tv_app.setText("晒晒太阳兜兜风，我的生活在路上！");
-						TextViewTools.setTextViewFontsStyle(mContext,
+						TextViewTools.setTextViewFontsStyle(baseContext,
 								tv_app);
 					} else {
 						slogan = "两桶油算啥，我养活的！";
 						tv_app.setText("两桶油算啥，我养活的！");
-						TextViewTools.setTextViewFontsStyle(mContext,
+						TextViewTools.setTextViewFontsStyle(baseContext,
 								tv_app);
 					}
 					if (percent != null && !percent.equals("")) {
 						SpannableStringBuilder style = new SpannableStringBuilder(
 								"击败了全国" + percent + "的车友");
-						style.setSpan(new ForegroundColorSpan(mContext.getResources()
+						style.setSpan(new ForegroundColorSpan(baseContext.getResources()
 								.getColor(R.color.orange)), 5, 8,
 								Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 						tv_congestionTime.setText(style);
@@ -211,11 +211,11 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 							tv_app.setVisibility(View.VISIBLE);
 							tv_congestionTime.setVisibility(View.VISIBLE);
 							btnShare.setClickable(true);
-							btnShare.setTextColor(mContext.getResources().getColor(
+							btnShare.setTextColor(baseContext.getResources().getColor(
 									R.color.orange_text_color));
-							btnShare.setBackgroundDrawable(mContext.getResources()
+							btnShare.setBackgroundDrawable(baseContext.getResources()
 									.getDrawable(R.drawable.shaiyishai));
-							mYouhaoView.initDate(mContext, 0.5f, 0.3f,
+							mYouhaoView.initDate(baseContext, 0.5f, 0.3f,
 									oil, surplus);
 							tv_speed.setText(oil + "L");
 						} else if (oil != null && !oil.equals("")
@@ -226,12 +226,12 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 							linearlayout_fragment_CurrentFuelConsumptionFragment
 									.setVisibility(View.GONE);
 							btnShare.setClickable(true);
-							btnShare.setBackgroundDrawable(mContext.getResources()
+							btnShare.setBackgroundDrawable(baseContext.getResources()
 									.getDrawable(R.drawable.shaiyishai));
-							btnShare.setTextColor(mContext.getResources().getColor(
+							btnShare.setTextColor(baseContext.getResources().getColor(
 									R.color.orange_text_color));
 							mYouhaoView.setVisibility(View.VISIBLE);
-							mYouhaoView.initDate(mContext, 0.5f, 0.3f,
+							mYouhaoView.initDate(baseContext, 0.5f, 0.3f,
 									oil, surplus);
 							tv_speed.setText(oil + "L");
 						} else {
@@ -243,7 +243,7 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 							tv_app.setVisibility(View.GONE);
 							tv_congestionTime.setVisibility(View.GONE);
 							btnShare.setBackgroundResource(R.drawable.shaiyishai_nodata);
-							btnShare.setTextColor(mContext.getResources().getColor(
+							btnShare.setTextColor(baseContext.getResources().getColor(
 									R.color.huise));
 							btnShare.setClickable(false);
 						}
@@ -257,7 +257,7 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 					tv_app.setVisibility(View.GONE);
 					tv_congestionTime.setVisibility(View.GONE);
 					btnShare.setBackgroundResource(R.drawable.shaiyishai_nodata);
-					btnShare.setTextColor(mContext.getResources()
+					btnShare.setTextColor(baseContext.getResources()
 							.getColor(R.color.huise));
 					btnShare.setClickable(false);
 				}
@@ -282,7 +282,7 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 						+ slogan;
 				System.out.println(content);
 				System.out.println(imgUrl);
-//				ShareTools.showShare(mContext, title, content, titleUrl,
+//				ShareTools.showShare(baseContext, title, content, titleUrl,
 //						imgUrl);
 				break;
 			default:

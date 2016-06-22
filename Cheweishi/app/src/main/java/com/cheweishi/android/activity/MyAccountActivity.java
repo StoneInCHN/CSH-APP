@@ -307,5 +307,6 @@ public class MyAccountActivity extends BaseActivity implements OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(broad);
+        iv_myAccountUserIcon = null;
     }
 }

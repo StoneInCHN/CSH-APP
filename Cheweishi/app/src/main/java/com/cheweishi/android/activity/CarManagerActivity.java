@@ -77,7 +77,7 @@ public class CarManagerActivity extends BaseActivity implements
     private int itemIndex;
     private int currentDefaultIndex;
     private MyBroadcastReceiver broad;
-    public static CarManagerActivity instance;
+//    public static CarManagerActivity instance;
     private String DefaultName = "";
     private String DefaultPlate = "";
     private String DefaultIcon = "";
@@ -98,7 +98,7 @@ public class CarManagerActivity extends BaseActivity implements
         left_action.setText(R.string.back);
         right_action.setText(R.string.button_add);
         right_action.setVisibility(View.GONE);
-        instance = this;
+//        instance = this;
         adapter = new CarManagerAdapter(this, listCarManager,
                 listView_carManager.getRightViewWidth());
         listView_carManager.setAdapter(adapter);

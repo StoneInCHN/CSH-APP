@@ -161,9 +161,9 @@ public class GasStationListFragment extends BaseFragment implements
      * 实例化sharedPreferences
      */
     private void initSharedpreferences() {
-        sharedPreferences2 = mContext.getSharedPreferences("isgasstationdraw",
+        sharedPreferences2 = baseContext.getSharedPreferences("isgasstationdraw",
                 Context.MODE_PRIVATE);
-        sharedPreferences = mContext.getSharedPreferences("isgasstationDraw",
+        sharedPreferences = baseContext.getSharedPreferences("isgasstationDraw",
                 Context.MODE_PRIVATE);
 
     }
@@ -253,8 +253,8 @@ public class GasStationListFragment extends BaseFragment implements
      * 获得手机的位置
      */
     protected void moveToPerson() {
-        if (mContext != null) {
-            LatLng personLatLng = MyMapUtils.getLatLng(mContext);
+        if (baseContext != null) {
+            LatLng personLatLng = MyMapUtils.getLatLng(baseContext);
             request(personLatLng);
         }
     }
@@ -270,12 +270,12 @@ public class GasStationListFragment extends BaseFragment implements
                     && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehiclePlate())) {
                 httputils();
             } else {
-                MapMenssageDialog.OpenDialog(mContext,
+                MapMenssageDialog.OpenDialog(baseContext,
                         getString(R.string.no_band_gasstation));
                 mpersonButton.setChecked(true);
             }
         } else {
-            MapMenssageDialog.OpenDialog(mContext,
+            MapMenssageDialog.OpenDialog(baseContext,
                     getString(R.string.no_login_gasstation));
             mpersonButton.setChecked(true);
         }
@@ -297,11 +297,11 @@ public class GasStationListFragment extends BaseFragment implements
 //            params.addBodyParameter("cid", getCId());
 //            params.addBodyParameter("uid", loginMessage.getUid());
 //            params.addBodyParameter("mobile", loginMessage.getMobile());
-//            httpBiz = new HttpBiz(mContext);
-//            ProgrosDialog.openDialog(mContext);
+//            httpBiz = new HttpBiz(baseContext);
+//            ProgrosDialog.openDialog(baseContext);
 //            httpBiz.httPostData(CAR_CODE, API.CAR_DYNAMIC_URL, params,
 //                    GasStationListFragment.this);
-        ProgrosDialog.openDialog(mContext);
+        ProgrosDialog.openDialog(baseContext);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_OBD + NetInterface.DYNAMIC + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
@@ -332,7 +332,7 @@ public class GasStationListFragment extends BaseFragment implements
             } else {
                 if (StringUtil.isEquals(jsonObject.optString("state"),
                         API.returnRelogin, true)) {
-                    ReLoginDialog.getInstance(mContext).showDialog(
+                    ReLoginDialog.getInstance(baseContext).showDialog(
                             jsonObject.getString("message"));
                 } else {
                     showToast(jsonObject.optString("message"));
@@ -653,9 +653,9 @@ public class GasStationListFragment extends BaseFragment implements
 //						getString(R.string.gasstationlist_address));
 //				params.addBodyParameter("size", 20 + "");
 //				params.addBodyParameter("page", page + "");
-                if (mContext != null) {
-//					HttpBiz myHttpUtils = new HttpBiz(mContext);
-//					ProgrosDialog.openDialog(mContext);
+                if (baseContext != null) {
+//					HttpBiz myHttpUtils = new HttpBiz(baseContext);
+//					ProgrosDialog.openDialog(baseContext);
 //					myHttpUtils.httPostData(DATA_CODE, API.GASSTATIONLIST_URL,
 //							params, GasStationListFragment.this);
 

@@ -300,4 +300,11 @@ public class MaintainComponentActivity extends BaseActivity implements View.OnCl
         }
         return temp;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        usl_maintain_content = null;
+        adapter = null;
+    }
 }

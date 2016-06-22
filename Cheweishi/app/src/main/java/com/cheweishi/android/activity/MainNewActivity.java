@@ -980,6 +980,7 @@ public class MainNewActivity extends BaseActivity {
         if (!StringUtil.isEmpty(broad)) {
             unregisterReceiver(broad);
         }
+        instance = null;
     }
 
     private class MyBroadcastReceiver extends BroadcastReceiver {

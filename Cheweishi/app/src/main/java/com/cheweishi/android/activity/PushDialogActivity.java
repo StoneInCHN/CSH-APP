@@ -161,7 +161,7 @@ public class PushDialogActivity extends BaseActivity {
 			}
 			if (isOK) {
 				if (type == 1) {
-					CarManagerActivity.instance.reconnect();
+//					CarManagerActivity.instance.reconnect();
 				} else {
 					Intent intent = new Intent(context,
 							CarManagerActivity.class);

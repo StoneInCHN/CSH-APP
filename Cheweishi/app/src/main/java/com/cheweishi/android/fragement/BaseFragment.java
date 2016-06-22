@@ -26,7 +26,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.umeng.analytics.MobclickAgent;
 
 public class BaseFragment extends Fragment implements JSONCallback {
-    protected Context mContext;
+    protected Context baseContext;
     protected LayoutInflater inflater;
     /**
      * 这个某些需要用到
@@ -36,7 +36,6 @@ public class BaseFragment extends Fragment implements JSONCallback {
     private Toast mToast;
     public static LoginMessage loginMessage;
     public static LoginResponse loginResponse;
-    public static Context baseContext;
     public static List<LoginMessage> loginMessages;
     public static List<LoginResponse> loginResponses;
 
@@ -45,16 +44,14 @@ public class BaseFragment extends Fragment implements JSONCallback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getActivity();
-        baseContext = getActivity();
-        netWorkHelper = NetWorkHelper.getInstance(mContext);
+        baseContext = getContext();
+        netWorkHelper = NetWorkHelper.getInstance(baseContext);
         isLogined();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        baseContext = getActivity();
         isLogined();
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -150,12 +147,12 @@ public class BaseFragment extends Fragment implements JSONCallback {
 
     public void showToast(final String msg) {
         if (!TextUtils.isEmpty(msg)) {
-            ((Activity) mContext).runOnUiThread(new Runnable() {
+            ((Activity) baseContext).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     if (mToast == null) {
                         mToast = Toast.makeText(
-                                mContext.getApplicationContext(), msg,
+                                baseContext.getApplicationContext(), msg,
                                 Toast.LENGTH_LONG);
                     } else {
                         mToast.setText(msg);
@@ -167,11 +164,11 @@ public class BaseFragment extends Fragment implements JSONCallback {
     }
 
     public void showToast(final int msg) {
-        ((Activity) mContext).runOnUiThread(new Runnable() {
+        ((Activity) baseContext).runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (mToast == null) {
-                    mToast = Toast.makeText(mContext.getApplicationContext(),
+                    mToast = Toast.makeText(baseContext.getApplicationContext(),
                             msg, Toast.LENGTH_LONG);
                 } else {
                     mToast.setText(msg);

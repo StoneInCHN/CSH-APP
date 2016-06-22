@@ -77,7 +77,7 @@ public abstract class BaseActivity extends FragmentActivity implements
     public static LoginResponse loginResponse;
     public static List<LoginMessage> loginMessages;
     public static List<LoginResponse> loginResponses;
-    public static Context baseContext;
+    protected Context baseContext;
     protected NetWorkHelper netWorkHelper;
 
     private Handler handler = new Handler() {
@@ -117,7 +117,7 @@ public abstract class BaseActivity extends FragmentActivity implements
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 
-        baseContext = this;
+        baseContext = getApplicationContext();
         isLogined();
 
         netWorkHelper = NetWorkHelper.getInstance(baseContext);
@@ -207,6 +207,7 @@ public abstract class BaseActivity extends FragmentActivity implements
     protected void onDestroy() {
         ActivityControl.removeActivity(this);
         super.onDestroy();
+        baseContext = null;
         if (progress != null) {
             progress.dismiss();
         }

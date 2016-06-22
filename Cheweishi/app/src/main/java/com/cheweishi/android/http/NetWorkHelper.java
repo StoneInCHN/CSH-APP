@@ -54,7 +54,7 @@ public class NetWorkHelper {
         if (null == instance) {
             synchronized (NetWorkHelper.class) {
                 if (null == instance)
-                    instance = new NetWorkHelper(context);
+                    instance = new NetWorkHelper(context.getApplicationContext());
             }
         }
 
