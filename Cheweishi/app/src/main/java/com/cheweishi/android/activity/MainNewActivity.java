@@ -627,7 +627,7 @@ public class MainNewActivity extends BaseActivity {
 
             case NetInterface.SET_ID:
                 PushResponse baseResponse = (PushResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PushResponse.class);
-                if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                if (null!=baseResponse && !baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(baseResponse.getDesc());
                     return;
                 }

@@ -306,5 +306,6 @@ public class MaintainComponentActivity extends BaseActivity implements View.OnCl
         super.onDestroy();
         usl_maintain_content = null;
         adapter = null;
+        EmptyTools.destory();
     }
 }

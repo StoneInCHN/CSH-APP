@@ -17,7 +17,7 @@ public class EmptyTools {
     /**
      * 空数据布局
      */
-    public static View view;
+    private static View view;
 
     public static void setEmptyView(Context context, ListView listView) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();// 调用Activity的getLayoutInflater()
@@ -58,6 +58,10 @@ public class EmptyTools {
                     .findViewById(R.id.img_no_data);
             img_no_data.setImageResource(res);
         }
+    }
+
+    public static void destory() {
+        view = null;
     }
 
     // /**

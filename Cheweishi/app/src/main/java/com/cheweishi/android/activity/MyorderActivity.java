@@ -287,4 +287,10 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
         netWorkHelper.PostJson(url, param, this);
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EmptyTools.destory();
+    }
 }
