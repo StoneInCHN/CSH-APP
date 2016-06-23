@@ -136,6 +136,8 @@
                         android:background="@null"
                         android:drawableRight="@drawable/right"
                         android:editable="false"
+                        android:singleLine="true"
+                        android:maxLength="20"
                         android:gravity="right"
                         android:hint="@string/carModelChoose"
                         android:textColor="@color/black"
