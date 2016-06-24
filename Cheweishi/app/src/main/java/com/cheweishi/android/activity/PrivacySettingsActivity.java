@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.cheweishi.android.R;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
-import com.umeng.update.UmengUpdateAgent;
 
 /**
  * 隐私设置
@@ -56,7 +55,7 @@ public class PrivacySettingsActivity extends BaseActivity {
 				PrivacySettingsActivity.this.finish();
 				break;
 			case R.id.llayout_test:
-				UmengUpdateAgent.forceUpdate(PrivacySettingsActivity.this);
+//				UmengUpdateAgent.forceUpdate(PrivacySettingsActivity.this);
 				break;
 			default:
 				break;

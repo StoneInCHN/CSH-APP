@@ -16,10 +16,6 @@ import com.cheweishi.android.widget.CustomDialog;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
-import com.umeng.update.UmengUpdateAgent;
-import com.umeng.update.UmengUpdateListener;
-import com.umeng.update.UpdateResponse;
-import com.umeng.update.UpdateStatus;
 
 /**
  * 关于我们
@@ -38,7 +34,7 @@ public class AboutUsActivity extends BaseActivity implements OnClickListener {
     @ViewInject(R.id.tv_show_update)
     private TextView tvShowUpdate;// 显示是否需要跟新
     private CustomDialog.Builder updateBuilder;
-    private UpdateResponse updateInfo;
+//    private UpdateResponse updateInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,37 +55,37 @@ public class AboutUsActivity extends BaseActivity implements OnClickListener {
         } catch (NameNotFoundException e) {
         }
 
-        UmengUpdateAgent.setUpdateAutoPopup(false);
-        UmengUpdateAgent.setUpdateListener(updateListener);
-        UmengUpdateAgent.update(AboutUsActivity.this);
+//        UmengUpdateAgent.setUpdateAutoPopup(false);
+//        UmengUpdateAgent.setUpdateListener(updateListener);
+//        UmengUpdateAgent.update(AboutUsActivity.this);
     }
 
-    UmengUpdateListener updateListener = new UmengUpdateListener() {
-
-        @Override
-        public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
-            switch (updateStatus) {
-                case UpdateStatus.Yes: // has update
-                    AboutUsActivity.this.updateInfo = updateInfo;
-                    tvShowUpdate.setText(AboutUsActivity.this
-                            .getString(R.string.check_update_new)
-                            + getText(R.string.zhi)
-                            + updateInfo.version
-                            + getText(R.string.banben));
-                    break;
-                case UpdateStatus.No: // has no update
-                    // Toast.makeText(mContext, "没有更新", Toast.LENGTH_SHORT).show();
-                    break;
-                case UpdateStatus.NoneWifi: // none wifi
-                    showToast(R.string.updata_wifi_hint);
-                    break;
-                case UpdateStatus.Timeout: // time out
-                    showToast(R.string.chaoshi);
-                    break;
-            }
-
-        }
-    };
+//    UmengUpdateListener updateListener = new UmengUpdateListener() {
+//
+//        @Override
+//        public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
+//            switch (updateStatus) {
+//                case UpdateStatus.Yes: // has update
+//                    AboutUsActivity.this.updateInfo = updateInfo;
+//                    tvShowUpdate.setText(AboutUsActivity.this
+//                            .getString(R.string.check_update_new)
+//                            + getText(R.string.zhi)
+//                            + updateInfo.version
+//                            + getText(R.string.banben));
+//                    break;
+//                case UpdateStatus.No: // has no update
+//                    // Toast.makeText(mContext, "没有更新", Toast.LENGTH_SHORT).show();
+//                    break;
+//                case UpdateStatus.NoneWifi: // none wifi
+//                    showToast(R.string.updata_wifi_hint);
+//                    break;
+//                case UpdateStatus.Timeout: // time out
+//                    showToast(R.string.chaoshi);
+//                    break;
+//            }
+//
+//        }
+//    };
 
     @OnClick({R.id.left_action, R.id.llayout_check_update,
             R.id.llayout_function, R.id.llayout_team, R.id.bt_officialTel,
@@ -101,11 +97,11 @@ public class AboutUsActivity extends BaseActivity implements OnClickListener {
                 AboutUsActivity.this.finish();
                 break;
             case R.id.llayout_check_update:
-                if (updateInfo != null) {
-                    showUpdateBuilder();
-                    // UmengUpdateAgent.startDownload(mContext, updateInfo);
-                    // tvShowUpdate.setText("已经是最新版本");
-                }
+//                if (updateInfo != null) {
+//                    showUpdateBuilder();
+//                    // UmengUpdateAgent.startDownload(mContext, updateInfo);
+//                    // tvShowUpdate.setText("已经是最新版本");
+//                }
                 break;
             case R.id.llayout_function:
                 startActivity(new Intent(AboutUsActivity.this,
@@ -180,9 +176,9 @@ public class AboutUsActivity extends BaseActivity implements OnClickListener {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        UmengUpdateAgent.startDownload(AboutUsActivity.this,
-                                updateInfo);
-                        updateInfo = null;
+//                        UmengUpdateAgent.startDownload(AboutUsActivity.this,
+//                                updateInfo);
+//                        updateInfo = null;
                     }
                 });
 

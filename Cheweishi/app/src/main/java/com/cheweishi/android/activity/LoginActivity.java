@@ -43,7 +43,6 @@ import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
-import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
@@ -52,20 +51,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.sina.weibo.SinaWeibo;
-import cn.sharesdk.tencent.qzone.QZone;
+
 //import cn.sharesdk.tpl.OnLoginListener;
-import cn.sharesdk.wechat.friends.Wechat;
 
 /**
  * 登陆界面
  *
  * @author mingdasen
  */
-public class LoginActivity extends BaseActivity implements OnClickListener, Callback, PlatformActionListener {
+public class LoginActivity extends BaseActivity implements OnClickListener, Callback {
     @ViewInject(R.id.login_edt_phonenumber)
     private EditText mPhoneNumberEditText;// 手机号码输入框
     @ViewInject(R.id.login_edt_password)
@@ -239,10 +233,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
                 long costTime = System.currentTimeMillis() - start;
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("status", "success");
-                MobclickAgent.onEventValue(LoginActivity.this, "login1",
-                        params, (int) costTime);
-                MobclickAgent.onEventDuration(LoginActivity.this, "login1",
-                        (int) costTime);
+//                MobclickAgent.onEventValue(LoginActivity.this, "login1",
+//                        params, (int) costTime);
+//                MobclickAgent.onEventDuration(LoginActivity.this, "login1",
+//                        (int) costTime);
             }
         });
     }
@@ -256,10 +250,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
                 params.put("status", "failure");
                 params.put("error_code", code + "");
                 params.put("error_description", message);
-                MobclickAgent.onEventValue(LoginActivity.this, "login1",
-                        params, (int) costTime);
-                MobclickAgent.onEventDuration(LoginActivity.this, "login1",
-                        (int) costTime);
+//                MobclickAgent.onEventValue(LoginActivity.this, "login1",
+//                        params, (int) costTime);
+//                MobclickAgent.onEventDuration(LoginActivity.this, "login1",
+//                        (int) costTime);
 
             }
         });
@@ -577,70 +571,70 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
                 break;
             case R.id.login_edt_phonenumber:
                 break;
-            case R.id.tvWeixin: {
-                // 微信登录
-                // 测试时，需要打包签名；sample测试时，用项目里面的demokey.keystore
-                // 打包签名apk,然后才能产生微信的登录
-                Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
-                authorize(wechat);
-            }
-            break;
-            case R.id.tvWeibo: {
-                // 新浪微博
-                Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
-                authorize(sina);
-            }
-            break;
-            case R.id.tvQq: {
-                // QQ空间
-                Platform qzone = ShareSDK.getPlatform(QZone.NAME);
-                authorize(qzone);
-            }
-            break;
-            case R.id.tvOther: {
-                // 其他登录
-                authorize(null);
-            }
-            break;
+//            case R.id.tvWeixin: {
+//                // 微信登录
+//                // 测试时，需要打包签名；sample测试时，用项目里面的demokey.keystore
+//                // 打包签名apk,然后才能产生微信的登录
+//                Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
+//                authorize(wechat);
+//            }
+//            break;
+//            case R.id.tvWeibo: {
+//                // 新浪微博
+//                Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
+//                authorize(sina);
+//            }
+//            break;
+//            case R.id.tvQq: {
+//                // QQ空间
+//                Platform qzone = ShareSDK.getPlatform(QZone.NAME);
+//                authorize(qzone);
+//            }
+//            break;
+//            case R.id.tvOther: {
+//                // 其他登录
+//                authorize(null);
+//            }
+//            break;
 
         }
     }
 
-    // 三方登录授权
-    private void authorize(Platform plat) {
-        if (plat == null) {
-            return;
-        }
-        plat.setPlatformActionListener(this);
-        // 关闭SSO授权
-        plat.SSOSetting(true);
-        plat.showUser(null);
-
-    }
-
-    public void onComplete(Platform platform, int action,
-                           HashMap<String, Object> res) {
-
-        if (action == Platform.ACTION_USER_INFOR) {
-            Message msg = new Message();
-            msg.what = MSG_AUTH_COMPLETE;
-            msg.obj = new Object[]{platform.getName(), res};
-            thirdHandler.sendMessage(msg);
-        }
-    }
-
-    public void onError(Platform platform, int action, Throwable t) {
-        if (action == Platform.ACTION_USER_INFOR) {
-            thirdHandler.sendEmptyMessage(MSG_AUTH_ERROR);
-        }
-        t.printStackTrace();
-    }
-
-    public void onCancel(Platform platform, int action) {
-        if (action == Platform.ACTION_USER_INFOR) {
-            thirdHandler.sendEmptyMessage(MSG_AUTH_CANCEL);
-        }
-    }
+//    // 三方登录授权
+//    private void authorize(Platform plat) {
+//        if (plat == null) {
+//            return;
+//        }
+//        plat.setPlatformActionListener(this);
+//        // 关闭SSO授权
+//        plat.SSOSetting(true);
+//        plat.showUser(null);
+//
+//    }
+//
+//    public void onComplete(Platform platform, int action,
+//                           HashMap<String, Object> res) {
+//
+//        if (action == Platform.ACTION_USER_INFOR) {
+//            Message msg = new Message();
+//            msg.what = MSG_AUTH_COMPLETE;
+//            msg.obj = new Object[]{platform.getName(), res};
+//            thirdHandler.sendMessage(msg);
+//        }
+//    }
+//
+//    public void onError(Platform platform, int action, Throwable t) {
+//        if (action == Platform.ACTION_USER_INFOR) {
+//            thirdHandler.sendEmptyMessage(MSG_AUTH_ERROR);
+//        }
+//        t.printStackTrace();
+//    }
+//
+//    public void onCancel(Platform platform, int action) {
+//        if (action == Platform.ACTION_USER_INFOR) {
+//            thirdHandler.sendEmptyMessage(MSG_AUTH_CANCEL);
+//        }
+//    }
 
     @SuppressWarnings("unchecked")
     public boolean handleMessage(Message msg) {
@@ -708,7 +702,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     private void initSDK(Context context) {
         // 初始化sharesdk,具体集成步骤请看文档：
         // http://wiki.mob.com/Android_%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90%E6%8C%87%E5%8D%97
-        ShareSDK.initSDK(context);
+//        ShareSDK.initSDK(context);
 
         // 短信验证初始化，具体集成步骤看集成文档：
         // http://wiki.mob.com/Android_%E7%9F%AD%E4%BF%A1SDK%E9%9B%86%E6%88%90%E6%96%87%E6%A1%A3

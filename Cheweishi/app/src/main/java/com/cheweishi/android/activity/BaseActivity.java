@@ -1,8 +1,5 @@
 package com.cheweishi.android.activity;
 
-import java.io.File;
-import java.util.List;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -23,7 +20,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,16 +35,16 @@ import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.ActivityControl;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.http.ResponseInfo;
-import com.umeng.analytics.MobclickAgent;
 import com.zzhoujay.richtext.ImageFixCallback;
 import com.zzhoujay.richtext.ImageHolder;
 import com.zzhoujay.richtext.RichText;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * 所有Activity的父类
@@ -168,8 +164,8 @@ public abstract class BaseActivity extends FragmentActivity implements
         // onresume时，取消notification显示
 
 //		EMChatManager.getInstance().activityResumed();
-        MobclickAgent.onPageStart(getClass().getName()); // 统计页面
-        MobclickAgent.onResume(this); // 统计时长
+//        MobclickAgent.onPageStart(getClass().getName()); // 统计页面
+//        MobclickAgent.onResume(this); // 统计时长
 
     }
 
@@ -179,8 +175,8 @@ public abstract class BaseActivity extends FragmentActivity implements
         if (progress != null) {
             progress.dismiss();
         }
-        MobclickAgent.onPageEnd(getClass().getName()); // 中会保存信息
-        MobclickAgent.onPause(this);
+//        MobclickAgent.onPageEnd(getClass().getName()); // 中会保存信息
+//        MobclickAgent.onPause(this);
 
         if (null != mToast) {
             mToast.cancel();

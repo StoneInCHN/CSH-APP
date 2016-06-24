@@ -43,7 +43,6 @@ import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
-import com.umeng.analytics.MobclickAgent;
 
 public class FootmarkMapActivity extends BaseActivity {
 
@@ -167,9 +166,9 @@ public class FootmarkMapActivity extends BaseActivity {
 	protected void onResume() {
 		mMapView.onResume();
 		super.onResume();
-		MobclickAgent
-				.onPageStart(FootmarkMapActivity.this.getClass().getName());
-		MobclickAgent.onResume(this);
+//		MobclickAgent
+//				.onPageStart(FootmarkMapActivity.this.getClass().getName());
+//		MobclickAgent.onResume(this);
 	}
 
 	@Override

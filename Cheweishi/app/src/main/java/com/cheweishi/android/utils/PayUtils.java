@@ -37,7 +37,7 @@ public class PayUtils {
     private static final int SDK_PAY_FLAG = 1;
 
     private static final int SDK_CHECK_FLAG = 2;
-    private static BaseActivity context;
+    private BaseActivity context;
     private MyHandler mHandler;
 
     private OnPayListener listener;
@@ -172,7 +172,7 @@ public class PayUtils {
         }
     }
 
-    private static void send() {
+    private void send() {
         Intent mIntent = new Intent();
         Constant.CURRENT_REFRESH = Constant.LOGIN_REFRESH;
         mIntent.setAction(Constant.REFRESH_FLAG);

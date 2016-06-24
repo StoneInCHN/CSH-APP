@@ -40,7 +40,6 @@ import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.widget.XListView;
 import com.cheweishi.android.widget.XListView.IXListViewListener;
 import com.lidroid.xutils.http.RequestParams;
-import com.umeng.analytics.MobclickAgent;
 
 public class FindCarportListFragment extends BaseFragment implements
 		IXListViewListener {
@@ -302,8 +301,8 @@ public class FindCarportListFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		MobclickAgent.onPageStart(FindCarportListFragment.this.getClass()
-				.getName()); // 统计页面
+//		MobclickAgent.onPageStart(FindCarportListFragment.this.getClass()
+//				.getName()); // 统计页面
 	}
 
 	/***
@@ -383,8 +382,8 @@ public class FindCarportListFragment extends BaseFragment implements
 
 	public void onPause() {
 		super.onPause();
-		MobclickAgent.onPageEnd(FindCarportListFragment.this.getClass()
-				.getName());
+//		MobclickAgent.onPageEnd(FindCarportListFragment.this.getClass()
+//				.getName());
 	}
 
 	@Override

@@ -56,7 +56,6 @@ import com.lidroid.xutils.view.ResType;
 import com.lidroid.xutils.view.annotation.ResInject;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -806,15 +805,15 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart(RegistActivity.this.getClass().getName()); // 统计页面
-        MobclickAgent.onResume(this);
+//        MobclickAgent.onPageStart(RegistActivity.this.getClass().getName()); // 统计页面
+//        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd(RegistActivity.this.getClass().getName()); // 中会保存信息
-        MobclickAgent.onPause(this);
+//        MobclickAgent.onPageEnd(RegistActivity.this.getClass().getName()); // 中会保存信息
+//        MobclickAgent.onPause(this);
     }
 
     /**

@@ -1,30 +1,5 @@
 package com.cheweishi.android.activity;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.CoreProtocolPNames;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -57,7 +32,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
@@ -75,9 +49,28 @@ import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.ClearEditText;
 import com.cheweishi.android.widget.CustomDialog;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.client.multipart.MultipartEntity;
+import com.lidroid.xutils.http.client.multipart.content.FileBody;
+import com.lidroid.xutils.http.client.multipart.content.StringBody;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 个人信息界面

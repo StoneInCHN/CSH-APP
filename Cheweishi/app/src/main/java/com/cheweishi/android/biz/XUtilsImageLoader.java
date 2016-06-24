@@ -6,14 +6,9 @@ import android.widget.ImageView;
 
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
-import com.cheweishi.android.utils.LogHelper;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.BitmapCommonUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
