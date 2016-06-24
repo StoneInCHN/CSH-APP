@@ -44,7 +44,7 @@
 
 #-dontwarn com.baidu.navisdk.comapi.tts.ttsplayer**
 #-keep class com.baidu.navisdk.**{*;}
---keep class com.lidroid.**{}
+-keep class com.lidroid.**{}
 -dontwarn com.baidu**
 -keep class com.baidu.** { *; }
 
