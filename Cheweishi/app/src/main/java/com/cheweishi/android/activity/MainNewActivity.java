@@ -89,7 +89,7 @@ import cn.jpush.android.api.TagAliasCallback;
  * @author mingdasen
  */
 @ContentView(R.layout.activity_main2)
-public class MainNewActivity extends BaseActivity {
+public class MainNewActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     @ViewInject(R.id.tv_home_title)
     public static TextView tv_home_title;
@@ -488,6 +488,7 @@ public class MainNewActivity extends BaseActivity {
         }
         gridViewAdapter = new MainGridViewAdapter(this, gridInfos);
         gv_service.setAdapter(gridViewAdapter);
+        gv_service.setOnItemClickListener(this);
         initLocation();
         getMainData();
     }
@@ -798,7 +799,7 @@ public class MainNewActivity extends BaseActivity {
 
     private Intent intent;
 
-    @OnItemClick({R.id.gv_service})
+//    @OnItemClick({R.id.gv_service})
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
         /**

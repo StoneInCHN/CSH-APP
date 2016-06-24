@@ -23,9 +23,8 @@
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 
 -keepattributes *Annotation*
+-keep class * extends java.lang.annotation.Annotation { *; }
 -keepattributes Signature
--keep public class * extends com.cheweishi.android.activity
--keep public class * extends com.cheweishi.android.fragement
 -keep public class * extends android.app.Fragment
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
@@ -44,9 +43,20 @@
 
 #-dontwarn com.baidu.navisdk.comapi.tts.ttsplayer**
 #-keep class com.baidu.navisdk.**{*;}
--keep class com.lidroid.**{}
+-dontwarn cn.jpush**
+-keep class cn.jpush.** { *; }#Jpush
+
+-keep class com.lidroid.**{*;}#ViewInject
+
+
+-keep class com.cheweishi.android.widget.** {*;}#CustomView
+
+-dontwarn com.sinovoice**
+-keep class com.sinovoice.** { *; }
+
 -dontwarn com.baidu**
 -keep class com.baidu.** { *; }
+-keep class vi.com.gdi.bgl.android.**{*;}
 
 -dontwarn demo.Pinyin4jAppletDemo**
 -keep class demo.Pinyin4jAppletDemo{*;}
@@ -71,8 +81,24 @@
 
 -keep class com.cheweishi.android.response.BaseResponse
 
--keep public class com.cheweishi.android.R$*{
-    public static final int *;
+-keep public class com.android.vending.licensing.ILicensingService
+
+#-keep public class com.cheweishi.android.R$*{
+#    public static final int *;
+#}
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+-keepclasseswithmembernames class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+-keepclasseswithmembernames class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
 }
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
