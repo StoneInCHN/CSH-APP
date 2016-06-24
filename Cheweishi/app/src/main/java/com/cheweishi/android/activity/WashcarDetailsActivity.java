@@ -269,7 +269,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
     }
 
     @OnClick({R.id.left_action, R.id.rel_user_comm, R.id.img_maintain_phone,
-            R.id.img_maintain_ditu})
+            R.id.img_maintain_ditu, R.id.car_iv_location})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -286,6 +286,14 @@ public class WashcarDetailsActivity extends BaseActivity implements
                 break;
             case R.id.img_maintain_ditu:// 导航
                 turnToNav();
+                break;
+            case R.id.car_iv_location://商家头像
+                if (null != washCar && null == washCar.getMsg().getTenantImages() && 0 >= washCar.getMsg().getTenantImages().size()) {
+                    return;
+                }
+                Intent tenantHead = new Intent(baseContext, TenantHeadImgActivity.class);
+                tenantHead.putExtra("data", washCar);
+                startActivity(tenantHead);
                 break;
             default:
                 break;

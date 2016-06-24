@@ -1574,4 +1574,8 @@
     <!-- 订单 -->
     <string name="order_delete_remind">确定删除已完成、已过期和已取消的订单？</string>
 
+
+    <!--租户查看图片详情-->
+    <string name="tenant_title_head">租户详情</string>
+
 </resources>

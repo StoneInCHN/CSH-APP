@@ -33,7 +33,10 @@ public class ServiceDetailResponse extends BaseResponse implements Serializable 
         this.msg = msg;
     }
 
-    public static class MsgBean {
+    public static class MsgBean implements Serializable{
+
+
+        private List<tenantImagesBean> tenantImages;
         private Object address;
         private String tenantName;
         private double latitude;
@@ -48,6 +51,14 @@ public class ServiceDetailResponse extends BaseResponse implements Serializable 
          */
 
         private List<CarServicesBean> carServices;
+
+        public List<tenantImagesBean> getTenantImages() {
+            return tenantImages;
+        }
+
+        public void setTenantImages(List<tenantImagesBean> tenantImages) {
+            this.tenantImages = tenantImages;
+        }
 
         public Object getAddress() {
             return address;
@@ -121,7 +132,28 @@ public class ServiceDetailResponse extends BaseResponse implements Serializable 
             this.carServices = carServices;
         }
 
-        public static class CarServicesBean {
+        public static class tenantImagesBean implements Serializable{
+            private int id;
+            private String image;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
+            }
+        }
+
+        public static class CarServicesBean implements Serializable{
             private String categoryName;
             private int categoryId;
 
@@ -158,7 +190,7 @@ public class ServiceDetailResponse extends BaseResponse implements Serializable 
                 this.subServices = subServices;
             }
 
-            public static class SubServicesBean {
+            public static class SubServicesBean implements Serializable {
                 private double promotionPrice;
                 private double price;
                 private int id;
