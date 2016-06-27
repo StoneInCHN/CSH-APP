@@ -1,12 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
     defaultConfig {
         applicationId "com.cheweishi.android"
-//        multiDexEnabled true
+        multiDexEnabled true
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 85
@@ -30,11 +29,11 @@ android {
             signingConfig signingConfigs.dbgKey
         }
         debug {
-            minifyEnabled true
-            shrinkResources true
-            zipAlignEnabled true
-            pseudoLocalesEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            minifyEnabled false
+//            shrinkResources true
+//            zipAlignEnabled true
+//            pseudoLocalesEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.dbgKey
         }
     }
@@ -75,6 +74,7 @@ dependencies {
     compile files('libs/zxing.jar')
     compile project(':librarys')
     //    compile 'com.squareup.picasso:picasso:2.5.2'
+
     //    compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile files('libs/volley.jar')
     compile files('libs/org.jbundle.util.osgi.wrapped.org.apache.http.client-4.1.2.jar')

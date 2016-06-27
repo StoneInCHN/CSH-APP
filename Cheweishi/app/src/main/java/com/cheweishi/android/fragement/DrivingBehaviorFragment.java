@@ -1,6 +1,7 @@
 package com.cheweishi.android.fragement;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +34,7 @@ import com.cheweishi.android.entity.DrvingScore;
 import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -185,7 +187,7 @@ public class DrivingBehaviorFragment extends BaseFragment {
 
         if (null != response.getMsg()) {
             tv_drivingMile.setText(response.getMsg().getMileAge() + "km"); //当前行驶里程
-            tv_drivingTime.setText(response.getMsg().getRunningTime() / 60 / 60 + "小时" + response.getMsg().getRunningTime() / 60 + "分钟" + response.getMsg().getRunningTime() % 60 + "秒");//行驶时间
+            tv_drivingTime.setText(getData(response.getMsg().getRunningTime()));//行驶时间
             tv_drivingScore.setText(response.getMsg().getDrivingScore() // 行驶分数
                     + mContext.getResources().getString(
                     R.string.score));
@@ -199,6 +201,15 @@ public class DrivingBehaviorFragment extends BaseFragment {
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
+    }
+
+
+    private String getData(int time) {
+
+        int h = time / 3600;
+        int m = (time - h * 3600) / 60;
+        int s = (time - h * 3600) % 60;
+        return h + "小时" + m + "分钟" + s + "秒";
     }
 
     @Override
@@ -300,6 +311,14 @@ public class DrivingBehaviorFragment extends BaseFragment {
                 initViews();
 
             }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (null != broad) {
+            baseContext.unregisterReceiver(broad);
         }
     }
 }

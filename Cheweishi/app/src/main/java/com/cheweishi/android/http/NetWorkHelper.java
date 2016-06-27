@@ -1,5 +1,6 @@
 package com.cheweishi.android.http;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
@@ -94,6 +95,7 @@ public class NetWorkHelper {
                 if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && !url.contains("login") && !url.contains("tenantInfo/list") && !url.contains("endUser/logout")) {
                     Intent intent = new Intent(context, LoginActivity.class);
                     intent.putExtra(Constant.AUTO_LOGIN, true);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                     ((BaseActivity) context).finish();
                     ((BaseActivity) context).overridePendingTransition(R.anim.score_business_query_enter,
