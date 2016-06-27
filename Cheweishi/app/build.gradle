@@ -69,7 +69,6 @@ dependencies {
     compile files('libs/mframework.jar')
     //    compile files('picasso-2.4.0.jar')
     compile files('libs/nineoldandroids-library-2.4.0.jar')
-    compile files('libs/pinyin4j-2.5.0.jar')
     compile files('libs/xUtils-2.6.9.jar')
     compile files('libs/zxing.jar')
     compile project(':librarys')

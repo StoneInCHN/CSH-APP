@@ -58,8 +58,8 @@
 -keep class com.baidu.** { *; }
 -keep class vi.com.gdi.bgl.android.**{*;}
 
--dontwarn demo.Pinyin4jAppletDemo**
--keep class demo.Pinyin4jAppletDemo{*;}
+#-dontwarn demo.Pinyin4jAppletDemo**
+#-keep class demo.Pinyin4jAppletDemo{*;}
 
 -dontwarn com.android.volley.toolbox**
 -keep class com.android.volley.toolbox{*;}
