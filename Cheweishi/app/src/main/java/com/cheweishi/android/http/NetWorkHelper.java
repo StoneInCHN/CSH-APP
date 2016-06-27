@@ -93,6 +93,8 @@ public class NetWorkHelper {
                 LogHelper.d("request url:" + url + "\n" + params + "\n" + jsonObject.toString());
                 // TODO 超时情况
                 if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && !url.contains("login") && !url.contains("tenantInfo/list") && !url.contains("endUser/logout")) {
+                    Toast.makeText(context.getApplicationContext(),
+                            "登陆超时,正在重新登陆", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, LoginActivity.class);
                     intent.putExtra(Constant.AUTO_LOGIN, true);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
