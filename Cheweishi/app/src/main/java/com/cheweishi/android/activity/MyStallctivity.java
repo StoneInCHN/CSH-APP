@@ -76,6 +76,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
  * @author mingdasen
  * 
  */
+@SuppressWarnings("ResourceType")
 @ContentView(R.layout.activity_mystall)
 public class MyStallctivity extends BaseActivity implements OnClickListener {
 	@ViewInject(R.id.title)

@@ -97,6 +97,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
  * @author 刘伟
  * 
  */
+@SuppressWarnings("ResourceType")
 public class FindcarActivity extends BaseActivity {
 
 	private static final int FINDCARPORT_CODE = 0;

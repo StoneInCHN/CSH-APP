@@ -179,8 +179,14 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
 
     private int preSelImgIndex = 0;
 
+    //    private String[] name = {"美容", "保养", "买车险", "紧急救援", "找加油站", "", "", "找车位",
+//            "车辆动态", "一键检测", "违章查询", "更多"};
     private String[] name = {"买车险", "洗车", "紧急救援", "保养", "找加油站", "", "", "美容",
             "车辆动态", "一键检测", "违章查询", "找车位"};
+    //    private int[] icon = {R.drawable.meirong, R.drawable.baoyang,
+//            R.drawable.xian, R.drawable.jinjijiuyuan, R.drawable.jiayouzhan,
+//            0, 0, R.drawable.chewei, R.drawable.dongtai, R.drawable.jiance,
+//            R.drawable.weizhang, R.drawable.chewei};
     private int[] icon = {R.drawable.xian, R.drawable.xiche,
             R.drawable.jinjijiuyuan, R.drawable.baoyang, R.drawable.jiayouzhan,
             0, 0, R.drawable.meirong, R.drawable.dongtai, R.drawable.jiance,
@@ -483,7 +489,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
             MainGridInfo gridInfo = new MainGridInfo();
             gridInfo.setName(name[i]);
             gridInfo.setImgId(icon[i]);
-            gridInfo.setImgUrl("asdasdas");
+//            gridInfo.setImgUrl("asdasdas");// TODO:暂无可配图片地址
             gridInfos.add(gridInfo);
         }
         gridViewAdapter = new MainGridViewAdapter(this, gridInfos);
@@ -628,7 +634,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
 
             case NetInterface.SET_ID:
                 PushResponse baseResponse = (PushResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PushResponse.class);
-                if (null!=baseResponse && !baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                if (null != baseResponse && !baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(baseResponse.getDesc());
                     return;
                 }
@@ -799,7 +805,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
 
     private Intent intent;
 
-//    @OnItemClick({R.id.gv_service})
+    //    @OnItemClick({R.id.gv_service})
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
         /**

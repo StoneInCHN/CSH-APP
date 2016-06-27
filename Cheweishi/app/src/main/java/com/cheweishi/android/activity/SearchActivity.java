@@ -63,6 +63,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
  * @author mingdasen
  * 
  */
+@SuppressWarnings("ResourceType")
 @ContentView(R.layout.activity_findcar_search)
 public class SearchActivity extends BaseActivity {
 	@ViewInject(R.id.tv_cancel)
