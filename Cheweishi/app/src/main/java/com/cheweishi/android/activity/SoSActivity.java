@@ -101,6 +101,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
      * 初始化视图
      */
     private void init() {
+        left_action.setText(R.string.back);
         title.setText(R.string.fuwu_emergency);
         // 获取地图控制器
         baiduMap = Sos_map.getMap();
@@ -400,7 +401,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
                 ProgrosDialog.closeProgrosDialog();
 
                 Sos_address.setText(arg0.getAddrStr());
-                if(0<datalist.size()) {
+                if (0 < datalist.size()) {
                     for (int i = 0; i < datalist.size(); i++) {
                         addData(datalist.get(i).getLatitude(), datalist.get(i).getLongitude(), datalist.get(i));
                     }
@@ -410,7 +411,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
                     baiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(latLng));
                     MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(15);
                     baiduMap.animateMapStatus(u);
-                }else{
+                } else {
                     setData(arg0.getLatitude(), arg0.getLongitude(), arg0.getAddrStr());
                 }
 
@@ -458,4 +459,14 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
         return false;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        baiduMap.removeMarkerClickListener(this);
+        baiduMap.clear();
+        Sos_map.removeAllViews();
+        Sos_map.onDestroy();
+        baiduMap = null;
+        Sos_map = null;
+    }
 }
