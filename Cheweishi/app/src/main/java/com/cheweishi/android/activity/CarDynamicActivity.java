@@ -511,7 +511,7 @@ public class CarDynamicActivity extends BaseActivity {
         long minutes = time / 60 - hour * 60;
         long second = time - hour * 60 * 60 - minutes * 60;
 
-        return hour + ":" + minutes + ":" + second ;
+        return hour + ":" + minutes + ":" + second;
     }
 
     private String getUpLoadDate(long time) {
@@ -566,6 +566,7 @@ public class CarDynamicActivity extends BaseActivity {
 
     private void disMissPDialog() {
         if (dialog != null) {
+            dialog.onDestory();
             dialog.dismiss();
             dialog = null;
         }
@@ -577,9 +578,12 @@ public class CarDynamicActivity extends BaseActivity {
     private void cancelCarTimer() {
         if (carTimer != null) {
             carTimer.cancel();
+            carTimer.purge();
+            carTimer = null;
         }
         if (carTask != null) {
             carTask.cancel();
+            carTask = null;
         }
     }
 

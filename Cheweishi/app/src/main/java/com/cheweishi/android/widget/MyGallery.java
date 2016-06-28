@@ -83,5 +83,6 @@ public class MyGallery extends Gallery {
 
     public void destroy() {
         timer.cancel();
+        task.cancel();
     }
 }

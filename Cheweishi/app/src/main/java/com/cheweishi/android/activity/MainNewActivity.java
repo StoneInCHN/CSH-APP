@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,12 +29,11 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
 import com.baidu.navisdk.BaiduNaviManager;
+import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.ImgAdapter;
 import com.cheweishi.android.adapter.MainGridViewAdapter;
 import com.cheweishi.android.adapter.MainListViewAdapter;
 import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.R;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
@@ -47,9 +45,7 @@ import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.PushResponse;
 import com.cheweishi.android.entity.ServiceListResponse;
 import com.cheweishi.android.tools.APPTools;
-import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.ButtonUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
@@ -68,10 +64,6 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
-import com.lidroid.xutils.view.annotation.event.OnItemClick;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -795,13 +787,15 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
                 startActivity(intent);
                 break;
             case R.id.rl_integral_mall:// 积分商城
-                // intent.setClass(MainNewActivity.this, SCActivity.class);
-                // startActivity(intent);
+//                 intent.setClass(MainNewActivity.this, SCActivity.class);
+//                 startActivity(intent);
+
                 break;
             default:
                 break;
         }
     }
+
 
     private Intent intent;
 
@@ -988,6 +982,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
             unregisterReceiver(broad);
         }
         instance = null;
+        mygallery.destroy();
     }
 
     private class MyBroadcastReceiver extends BroadcastReceiver {

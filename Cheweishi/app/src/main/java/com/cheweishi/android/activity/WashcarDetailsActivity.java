@@ -288,7 +288,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
                 turnToNav();
                 break;
             case R.id.car_iv_location://商家头像
-                if (null != washCar && null == washCar.getMsg().getTenantImages() && 0 >= washCar.getMsg().getTenantImages().size()) {
+                if (null != washCar && null != washCar.getMsg().getTenantImages() && 0 >= washCar.getMsg().getTenantImages().size()) {
                     return;
                 }
                 Intent tenantHead = new Intent(baseContext, TenantHeadImgActivity.class);

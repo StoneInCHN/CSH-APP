@@ -32,7 +32,7 @@ import cn.jpush.android.api.JPushInterface;
  * @author mingdasen
  */
 public class WelcomeActivity extends BaseActivity {
-    private   RelativeLayout rl_wecome;
+    private RelativeLayout rl_wecome;
     private Timer timer = new Timer();
     float firstX = 0;
     float firstY;
@@ -44,8 +44,9 @@ public class WelcomeActivity extends BaseActivity {
     private int preSelImgIndex = 0;
     private LinearLayout ll_focus_indicator_container = null;
     private ImageView immediateExperience;
-//    public static WelcomeActivity instance;
+    //    public static WelcomeActivity instance;
     public static boolean IsValid = true;
+    private LayoutInflater inflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class WelcomeActivity extends BaseActivity {
 
 //        instance = ;
         rl_wecome = (RelativeLayout) findViewById(R.id.rl_welcome);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // View layout = inflater.inflate(imgList.get(position %
         // imgList.size()),
         // null);
@@ -183,6 +184,7 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        inflater = null;
         timer.cancel();
         System.gc();
         if (imgList != null) {
