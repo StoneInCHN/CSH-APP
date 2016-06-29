@@ -2,7 +2,6 @@ package com.cheweishi.android.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,9 +12,7 @@ import com.cheweishi.android.entity.ServiceDetailResponse;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import m.framework.ui.widget.viewpager.ViewPagerAdapter;
 
 /**
  * Created by tangce on 6/24/2016.

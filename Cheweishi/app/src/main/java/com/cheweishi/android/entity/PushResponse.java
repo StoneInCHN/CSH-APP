@@ -33,8 +33,17 @@ public class PushResponse extends BaseResponse {
         private String updateContent;
         private int versionCode;
         private boolean isForced;
+        private String homeAdvUrl;
 
         private boolean hasCoupon;
+
+        public String getHomeAdvUrl() {
+            return homeAdvUrl;
+        }
+
+        public void setHomeAdvUrl(String homeAdvUrl) {
+            this.homeAdvUrl = homeAdvUrl;
+        }
 
         public boolean isForced() {
             return isForced;

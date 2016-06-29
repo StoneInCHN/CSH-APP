@@ -47,7 +47,6 @@ public class Myapplication extends Application implements
 
         JPushInit();//极光推送初始化
 
-        LogHelper.d("height:" + ScreenUtils.getScreenHeight(this) + "---" + "width:" + ScreenUtils.getScreenWidth(this));
 
 
 //		Thread.setDefaultUncaughtExceptionHandler(this);

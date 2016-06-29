@@ -44,12 +44,15 @@ import com.cheweishi.android.entity.MainGridInfo;
 import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.PushResponse;
 import com.cheweishi.android.entity.ServiceListResponse;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
+import com.cheweishi.android.tools.SharePreferenceTools;
 import com.cheweishi.android.utils.ButtonUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
+import com.cheweishi.android.utils.ScreenUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.utils.mapUtils.LocationUtil;
 import com.cheweishi.android.widget.CustomDialog;
@@ -240,6 +243,8 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
             Map<String, Object> param = new HashMap<>();
             param.put("userId", loginResponse.getDesc());
             param.put("token", loginResponse.getToken());
+            param.put("piWidth", ScreenUtils.getScreenWidth(this));
+            param.put("piHeight", ScreenUtils.getScreenHeight(this));
             param.put("appPlatform", "ANDROID"); // TODO 暂时不加
             param.put("regId", JPushId);
             param.put("versionCode", APPTools.getVersionCode(baseContext));
@@ -589,7 +594,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
                 }
 
                 loginResponse.setToken(response.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 requestAdv();
                 break;
 
@@ -617,7 +622,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
                 }
                 showData(advResponse);
                 loginResponse.setToken(advResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
 
                 setTitleLeft();
@@ -629,6 +634,10 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
                 if (null != baseResponse && !baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(baseResponse.getDesc());
                     return;
+                }
+
+                if (null != baseResponse.getMsg().getHomeAdvUrl() && !"".equals(baseResponse.getMsg().getHomeAdvUrl())) {
+                    SharePreferenceTools.setPhoneUrl(baseContext, baseResponse.getMsg().getHomeAdvUrl());
                 }
 
                 if (null != baseResponse.getMsg()) {
@@ -645,6 +654,24 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
 
                 loginResponse.setToken(baseResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                break;
+
+            case NetInterface.GET_DUIBA_LOGIN_URL: // 获取兑吧url
+                BaseResponse duibaResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+                if (!duibaResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(duibaResponse.getDesc());
+                    return;
+                }
+
+                if (null != duibaResponse.getDesc() && !"".equals(duibaResponse.getDesc())) {
+                    Intent duiba = new Intent(baseContext, WebActivity.class);
+                    duiba.putExtra("url", duibaResponse.getDesc());
+                    startActivity(duiba);
+                }
+
+                loginResponse.setToken(duibaResponse.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+
                 break;
             case "SOS": // 紧急救援
                 LoginResponse sos = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
@@ -789,13 +816,22 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
             case R.id.rl_integral_mall:// 积分商城
 //                 intent.setClass(MainNewActivity.this, SCActivity.class);
 //                 startActivity(intent);
-
+                getDuiBaUrl();
                 break;
             default:
                 break;
         }
     }
 
+    private void getDuiBaUrl() {
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_DUIBA + NetInterface.GET_DUIBA_LOGIN_URL + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put(Constant.PARAMETER_TAG, NetInterface.GET_DUIBA_LOGIN_URL);
+        netWorkHelper.PostJson(url, param, this);
+    }
 
     private Intent intent;
 

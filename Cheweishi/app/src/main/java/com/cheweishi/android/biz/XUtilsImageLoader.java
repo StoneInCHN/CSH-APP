@@ -153,14 +153,18 @@ public class XUtilsImageLoader {
             Context context, int resid, ImageView imageView, String uri) {
 
         mImageLoader = getInstance(context, resid);
-//        LogHelper.d("loadimg:" + NetInterface.IMG_URL + uri);
-//        Picasso.with(context)
-        picasso
-                .load(NetInterface.IMG_URL + uri)
-                .placeholder(resid)
-                .error(resid)
-                .config(Bitmap.Config.RGB_565)
-                .into(imageView);
+        if (-1 != resid)
+            picasso
+                    .load(NetInterface.IMG_URL + uri)
+                    .placeholder(resid)
+                    .error(resid)
+                    .config(Bitmap.Config.RGB_565)
+                    .into(imageView);
+        else
+            picasso
+                    .load(NetInterface.IMG_URL + uri)
+                    .config(Bitmap.Config.RGB_565)
+                    .into(imageView);
         return mImageLoader;
     }
 

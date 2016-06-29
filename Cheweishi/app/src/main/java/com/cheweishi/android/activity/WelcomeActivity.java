@@ -24,7 +24,10 @@ import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.WelcomeAdapter;
+import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.tools.LoginMessageUtils;
+import com.cheweishi.android.tools.SharePreferenceTools;
+import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.WelcomeGallery;
 
 import cn.jpush.android.api.JPushInterface;
@@ -45,16 +48,18 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
     private ImageView immediateExperience;
     private LayoutInflater inflater;
     private TextView tv_welcome_skip; // 跳过
-    private TextView tv_welcome_skip_second;// 倒计时
-    private boolean mHasAdd = true; // 是否有广告
+    //    private TextView tv_welcome_skip_second;// 倒计时
+    private ImageView iv_home_adv; // 主页广告
+    private boolean mHasAdd = false; // 是否有广告
     private int mCurrentTimes = 10;
     private boolean mHadNext = false;
+    private String homeUrl;
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (!mHadNext) {
-                tv_welcome_skip_second.setText(String.valueOf(mCurrentTimes));
+            if (!mHadNext && null != handler) {
+                tv_welcome_skip.setText("跳过(" + mCurrentTimes + ")");
                 mCurrentTimes--;
                 handler.sendMessageDelayed(Message.obtain(), 1000);
             } else {
@@ -71,8 +76,15 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
+
+        homeUrl = SharePreferenceTools.getPhoneUrl(baseContext);
+        if (!StringUtil.isEmpty(homeUrl)) { // 表示有广告
+            iv_home_adv = (ImageView) findViewById(R.id.iv_home_adv);
+            mHasAdd = true;
+        }
+
         tv_welcome_skip = (TextView) findViewById(R.id.tv_welcome_skip);
-        tv_welcome_skip_second = (TextView) findViewById(R.id.tv_welcome_skip_second);
+//        tv_welcome_skip_second = (TextView) findViewById(R.id.tv_welcome_skip_second);
         rl_wecome = (RelativeLayout) findViewById(R.id.rl_welcome);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View convertView = inflater.inflate(R.layout.welcome4, null);
@@ -143,10 +155,11 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
         } else {
             int delay = 3000;
             if (mHasAdd) { // 有广告
-
-                // TODO 加载广告到背景
+                XUtilsImageLoader.getxUtilsImageLoader(this,
+                        -1, iv_home_adv,
+                        homeUrl);
                 tv_welcome_skip.setVisibility(View.VISIBLE);
-                tv_welcome_skip_second.setVisibility(View.VISIBLE);
+//                tv_welcome_skip_second.setVisibility(View.VISIBLE);
                 tv_welcome_skip.setOnClickListener(this);
                 handler.sendMessageDelayed(Message.obtain(), 1000); // 更新UI
                 delay = 10000;
