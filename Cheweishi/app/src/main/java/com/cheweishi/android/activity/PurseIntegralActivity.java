@@ -14,11 +14,13 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.IntegralAdapter;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
+import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.IntegralInfo;
 import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.PurseIntegralResponse;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.GsonUtil;
@@ -47,6 +49,7 @@ import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.AbsListView.OnScrollListener;
 
@@ -76,6 +79,8 @@ public class PurseIntegralActivity extends BaseActivity {
     //总积分
     @ViewInject(R.id.tv_balance_num)
     private TextView tv_balance_num;
+    @ViewInject(R.id.ley_integral)
+    private RelativeLayout ley_integral;
 
     // 列表
     private ListView listView;
@@ -107,6 +112,7 @@ public class PurseIntegralActivity extends BaseActivity {
 
         mList = new ArrayList<PurseIntegralResponse.MsgBean>();
         mIntegralAdapter = new IntegralAdapter(baseContext, mList);
+        mListView.setAdapter(mIntegralAdapter);
         init();
     }
 
@@ -114,6 +120,7 @@ public class PurseIntegralActivity extends BaseActivity {
         title.setText(R.string.purse_my_integral);
         left_action.setText(getResources().getString(R.string.back));
         left_action.setOnClickListener(listener);
+        ley_integral.setOnClickListener(listener);
         setNow();
         request();
     }
@@ -128,12 +135,48 @@ public class PurseIntegralActivity extends BaseActivity {
                 case R.id.integral_return_top:
                     listView.setSelection(0);
                     break;
+                case R.id.ley_integral: // 点击积分商城的时候
+                    getDuiBaUrl();
+                    break;
                 default:
                     break;
             }
         }
     };
 
+    private void getDuiBaUrl() {
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_DUIBA + NetInterface.GET_DUIBA_LOGIN_URL + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put(Constant.PARAMETER_TAG, NetInterface.GET_DUIBA_LOGIN_URL);
+        netWorkHelper.PostJson(url, param, this);
+    }
+
+
+    @Override
+    public void receive(String TAG, String data) {
+        ProgrosDialog.closeProgrosDialog();
+        switch (TAG) {
+            case NetInterface.GET_DUIBA_LOGIN_URL:
+                BaseResponse duibaResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+                if (!duibaResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(duibaResponse.getDesc());
+                    return;
+                }
+
+                if (null != duibaResponse.getDesc() && !"".equals(duibaResponse.getDesc())) {
+                    Intent duiba = new Intent(baseContext, WebActivity.class);
+                    duiba.putExtra("url", duibaResponse.getDesc());
+                    startActivity(duiba);
+                }
+
+                loginResponse.setToken(duibaResponse.getToken());
+                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                break;
+        }
+    }
 
     @Override
     public void receive(String data) {

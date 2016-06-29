@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rel_xcRoundImg"
         android:layout_marginTop="@dimen/normal_marging"
-        android:layout_toLeftOf="@+id/ley_zhong"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/pay_click_selector"
         android:orientation="horizontal">
 
@@ -99,6 +99,7 @@
         android:layout_alignTop="@+id/ley_integral"
         android:layout_toRightOf="@+id/ley_zhong"
         android:background="@drawable/pay_click_selector"
+        android:visibility="invisible"
         android:orientation="horizontal">
 
         <ImageView

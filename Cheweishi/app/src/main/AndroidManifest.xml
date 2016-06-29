@@ -725,25 +725,25 @@
         <!--</activity>-->
         <!-- 微信分享回调 -->
         <!--<activity-->
-        <!--android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"-->
-        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-        <!--android:exported="true"-->
-        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>-->
+            <!--android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+            <!--android:exported="true"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>-->
         <!--&lt;!&ndash; 易信分享回调 &ndash;&gt;-->
         <!--<activity-->
-        <!--android:name="com.cheweishi.android.yxapi.YXEntryActivity"-->
-        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-        <!--android:excludeFromRecents="true"-->
-        <!--android:exported="true"-->
-        <!--android:launchMode="singleTop"-->
-        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+            <!--android:name="com.cheweishi.android.yxapi.YXEntryActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+            <!--android:excludeFromRecents="true"-->
+            <!--android:exported="true"-->
+            <!--android:launchMode="singleTop"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
 
         <!--&lt;!&ndash; 调用新浪原生SDK，需要注册的activity &ndash;&gt;-->
         <!--<activity-->
-        <!--android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"-->
-        <!--android:configChanges="keyboardHidden|orientation"-->
-        <!--android:exported="false"-->
-        <!--android:windowSoftInputMode="adjustResize"></activity>-->
+            <!--android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"-->
+            <!--android:configChanges="keyboardHidden|orientation"-->
+            <!--android:exported="false"-->
+            <!--android:windowSoftInputMode="adjustResize"></activity>-->
 
         <!-- 调用新浪原生SDK，需要注册的回调activity -->
         <!--<activity-->
