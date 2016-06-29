@@ -15,6 +15,8 @@ import cn.jpush.android.api.JPushInterface;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.cheweishi.android.utils.ActivityControl;
+import com.cheweishi.android.utils.LogHelper;
+import com.cheweishi.android.utils.ScreenUtils;
 import com.cheweishi.android.widget.CustomDialog;
 
 public class Myapplication extends Application implements
@@ -44,6 +46,8 @@ public class Myapplication extends Application implements
 //		HXinit();
 
         JPushInit();//极光推送初始化
+
+        LogHelper.d("height:" + ScreenUtils.getScreenHeight(this) + "---" + "width:" + ScreenUtils.getScreenWidth(this));
 
 
 //		Thread.setDefaultUncaughtExceptionHandler(this);

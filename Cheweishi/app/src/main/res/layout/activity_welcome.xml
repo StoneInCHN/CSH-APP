@@ -30,4 +30,25 @@
             android:visibility="gone" />
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/tv_welcome_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/normal_padding"
+        android:text="跳过"
+        android:textColor="@color/orange"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_welcome_skip_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_welcome_skip"
+        android:layout_below="@id/tv_welcome_skip"
+        android:text="10"
+        android:visibility="gone" />
+
 </RelativeLayout>

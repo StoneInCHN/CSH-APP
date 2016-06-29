@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +20,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.WelcomeAdapter;
@@ -31,22 +34,35 @@ import cn.jpush.android.api.JPushInterface;
  *
  * @author mingdasen
  */
-public class WelcomeActivity extends BaseActivity {
+public class WelcomeActivity extends BaseActivity implements OnClickListener {
     private RelativeLayout rl_wecome;
     private Timer timer = new Timer();
-    float firstX = 0;
-    float firstY;
-    float secondX;
-    float secondY;
     private WelcomeGallery gallery = null;
     private ArrayList<Integer> imgList;
     private ArrayList<ImageView> portImg;
     private int preSelImgIndex = 0;
     private LinearLayout ll_focus_indicator_container = null;
     private ImageView immediateExperience;
-    //    public static WelcomeActivity instance;
-    public static boolean IsValid = true;
     private LayoutInflater inflater;
+    private TextView tv_welcome_skip; // 跳过
+    private TextView tv_welcome_skip_second;// 倒计时
+    private boolean mHasAdd = true; // 是否有广告
+    private int mCurrentTimes = 10;
+    private boolean mHadNext = false;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (!mHadNext) {
+                tv_welcome_skip_second.setText(String.valueOf(mCurrentTimes));
+                mCurrentTimes--;
+                handler.sendMessageDelayed(Message.obtain(), 1000);
+            } else {
+                handler = null;
+            }
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +71,10 @@ public class WelcomeActivity extends BaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
-
-//        instance = ;
+        tv_welcome_skip = (TextView) findViewById(R.id.tv_welcome_skip);
+        tv_welcome_skip_second = (TextView) findViewById(R.id.tv_welcome_skip_second);
         rl_wecome = (RelativeLayout) findViewById(R.id.rl_welcome);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        // View layout = inflater.inflate(imgList.get(position %
-        // imgList.size()),
-        // null);
         View convertView = inflater.inflate(R.layout.welcome4, null);
         immediateExperience = (ImageView) convertView
                 .findViewById(R.id.immediateExperienceBtn);
@@ -90,7 +103,7 @@ public class WelcomeActivity extends BaseActivity {
         }
         SharedPreferences preferences = getSharedPreferences("gallery",
                 MODE_PRIVATE);
-        if (preferences.getBoolean("galleryFlag", false) == false) {
+        if (preferences.getBoolean("galleryFlag", false) == false) { // 是否首次启动
             Editor editor = preferences.edit();
             editor.putBoolean("galleryFlag", true);
             editor.commit();
@@ -128,18 +141,30 @@ public class WelcomeActivity extends BaseActivity {
             });
 
         } else {
+            int delay = 3000;
+            if (mHasAdd) { // 有广告
+
+                // TODO 加载广告到背景
+                tv_welcome_skip.setVisibility(View.VISIBLE);
+                tv_welcome_skip_second.setVisibility(View.VISIBLE);
+                tv_welcome_skip.setOnClickListener(this);
+                handler.sendMessageDelayed(Message.obtain(), 1000); // 更新UI
+                delay = 10000;
+            } else { // 无广告
+                delay = 3000;
+            }
 
             Timer timer = new Timer();// timer中有一个线程,这个线程不断执行task
-            timer.schedule(task, 1000 * 3);// 设置这个task在延迟三秒之后自动执行
-            if (rl_wecome != null) {
-                rl_wecome.setOnClickListener(new OnClickListener() {
-
-                    @Override
-                    public void onClick(View arg0) {
-
-                    }
-                });
-            }
+            timer.schedule(task, delay);// 设置这个task在延迟三秒之后自动执行
+//            if (rl_wecome != null) {
+//                rl_wecome.setOnClickListener(new OnClickListener() {
+//
+//                    @Override
+//                    public void onClick(View arg0) {
+//
+//                    }
+//                });
+//            }
         }
 
     }
@@ -164,26 +189,32 @@ public class WelcomeActivity extends BaseActivity {
     TimerTask task = new TimerTask() {
         @Override
         public void run() {
-            if (isLogined() && LoginMessageUtils.isLogined(baseContext)) {
-                Intent intent = new Intent(WelcomeActivity.this,
-                        MainNewActivity.class);
-                intent.putExtra("className", "WelcomeActivity");
-                startActivity(intent);
-                WelcomeActivity.this.finish();
-            } else {
-                Intent intent = new Intent(WelcomeActivity.this,
-                        LoginActivity.class);
-                intent.putExtra("className", "WelcomeActivity");
-                LoginMessageUtils.showDialogFlag = true;
-                startActivity(intent);
-                WelcomeActivity.this.finish();
-            }
+            if (!mHadNext)
+                nextStep();
         }
     };
+
+    private void nextStep() {
+        if (isLogined() && LoginMessageUtils.isLogined(baseContext)) {
+            Intent intent = new Intent(WelcomeActivity.this,
+                    MainNewActivity.class);
+            intent.putExtra("className", "WelcomeActivity");
+            startActivity(intent);
+            WelcomeActivity.this.finish();
+        } else {
+            Intent intent = new Intent(WelcomeActivity.this,
+                    LoginActivity.class);
+            intent.putExtra("className", "WelcomeActivity");
+            LoginMessageUtils.showDialogFlag = true;
+            startActivity(intent);
+            WelcomeActivity.this.finish();
+        }
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        handler = null;
         inflater = null;
         timer.cancel();
         System.gc();
@@ -207,5 +238,17 @@ public class WelcomeActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         JPushInterface.onPause(baseContext);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_welcome_skip:
+                mHadNext = true;
+                task.cancel();
+                timer.cancel();
+                nextStep();
+                break;
+        }
     }
 }

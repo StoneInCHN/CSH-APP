@@ -8,8 +8,8 @@ android {
         multiDexEnabled true
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 85
-        versionName "3.5.5"
+        versionCode 83
+        versionName "3.5.3"
     }
     signingConfigs {
         dbgKey {
