@@ -336,4 +336,10 @@ public class PurseIntegralActivity extends BaseActivity implements
         pageNumber++;
         request();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CreditActivity.creditsListener = null;
+    }
 }

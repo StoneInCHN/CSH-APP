@@ -24,7 +24,6 @@
                 android:id="@+id/sigeAndmileage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="fdsfssd"
                 android:layout_marginLeft="@dimen/aggregatescore_left_and_top"
                 android:layout_marginTop="@dimen/small_padding"
                 android:textColor="@color/text_black_colcor"
@@ -37,7 +36,6 @@
                 android:layout_marginLeft="@dimen/aggregatescore_left_and_top"
                 android:layout_marginTop="@dimen/small_padding"
                 android:textColor="#999999"
-                android:text="sddsds"
                 android:textSize="@dimen/text_size_small" />
         </LinearLayout>
 

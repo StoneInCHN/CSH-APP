@@ -74,6 +74,7 @@ public class IntegralAdapter extends BaseAdapter {
 
 
         if (mList != null && mList.size() > position) {
+            viewHolder.sigeAndmileageTextView.setText(mList.get(position).getRemark());
             viewHolder.timeTextView.setText(transferLongToDate(mList.get(position).getCreateDate()));
 
             String rule = mList.get(position).getBalanceType();
