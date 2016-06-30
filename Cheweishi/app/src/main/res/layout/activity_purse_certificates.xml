@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -13,9 +13,9 @@
 
     <RelativeLayout
         android:id="@+id/rel_xcRoundImg"
-        android:layout_below="@+id/include1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/include1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/xlarge_marging">
 
@@ -37,18 +37,18 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_balance_yuan"
                 android:layout_centerHorizontal="true"
-                android:text="0"
                 android:layout_marginTop="5dp"
+                android:text="0"
                 android:textColor="@color/white"
                 android:textSize="@dimen/ttf_twenty" />
 
             <TextView
-                android:layout_marginBottom="2dp"
                 android:id="@+id/tv_balance_yuan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="2dp"
                 android:text="@string/purse_integral"
                 android:textColor="@color/white"
                 android:textSize="@dimen/ttf_twelve" />
@@ -62,8 +62,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rel_xcRoundImg"
-        android:layout_marginTop="@dimen/normal_marging"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/normal_marging"
         android:background="@drawable/pay_click_selector"
         android:orientation="horizontal">
 
@@ -83,10 +83,10 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/img_prize"
-            android:text="@string/purse_integral_mall"
-            android:paddingTop="@dimen/small_marging"
-            android:paddingRight="@dimen/normal_marging"
             android:paddingBottom="@dimen/small_marging"
+            android:paddingRight="@dimen/normal_marging"
+            android:paddingTop="@dimen/small_marging"
+            android:text="@string/purse_integral_mall"
             android:textColor="@color/blue"
             android:textSize="@dimen/ttf_fourteen" />
 
@@ -99,8 +99,8 @@
         android:layout_alignTop="@+id/ley_integral"
         android:layout_toRightOf="@+id/ley_zhong"
         android:background="@drawable/pay_click_selector"
-        android:visibility="invisible"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="invisible">
 
         <ImageView
             android:id="@+id/img_duihuan"
@@ -116,13 +116,13 @@
             android:id="@+id/tv_convert_record"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/img_duihuan"
             android:paddingBottom="@dimen/small_marging"
             android:paddingRight="@dimen/normal_marging"
             android:paddingTop="@dimen/small_marging"
-            android:textSize="@dimen/ttf_fourteen"
+            android:text="@string/purse_record"
             android:textColor="@color/blue"
-            android:layout_toRightOf="@+id/img_duihuan"
-            android:text="@string/purse_record" />
+            android:textSize="@dimen/ttf_fourteen" />
     </RelativeLayout>
 
     <LinearLayout
@@ -145,10 +145,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:textColor="@color/grid_state_focused"
             android:layout_centerHorizontal="true"
-            android:textSize="@dimen/ttf_fourteen"
-            android:text="@string/purse_credits_log" />
+            android:text="@string/purse_credits_log"
+            android:textColor="@color/grid_state_focused"
+            android:textSize="@dimen/ttf_fourteen" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -165,12 +165,12 @@
             android:background="@color/line_gray"></RelativeLayout>
     </RelativeLayout>
 
-    <ListView
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/integral_xlistview"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/xlarge_marging"
+        android:layout_height="fill_parent"
         android:layout_below="@id/relativeLayout1"
-        android:layout_height="fill_parent"></ListView>
+        android:layout_marginTop="@dimen/xlarge_marging" />
 
 
 </RelativeLayout>

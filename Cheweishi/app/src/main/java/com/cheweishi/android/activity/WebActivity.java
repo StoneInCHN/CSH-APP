@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.webkit.DownloadListener;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -22,7 +23,7 @@ import com.cheweishi.android.widget.WebViewView;
  *
  * @author zhangq
  */
-public class WebActivity extends BaseActivity implements OnClickListener {
+public class WebActivity extends BaseActivity implements OnClickListener{
     private WebView mWebView;
     private Button tvLeft;
     private TextView tvTitle;
@@ -121,4 +122,5 @@ public class WebActivity extends BaseActivity implements OnClickListener {
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

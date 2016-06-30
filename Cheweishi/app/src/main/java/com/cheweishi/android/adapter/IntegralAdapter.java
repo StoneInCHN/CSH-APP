@@ -1,5 +1,7 @@
 package com.cheweishi.android.adapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -70,7 +72,10 @@ public class IntegralAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+
         if (mList != null && mList.size() > position) {
+            viewHolder.timeTextView.setText(transferLongToDate(mList.get(position).getCreateDate()));
+
             String rule = mList.get(position).getBalanceType();
             if (rule.equals("INCOME")) {
                 viewHolder.integralTextView.setText("+" + mList.get(position).getScore() + "分");
@@ -82,6 +87,12 @@ public class IntegralAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    private String transferLongToDate(Long millSec) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = new Date(millSec);
+        return sdf.format(date);
     }
 
     private class ViewHolder {

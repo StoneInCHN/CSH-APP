@@ -37,6 +37,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,6 +46,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -59,7 +61,8 @@ import android.widget.AbsListView.OnScrollListener;
  *
  * @author XMH
  */
-public class PurseIntegralActivity extends BaseActivity {
+public class PurseIntegralActivity extends BaseActivity implements
+        OnRefreshListener2<ListView> {
 
 
     private static final int INTEGRAL_CODE = 2001;
@@ -72,7 +75,7 @@ public class PurseIntegralActivity extends BaseActivity {
     private XCRoundImageView xcRoundImg;
     // 下拉加载的listview
     @ViewInject(R.id.integral_xlistview)
-    private ListView mListView;
+    private PullToRefreshListView mListView;
     // 返回顶部的button
     @ViewInject(R.id.integral_return_top)
     private Button mReturnTop;
@@ -87,21 +90,10 @@ public class PurseIntegralActivity extends BaseActivity {
     // 积分的适配器
     private IntegralAdapter mIntegralAdapter;
 
-    private LoginMessage loginMessage;
-    // 装数据的容器
-    private List<IntegralInfo> list;
 
     private List<PurseIntegralResponse.MsgBean> mList;
-    // 页数
-    private int page = 1;
-    // 每页的条数
-    private int size = 5;
 
-    private boolean isTwo;
-
-    private boolean isNet = false;
-    // 定义viewholer的view
-    private View view;
+    private int pageNumber = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +105,8 @@ public class PurseIntegralActivity extends BaseActivity {
         mList = new ArrayList<PurseIntegralResponse.MsgBean>();
         mIntegralAdapter = new IntegralAdapter(baseContext, mList);
         mListView.setAdapter(mIntegralAdapter);
+        mListView.setMode(Mode.BOTH);
+        mListView.setOnRefreshListener(this);
         init();
     }
 
@@ -121,7 +115,6 @@ public class PurseIntegralActivity extends BaseActivity {
         left_action.setText(getResources().getString(R.string.back));
         left_action.setOnClickListener(listener);
         ley_integral.setOnClickListener(listener);
-        setNow();
         request();
     }
 
@@ -167,9 +160,10 @@ public class PurseIntegralActivity extends BaseActivity {
                 }
 
                 if (null != duibaResponse.getDesc() && !"".equals(duibaResponse.getDesc())) {
-                    Intent duiba = new Intent(baseContext, WebActivity.class);
-                    duiba.putExtra("url", duibaResponse.getDesc());
-                    startActivity(duiba);
+//                    Intent duiba = new Intent(baseContext, WebActivity.class);
+//                    duiba.putExtra("url", duibaResponse.getDesc());
+//                    startActivity(duiba);
+                    goDuiba(duibaResponse.getDesc());
                 }
 
                 loginResponse.setToken(duibaResponse.getToken());
@@ -178,18 +172,93 @@ public class PurseIntegralActivity extends BaseActivity {
         }
     }
 
+    private void goDuiba(String url) {
+        Intent intent = new Intent();
+        intent.setClass(baseContext, CreditActivity.class);
+        intent.putExtra("navColor", "#FFFFFF");    //配置导航条的背景颜色，请用#ffffff长格式。
+        intent.putExtra("titleColor", "#484848");    //配置导航条标题的颜色，请用#ffffff长格式。
+        intent.putExtra("url", url);    //配置自动登陆地址，每次需服务端动态生成。
+        startActivity(intent);
+
+        CreditActivity.creditsListener = new CreditActivity.CreditsListener() {
+            /**
+             * 当点击分享按钮被点击
+             * @param shareUrl 分享的地址
+             * @param shareThumbnail 分享的缩略图
+             * @param shareTitle 分享的标题
+             * @param shareSubtitle 分享的副标题
+             */
+            public void onShareClick(WebView webView, String shareUrl, String shareThumbnail, String shareTitle, String shareSubtitle) {
+                //当分享按钮被点击时，会调用此处代码。在这里处理分享的业务逻辑。
+//                new AlertDialog.Builder(webView.getContext())
+//                        .setTitle("分享信息")
+//                        .setItems(new String[]{"标题：" + shareTitle, "副标题：" + shareSubtitle, "缩略图地址：" + shareThumbnail, "链接：" + shareUrl}, null)
+//                        .setNegativeButton("确定", null)
+//                        .show();
+            }
+
+            /**
+             * 当点击“请先登录”按钮唤起登录时，会调用此处代码。
+             * 用户登录后，需要将CreditsActivity.IS_WAKEUP_LOGIN变量设置为true。
+             * @param webView 用于登录成功后返回到当前的webview刷新登录状态。
+             * @param currentUrl 当前页面的url
+             */
+            public void onLoginClick(WebView webView, String currentUrl) {
+                //当未登录的用户点击去登录时，会调用此处代码。
+                //用户登录后，需要将CreditsActivity.IS_WAKEUP_LOGIN变量设置为true。
+                //为了用户登录后能回到未登录前的页面（currentUrl）。
+                //当用户登录成功后，需要重新请求一次服务端，带上currentUrl。
+                //用该方法中的webview变量加载请求链接。
+                //服务端收到请求后在生成免登录url时，将currentUrl放入redirect参数，通知客户端302跳转到新生成的免登录URL。
+//                new AlertDialog.Builder(webView.getContext())
+//                        .setTitle("跳转登录")
+//                        .setMessage("跳转到登录页面？")
+//                        .setPositiveButton("是", null)
+//                        .setNegativeButton("否", null)
+//                        .show();
+            }
+
+            /**
+             * 当点击“复制”按钮时，触发该方法，回调获取到券码code
+             * @param webView webview对象。
+             * @param code 复制的券码
+             */
+            public void onCopyCode(WebView webView, String code) {
+                //当未登录的用户点击去登录时，会调用此处代码。
+//                new AlertDialog.Builder(webView.getContext())
+//                        .setTitle("复制券码")
+//                        .setMessage("已复制，券码为：" + code)
+//                        .setPositiveButton("是", null)
+//                        .setNegativeButton("否", null)
+//                        .show();
+            }
+
+            /**
+             * 积分商城返回首页刷新积分时，触发该方法。
+             */
+            public void onLocalRefresh(WebView mWebView, String credits) {
+                //String credits为积分商城返回的最新积分，不保证准确。
+                //触发更新本地积分，这里建议用ajax向自己服务器请求积分值，比较准确。
+//                Toast.makeText(getApplicationContext(), "触发本地刷新积分："+credits,Toast.LENGTH_SHORT).show();
+                tv_balance_num.setText(credits);
+            }
+        };
+    }
+
     @Override
     public void receive(String data) {
+        mListView.onRefreshComplete();
         ProgrosDialog.closeProgrosDialog();
-
         PurseIntegralResponse response = (PurseIntegralResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PurseIntegralResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
             return;
         }
 
-        if (null != response.getMsg()) {
-            mIntegralAdapter.setList(response.getMsg());
+        List<PurseIntegralResponse.MsgBean> temp = response.getMsg();
+        if (!StringUtil.isEmpty(temp) && temp.size() > 0) {
+            mList.addAll(temp);
+            mIntegralAdapter.setList(mList);
         }
 
         loginResponse.setToken(response.getToken());
@@ -201,36 +270,9 @@ public class PurseIntegralActivity extends BaseActivity {
     }
 
     @Override
-    public void receive(int type, String data) {
-        // TODO Auto-generated method stub
-        super.receive(type, data);
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case INTEGRAL_CODE:
-                try {
-                    JSONObject jsonObject = new JSONObject(data);
-                    if (StringUtil.isEquals(jsonObject.optString("operationState"),
-                            API.returnSuccess, true)) {
-                        JSONObject dataJsonObject = jsonObject
-                                .optJSONObject("data");
-                        if (page == 1) {
-                            getValue(dataJsonObject);
-                        }
-
-                    } else {
-                        if (StringUtil.isEquals(
-                                jsonObject.optString("operationState"),
-                                API.returnRelogin, true)) {
-                            DialogTool.getInstance(this).showConflictDialog();
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                break;
-            default:
-                break;
-        }
+    public void error(String errorMsg) {
+        mListView.onRefreshComplete();
+        showToast(R.string.server_link_fault);
     }
 
 
@@ -274,19 +316,24 @@ public class PurseIntegralActivity extends BaseActivity {
             param.put("token", loginResponse.getToken());
             param.put("walletType", "SCORE"); //  红包
             param.put("walletId", getIntent().getIntExtra("walletId", 1));
-            param.put("pageSize", size);
-            param.put("pageNumber", page);
+            param.put("pageSize", 5);
+            param.put("pageNumber", pageNumber);
             netWorkHelper.PostJson(url, param, this);
         }
     }
 
-    /***
-     * 显示当前剩余积分
-     */
-    private void setNow() {
-        // TODO Auto-generated method stub
-        if (loginMessage != null) {
-            tv_balance_num.setText(getIntent().getStringExtra("score"));
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+        pageNumber = 1;
+        if (!StringUtil.isEmpty(mList)) {
+            mList.clear();
         }
+        request();
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+        pageNumber++;
+        request();
     }
 }

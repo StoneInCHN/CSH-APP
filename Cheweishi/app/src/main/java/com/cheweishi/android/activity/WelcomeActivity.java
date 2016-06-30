@@ -27,6 +27,7 @@ import com.cheweishi.android.adapter.WelcomeAdapter;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.SharePreferenceTools;
+import com.cheweishi.android.utils.ButtonUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.WelcomeGallery;
 
@@ -255,6 +256,12 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
+        /**
+         * 快速点击忽略处理
+         */
+        if (ButtonUtils.isFastClick()) {
+            return;
+        }
         switch (v.getId()) {
             case R.id.tv_welcome_skip:
                 mHadNext = true;

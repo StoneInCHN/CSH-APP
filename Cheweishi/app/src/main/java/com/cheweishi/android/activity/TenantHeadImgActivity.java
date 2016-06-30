@@ -9,8 +9,6 @@ import android.widget.TextView;
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.TenantViewPagerAdapter;
 import com.cheweishi.android.entity.ServiceDetailResponse;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 

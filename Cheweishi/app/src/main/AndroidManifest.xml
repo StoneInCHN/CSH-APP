@@ -378,8 +378,8 @@
 
         <!-- 友盟appKey -->
         <!--<meta-data-->
-            <!--android:name="UMENG_APPKEY"-->
-            <!--android:value="551a1660fd98c51e5700085f"></meta-data>-->
+        <!--android:name="UMENG_APPKEY"-->
+        <!--android:value="551a1660fd98c51e5700085f"></meta-data>-->
         <!-- 声明sdk所需的service -->
         <!-- <service android:name="com.easemob.chat.EMChatService" /> -->
 
@@ -476,13 +476,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.RepairServiceActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.RepairServiceActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.RepairServiceDetailActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.RepairServiceDetailActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <activity
             android:name="com.cheweishi.android.activity.SignInDetailActivity"
             android:screenOrientation="portrait"
@@ -493,9 +493,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.ContextMenu"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/MyDialogStyle"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.ContextMenu"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/MyDialogStyle"></activity>-->
         <activity
             android:name="com.cheweishi.android.activity.WelcomeActivity"
             android:screenOrientation="portrait">
@@ -519,14 +519,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.KeyDetectionActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.KeyDetectionActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.ContactActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"-->
-            <!--android:windowSoftInputMode="adjustPan|stateHidden"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.ContactActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"-->
+        <!--android:windowSoftInputMode="adjustPan|stateHidden"></activity>-->
         <activity
             android:name="com.cheweishi.android.activity.RegistActivity"
             android:screenOrientation="portrait"
@@ -558,17 +558,17 @@
             android:screenOrientation="portrait" >
         </activity> -->
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.TyreListActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.TyreListActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.DrivingActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.DrivingActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.IllegalQueryActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.IllegalQueryActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <!-- 自定义友盟意见反馈界面 -->
         <!-- <activity
             android:name="com.cheweishi.android.activity.UmengFbConversationActivity"
@@ -611,10 +611,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyle"></activity>
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.RepairGalleryActivity"-->
-            <!--android:label="@string/title_activity_repair_gallery"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.RepairGalleryActivity"-->
+        <!--android:label="@string/title_activity_repair_gallery"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <activity
             android:name="com.cheweishi.android.activity.UserSignActivity"
             android:label="@string/title_activity_user_sign"
@@ -632,15 +632,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.WeiXiuDetailActivity"-->
-            <!--android:label="@string/title_activity_wei_xiu_detail"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.WeiXiuDetailActivity"-->
+        <!--android:label="@string/title_activity_wei_xiu_detail"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.EmergencyActivity"-->
-            <!--android:label="@string/title_activity_emergency"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.EmergencyActivity"-->
+        <!--android:label="@string/title_activity_emergency"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <activity
             android:name="com.cheweishi.android.activity.AboutUsActivity"
             android:label="@string/title_activity_emergency"
@@ -667,93 +667,93 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <!--<activity-->
-            <!--android:name="cn.sharesdk.framework.ShareSDKUIShell"-->
-            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
-            <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
+        <!--android:name="cn.sharesdk.framework.ShareSDKUIShell"-->
+        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
+        <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
 
-            <!--&lt;!&ndash;-->
-            	<!--AuthorizeAdapter表示一个继承自cn.sharesdk.framework.authorize.AuthorizeAdapter-->
-            	<!--的类，这个类可以监听到页面的生命周期，也可以获取授权页面的各种UI控件。-->
-            	<!--开发者可以通过继承AuthorizeAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。-->
-
-
-            <!--&ndash;&gt;-->
-            <!--<meta-data-->
-                <!--android:name="AuthorizeAdapter"-->
-                <!--android:value="cn.sharesdk.demo.MyAdapter" />-->
-
-            <!--&lt;!&ndash;-->
-            	<!--QZoneWebShareAdapter表示一个继承自cn.sharesdk.tencent.qzone.QZoneWebShareAdapter-->
-            	<!--的类，这个类可以监听到页面的生命周期，也可以获QQ空间网页分享权页面的各种UI控件。-->
-            	<!--开发者可以通过继承QZoneWebShareAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。-->
-
-            <!--<meta-data android:name="QZoneWebShareAdapter" android:value="cn.sharesdk.demo.MyQZoneWebShareAdapter" />-->
+        <!--&lt;!&ndash;-->
+        <!--AuthorizeAdapter表示一个继承自cn.sharesdk.framework.authorize.AuthorizeAdapter-->
+        <!--的类，这个类可以监听到页面的生命周期，也可以获取授权页面的各种UI控件。-->
+        <!--开发者可以通过继承AuthorizeAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。-->
 
 
-            <!--&ndash;&gt;-->
-            <!--&lt;!&ndash;-->
-            	<!--Dropbox的SSO功能需要在此处添加一个对ACTION_VIEW事件的过滤器，其中的scheme是-->
-            	<!--“db-”前缀再开发者应用的加上appKey。如果此过滤器不设置，则不能完成SSO功能授权-->
+        <!--&ndash;&gt;-->
+        <!--<meta-data-->
+        <!--android:name="AuthorizeAdapter"-->
+        <!--android:value="cn.sharesdk.demo.MyAdapter" />-->
+
+        <!--&lt;!&ndash;-->
+        <!--QZoneWebShareAdapter表示一个继承自cn.sharesdk.tencent.qzone.QZoneWebShareAdapter-->
+        <!--的类，这个类可以监听到页面的生命周期，也可以获QQ空间网页分享权页面的各种UI控件。-->
+        <!--开发者可以通过继承QZoneWebShareAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。-->
+
+        <!--<meta-data android:name="QZoneWebShareAdapter" android:value="cn.sharesdk.demo.MyQZoneWebShareAdapter" />-->
 
 
-            <!--&ndash;&gt;-->
-            <!--<intent-filter>-->
-                <!--<data android:scheme="db-7janx53ilz11gbs" />-->
-
-                <!--<action android:name="android.intent.action.VIEW" />-->
-
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-
-            <!--&lt;!&ndash;-->
-            	<!--如果集成QQ分享，或者使用QQ客户端来进行QQ空间的分享，须要在此处添加一个对ACTION_VIEW-->
-            	<!--事件的过滤器，其中的scheme是“tencent”前缀再开发者应用的加上appId。如果此过滤器不设置，-->
-            	<!--则分享结束以后不能得到正确的回调-->
+        <!--&ndash;&gt;-->
+        <!--&lt;!&ndash;-->
+        <!--Dropbox的SSO功能需要在此处添加一个对ACTION_VIEW事件的过滤器，其中的scheme是-->
+        <!--“db-”前缀再开发者应用的加上appKey。如果此过滤器不设置，则不能完成SSO功能授权-->
 
 
-            <!--&ndash;&gt;-->
-            <!--<intent-filter>-->
-                <!--<data android:scheme="tencent100371282" />-->
+        <!--&ndash;&gt;-->
+        <!--<intent-filter>-->
+        <!--<data android:scheme="db-7janx53ilz11gbs" />-->
 
-                <!--<action android:name="android.intent.action.VIEW" />-->
+        <!--<action android:name="android.intent.action.VIEW" />-->
 
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-            <!--</intent-filter>-->
+        <!--<category android:name="android.intent.category.BROWSABLE" />-->
+        <!--<category android:name="android.intent.category.DEFAULT" />-->
+        <!--</intent-filter>-->
+
+        <!--&lt;!&ndash;-->
+        <!--如果集成QQ分享，或者使用QQ客户端来进行QQ空间的分享，须要在此处添加一个对ACTION_VIEW-->
+        <!--事件的过滤器，其中的scheme是“tencent”前缀再开发者应用的加上appId。如果此过滤器不设置，-->
+        <!--则分享结束以后不能得到正确的回调-->
+
+
+        <!--&ndash;&gt;-->
+        <!--<intent-filter>-->
+        <!--<data android:scheme="tencent100371282" />-->
+
+        <!--<action android:name="android.intent.action.VIEW" />-->
+
+        <!--<category android:name="android.intent.category.DEFAULT" />-->
+        <!--<category android:name="android.intent.category.BROWSABLE" />-->
+        <!--</intent-filter>-->
         <!--</activity>-->
         <!-- 微信分享回调 -->
         <!--<activity-->
-            <!--android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"-->
-            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-            <!--android:exported="true"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>-->
+        <!--android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"-->
+        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+        <!--android:exported="true"-->
+        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>-->
         <!--&lt;!&ndash; 易信分享回调 &ndash;&gt;-->
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.yxapi.YXEntryActivity"-->
-            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-            <!--android:excludeFromRecents="true"-->
-            <!--android:exported="true"-->
-            <!--android:launchMode="singleTop"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <!--android:name="com.cheweishi.android.yxapi.YXEntryActivity"-->
+        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+        <!--android:excludeFromRecents="true"-->
+        <!--android:exported="true"-->
+        <!--android:launchMode="singleTop"-->
+        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
 
         <!--&lt;!&ndash; 调用新浪原生SDK，需要注册的activity &ndash;&gt;-->
         <!--<activity-->
-            <!--android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"-->
-            <!--android:configChanges="keyboardHidden|orientation"-->
-            <!--android:exported="false"-->
-            <!--android:windowSoftInputMode="adjustResize"></activity>-->
+        <!--android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"-->
+        <!--android:configChanges="keyboardHidden|orientation"-->
+        <!--android:exported="false"-->
+        <!--android:windowSoftInputMode="adjustResize"></activity>-->
 
         <!-- 调用新浪原生SDK，需要注册的回调activity -->
         <!--<activity-->
-            <!--android:name="cn.sharesdk.sina.weibo.SinaActivity"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />-->
+        <!--android:name="cn.sharesdk.sina.weibo.SinaActivity"-->
+        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />-->
 
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
+        <!--<category android:name="android.intent.category.DEFAULT" />-->
+        <!--</intent-filter>-->
         <!--</activity>-->
         <activity
             android:name="com.cheweishi.android.activity.DrvingBehaviorActivity"
@@ -796,10 +796,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.ProvinceAndCharGridActivityndCharGridActivity"-->
-            <!--android:label="@string/title_activity_province_and_char_grid"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar" />-->
+        <!--android:name="com.cheweishi.android.activity.ProvinceAndCharGridActivityndCharGridActivity"-->
+        <!--android:label="@string/title_activity_province_and_char_grid"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar" />-->
         <activity
             android:name="com.cheweishi.android.activity.SetActivity"
             android:screenOrientation="portrait"
@@ -894,9 +894,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.ServiceHallActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.ServiceHallActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <activity
             android:name="com.cheweishi.android.activity.CarInformationActivity"
             android:screenOrientation="portrait"
@@ -910,21 +910,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.QueryIllegalActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.QueryIllegalActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.IllegalHelpActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.IllegalHelpActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.IllegalHistoryActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.IllegalHistoryActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.IllegalQueryResultActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.IllegalQueryResultActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <activity
             android:name="com.cheweishi.android.activity.FindcarActivity"
             android:screenOrientation="portrait"
@@ -1025,9 +1025,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.ZhongChouActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.ZhongChouActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <activity
             android:name="com.cheweishi.android.activity.InsuranceActivity"
             android:label="@string/title_activity_insurance"
@@ -1141,9 +1141,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <!--<activity-->
-            <!--android:name="com.cheweishi.android.activity.CancelOrderOne"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
+        <!--android:name="com.cheweishi.android.activity.CancelOrderOne"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <activity
             android:name="com.cheweishi.android.activity.FindParkingSpaceActivity"
             android:screenOrientation="portrait"
@@ -1215,10 +1215,13 @@
         <activity android:name=".activity.ChoiceComponentActivity" />
 
         <!--设备列表-->
-        <activity android:name=".activity.DevicesListActivity"/>
+        <activity android:name=".activity.DevicesListActivity" />
 
         <!--租户头像详情-->
         <activity android:name=".activity.TenantHeadImgActivity" />
+
+        <!--商城-->
+        <activity android:name=".activity.CreditActivity" />
 
     </application>
 

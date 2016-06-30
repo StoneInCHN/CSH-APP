@@ -1,6 +1,7 @@
 package com.cheweishi.android.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,6 +17,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageButton;
@@ -23,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.lbsapi.auth.LBSAuthManagerListener;
 import com.baidu.location.BDLocation;
@@ -636,9 +639,9 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
                     return;
                 }
 
-                if (null != baseResponse.getMsg().getHomeAdvUrl() && !"".equals(baseResponse.getMsg().getHomeAdvUrl())) {
-                    SharePreferenceTools.setPhoneUrl(baseContext, baseResponse.getMsg().getHomeAdvUrl());
-                }
+//                if (null != baseResponse.getMsg().getHomeAdvUrl() && !"".equals(baseResponse.getMsg().getHomeAdvUrl())) {
+                SharePreferenceTools.setPhoneUrl(baseContext, baseResponse.getMsg().getHomeAdvUrl());
+//                }
 
                 if (null != baseResponse.getMsg()) {
                     if (null != baseResponse.getMsg().getApkPath() && !"".equals(baseResponse.getMsg().getApkPath())) {
@@ -664,9 +667,10 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
                 }
 
                 if (null != duibaResponse.getDesc() && !"".equals(duibaResponse.getDesc())) {
-                    Intent duiba = new Intent(baseContext, WebActivity.class);
-                    duiba.putExtra("url", duibaResponse.getDesc());
-                    startActivity(duiba);
+//                    Intent duiba = new Intent(baseContext, WebActivity.class);
+//                    duiba.putExtra("url", duibaResponse.getDesc());
+//                    startActivity(duiba);
+                    goDuiba(duibaResponse.getDesc());
                 }
 
                 loginResponse.setToken(duibaResponse.getToken());
@@ -700,6 +704,15 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         }
 
 
+    }
+
+    private void goDuiba(String url) {
+        Intent intent = new Intent();
+        intent.setClass(baseContext, CreditActivity.class);
+        intent.putExtra("navColor", "#FFFFFF");    //配置导航条的背景颜色，请用#ffffff长格式。
+        intent.putExtra("titleColor", "#484848");    //配置导航条标题的颜色，请用#ffffff长格式。
+        intent.putExtra("url", url);    //配置自动登陆地址，每次需服务端动态生成。
+        startActivity(intent);
     }
 
 
