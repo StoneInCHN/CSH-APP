@@ -115,6 +115,8 @@ public class PurseIntegralActivity extends BaseActivity implements
         left_action.setText(getResources().getString(R.string.back));
         left_action.setOnClickListener(listener);
         ley_integral.setOnClickListener(listener);
+        // TODO 接收数据处理
+        tv_balance_num.setText(getIntent().getStringExtra("score"));
         request();
     }
 
@@ -265,8 +267,6 @@ public class PurseIntegralActivity extends BaseActivity implements
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
 
-        // TODO 接收数据处理
-        tv_balance_num.setText(getIntent().getStringExtra("score"));
     }
 
     @Override

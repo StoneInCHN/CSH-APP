@@ -80,10 +80,8 @@ public class IntegralAdapter extends BaseAdapter {
             String rule = mList.get(position).getBalanceType();
             if (rule.equals("INCOME")) {
                 viewHolder.integralTextView.setText("+" + mList.get(position).getScore() + "分");
-
-            } else if (rule.equals("1")) {
-                viewHolder.integralTextView.setText("-" + mList.get(position).getScore());
-
+            } else if (rule.equals("OUTCOME")) {
+                viewHolder.integralTextView.setText("-" + mList.get(position).getScore() + "分");
             }
         }
 
