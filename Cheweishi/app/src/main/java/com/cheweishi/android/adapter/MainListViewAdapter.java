@@ -155,7 +155,7 @@ public class MainListViewAdapter extends BaseAdapter implements OnClickListener 
                 R.drawable.zhaochewei_img, hodler.img_sellser,
                 list.get(position).getPhoto());
 //            if (null == hodler.list_main_seller_service.getAdapter()) {
-        if (null!=list && null != list.get(position) && 0 < list.get(position).getCarService().size()) {
+        if (null!=list && null != list.get(position) && null!=list.get(position).getCarService() && 0 < list.get(position).getCarService().size()) {
             serviceAdapater = new MianSellerServiceAdapater(mContext,
                     list.get(position));
             hodler.list_main_seller_service.setAdapter(serviceAdapater);

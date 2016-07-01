@@ -581,7 +581,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         switch (TAG) {
             case NetInterface.LIST + "HOME":
                 ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
-                if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                if (null != response && response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     // TODO 成功
                     setTitle(response.getDesc());
                     showData(response);
@@ -611,7 +611,12 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
 
                 // TODO 更新消息UI
                 if (null != advResponse.getDesc() && !"".equals(advResponse.getDesc())) {
-                    int number = Integer.valueOf(advResponse.getDesc());
+                    int number = 0;
+                    try { // 屏蔽高并发的时候
+                        number = Integer.valueOf(advResponse.getDesc());
+                    } catch (Exception e) {
+                        return;
+                    }
                     if (0 < number) {
                         tv_msg_center_num.setVisibility(View.VISIBLE);
                         if (number <= 99)

@@ -156,7 +156,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
         } else {
             int delay = 3000;
             if (mHasAdd) { // 有广告
-                XUtilsImageLoader.getxUtilsImageLoader(this,
+                XUtilsImageLoader.getHomeAdvImg(this,
                         -1, iv_home_adv,
                         homeUrl);
                 tv_welcome_skip.setVisibility(View.VISIBLE);

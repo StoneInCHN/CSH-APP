@@ -37,6 +37,7 @@ import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.SharePreferenceTools;
 import com.cheweishi.android.utils.ActivityControl;
+import com.cheweishi.android.utils.ButtonUtils;
 import com.cheweishi.android.utils.FileSizeUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
@@ -420,6 +421,12 @@ public class SetActivity extends BaseActivity implements OnClickListener,
             // break;
             case R.id.cb_push:
                 // 推送
+                /**
+                 * 快速点击忽略处理
+                 */
+                if (ButtonUtils.isFastClick()) {
+                    return;
+                }
                 LoginMessageUtils.setPush(baseContext, isChecked);
                 if (isChecked) {
                     JPushInterface.resumePush(baseContext);
