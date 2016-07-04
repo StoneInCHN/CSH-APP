@@ -520,8 +520,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     protected void onDestroy() {
         super.onDestroy();
 //        SMSSDK.unregisterAllEventHandler();
-        DBTools.getInstance(baseContext).destory();
-        setContentView(R.layout.null_view);
+        DBTools.destory();
+//        setContentView(R.layout.null_view);
         System.gc();
     }
 
