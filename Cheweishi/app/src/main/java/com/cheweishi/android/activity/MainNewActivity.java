@@ -39,6 +39,7 @@ import com.cheweishi.android.adapter.MainListViewAdapter;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.config.StatusBarCompat2;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ADInfo;
 import com.cheweishi.android.entity.AdvResponse;
@@ -94,9 +95,9 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
 
     @ViewInject(R.id.ibtn_user)
     // title左边按钮
-    public static ImageButton ibtn_user;
+    public static ImageView ibtn_user;
 
-    @ViewInject(R.id.gv_service)
+//    @ViewInject(R.id.gv_service)
     // 服务模块gridview
     private UnslidingGridView gv_service;
 
@@ -104,31 +105,31 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
     // 滚动广告模块
     private MyGallery mygallery;
 
-    @ViewInject(R.id.img_activity_area)
+//    @ViewInject(R.id.img_activity_area)
     // 活动专区图片
     private ImageView img_activity_area;
 
-    @ViewInject(R.id.tv_activity_area)
+//    @ViewInject(R.id.tv_activity_area)
     // 活动专区name
     private TextView tv_activity_area;
 
-    @ViewInject(R.id.tv_area_content)
+//    @ViewInject(R.id.tv_area_content)
     // 活动专区内容
     private TextView tv_area_content;
 
-    @ViewInject(R.id.img_integral_mall)
+//    @ViewInject(R.id.img_integral_mall)
     // 积分商城图片
     private ImageView img_integral_mall;
 
-    @ViewInject(R.id.tv_integral_mall)
+//    @ViewInject(R.id.tv_integral_mall)
     // 积分商城name
     private TextView tv_integral_mall;
 
-    @ViewInject(R.id.tv_integral_mall_content)
+//    @ViewInject(R.id.tv_integral_mall_content)
     // 积分商城内容
     private TextView tv_integral_mall_content;
 
-    @ViewInject(R.id.list_business)
+//    @ViewInject(R.id.list_business)
     // 商家列表
     private UnSlidingListView list_business;
 
@@ -140,10 +141,10 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
     public static TextView tv_msg_center_num;//消息数量
 
     // 可下拉刷新的scrollview
-    @ViewInject(R.id.refresh_scrollview)
+//    @ViewInject(R.id.refresh_scrollview)
     private PullToRefreshScrollView refresh_scrollview;
 
-    @ViewInject(R.id.iv_home_hascoupon)
+//    @ViewInject(R.id.iv_home_hascoupon)
     private ImageView iv_home_hascoupon;// 活动中心按钮
 
     private MainGridViewAdapter gridViewAdapter;// gv_service适配器
@@ -197,34 +198,14 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewUtils.inject(this);
+        StatusBarCompat2.setStatusBarColor(this);
         instance = this;
 
-        initScrollView();
+//        initScrollView();
         iniBaiduNavi();
-        initData();
+        initLocation();
+//        initData();
 
-
-//        PoiSearch mPoiSearch = PoiSearch.newInstance();
-//        mPoiSearch.searchInCity((new PoiCitySearchOption())
-//                .city("成都")
-//                .keyword("加油站")
-//                .pageNum(10));
-//        mPoiSearch.setOnGetPoiSearchResultListener(new OnGetPoiSearchResultListener() {
-//            @Override
-//            public void onGetPoiResult(PoiResult poiResult) {
-//                List<PoiInfo> allPoi = poiResult.getAllPoi();
-//                for (int i = 0; i < allPoi.size(); i++) {
-//                    PoiInfo poiInfo = allPoi.get(i);
-//                    LogHelper.d("---" + poiInfo.address + "--" + poiInfo.city + "---" + poiInfo.type);
-//                }
-//            }
-//
-//            @Override
-//            public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
-//
-//            }
-//        });
-        // setJpush();
     }
 
 
@@ -447,7 +428,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         public void onReceiveLocation(BDLocation location) {
             // 重庆市-渝中区
             historyCity = location.getProvince();
-            Log.i("zzq", "location:" + historyCity);
+            Log.i("Tanck", "location:" + historyCity);
             boolean cityChangeFlag = false;
             if (historyCity != null
                     && (historyCity.contains(specialLcoationChongqing)
@@ -796,9 +777,9 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         }
     }
 
-    @OnClick({R.id.ibtn_user, R.id.ll_right_msg, R.id.btn_scanning,
-            R.id.btn_my_wallet, R.id.btn_my_order, R.id.rl_activity_area,
-            R.id.rl_integral_mall})
+//    @OnClick({R.id.ibtn_user, R.id.ll_right_msg, R.id.btn_scanning,
+//            R.id.btn_my_wallet, R.id.btn_my_order, R.id.rl_activity_area,
+//            R.id.rl_integral_mall})
     public void onClick(View v) {
         /**
          * 快速点击忽略处理
@@ -814,28 +795,28 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
             case R.id.ll_right_msg:// 消息中心
                 isLogin(MessagerCenterActivity.class);
                 break;
-            case R.id.btn_scanning:// 扫一扫
-                OpenCamera(false);
-                break;
-            case R.id.btn_my_wallet:// 我的钱包
-                isLogin(PurseActivity.class);// PurseActivity
-                break;
-            case R.id.btn_my_order:// 我的订单
-                isLogin(MyorderActivity.class);
-                break;
-            case R.id.rl_activity_area:// 活动专区
-//                 intent.setClass(MainNewActivity.this,
-//                 InformationSecondListActivity.class);
-//                 startActivity(intent);
-                iv_home_hascoupon.setVisibility(View.GONE);
-                intent.setClass(MainNewActivity.this, CouponActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.rl_integral_mall:// 积分商城
-//                 intent.setClass(MainNewActivity.this, SCActivity.class);
-//                 startActivity(intent);
-                getDuiBaUrl();
-                break;
+//            case R.id.btn_scanning:// 扫一扫
+//                OpenCamera(false);
+//                break;
+//            case R.id.btn_my_wallet:// 我的钱包
+//                isLogin(PurseActivity.class);// PurseActivity
+//                break;
+//            case R.id.btn_my_order:// 我的订单
+//                isLogin(MyorderActivity.class);
+//                break;
+//            case R.id.rl_activity_area:// 活动专区
+////                 intent.setClass(MainNewActivity.this,
+////                 InformationSecondListActivity.class);
+////                 startActivity(intent);
+//                iv_home_hascoupon.setVisibility(View.GONE);
+//                intent.setClass(MainNewActivity.this, CouponActivity.class);
+//                startActivity(intent);
+//                break;
+//            case R.id.rl_integral_mall:// 积分商城
+////                 intent.setClass(MainNewActivity.this, SCActivity.class);
+////                 startActivity(intent);
+//                getDuiBaUrl();
+//                break;
             default:
                 break;
         }

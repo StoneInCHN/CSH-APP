@@ -59,7 +59,7 @@
     <color name="red_background">#f33620</color>
     <!-- car -->
     <!-- 白色背景点击效果 -->
-    <color name="white_clicked">#d9d9d9</color>
+    <color name="white_clicked">#ffd9d9d9</color>
     <color name="reportcircle">#c9c9c9</color>
     <color name="car_orange">#ffb540</color>
     <!-- 主界面 -->
