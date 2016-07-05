@@ -22,6 +22,7 @@ import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.LogHelper;
 
 import org.json.JSONObject;
@@ -93,15 +94,20 @@ public class NetWorkHelper {
                 LogHelper.d("request url:" + url + "\n" + params + "\n" + jsonObject.toString());
                 // TODO 超时情况
                 if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && !url.contains("login") && !url.contains("tenantInfo/list") && !url.contains("endUser/logout")) {
+
                     Toast.makeText(context.getApplicationContext(),
                             "登陆超时,正在重新登陆", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, LoginActivity.class);
                     intent.putExtra(Constant.AUTO_LOGIN, true);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
-                    ((BaseActivity) context).finish();
-                    ((BaseActivity) context).overridePendingTransition(R.anim.score_business_query_enter,
-                            R.anim.score_business_query_exit);
+                    try { // 可能出现的异常
+                        ((BaseActivity) context).finish();
+                        ((BaseActivity) context).overridePendingTransition(R.anim.score_business_query_enter,
+                                R.anim.score_business_query_exit);
+                    } catch (ClassCastException e) {
+                        ActivityControl.finishActivity(ActivityControl.getCount() - 1);
+                    }
                     return;
                 }
 
