@@ -112,7 +112,7 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_parking_space_map, null);
+        view = inflater.inflate(R.layout.fragment_parking_space_map, null);
         ViewUtils.inject(this, view);
         initBaiduview();
         moveToMelocation();
@@ -288,9 +288,9 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
             double longitude = StringUtil.getDouble(listmMaps.get(index)
                     .getLongitude());
             String addr = listmMaps.get(index).getAddr();
-            mBaiduMapView.baiduNavigation(MyMapUtils.getLatitude(baseContext),
-                    MyMapUtils.getLongitude(baseContext),
-                    MyMapUtils.getAddress(baseContext), latitude, longitude, addr);
+            mBaiduMapView.baiduNavigation(MyMapUtils.getLatitude(baseContext.getApplicationContext()),
+                    MyMapUtils.getLongitude(baseContext.getApplicationContext()),
+                    MyMapUtils.getAddress(baseContext.getApplicationContext()), latitude, longitude, addr);
         }
     }
 
@@ -380,7 +380,7 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
     }
 
     private void moveToMelocation() {
-        latLng = MyMapUtils.getLatLng(baseContext);
+        latLng = MyMapUtils.getLatLng(baseContext.getApplicationContext());
         mBaiduMap.setMyLocationEnabled(true);
         mBaiduMapView.updateOritentation(latLng, R.drawable.chedongtai_person,
                 20, 20);
@@ -610,6 +610,10 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mapView.removeAllViews();
+        mapView.onDestroy();
+        mapView = null;
+        view = null;
         baseContext.unregisterReceiver(broad);
     }
 }

@@ -93,7 +93,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     private static final int MSG_AUTH_COMPLETE = 4;
     private String smssdkAppkey = "76e53dba373b";// 三方登录key
     private String smssdkAppSecret = "5b0d10a9ef63766b8bcb1a8a3e739364";// 三方登录Secret
-//    private OnLoginListener signupListener;
+    //    private OnLoginListener signupListener;
     private Handler thirdHandler;
     // 短信验证的对话框
     private Dialog msgLoginDlg;
@@ -520,7 +520,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     protected void onDestroy() {
         super.onDestroy();
 //        SMSSDK.unregisterAllEventHandler();
-        DBTools.destory();
+        if (null != DBTools.dbTools)
+            DBTools.destory();
 //        setContentView(R.layout.null_view);
         System.gc();
     }
@@ -539,7 +540,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
 //    public void setOnLoginListener(OnLoginListener l) {
 //        this.signupListener = l;
 //    }
-
     @OnClick({R.id.left_action, R.id.login_delete, R.id.login_btn,
             R.id.login_register, R.id.ll_loginLayout,
             R.id.login_forgetpassword, R.id.login_edt_phonenumber})

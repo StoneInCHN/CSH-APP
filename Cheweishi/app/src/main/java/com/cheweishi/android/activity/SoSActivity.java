@@ -91,7 +91,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        SDKInitializer.initialize(getApplicationContext());
+//        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_sos);
         ViewUtils.inject(this);
         init();
@@ -462,6 +462,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        locationClient.unRegisterLocationListener(this);
         baiduMap.removeMarkerClickListener(this);
         baiduMap.clear();
         Sos_map.removeAllViews();

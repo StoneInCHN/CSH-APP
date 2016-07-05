@@ -1,14 +1,5 @@
 package com.cheweishi.android.fragement;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -48,20 +39,17 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaseActivity;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.MapMenssageDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.Car;
 import com.cheweishi.android.entity.CarDynamicResponse;
 import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.entity.DistanceBean;
 import com.cheweishi.android.entity.LatlngBean;
 import com.cheweishi.android.entity.SearchResponse;
-import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
@@ -70,8 +58,16 @@ import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.utils.mapUtils.LocationUtil;
 import com.cheweishi.android.widget.BaiduMapView;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /***
  * 加油站
@@ -156,7 +152,7 @@ public class GasStationMapFragment extends BaseFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mLocationUtil = new LocationUtil(baseContext,
+        mLocationUtil = new LocationUtil(baseContext.getApplicationContext(),
                 LocationUtil.SCANSPAN_TYPE_SHORT, LocationListener);
 
     }
@@ -392,13 +388,13 @@ public class GasStationMapFragment extends BaseFragment implements
     protected void bottomShowDistance(ReverseGeoCodeResult result) {
         if (isDraw) {
             String distance1 = sortList.get(0).get("distance");
-            System.out.println(distance1);
+//            System.out.println(distance1);
             mDistanceTextView.setText(distance1 + "");
         } else {
             LatLng latLng = MyMapUtils.getLatLng(baseContext);
             double distance1 = DistanceUtil.getDistance(latLng,
                     result.getLocation());
-            System.out.println(distance1);
+//            System.out.println(distance1);
             mDistanceTextView.setText((int) distance1 + "");
         }
     }
@@ -967,7 +963,7 @@ public class GasStationMapFragment extends BaseFragment implements
                 param.put("userId", loginResponse.getDesc());
                 param.put("token", loginResponse.getToken());
                 param.put("keyWord", "加油站");
-                param.put("longitude",arg0.getLocation().longitude);
+                param.put("longitude", arg0.getLocation().longitude);
                 param.put("latitude", arg0.getLocation().latitude);
                 param.put(Constant.PARAMETER_TAG, NetInterface.SEARCH);
                 netWorkHelper.PostJson(url, param, GasStationMapFragment.this);
@@ -1014,8 +1010,11 @@ public class GasStationMapFragment extends BaseFragment implements
 
     @Override
     public void onDestroy() {
-        mBaiduMap.setMyLocationEnabled(false);
+        getGeoCoderResultListener = null;
         mLocationUtil.onDestory();
+        mLocationUtil = null;
+        LocationListener = null;
+        mBaiduMap.setMyLocationEnabled(false);
         mBaiduMap.clear();
         mMapView.onDestroy();
         mMapView = null;

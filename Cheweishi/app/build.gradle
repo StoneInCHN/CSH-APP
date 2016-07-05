@@ -13,10 +13,10 @@ android {
     }
     signingConfigs {
         dbgKey {
-            storeFile file('E:/carlife/CSH-APP/Cheweishi/csh_app.jks')
-            storePassword "111111"
-            keyAlias "csh"
-            keyPassword "111111"
+            storeFile file('E:/carlife/CSH-APP/Cheweishi/csh_app_latest.jks')
+            storePassword "ditoo2003C"
+            keyAlias "cheshenghuo"
+            keyPassword "wksh2014C"
         }
     }
     buildTypes {

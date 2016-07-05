@@ -581,11 +581,13 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         switch (TAG) {
             case NetInterface.LIST + "HOME":
                 ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
-                if (null != response && response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                if(null== response)
+                    return;
+                if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     // TODO 成功
                     setTitle(response.getDesc());
                     showData(response);
-                } else if (response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
+                } else if ( response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
                     // TODO 超时
                     Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
                     intent.putExtra(Constant.AUTO_LOGIN, true);
@@ -639,7 +641,10 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
 
             case NetInterface.SET_ID:
                 PushResponse baseResponse = (PushResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PushResponse.class);
-                if (null != baseResponse && !baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                if(null == baseResponse)
+                    return;
+
+                if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(baseResponse.getDesc());
                     return;
                 }
@@ -661,7 +666,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
                 }
 
                 loginResponse.setToken(baseResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
 
             case NetInterface.GET_DUIBA_LOGIN_URL: // 获取兑吧url

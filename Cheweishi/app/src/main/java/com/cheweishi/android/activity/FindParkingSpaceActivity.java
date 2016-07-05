@@ -109,7 +109,7 @@ public class FindParkingSpaceActivity extends BaseActivity {
         left_action.setText(R.string.back);
         title.setText("附近车位");
         right_action.setImageResource(R.drawable.zhaochewei_sousuo);
-        latLng = MyMapUtils.getLatLng(this);
+        latLng = MyMapUtils.getLatLng(getApplicationContext());
         mapFragment = new FindParkingSpaceMapFragment();
         baseFragment = mapFragment;
         fragmentManager = getSupportFragmentManager();
@@ -144,8 +144,8 @@ public class FindParkingSpaceActivity extends BaseActivity {
     protected void moveToPerson() {
         // isDefult = false;
         // moveTolocation();
-        if (MyMapUtils.getProvince(this) != null
-                && MyMapUtils.getProvince(this).equals(PROVINCE)) {
+        if (MyMapUtils.getProvince(getApplicationContext()) != null
+                && MyMapUtils.getProvince(getApplicationContext()).equals(PROVINCE)) {
             type = "cq";
         } else {
             type = "qt";
@@ -213,7 +213,7 @@ public class FindParkingSpaceActivity extends BaseActivity {
             title.setTextColor(getResources().getColor(
                     R.color.orange));
             title.setTextSize(20);
-            latLng = MyMapUtils.getLatLng(this);
+            latLng = MyMapUtils.getLatLng(getApplicationContext());
             request();
         }
 
@@ -504,4 +504,11 @@ public class FindParkingSpaceActivity extends BaseActivity {
 //		return latLng;
 //	}
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        latLng = null;
+        System.gc();
+    }
 }
