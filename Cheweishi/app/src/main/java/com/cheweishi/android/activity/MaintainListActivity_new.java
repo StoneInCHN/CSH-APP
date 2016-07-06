@@ -290,8 +290,8 @@ public class MaintainListActivity_new extends BaseActivity implements
 
     @Override
     protected void onDestroy() {
-        // TODO Auto-generated method stub
         super.onDestroy();
+        EmptyTools.destory();
     }
 
     @Override

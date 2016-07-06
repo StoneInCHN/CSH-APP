@@ -48,6 +48,10 @@ import com.cheweishi.android.entity.MainGridInfo;
 import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.PushResponse;
 import com.cheweishi.android.entity.ServiceListResponse;
+import com.cheweishi.android.fragement.HomeFragment;
+import com.cheweishi.android.fragement.MyFragment;
+import com.cheweishi.android.fragement.NewsFragment;
+import com.cheweishi.android.fragement.StoreFragment;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
@@ -97,7 +101,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
     // title左边按钮
     public static ImageView ibtn_user;
 
-//    @ViewInject(R.id.gv_service)
+    //    @ViewInject(R.id.gv_service)
     // 服务模块gridview
     private UnslidingGridView gv_service;
 
@@ -105,31 +109,31 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
     // 滚动广告模块
     private MyGallery mygallery;
 
-//    @ViewInject(R.id.img_activity_area)
+    //    @ViewInject(R.id.img_activity_area)
     // 活动专区图片
     private ImageView img_activity_area;
 
-//    @ViewInject(R.id.tv_activity_area)
+    //    @ViewInject(R.id.tv_activity_area)
     // 活动专区name
     private TextView tv_activity_area;
 
-//    @ViewInject(R.id.tv_area_content)
+    //    @ViewInject(R.id.tv_area_content)
     // 活动专区内容
     private TextView tv_area_content;
 
-//    @ViewInject(R.id.img_integral_mall)
+    //    @ViewInject(R.id.img_integral_mall)
     // 积分商城图片
     private ImageView img_integral_mall;
 
-//    @ViewInject(R.id.tv_integral_mall)
+    //    @ViewInject(R.id.tv_integral_mall)
     // 积分商城name
     private TextView tv_integral_mall;
 
-//    @ViewInject(R.id.tv_integral_mall_content)
+    //    @ViewInject(R.id.tv_integral_mall_content)
     // 积分商城内容
     private TextView tv_integral_mall_content;
 
-//    @ViewInject(R.id.list_business)
+    //    @ViewInject(R.id.list_business)
     // 商家列表
     private UnSlidingListView list_business;
 
@@ -144,7 +148,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
 //    @ViewInject(R.id.refresh_scrollview)
     private PullToRefreshScrollView refresh_scrollview;
 
-//    @ViewInject(R.id.iv_home_hascoupon)
+    //    @ViewInject(R.id.iv_home_hascoupon)
     private ImageView iv_home_hascoupon;// 活动中心按钮
 
     private MainGridViewAdapter gridViewAdapter;// gv_service适配器
@@ -194,18 +198,33 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
     private CustomDialog.Builder builder;
     private CustomDialog versionDialog;
 
+
+    private HomeFragment home;
+    private StoreFragment store;
+    private NewsFragment news;
+    private MyFragment my;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewUtils.inject(this);
         StatusBarCompat2.setStatusBarColor(this);
         instance = this;
-
 //        initScrollView();
-        iniBaiduNavi();
-        initLocation();
+//        iniBaiduNavi();
 //        initData();
+        initLocation();
 
+        initContent();
+
+    }
+
+    private void initContent() {
+        home = new HomeFragment();
+        store = new StoreFragment();
+        news = new NewsFragment();
+        my = new MyFragment();
+        InitHomeFragment(R.id.fl_home_content, home, store, news, my);
     }
 
 
@@ -777,7 +796,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         }
     }
 
-//    @OnClick({R.id.ibtn_user, R.id.ll_right_msg, R.id.btn_scanning,
+    //    @OnClick({R.id.ibtn_user, R.id.ll_right_msg, R.id.btn_scanning,
 //            R.id.btn_my_wallet, R.id.btn_my_order, R.id.rl_activity_area,
 //            R.id.rl_integral_mall})
     public void onClick(View v) {
@@ -1017,7 +1036,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
             unregisterReceiver(broad);
         }
         instance = null;
-        mygallery.destroy();
+//        mygallery.destroy();
     }
 
     private class MyBroadcastReceiver extends BroadcastReceiver {
