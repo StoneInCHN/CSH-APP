@@ -392,12 +392,12 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void
     receive(String TAG, String data) {
-        ProgrosDialog.closeProgrosDialog();
         switch (TAG) {
             case NetInterface.LIST + "HOME":
                 ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
                 if (null == response)
                     return;
+                requestAdv();
                 if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     // TODO 成功
                     setTitle(response.getDesc());
@@ -413,16 +413,15 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                     return;
                 }
 
-                loginResponse.setToken(response.getToken());
+//                loginResponse.setToken(response.getToken());
 //                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-                requestAdv();
                 break;
 
             case NetInterface.HOME_ADV:
-
                 AdvResponse advResponse = (AdvResponse) GsonUtil.getInstance().convertJsonStringToObject(data, AdvResponse.class);
                 if (null == advResponse)
                     return;
+                setJpush();
                 if (!advResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(advResponse.getDesc());
                     return;
@@ -448,12 +447,12 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                     }
                 }
                 showData(advResponse);
-                loginResponse.setToken(advResponse.getToken());
+//                loginResponse.setToken(advResponse.getToken());
 //                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
 
-                setTitleLeft();
-                setJpush();
+//                setTitleLeft();
+//                setJpush();
                 break;
 
             case NetInterface.SET_ID:
@@ -482,10 +481,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 }
 
                 loginResponse.setToken(baseResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                ProgrosDialog.closeProgrosDialog();
                 break;
 
             case NetInterface.GET_DUIBA_LOGIN_URL: // 获取兑吧url
+                ProgrosDialog.closeProgrosDialog();
                 BaseResponse duibaResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
                 if (!duibaResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(duibaResponse.getDesc());
@@ -504,24 +504,28 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
                 break;
             case "SOS": // 紧急救援
+                ProgrosDialog.closeProgrosDialog();
                 LoginResponse sos = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = sos;
                 LoginMessageUtils.saveloginmsg(baseContext, sos);
                 isLoginOrHasCar(SoSActivity.class);
                 break;
             case "CAR_DYNAMIC":// 车辆动态
+                ProgrosDialog.closeProgrosDialog();
                 LoginResponse carDynamic = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = carDynamic;
                 LoginMessageUtils.saveloginmsg(baseContext, carDynamic);
                 isLoginOrHasCar(CarDynamicActivity.class);
                 break;
             case "CAR_DETECTION":// 一键检测
+                ProgrosDialog.closeProgrosDialog();
                 LoginResponse carDetection = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = carDetection;
                 LoginMessageUtils.saveloginmsg(baseContext, carDetection);
                 isLoginOrHasCar(CarDetectionActivity.class);
                 break;
             case "PESSANY":// 违章查询
+                ProgrosDialog.closeProgrosDialog();
                 LoginResponse pessany = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = pessany;
                 LoginMessageUtils.saveloginmsg(baseContext, pessany);
@@ -795,9 +799,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-/**
- * 快速点击忽略处理
- */
+        /**
+         * 快速点击忽略处理
+         */
         if (ButtonUtils.isFastClick()) {
             return;
         }
@@ -876,6 +880,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void onDestroy() {
         super.onDestroy();
+        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         mygallery.destroy();
     }
 

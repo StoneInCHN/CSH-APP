@@ -17,6 +17,7 @@
             android:layout_height="@dimen/title_height"
             android:padding="@dimen/sidebar_text_size"
             android:scaleType="centerCrop"
+            android:visibility="invisible"
             android:src="@drawable/tianjiacar_img2x" />
 
         <TextView
