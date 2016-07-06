@@ -123,8 +123,8 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
-        param.put("latitude", MyMapUtils.getLatitude(baseContext));
-        param.put("longitude", MyMapUtils.getLongitude(baseContext));
+        param.put("latitude", MyMapUtils.getLatitude(getApplicationContext()));
+        param.put("longitude", MyMapUtils.getLongitude(getApplicationContext()));
         param.put("serviceCategoryId", 4); // 紧急救援
         param.put("pageSize", 5);
         param.put("pageNumber", 1);
