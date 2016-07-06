@@ -1,7 +1,6 @@
 package com.cheweishi.android.fragement;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -19,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.lbsapi.auth.LBSAuthManagerListener;
@@ -29,6 +28,7 @@ import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.BeautyListActivity_new;
 import com.cheweishi.android.activity.CarDetectionActivity;
 import com.cheweishi.android.activity.CarDynamicActivity;
+import com.cheweishi.android.activity.CouponActivity;
 import com.cheweishi.android.activity.CreditActivity;
 import com.cheweishi.android.activity.FindParkingSpaceActivity;
 import com.cheweishi.android.activity.GasStationActivity;
@@ -70,8 +70,6 @@ import com.cheweishi.android.widget.UnSlidingListView;
 import com.cheweishi.android.widget.UnslidingGridView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,7 +84,7 @@ import cn.jpush.android.api.TagAliasCallback;
 /**
  * Created by tangce on 7/6/2016.
  */
-public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
 
     public static TextView tv_home_title;
@@ -97,23 +95,29 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     // 滚动广告模块
     private MyGallery mygallery;
 
-    // 活动专区图片
-    private ImageView img_activity_area;
+//    // 活动专区图片
+//    private ImageView img_activity_area;
+//
+//    // 活动专区name
+//    private TextView tv_activity_area;
+//
+//    // 活动专区内容
+//    private TextView tv_area_content;
+//
+//    // 积分商城图片
+//    private ImageView img_integral_mall;
+//
+//    // 积分商城name
+//    private TextView tv_integral_mall;
+//
+//    // 积分商城内容
+//    private TextView tv_integral_mall_content;
 
-    // 活动专区name
-    private TextView tv_activity_area;
+    //活动专区
+    private RelativeLayout rl_activity_area;
 
-    // 活动专区内容
-    private TextView tv_area_content;
-
-    // 积分商城图片
-    private ImageView img_integral_mall;
-
-    // 积分商城name
-    private TextView tv_integral_mall;
-
-    // 积分商城内容
-    private TextView tv_integral_mall_content;
+    // 积分商城
+    private RelativeLayout rl_integral_mall;
 
     // 商家列表
     private UnSlidingListView list_business;
@@ -131,34 +135,14 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private ImgAdapter imgAdapter;// mygrallery适配器
     private List<MainGridInfo> gridInfos;
 
-    // private List<Integer> adList;
     private ArrayList<ImageView> portImg;
-    private List<MainSellerInfo> sellerInfos;
 
-    private List<ADInfo> adInfos;// 广告数据
-
-    /**
-     * 定位工具
-     */
-    private LocationUtil mLocationUtil;
-    private SharedPreferences spLocation;
-    private String historyCity;
-
-    private String specialLcoationChongqing;
-    private String specialLcoationBeijing;
-    private String specialLcoationTianjin;
-    private String specialLcoationShanghai;
-    private String specialLcoationHongKong;
-    private String specialLcoationAomen;
 
     private String app_new_download_url = "";
     private String compel;
 
-    private Intent intent;
+    private Intent intent = new Intent();
 
-//    public static MainNewActivity instance;
-//
-//    private MyBroadcastReceiver broad;
 
     private int preSelImgIndex = 0;
 
@@ -193,27 +177,34 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         mygallery = (MyGallery) view.findViewById(R.id.mygallery);
 
-        img_activity_area = (ImageView) view.findViewById(R.id.img_activity_area);
-
-        tv_activity_area = (TextView) view.findViewById(R.id.tv_activity_area);
-
-        tv_area_content = (TextView) view.findViewById(R.id.tv_area_content);
-
-        img_integral_mall = (ImageView) view.findViewById(R.id.img_integral_mall);
-
-        tv_integral_mall = (TextView) view.findViewById(R.id.tv_integral_mall);
-
-        tv_integral_mall_content = (TextView) view.findViewById(R.id.tv_integral_mall_content);
+//        img_activity_area = (ImageView) view.findViewById(R.id.img_activity_area);
+//
+//        tv_activity_area = (TextView) view.findViewById(R.id.tv_activity_area);
+//
+//        tv_area_content = (TextView) view.findViewById(R.id.tv_area_content);
+//
+//        img_integral_mall = (ImageView) view.findViewById(R.id.img_integral_mall);
+//
+//        tv_integral_mall = (TextView) view.findViewById(R.id.tv_integral_mall);
+//
+//        tv_integral_mall_content = (TextView) view.findViewById(R.id.tv_integral_mall_content);
 
         list_business = (UnSlidingListView) view.findViewById(R.id.list_business);
 
         ll_focus_indicator_container = (LinearLayout) view.findViewById(R.id.ll_focus_indicator_container);
+
+        rl_activity_area = (RelativeLayout) view.findViewById(R.id.rl_activity_area);
+
+        rl_integral_mall = (RelativeLayout) view.findViewById(R.id.rl_integral_mall);
 
         // 可下拉刷新的scrollview
         refresh_scrollview = (PullToRefreshScrollView) view.findViewById(R.id.refresh_scrollview);
 
 
         iv_home_hascoupon = (ImageView) view.findViewById(R.id.iv_home_hascoupon);
+
+        rl_activity_area.setOnClickListener(this);
+        rl_integral_mall.setOnClickListener(this);
 
 
         initScrollView();
@@ -810,7 +801,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         if (ButtonUtils.isFastClick()) {
             return;
         }
-        intent = new Intent();
         switch (position) {
             case 0:// 买车险
 //                showToast("此功能正在开发中,敬请期待...");
@@ -887,5 +877,30 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onDestroy() {
         super.onDestroy();
         mygallery.destroy();
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rl_activity_area:// 活动专区
+                iv_home_hascoupon.setVisibility(View.GONE);
+                intent.setClass(baseContext, CouponActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_integral_mall:// 积分商城
+                getDuiBaUrl();
+                break;
+        }
+    }
+
+    private void getDuiBaUrl() {
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_DUIBA + NetInterface.GET_DUIBA_LOGIN_URL + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put(Constant.PARAMETER_TAG, NetInterface.GET_DUIBA_LOGIN_URL);
+        netWorkHelper.PostJson(url, param, this);
     }
 }

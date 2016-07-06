@@ -92,7 +92,7 @@ import cn.jpush.android.api.TagAliasCallback;
  * @author mingdasen
  */
 @ContentView(R.layout.activity_main2)
-public class MainNewActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class MainNewActivity extends BaseActivity {
 
     @ViewInject(R.id.tv_home_title)
     public static TextView tv_home_title;
@@ -101,66 +101,9 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
     // title左边按钮
     public static ImageView ibtn_user;
 
-    //    @ViewInject(R.id.gv_service)
-    // 服务模块gridview
-    private UnslidingGridView gv_service;
-
-    @ViewInject(R.id.mygallery)
-    // 滚动广告模块
-    private MyGallery mygallery;
-
-    //    @ViewInject(R.id.img_activity_area)
-    // 活动专区图片
-    private ImageView img_activity_area;
-
-    //    @ViewInject(R.id.tv_activity_area)
-    // 活动专区name
-    private TextView tv_activity_area;
-
-    //    @ViewInject(R.id.tv_area_content)
-    // 活动专区内容
-    private TextView tv_area_content;
-
-    //    @ViewInject(R.id.img_integral_mall)
-    // 积分商城图片
-    private ImageView img_integral_mall;
-
-    //    @ViewInject(R.id.tv_integral_mall)
-    // 积分商城name
-    private TextView tv_integral_mall;
-
-    //    @ViewInject(R.id.tv_integral_mall_content)
-    // 积分商城内容
-    private TextView tv_integral_mall_content;
-
-    //    @ViewInject(R.id.list_business)
-    // 商家列表
-    private UnSlidingListView list_business;
-
-    @ViewInject(R.id.ll_focus_indicator_container)
-    // 小圆点容器
-    private LinearLayout ll_focus_indicator_container;
-
     @ViewInject(R.id.tv_msg_center_num)
     public static TextView tv_msg_center_num;//消息数量
 
-    // 可下拉刷新的scrollview
-//    @ViewInject(R.id.refresh_scrollview)
-    private PullToRefreshScrollView refresh_scrollview;
-
-    //    @ViewInject(R.id.iv_home_hascoupon)
-    private ImageView iv_home_hascoupon;// 活动中心按钮
-
-    private MainGridViewAdapter gridViewAdapter;// gv_service适配器
-    private MainListViewAdapter listViewAdapter;// list_business适配器
-    private ImgAdapter imgAdapter;// mygrallery适配器
-    private List<MainGridInfo> gridInfos;
-
-    // private List<Integer> adList;
-    private ArrayList<ImageView> portImg;
-    private List<MainSellerInfo> sellerInfos;
-
-    private List<ADInfo> adInfos;// 广告数据
 
     /**
      * 定位工具
@@ -178,26 +121,6 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
 
     public static MainNewActivity instance;
 
-    private MyBroadcastReceiver broad;
-
-    private int preSelImgIndex = 0;
-
-    //    private String[] name = {"美容", "保养", "买车险", "紧急救援", "找加油站", "", "", "找车位",
-//            "车辆动态", "一键检测", "违章查询", "更多"};
-    private String[] name = {"买车险", "洗车", "紧急救援", "保养", "找加油站", "", "", "美容",
-            "车辆动态", "一键检测", "违章查询", "找车位"};
-    //    private int[] icon = {R.drawable.meirong, R.drawable.baoyang,
-//            R.drawable.xian, R.drawable.jinjijiuyuan, R.drawable.jiayouzhan,
-//            0, 0, R.drawable.chewei, R.drawable.dongtai, R.drawable.jiance,
-//            R.drawable.weizhang, R.drawable.chewei};
-    private int[] icon = {R.drawable.xian, R.drawable.xiche,
-            R.drawable.jinjijiuyuan, R.drawable.baoyang, R.drawable.jiayouzhan,
-            0, 0, R.drawable.meirong, R.drawable.dongtai, R.drawable.jiance,
-            R.drawable.weizhang, R.drawable.chewei};
-
-    private CustomDialog.Builder builder;
-    private CustomDialog versionDialog;
-
 
     private HomeFragment home;
     private StoreFragment store;
@@ -210,9 +133,6 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         ViewUtils.inject(this);
         StatusBarCompat2.setStatusBarColor(this);
         instance = this;
-//        initScrollView();
-//        iniBaiduNavi();
-//        initData();
         initLocation();
 
         initContent();
@@ -228,207 +148,11 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
     }
 
 
-    /**
-     * 极光推送设置
-     */
-    private void setJpush() {
-        if (LoginMessageUtils.getPush(baseContext))
-            JPushInterface.resumePush(baseContext);
-        // 获取极光推送
-        String alias = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE))
-                .getDeviceId();
-        JPushInterface.setAlias(getApplicationContext(), alias, mTagsCallback);
-        String JPushId = JPushInterface.getRegistrationID(this);
-        LogHelper.d("=JPushRegistrationID==" + JPushId + "==alias=" + alias);
-
-        if (null != JPushId && !"".equals(JPushId)) {
-            String url = NetInterface.BASE_URL + NetInterface.TEMP_JPUSH + NetInterface.SET_ID + NetInterface.SUFFIX;
-            Map<String, Object> param = new HashMap<>();
-            param.put("userId", loginResponse.getDesc());
-            param.put("token", loginResponse.getToken());
-            param.put("piWidth", ScreenUtils.getScreenWidth(this));
-            param.put("piHeight", ScreenUtils.getScreenHeight(this));
-            param.put("appPlatform", "ANDROID"); // TODO 暂时不加
-            param.put("regId", JPushId);
-            param.put("versionCode", APPTools.getVersionCode(baseContext));
-            param.put(Constant.PARAMETER_TAG, NetInterface.SET_ID);
-            netWorkHelper.PostJson(url, param, this);
-        }
-    }
-
-    /**
-     * 设置极光推送标签
-     */
-    private void setJpushTags() {
-        if (!StringUtil.isEmpty(Constant.JPUSH_TAGS)) {
-            Set<String> tagSet = new LinkedHashSet<String>();
-            String[] sArray = Constant.JPUSH_TAGS.split(",");
-            for (String sTagItme : sArray) {
-                tagSet.add(sTagItme);
-            }
-            JPushInterface.setTags(getApplicationContext(), tagSet,
-                    mTagsCallback);
-        }
-    }
-
-    private final TagAliasCallback mTagsCallback = new TagAliasCallback() {
-        @Override
-        public void gotResult(int code, String alias, Set<String> tags) {
-            String logs;
-            switch (code) {
-                case 0:
-                    logs = "Set tag and alias success";
-                    Log.i("Tanck", logs);
-                    if (!StringUtil.isEmpty(alias)) {
-                        LogHelper.d("==alias=" + alias);
-                    }
-
-                    if (!StringUtil.isEmpty(tags)) {
-                        LogHelper.d("==tags=" + tags.toString());
-                    }
-                    break;
-
-                case 6002:
-                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
-                    LogHelper.d(logs);
-                    if (!StringUtil.isEmpty(alias)) {
-                        mHandler.sendMessageDelayed(
-                                mHandler.obtainMessage(MSG_SET_ALIAS, alias),
-                                1000 * 60);
-                    }
-                    if (!StringUtil.isEmpty(tags)) {
-                        mHandler.sendMessageDelayed(
-                                mHandler.obtainMessage(MSG_SET_TAGS, tags),
-                                1000 * 60);
-                    }
-                    break;
-
-                default:
-                    logs = "Failed with errorCode = " + code;
-                    LogHelper.d(logs);
-            }
-        }
-    };
-
-    private static final int MSG_SET_ALIAS = 1001;
-    private static final int MSG_SET_TAGS = 1002;
-
-    private final Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(android.os.Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case MSG_SET_ALIAS:
-                    Log.d("Tanck", "Set alias in handler.");
-                    JPushInterface.setAlias(getApplicationContext(),
-                            (String) msg.obj, mTagsCallback);
-                    break;
-
-                case MSG_SET_TAGS:
-                    Log.d("Tanck", "Set tags in handler.");
-                    JPushInterface.setTags(getApplicationContext(),
-                            (Set<String>) msg.obj, mTagsCallback);
-                    break;
-
-                default:
-                    Log.i("Tanck", "Unhandled msg - " + msg.what);
-            }
-        }
-    };
-
-    /**
-     * 初始化ScrollView
-     */
-    @SuppressWarnings("unchecked")
-    private void initScrollView() {
-
-        // 上拉、下拉设定
-        // refresh_scrollview.setMode(Mode.MANUAL_REFRESH_ONLY);
-
-        refresh_scrollview.setOnRefreshListener(new OnRefreshListener() {
-
-            @Override
-            public void onRefresh(PullToRefreshBase refreshView) {
-
-                // 执行刷新函数
-//                new GetDataTask().execute();
-                getMainData();
-                refresh_scrollview.onRefreshComplete();
-            }
-
-        });
-    }
-
-    private class GetDataTask extends AsyncTask<Void, Void, String[]> {
-
-        @Override
-        protected String[] doInBackground(Void... params) {
-            // Simulates a background job.
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String[] result) {
-            // Do some stuff here
-
-            // Call onRefreshComplete when the list has been refreshed.
-            refresh_scrollview.onRefreshComplete();
-            super.onPostExecute(result);
-        }
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        if (broad == null) {
-            broad = new MyBroadcastReceiver();
-        }
-        IntentFilter intentFilter = new IntentFilter(Constant.REFRESH_FLAG);
-        registerReceiver(broad, intentFilter);
-
-//        setJpush();
-        setJpushTags();
     }
 
-    /**
-     * 初始化百度导航
-     */
-    private void iniBaiduNavi() {
-        // 初始化导航引擎
-        BaiduNaviManager.getInstance().initEngine(this,
-
-                getSdcardDir(), mNaviEngineInitListener, new LBSAuthManagerListener() {
-                    @Override
-                    public void onAuthResult(int status, String msg) {
-                    }
-                });
-    }
-
-    private NaviEngineInitListener mNaviEngineInitListener = new NaviEngineInitListener() {
-        public void engineInitSuccess() {
-            Log.i("Tanck", "=========engineInitSuccess=========");
-        }
-
-        public void engineInitStart() {
-            Log.i("Tanck", "=========engineInitStart=========");
-        }
-
-        public void engineInitFail() {
-            Log.i("Tanck", "=========engineInitFail=========");
-        }
-    };
-
-    private String getSdcardDir() {
-        if (Environment.getExternalStorageState().equalsIgnoreCase(
-                Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().toString();
-        }
-        return null;
-    }
 
     @Override
     protected void onStart() {
@@ -479,261 +203,6 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         }
     };
 
-    /**
-     * 加载数据
-     */
-    private void initData() {
-
-        gridInfos = new ArrayList<MainGridInfo>();
-        for (int i = 0; i < 12; i++) {
-            MainGridInfo gridInfo = new MainGridInfo();
-            gridInfo.setName(name[i]);
-            gridInfo.setImgId(icon[i]);
-//            gridInfo.setImgUrl("asdasdas");// TODO:暂无可配图片地址
-            gridInfos.add(gridInfo);
-        }
-        gridViewAdapter = new MainGridViewAdapter(this, gridInfos);
-        gv_service.setAdapter(gridViewAdapter);
-        gv_service.setOnItemClickListener(this);
-        initLocation();
-        getMainData();
-    }
-
-
-    private void showData(ServiceListResponse response) {
-        setJpushTags();
-        listViewAdapter = new MainListViewAdapter(this, response.getMsg());
-        list_business.setAdapter(listViewAdapter);
-    }
-
-    /**
-     * 显示数据
-     */
-    private void showData(final AdvResponse advResponse) {
-
-        // TODO 更新广告
-        InitFocusIndicatorContainer(advResponse);
-        imgAdapter = new ImgAdapter(MainNewActivity.this, advResponse, -1);
-        mygallery.setAdapter(imgAdapter);
-        mygallery.setFocusable(true);
-        mygallery.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int selIndex, long arg3) {
-//                LogHelper.d("arg3:" + arg3 + "current:" + preSelImgIndex + "---selIndex:" + selIndex + "---size:" + advResponse.getMsg().size());
-                if (advResponse.getMsg() != null && advResponse.getMsg().size() > 0) {
-                    selIndex = selIndex % advResponse.getMsg().size();
-                    portImg.get(preSelImgIndex).setImageResource(
-                            R.drawable.lunbo_dian);
-                    portImg.get(selIndex).setImageResource(
-                            R.drawable.lunbo_dian_click);
-                    preSelImgIndex = selIndex;
-                }
-            }
-
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-    }
-
-    /**
-     * // TODO 发送请求
-     * 获取主界面的数据
-     */
-    private void getMainData() {
-
-        if (!isLogined()) {
-            Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
-            startActivity(intent);
-            return;
-        }
-
-        applyAdmin(Manifest.permission.ACCESS_FINE_LOCATION, MY_LOCATION_PREMESSION);
-        applyAdmin(Manifest.permission.ACCESS_COARSE_LOCATION, MY_LOCATION_PREMESSION);
-        ProgrosDialog.openDialog(this);
-        String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
-        Map<String, Object> param = new HashMap<>();
-        param.put("userId", loginResponse.getDesc());
-        LogHelper.d("----send:" + loginResponse.getToken());
-        param.put("token", loginResponse.getToken());
-        param.put("latitude", MyMapUtils.getLatitude(this));//维度
-//        param.put("latitude", "10");//维度
-        param.put("longitude", MyMapUtils.getLongitude(this));//经度
-//        param.put("longitude", "10");//经度
-        /**
-         * 1保养
-         2	洗车
-         3	维修
-         4	紧急救援
-         5	美容
-         */
-        param.put("serviceCategoryId", 2); // TODO 目前只有一种
-        param.put("pageSize", 5);
-        param.put("pageNumber", 1);
-        param.put(Constant.PARAMETER_TAG, NetInterface.LIST + "HOME");
-        netWorkHelper.PostJson(url, param, this);
-    }
-
-    @Override
-    public void
-    receive(String TAG, String data) {
-        ProgrosDialog.closeProgrosDialog();
-        switch (TAG) {
-            case NetInterface.LIST + "HOME":
-                ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
-                if(null== response)
-                    return;
-                if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-                    // TODO 成功
-                    setTitle(response.getDesc());
-                    showData(response);
-                } else if ( response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
-                    // TODO 超时
-                    Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
-                    intent.putExtra(Constant.AUTO_LOGIN, true);
-                    startActivity(intent);
-                    this.finish();
-                    overridePendingTransition(R.anim.score_business_query_enter,
-                            R.anim.score_business_query_exit);
-                    return;
-                }
-
-                loginResponse.setToken(response.getToken());
-//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-                requestAdv();
-                break;
-
-            case NetInterface.HOME_ADV:
-
-                AdvResponse advResponse = (AdvResponse) GsonUtil.getInstance().convertJsonStringToObject(data, AdvResponse.class);
-                if (!advResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-                    showToast(advResponse.getDesc());
-                    return;
-                }
-
-                // TODO 更新消息UI
-                if (null != advResponse.getDesc() && !"".equals(advResponse.getDesc())) {
-                    int number = 0;
-                    try { // 屏蔽高并发的时候
-                        number = Integer.valueOf(advResponse.getDesc());
-                    } catch (Exception e) {
-                        return;
-                    }
-                    if (0 < number) {
-                        tv_msg_center_num.setVisibility(View.VISIBLE);
-                        if (number <= 99)
-                            tv_msg_center_num.setText(advResponse.getDesc());
-                        else
-                            tv_msg_center_num.setText("99+");
-                    } else {
-                        tv_msg_center_num.setText("0");
-                        tv_msg_center_num.setVisibility(View.GONE);
-                    }
-                }
-                showData(advResponse);
-                loginResponse.setToken(advResponse.getToken());
-//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-
-
-                setTitleLeft();
-                setJpush();
-                break;
-
-            case NetInterface.SET_ID:
-                PushResponse baseResponse = (PushResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PushResponse.class);
-                if(null == baseResponse)
-                    return;
-
-                if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-                    showToast(baseResponse.getDesc());
-                    return;
-                }
-
-//                if (null != baseResponse.getMsg().getHomeAdvUrl() && !"".equals(baseResponse.getMsg().getHomeAdvUrl())) {
-                SharePreferenceTools.setPhoneUrl(baseContext, baseResponse.getMsg().getHomeAdvUrl());
-//                }
-
-                if (null != baseResponse.getMsg()) {
-                    if (null != baseResponse.getMsg().getApkPath() && !"".equals(baseResponse.getMsg().getApkPath())) {
-                        app_new_download_url = baseResponse.getMsg().getApkPath();
-                        if (baseResponse.getMsg().isForced())
-                            compel = "0";
-                        showVersionDialog(baseResponse.getMsg().getUpdateContent());
-                    }
-                    if (baseResponse.getMsg().isHasCoupon()) { // 是否有优惠券可领取
-                        iv_home_hascoupon.setVisibility(View.VISIBLE);
-                    }
-                }
-
-                loginResponse.setToken(baseResponse.getToken());
-//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-                break;
-
-            case NetInterface.GET_DUIBA_LOGIN_URL: // 获取兑吧url
-                BaseResponse duibaResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
-                if (!duibaResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-                    showToast(duibaResponse.getDesc());
-                    return;
-                }
-
-                if (null != duibaResponse.getDesc() && !"".equals(duibaResponse.getDesc())) {
-//                    Intent duiba = new Intent(baseContext, WebActivity.class);
-//                    duiba.putExtra("url", duibaResponse.getDesc());
-//                    startActivity(duiba);
-                    goDuiba(duibaResponse.getDesc());
-                }
-
-                loginResponse.setToken(duibaResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-
-                break;
-            case "SOS": // 紧急救援
-                LoginResponse sos = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
-                loginResponse = sos;
-                LoginMessageUtils.saveloginmsg(baseContext, sos);
-                isLoginOrHasCar(SoSActivity.class);
-                break;
-            case "CAR_DYNAMIC":// 车辆动态
-                LoginResponse carDynamic = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
-                loginResponse = carDynamic;
-                LoginMessageUtils.saveloginmsg(baseContext, carDynamic);
-                isLoginOrHasCar(CarDynamicActivity.class);
-                break;
-            case "CAR_DETECTION":// 一键检测
-                LoginResponse carDetection = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
-                loginResponse = carDetection;
-                LoginMessageUtils.saveloginmsg(baseContext, carDetection);
-                isLoginOrHasCar(CarDetectionActivity.class);
-                break;
-            case "PESSANY":// 违章查询
-                LoginResponse pessany = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
-                loginResponse = pessany;
-                LoginMessageUtils.saveloginmsg(baseContext, pessany);
-                isLoginOrHasCar_New(PessanySearchActivity.class);
-                break;
-        }
-
-
-    }
-
-    private void goDuiba(String url) {
-        Intent intent = new Intent();
-        intent.setClass(baseContext, CreditActivity.class);
-        intent.putExtra("navColor", "#FFFFFF");    //配置导航条的背景颜色，请用#ffffff长格式。
-        intent.putExtra("titleColor", "#484848");    //配置导航条标题的颜色，请用#ffffff长格式。
-        intent.putExtra("url", url);    //配置自动登陆地址，每次需服务端动态生成。
-        startActivity(intent);
-    }
-
-
-    private void requestAdv() {
-        String url = NetInterface.BASE_URL + NetInterface.TEMP_ADV_URL + NetInterface.HOME_ADV + NetInterface.SUFFIX;
-        Map<String, Object> param = new HashMap<>();
-        param.put("userId", loginResponse.getDesc());
-        param.put("token", loginResponse.getToken());
-        param.put(Constant.PARAMETER_TAG, NetInterface.HOME_ADV);
-        netWorkHelper.PostJson(url, param, this);
-    }
 
     @Override
     public void error(String errorMsg) {
@@ -764,46 +233,10 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         specialLcoationAomen = this.getString(R.string.special_location_aomen);
     }
 
-    /**
-     * 设置头部左边的图片状态
-     */
-    private void setTitleLeft() {
-        if (!hasBrandIcon()) {
-            ibtn_user.setImageResource(R.drawable.tianjiacar_img2x);
-        } else {
-            XUtilsImageLoader.getxUtilsImageLoader(this,
-                    R.drawable.tianjiacar_img2x, ibtn_user,
-                    loginResponse.getMsg().getDefaultVehicleIcon());
-        }
-    }
 
-    /**
-     * 设置小圆点
-     */
-    private void InitFocusIndicatorContainer(AdvResponse advResponse) {
-        portImg = new ArrayList<ImageView>();
-        portImg.clear();
-        this.ll_focus_indicator_container.removeAllViews();
-        if (!StringUtil.isEmpty(advResponse.getMsg())) {
-            for (int i = 0; i < advResponse.getMsg().size(); i++) {
-                ImageView localImageView = new ImageView(this);
-                localImageView.setId(i);
-                ImageView.ScaleType localScaleType = ImageView.ScaleType.FIT_XY;
-                localImageView.setScaleType(localScaleType);
-                LinearLayout.LayoutParams localLayoutParams = new LinearLayout.LayoutParams(
-                        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-                localImageView.setLayoutParams(localLayoutParams);
-                localImageView.setPadding(5, 5, 5, 5);
-                localImageView.setImageResource(R.drawable.lunbo_dian);
-                portImg.add(localImageView);
-                this.ll_focus_indicator_container.addView(localImageView);
-            }
-        }
-    }
+    private Intent intent;
 
-    //    @OnClick({R.id.ibtn_user, R.id.ll_right_msg, R.id.btn_scanning,
-//            R.id.btn_my_wallet, R.id.btn_my_order, R.id.rl_activity_area,
-//            R.id.rl_integral_mall})
+    @OnClick({R.id.ibtn_user, R.id.ll_right_msg})
     public void onClick(View v) {
         /**
          * 快速点击忽略处理
@@ -846,95 +279,6 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         }
     }
 
-    private void getDuiBaUrl() {
-        ProgrosDialog.openDialog(baseContext);
-        String url = NetInterface.BASE_URL + NetInterface.TEMP_DUIBA + NetInterface.GET_DUIBA_LOGIN_URL + NetInterface.SUFFIX;
-        Map<String, Object> param = new HashMap<>();
-        param.put("userId", loginResponse.getDesc());
-        param.put("token", loginResponse.getToken());
-        param.put(Constant.PARAMETER_TAG, NetInterface.GET_DUIBA_LOGIN_URL);
-        netWorkHelper.PostJson(url, param, this);
-    }
-
-    private Intent intent;
-
-    //    @OnItemClick({R.id.gv_service})
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
-        /**
-         * 快速点击忽略处理
-         */
-        if (ButtonUtils.isFastClick()) {
-            return;
-        }
-        intent = new Intent();
-        switch (position) {
-            case 0:// 买车险
-//                showToast("此功能正在开发中,敬请期待...");
-//                Intent intent = new Intent(baseContext, InsuranceActivity.class);
-//                startActivity(intent);
-//                isLoginOrHasCar(InsuranceActivity.class);
-                Intent intent = new Intent(baseContext, WebActivity.class);
-                intent.putExtra("url", NetInterface.INSURANCE);
-                startActivity(intent);
-                break;
-            case 1:// 洗车
-                isLogin(WashcarListActivity.class);
-                break;
-            case 2:// 紧急救援
-//                updateCache("SOS");
-                Intent sos = new Intent(MainNewActivity.this, SoSActivity.class);
-                startActivity(sos);
-//                isLoginOrHasCar(SoSActivity.class);
-                break;
-            case 3:// 保养
-//                isLogin(MaintainListActivity.class); // TODO 详情
-//                isLogin(MaintainDetailsActivity.class);
-                isLogin(MaintainListActivity_new.class);
-                break;
-            case 4:// 找加油站
-                isLogin(GasStationActivity.class);
-                break;
-            case 5:// logo
-                break;
-            case 6:// 隐藏了
-                break;
-            case 7:// 美容
-//                isLogin(BeautyListActivity.class); // TODO 详情
-//                isLogin(BeautyDetailsActivity.class);
-                isLogin(BeautyListActivity_new.class);
-                break;
-            case 8:// 车辆动态
-                updateCache("CAR_DYNAMIC");
-//                isLoginOrHasCar(CarDynamicActivity.class);
-                break;
-            case 9:// 一键检测
-                updateCache("CAR_DETECTION");
-//                isLoginOrHasCar(CarDetectionActivity.class);
-                break;
-            case 10:// 违章代办
-                updateCache("PESSANY");
-//                isLoginOrHasCar(PessanySearchActivity.class);
-                break;
-            case 11:// 找车位
-                isLogin(FindParkingSpaceActivity.class);
-                break;
-        }
-    }
-
-
-    private void updateCache(String tag) {
-        if (isLogined()) {
-            ProgrosDialog.openDialog(baseContext);
-            String url = NetInterface.HEADER_ALL + NetInterface.UPDATE_CACHE + NetInterface.SUFFIX;
-            Map<String, Object> param = new HashMap<>();
-            param.put("userId", loginResponse.getDesc());
-            param.put("token", loginResponse.getToken());
-            param.put(Constant.PARAMETER_TAG, tag);
-            netWorkHelper.PostJson(url, param, this);
-        }
-    }
-
     /**
      * 登陆才能跳转
      *
@@ -942,86 +286,14 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
      */
     private void isLogin(Class<?> cls) {
         if (!isLogined()) {
-            intent.setClass(MainNewActivity.this, LoginActivity.class);
+            intent.setClass(baseContext, LoginActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.score_business_query_enter,
                     R.anim.score_business_query_exit);
         } else {
-            intent.setClass(MainNewActivity.this, cls);
+            intent.setClass(baseContext, cls);
             startActivity(intent);
         }
-    }
-
-    /**
-     * 对是否登陆和是否有车处理
-     *
-     * @param cls
-     */
-    private void isLoginOrHasCar(Class<?> cls) {
-        if (!isLogined()) {
-            intent.setClass(MainNewActivity.this, LoginActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.score_business_query_enter,
-                    R.anim.score_business_query_exit);
-        } else if (!hasCar()) {
-            showCustomDialog("你还没有添加车辆", "添加车辆", 0);
-            return;
-        } else if (!hasDevice()) {
-            showCustomDialog(getString(R.string.home_no_device), "前往绑定", 1);
-            return;
-        } else {
-            intent.setClass(MainNewActivity.this, cls);
-            startActivity(intent);
-        }
-    }
-
-
-    /**
-     * 是否有车新判断
-     *
-     * @param cls
-     */
-    private void isLoginOrHasCar_New(Class<?> cls) {
-        if (!isLogined()) {
-            intent.setClass(MainNewActivity.this, LoginActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.score_business_query_enter,
-                    R.anim.score_business_query_exit);
-        } else if (!hasCar()) {
-            showCustomDialog("你还没有添加车辆", "添加车辆", 0);
-            return;
-        } else {
-            intent.setClass(MainNewActivity.this, cls);
-            startActivity(intent);
-        }
-    }
-
-    /**
-     * 绑定车辆提示dialog
-     */
-    private void showCustomDialog(String msg) {
-        Builder builder = new CustomDialog.Builder(this);
-        builder.setMessage(msg);
-        builder.setTitle(getString(R.string.remind));
-
-        builder.setPositiveButton(getString(R.string.home_goto_bind),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-//                        OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
-                        Intent intent = new Intent(baseContext, DevicesListActivity.class);
-                        startActivity(intent);
-                    }
-                });
-        builder.setNegativeButton(getString(R.string.cancel),
-                new android.content.DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-        builder.create().show();
     }
 
 
@@ -1029,7 +301,6 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
     public void onStop() {
         super.onStop();
         mLocationUtil.onStop();
-
     }
 
     @Override
@@ -1037,102 +308,8 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         super.onDestroy();
         mLocationUtil.onDestory();
         mLocationUtil = null;
-        if (!StringUtil.isEmpty(broad)) {
-            unregisterReceiver(broad);
-        }
         instance = null;
-//        mygallery.destroy();
     }
 
-    private class MyBroadcastReceiver extends BroadcastReceiver {
-
-        public void onReceive(Context context, Intent intent) {
-            if (!StringUtil.isEquals(intent.getAction(), Constant.REFRESH_FLAG,
-                    true)) {
-                return;
-            }
-//            if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-//                    Constant.CAR_MANAGER_REFRESH, true)) {
-//                Constant.EDIT_FLAG = true;
-//                getMainData();
-//                Log.i("result", "===========MainNewActivity================");
-//            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-//                    Constant.USER_NICK_EDIT_REFRESH, true)) {
-//                Constant.EDIT_FLAG = true;
-//                // initViews();
-//            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-//                    Constant.USER_NICK_EDIT_REFRESH_OTHER, true)) {
-//                // connectToServer();
-//            }
-        }
-    }
-
-    /**
-     * 删除对话框
-     */
-    private void showVersionDialog(String message) {
-
-        builder = new CustomDialog.Builder(this);
-
-        builder.setTitle(R.string.remind);
-        builder.setPositiveButton(R.string.banben_updata_remind,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (!StringUtil.isEquals(compel, "0", true)) {
-                            dialog.dismiss();
-                        }
-                        try {
-                            Uri uri = Uri.parse(app_new_download_url);
-                            Intent it = new Intent(Intent.ACTION_VIEW, uri);
-                            startActivity(it);
-                        } catch (Exception e) {// 手机上未安装浏览器
-                            showToast(R.string.hint);
-                        }
-                    }
-                });
-
-        if (!StringUtil.isEquals(compel, "0", true)) { // 非强制更新
-            builder.setMessage(message, 1);
-            builder.setNegativeButton(R.string.cancel,
-                    new android.content.DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            versionDialog = builder.create();
-        } else { // 强制更新
-            builder.setMessage(message, 1);
-            versionDialog = builder.create();
-            versionDialog.setCanceledOnTouchOutside(false);
-            versionDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    switch (keyCode) {
-                        case KeyEvent.KEYCODE_BACK:
-                            if (StringUtil.isEquals(compel, "0", true)) {
-                                finish();
-                            }
-                            break;
-                    }
-                    return true;
-                }
-            });
-//            versionDialog.setCancelable(false);
-        }
-        versionDialog.show();
-    }
-
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        switch (keyCode) {
-//            case KeyEvent.KEYCODE_BACK:
-//                if (StringUtil.isEquals(compel, "0", true)) {
-//                    finish();
-//                }
-//                break;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//
-//    }
 
 }
