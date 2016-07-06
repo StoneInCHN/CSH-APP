@@ -105,6 +105,7 @@ public class LocationUtil {
 			return;
 		}
 		mlocClient.unRegisterLocationListener(mListener);
+		mListener = null;
 		mlocClient = null;
 	}
 }

@@ -114,7 +114,7 @@ public class DBTools {
         }
     }
 
-    public void destory() {
+    public static void destory() {
 
         db = null;
         dbTools = null;
