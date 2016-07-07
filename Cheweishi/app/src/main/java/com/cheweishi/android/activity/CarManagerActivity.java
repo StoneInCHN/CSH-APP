@@ -82,7 +82,7 @@ public class CarManagerActivity extends BaseActivity implements
 
     @ViewInject(R.id.vp_car_manager)
     private ViewPager vp_car_manager;
-    private static final float DEFAULT_MIN_ALPHA = 0.5f;
+    private static final float DEFAULT_MIN_ALPHA = 0.0f;
     private float mMinAlpha = DEFAULT_MIN_ALPHA;
 
     @Override
@@ -100,10 +100,10 @@ public class CarManagerActivity extends BaseActivity implements
             @Override
             public void transformPage(View view, float position) {
                 if (position < -1) {
-                    view = view.findViewById(R.id.ll_car_manager_item_head);
-                    ViewHelper.setAlpha(view, mMinAlpha);
-                    ViewHelper.setX(view, view.getWidth() / 2);
+                    ViewHelper.setAlpha(view, 1);
+//                    ViewHelper.setX(view, view.getWidth() / 2);
                 } else if (position <= 1) { // [-1,1]
+
 
                     if (position < 0) //[0，-1]
                     {
@@ -112,7 +112,7 @@ public class CarManagerActivity extends BaseActivity implements
                         ViewHelper.setAlpha(view, factor);
                         ViewHelper.setScaleX(view, factor);
                         ViewHelper.setScaleY(view, factor);
-                        ViewHelper.setX(view, factor);
+//                        ViewHelper.setTranslationX(view, -position * 0.1f * (1 + factor));
                     } else//[1，0]
                     {
                         float factor = mMinAlpha + (1 - mMinAlpha) * (1 - position);
@@ -120,13 +120,11 @@ public class CarManagerActivity extends BaseActivity implements
                         ViewHelper.setAlpha(view, factor);
                         ViewHelper.setScaleX(view, factor);
                         ViewHelper.setScaleY(view, factor);
-                        ViewHelper.setX(view, factor);
+//                        ViewHelper.setTranslationX(view, position * view.getWidth() * (1 - factor));
                     }
                 } else { // (1,+Infinity]
-                    int wid = view.getWidth();
-                    view = view.findViewById(R.id.ll_car_manager_item_head);
-                    ViewHelper.setAlpha(view, mMinAlpha);
-                    ViewHelper.setX(view, wid - view.getWidth() / 2);
+                    ViewHelper.setAlpha(view, 1);
+//                    ViewHelper.setX(view, wid - view.getWidth() / 2);
                 }
             }
         });
