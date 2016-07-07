@@ -149,8 +149,10 @@ public class XUtilsImageLoader {
      * @param context
      * @return
      */
-    public static synchronized XUtilsImageLoader getxUtilsImageLoader(
+    public static XUtilsImageLoader getxUtilsImageLoader(
             Context context, int resid, ImageView imageView, String uri) {
+        if (null == uri)
+            return null;
 
         mImageLoader = getInstance(context, resid);
         picasso

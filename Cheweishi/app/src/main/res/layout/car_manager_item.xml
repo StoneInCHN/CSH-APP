@@ -20,40 +20,40 @@
             android:background="@drawable/car_manager_item_bg">
 
             <ImageView
+                android:id="@+id/iv_car_manager_item_default"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_default_tab_y" />
 
             <TextView
+                android:id="@+id/tv_car_manager_item_carid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
-                android:text="川A88888"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </FrameLayout>
 
         <TextView
+            android:id="@+id/tv_car_manager_item_carname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="奔驰"
             android:textColor="@color/white"
             android:textSize="14sp" />
     </LinearLayout>
 
     <com.cheweishi.android.widget.XCRoundImageView
-        android:id="@+id/iv_myAccountUserIcon"
+        android:id="@+id/iv_car_manager_item_car_icon"
         android:layout_width="@dimen/btn_dialog_heigth"
         android:layout_height="@dimen/btn_dialog_heigth"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
         tanck:border_outside_color="@color/white"
         tanck:border_thickness="3dp" />
 
@@ -69,67 +69,6 @@
             android:background="@color/gray_backgroud"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/ll_top_top"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/normal_padding"
-                    android:paddingRight="@dimen/normal_padding">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/car_icon"
-                        android:textColor="@color/gray_normal"
-                        android:textSize="@dimen/titile_side_text_size" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/auto_get"
-                        android:textColor="@color/gray_normal"
-                        android:textSize="@dimen/titile_side_text_size" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/normal_padding">
-
-                        <com.cheweishi.android.widget.XCRoundImageView
-                            android:id="@+id/img_car_xcRoundImg"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:gravity="right"
-                            android:src="@drawable/tianjiacar_img2x"
-                            tanck:border_outside_color="@android:color/transparent"
-                            tanck:border_thickness="1dp" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/line_gray" />
-                </LinearLayout>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -163,12 +102,11 @@
                     android:textSize="@dimen/titile_side_text_size" />
 
                 <TextView
-                    android:id="@+id/tv_car_style"
+                    android:id="@+id/tv_car_manager_item_style"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:drawableRight="@drawable/right"
                     android:editable="false"
                     android:gravity="right"
                     android:maxLength="20"
@@ -207,60 +145,18 @@
                     android:textColor="@color/gray_normal"
                     android:textSize="@dimen/titile_side_text_size" />
 
-                <TextView
-                    android:id="@+id/tv_car_plate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:drawableRight="@drawable/right"
-                    android:editable="false"
-                    android:gravity="right"
-                    android:hint="@string/carPlateChoose"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/titile_side_text_size"
-                    android:visibility="gone" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:id="@+id/bt_province"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:drawablePadding="@dimen/small_padding"
-                    android:drawableRight="@drawable/tianjiacar_right2x"
-                    android:paddingLeft="@dimen/small_padding"
-                    android:paddingRight="@dimen/small_padding"
-                    android:text="渝"
-                    android:textColor="@color/main_blue"
-                    android:textSize="@dimen/titile_side_text_size" />
 
                 <TextView
-                    android:id="@+id/bt_char"
+                    android:id="@+id/tv_car_manager_item_plate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/normal_marging"
-                    android:background="@null"
-                    android:drawablePadding="@dimen/small_padding"
-                    android:drawableRight="@drawable/tianjiacar_right2x"
-                    android:paddingLeft="@dimen/small_padding"
-                    android:paddingRight="@dimen/small_padding"
-                    android:text="A"
-                    android:textColor="@color/main_blue"
-                    android:textSize="@dimen/titile_side_text_size" />
-
-                <EditText
-                    android:id="@+id/et_car_plate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:digits="1234567890qwertyuiopasdfghjklzxcvbnmABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:gravity="right"
-                    android:maxLength="5"
                     android:textColor="@color/black"
                     android:textSize="@dimen/titile_side_text_size" />
             </LinearLayout>
@@ -485,15 +381,12 @@
                     android:textColor="@color/gray_normal"
                     android:textSize="@dimen/titile_side_text_size" />
 
-                <EditText
-                    android:id="@+id/tv_car_mile"
+                <TextView
+                    android:id="@+id/tv_car_manager_item_mile"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:digits="0123456789"
                     android:gravity="right"
-                    android:inputType="number"
                     android:maxLength="7"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
@@ -531,18 +424,14 @@
                     android:textColor="@color/gray_normal"
                     android:textSize="@dimen/titile_side_text_size" />
 
-                <EditText
-                    android:id="@+id/tv_last_keepFit"
+                <TextView
+                    android:id="@+id/tv_car_manager_item_last_keepFit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:digits="0123456789"
                     android:gravity="right"
-                    android:inputType="number"
                     android:maxLength="7"
                     android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
                     android:textSize="@dimen/titile_side_text_size" />
             </LinearLayout>
 
@@ -625,12 +514,11 @@
                     android:textSize="@dimen/titile_side_text_size" />
 
                 <TextView
-                    android:id="@+id/tv_annualSurvey"
+                    android:id="@+id/tv_car_manager_item_annualSurvey"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:drawableRight="@drawable/right"
                     android:editable="false"
                     android:gravity="right"
                     android:textColor="@color/black"
@@ -667,30 +555,17 @@
                     android:textSize="@dimen/titile_side_text_size" />
 
                 <TextView
-                    android:id="@+id/tv_trafficSurvey"
+                    android:id="@+id/tv_car_manager_item_trafficSurvey"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:drawableRight="@drawable/right"
                     android:editable="false"
                     android:gravity="right"
                     android:textColor="@color/black"
                     android:textSize="@dimen/titile_side_text_size" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/line_gray" />
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_businessSurvey"
@@ -737,7 +612,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_vin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -752,26 +626,57 @@
                     android:textColor="@color/gray_normal"
                     android:textSize="@dimen/titile_side_text_size" />
 
-                <EditText
-                    android:id="@+id/tv_car_vin"
+                <TextView
+                    android:id="@+id/tv_car_manager_item_vin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:gravity="right"
-                    android:inputType="textEmailAddress"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
                     android:textSize="@dimen/titile_side_text_size" />
 
-                <ImageView
-                    android:id="@+id/img_vin_desc"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_car_manager_item_car_device"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:padding="@dimen/normal_padding">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/normal_padding"
-                    android:src="@drawable/bangding_wen2x" />
+                    android:text="设备号"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/titile_side_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_car_manager_item_device"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/titile_side_text_size" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -792,6 +697,7 @@
 
 
             <LinearLayout
+                android:id="@+id/ll_car_manager_item_yjjc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -835,6 +741,7 @@
 
 
             <LinearLayout
+                android:id="@+id/ll_car_manager_item_car_dynamic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"

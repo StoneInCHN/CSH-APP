@@ -56,9 +56,8 @@ import java.util.Map;
  */
 public class CarManagerActivity extends BaseActivity implements
         OnClickListener,
-        OnItemClickListener {
+        OnItemClickListener, ViewPager.PageTransformer, ViewPager.OnPageChangeListener {
 
-    private SwipeListView listView_carManager;// 滑动列表
     @ViewInject(R.id.left_action)
     private Button left_action;
     @ViewInject(R.id.title)
@@ -67,10 +66,7 @@ public class CarManagerActivity extends BaseActivity implements
     private TextView right_action;
     private CarManagerAdapter adapter;
     private List<MyCarManagerResponse.MsgBean> listCarManager = new ArrayList<MyCarManagerResponse.MsgBean>();
-    private List<MyCarManagerResponse.MsgBean> listCarManagerTemp;
     MyCarManagerResponse.MsgBean carManagerItem = null;
-    @ViewInject(R.id.ll_head)
-    private LinearLayout ll_head;
     private int itemIndex;
     private int currentDefaultIndex;
     private MyBroadcastReceiver broad;
@@ -82,8 +78,13 @@ public class CarManagerActivity extends BaseActivity implements
 
     @ViewInject(R.id.vp_car_manager)
     private ViewPager vp_car_manager;
+
+    //车数量
+    @ViewInject(R.id.tv_car_manager_number)
+    private TextView tv_car_manager_number;
     private static final float DEFAULT_MIN_ALPHA = 0.0f;
     private float mMinAlpha = DEFAULT_MIN_ALPHA;
+    private MyCarManagerResponse response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,43 +92,8 @@ public class CarManagerActivity extends BaseActivity implements
         super.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.fr_list_carmanager);
         ViewUtils.inject(this);
-//        initViews();
+        initViews();
 //        setListeners();
-
-        CarManagerAdapter adapter = new CarManagerAdapter(baseContext, null);
-        vp_car_manager.setAdapter(adapter);
-        vp_car_manager.setPageTransformer(true, new ViewPager.PageTransformer() {
-            @Override
-            public void transformPage(View view, float position) {
-                if (position < -1) {
-                    ViewHelper.setAlpha(view, 1);
-//                    ViewHelper.setX(view, view.getWidth() / 2);
-                } else if (position <= 1) { // [-1,1]
-
-
-                    if (position < 0) //[0，-1]
-                    {
-                        float factor = mMinAlpha + (1 - mMinAlpha) * (1 + position);
-                        view = view.findViewById(R.id.ll_car_manager_item_head);
-                        ViewHelper.setAlpha(view, factor);
-                        ViewHelper.setScaleX(view, factor);
-                        ViewHelper.setScaleY(view, factor);
-//                        ViewHelper.setTranslationX(view, -position * 0.1f * (1 + factor));
-                    } else//[1，0]
-                    {
-                        float factor = mMinAlpha + (1 - mMinAlpha) * (1 - position);
-                        view = view.findViewById(R.id.ll_car_manager_item_head);
-                        ViewHelper.setAlpha(view, factor);
-                        ViewHelper.setScaleX(view, factor);
-                        ViewHelper.setScaleY(view, factor);
-//                        ViewHelper.setTranslationX(view, position * view.getWidth() * (1 - factor));
-                    }
-                } else { // (1,+Infinity]
-                    ViewHelper.setAlpha(view, 1);
-//                    ViewHelper.setX(view, wid - view.getWidth() / 2);
-                }
-            }
-        });
 
     }
 
@@ -135,19 +101,11 @@ public class CarManagerActivity extends BaseActivity implements
         title.setText("我的车辆");
         left_action.setText(R.string.back);
         right_action.setText(R.string.button_add);
-        right_action.setVisibility(View.GONE);
-//        instance = this;
-//        adapter = new CarManagerAdapter(this, listCarManager,
-//                listView_carManager.getRightViewWidth());
-//        listView_carManager.setAdapter(adapter);
-//        adapter.setOnRightItemClickListener(this);
-        listView_carManager.setSelector(new ColorDrawable(Color.TRANSPARENT));
+//        right_action.setVisibility(View.GONE);
+//        listView_carManager.setSelector(new ColorDrawable(Color.TRANSPARENT));
         connectToServer();
     }
 
-    private void setListeners() {
-        listView_carManager.setOnItemClickListener(this);
-    }
 
     //    @OnClick({R.id.listView_front, R.id.left_action, R.id.right_action})
     @Override
@@ -176,20 +134,6 @@ public class CarManagerActivity extends BaseActivity implements
         registerReceiver(broad, intentFilter);
     }
 
-//    @Override
-//    public void onRightItemClick(View v, int position) {
-//        if (ButtonUtils.isFastClick()) {
-//            return;
-//        } else {
-//            if (listCarManager.size() > position) {
-//                Intent intent = new Intent(this, AddCarActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("car", listCarManager.get(position));
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        }
-//    }
 
     //    @OnItemClick({R.id.listView_carManager})
     @Override
@@ -274,33 +218,22 @@ public class CarManagerActivity extends BaseActivity implements
         ProgrosDialog.closeProgrosDialog();
         switch (TAG) {
             case NetInterface.LIST:
-                MyCarManagerResponse response = (MyCarManagerResponse) GsonUtil.getInstance().convertJsonStringToObject(data, MyCarManagerResponse.class);
+                response = (MyCarManagerResponse) GsonUtil.getInstance().convertJsonStringToObject(data, MyCarManagerResponse.class);
                 if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(response.getDesc());
                     return;
                 }
-                listCarManagerTemp = response.getMsg();
-                listCarManager.clear();
-                listCarManager.addAll(listCarManagerTemp);
-                if (listCarManager.size() > 0) {
-                    ll_head.setVisibility(View.GONE);
+                if (null != response && response.getMsg().size() > 0) {
+                    adapter = new CarManagerAdapter(baseContext, response.getMsg());
+                    vp_car_manager.setAdapter(adapter);
+                    vp_car_manager.setPageTransformer(true, this);
+                    vp_car_manager.setOnPageChangeListener(this);
+                    tv_car_manager_number.setText("1/" + response.getMsg().size());
                 } else {
-                    EmptyTools.setEmptyView(this, listView_carManager);
-                    EmptyTools.setImg(R.drawable.mycar_icon);
-                    EmptyTools.setMessage("您还没有添加车辆");
+//                    EmptyTools.setEmptyView(this, vp_car_manager);
+//                    EmptyTools.setImg(R.drawable.mycar_icon);
+//                    EmptyTools.setMessage("您还没有添加车辆");
                 }
-                listView_carManager.hiddenRight(null);
-                listView_carManager.requestLayout();
-
-                for (int i = 0; i < listCarManager.size(); i++) { // 寻找默认车辆的索引
-                    if (listCarManager.get(i).isDefault()) {
-                        currentDefaultIndex = i;
-                        setMainIcon(listCarManager.get(i).getBrandIcon());
-                        break;
-                    }
-                }
-//                adapter.setData(listCarManager);
-//                listView_front.setVisibility(View.INVISIBLE);
                 if (listCarManager.size() >= 3) {
                     right_action.setVisibility(View.GONE);
                 } else {
@@ -385,32 +318,68 @@ public class CarManagerActivity extends BaseActivity implements
      * 重新链接
      */
     public void reconnect() {
-//        listView_front.setVisibility(View.VISIBLE);
-        if (listCarManagerTemp != null) {
-            listCarManagerTemp.clear();
-//            adapter.setNullUpdateUi(listCarManagerTemp);
-        }
         connectToServer();
     }
 
     public void setListVisible(boolean flag) {
         if (flag == false) {
-            listView_carManager.setVisibility(View.GONE);
+//            listView_carManager.setVisibility(View.GONE);
         } else {
-            listView_carManager.setVisibility(View.VISIBLE);
+//            listView_carManager.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (listCarManager != null) {
-            listCarManager.clear();
-        }
-        if (listCarManagerTemp != null) {
-            listCarManagerTemp.clear();
-        }
         unregisterReceiver(broad);
+    }
+
+    @Override
+    public void transformPage(View view, float position) {
+        if (position < -1) {
+            ViewHelper.setAlpha(view, 1);
+//                    ViewHelper.setX(view, view.getWidth() / 2);
+        } else if (position <= 1) { // [-1,1]
+
+
+            if (position < 0) //[0，-1]
+            {
+                float factor = mMinAlpha + (1 - mMinAlpha) * (1 + position);
+                view = view.findViewById(R.id.ll_car_manager_item_head);
+                ViewHelper.setAlpha(view, factor);
+                ViewHelper.setScaleX(view, factor);
+                ViewHelper.setScaleY(view, factor);
+//                        ViewHelper.setTranslationX(view, -position * 0.1f * (1 + factor));
+            } else//[1，0]
+            {
+                float factor = mMinAlpha + (1 - mMinAlpha) * (1 - position);
+                view = view.findViewById(R.id.ll_car_manager_item_head);
+                ViewHelper.setAlpha(view, factor);
+                ViewHelper.setScaleX(view, factor);
+                ViewHelper.setScaleY(view, factor);
+//                        ViewHelper.setTranslationX(view, position * view.getWidth() * (1 - factor));
+            }
+        } else { // (1,+Infinity]
+            ViewHelper.setAlpha(view, 1);
+//                    ViewHelper.setX(view, wid - view.getWidth() / 2);
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        if (null != response)
+            tv_car_manager_number.setText((position + 1) + "/" + response.getMsg().size());
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     public class MyBroadcastReceiver extends BroadcastReceiver {

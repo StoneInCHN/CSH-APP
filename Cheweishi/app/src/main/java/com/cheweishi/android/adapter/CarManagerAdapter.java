@@ -11,7 +11,11 @@ import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.entity.MyCarManagerResponse;
 import com.cheweishi.android.entity.ServiceDetailResponse;
 import com.cheweishi.android.utils.LogHelper;
+import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.FontAwesomeView;
+import com.cheweishi.android.widget.XCRoundImageView;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -27,24 +31,92 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class CarManagerAdapter extends PagerAdapter {
+public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
     private Context context;
 
     private List<View> views = new ArrayList<>();
 
     private List<MyCarManagerResponse.MsgBean> list;
 
+    @ViewInject(R.id.tv_car_manager_item_carid)
+    private TextView tv_car_manager_item_carid;
+
+    //车牌
+    @ViewInject(R.id.tv_car_manager_item_plate)
+    private TextView tv_car_manager_item_plate;
+
+    //车名字
+    @ViewInject(R.id.tv_car_manager_item_carname)
+    private TextView tv_car_manager_item_carname;
+
+    //车图标
+    @ViewInject(R.id.iv_car_manager_item_car_icon)
+    private XCRoundImageView iv_car_manager_item_car_icon;
+
+    //是否默认icon
+    @ViewInject(R.id.iv_car_manager_item_default)
+    private ImageView iv_car_manager_item_default;
+
+    //行驶里程
+    @ViewInject(R.id.tv_car_manager_item_mile)
+    private TextView tv_car_manager_item_mile;
+
+    //上次行驶里程
+    @ViewInject(R.id.tv_car_manager_item_last_keepFit)
+    private TextView tv_car_manager_item_last_keepFit;
+
+    //下次年检时间
+    @ViewInject(R.id.tv_car_manager_item_annualSurvey)
+    private TextView tv_car_manager_item_annualSurvey;
+
+    //交保险到期时间
+    @ViewInject(R.id.tv_car_manager_item_trafficSurvey)
+    private TextView tv_car_manager_item_trafficSurvey;
+
+    //车架号
+    @ViewInject(R.id.tv_car_manager_item_vin)
+    private TextView tv_car_manager_item_vin;
+
+    //车辆动态
+    @ViewInject(R.id.ll_car_manager_item_car_dynamic)
+    private LinearLayout ll_car_manager_item_car_dynamic;
+
+    //一键检测
+    @ViewInject(R.id.ll_car_manager_item_yjjc)
+    private LinearLayout ll_car_manager_item_yjjc;
+
+    //车名字
+    @ViewInject(R.id.tv_car_manager_item_style)
+    private TextView tv_car_manager_item_style;
+
+    // 设备号
+    @ViewInject(R.id.ll_car_manager_item_car_device)
+    private LinearLayout ll_car_manager_item_car_device;
+
+    //设备
+    @ViewInject(R.id.tv_car_manager_item_device)
+    private TextView tv_car_manager_item_device;
+
     public CarManagerAdapter(Context context, List<MyCarManagerResponse.MsgBean> list) {
         this.context = context;
         this.list = list;
 
-//        init();
+        init();
+    }
+
+    private void init() {
+        if (null != list) {
+            for (int i = 0; i < list.size(); i++) {
+                View view = View.inflate(context, R.layout.car_manager_item, null);
+                views.add(view);
+            }
+        }
     }
 
 
     @Override
     public int getCount() {
-        return 3;
+        return list.size();
     }
 
     @Override
@@ -54,14 +126,55 @@ public class CarManagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = View.inflate(context, R.layout.car_manager_item, null);
+        View view = views.get(position);
+        handlerView(view, position);
         container.addView(view);
-        views.add(view);
         return view;
+    }
+
+    private void handlerView(View view, int p) {
+        ViewUtils.inject(this, view);
+        XUtilsImageLoader.getxUtilsImageLoader(context,
+                R.drawable.tianjiacar_img2x, iv_car_manager_item_car_icon,
+                list.get(p).getBrandIcon());
+        tv_car_manager_item_carid.setText(list.get(p).getPlate());
+        tv_car_manager_item_plate.setText(list.get(p).getPlate());
+        tv_car_manager_item_carname.setText(list.get(p).getVehicleFullBrand());
+        tv_car_manager_item_style.setText(list.get(p).getVehicleFullBrand());
+        if (list.get(p).isDefault())
+            iv_car_manager_item_default.setVisibility(View.VISIBLE);
+        else
+            iv_car_manager_item_default.setVisibility(View.GONE);
+        tv_car_manager_item_mile.setText(list.get(p).getDriveMileage());
+        tv_car_manager_item_last_keepFit.setText(list.get(p).getLastMaintainMileage());
+        tv_car_manager_item_annualSurvey.setText(list.get(p).getNextAnnualInspection());
+        tv_car_manager_item_trafficSurvey.setText(list.get(p).getTrafficInsuranceExpiration());
+        tv_car_manager_item_vin.setText(list.get(p).getVehicleNo());
+        if (!StringUtil.isEmpty(list.get(p).getDeviceNo())) {
+            ll_car_manager_item_car_device.setVisibility(View.VISIBLE);
+            tv_car_manager_item_device.setText(list.get(p).getDeviceNo());
+        } else {
+            ll_car_manager_item_car_device.setVisibility(View.GONE);
+        }
+
+        ll_car_manager_item_car_dynamic.setOnClickListener(this);
+        ll_car_manager_item_yjjc.setOnClickListener(this);
+
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView(views.get(position));
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_car_manager_item_car_dynamic: // 车辆动态
+                break;
+            case R.id.ll_car_manager_item_yjjc: // 一键检测
+                break;
+        }
     }
 }
