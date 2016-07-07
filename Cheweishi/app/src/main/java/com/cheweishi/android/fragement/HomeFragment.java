@@ -152,6 +152,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private CustomDialog.Builder builder;
     private CustomDialog versionDialog;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -390,6 +391,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 requestAdv();
                 if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     // TODO 成功
+                    MainNewActivity.bindTitle = response.getDesc();
                     setTitle(response.getDesc());
                     showData(response);
                 } else if (response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {

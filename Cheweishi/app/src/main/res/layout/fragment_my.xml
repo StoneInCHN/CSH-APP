@@ -30,7 +30,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
                     tanck:border_outside_color="@color/hyal_head"
-                    tanck:border_thickness="2dp" />
+                    tanck:border_thickness="3dp" />
 
 
                 <TextView
@@ -83,6 +83,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/ll_my_default_coupon"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
@@ -94,9 +95,10 @@
                             android:src="@mipmap/ic_launcher" />
 
                         <TextView
+                            android:id="@+id/tv_coupon_number_my"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="优惠券(8)"
+                            android:text="优惠券(0)"
                             android:textColor="@color/white"
                             android:textSize="16sp" />
 
@@ -110,6 +112,7 @@
                         android:background="@color/white" />
 
                     <LinearLayout
+                        android:id="@+id/ll_my_default_car"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
@@ -127,13 +130,16 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tv_my_user_car_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="我的车库(9)"
+                                android:text="我的车库(0)"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
 
                             <TextView
+                                android:id="@+id/tv_my_user_car_id"
+                                android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
@@ -154,6 +160,7 @@
                 android:background="@color/line_gray" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_car_manager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

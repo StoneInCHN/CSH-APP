@@ -97,6 +97,8 @@ public class MainNewActivity extends BaseActivity {
     @ViewInject(R.id.tv_home_title)
     public static TextView tv_home_title;
 
+    public static String bindTitle = "车生活";
+
     @ViewInject(R.id.ibtn_user)
     // title左边按钮
     public static ImageView ibtn_user;
@@ -106,6 +108,9 @@ public class MainNewActivity extends BaseActivity {
 
     @ViewInject(R.id.ll_home_header)
     private LinearLayout ll_home_header;//actionbar
+
+    @ViewInject(R.id.ll_right_msg)
+    private LinearLayout ll_right_msg; // 右边消息
 
     //首页
     @ViewInject(R.id.ll_home_bottom_index)
@@ -229,10 +234,6 @@ public class MainNewActivity extends BaseActivity {
         showToast(R.string.FAIL);
     }
 
-    private String app_new_download_url = "";
-    private String compel;
-
-
     /**
      * 定位相关初始化
      */
@@ -274,18 +275,26 @@ public class MainNewActivity extends BaseActivity {
                 isLogin(MessagerCenterActivity.class);
                 break;
             case R.id.ll_home_bottom_index: //首页
+                ll_right_msg.setVisibility(View.VISIBLE);
+                setTitle(bindTitle);
                 ll_home_header.setVisibility(View.VISIBLE);
                 ChangeFragment(0, home, store, news, my);
                 break;
             case R.id.ll_home_bottom_store: // 门店
+                ll_right_msg.setVisibility(View.GONE);
+                setTitle("门店");
                 ll_home_header.setVisibility(View.VISIBLE);
                 ChangeFragment(1, home, store, news, my);
                 break;
             case R.id.ll_home_bottom_news: // 新闻
+                ll_right_msg.setVisibility(View.GONE);
+                setTitle("车蓝调");
                 ll_home_header.setVisibility(View.VISIBLE);
                 ChangeFragment(2, home, store, news, my);
                 break;
             case R.id.ll_home_bottom_my: // 我的
+                ll_right_msg.setVisibility(View.GONE);
+                setTitle("我的");
                 ll_home_header.setVisibility(View.GONE);
                 ChangeFragment(3, home, store, news, my);
                 break;
@@ -313,6 +322,12 @@ public class MainNewActivity extends BaseActivity {
 //                break;
             default:
                 break;
+        }
+    }
+
+    public void setTitle(String desc) {
+        if (null != desc && !"".equals(desc)) {
+            tv_home_title.setText(desc);
         }
     }
 

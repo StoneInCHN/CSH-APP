@@ -38,6 +38,7 @@ import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.ActivityControl;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -807,6 +808,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 
     public void ChangeFragment(int index, Fragment home, Fragment store, Fragment news, Fragment my) {
+        LogHelper.d("current:" + currentIndex + "---" + index);
         if (0 > index)
             return;
         if (currentIndex == index)
