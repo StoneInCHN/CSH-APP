@@ -1,8 +1,5 @@
 package com.cheweishi.android.adapter;
 
-import java.util.List;
-
-import android.R.integer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +13,11 @@ import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.OrderDetailsActivity;
-import com.cheweishi.android.activity.WashCarPayActivity;
-import com.cheweishi.android.adapter.CarManagerAdapter.onRightItemClickListener;
 import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.MainSellerServiceInfo;
 import com.cheweishi.android.utils.StringUtil;
+
+import java.util.List;
 
 /**
  * 新版首页商家服务列表适配器

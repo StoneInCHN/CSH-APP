@@ -262,8 +262,8 @@ public class AddCarActivity extends BaseActivity {
         colorIndexArray.add(R.color.blue);
         colorIndexArray.add(R.color.yellow);
         colorIndexArray.add(R.color.green);
-        initWheel(R.id.car_wheel,
-                getResources().getStringArray(R.array.color_item));
+//        initWheel(R.id.car_wheel,
+//                getResources().getStringArray(R.array.color_item));
         if (getIntent().getExtras() != null
                 && getIntent().getExtras().getSerializable("car") != null) {
             carManagerTemp = (MyCarManagerResponse.MsgBean) getIntent().getExtras()
@@ -729,8 +729,8 @@ public class AddCarActivity extends BaseActivity {
                 case R.id.color_status:
                     tv_car_color.setHint(R.string.null_hint);
                     tv_car_color.setVisibility(View.GONE);
-                    color = getWheelValue(R.id.car_wheel);
-                    color_spinner.setText(getWheelValue(R.id.car_wheel));
+//                    color = getWheelValue(R.id.car_wheel);
+//                    color_spinner.setText(getWheelValue(R.id.car_wheel));
                     int index = colorArray.indexOf(color);
                     tv_color_flag.setBackgroundResource(colorIndexArray.get(index));
                     if (color.contains(getResources().getString(
@@ -1088,7 +1088,7 @@ public class AddCarActivity extends BaseActivity {
         wheel.setCurrentItem(0);
         wheel.setCyclic(false);
         wheel.setInterpolator(new AnticipateOvershootInterpolator());
-        if (id == R.id.car_wheel) {
+//        if (id == R.id.car_wheel) {
             wheel.setCyclic(false);
             wheel.addChangingListener(new OnWheelChangedListener() {
 
@@ -1097,7 +1097,7 @@ public class AddCarActivity extends BaseActivity {
                                       int newValue) {
                 }
             });
-        }
+//        }
     }
 
     private WheelView getWheel(int id) {

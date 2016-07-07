@@ -400,7 +400,7 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
 
-            android:value="OXaolwDQD85CXGIxypELgICHusQrcDf8" />
+            android:value="egzXtdHQN58stO0pccYl1pD9" />
 
         <!-- Ping++ sdk -->
         <!-- <activity
@@ -544,10 +544,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"
             android:windowSoftInputMode="adjustPan|stateAlwaysVisible"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.RankingDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
         <!-- 友盟意见反馈 -->
         <!-- <activity
             android:name="com.cheweishi.android.activity.UmengConversationDetailActivity"
@@ -1170,10 +1166,6 @@
             android:theme="@style/myAnimationNoTileBar"></activity>
         <activity
             android:name="com.cheweishi.android.activity.WebPhoneActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.InsuranceCalculationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
 

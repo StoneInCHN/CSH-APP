@@ -1,5 +1,6 @@
 package com.cheweishi.android.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cheweishi.android.R;
@@ -8,9 +9,12 @@ import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.entity.MyCarManagerResponse;
+import com.cheweishi.android.entity.ServiceDetailResponse;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.widget.FontAwesomeView;
 
+import android.content.Context;
+import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,216 +27,41 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class CarManagerAdapter extends BaseAdapter {
-    private BaseActivity context;
-    private ViewHolder viewHolder;
-    private LayoutInflater mInflater;
-    private List<MyCarManagerResponse.MsgBean> listCarManager;
-    private int mRightWidth = 0;
+public class CarManagerAdapter extends PagerAdapter {
+    private Context context;
 
-    public CarManagerAdapter(BaseActivity context,
-                             List<MyCarManagerResponse.MsgBean> listCarManager, int rightWidth) {
+    private List<View> views = new ArrayList<>();
+
+    private List<MyCarManagerResponse.MsgBean> list;
+
+    public CarManagerAdapter(Context context, List<MyCarManagerResponse.MsgBean> list) {
         this.context = context;
-        this.listCarManager = listCarManager;
-        mRightWidth = rightWidth;
-        mInflater = LayoutInflater.from(context);
+        this.list = list;
+
+//        init();
     }
+
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
-        return listCarManager == null ? 0 : listCarManager.size();
+        return 3;
     }
 
     @Override
-    public Object getItem(int arg0) {
-        // TODO Auto-generated method stub
-        return null;
+    public boolean isViewFromObject(View view, Object object) {
+        return view == object;
     }
 
     @Override
-    public long getItemId(int arg0) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    /**
-     * 置空
-     *
-     * @param listCarManager
-     */
-    public void setNullUpdateUi(List<MyCarManagerResponse.MsgBean> listCarManager) {
-        if (null != listCarManager) {
-            this.listCarManager = listCarManager;
-            this.notifyDataSetChanged();
-        }
-    }
-
-    public void setData(List<MyCarManagerResponse.MsgBean> listCarManager) {
-        if (listCarManager.size() > 0) {
-            this.listCarManager = listCarManager;
-            this.notifyDataSetChanged();
-        }
+    public Object instantiateItem(ViewGroup container, int position) {
+        View view = View.inflate(context, R.layout.car_manager_item, null);
+        container.addView(view);
+        views.add(view);
+        return view;
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-        if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.car_manager_item, null);
-            viewHolder = new ViewHolder();
-            viewHolder.tv_deviceId = (TextView) convertView
-                    .findViewById(R.id.tv_deviceId);
-            viewHolder.tv_deviceId = (TextView) convertView
-                    .findViewById(R.id.tv_deviceId);
-            viewHolder.tv_currentState = (TextView) convertView
-                    .findViewById(R.id.tv_currentState);
-            viewHolder.tv_currentPosition = (TextView) convertView
-                    .findViewById(R.id.tv_currentPosition);
-            viewHolder.img_carManager = (ImageView) convertView
-                    .findViewById(R.id.img_carManager);
-            viewHolder.tv_plateCode = (TextView) convertView
-                    .findViewById(R.id.tv_plateCode);
-            viewHolder.ll_left = (LinearLayout) convertView
-                    .findViewById(R.id.ll_left);
-            viewHolder.item_right = (RelativeLayout) convertView
-                    .findViewById(R.id.item_right);
-            viewHolder.car_item_default_img = (FontAwesomeView) convertView
-                    .findViewById(R.id.car_item_default_img);
-            viewHolder.tv_device_state = (TextView) convertView
-                    .findViewById(R.id.tv_device_state);
-            viewHolder.tv_default_car = (TextView) convertView
-                    .findViewById(R.id.tv_default_car);
-            viewHolder.tv_brandName = (TextView) convertView
-                    .findViewById(R.id.tv_brandName);
-            viewHolder.tv_serielsName = (TextView) convertView
-                    .findViewById(R.id.tv_serielsName);
-            viewHolder.cb_default_car = (CheckBox) convertView
-                    .findViewById(R.id.cb_default_car);
-            viewHolder.ll_default_car = (LinearLayout) convertView
-                    .findViewById(R.id.ll_default_car);
-            viewHolder.ll_default_car.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-                    // TODO Auto-generated method stub
-                    context.dealCallBackFromAdapter(position, null);
-                }
-            });
-
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-        if (listCarManager != null && listCarManager.size() > 0
-                && listCarManager.get(position).getPlate() != null) {
-//            if (null != BaseActivity.loginResponse.getMsg()
-//                    && null != BaseActivity.loginResponse.getMsg().getDefaultVehicle()
-//                    && BaseActivity.loginResponse.getMsg().getDefaultVehicle().equals(listCarManager.get(position).getVehicleFullBrand())
-//                    && BaseActivity.loginResponse.getMsg().getDefaultVehiclePlate().equals(listCarManager.get(position).getPlate())
-//                    ) {
-            if(listCarManager.get(position).isDefault()){
-                viewHolder.tv_plateCode.setText(listCarManager.get(position)
-                        .getPlate() + "");
-
-                viewHolder.car_item_default_img.setVisibility(View.GONE);
-                // viewHolder.tv_plateCode.setTextColor(context.getResources()
-                // .getColor(R.color.orange_text_color));
-                viewHolder.cb_default_car.setChecked(true);
-
-                viewHolder.tv_default_car.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.cb_default_car.setClickable(true);
-                viewHolder.cb_default_car.setChecked(false);
-                viewHolder.car_item_default_img.setVisibility(View.GONE);
-                viewHolder.tv_plateCode.setTextColor(context.getResources()
-                        .getColor(R.color.black));
-                viewHolder.tv_plateCode.setText(listCarManager.get(position)
-                        .getPlate());
-                viewHolder.tv_default_car.setVisibility(View.INVISIBLE);
-            }
-            viewHolder.tv_brandName.setText(listCarManager.get(position)
-                    .getVehicleFullBrand());
-            viewHolder.tv_serielsName.setText(listCarManager.get(position)
-                    .getVehicleFullBrand());
-
-            if (listCarManager.get(position).getDeviceNo() == null
-                    || listCarManager.get(position).getDeviceNo().equals("")) {
-                viewHolder.tv_device_state
-                        .setText(R.string.car_manager_no_device);
-            } else {
-                viewHolder.tv_device_state.setText("");
-            }
-            // if (listCarManager.get(position).getFeed() == 0) {
-            // viewHolder.tv_device_state.setText("");
-            // } else {
-            // viewHolder.tv_device_state
-            // .setText(R.string.car_manager_select_returnStyle);
-            // }
-//            }
-            // if (position == 0) {
-            // LinearLayout.LayoutParams lp2 = new LayoutParams(0,
-            // LayoutParams.MATCH_PARENT);
-            // viewHolder.item_right.setLayoutParams(lp2);
-            //
-            // } else {
-            LinearLayout.LayoutParams lp2 = new LayoutParams(mRightWidth,
-                    LayoutParams.MATCH_PARENT);
-            viewHolder.item_right.setLayoutParams(lp2);
-
-            viewHolder.item_right.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mListener != null) {
-                        mListener.onRightItemClick(v, position);
-                    }
-                }
-            });
-
-            XUtilsImageLoader.getxUtilsImageLoader(context,
-                    R.drawable.repaire_img, viewHolder.img_carManager,
-                    listCarManager.get(position).getBrandIcon());
-            // if(viewHolder.cb_default_car.isChecked()) {
-            viewHolder.cb_default_car.setClickable(false);
-            // } else{
-            // viewHolder.cb_default_car.setClickable(true);
-        }
-//        }
-
-        return convertView;
-    }
-
-    class ViewHolder {
-        ImageView img_carManager;
-        RelativeLayout item_right;
-        LinearLayout ll_left;
-        TextView tv_plateCode;
-        TextView tv_deviceId;
-        TextView tv_currentState;
-        TextView tv_currentPosition;
-        FontAwesomeView car_item_default_img;
-        TextView tv_device_state;
-        CheckBox cb_default_car;
-        TextView tv_default_car;
-        TextView tv_brandName;
-        TextView tv_serielsName;
-        LinearLayout ll_default_car;
-    }
-
-    /**
-     * 单击事件监听器
-     */
-    private onRightItemClickListener mListener = null;
-
-    public void setOnRightItemClickListener(onRightItemClickListener listener) {
-        // LinearLayout.LayoutParams lp2 = new LayoutParams(0,
-        // LayoutParams.MATCH_PARENT);
-        // viewHolder.item_right.setLayoutParams(lp2);
-        mListener = listener;
-    }
-
-    public interface onRightItemClickListener {
-        void onRightItemClick(View v, int position);
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView(views.get(position));
     }
 }

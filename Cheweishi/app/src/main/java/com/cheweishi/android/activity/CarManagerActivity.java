@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -40,6 +41,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
+import com.nineoldandroids.view.ViewHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,10 +55,9 @@ import java.util.Map;
  * @author Xiaojin车辆管理
  */
 public class CarManagerActivity extends BaseActivity implements
-        OnClickListener, CarManagerAdapter.onRightItemClickListener,
+        OnClickListener,
         OnItemClickListener {
 
-    @ViewInject(R.id.listView_carManager)
     private SwipeListView listView_carManager;// 滑动列表
     @ViewInject(R.id.left_action)
     private Button left_action;
@@ -70,18 +71,19 @@ public class CarManagerActivity extends BaseActivity implements
     MyCarManagerResponse.MsgBean carManagerItem = null;
     @ViewInject(R.id.ll_head)
     private LinearLayout ll_head;
-    @ViewInject(R.id.listView_front)
-    private LinearLayout listView_front;
-    @ViewInject(R.id.ll_no_data)
-    private LinearLayout ll_no_data;
     private int itemIndex;
     private int currentDefaultIndex;
     private MyBroadcastReceiver broad;
-//    public static CarManagerActivity instance;
+    //    public static CarManagerActivity instance;
     private String DefaultName = "";
     private String DefaultPlate = "";
     private String DefaultIcon = "";
     private String DefaultNo = "";
+
+    @ViewInject(R.id.vp_car_manager)
+    private ViewPager vp_car_manager;
+    private static final float DEFAULT_MIN_ALPHA = 0.5f;
+    private float mMinAlpha = DEFAULT_MIN_ALPHA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +91,46 @@ public class CarManagerActivity extends BaseActivity implements
         super.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.fr_list_carmanager);
         ViewUtils.inject(this);
-        initViews();
-        setListeners();
+//        initViews();
+//        setListeners();
+
+        CarManagerAdapter adapter = new CarManagerAdapter(baseContext, null);
+        vp_car_manager.setAdapter(adapter);
+        vp_car_manager.setPageTransformer(true, new ViewPager.PageTransformer() {
+            @Override
+            public void transformPage(View view, float position) {
+                if (position < -1) {
+                    view = view.findViewById(R.id.ll_car_manager_item_head);
+                    ViewHelper.setAlpha(view, mMinAlpha);
+                    ViewHelper.setX(view, view.getWidth() / 2);
+                } else if (position <= 1) { // [-1,1]
+
+                    if (position < 0) //[0，-1]
+                    {
+                        float factor = mMinAlpha + (1 - mMinAlpha) * (1 + position);
+                        view = view.findViewById(R.id.ll_car_manager_item_head);
+                        ViewHelper.setAlpha(view, factor);
+                        ViewHelper.setScaleX(view, factor);
+                        ViewHelper.setScaleY(view, factor);
+                        ViewHelper.setX(view, factor);
+                    } else//[1，0]
+                    {
+                        float factor = mMinAlpha + (1 - mMinAlpha) * (1 - position);
+                        view = view.findViewById(R.id.ll_car_manager_item_head);
+                        ViewHelper.setAlpha(view, factor);
+                        ViewHelper.setScaleX(view, factor);
+                        ViewHelper.setScaleY(view, factor);
+                        ViewHelper.setX(view, factor);
+                    }
+                } else { // (1,+Infinity]
+                    int wid = view.getWidth();
+                    view = view.findViewById(R.id.ll_car_manager_item_head);
+                    ViewHelper.setAlpha(view, mMinAlpha);
+                    ViewHelper.setX(view, wid - view.getWidth() / 2);
+                }
+            }
+        });
+
     }
 
     private void initViews() {
@@ -99,10 +139,10 @@ public class CarManagerActivity extends BaseActivity implements
         right_action.setText(R.string.button_add);
         right_action.setVisibility(View.GONE);
 //        instance = this;
-        adapter = new CarManagerAdapter(this, listCarManager,
-                listView_carManager.getRightViewWidth());
-        listView_carManager.setAdapter(adapter);
-        adapter.setOnRightItemClickListener(this);
+//        adapter = new CarManagerAdapter(this, listCarManager,
+//                listView_carManager.getRightViewWidth());
+//        listView_carManager.setAdapter(adapter);
+//        adapter.setOnRightItemClickListener(this);
         listView_carManager.setSelector(new ColorDrawable(Color.TRANSPARENT));
         connectToServer();
     }
@@ -111,7 +151,7 @@ public class CarManagerActivity extends BaseActivity implements
         listView_carManager.setOnItemClickListener(this);
     }
 
-    @OnClick({R.id.listView_front, R.id.left_action, R.id.right_action})
+    //    @OnClick({R.id.listView_front, R.id.left_action, R.id.right_action})
     @Override
     public void onClick(View arg0) {
         switch (arg0.getId()) {
@@ -138,22 +178,22 @@ public class CarManagerActivity extends BaseActivity implements
         registerReceiver(broad, intentFilter);
     }
 
-    @Override
-    public void onRightItemClick(View v, int position) {
-        if (ButtonUtils.isFastClick()) {
-            return;
-        } else {
-            if (listCarManager.size() > position) {
-                Intent intent = new Intent(this, AddCarActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("car", listCarManager.get(position));
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        }
-    }
+//    @Override
+//    public void onRightItemClick(View v, int position) {
+//        if (ButtonUtils.isFastClick()) {
+//            return;
+//        } else {
+//            if (listCarManager.size() > position) {
+//                Intent intent = new Intent(this, AddCarActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("car", listCarManager.get(position));
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        }
+//    }
 
-    @OnItemClick({R.id.listView_carManager})
+    //    @OnItemClick({R.id.listView_carManager})
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         LogHelper.d(arg2 + "----" + currentDefaultIndex);
@@ -261,8 +301,8 @@ public class CarManagerActivity extends BaseActivity implements
                         break;
                     }
                 }
-                adapter.setData(listCarManager);
-                listView_front.setVisibility(View.INVISIBLE);
+//                adapter.setData(listCarManager);
+//                listView_front.setVisibility(View.INVISIBLE);
                 if (listCarManager.size() >= 3) {
                     right_action.setVisibility(View.GONE);
                 } else {
@@ -295,8 +335,8 @@ public class CarManagerActivity extends BaseActivity implements
                 }
                 //设置主页车辆图标
                 setMainIcon(DefaultIcon);
-                adapter.setData(listCarManager);
-                listView_front.setVisibility(View.INVISIBLE);
+//                adapter.setData(listCarManager);
+//                listView_front.setVisibility(View.INVISIBLE);
                 if (listCarManager.size() >= 3) {
                     right_action.setVisibility(View.GONE);
                 } else {
@@ -347,10 +387,10 @@ public class CarManagerActivity extends BaseActivity implements
      * 重新链接
      */
     public void reconnect() {
-        listView_front.setVisibility(View.VISIBLE);
+//        listView_front.setVisibility(View.VISIBLE);
         if (listCarManagerTemp != null) {
             listCarManagerTemp.clear();
-            adapter.setNullUpdateUi(listCarManagerTemp);
+//            adapter.setNullUpdateUi(listCarManagerTemp);
         }
         connectToServer();
     }

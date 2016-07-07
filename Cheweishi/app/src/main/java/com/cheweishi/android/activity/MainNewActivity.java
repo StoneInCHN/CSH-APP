@@ -281,19 +281,19 @@ public class MainNewActivity extends BaseActivity {
                 ChangeFragment(0, home, store, news, my);
                 break;
             case R.id.ll_home_bottom_store: // 门店
-                ll_right_msg.setVisibility(View.GONE);
+                ll_right_msg.setVisibility(View.INVISIBLE);
                 setTitle("门店");
                 ll_home_header.setVisibility(View.VISIBLE);
                 ChangeFragment(1, home, store, news, my);
                 break;
             case R.id.ll_home_bottom_news: // 新闻
-                ll_right_msg.setVisibility(View.GONE);
+                ll_right_msg.setVisibility(View.INVISIBLE);
                 setTitle("车蓝调");
                 ll_home_header.setVisibility(View.VISIBLE);
                 ChangeFragment(2, home, store, news, my);
                 break;
             case R.id.ll_home_bottom_my: // 我的
-                ll_right_msg.setVisibility(View.GONE);
+                ll_right_msg.setVisibility(View.INVISIBLE);
                 setTitle("我的");
                 ll_home_header.setVisibility(View.GONE);
                 ChangeFragment(3, home, store, news, my);

@@ -277,7 +277,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 // 执行刷新函数
 //                new GetDataTask().execute();
                 getMainData();
-                refresh_scrollview.onRefreshComplete();
+//                refresh_scrollview.onRefreshComplete();
             }
 
         });
@@ -297,7 +297,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         ((BaseActivity) getActivity()).applyAdmin(Manifest.permission.ACCESS_FINE_LOCATION, ((BaseActivity) getActivity()).MY_LOCATION_PREMESSION);
         ((BaseActivity) getActivity()).applyAdmin(Manifest.permission.ACCESS_COARSE_LOCATION, ((BaseActivity) getActivity()).MY_LOCATION_PREMESSION);
-        ProgrosDialog.openDialog(baseContext);
+//        ProgrosDialog.openDialog(baseContext);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
@@ -473,7 +473,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 }
 
                 loginResponse.setToken(baseResponse.getToken());
-                ProgrosDialog.closeProgrosDialog();
+                refresh_scrollview.onRefreshComplete();
+//                ProgrosDialog.closeProgrosDialog();
                 break;
 
             case NetInterface.GET_DUIBA_LOGIN_URL: // 获取兑吧url
@@ -524,6 +525,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 isLoginOrHasCar_New(PessanySearchActivity.class);
                 break;
         }
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        refresh_scrollview.onRefreshComplete();
+        ProgrosDialog.closeProgrosDialog();
+        showToast(R.string.server_link_fault);
     }
 
     public void setTitle(String desc) {
@@ -899,5 +907,12 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         param.put("token", loginResponse.getToken());
         param.put(Constant.PARAMETER_TAG, NetInterface.GET_DUIBA_LOGIN_URL);
         netWorkHelper.PostJson(url, param, this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (null != refresh_scrollview)
+            refresh_scrollview.onRefreshComplete();
     }
 }
