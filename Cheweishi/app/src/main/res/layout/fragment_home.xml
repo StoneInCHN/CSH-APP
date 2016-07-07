@@ -20,53 +20,67 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="@drawable/more_back"
+                android:padding="@dimen/top_left_small_padding">
 
-                <Button
-                    android:id="@+id/btn_scanning"
+                <ImageView
+                    android:id="@+id/iv_home_user_car"
+                    android:layout_width="@dimen/red_action_button_margin"
+                    android:layout_height="@dimen/red_action_button_margin"
+                    android:src="@drawable/tianjiacar_img2x" />
+
+                <TextView
+                    android:id="@+id/tv_home_user_car_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/more_back"
-                    android:drawablePadding="@dimen/normal_padding"
-                    android:drawableTop="@drawable/saoyisao"
-                    android:paddingBottom="@dimen/large_padding"
-                    android:paddingTop="@dimen/large_padding"
-                    android:text="@string/main_saoyisao"
+                    android:layout_marginLeft="@dimen/normal_marging"
+                    android:layout_toRightOf="@id/iv_home_user_car"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:text="奔驰"
                     android:textColor="@color/text_saoyisao_color"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
-                <Button
-                    android:id="@+id/btn_my_wallet"
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/more_back"
-                    android:drawablePadding="@dimen/normal_padding"
-                    android:drawableTop="@drawable/purse"
-                    android:paddingBottom="@dimen/large_padding"
-                    android:paddingTop="@dimen/large_padding"
-                    android:text="@string/main_mywallet"
-                    android:textColor="@color/text_saoyisao_color"
+                    android:layout_below="@id/tv_home_user_car_name"
+                    android:layout_marginLeft="@dimen/normal_marging"
+                    android:layout_toRightOf="@id/iv_home_user_car"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:text="奔驰"
+                    android:textColor="@color/btn_gray_normal"
                     android:textSize="16sp" />
 
-                <Button
-                    android:id="@+id/btn_my_order"
+
+                <ImageView
+                    android:id="@+id/iv_home_next"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/more_back"
-                    android:drawablePadding="@dimen/normal_padding"
-                    android:drawableTop="@drawable/order"
-                    android:paddingBottom="@dimen/large_padding"
-                    android:paddingTop="@dimen/large_padding"
-                    android:text="@string/main_myorder"
-                    android:textColor="@color/text_saoyisao_color"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/icon_next" />
+
+                <TextView
+                    android:id="@+id/tv_home_weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/iv_home_next"
+                    android:drawableLeft="@mipmap/ic_launcher"
+                    android:gravity="center"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:text="较适宜洗车"
+                    android:textColor="@color/btn_gray_normal"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"

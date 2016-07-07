@@ -104,6 +104,25 @@ public class MainNewActivity extends BaseActivity {
     @ViewInject(R.id.tv_msg_center_num)
     public static TextView tv_msg_center_num;//消息数量
 
+    @ViewInject(R.id.ll_home_header)
+    private LinearLayout ll_home_header;//actionbar
+
+    //首页
+    @ViewInject(R.id.ll_home_bottom_index)
+    private LinearLayout ll_home_bottom_index;
+
+    //门店
+    @ViewInject(R.id.ll_home_bottom_store)
+    private LinearLayout ll_home_bottom_store;
+
+    //蓝调
+    @ViewInject(R.id.ll_home_bottom_news)
+    private LinearLayout ll_home_bottom_news;
+
+    //我的
+    @ViewInject(R.id.ll_home_bottom_my)
+    private LinearLayout ll_home_bottom_my;
+
 
     /**
      * 定位工具
@@ -236,7 +255,9 @@ public class MainNewActivity extends BaseActivity {
 
     private Intent intent;
 
-    @OnClick({R.id.ibtn_user, R.id.ll_right_msg})
+    @OnClick({R.id.ibtn_user, R.id.ll_right_msg,
+            R.id.ll_home_bottom_index, R.id.ll_home_bottom_store,
+            R.id.ll_home_bottom_news, R.id.ll_home_bottom_my})
     public void onClick(View v) {
         /**
          * 快速点击忽略处理
@@ -251,6 +272,22 @@ public class MainNewActivity extends BaseActivity {
                 break;
             case R.id.ll_right_msg:// 消息中心
                 isLogin(MessagerCenterActivity.class);
+                break;
+            case R.id.ll_home_bottom_index: //首页
+                ll_home_header.setVisibility(View.VISIBLE);
+                ChangeFragment(0, home, store, news, my);
+                break;
+            case R.id.ll_home_bottom_store: // 门店
+                ll_home_header.setVisibility(View.VISIBLE);
+                ChangeFragment(1, home, store, news, my);
+                break;
+            case R.id.ll_home_bottom_news: // 新闻
+                ll_home_header.setVisibility(View.VISIBLE);
+                ChangeFragment(2, home, store, news, my);
+                break;
+            case R.id.ll_home_bottom_my: // 我的
+                ll_home_header.setVisibility(View.GONE);
+                ChangeFragment(3, home, store, news, my);
                 break;
 //            case R.id.btn_scanning:// 扫一扫
 //                OpenCamera(false);

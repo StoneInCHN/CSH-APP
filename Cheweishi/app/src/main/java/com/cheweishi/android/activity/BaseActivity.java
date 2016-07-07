@@ -18,6 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -90,7 +91,7 @@ public abstract class BaseActivity extends FragmentActivity implements
             }
         }
     };
-    protected FragmentTransaction transaction;
+    private FragmentManager fmanager;
 
     /**
      * Activity的回调函数。当application进入前台时，该函数会被自动调用。
@@ -798,32 +799,35 @@ public abstract class BaseActivity extends FragmentActivity implements
     }
 
     public void InitHomeFragment(int contentid, Fragment home, Fragment store, Fragment news, Fragment my) {
-        transaction = getSupportFragmentManager().beginTransaction();
+        fmanager = getSupportFragmentManager();
+        FragmentTransaction transaction = fmanager.beginTransaction();
         transaction.add(contentid, my).add(contentid, news).add(contentid, store).add(contentid, home).hide(my).hide(news).hide(store).show(home);
         transaction.commit();
     }
 
 
     public void ChangeFragment(int index, Fragment home, Fragment store, Fragment news, Fragment my) {
+        if (0 > index)
+            return;
         if (currentIndex == index)
             return;
-        if (0 >= index)
-            return;
         currentIndex = index;
+        FragmentTransaction transaction = fmanager.beginTransaction();
         switch (index) {
-            case 1: // home
+            case 0: // home
                 transaction.show(home).hide(store).hide(news).hide(my);
                 break;
-            case 2: // store
+            case 1: // store
                 transaction.show(store).hide(home).hide(news).hide(my);
                 break;
-            case 3: // news
+            case 2: // news
                 transaction.show(news).hide(home).hide(store).hide(my);
                 break;
-            case 4: // my
+            case 3: // my
                 transaction.show(my).hide(home).hide(store).hide(news);
                 break;
         }
+        transaction.commit();
     }
 
 }

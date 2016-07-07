@@ -3,7 +3,6 @@ package com.cheweishi.android.fragement;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -46,11 +45,9 @@ import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.ADInfo;
 import com.cheweishi.android.entity.AdvResponse;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.entity.MainGridInfo;
-import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.PushResponse;
 import com.cheweishi.android.entity.ServiceListResponse;
 import com.cheweishi.android.response.BaseResponse;
@@ -63,7 +60,6 @@ import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.ScreenUtils;
 import com.cheweishi.android.utils.StringUtil;
-import com.cheweishi.android.utils.mapUtils.LocationUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.cheweishi.android.widget.MyGallery;
 import com.cheweishi.android.widget.UnSlidingListView;
@@ -146,14 +142,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private int preSelImgIndex = 0;
 
-    //    private String[] name = {"美容", "保养", "买车险", "紧急救援", "找加油站", "", "", "找车位",
-//            "车辆动态", "一键检测", "违章查询", "更多"};
     private String[] name = {"买车险", "洗车", "紧急救援", "保养", "找加油站", "", "", "美容",
             "车辆动态", "一键检测", "违章查询", "找车位"};
-    //    private int[] icon = {R.drawable.meirong, R.drawable.baoyang,
-//            R.drawable.xian, R.drawable.jinjijiuyuan, R.drawable.jiayouzhan,
-//            0, 0, R.drawable.chewei, R.drawable.dongtai, R.drawable.jiance,
-//            R.drawable.weizhang, R.drawable.chewei};
     private int[] icon = {R.drawable.xian, R.drawable.xiche,
             R.drawable.jinjijiuyuan, R.drawable.baoyang, R.drawable.jiayouzhan,
             0, 0, R.drawable.meirong, R.drawable.dongtai, R.drawable.jiance,

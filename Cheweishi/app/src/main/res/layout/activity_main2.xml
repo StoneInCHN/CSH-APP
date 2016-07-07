@@ -17,8 +17,8 @@
             android:layout_height="@dimen/title_height"
             android:padding="@dimen/sidebar_text_size"
             android:scaleType="centerCrop"
-            android:visibility="invisible"
-            android:src="@drawable/tianjiacar_img2x" />
+            android:src="@drawable/tianjiacar_img2x"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/tv_home_title"
@@ -80,9 +80,11 @@
         android:background="@color/white">
 
         <LinearLayout
+            android:id="@+id/ll_home_bottom_index"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
+            android:background="@drawable/more_back"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -99,9 +101,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_home_bottom_store"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
+            android:background="@drawable/more_back"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -118,9 +122,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_home_bottom_news"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
+            android:background="@drawable/more_back"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -137,9 +143,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_home_bottom_my"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
+            android:background="@drawable/more_back"
             android:gravity="center"
             android:orientation="vertical">
 
