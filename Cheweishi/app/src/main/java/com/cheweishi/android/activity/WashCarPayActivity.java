@@ -168,6 +168,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     private PayCouponListResponse couponListResponse;
     private int currentCouponId = -1; // 抵用优惠券ID
     private UseCouponAdapter adapter;
+    private WeiXinPay weixinPay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -290,7 +291,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             return;
         }
 
-        if (CHANNEL_WECHAT.equals(channel) && !WeiXinPay.getinstance(baseContext).isWXAppInstalledAndSupported()) {
+        if (CHANNEL_WECHAT.equals(channel) && !WeiXinPay.getinstance(baseContext.getApplicationContext()).isWXAppInstalledAndSupported()) {
             tv_wash_affirm.setClickable(true);
             return;
         }
@@ -503,7 +504,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                         String prepay_id = preparePayResponse.getMsg().getPrepay_id();
                         String nonce_str = preparePayResponse.getMsg().getNonce_str();
                         LogHelper.d(prepay_id + "----" + nonce_str);
-                        WeiXinPay.getinstance(this).pay(prepay_id, nonce_str);
+                        weixinPay = WeiXinPay.getinstance(baseContext.getApplicationContext());
+                        weixinPay.pay(prepay_id, nonce_str);
                         break;
                     case CHANNEL_WALLET://钱包
                         updatePacket();
@@ -723,6 +725,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
         if (!StringUtil.isEmpty(broad)) {
             unregisterReceiver(broad);
         }
+        if (null != weixinPay)
+            weixinPay.onDestory();
     }
 
     @Override

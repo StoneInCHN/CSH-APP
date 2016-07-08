@@ -53,13 +53,13 @@ public class WeiXinPay {
     private String nonce_str;
 
     public static WeiXinPay getinstance(Context context) {
-        mContext = context;
-        msgApi = WXAPIFactory.createWXAPI(mContext, null);
-        req = new PayReq();
-        sb = new StringBuffer();
-        msgApi.registerApp(Constant.APP_ID);
         if (instance == null) {
+            mContext = context;
             instance = new WeiXinPay();
+            msgApi = WXAPIFactory.createWXAPI(mContext, null);
+            req = new PayReq();
+            sb = new StringBuffer();
+            msgApi.registerApp(Constant.APP_ID);
         }
         return instance;
     }
@@ -361,5 +361,14 @@ public class WeiXinPay {
             Toast.makeText(mContext, "微信客户端未安装，无法进行支付", Toast.LENGTH_LONG).show();
         }
         return sIsWXAppInstalledAndSupported;
+    }
+
+    public void onDestory() {
+        msgApi.unregisterApp();
+        mContext = null;
+        msgApi = null;
+        req = null;
+        sb = null;
+        instance = null;
     }
 }
