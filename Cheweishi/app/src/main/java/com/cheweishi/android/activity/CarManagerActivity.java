@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.adapter.CarManagerAdapter;
@@ -56,7 +57,7 @@ import java.util.Map;
  */
 public class CarManagerActivity extends BaseActivity implements
         OnClickListener,
-        OnItemClickListener, ViewPager.PageTransformer, ViewPager.OnPageChangeListener {
+        ViewPager.PageTransformer, ViewPager.OnPageChangeListener {
 
     @ViewInject(R.id.left_action)
     private Button left_action;
@@ -65,16 +66,7 @@ public class CarManagerActivity extends BaseActivity implements
     @ViewInject(R.id.right_action)
     private TextView right_action;
     private CarManagerAdapter adapter;
-    private List<MyCarManagerResponse.MsgBean> listCarManager = new ArrayList<MyCarManagerResponse.MsgBean>();
-    MyCarManagerResponse.MsgBean carManagerItem = null;
-    private int itemIndex;
-    private int currentDefaultIndex;
     private MyBroadcastReceiver broad;
-    //    public static CarManagerActivity instance;
-    private String DefaultName = "";
-    private String DefaultPlate = "";
-    private String DefaultIcon = "";
-    private String DefaultNo = "";
 
     @ViewInject(R.id.vp_car_manager)
     private ViewPager vp_car_manager;
@@ -82,6 +74,11 @@ public class CarManagerActivity extends BaseActivity implements
     //车数量
     @ViewInject(R.id.tv_car_manager_number)
     private TextView tv_car_manager_number;
+
+    //车管理
+    @ViewInject(R.id.rl_car_manager)
+    private RelativeLayout rl_car_manager;
+
     private static final float DEFAULT_MIN_ALPHA = 0.0f;
     private float mMinAlpha = DEFAULT_MIN_ALPHA;
     private MyCarManagerResponse response;
@@ -135,35 +132,6 @@ public class CarManagerActivity extends BaseActivity implements
     }
 
 
-    //    @OnItemClick({R.id.listView_carManager})
-    @Override
-    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        LogHelper.d(arg2 + "----" + currentDefaultIndex);
-        if (ButtonUtils.isFastClick()) {
-            return;
-        } else if (currentDefaultIndex != arg2) {
-            itemIndex = arg2;
-            carManagerItem = listCarManager.get(itemIndex);
-            // if ((carManagerItem.getFeed()) == 0) {
-            ConnectItemToServer(listCarManager.get(itemIndex));
-            // } else {
-            // // if (StringUtil.isEmpty(listCarManager.get(itemIndex)
-            // // .getDevice())) {
-            // ConnectItemToServer(listCarManager.get(itemIndex).getCid());
-            // // } else {
-            // // Intent pageIntent = new Intent(mContext,
-            // // CarManagerBindActivity.class);
-            // // Bundle bundle = new Bundle();
-            // // bundle.putSerializable("car", carManagerItem);
-            // // pageIntent.putExtra("currentCid", carManagerItem.getCid());
-            // // pageIntent.putExtra("CarManagerBindActivity", 1000);
-            // // pageIntent.putExtras(bundle);
-            // // startActivity(pageIntent);
-            // // }
-            // }
-        }
-    }
-
     /**
      * 请求车辆列表
      */
@@ -202,11 +170,6 @@ public class CarManagerActivity extends BaseActivity implements
             param.put(Constant.PARAMETER_TAG, NetInterface.SET_DEFAULT_DEVICE);
             netWorkHelper.PostJson(url, param, this);
 
-            // TODO 更新UI和缓存.
-            DefaultName = msgBean.getVehicleFullBrand();
-            DefaultPlate = msgBean.getPlate();
-            DefaultIcon = msgBean.getBrandIcon();
-            DefaultNo = msgBean.getDeviceNo();
         } else {
             ProgrosDialog.closeProgrosDialog();
         }
@@ -234,11 +197,11 @@ public class CarManagerActivity extends BaseActivity implements
 //                    EmptyTools.setImg(R.drawable.mycar_icon);
 //                    EmptyTools.setMessage("您还没有添加车辆");
                 }
-                if (listCarManager.size() >= 3) {
-                    right_action.setVisibility(View.GONE);
-                } else {
-                    right_action.setVisibility(View.VISIBLE);
-                }
+//                if (listCarManager.size() >= 3) {
+//                    right_action.setVisibility(View.GONE);
+//                } else {
+//                    right_action.setVisibility(View.VISIBLE);
+//                }
 
                 loginResponse.setToken(response.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
@@ -251,41 +214,41 @@ public class CarManagerActivity extends BaseActivity implements
                     return;
                 }
 
-                for (int i = 0; i < listCarManager.size(); i++) {
-                    listCarManager.get(i).setDefault(false);
-                }
-                currentDefaultIndex = itemIndex;
-                listCarManager.get(itemIndex).setDefault(true);
-                String temp = baseResponse.getDesc();
-                if (null != temp && !"".equals(temp)) {
-                    // 设置主页标题
-                    setTitle(baseResponse.getDesc());
-                } else {
-                    // 设置主页标题
-                    setTitle("车生活");
-                }
-                //设置主页车辆图标
-                setMainIcon(DefaultIcon);
-//                adapter.setData(listCarManager);
-//                listView_front.setVisibility(View.INVISIBLE);
-                if (listCarManager.size() >= 3) {
-                    right_action.setVisibility(View.GONE);
-                } else {
-                    right_action.setVisibility(View.VISIBLE);
-                }
-                loginResponse.getMsg().setDefaultVehicle(DefaultName);
-                loginResponse.getMsg().setDefaultVehicleIcon(DefaultIcon);
-                loginResponse.getMsg().setDefaultVehiclePlate(DefaultPlate);
-                loginResponse.getMsg().setDefaultDeviceNo(DefaultNo);
-                loginResponse.getMsg().setDefaultVehicleId("" + baseResponse.getMsg().get(currentDefaultIndex).getId());
-                loginResponse.setToken(baseResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-
-
-                Intent intent = new Intent();
-                intent.setAction(Constant.REFRESH_FLAG);
-                Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
-                sendBroadcast(intent);
+//                for (int i = 0; i < listCarManager.size(); i++) {
+//                    listCarManager.get(i).setDefault(false);
+//                }
+//                currentDefaultIndex = itemIndex;
+//                listCarManager.get(itemIndex).setDefault(true);
+//                String temp = baseResponse.getDesc();
+//                if (null != temp && !"".equals(temp)) {
+//                    // 设置主页标题
+//                    setTitle(baseResponse.getDesc());
+//                } else {
+//                    // 设置主页标题
+//                    setTitle("车生活");
+//                }
+//                //设置主页车辆图标
+//                setMainIcon(DefaultIcon);
+////                adapter.setData(listCarManager);
+////                listView_front.setVisibility(View.INVISIBLE);
+//                if (listCarManager.size() >= 3) {
+//                    right_action.setVisibility(View.GONE);
+//                } else {
+//                    right_action.setVisibility(View.VISIBLE);
+//                }
+//                loginResponse.getMsg().setDefaultVehicle(DefaultName);
+//                loginResponse.getMsg().setDefaultVehicleIcon(DefaultIcon);
+//                loginResponse.getMsg().setDefaultVehiclePlate(DefaultPlate);
+//                loginResponse.getMsg().setDefaultDeviceNo(DefaultNo);
+//                loginResponse.getMsg().setDefaultVehicleId("" + baseResponse.getMsg().get(currentDefaultIndex).getId());
+//                loginResponse.setToken(baseResponse.getToken());
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//
+//
+//                Intent intent = new Intent();
+//                intent.setAction(Constant.REFRESH_FLAG);
+//                Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
+//                sendBroadcast(intent);
                 break;
         }
     }
@@ -321,13 +284,6 @@ public class CarManagerActivity extends BaseActivity implements
         connectToServer();
     }
 
-    public void setListVisible(boolean flag) {
-        if (flag == false) {
-//            listView_carManager.setVisibility(View.GONE);
-        } else {
-//            listView_carManager.setVisibility(View.VISIBLE);
-        }
-    }
 
     @Override
     public void onDestroy() {
@@ -393,17 +349,4 @@ public class CarManagerActivity extends BaseActivity implements
         }
     }
 
-    @Override
-    public void dealCallBackFromAdapter(int pos, Object obj) {
-        super.dealCallBackFromAdapter(pos, obj);
-        if (ButtonUtils.isFastClick()) {
-            return;
-        } else if (currentDefaultIndex != pos) {
-
-            itemIndex = pos;
-            carManagerItem = listCarManager.get(itemIndex);
-            ConnectItemToServer(listCarManager.get(itemIndex));
-
-        }
-    }
 }
