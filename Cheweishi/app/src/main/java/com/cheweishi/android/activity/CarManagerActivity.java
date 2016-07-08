@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -79,9 +80,27 @@ public class CarManagerActivity extends BaseActivity implements
     @ViewInject(R.id.rl_car_manager)
     private RelativeLayout rl_car_manager;
 
+    // 编辑
+    @ViewInject(R.id.ll_car_manager_edit)
+    private LinearLayout ll_car_manager_edit;
+
+    // 没数据的
+    @ViewInject(R.id.ll_car_manager_no_data)
+    private LinearLayout ll_car_manager_no_data;
+
+    //无数据的图标
+    @ViewInject(R.id.img_no_data)
+    private ImageView img_no_data;
+
+    // 数据文本
+    @ViewInject(R.id.tv_no_data)
+    private TextView tv_no_data;
+
     private static final float DEFAULT_MIN_ALPHA = 0.0f;
     private float mMinAlpha = DEFAULT_MIN_ALPHA;
     private MyCarManagerResponse response;
+
+    private int CurrentPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,13 +117,13 @@ public class CarManagerActivity extends BaseActivity implements
         title.setText("我的车辆");
         left_action.setText(R.string.back);
         right_action.setText(R.string.button_add);
-//        right_action.setVisibility(View.GONE);
-//        listView_carManager.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        ll_car_manager_no_data.setVisibility(View.GONE);
+        ll_car_manager_edit.setOnClickListener(this);
         connectToServer();
     }
 
 
-    //    @OnClick({R.id.listView_front, R.id.left_action, R.id.right_action})
+    @OnClick({R.id.ll_car_manager_no_data, R.id.left_action, R.id.right_action})
     @Override
     public void onClick(View arg0) {
         switch (arg0.getId()) {
@@ -114,6 +133,17 @@ public class CarManagerActivity extends BaseActivity implements
             case R.id.right_action:
                 Intent intent = new Intent(this, AddCarActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.ll_car_manager_no_data: // 无数据的时候
+                Intent add = new Intent(this, AddCarActivity.class);
+                startActivity(add);
+                break;
+            case R.id.ll_car_manager_edit: // 编辑
+                Intent edit = new Intent(this, AddCarActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("car", response.getMsg().get(CurrentPosition));
+                edit.putExtras(bundle);
+                startActivity(edit);
                 break;
         }
     }
@@ -187,6 +217,8 @@ public class CarManagerActivity extends BaseActivity implements
                     return;
                 }
                 if (null != response && response.getMsg().size() > 0) {
+                    ll_car_manager_no_data.setVisibility(View.GONE);
+                    rl_car_manager.setVisibility(View.VISIBLE);
                     adapter = new CarManagerAdapter(baseContext, response.getMsg());
                     vp_car_manager.setAdapter(adapter);
                     vp_car_manager.setPageTransformer(true, this);
@@ -196,6 +228,9 @@ public class CarManagerActivity extends BaseActivity implements
 //                    EmptyTools.setEmptyView(this, vp_car_manager);
 //                    EmptyTools.setImg(R.drawable.mycar_icon);
 //                    EmptyTools.setMessage("您还没有添加车辆");
+                    ll_car_manager_no_data.setVisibility(View.VISIBLE);
+                    img_no_data.setImageResource(R.drawable.mycar_icon);
+                    tv_no_data.setText("当前没有车辆,点击图片添加车辆");
                 }
 //                if (listCarManager.size() >= 3) {
 //                    right_action.setVisibility(View.GONE);
@@ -331,6 +366,7 @@ public class CarManagerActivity extends BaseActivity implements
     public void onPageSelected(int position) {
         if (null != response)
             tv_car_manager_number.setText((position + 1) + "/" + response.getMsg().size());
+        CurrentPosition = position;
     }
 
     @Override

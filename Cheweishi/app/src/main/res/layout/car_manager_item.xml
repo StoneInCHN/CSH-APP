@@ -16,7 +16,6 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="68dp"
             android:background="@drawable/car_manager_item_bg">
 
             <ImageView
@@ -49,8 +48,8 @@
 
     <com.cheweishi.android.widget.XCRoundImageView
         android:id="@+id/iv_car_manager_item_car_icon"
-        android:layout_width="@dimen/btn_dialog_heigth"
-        android:layout_height="@dimen/btn_dialog_heigth"
+        android:layout_width="@dimen/max_size"
+        android:layout_height="@dimen/max_size"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:scaleType="centerCrop"

@@ -40,12 +40,12 @@
                     android:layout_toRightOf="@id/iv_home_user_car"
                     android:maxLength="10"
                     android:singleLine="true"
-                    android:text="奔驰"
                     android:textColor="@color/text_saoyisao_color"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
 
                 <TextView
+                    android:id="@+id/tv_home_user_car_full_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_home_user_car_name"
@@ -53,9 +53,8 @@
                     android:layout_toRightOf="@id/iv_home_user_car"
                     android:maxLength="10"
                     android:singleLine="true"
-                    android:text="奔驰"
                     android:textColor="@color/btn_gray_normal"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
 
                 <ImageView

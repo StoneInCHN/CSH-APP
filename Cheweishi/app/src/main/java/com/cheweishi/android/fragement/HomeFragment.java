@@ -83,8 +83,6 @@ import cn.jpush.android.api.TagAliasCallback;
 public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
 
-    public static TextView tv_home_title;
-
     // 服务模块gridview
     private UnslidingGridView gv_service;
 
@@ -126,6 +124,12 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private ImageView iv_home_hascoupon;// 活动中心按钮
 
+    private TextView tv_home_user_car_full_name; // 车系名字
+
+    private TextView tv_home_user_car_name; // 车品牌名字
+
+    private ImageView iv_home_user_car; // 车icon
+
     private MainGridViewAdapter gridViewAdapter;// gv_service适配器
     private MainListViewAdapter listViewAdapter;// list_business适配器
     private ImgAdapter imgAdapter;// mygrallery适配器
@@ -162,8 +166,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private void initView(View view) {
 
-        tv_home_title = (TextView) view.findViewById(R.id.tv_home_title);
-
         gv_service = (UnslidingGridView) view.findViewById(R.id.gv_service);
 
         mygallery = (MyGallery) view.findViewById(R.id.mygallery);
@@ -188,6 +190,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         rl_integral_mall = (RelativeLayout) view.findViewById(R.id.rl_integral_mall);
 
+        tv_home_user_car_name = (TextView) view.findViewById(R.id.tv_home_user_car_name);
+
+        tv_home_user_car_full_name = (TextView) view.findViewById(R.id.tv_home_user_car_full_name);
+
+        iv_home_user_car = (ImageView) view.findViewById(R.id.iv_home_user_car);
+
+
         // 可下拉刷新的scrollview
         refresh_scrollview = (PullToRefreshScrollView) view.findViewById(R.id.refresh_scrollview);
 
@@ -197,6 +206,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         rl_activity_area.setOnClickListener(this);
         rl_integral_mall.setOnClickListener(this);
 
+        if (isLogined()) {
+            XUtilsImageLoader.getxUtilsImageLoader(baseContext, R.drawable.tianjiacar_img2x, iv_home_user_car, loginResponse.getMsg().getDefaultVehicleIcon());
+            tv_home_user_car_name.setText(loginResponse.getMsg().getDefaultVehicle());
+            tv_home_user_car_full_name.setText(loginResponse.getMsg().getDefaultVehiclePlate());
+        }
 
         initScrollView();
         iniBaiduNavi();
@@ -207,6 +221,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
      * 加载数据
      */
     private void initData() {
+
 
         gridInfos = new ArrayList<MainGridInfo>();
         for (int i = 0; i < 12; i++) {
