@@ -212,8 +212,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         if (isLogined()) {
             XUtilsImageLoader.getxUtilsImageLoader(baseContext, R.drawable.tianjiacar_img2x, iv_home_user_car, loginResponse.getMsg().getDefaultVehicleIcon());
-            tv_home_user_car_name.setText(loginResponse.getMsg().getDefaultVehicle());
-            tv_home_user_car_full_name.setText(loginResponse.getMsg().getDefaultVehiclePlate());
+            tv_home_user_car_full_name.setText(loginResponse.getMsg().getDefaultVehicle());
+            tv_home_user_car_name.setText(loginResponse.getMsg().getDefaultVehiclePlate());
         }
 
 

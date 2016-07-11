@@ -38,7 +38,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/normal_marging"
                     android:layout_toRightOf="@id/iv_home_user_car"
-                    android:maxLength="10"
+                    android:ellipsize="end"
+                    android:maxEms="10"
                     android:singleLine="true"
                     android:textColor="@color/text_saoyisao_color"
                     android:textSize="16sp" />
@@ -51,7 +52,8 @@
                     android:layout_below="@id/tv_home_user_car_name"
                     android:layout_marginLeft="@dimen/normal_marging"
                     android:layout_toRightOf="@id/iv_home_user_car"
-                    android:maxLength="10"
+                    android:ellipsize="end"
+                    android:maxEms="10"
                     android:singleLine="true"
                     android:textColor="@color/btn_gray_normal"
                     android:textSize="14sp" />
