@@ -150,11 +150,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private int preSelImgIndex = 0;
 
     private String[] name = {"买车险", "洗车", "紧急救援", "保养", "找加油站", "", "", "美容",
-            "车辆动态", "一键检测", "违章查询", "找车位"};
+            "车辆数据", "违章查询", "找车位", "更多"};
     private int[] icon = {R.drawable.xian, R.drawable.xiche,
             R.drawable.jinjijiuyuan, R.drawable.baoyang, R.drawable.jiayouzhan,
-            0, 0, R.drawable.meirong, R.drawable.dongtai, R.drawable.jiance,
-            R.drawable.weizhang, R.drawable.chewei};
+            0, 0, R.drawable.meirong, R.drawable.dongtai, R.drawable.weizhang,
+            R.drawable.chewei, R.drawable.chewei};
 
     private CustomDialog.Builder builder;
     private CustomDialog versionDialog;
@@ -312,6 +312,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 // 执行刷新函数
 //                new GetDataTask().execute();
                 requestAdv();
+//                getMainData();
 //                refresh_scrollview.onRefreshComplete();
             }
 
@@ -883,21 +884,37 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //                isLogin(BeautyDetailsActivity.class);
                 isLogin(BeautyListActivity_new.class);
                 break;
-            case 8:// 车辆动态
-                updateCache("CAR_DYNAMIC");
+            case 8:// 车辆数据
+                updateCache("CAR_DETECTION");
 //                isLoginOrHasCar(CarDynamicActivity.class);
                 break;
-            case 9:// 一键检测
-                updateCache("CAR_DETECTION");
+            case 9:// 违章代办
+                updateCache("PESSANY");
 //                isLoginOrHasCar(CarDetectionActivity.class);
                 break;
-            case 10:// 违章代办
-                updateCache("PESSANY");
+            case 10:// 找车位
+                isLogin(FindParkingSpaceActivity.class);
 //                isLoginOrHasCar(PessanySearchActivity.class);
                 break;
-            case 11:// 找车位
-                isLogin(FindParkingSpaceActivity.class);
+            case 11:// 更多
+                showToast("敬请期待");
                 break;
+//            case 8:// 车辆动态
+//                updateCache("CAR_DETECTION");
+//                updateCache("CAR_DYNAMIC");
+////                isLoginOrHasCar(CarDynamicActivity.class);
+//                break;
+//            case 9:// 一键检测
+//                updateCache("CAR_DETECTION");
+////                isLoginOrHasCar(CarDetectionActivity.class);
+//                break;
+//            case 10:// 违章代办
+//                updateCache("PESSANY");
+////                isLoginOrHasCar(PessanySearchActivity.class);
+//                break;
+//            case 11:// 找车位
+//                isLogin(FindParkingSpaceActivity.class);
+//                break;
         }
     }
 

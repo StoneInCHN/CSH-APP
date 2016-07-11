@@ -140,4 +140,10 @@ public class DevicesListActivity extends BaseActivity implements View.OnClickLis
             finish();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EmptyTools.destory();
+    }
 }

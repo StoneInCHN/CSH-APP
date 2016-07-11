@@ -389,6 +389,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
         SharePreferenceTools.setUser(this, loginTel, loginPass);
         if (MainNewActivity.instance != null) {
             MainNewActivity.instance.finish();
+            if (null != MainNewActivity.instance) {
+                MainNewActivity.instance = null;
+            }
         }
         LogHelper.d("-----login:" + loginResponse.getToken());
         save(loginResponse);

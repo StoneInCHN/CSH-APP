@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
+import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.CarManagerActivity;
 import com.cheweishi.android.activity.IdeaReturnActivity;
 import com.cheweishi.android.activity.MyorderActivity;
@@ -158,6 +159,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 turnToMyOrder();
                 break;
             case R.id.ll_my_scan: // 扫一扫
+                ((BaseActivity)(baseContext)).OpenCamera(false);
                 break;
             case R.id.ll_my_default_coupon: // 优惠券
                 Intent intent = new Intent(baseContext,
