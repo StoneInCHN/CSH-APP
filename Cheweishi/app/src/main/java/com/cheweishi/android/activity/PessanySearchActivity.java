@@ -14,10 +14,8 @@ import com.cheweishi.android.entity.MyCarManagerResponse;
 import com.cheweishi.android.entity.PessanyResponse;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.tools.ScreenTools;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.widget.MyUnSlidingListView;
-import com.cheweishi.android.widget.UnSlidingListView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -144,7 +142,7 @@ public class PessanySearchActivity extends BaseActivity implements
                 finish();
                 break;
             case R.id.right_action:
-                showPopuWindow(arg0);
+                showPopupWindow(arg0);
                 break;
         }
     }
@@ -161,7 +159,7 @@ public class PessanySearchActivity extends BaseActivity implements
     private ChangeCarAdapter changeCarAdapter;
     private PopupWindow popupWindow;
 
-    private void showPopuWindow(View down) {
+    private void showPopupWindow(View down) {
         if (null == msg)
             return;
         if (null == popupWindow) {

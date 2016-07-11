@@ -699,7 +699,7 @@
                 android:id="@+id/ll_car_manager_item_yjjc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/more_back"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/normal_padding">
@@ -743,7 +743,7 @@
                 android:id="@+id/ll_car_manager_item_car_dynamic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/more_back"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/normal_padding">

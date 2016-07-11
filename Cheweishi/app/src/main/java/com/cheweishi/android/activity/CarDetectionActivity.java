@@ -6,14 +6,21 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
+import com.cheweishi.android.adapter.CarStatusAdapter;
+import com.cheweishi.android.adapter.ChangeCarAdapter;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
@@ -26,13 +33,16 @@ import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.StringUtil;
+import com.cheweishi.android.widget.MyUnSlidingListView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -94,7 +104,7 @@ public class CarDetectionActivity extends BaseActivity {
     private void initView() {
         left_action.setText(R.string.back);
         title.setText(R.string.mycar);
-        right_action.setText(R.string.mycar_list);
+        right_action.setText(R.string.xlistview_footer_hint_normal);
 
         initData();
     }
@@ -296,8 +306,10 @@ public class CarDetectionActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.right_action:// 车辆列表
-                startActivity(new Intent(CarDetectionActivity.this,
-                        CarManagerActivity.class));
+//                startActivity(new Intent(CarDetectionActivity.this,
+//                        CarManagerActivity.class));
+                msg.add(0, "车辆动态");
+                showPopupWindow(v);
                 break;
 
             case R.id.btn_security_scan:// 安全扫描
@@ -340,6 +352,44 @@ public class CarDetectionActivity extends BaseActivity {
             }
         }
 
+    }
+
+
+    private MyUnSlidingListView listView;
+    private CarStatusAdapter carstatusAdapter;
+    private PopupWindow popupWindow;
+    private List<String> msg = new ArrayList<>();
+
+    private void showPopupWindow(View down) {
+        if (null == popupWindow) {
+            View view = View.inflate(baseContext, R.layout.change_car, null);
+//            int screen = ScreenTools.getScreentWidth(PessanySearchActivity.this);
+            popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            listView = (MyUnSlidingListView) view.findViewById(R.id.lv_change_car);
+        }
+        if (popupWindow.isShowing()) {
+            popupWindow.dismiss();
+            return;
+        }
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
+        carstatusAdapter = new CarStatusAdapter(baseContext, msg);
+        listView.setAdapter(carstatusAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view,
+                                    int position, long id) {
+                if (popupWindow != null)
+                    popupWindow.dismiss();
+
+                // TODO 进入车辆动态界面
+                Intent intent = new Intent(baseContext, CarDynamicActivity.class);
+                intent.setClass(baseContext, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+//        popupWindow.showAsDropDown(down, ScreenTools.getScreentWidth(PessanySearchActivity.this) / 10, 0);
+        popupWindow.showAsDropDown(down, (int) (down.getWidth() / 2.5), 0);
     }
 
 }

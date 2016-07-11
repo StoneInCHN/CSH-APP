@@ -58,7 +58,7 @@ import java.util.Map;
  */
 public class CarManagerActivity extends BaseActivity implements
         OnClickListener,
-        ViewPager.PageTransformer, ViewPager.OnPageChangeListener {
+        ViewPager.PageTransformer, ViewPager.OnPageChangeListener, CarManagerAdapter.CarManagerListener {
 
     @ViewInject(R.id.left_action)
     private Button left_action;
@@ -101,6 +101,7 @@ public class CarManagerActivity extends BaseActivity implements
     private MyCarManagerResponse response;
 
     private int CurrentPosition = 0;
+    private Intent intent = new Intent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,7 +220,7 @@ public class CarManagerActivity extends BaseActivity implements
                 if (null != response && response.getMsg().size() > 0) {
                     ll_car_manager_no_data.setVisibility(View.GONE);
                     rl_car_manager.setVisibility(View.VISIBLE);
-                    adapter = new CarManagerAdapter(baseContext, response.getMsg());
+                    adapter = new CarManagerAdapter(baseContext, response.getMsg(), this);
                     vp_car_manager.setAdapter(adapter);
                     vp_car_manager.setPageTransformer(true, this);
                     vp_car_manager.setOnPageChangeListener(this);
@@ -374,6 +375,21 @@ public class CarManagerActivity extends BaseActivity implements
 
     }
 
+    @Override
+    public void onCarLineClick(int type, int position) {
+        if (null != response) {
+            switch (type) {
+                case 0: // 车辆动态
+                    isLoginOrHasCar(CarDynamicActivity.class, position);
+                    break;
+                case 1: // 一键检测
+                    isLoginOrHasCar(CarDetectionActivity.class, position);
+                    break;
+            }
+
+        }
+    }
+
     public class MyBroadcastReceiver extends BroadcastReceiver {
 
         public void onReceive(Context context, Intent intent) {
@@ -382,6 +398,22 @@ public class CarManagerActivity extends BaseActivity implements
 //                reconnect();
 
             }
+        }
+    }
+
+
+    /**
+     * 对是否登陆和是否有车处理
+     *
+     * @param cls
+     */
+    private void isLoginOrHasCar(Class<?> cls, int p) {
+        if (StringUtil.isEmpty(response.getMsg().get(p).getDeviceNo())) {
+            showCustomDialog(getString(R.string.home_no_device), "前往绑定", 1);
+            return;
+        } else {
+            intent.setClass(baseContext, cls);
+            startActivity(intent);
         }
     }
 

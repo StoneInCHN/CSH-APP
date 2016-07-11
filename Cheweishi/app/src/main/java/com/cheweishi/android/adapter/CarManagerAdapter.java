@@ -97,10 +97,17 @@ public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
     @ViewInject(R.id.tv_car_manager_item_device)
     private TextView tv_car_manager_item_device;
 
-    public CarManagerAdapter(Context context, List<MyCarManagerResponse.MsgBean> list) {
+    public interface CarManagerListener {
+        public void onCarLineClick(int type, int position);
+    }
+
+    //车动态车数据
+    private CarManagerListener listener;
+
+    public CarManagerAdapter(Context context, List<MyCarManagerResponse.MsgBean> list, CarManagerListener listener) {
         this.context = context;
         this.list = list;
-
+        this.listener = listener;
         init();
     }
 
@@ -157,6 +164,8 @@ public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
             ll_car_manager_item_car_device.setVisibility(View.GONE);
         }
 
+        ll_car_manager_item_car_dynamic.setTag(p);
+        ll_car_manager_item_yjjc.setTag(p);
         ll_car_manager_item_car_dynamic.setOnClickListener(this);
         ll_car_manager_item_yjjc.setOnClickListener(this);
 
@@ -170,11 +179,17 @@ public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if (null == listener)
+            return;
         switch (v.getId()) {
             case R.id.ll_car_manager_item_car_dynamic: // 车辆动态
+                listener.onCarLineClick(0, (Integer) ll_car_manager_item_car_dynamic.getTag());
                 break;
             case R.id.ll_car_manager_item_yjjc: // 一键检测
+                listener.onCarLineClick(1, (Integer) ll_car_manager_item_yjjc.getTag());
                 break;
         }
     }
+
+
 }
