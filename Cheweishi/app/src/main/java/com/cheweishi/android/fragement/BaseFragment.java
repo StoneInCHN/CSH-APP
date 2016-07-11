@@ -6,6 +6,8 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +23,7 @@ import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.interfaces.CarReportListener;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.http.ResponseInfo;
 
@@ -39,6 +42,13 @@ public class BaseFragment extends Fragment implements JSONCallback {
     public static List<LoginResponse> loginResponses;
 
     protected NetWorkHelper netWorkHelper;
+
+    protected Handler loading = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            onDataLoading(msg.what);
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -215,20 +225,13 @@ public class BaseFragment extends Fragment implements JSONCallback {
      *
      * @return
      */
-    /**
-     * 判断是否绑定车辆
-     *
-     * @return
-     */
     public boolean hasCar() {
         if (isLogined()) {
-            if (!StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle())
-
-                    && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehiclePlate())
-                    && !StringUtil
-                    .isEmpty(loginResponse.getMsg().getDefaultDeviceNo())) {
+            if (!StringUtil.isEmpty(loginResponse.getMsg())
+                    && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle())) {
                 return true;
             }
+
         }
         return false;
     }
@@ -317,4 +320,7 @@ public class BaseFragment extends Fragment implements JSONCallback {
         return false;
     }
 
+    public void onDataLoading(int what) {
+
+    }
 }

@@ -34,8 +34,17 @@ public class PushResponse extends BaseResponse {
         private int versionCode;
         private boolean isForced;
         private String homeAdvUrl;
+        private String carWashing;
 
         private boolean hasCoupon;
+
+        public String getCarWashing() {
+            return carWashing;
+        }
+
+        public void setCarWashing(String carWashing) {
+            this.carWashing = carWashing;
+        }
 
         public String getHomeAdvUrl() {
             return homeAdvUrl;

@@ -363,5 +363,23 @@ public class MainNewActivity extends BaseActivity {
         instance = null;
     }
 
+    private long exitTime = 0;
 
+    public void ExitApp() {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            showToast("再按一次退出程序");
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
+        }
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            ExitApp();
+            return true;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
 }

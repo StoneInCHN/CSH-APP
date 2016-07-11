@@ -75,7 +75,6 @@
                     android:gravity="center"
                     android:maxLength="10"
                     android:singleLine="true"
-                    android:text="较适宜洗车"
                     android:textColor="@color/btn_gray_normal"
                     android:textSize="14sp" />
 

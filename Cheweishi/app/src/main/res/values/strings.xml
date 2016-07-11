@@ -505,7 +505,7 @@
     <string name="title_activity_key_detection">KeyDetectionActivity</string>
     <string name="message_no_login">您还未登录，去登录?</string>
     <string name="message_reLogin">账号异常，需要重新登录,去登录?</string>
-    <string name="server_link_fault">连接失败，请重试！</string>
+    <string name="server_link_fault">服务器出错了,请稍后再试</string>
     <string name="FAIL">请求失败！</string>
     <string name="RELOGIN">账号异常，需要重新登录</string>
     <string name="DEFAULT">服务器错误</string>

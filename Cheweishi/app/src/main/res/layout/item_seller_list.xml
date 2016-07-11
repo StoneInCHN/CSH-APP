@@ -39,7 +39,6 @@
             android:ellipsize="end"
             android:paddingLeft="10dp"
             android:singleLine="true"
-            android:text="鑫飞汽车美容部dfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdf"
             android:textColor="@color/text_black_colcor"
             android:textSize="16sp" />
 
@@ -59,7 +58,6 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="江北区建新东路23号(如家酒店旁)"
                 android:textColor="@color/gray_pressed"
                 android:textSize="14sp" />
 
@@ -68,7 +66,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="2.4km"
                 android:textColor="@color/gray_pressed"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -89,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal"></LinearLayout>
+                android:orientation="horizontal" />
 
             <TextView
                 android:id="@+id/tv_seller_evaluate"
@@ -107,8 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/fujin"
-            android:visibility="visible" />
+            android:src="@drawable/fujin" />
     </RelativeLayout>
 
     <View

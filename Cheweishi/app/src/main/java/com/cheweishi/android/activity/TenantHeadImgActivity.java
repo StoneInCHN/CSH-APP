@@ -43,7 +43,11 @@ public class TenantHeadImgActivity extends BaseActivity implements ViewPager.OnP
         left_action.setText(R.string.back);
         title.setText(R.string.tenant_title_head);
         left_action.setOnClickListener(this);
-        data = ((ServiceDetailResponse) getIntent().getSerializableExtra("data")).getMsg().getTenantImages();
+        try {
+            data = ((ServiceDetailResponse) getIntent().getSerializableExtra("data")).getMsg().getTenantImages();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (null == data || 0 >= data.size()) {
             finish();
             return;

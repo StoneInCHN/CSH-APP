@@ -343,24 +343,15 @@ public abstract class BaseActivity extends FragmentActivity implements
 
     }
 
-    static int feed;
-
     @SuppressWarnings("unchecked")
     public boolean isLogined() {
         if (StringUtil.isEmpty(loginResponse)) {
-//            loginResponses = (List<LoginResponse>) DBTools.getInstance(this)
-//                    .findAll(LoginResponse.class);
             loginResponse = LoginMessageUtils.getLoginResponse(baseContext);
-//            if (!StringUtil.isEmpty(loginResponses) && loginResponses.size() > 0) {
-//                loginResponse = loginResponses.get(0);
-//            }
         }
         if (StringUtil.isEmpty(BaseActivity.loginResponse)
                 || StringUtil.isEmpty(loginResponse.getDesc())) {
             return false;
         }
-//        Log.i("result", "===uid==" + loginResponse.getMsg().getId() + "===mobile=="
-//                + loginResponse.getMsg().getUserName());
         return true;
     }
 

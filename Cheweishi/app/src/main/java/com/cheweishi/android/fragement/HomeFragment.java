@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.baidu.lbsapi.auth.LBSAuthManagerListener;
@@ -155,6 +158,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private CustomDialog.Builder builder;
     private CustomDialog versionDialog;
+    private ServiceListResponse response;
 
 
     @Override
@@ -212,9 +216,26 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             tv_home_user_car_full_name.setText(loginResponse.getMsg().getDefaultVehiclePlate());
         }
 
-        initScrollView();
-        iniBaiduNavi();
-        initData();
+
+    }
+
+
+    @Override
+    public void onDataLoading(int what) {
+        if (0x1 == what) {
+            ProgrosDialog.openDialog(baseContext);
+            listViewAdapter = new MainListViewAdapter(baseContext, null);
+            list_business.setAdapter(listViewAdapter);
+
+            initScrollView();
+            iniBaiduNavi();
+            initData();
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        loading.sendEmptyMessageDelayed(0x1, 1000);
     }
 
     /**
@@ -283,7 +304,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         // 上拉、下拉设定
         // refresh_scrollview.setMode(Mode.MANUAL_REFRESH_ONLY);
-
         refresh_scrollview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener() {
 
             @Override
@@ -291,7 +311,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
                 // 执行刷新函数
 //                new GetDataTask().execute();
-                getMainData();
+                requestAdv();
 //                refresh_scrollview.onRefreshComplete();
             }
 
@@ -398,9 +418,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void
     receive(String TAG, String data) {
+        ProgrosDialog.closeProgrosDialog();
         switch (TAG) {
             case NetInterface.LIST + "HOME":
-                ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
+                response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
                 if (null == response)
                     return;
                 requestAdv();
@@ -409,6 +430,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                     MainNewActivity.bindTitle = response.getDesc();
                     setTitle(response.getDesc());
                     showData(response);
+
+                    return;
                 } else if (response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
                     // TODO 超时
                     Intent intent = new Intent(baseContext, LoginActivity.class);
@@ -489,6 +512,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
                 loginResponse.setToken(baseResponse.getToken());
                 refresh_scrollview.onRefreshComplete();
+//                homeUI.sendEmptyMessage(0x1);
 //                ProgrosDialog.closeProgrosDialog();
                 break;
 
@@ -515,28 +539,32 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 ProgrosDialog.closeProgrosDialog();
                 LoginResponse sos = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = sos;
-                LoginMessageUtils.saveloginmsg(baseContext, sos);
+                BaseActivity.loginResponse = loginResponse;
+//                LoginMessageUtils.saveloginmsg(baseContext, sos);
                 isLoginOrHasCar(SoSActivity.class);
                 break;
             case "CAR_DYNAMIC":// 车辆动态
                 ProgrosDialog.closeProgrosDialog();
                 LoginResponse carDynamic = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = carDynamic;
-                LoginMessageUtils.saveloginmsg(baseContext, carDynamic);
+                BaseActivity.loginResponse = loginResponse;
+//                LoginMessageUtils.saveloginmsg(baseContext, carDynamic);
                 isLoginOrHasCar(CarDynamicActivity.class);
                 break;
             case "CAR_DETECTION":// 一键检测
                 ProgrosDialog.closeProgrosDialog();
                 LoginResponse carDetection = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = carDetection;
-                LoginMessageUtils.saveloginmsg(baseContext, carDetection);
+                BaseActivity.loginResponse = loginResponse;
+//                LoginMessageUtils.saveloginmsg(baseContext, carDetection);
                 isLoginOrHasCar(CarDetectionActivity.class);
                 break;
             case "PESSANY":// 违章查询
                 ProgrosDialog.closeProgrosDialog();
                 LoginResponse pessany = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = pessany;
-                LoginMessageUtils.saveloginmsg(baseContext, pessany);
+                BaseActivity.loginResponse = loginResponse;
+//                LoginMessageUtils.saveloginmsg(baseContext, pessany);
                 isLoginOrHasCar_New(PessanySearchActivity.class);
                 break;
         }
@@ -556,9 +584,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     private void showData(ServiceListResponse response) {
-        setJpushTags();
-        listViewAdapter = new MainListViewAdapter(baseContext, response.getMsg());
-        list_business.setAdapter(listViewAdapter);
+//        setJpushTags(); // TODO 暂时不设置别名,且设置别名是一个耗时过程,需要handler处理
+        listViewAdapter.setData(response.getMsg());
     }
 
     /**

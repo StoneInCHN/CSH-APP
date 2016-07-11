@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.cheweishi.android.activity.CarManagerActivity;
 import com.cheweishi.android.activity.IdeaReturnActivity;
 import com.cheweishi.android.activity.MyorderActivity;
 import com.cheweishi.android.activity.PurseActivity;
+import com.cheweishi.android.activity.PurseRedPacketsActivity;
 import com.cheweishi.android.activity.SetActivity;
 import com.cheweishi.android.activity.UserInfoEditActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
@@ -109,6 +111,18 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         onLoad();
     }
 
+    @Override
+    public void onDataLoading(int what) {
+        if (0x4 == what) {
+            onLoad();
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        loading.sendEmptyMessageDelayed(0x4, 1000);
+    }
+
     private void onLoad() {
         XUtilsImageLoader.getxUtilsImageLoader(baseContext,
                 R.drawable.info_touxiang_moren, iv_myAccountUserIcon,
@@ -144,6 +158,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 turnToMyOrder();
                 break;
             case R.id.ll_my_scan: // 扫一扫
+                break;
+            case R.id.ll_my_default_coupon: // 优惠券
+                Intent intent = new Intent(baseContext,
+                        PurseRedPacketsActivity.class);
+                startActivity(intent);
                 break;
         }
     }
