@@ -130,6 +130,19 @@ public class MainNewActivity extends BaseActivity {
     @ViewInject(R.id.ll_home_bottom_my)
     private LinearLayout ll_home_bottom_my;
 
+    //底部字段
+    @ViewInject(R.id.tv_home_bottom_index)
+    private TextView tv_home_bottom_index;
+
+    @ViewInject(R.id.tv_home_bottom_store)
+    private TextView tv_home_bottom_store;
+
+    @ViewInject(R.id.tv_home_bottom_news)
+    private TextView tv_home_bottom_news;
+
+    @ViewInject(R.id.tv_home_bottom_my)
+    private TextView tv_home_bottom_my;
+
 
     /**
      * 定位工具
@@ -162,6 +175,8 @@ public class MainNewActivity extends BaseActivity {
         initLocation();
 
         initContent();
+
+        tv_home_bottom_index.setTextColor(R.color.orange);
 
     }
 
@@ -277,24 +292,40 @@ public class MainNewActivity extends BaseActivity {
                 isLogin(MessagerCenterActivity.class);
                 break;
             case R.id.ll_home_bottom_index: //首页
+                tv_home_bottom_index.setTextColor(R.color.orange);
+                tv_home_bottom_store.setTextColor(R.color.gray);
+                tv_home_bottom_news.setTextColor(R.color.gray);
+                tv_home_bottom_my.setTextColor(R.color.gray);
                 ll_right_msg.setVisibility(View.VISIBLE);
                 setTitle(bindTitle);
                 ll_home_header.setVisibility(View.VISIBLE);
                 ChangeFragment(0, home, store, news, my);
                 break;
             case R.id.ll_home_bottom_store: // 门店
+                tv_home_bottom_index.setTextColor(R.color.gray);
+                tv_home_bottom_store.setTextColor(R.color.orange);
+                tv_home_bottom_news.setTextColor(R.color.gray);
+                tv_home_bottom_my.setTextColor(R.color.gray);
                 ll_right_msg.setVisibility(View.INVISIBLE);
                 setTitle("门店");
                 ll_home_header.setVisibility(View.VISIBLE);
                 ChangeFragment(1, home, store, news, my);
                 break;
             case R.id.ll_home_bottom_news: // 新闻
+                tv_home_bottom_index.setTextColor(R.color.gray);
+                tv_home_bottom_store.setTextColor(R.color.gray);
+                tv_home_bottom_news.setTextColor(R.color.orange);
+                tv_home_bottom_my.setTextColor(R.color.gray);
                 ll_right_msg.setVisibility(View.INVISIBLE);
                 setTitle("车蓝调");
                 ll_home_header.setVisibility(View.VISIBLE);
                 ChangeFragment(2, home, store, news, my);
                 break;
             case R.id.ll_home_bottom_my: // 我的
+                tv_home_bottom_index.setTextColor(R.color.gray);
+                tv_home_bottom_store.setTextColor(R.color.gray);
+                tv_home_bottom_news.setTextColor(R.color.gray);
+                tv_home_bottom_my.setTextColor(R.color.orange);
                 ll_right_msg.setVisibility(View.INVISIBLE);
                 setTitle("我的");
                 ll_home_header.setVisibility(View.GONE);
