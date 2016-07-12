@@ -134,11 +134,11 @@
     <string name="set_clear_cache">清除缓存</string>
     <!-- 关于我们 -->
     <string name="webName">网址:</string>
-    <string name="web">www.chcws.com</string>
-    <string name="weChat">微信公众账号:长虹车卫士</string>
-    <string name="service_phone">客服电话:400-800-8820</string>
+    <string name="web">http://yunjia365.cn</string>
+    <string name="weChat">微信公众账号:云驾</string>
+    <string name="service_phone">客服电话:400-150-2488</string>
     <string name="service_one">客服电话:</string>
-    <string name="phone_servies">400-800-8820</string>
+    <string name="phone_servies">400-150-2488</string>
     <!-- 更多 -->
     <string name="Mon">周一</string>
     <string name="Tue">周二</string>
