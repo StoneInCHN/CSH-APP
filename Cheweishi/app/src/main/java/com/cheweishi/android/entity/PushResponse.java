@@ -35,8 +35,26 @@ public class PushResponse extends BaseResponse {
         private boolean isForced;
         private String homeAdvUrl;
         private String carWashing;
+        private String couponCounts;
+        private String carCounts;
 
         private boolean hasCoupon;
+
+        public String getCouponCounts() {
+            return couponCounts;
+        }
+
+        public void setCouponCounts(String couponCounts) {
+            this.couponCounts = couponCounts;
+        }
+
+        public String getCarCounts() {
+            return carCounts;
+        }
+
+        public void setCarCounts(String carCounts) {
+            this.carCounts = carCounts;
+        }
 
         public String getCarWashing() {
             return carWashing;

@@ -133,6 +133,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private ImageView iv_home_user_car; // 车icon
 
+    private TextView tv_home_weather;// 天气
+
     private MainGridViewAdapter gridViewAdapter;// gv_service适配器
     private MainListViewAdapter listViewAdapter;// list_business适配器
     private ImgAdapter imgAdapter;// mygrallery适配器
@@ -199,6 +201,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         tv_home_user_car_full_name = (TextView) view.findViewById(R.id.tv_home_user_car_full_name);
 
         iv_home_user_car = (ImageView) view.findViewById(R.id.iv_home_user_car);
+
+        tv_home_weather = (TextView) view.findViewById(R.id.tv_home_weather);
 
 
         // 可下拉刷新的scrollview
@@ -389,6 +393,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             param.put("piHeight", ScreenUtils.getScreenHeight(baseContext.getApplicationContext()));
             param.put("appPlatform", "ANDROID"); // TODO 暂时不加
             param.put("regId", JPushId);
+            param.put("location", MyMapUtils.getCity(baseContext).replace("市", ""));
             param.put("versionCode", APPTools.getVersionCode(baseContext));
             param.put(Constant.PARAMETER_TAG, NetInterface.SET_ID);
             netWorkHelper.PostJson(url, param, this);
@@ -497,6 +502,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                     showToast(baseResponse.getDesc());
                     return;
                 }
+
+                tv_home_weather.setText(baseResponse.getMsg().getCarWashing());
+
+                ((MainNewActivity) getActivity()).setCarNumber(baseResponse.getMsg().getCarCounts());
+                ((MainNewActivity) getActivity()).setCouponNumber(baseResponse.getMsg().getCouponCounts());
 
 //                if (null != baseResponse.getMsg().getHomeAdvUrl() && !"".equals(baseResponse.getMsg().getHomeAdvUrl())) {
                 SharePreferenceTools.setPhoneUrl(baseContext, baseResponse.getMsg().getHomeAdvUrl());

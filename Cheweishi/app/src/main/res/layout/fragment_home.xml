@@ -73,7 +73,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/iv_home_next"
-                    android:drawableLeft="@mipmap/ic_launcher"
                     android:gravity="center"
                     android:maxLength="10"
                     android:singleLine="true"

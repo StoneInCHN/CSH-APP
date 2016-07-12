@@ -16,6 +16,7 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.CarManagerActivity;
 import com.cheweishi.android.activity.IdeaReturnActivity;
+import com.cheweishi.android.activity.MainNewActivity;
 import com.cheweishi.android.activity.MyorderActivity;
 import com.cheweishi.android.activity.PurseActivity;
 import com.cheweishi.android.activity.PurseRedPacketsActivity;
@@ -23,6 +24,7 @@ import com.cheweishi.android.activity.SetActivity;
 import com.cheweishi.android.activity.UserInfoEditActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.utils.ButtonUtils;
+import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.cheweishi.android.widget.XCRoundImageView;
 
@@ -121,13 +123,23 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        loading.sendEmptyMessageDelayed(0x4, 1000);
+        loading.sendEmptyMessageDelayed(0x4, 5000);
     }
 
     private void onLoad() {
         XUtilsImageLoader.getxUtilsImageLoader(baseContext,
                 R.drawable.info_touxiang_moren, iv_myAccountUserIcon,
                 loginResponse.getMsg().getPhoto());
+        tv_coupon_number_my.setText("优惠券(" + ((MainNewActivity) getActivity()).getCouponNumber() + ")");
+        tv_my_user_car_number.setText("我的车库(" + ((MainNewActivity) getActivity()).getCarNumber() + ")");
+        String plate = loginResponse.getMsg().getDefaultVehiclePlate();
+        if (!StringUtil.isEmpty(plate)) {
+            tv_my_user_car_id.setVisibility(View.VISIBLE);
+            tv_my_user_car_id.setText(plate);
+        }
+        ;
+        ;
+
     }
 
 
@@ -159,7 +171,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 turnToMyOrder();
                 break;
             case R.id.ll_my_scan: // 扫一扫
-                ((BaseActivity)(baseContext)).OpenCamera(false);
+                ((BaseActivity) (baseContext)).OpenCamera(false);
                 break;
             case R.id.ll_my_default_coupon: // 优惠券
                 Intent intent = new Intent(baseContext,

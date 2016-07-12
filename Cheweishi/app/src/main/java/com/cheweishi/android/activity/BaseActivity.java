@@ -793,7 +793,7 @@ public abstract class BaseActivity extends FragmentActivity implements
     public void InitHomeFragment(int contentid, Fragment home, Fragment store, Fragment news, Fragment my) {
         fmanager = getSupportFragmentManager();
         FragmentTransaction transaction = fmanager.beginTransaction();
-        transaction.add(contentid, my).add(contentid, news).add(contentid, store).add(contentid, home).hide(my).hide(news).hide(store).show(home);
+        transaction.add(contentid, home).add(contentid, store).add(contentid, news).add(contentid, my).hide(my).hide(news).hide(store).show(home);
         transaction.commit();
     }
 

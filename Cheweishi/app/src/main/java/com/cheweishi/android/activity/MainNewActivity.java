@@ -166,6 +166,26 @@ public class MainNewActivity extends BaseActivity {
     private NewsFragment news;
     private MyFragment my;
 
+    private String carNumber;
+
+    private String couponNumber;
+
+    public String getCouponNumber() {
+        return couponNumber;
+    }
+
+    public void setCouponNumber(String couponNumber) {
+        this.couponNumber = couponNumber;
+    }
+
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
