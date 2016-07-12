@@ -370,7 +370,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     /**
      * 极光推送设置
      */
-    private void setJpush() {
+    private boolean setJpush() {
         if (LoginMessageUtils.getPush(baseContext))
             JPushInterface.resumePush(baseContext);
         // 获取极光推送
@@ -392,7 +392,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             param.put("versionCode", APPTools.getVersionCode(baseContext));
             param.put(Constant.PARAMETER_TAG, NetInterface.SET_ID);
             netWorkHelper.PostJson(url, param, this);
+            return true;
         }
+        return false;
     }
 
     private void updateCache(String tag) {
@@ -452,7 +454,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 AdvResponse advResponse = (AdvResponse) GsonUtil.getInstance().convertJsonStringToObject(data, AdvResponse.class);
                 if (null == advResponse)
                     return;
-                setJpush();
+                if (!setJpush())
+                    refresh_scrollview.onRefreshComplete();
                 if (!advResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(advResponse.getDesc());
                     return;
