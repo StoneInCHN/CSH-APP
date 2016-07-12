@@ -413,6 +413,9 @@ public class CarManagerActivity extends BaseActivity implements
             return;
         } else {
             intent.setClass(baseContext, cls);
+            intent.putExtra("deviceNo", response.getMsg().get(p).getDeviceNo());
+            intent.putExtra("deviceIcon", response.getMsg().get(p).getBrandIcon());
+            intent.putExtra("devicePlate", response.getMsg().get(p).getPlate());
             startActivity(intent);
         }
     }

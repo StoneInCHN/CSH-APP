@@ -153,10 +153,12 @@ public class CarDynamicActivity extends BaseActivity {
 
         latlngs = new ArrayList<LatLng>();
         try {
-            if (hasDevice()) {// 是否有车
-                uid = loginResponse.getDesc();
-                cid = loginResponse.getMsg().getDefaultDeviceNo();
-            }
+            uid = loginResponse.getDesc();
+            cid = getIntent().getStringExtra("deviceNo");
+            if (StringUtil.isEmpty(cid))
+                if (hasDevice()) {// 是否有车
+                    cid = loginResponse.getMsg().getDefaultDeviceNo();
+                }
         } catch (Exception e) {
             // 捕获空指针错误下面处理
         }

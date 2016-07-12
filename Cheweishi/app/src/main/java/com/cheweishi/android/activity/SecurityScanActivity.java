@@ -149,6 +149,7 @@ public class SecurityScanActivity extends BaseActivity {
         }
     };
     private CarScanResponse response;
+    private String deviceNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,10 +245,11 @@ public class SecurityScanActivity extends BaseActivity {
                 break;
 
             case R.id.btn_car_report:// 查看车辆报告
-                if (hasDevice()) {
-                    startActivity(new Intent(SecurityScanActivity.this,
-                            CarReportActivity.class));
-                }
+//                if (hasDevice()) {
+                Intent intent = new Intent(SecurityScanActivity.this, CarReportActivity.class);
+                intent.putExtra("deviceNo", deviceNo);
+                startActivity(intent);
+//                }
                 break;
 
             case R.id.btn_see_details:// 检测详情
@@ -263,14 +265,21 @@ public class SecurityScanActivity extends BaseActivity {
      * 获取检测数据
      */
     private void getDetectionData() {
-        if (hasDevice()) {
-            String url = NetInterface.BASE_URL + NetInterface.TEMP_OBD + NetInterface.CAR_SCAN + NetInterface.SUFFIX;
-            Map<String, Object> param = new HashMap<>();
-            param.put("userId", loginResponse.getDesc());
-            param.put("token", loginResponse.getToken());
-            param.put("deviceNo", loginResponse.getMsg().getDefaultDeviceNo());
-            netWorkHelper.PostJson(url, param, this);
+        deviceNo = getIntent().getStringExtra("deviceNo");
+        if (StringUtil.isEmpty(deviceNo)) {
+            if (hasDevice()) {
+                deviceNo = loginResponse.getMsg().getDefaultDeviceNo();
+            } else {
+                return;
+            }
         }
+
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_OBD + NetInterface.CAR_SCAN + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("deviceNo", deviceNo);
+        netWorkHelper.PostJson(url, param, this);
     }
 
 

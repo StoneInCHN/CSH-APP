@@ -161,7 +161,10 @@ public class DrivingBehaviorFragment extends BaseFragment {
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
-        param.put("deviceNo", loginResponse.getMsg().getDefaultDeviceNo());
+        String deviceNo = ((CarReportActivity) getActivity()).getDeviceNo();
+        if (StringUtil.isEmpty(deviceNo))
+            deviceNo = loginResponse.getMsg().getDefaultDeviceNo();
+        param.put("deviceNo", deviceNo);
         param.put("searchDate", time);
         netWorkHelper.PostJson(url, param, this);
     }

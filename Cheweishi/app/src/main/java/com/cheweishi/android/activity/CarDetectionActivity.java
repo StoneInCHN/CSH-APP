@@ -93,6 +93,7 @@ public class CarDetectionActivity extends BaseActivity {
     private TextView tv_date;// 时间
 
     private DeteBroadcastReceiver broad;
+    private String deviceNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +111,13 @@ public class CarDetectionActivity extends BaseActivity {
     }
 
     private void initData() {
-        if (isLogined() && hasDevice()) {
-            tv_detdction_plate.setText(loginResponse.getMsg().getDefaultVehiclePlate());
+//        if (isLogined() && hasDevice()) {
+        String plate = getIntent().getStringExtra("devicePlate");
+        String icon = getIntent().getStringExtra("deviceIcon");
+        if (StringUtil.isEmpty(plate))
+            plate = loginResponse.getMsg().getDefaultVehiclePlate();
+        tv_detdction_plate.setText(plate);
+        if (StringUtil.isEmpty(icon)) {
             if (hasBrandIcon()) {
                 XUtilsImageLoader.getxUtilsImageLoader(this,
                         R.drawable.tianjiacar_img2x, img_car_logo,
@@ -119,7 +125,12 @@ public class CarDetectionActivity extends BaseActivity {
             } else {
                 img_car_logo.setImageResource(R.drawable.main_logo);
             }
+        } else {
+            XUtilsImageLoader.getxUtilsImageLoader(this,
+                    R.drawable.tianjiacar_img2x, img_car_logo,
+                    icon);
         }
+//        }
 
         getCarReport();
     }
@@ -128,30 +139,23 @@ public class CarDetectionActivity extends BaseActivity {
      * 获取车辆报告
      */
     private void getCarReport() {
-        if (hasDevice() && null != loginResponse.getMsg().getDefaultDeviceNo()) {
-            ProgrosDialog.openDialog(baseContext);
-            String url = NetInterface.BASE_URL + NetInterface.TEMP_OBD + NetInterface.DETECTION + NetInterface.SUFFIX;
-            Map<String, Object> param = new HashMap<>();
-            param.put("userId", loginResponse.getDesc());
-            param.put("token", loginResponse.getToken());
-            param.put("deviceNo", loginResponse.getMsg().getDefaultDeviceNo());
-            param.put("searchDate", StringUtil.getDate(StringUtil.getLastDate(), "yyyy-MM-dd"));
-            netWorkHelper.PostJson(url, param, this);
-
-
-//            RequestParams params = new RequestParams();
-//            params.addBodyParameter("uid", loginMessage.getUid());
-//            params.addBodyParameter("mobile", loginMessage.getMobile());
-//            params.addBodyParameter("cid", loginMessage.getCarManager().getId());
-//            params.addBodyParameter("type", "day");
-//            // 下次年检时间yyyy-MM-dd
-//            params.addBodyParameter("time",
-//                    StringUtil.getDate(StringUtil.getLastDate(), "yyyy-MM-dd"));
-//            ProgrosDialog.openDialog(this);
-//            httpBiz.httPostData(10000, API.REPORT_MAIN, params, this);
-        } else {
-            showToast("当前没有获取到设备id");
+        deviceNo = getIntent().getStringExtra("deviceNo");
+        if (StringUtil.isEmpty(deviceNo)) {
+            if (hasDevice() && null != loginResponse.getMsg().getDefaultDeviceNo()) {
+                deviceNo = loginResponse.getMsg().getDefaultDeviceNo();
+            } else {
+                showToast("当前没有获取到设备id");
+                return;
+            }
         }
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_OBD + NetInterface.DETECTION + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("deviceNo", deviceNo);
+        param.put("searchDate", StringUtil.getDate(StringUtil.getLastDate(), "yyyy-MM-dd"));
+        netWorkHelper.PostJson(url, param, this);
     }
 
     private int getMinu(int data) {
@@ -313,16 +317,23 @@ public class CarDetectionActivity extends BaseActivity {
                 break;
 
             case R.id.btn_security_scan:// 安全扫描
-                if (hasDevice()) {
-                    startActivity(new Intent(CarDetectionActivity.this,
-                            SecurityScanActivity.class));
+                if (StringUtil.isEmpty(deviceNo)) {
+                    if (hasDevice()) {
+                        startActivity(new Intent(CarDetectionActivity.this,
+                                SecurityScanActivity.class));
+                    } else {
+                        showToast("未绑定设备");
+                    }
                 } else {
-                    showToast("未绑定设备");
+                    Intent intent = new Intent(CarDetectionActivity.this, SecurityScanActivity.class);
+                    intent.putExtra("deviceNo", deviceNo);
+                    startActivity(intent);
                 }
                 break;
             case R.id.rl_trip_date:// 车辆报告
-                startActivity(new Intent(CarDetectionActivity.this,
-                        CarReportActivity.class));
+                Intent intent = new Intent(CarDetectionActivity.this, CarReportActivity.class);
+                intent.putExtra("deviceNo", deviceNo);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -384,7 +395,7 @@ public class CarDetectionActivity extends BaseActivity {
 
                 // TODO 进入车辆动态界面
                 Intent intent = new Intent(baseContext, CarDynamicActivity.class);
-                intent.setClass(baseContext, LoginActivity.class);
+                intent.putExtra("deviceNo", deviceNo);
                 startActivity(intent);
             }
         });

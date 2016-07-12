@@ -1,14 +1,5 @@
 package com.cheweishi.android.fragement;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
@@ -23,10 +14,7 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.activity.CarReportActivity;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.NetInterface;
-import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.CarDetectionResponse;
-import com.cheweishi.android.entity.CarManager;
-import com.cheweishi.android.http.SimpleHttpUtils;
 import com.cheweishi.android.interfaces.CarReportListener;
 import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.LoginMessageUtils;
@@ -35,8 +23,16 @@ import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CarReportViewPager;
 import com.cheweishi.android.widget.ReportCircleView;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
+
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class CarReportMainFragment extends BaseFragment {
     private CarReportViewPager viewPagerBelow;
@@ -45,7 +41,9 @@ public class CarReportMainFragment extends BaseFragment {
     // 圆圈位置状态
     private int offsetDegree;
 
+
     // String url = "http://115.28.161.11:8080/XAI/app/t_cws/appGainReport.do";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,7 +81,10 @@ public class CarReportMainFragment extends BaseFragment {
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
-        param.put("deviceNo", loginResponse.getMsg().getDefaultDeviceNo());
+        String deviceNo = ((CarReportActivity) getActivity()).getDeviceNo();
+        if (StringUtil.isEmpty(deviceNo))
+            deviceNo = loginResponse.getMsg().getDefaultDeviceNo();
+        param.put("deviceNo", deviceNo);
         param.put("searchDate", time);
         netWorkHelper.PostJson(url, param, this);
     }

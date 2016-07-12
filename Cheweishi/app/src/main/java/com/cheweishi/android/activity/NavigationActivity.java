@@ -512,7 +512,7 @@ public class NavigationActivity extends BaseActivity {
 	 */
 	private void showPdialog() {
 		if (progressDialog == null) {
-			progressDialog = CustomProgressDialog.getInstance(this);
+			progressDialog = CustomProgressDialog.getInstance(this.getApplicationContext());
 		}
 		progressDialog.show();
 	}

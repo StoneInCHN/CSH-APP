@@ -1812,7 +1812,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 
 	private void showProgressDialog() {
 		if (progressDialog == null) {
-			progressDialog = CustomProgressDialog.getInstance(baseContext);
+			progressDialog = CustomProgressDialog.getInstance(baseContext.getApplicationContext());
 			progressDialog.setCancelable(false);
 		}
 		progressDialog.show();

@@ -300,7 +300,7 @@ public class MaintainListAdapter extends MyBaseAdapter<MainSellerInfo> {
 
     private void showProgressDialog() {
         if (progressDialog == null) {
-            progressDialog = CustomProgressDialog.getInstance(mContext);
+            progressDialog = CustomProgressDialog.getInstance(mContext.getApplicationContext());
             progressDialog.setCancelable(false);
         }
         progressDialog.show();

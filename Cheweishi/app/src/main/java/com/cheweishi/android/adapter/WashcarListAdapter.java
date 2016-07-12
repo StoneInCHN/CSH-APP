@@ -292,7 +292,7 @@ public class WashcarListAdapter extends MyBaseAdapter<WashcarVO> {
 
 	private void showProgressDialog() {
 		if (progressDialog == null) {
-			progressDialog = CustomProgressDialog.getInstance(mContext);
+			progressDialog = CustomProgressDialog.getInstance(mContext.getApplicationContext());
 			progressDialog.setCancelable(false);
 		}
 		progressDialog.show();

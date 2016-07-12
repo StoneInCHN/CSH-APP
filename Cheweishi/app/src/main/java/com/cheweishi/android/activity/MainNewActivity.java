@@ -176,7 +176,7 @@ public class MainNewActivity extends BaseActivity {
 
         initContent();
 
-        tv_home_bottom_index.setTextColor(R.color.orange);
+        tv_home_bottom_index.setTextColor(getResources().getColor(R.color.orange));
 
     }
 
@@ -292,40 +292,40 @@ public class MainNewActivity extends BaseActivity {
                 isLogin(MessagerCenterActivity.class);
                 break;
             case R.id.ll_home_bottom_index: //首页
-                tv_home_bottom_index.setTextColor(R.color.orange);
-                tv_home_bottom_store.setTextColor(R.color.gray);
-                tv_home_bottom_news.setTextColor(R.color.gray);
-                tv_home_bottom_my.setTextColor(R.color.gray);
+                tv_home_bottom_index.setTextColor(getResources().getColor(R.color.orange));
+                tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
+                tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
+                tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
                 ll_right_msg.setVisibility(View.VISIBLE);
                 setTitle(bindTitle);
                 ll_home_header.setVisibility(View.VISIBLE);
                 ChangeFragment(0, home, store, news, my);
                 break;
             case R.id.ll_home_bottom_store: // 门店
-                tv_home_bottom_index.setTextColor(R.color.gray);
-                tv_home_bottom_store.setTextColor(R.color.orange);
-                tv_home_bottom_news.setTextColor(R.color.gray);
-                tv_home_bottom_my.setTextColor(R.color.gray);
+                tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
+                tv_home_bottom_store.setTextColor(getResources().getColor(R.color.orange));
+                tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
+                tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
                 ll_right_msg.setVisibility(View.INVISIBLE);
                 setTitle("门店");
                 ll_home_header.setVisibility(View.VISIBLE);
                 ChangeFragment(1, home, store, news, my);
                 break;
             case R.id.ll_home_bottom_news: // 新闻
-                tv_home_bottom_index.setTextColor(R.color.gray);
-                tv_home_bottom_store.setTextColor(R.color.gray);
-                tv_home_bottom_news.setTextColor(R.color.orange);
-                tv_home_bottom_my.setTextColor(R.color.gray);
+                tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
+                tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
+                tv_home_bottom_news.setTextColor(getResources().getColor(R.color.orange));
+                tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
                 ll_right_msg.setVisibility(View.INVISIBLE);
                 setTitle("车蓝调");
                 ll_home_header.setVisibility(View.VISIBLE);
                 ChangeFragment(2, home, store, news, my);
                 break;
             case R.id.ll_home_bottom_my: // 我的
-                tv_home_bottom_index.setTextColor(R.color.gray);
-                tv_home_bottom_store.setTextColor(R.color.gray);
-                tv_home_bottom_news.setTextColor(R.color.gray);
-                tv_home_bottom_my.setTextColor(R.color.orange);
+                tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
+                tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
+                tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
+                tv_home_bottom_my.setTextColor(getResources().getColor(R.color.orange));
                 ll_right_msg.setVisibility(View.INVISIBLE);
                 setTitle("我的");
                 ll_home_header.setVisibility(View.GONE);
@@ -409,6 +409,18 @@ public class MainNewActivity extends BaseActivity {
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (0 != currentIndex) {
+            tv_home_bottom_index.setTextColor(getResources().getColor(R.color.orange));
+            tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
+            tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
+            tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
+            ll_right_msg.setVisibility(View.VISIBLE);
+            setTitle(bindTitle);
+            ll_home_header.setVisibility(View.VISIBLE);
+            ChangeFragment(0, home, store, news, my);
+            return true;
+        }
+
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
             ExitApp();
             return true;
