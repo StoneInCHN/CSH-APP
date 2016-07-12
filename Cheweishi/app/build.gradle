@@ -8,15 +8,15 @@ android {
         multiDexEnabled true
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 87
-        versionName "3.5.6"
+        versionCode 78
+        versionName "2.1.0"
     }
     signingConfigs {
         dbgKey {
-            storeFile file('E:/carlife/CSH-APP/Cheweishi/csh_app_latest.jks')
-            storePassword "ditoo2003C"
-            keyAlias "cheshenghuo"
-            keyPassword "wksh2014C"
+            storeFile file('E:\\carlife\\CSH-APP\\Cheweishi\\yunjia365.jks')
+            storePassword "yunjia02488"
+            keyAlias "yunjia365"
+            keyPassword "yunjia365"
         }
     }
     buildTypes {

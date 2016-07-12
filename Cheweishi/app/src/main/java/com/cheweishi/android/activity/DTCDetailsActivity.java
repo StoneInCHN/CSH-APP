@@ -1,10 +1,9 @@
 package com.cheweishi.android.activity;
 
-import com.cheweishi.android.R;
 import com.cheweishi.android.config.Constant;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
-
+import com.yunjia365.android.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;

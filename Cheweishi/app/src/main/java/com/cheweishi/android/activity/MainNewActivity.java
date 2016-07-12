@@ -32,7 +32,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
 import com.baidu.navisdk.BaiduNaviManager;
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.ImgAdapter;
 import com.cheweishi.android.adapter.MainGridViewAdapter;
 import com.cheweishi.android.adapter.MainListViewAdapter;
@@ -654,12 +654,12 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
 //                }
 
                 if (null != baseResponse.getMsg()) {
-                    if (null != baseResponse.getMsg().getApkPath() && !"".equals(baseResponse.getMsg().getApkPath())) {
-                        app_new_download_url = baseResponse.getMsg().getApkPath();
-                        if (baseResponse.getMsg().isForced())
-                            compel = "0";
-                        showVersionDialog(baseResponse.getMsg().getUpdateContent());
-                    }
+//                    if (null != baseResponse.getMsg().getApkPath() && !"".equals(baseResponse.getMsg().getApkPath())) {
+//                        app_new_download_url = baseResponse.getMsg().getApkPath();
+//                        if (baseResponse.getMsg().isForced())
+//                            compel = "0";
+//                        showVersionDialog(baseResponse.getMsg().getUpdateContent());
+//                    }
                     if (baseResponse.getMsg().isHasCoupon()) { // 是否有优惠券可领取
                         iv_home_hascoupon.setVisibility(View.VISIBLE);
                     }

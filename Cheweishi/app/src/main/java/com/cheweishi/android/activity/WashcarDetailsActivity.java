@@ -20,7 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ExpandableListView.OnGroupClickListener;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.ExpandableListViewAdapter;
 import com.cheweishi.android.adapter.WashCarCommentAdapter;
 import com.cheweishi.android.biz.XUtilsImageLoader;

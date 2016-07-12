@@ -1,6 +1,6 @@
 package com.cheweishi.android.activity;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.utils.StringUtil;

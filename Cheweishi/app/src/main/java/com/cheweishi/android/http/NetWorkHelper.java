@@ -15,7 +15,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.baidu.navisdk.util.common.NetworkUtils;
-import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.LoginActivity;
 import com.cheweishi.android.biz.JSONCallback;
@@ -24,6 +23,7 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.LogHelper;
+import com.yunjia365.android.R;
 
 import org.json.JSONObject;
 

@@ -7,7 +7,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.activity.BaskOrderActivity;
 import com.cheweishi.android.activity.CancelOrderActivity;
 import com.cheweishi.android.activity.MyorderActivity;

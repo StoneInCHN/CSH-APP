@@ -2,7 +2,7 @@ package com.cheweishi.android.activity;
 
 import java.util.List;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.PessanySearchResultAdpater;
 import com.cheweishi.android.entity.PessanySearchResult;
 import com.cheweishi.android.tools.EmptyTools;

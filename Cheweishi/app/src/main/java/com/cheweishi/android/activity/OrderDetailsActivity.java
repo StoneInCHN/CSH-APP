@@ -55,7 +55,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 
 /**
  * 订单详情/生成订单

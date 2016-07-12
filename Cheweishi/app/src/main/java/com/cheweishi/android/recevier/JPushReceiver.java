@@ -17,7 +17,7 @@ import android.view.View;
 import cn.jpush.android.api.JPushInterface;
 
 import com.cheweishi.android.activity.MainNewActivity;
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.LoginActivity;
 import com.cheweishi.android.activity.MessageCenterDetailsActivity;

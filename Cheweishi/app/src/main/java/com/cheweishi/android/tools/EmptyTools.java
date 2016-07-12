@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 public class EmptyTools {

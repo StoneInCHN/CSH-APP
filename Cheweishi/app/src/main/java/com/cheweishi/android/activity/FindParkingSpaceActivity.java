@@ -13,9 +13,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import com.yunjia365.android.R;
 import com.baidu.mapapi.model.LatLng;
-import com.cheweishi.android.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;

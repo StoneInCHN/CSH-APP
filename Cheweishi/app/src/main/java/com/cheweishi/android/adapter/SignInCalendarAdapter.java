@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 
 /**
  * 签到详情gridview

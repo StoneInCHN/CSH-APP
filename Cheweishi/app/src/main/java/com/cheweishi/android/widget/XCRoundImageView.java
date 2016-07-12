@@ -1,6 +1,6 @@
 package com.cheweishi.android.widget;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.lidroid.xutils.bitmap.core.AsyncDrawable;
 
 import android.content.Context;

@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.TenantViewPagerAdapter;
 import com.cheweishi.android.entity.ServiceDetailResponse;
 

@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.cheweishi.android.R;
 import com.cheweishi.android.entity.DrvingBehaviorDetail;
-
+import com.yunjia365.android.R;
 public class DrivingBehaviorAdapter extends BaseAdapter {
 	private ViewHolder viewHolder;
 	private LayoutInflater mInflater;

@@ -20,7 +20,7 @@ import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.utils.weixinpay.simcpux.Constants;
 import com.cheweishi.android.utils.weixinpay.simcpux.MD5;

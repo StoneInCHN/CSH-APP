@@ -2,7 +2,7 @@ package com.cheweishi.android.adapter;
 
 import java.util.ArrayList;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.BaskOrderActivity;
 

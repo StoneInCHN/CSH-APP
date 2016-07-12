@@ -10,8 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.activity.ChooseDateBirthActivity;
 import com.cheweishi.android.utils.DateUtils;
 

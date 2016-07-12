@@ -28,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 
 import java.util.Stack;
 

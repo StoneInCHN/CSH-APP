@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.CarManagerAdapter.ViewHolder;
 import com.cheweishi.android.adapter.CarManagerAdapter.onRightItemClickListener;
 import com.cheweishi.android.entity.CarManager;

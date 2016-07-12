@@ -12,7 +12,7 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.CarTypeCarStyleExpandableListViewAdapter;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.entity.QueryCarModeResponse;

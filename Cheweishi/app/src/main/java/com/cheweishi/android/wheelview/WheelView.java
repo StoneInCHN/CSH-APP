@@ -22,7 +22,7 @@ package com.cheweishi.android.wheelview;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.utils.DateUtils;
 
 import android.annotation.SuppressLint;

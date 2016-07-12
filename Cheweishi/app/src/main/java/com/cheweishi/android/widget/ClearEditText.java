@@ -1,6 +1,6 @@
 package com.cheweishi.android.widget;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

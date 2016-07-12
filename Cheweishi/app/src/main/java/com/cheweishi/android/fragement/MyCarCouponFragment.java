@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.activity.CouponDetailActivity;
 import com.cheweishi.android.adapter.MyCarCouponAdapter;
 import com.cheweishi.android.adapter.MyCouponAdapter;

@@ -1,8 +1,7 @@
 package com.cheweishi.android.widget;
 
-import com.cheweishi.android.R;
 import com.cheweishi.android.tools.EmptyTools;
-
+import com.yunjia365.android.R;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;

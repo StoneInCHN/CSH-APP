@@ -29,13 +29,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import com.yunjia365.android.R;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.model.LatLng;
-import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.FootmarkAdapter;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;

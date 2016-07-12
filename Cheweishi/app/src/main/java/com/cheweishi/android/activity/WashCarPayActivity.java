@@ -23,7 +23,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.CouponAdapter;
 import com.cheweishi.android.adapter.UseCouponAdapter;
 import com.cheweishi.android.config.API;

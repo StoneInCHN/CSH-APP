@@ -120,7 +120,7 @@
 //				.setDefaults(Notification.DEFAULT_VIBRATE)// 向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合
 //				// Notification.DEFAULT_ALL Notification.DEFAULT_SOUND 添加声音
 //				// // requires VIBRATE permission
-//				.setSmallIcon(R.drawable.app_icon);// 设置通知小ICON
+//				.setSmallIcon(R.drawable.app_icon_alpha);// 设置通知小ICON
 //		if (loginMessage != null && loginMessage.getUid() != null
 //				&& !loginMessage.getUid().equals("")) {
 //			mNotificationManager.notify(builder_id, mBuilder.build());

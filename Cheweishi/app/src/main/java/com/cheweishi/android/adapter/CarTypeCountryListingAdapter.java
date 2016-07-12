@@ -2,7 +2,7 @@ package com.cheweishi.android.adapter;
 
 import java.util.List;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.entity.ProvinceListing;
 
 import android.content.Context;

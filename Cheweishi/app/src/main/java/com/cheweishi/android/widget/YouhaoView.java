@@ -21,7 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.utils.BitmapUtils;
 import com.cheweishi.android.utils.DisplayUtil;
 

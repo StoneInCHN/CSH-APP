@@ -6,7 +6,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.ExpandableListViewAdapter;
 import com.cheweishi.android.adapter.ImgAdapter;
 import com.cheweishi.android.adapter.WashCarCommentAdapter;

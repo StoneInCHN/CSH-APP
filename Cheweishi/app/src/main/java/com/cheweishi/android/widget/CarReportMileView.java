@@ -17,7 +17,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.entity.CarReporMileViewInfo;
 import com.cheweishi.android.entity.CarReportMileInfo;
 import com.cheweishi.android.tools.ScreenTools;

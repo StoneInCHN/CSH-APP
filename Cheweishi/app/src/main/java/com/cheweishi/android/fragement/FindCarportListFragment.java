@@ -23,9 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-
+import com.yunjia365.android.R;
 import com.baidu.mapapi.model.LatLng;
-import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.FindCarportListAdapter;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;

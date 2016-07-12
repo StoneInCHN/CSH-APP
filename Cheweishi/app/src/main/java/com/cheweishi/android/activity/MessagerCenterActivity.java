@@ -31,7 +31,7 @@ import android.widget.TextView;
 
 import cn.jpush.android.api.JPushInterface;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.MessageCenterApdater;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;

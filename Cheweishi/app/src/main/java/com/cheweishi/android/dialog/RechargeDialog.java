@@ -19,7 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.dialog.WashCarDateDialog.Builder;
 import com.cheweishi.android.utils.CustomProgressDialog;
 import com.cheweishi.android.utils.StringUtil;

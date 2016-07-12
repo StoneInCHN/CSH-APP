@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.ChoiceComponentAdapter;
 import com.cheweishi.android.adapter.ComponentServiceAdapter;
 import com.cheweishi.android.entity.ComponentServiceResponse;

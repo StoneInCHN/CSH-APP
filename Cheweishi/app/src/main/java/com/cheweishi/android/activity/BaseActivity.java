@@ -25,7 +25,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cheweishi.android.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.dialog.ProgrosDialog;
@@ -39,6 +38,7 @@ import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.lidroid.xutils.http.ResponseInfo;
+import com.yunjia365.android.R;
 import com.zzhoujay.richtext.ImageFixCallback;
 import com.zzhoujay.richtext.ImageHolder;
 import com.zzhoujay.richtext.RichText;

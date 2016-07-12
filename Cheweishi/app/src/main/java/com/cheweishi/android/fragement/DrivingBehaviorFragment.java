@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.activity.CarReportActivity;
 import com.cheweishi.android.activity.DrvingBehaviorActivity;
 import com.cheweishi.android.biz.HttpBiz;

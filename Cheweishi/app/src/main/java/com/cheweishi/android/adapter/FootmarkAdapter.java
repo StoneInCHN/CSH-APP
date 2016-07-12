@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
-
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.entity.TrackMessageBean;
 import com.cheweishi.android.tools.ScreenTools;
 import com.cheweishi.android.widget.FontAwesomeView;

@@ -3,7 +3,7 @@ package com.cheweishi.android.activity;
 import android.os.Bundle;
 
 import com.cheweishi.android.adapter.CarShopAdapter;
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 /**

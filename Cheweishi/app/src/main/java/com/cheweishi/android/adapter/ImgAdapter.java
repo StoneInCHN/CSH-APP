@@ -13,7 +13,7 @@ import android.widget.Gallery.LayoutParams;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.WebActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;

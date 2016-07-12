@@ -21,7 +21,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.MaintainComponentActivity;
 import com.cheweishi.android.activity.OrderDetailsActivity;

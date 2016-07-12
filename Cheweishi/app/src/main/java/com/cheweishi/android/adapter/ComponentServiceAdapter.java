@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.entity.ComponentServiceResponse;
 import com.cheweishi.android.entity.ComponentServiceShowResponse;
 import com.cheweishi.android.response.BaseResponse;

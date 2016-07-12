@@ -38,7 +38,7 @@ import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.model.LatLng;
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.FindcarViewpagerAdapter;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;

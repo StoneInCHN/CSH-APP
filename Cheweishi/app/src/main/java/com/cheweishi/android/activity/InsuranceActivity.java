@@ -1,7 +1,7 @@
 package com.cheweishi.android.activity;
 
 import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.interfaces.InsuranceListener;
 import com.cheweishi.android.tools.PhotoTools;

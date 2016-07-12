@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.ComponentServiceAdapter;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.Constant;

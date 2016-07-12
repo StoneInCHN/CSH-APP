@@ -36,14 +36,13 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
-import com.cheweishi.android.R;
 import com.cheweishi.android.config.Config;
 import com.cheweishi.android.utils.DisplayUtil;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
-
+import com.yunjia365.android.R;
 public class FootmarkMapActivity extends BaseActivity {
 
 	@ViewInject(R.id.footmark_baidumap)

@@ -1,6 +1,6 @@
 package com.cheweishi.android.activity;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.AllCapTransformationMethod;
 import com.cheweishi.android.tools.RegularExpressionTools;

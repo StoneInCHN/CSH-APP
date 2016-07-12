@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.entity.AkeyTextAllInfo;
 import com.cheweishi.android.entity.DTCInfo;
 import com.cheweishi.android.entity.DetectionInfo;

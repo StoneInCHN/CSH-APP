@@ -7,9 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.cheweishi.android.R;
-import com.cheweishi.android.R.layout;
-import com.cheweishi.android.R.menu;
+import com.yunjia365.android.R;
+import com.yunjia365.android.R.layout;
+import com.yunjia365.android.R.menu;
 import com.cheweishi.android.adapter.ParentAdapter;
 import com.cheweishi.android.adapter.ScoreAdapter;
 import com.cheweishi.android.adapter.ParentAdapter.OnChildTreeViewClickListener;

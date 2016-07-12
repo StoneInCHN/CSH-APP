@@ -23,7 +23,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 
 /**
  * 自定义的textview，用来处理复制粘贴的消息

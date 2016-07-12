@@ -14,7 +14,7 @@ import com.cheweishi.android.activity.MaintainComponentActivity;
 import com.cheweishi.android.activity.MaintainDetailsActivity;
 import com.cheweishi.android.activity.SoSActivity;
 import com.cheweishi.android.biz.JSONCallback;
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.OrderDetailsActivity;
 import com.cheweishi.android.activity.WashCarPayActivity;

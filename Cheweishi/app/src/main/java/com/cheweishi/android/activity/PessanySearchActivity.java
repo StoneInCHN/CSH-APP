@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cheweishi.android.adapter.ChangeCarAdapter;
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.PessanyAdapter;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;

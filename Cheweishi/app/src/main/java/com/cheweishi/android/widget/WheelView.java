@@ -22,7 +22,7 @@ package com.cheweishi.android.widget;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 
 import android.app.Activity;
 import android.content.Context;

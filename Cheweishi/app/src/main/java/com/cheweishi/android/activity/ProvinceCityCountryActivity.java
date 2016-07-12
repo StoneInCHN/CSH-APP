@@ -6,7 +6,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.CarTypeCityListingAdapter;
 import com.cheweishi.android.adapter.CarTypeProvinceListingAdapter;
 import com.cheweishi.android.biz.HttpBiz;

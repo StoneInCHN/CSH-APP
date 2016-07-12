@@ -1,8 +1,8 @@
 package com.cheweishi.android.activity;
 
-import com.cheweishi.android.R;
-import com.cheweishi.android.R.layout;
-import com.cheweishi.android.R.menu;
+import com.yunjia365.android.R;
+import com.yunjia365.android.R.layout;
+import com.yunjia365.android.R.menu;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 import android.os.Bundle;

@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.adapter.InsuranceBusinessAdapter;
 import com.cheweishi.android.entity.InsuranceCalculation;
 import com.cheweishi.android.utils.StringUtil;

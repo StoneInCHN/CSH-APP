@@ -1,6 +1,6 @@
 package com.cheweishi.android.widget;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.tools.ScreenTools;
 
 import android.app.Activity;

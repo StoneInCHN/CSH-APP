@@ -7,7 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.cheweishi.android.R;
+import com.yunjia365.android.R;
 import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.tools.RegularExpressionTools;
 import com.cheweishi.android.utils.StringUtil;
