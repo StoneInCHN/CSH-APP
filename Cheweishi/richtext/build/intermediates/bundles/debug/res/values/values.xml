@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="zhou_RichText"><attr format="reference" name="zhou_placeHolder"/><attr format="reference" name="zhou_errorImage"/><attr format="dimension" name="zhou_default_width"/><attr format="dimension" name="zhou_default_height"/></declare-styleable>
+    <string name="app_name">RichText</string>
+</resources>
