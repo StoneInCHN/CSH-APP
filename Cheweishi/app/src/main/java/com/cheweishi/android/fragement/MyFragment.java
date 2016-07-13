@@ -123,7 +123,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        loading.sendEmptyMessageDelayed(0x4, 5000);
     }
 
     private void onLoad() {

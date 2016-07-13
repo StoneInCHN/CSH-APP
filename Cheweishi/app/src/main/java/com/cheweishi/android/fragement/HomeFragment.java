@@ -323,6 +323,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         });
     }
 
+
     /**
      * // TODO 发送请求
      * 获取主界面的数据

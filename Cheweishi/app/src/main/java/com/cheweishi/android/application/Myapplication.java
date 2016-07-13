@@ -8,15 +8,22 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 
 import cn.jpush.android.api.JPushInterface;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.SDKInitializer;
+import com.cheweishi.android.R;
 import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.LogHelper;
+import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.ScreenUtils;
+import com.cheweishi.android.utils.mapUtils.LocationUtil;
 import com.cheweishi.android.widget.CustomDialog;
 
 public class Myapplication extends Application implements
@@ -27,6 +34,20 @@ public class Myapplication extends Application implements
     public final String PREF_USERNAME = "username";
     //	public static PushAgent mPushAgent;
     private CustomDialog.Builder builder;
+
+    /**
+     * 定位工具
+     */
+    private LocationUtil mLocationUtil;
+    private SharedPreferences spLocation;
+    private String historyCity;
+
+    private String specialLcoationChongqing;
+    private String specialLcoationBeijing;
+    private String specialLcoationTianjin;
+    private String specialLcoationShanghai;
+    private String specialLcoationHongKong;
+    private String specialLcoationAomen;
 
 
     /**
@@ -44,6 +65,11 @@ public class Myapplication extends Application implements
         SDKInitializer.initialize(this);
 //		umengInit();
 //		HXinit();
+        initLocation();
+        mLocationUtil = new LocationUtil(this, LocationUtil.SCANSPAN_TYPE_LONG,
+                locationListener);
+        mLocationUtil.onStart();
+
 
         JPushInit();//极光推送初始化
 
@@ -54,6 +80,67 @@ public class Myapplication extends Application implements
         //
 //		 CrashHandler crashHandler=CrashHandler.getInstance();
 //		 crashHandler.init(getApplicationContext());
+    }
+
+
+    /**
+     * 百度定位监听
+     */
+    BDLocationListener locationListener = new BDLocationListener() {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            // 重庆市-渝中区
+            historyCity = location.getProvince();
+            Log.i("Tanck", "location:" + historyCity);
+            boolean cityChangeFlag = false;
+            if (historyCity != null
+                    && (historyCity.contains(specialLcoationChongqing)
+                    || historyCity.contains(specialLcoationBeijing)
+                    || historyCity.contains(specialLcoationHongKong)
+                    || historyCity.contains(specialLcoationTianjin)
+                    || historyCity.contains(specialLcoationAomen) || historyCity
+                    .contains(specialLcoationShanghai))) {
+                historyCity = location.getCity() + "-" + location.getDistrict();
+            } else if (historyCity != null) {
+                historyCity = location.getProvince() + "-" + location.getCity();
+            }
+            String preHisCity = spLocation.getString("historyCity", null);
+            if (preHisCity != null && preHisCity.equals(historyCity)) {
+                cityChangeFlag = true;
+            }
+
+            spLocation.edit()
+                    .putString("latitude", location.getLatitude() + "")
+                    .putString("longitude", location.getLongitude() + "")
+                    .putString("address", location.getAddrStr())
+                    .putString("province", location.getProvince())
+                    .putString("district", location.getDistrict())
+                    .putString("historyCity", historyCity)
+                    .putBoolean("cityChangeFlag", cityChangeFlag)
+                    .putFloat("radius", location.getRadius())
+                    .putString("city", location.getCity()).commit();
+
+        }
+    };
+
+    /**
+     * 定位相关初始化
+     */
+    private void initLocation() {
+        spLocation = getSharedPreferences(MyMapUtils.LOCATION_PREFERENCES_NAME,
+                Context.MODE_PRIVATE);
+        specialLcoationChongqing = this
+                .getString(R.string.special_location_chongqing);
+        specialLcoationBeijing = this
+                .getString(R.string.special_location_beijing);
+        specialLcoationTianjin = this
+                .getString(R.string.special_location_tianjin);
+        specialLcoationShanghai = this
+                .getString(R.string.special_location_shanghai);
+        specialLcoationHongKong = this
+                .getString(R.string.special_location_hongkong);
+        specialLcoationAomen = this.getString(R.string.special_location_aomen);
     }
 
     /**
@@ -219,4 +306,9 @@ public class Myapplication extends Application implements
         return true;
     }
 
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mLocationUtil.onStop();
+    }
 }

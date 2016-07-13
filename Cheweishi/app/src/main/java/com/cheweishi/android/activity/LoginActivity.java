@@ -32,6 +32,7 @@ import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.RegularExpressionTools;
 import com.cheweishi.android.tools.SharePreferenceTools;
+import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.CommonUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.KeyGenerator;
@@ -324,56 +325,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     }
 
 
-    private void parseLoginJSON(String str) {
-        Log.i("result", "==LoginMessage==" + str);
-        if (str == null) {
-            mLoginButton.setClickable(true);
-            // ProgrosDialog.closeProgrosDialog();
-            showToast(R.string.Login_failed);
-        } else {
-            // System.out.println("登陆返回数据=========" + str);
-            try {
-                JSONObject jsonObject = new JSONObject(str);
-                if (StringUtil.isEquals(jsonObject.optString("state"),
-                        API.returnSuccess, true)) {
-                    LoginMessageUtils.setLogined(this, true);
-                    SharePreferenceTools.setUser(this, loginTel, loginPass);
-                    // Log.i("result", "=车卫士服务器登录成功==");
-                    if (MainNewActivity.instance != null) {
-                        MainNewActivity.instance.finish();
-                    }
-                    // Date date = new Date();
-                    // SimpleDateFormat sf = new SimpleDateFormat(
-                    // "yyyy-MM-dd HH:mm:ss");
-                    // System.out.println("tag:" + "=车卫士服务器登录成功=="
-                    // + sf.format(date));
-                    this.save(jsonObject);
-
-                    Intent intent = new Intent(LoginActivity.this,
-                            MainNewActivity.class);
-                    // intent.putExtra("isDevice", isDevice);
-                    startActivity(intent);
-                    mLoginButton.setClickable(true);
-                    finish();
-
-                    // this.HXLogin();
-                } else if (StringUtil.isEquals(API.returnRelogin,
-                        jsonObject.optString("state"), true)) {
-                    this.save(jsonObject);
-                    mLoginButton.setClickable(true);
-                    showPhoneDialog();
-                } else {
-                    mLoginButton.setClickable(true);
-                    // ProgrosDialog.closeProgrosDialog();
-                    showToast(jsonObject.optString("message"));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
     // TODO 其他登录的情况暂时没加入
     @Override
     public void receive(String data) {
@@ -387,19 +338,20 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
 
         LoginMessageUtils.setLogined(this, true);
         SharePreferenceTools.setUser(this, loginTel, loginPass);
-        if (MainNewActivity.instance != null) {
-            MainNewActivity.instance.finish();
-            if (null != MainNewActivity.instance) {
-                MainNewActivity.instance = null;
-            }
-        }
+//        if (MainNewActivity.instance != null) {
+//            MainNewActivity.instance.finish();
+//            if (null != MainNewActivity.instance) {
+//                MainNewActivity.instance = null;
+//            }
+//        }
+//        ActivityControl.finishActivity(ActivityControl.getCount() - 1);
         LogHelper.d("-----login:" + loginResponse.getToken());
         save(loginResponse);
 
         Intent intent = new Intent(LoginActivity.this,
                 MainNewActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-        mLoginButton.setClickable(true);
         finish();
 
     }

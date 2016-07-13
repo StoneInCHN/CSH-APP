@@ -93,20 +93,22 @@ public class NetWorkHelper {
             public void onResponse(JSONObject jsonObject) {
                 LogHelper.d("request url:" + url + "\n" + params + "\n" + jsonObject.toString());
                 // TODO 超时情况
-                if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && !url.contains("login") && !url.contains("tenantInfo/list") && !url.contains("endUser/logout")) {
-
+                if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && !url.contains("login") && !url.contains("endUser/logout")) {
+                    //&& !url.contains("tenantInfo/list")
                     Toast.makeText(context.getApplicationContext(),
                             "登陆超时,正在重新登陆", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, LoginActivity.class);
                     intent.putExtra(Constant.AUTO_LOGIN, true);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
-                    try { // 可能出现的异常
-                        ((BaseActivity) context).finish();
-                        ((BaseActivity) context).overridePendingTransition(R.anim.score_business_query_enter,
-                                R.anim.score_business_query_exit);
-                    } catch (ClassCastException e) {
-                        ActivityControl.finishActivity(ActivityControl.getCount() - 1);
+                    if (!url.contains("tenantInfo/list")) {
+                        try { // 可能出现的异常
+                            ((BaseActivity) context).finish();
+                            ((BaseActivity) context).overridePendingTransition(R.anim.score_business_query_enter,
+                                    R.anim.score_business_query_exit);
+                        } catch (ClassCastException e) {
+                            ActivityControl.finishActivity(ActivityControl.getCount() - 1);
+                        }
                     }
                     return;
                 }

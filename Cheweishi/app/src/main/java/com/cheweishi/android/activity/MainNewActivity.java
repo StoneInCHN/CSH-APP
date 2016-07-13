@@ -144,21 +144,7 @@ public class MainNewActivity extends BaseActivity {
     private TextView tv_home_bottom_my;
 
 
-    /**
-     * 定位工具
-     */
-    private LocationUtil mLocationUtil;
-    private SharedPreferences spLocation;
-    private String historyCity;
-
-    private String specialLcoationChongqing;
-    private String specialLcoationBeijing;
-    private String specialLcoationTianjin;
-    private String specialLcoationShanghai;
-    private String specialLcoationHongKong;
-    private String specialLcoationAomen;
-
-    public static MainNewActivity instance;
+//    public static MainNewActivity instance;
 
 
     private HomeFragment home;
@@ -191,8 +177,8 @@ public class MainNewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         ViewUtils.inject(this);
         StatusBarCompat2.setStatusBarColor(this);
-        instance = this;
-        initLocation();
+//        instance = this;
+//        initLocation();
 
         initContent();
 
@@ -218,76 +204,14 @@ public class MainNewActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mLocationUtil = new LocationUtil(this, LocationUtil.SCANSPAN_TYPE_LONG,
-                locationListener);
-        mLocationUtil.onStart();
+
     }
-
-    /**
-     * 百度定位监听
-     */
-    BDLocationListener locationListener = new BDLocationListener() {
-
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            // 重庆市-渝中区
-            historyCity = location.getProvince();
-            Log.i("Tanck", "location:" + historyCity);
-            boolean cityChangeFlag = false;
-            if (historyCity != null
-                    && (historyCity.contains(specialLcoationChongqing)
-                    || historyCity.contains(specialLcoationBeijing)
-                    || historyCity.contains(specialLcoationHongKong)
-                    || historyCity.contains(specialLcoationTianjin)
-                    || historyCity.contains(specialLcoationAomen) || historyCity
-                    .contains(specialLcoationShanghai))) {
-                historyCity = location.getCity() + "-" + location.getDistrict();
-            } else if (historyCity != null) {
-                historyCity = location.getProvince() + "-" + location.getCity();
-            }
-            String preHisCity = spLocation.getString("historyCity", null);
-            if (preHisCity != null && preHisCity.equals(historyCity)) {
-                cityChangeFlag = true;
-            }
-
-            spLocation.edit()
-                    .putString("latitude", location.getLatitude() + "")
-                    .putString("longitude", location.getLongitude() + "")
-                    .putString("address", location.getAddrStr())
-                    .putString("province", location.getProvince())
-                    .putString("district", location.getDistrict())
-                    .putString("historyCity", historyCity)
-                    .putBoolean("cityChangeFlag", cityChangeFlag)
-                    .putFloat("radius", location.getRadius())
-                    .putString("city", location.getCity()).commit();
-
-        }
-    };
 
 
     @Override
     public void error(String errorMsg) {
         ProgrosDialog.closeProgrosDialog();
         showToast(R.string.FAIL);
-    }
-
-    /**
-     * 定位相关初始化
-     */
-    private void initLocation() {
-        spLocation = getSharedPreferences(MyMapUtils.LOCATION_PREFERENCES_NAME,
-                Context.MODE_PRIVATE);
-        specialLcoationChongqing = this
-                .getString(R.string.special_location_chongqing);
-        specialLcoationBeijing = this
-                .getString(R.string.special_location_beijing);
-        specialLcoationTianjin = this
-                .getString(R.string.special_location_tianjin);
-        specialLcoationShanghai = this
-                .getString(R.string.special_location_shanghai);
-        specialLcoationHongKong = this
-                .getString(R.string.special_location_hongkong);
-        specialLcoationAomen = this.getString(R.string.special_location_aomen);
     }
 
 
@@ -405,15 +329,12 @@ public class MainNewActivity extends BaseActivity {
     @Override
     public void onStop() {
         super.onStop();
-        mLocationUtil.onStop();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mLocationUtil.onDestory();
-        mLocationUtil = null;
-        instance = null;
+//        instance = null;
     }
 
     private long exitTime = 0;
@@ -446,5 +367,12 @@ public class MainNewActivity extends BaseActivity {
             return true;
         }
         return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        Log.d("Tanck", "onNewIntent----------onNewIntent");
     }
 }

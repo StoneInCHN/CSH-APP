@@ -238,7 +238,7 @@ public class ValidateLoginActivity extends BaseActivity {
 			parseCodeJSON(data);
 			break;
 		case 1002:
-			parseLoginJSON(data);
+//			parseLoginJSON(data);
 			break;
 		case 400:
 			showToast(R.string.server_link_fault);
@@ -256,37 +256,7 @@ public class ValidateLoginActivity extends BaseActivity {
 		}
 	};
 	
-	private void parseLoginJSON(String data) {
-		if (StringUtil.isEmpty(data)) {
-			showToast(R.string.FAIL);
-			return;
-		}
-		
-		try {
-			JSONObject jsonObject = new JSONObject(data);
-			if (StringUtil.isEquals(API.returnSuccess, jsonObject.optString("state"), true)) {
-				if (MainNewActivity.instance != null) {
-					MainNewActivity.instance.finish();
-				}
-				
-//				this.save(jsonObject);
-				ActivityControl.removeActivityFromName(LoginActivity.class.getName());
-				Intent intent = new Intent(ValidateLoginActivity.this,
-						MainNewActivity.class);
-				startActivity(intent);
-				this.finish();
-				
-				
-			} else {
-				showToast(jsonObject.optString("message"));
-			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
+
 	/**
 	 * 保存登录信息
 	 * 
