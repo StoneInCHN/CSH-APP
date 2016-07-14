@@ -395,8 +395,10 @@ public class MainNewActivity extends BaseActivity {
         super.onNewIntent(intent);
         setIntent(intent);
         LogHelper.d("onNewIntent----------onNewIntent");
-        if (null != my)
-            my.onDataLoading(0x1);
+        if (null != home) {
+            home();
+            home.onDataLoading(0x1);
+        }
     }
 
     public int getBottomHeight() {
