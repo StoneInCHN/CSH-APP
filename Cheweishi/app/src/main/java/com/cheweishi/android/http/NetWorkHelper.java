@@ -101,7 +101,7 @@ public class NetWorkHelper {
                     intent.putExtra(Constant.AUTO_LOGIN, true);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent); // || !url.contains("advertisement/getAdvImage") || !url.contains("advertisement/getAdvImage")
-                    if (!url.contains("tenantInfo/list")) {
+                    if (!url.contains("tenantInfo/list") && !url.contains("advertisement/getAdvImage")) {
                         try { // 可能出现的异常
                             ((BaseActivity) context).finish();
                             ((BaseActivity) context).overridePendingTransition(R.anim.score_business_query_enter,

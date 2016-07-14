@@ -135,6 +135,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private TextView tv_home_weather;// 天气
 
+    private RelativeLayout rl_home_top_info;//顶部信息
+
     private MainGridViewAdapter gridViewAdapter;// gv_service适配器
     private MainListViewAdapter listViewAdapter;// list_business适配器
     private ImgAdapter imgAdapter;// mygrallery适配器
@@ -204,6 +206,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         tv_home_weather = (TextView) view.findViewById(R.id.tv_home_weather);
 
+        rl_home_top_info = (RelativeLayout) view.findViewById(R.id.rl_home_top_info);
+
 
         // 可下拉刷新的scrollview
         refresh_scrollview = (PullToRefreshScrollView) view.findViewById(R.id.refresh_scrollview);
@@ -211,6 +215,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         iv_home_hascoupon = (ImageView) view.findViewById(R.id.iv_home_hascoupon);
 
+        rl_home_top_info.setOnClickListener(this);
         rl_activity_area.setOnClickListener(this);
         rl_integral_mall.setOnClickListener(this);
 
@@ -239,7 +244,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        loading.sendEmptyMessageDelayed(0x1, 1000);
+        loading.sendEmptyMessageDelayed(0x1, 500);
     }
 
     /**
@@ -968,6 +973,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 break;
             case R.id.rl_integral_mall:// 积分商城
                 getDuiBaUrl();
+                break;
+            case R.id.rl_home_top_info: // 洗车
+                ((MainNewActivity) getActivity()).store();
                 break;
         }
     }

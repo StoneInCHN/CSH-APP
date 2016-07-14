@@ -114,6 +114,10 @@ public class MainNewActivity extends BaseActivity {
     @ViewInject(R.id.ll_right_msg)
     private LinearLayout ll_right_msg; // 右边消息
 
+    //顶部
+    @ViewInject(R.id.ll_home_bottom)
+    private LinearLayout ll_home_bottom;
+
     //首页
     @ViewInject(R.id.ll_home_bottom_index)
     private LinearLayout ll_home_bottom_index;
@@ -192,6 +196,7 @@ public class MainNewActivity extends BaseActivity {
         news = new NewsFragment();
         my = new MyFragment();
         InitHomeFragment(R.id.fl_home_content, home, store, news, my);
+//        store.setBottomHeight(ll_home_bottom.getMeasuredHeight());
     }
 
 
@@ -204,7 +209,6 @@ public class MainNewActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
 
@@ -236,44 +240,16 @@ public class MainNewActivity extends BaseActivity {
                 isLogin(MessagerCenterActivity.class);
                 break;
             case R.id.ll_home_bottom_index: //首页
-                tv_home_bottom_index.setTextColor(getResources().getColor(R.color.orange));
-                tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
-                tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
-                tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
-                ll_right_msg.setVisibility(View.VISIBLE);
-                setTitle(bindTitle);
-                ll_home_header.setVisibility(View.VISIBLE);
-                ChangeFragment(0, home, store, news, my);
+                home();
                 break;
             case R.id.ll_home_bottom_store: // 门店
-                tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
-                tv_home_bottom_store.setTextColor(getResources().getColor(R.color.orange));
-                tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
-                tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
-                ll_right_msg.setVisibility(View.INVISIBLE);
-                setTitle("门店");
-                ll_home_header.setVisibility(View.VISIBLE);
-                ChangeFragment(1, home, store, news, my);
+                store();
                 break;
             case R.id.ll_home_bottom_news: // 新闻
-                tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
-                tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
-                tv_home_bottom_news.setTextColor(getResources().getColor(R.color.orange));
-                tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
-                ll_right_msg.setVisibility(View.INVISIBLE);
-                setTitle("车蓝调");
-                ll_home_header.setVisibility(View.VISIBLE);
-                ChangeFragment(2, home, store, news, my);
+                news();
                 break;
             case R.id.ll_home_bottom_my: // 我的
-                tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
-                tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
-                tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
-                tv_home_bottom_my.setTextColor(getResources().getColor(R.color.orange));
-                ll_right_msg.setVisibility(View.INVISIBLE);
-//                setTitle("我的"); // TODO 暂时没必要了.
-                ll_home_header.setVisibility(View.GONE);
-                ChangeFragment(3, home, store, news, my);
+                my();
                 break;
 //            case R.id.btn_scanning:// 扫一扫
 //                OpenCamera(false);
@@ -300,6 +276,50 @@ public class MainNewActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    public void home() {
+        tv_home_bottom_index.setTextColor(getResources().getColor(R.color.orange));
+        tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
+        tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
+        tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
+        ll_right_msg.setVisibility(View.VISIBLE);
+        setTitle(bindTitle);
+        ll_home_header.setVisibility(View.VISIBLE);
+        ChangeFragment(0, home, store, news, my);
+    }
+
+    public void store() {
+        tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
+        tv_home_bottom_store.setTextColor(getResources().getColor(R.color.orange));
+        tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
+        tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
+        ll_right_msg.setVisibility(View.INVISIBLE);
+        setTitle("门店");
+        ll_home_header.setVisibility(View.VISIBLE);
+        ChangeFragment(1, home, store, news, my);
+    }
+
+    private void news() {
+        tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
+        tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
+        tv_home_bottom_news.setTextColor(getResources().getColor(R.color.orange));
+        tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
+        ll_right_msg.setVisibility(View.INVISIBLE);
+        setTitle("车蓝调");
+        ll_home_header.setVisibility(View.VISIBLE);
+        ChangeFragment(2, home, store, news, my);
+    }
+
+    private void my() {
+        tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
+        tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
+        tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
+        tv_home_bottom_my.setTextColor(getResources().getColor(R.color.orange));
+        ll_right_msg.setVisibility(View.INVISIBLE);
+//                setTitle("我的"); // TODO 暂时没必要了.
+        ll_home_header.setVisibility(View.GONE);
+        ChangeFragment(3, home, store, news, my);
     }
 
     public void setTitle(String desc) {
@@ -373,8 +393,12 @@ public class MainNewActivity extends BaseActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        Log.d("Tanck", "onNewIntent----------onNewIntent");
+        LogHelper.d("onNewIntent----------onNewIntent");
         if (null != my)
             my.onDataLoading(0x1);
+    }
+
+    public int getBottomHeight() {
+        return ll_home_bottom.getHeight();
     }
 }
