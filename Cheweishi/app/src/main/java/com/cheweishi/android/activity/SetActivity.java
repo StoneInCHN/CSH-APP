@@ -552,23 +552,19 @@ public class SetActivity extends BaseActivity implements OnClickListener,
         // +loginMessage.getMobile());
         Intent intent = new Intent(baseContext, LoginActivity.class);
         startActivity(intent);
-        ActivityControl.finishProgrom();
+//        ActivityControl.finishProgrom();
         this.finish();
     }
 
     public class MyBroadcastReceiver extends BroadcastReceiver {
 
         public void onReceive(Context context, Intent intent) {
-            Log.i("result", "=====ooooo清除成功===");
             if (!StringUtil.isEquals(intent.getAction(), Constant.REFRESH_FLAG,
                     true)) {
-                System.out
-                        .println("SUCCESS====" + "haha0" + intent.getAction());
                 return;
             }
             if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
                     Constant.LOGIN_REFRESH, true)) {
-                System.out.println("SUCCESS====" + "haha2");
                 initViews();
             }
         }
