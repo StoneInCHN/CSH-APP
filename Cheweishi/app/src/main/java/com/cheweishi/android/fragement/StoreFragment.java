@@ -18,6 +18,7 @@ import com.cheweishi.android.utils.DisplayUtil;
 import com.cheweishi.android.utils.ScreenUtils;
 import com.cheweishi.android.widget.BackgroundDarkPopupWindow;
 import com.cheweishi.android.widget.UnSlidingListView;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.ViewUtils;
 
 import java.util.ArrayList;
@@ -46,6 +47,8 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
 
     private List<String> sortData = new ArrayList<>();// 排序服务
 
+    private PullToRefreshListView prl_store; // 租户列表
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_store, container, false);
@@ -59,6 +62,8 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
         tv_store_category_service = (TextView) view.findViewById(R.id.tv_store_category_service);
 
         tv_store_category_sort = (TextView) view.findViewById(R.id.tv_store_category_sort);
+
+        prl_store = (PullToRefreshListView) view.findViewById(R.id.prl_store);
 
 
         categoryView = View.inflate(baseContext, R.layout.store_service_category, null);
