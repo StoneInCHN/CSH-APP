@@ -14,11 +14,30 @@ import com.cheweishi.android.R;
 public class StoreFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_store, container,false);
+        View view = inflater.inflate(R.layout.fragment_store, container, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onDataLoading(int what) {
+        if (0x2 == what) {
+            onLoad();
+        }
+    }
+
+    private void onLoad() {
+
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden)
+            loading.sendEmptyMessage(0x2);
     }
 }
