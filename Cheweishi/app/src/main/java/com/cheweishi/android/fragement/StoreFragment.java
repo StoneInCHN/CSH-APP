@@ -18,6 +18,7 @@ import com.cheweishi.android.utils.DisplayUtil;
 import com.cheweishi.android.utils.ScreenUtils;
 import com.cheweishi.android.widget.BackgroundDarkPopupWindow;
 import com.cheweishi.android.widget.UnSlidingListView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.ViewUtils;
 
@@ -75,6 +76,8 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
         cateGoryAdapter = new StoreCateGoryAdapter(baseContext, null, 1);
         usl_store_category.setAdapter(cateGoryAdapter);
         usl_store_category.setOnItemClickListener(this);
+
+        prl_store.setMode(PullToRefreshBase.Mode.DISABLED);
     }
 
     private void onLoad() {
