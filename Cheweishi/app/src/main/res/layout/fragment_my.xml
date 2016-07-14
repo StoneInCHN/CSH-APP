@@ -29,6 +29,8 @@
                     android:layout_height="@dimen/user_icon_width1"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/info_touxiang_moren"
                     tanck:border_outside_color="@color/hyal_head"
                     tanck:border_thickness="3dp" />
 
@@ -42,7 +44,6 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:text="Tanck"
                     android:textColor="@color/white"
                     android:textSize="@dimen/key_text_small" />
 
@@ -55,8 +56,7 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:text="18380473706"
-                    android:textColor="@color/gray_pressed"
+                    android:textColor="@color/item_back"
                     android:textSize="@dimen/key_text_small" />
 
                 <TextView

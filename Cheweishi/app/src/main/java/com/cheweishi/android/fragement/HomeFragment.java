@@ -436,7 +436,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 requestAdv();
                 if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     // TODO 成功
-                    MainNewActivity.bindTitle = response.getDesc();
+                    MainNewActivity.bindTitle = StringUtil.isEmpty(response.getDesc()) ? "车生活" : response.getDesc();
                     setTitle(response.getDesc());
                     showData(response);
 

@@ -100,7 +100,7 @@ public class NetWorkHelper {
                     Intent intent = new Intent(context, LoginActivity.class);
                     intent.putExtra(Constant.AUTO_LOGIN, true);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
+                    context.startActivity(intent); // || !url.contains("advertisement/getAdvImage") || !url.contains("advertisement/getAdvImage")
                     if (!url.contains("tenantInfo/list")) {
                         try { // 可能出现的异常
                             ((BaseActivity) context).finish();

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.cheweishi.android.activity.SetActivity;
 import com.cheweishi.android.activity.UserInfoEditActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.utils.ButtonUtils;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.cheweishi.android.widget.XCRoundImageView;
@@ -78,6 +80,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private CustomDialog.Builder builder;
     private CustomDialog phoneDialog;
 
+    private boolean isLoad = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
@@ -111,7 +115,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         ll_communicate.setOnClickListener(this);
         ll_feed_back.setOnClickListener(this);
 
-        onLoad();
     }
 
     @Override
@@ -126,6 +129,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void onLoad() {
+        isLoad = true;
         XUtilsImageLoader.getxUtilsImageLoader(baseContext,
                 R.drawable.info_touxiang_moren, iv_myAccountUserIcon,
                 loginResponse.getMsg().getPhoto());
@@ -136,8 +140,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             tv_my_user_car_id.setVisibility(View.VISIBLE);
             tv_my_user_car_id.setText(plate);
         }
-        ;
-        ;
+        tv_my_name.setText(loginResponse.getMsg().getNickName());
+        tv_my_phone.setText(loginResponse.getMsg().getUserName());
 
     }
 
@@ -274,5 +278,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 });
         phoneDialog = builder.create();
         phoneDialog.show();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden && !isLoad)
+            loading.sendEmptyMessage(0x4);
     }
 }

@@ -17,6 +17,22 @@ public class LoginUserInfoResponse implements Serializable {
     private String defaultVehicleId;
     private String defaultVehicleIcon;
 
+    public LoginUserInfoResponse() {
+
+    }
+
+    public LoginUserInfoResponse(String signature, String nickName, String photo, String id, String defaultDeviceNo, String userName, String defaultVehicle, String defaultVehiclePlate, String defaultVehicleIcon, String defaultVehicleId) {
+        this.signature = signature;
+        this.nickName = nickName;
+        this.photo = photo;
+        this.id = id;
+        this.defaultDeviceNo = defaultDeviceNo;
+        this.userName = userName;
+        this.defaultVehicle = defaultVehicle;
+        this.defaultVehiclePlate = defaultVehiclePlate;
+        this.defaultVehicleId = defaultVehicleId;
+        this.defaultVehicleIcon = defaultVehicleIcon;
+    }
 
     public String getDefaultVehicleId() {
         return defaultVehicleId;

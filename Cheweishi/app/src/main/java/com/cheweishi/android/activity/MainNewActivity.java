@@ -271,7 +271,7 @@ public class MainNewActivity extends BaseActivity {
                 tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
                 tv_home_bottom_my.setTextColor(getResources().getColor(R.color.orange));
                 ll_right_msg.setVisibility(View.INVISIBLE);
-                setTitle("我的");
+//                setTitle("我的"); // TODO 暂时没必要了.
                 ll_home_header.setVisibility(View.GONE);
                 ChangeFragment(3, home, store, news, my);
                 break;
@@ -374,5 +374,7 @@ public class MainNewActivity extends BaseActivity {
         super.onNewIntent(intent);
         setIntent(intent);
         Log.d("Tanck", "onNewIntent----------onNewIntent");
+        if (null != my)
+            my.onDataLoading(0x1);
     }
 }

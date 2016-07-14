@@ -137,6 +137,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     private static final String REGISTER = "REG";// 注册
     private ImgDialog.Builder imgBuilder;
     private ImgDialog imgDialog;
+    private String token;
 
 
     @Override
@@ -506,7 +507,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                 BaseResponse base = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
                 //错误的时候
                 if (!base.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-                    showToast(getResources().getString(R.string.code_error));
+                    showToast(base.getDesc());
                     if (getCodeFlag == true) {
                         mRegisterButton.setClickable(true);
                         time.cancel();
@@ -540,6 +541,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                 if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     LoginMessageUtils.setLogined(this, true);
                     userId = response.getDesc();
+                    token = response.getToken();
                     if (null != response.getMsg()) {
                         if (response.getMsg().isIsGetCoupon()) {
                             showImgDialog();
@@ -737,13 +739,16 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 //        loginMessage.setUid(userId); // 存储Uid
 //        loginMessage.setTel(mPhoneNumberEditText
 //                .getText().toString());// 存储编辑框
-        LoginResponse loginMessage = new LoginResponse();
-        LoginUserInfoResponse loginUserInfoResponse = new LoginUserInfoResponse();
+        loginResponse = new LoginResponse();
+        LoginUserInfoResponse loginUserInfoResponse = new LoginUserInfoResponse("", mPhoneNumberEditText.getText().toString(), "", userId, "", mPhoneNumberEditText.getText().toString(), "", "", "", "");
         loginUserInfoResponse.setId(userId);
         loginUserInfoResponse.setUserName(mPhoneNumberEditText.getText().toString());
-        loginMessage.setMsg(loginUserInfoResponse);
-        DBTools.getInstance(this).save(loginMessage);
+        loginResponse.setMsg(loginUserInfoResponse);
+        loginResponse.setDesc(userId);
+        loginResponse.setToken(token);
+        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         ActivityControl.removeActivityFromName(LoginActivity.class.getName());
+        LoginMessageUtils.setLogined(this, true);
         startActivity(new Intent(RegistActivity.this, MainNewActivity.class));
         this.finish();
     }
