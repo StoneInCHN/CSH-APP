@@ -58,6 +58,7 @@ import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.SharePreferenceTools;
+import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.ButtonUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
@@ -364,7 +365,7 @@ public class MainNewActivity extends BaseActivity {
             showToast("再按一次退出程序");
             exitTime = System.currentTimeMillis();
         } else {
-            finish();
+            ActivityControl.GG();
         }
     }
 

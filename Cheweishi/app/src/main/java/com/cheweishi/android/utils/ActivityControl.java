@@ -40,6 +40,17 @@ public class ActivityControl {
 //		android.os.Process.killProcess(android.os.Process.myPid()); // TODO
     }
 
+    public static void GG() {
+        for (Activity activity : acitivityList) {
+            if (null != activity && !(activity instanceof LoginActivity)) {
+                activity.finish();
+            }
+        }
+//		finishFlag = true;
+        System.exit(0);
+        android.os.Process.killProcess(android.os.Process.myPid()); // TODO
+    }
+
     public static int getCount() {
         return acitivityList.size();
     }
