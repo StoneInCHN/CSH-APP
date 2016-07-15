@@ -40,7 +40,7 @@
     <string name="actionbar_activity_not_found">Failed to open intent&#8230;</string>
     <string name="umeng_example_home_hint_wait">Coming soooooon</string>
     <string name="intro"> The webview before show js call Umeng Analytics APIs</string>
-    <string name="app_name">车生活</string>
+    <string name="app_name">云驾</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
@@ -731,7 +731,7 @@
     <string name="car_information_handle">正在处理车辆信息，请稍候...</string>
     <string name="device_error">设备效验失败，请联系销售商户，或拨打4007930888</string>
     <string name="customerServiceCall">拨打客服</string>
-    <string name="customerServicePhone">4007930888</string>
+    <string name="customerServicePhone">4001502488</string>
     <string name="whatIsDeviceIDQuestion">什么是设备ID？</string>
     <string name="whatIsDeviceIDAnswer">设备是app配套的硬件产品。绑定硬件产品后您即可通过本app实时掌控您爱车的动态，点击此处了解更多。</string>
     <string name="whyInputMyVinRequestion">为什么要输入我的车架号？</string>

@@ -1197,31 +1197,32 @@
         <activity android:name="com.cheweishi.android.activity.MaintainListActivity_new" />
 
         <!--美容列表-->
-        <activity android:name=".activity.BeautyListActivity_new" />
+        <activity android:name="com.cheweishi.android.activity.BeautyListActivity_new" />
 
         <!--服务详情-->
-        <activity android:name=".activity.ServiceDetailActivity" />
+        <activity android:name="com.cheweishi.android.activity.ServiceDetailActivity" />
 
         <!--活动优惠券-->
-        <activity android:name=".activity.CouponActivity" />
+        <activity android:name="com.cheweishi.android.activity.CouponActivity" />
 
         <!--优惠券详细列表-->
-        <activity android:name=".activity.CouponDetailActivity" />
+        <activity android:name="com.cheweishi.android.activity.CouponDetailActivity" />
 
         <!--保养-->
-        <activity android:name=".activity.MaintainComponentActivity" />
+        <activity android:name="com.cheweishi.android.activity.MaintainComponentActivity" />
 
         <!--选择-->
-        <activity android:name=".activity.ChoiceComponentActivity" />
+        <activity android:name="com.cheweishi.android.activity.ChoiceComponentActivity" />
 
         <!--设备列表-->
-        <activity android:name=".activity.DevicesListActivity" />
+        <activity android:name="com.cheweishi.android.activity.DevicesListActivity" />
 
         <!--租户头像详情-->
-        <activity android:name=".activity.TenantHeadImgActivity" />
+        <activity android:name="com.cheweishi.android.activity.TenantHeadImgActivity" />
 
         <!--商城-->
-        <activity android:name=".activity.CreditActivity" />
+        <activity android:name="com.cheweishi.android.activity.CreditActivity" />
+
 
     </application>
 

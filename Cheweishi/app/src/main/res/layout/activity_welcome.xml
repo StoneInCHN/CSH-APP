@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_welcome"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/qidong_new">
+    android:layout_height="match_parent">
 
     <com.cheweishi.android.widget.WelcomeGallery
         android:id="@+id/welcomegallery"
@@ -36,9 +35,9 @@
 
         <ImageView
             android:id="@+id/iv_home_adv"
-            android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:layout_width="match_parent"
