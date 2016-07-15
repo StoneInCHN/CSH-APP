@@ -258,7 +258,6 @@ public class MessagerCenterActivity extends BaseActivity {
     @SuppressWarnings("unchecked")
     @Override
     public void receive(int type, String data) {
-        Log.i("hujian", "======data======" + data);
         ProgrosDialog.closeProgrosDialog();
         switch (type) {
             case 10001:
@@ -472,7 +471,6 @@ public class MessagerCenterActivity extends BaseActivity {
 
     private void initpage() {
         // if (!textlist.isEmpty()) {
-        // Log.i("result", "==textlist===" + textlist.size());
         EmptyTools.setEmptyView(this, messagerCenterListView);
         EmptyTools.setImg(R.drawable.message_message);
         EmptyTools.setMessage("您还没有相关消息");
@@ -482,7 +480,6 @@ public class MessagerCenterActivity extends BaseActivity {
         // messagerCenterListView.setPullRefreshEnable(false);
         // messagerCenterListView.setPullLoadEnable(false);
         // messagerCenterListView.setVisibility(View.GONE);
-        // Log.i("result", "==EmptyTools.setEmptyView==1=");
         // nodata.setVisibility(View.VISIBLE);
         // // messagerCenterListView.setEmptyView(emptyView)
         // this.setRightEnble();
@@ -924,7 +921,6 @@ public class MessagerCenterActivity extends BaseActivity {
 
             // Toast.makeText(this, "===00==="+getTextlistWeiduSize(saveList),
             // 1).show();
-            // Log.i("hujian", "===00==="+getTextlistWeiduSize(saveList));
             setDataBack(getTextlistWeiduSize(saveList));
             deletaSize = 0;
             clearAllize = 0;

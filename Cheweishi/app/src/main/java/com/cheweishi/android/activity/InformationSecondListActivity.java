@@ -91,7 +91,6 @@ public class InformationSecondListActivity extends BaseActivity {
 	}
 
 	private void parseJSON(String result) {
-		Log.i("========", result);
 		ProgrosDialog.closeProgrosDialog();
 		if (StringUtil.isEmpty(result)) {
 

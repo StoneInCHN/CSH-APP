@@ -154,7 +154,6 @@ public class GasStationListFragment extends BaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        Log.i("reslut", "=====list=onResume====");
     }
 
     /***

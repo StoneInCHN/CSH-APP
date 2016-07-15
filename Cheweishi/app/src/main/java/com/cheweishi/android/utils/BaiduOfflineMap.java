@@ -67,7 +67,6 @@ public class BaiduOfflineMap implements MKOfflineMapListener {
 			break;
 		case MKOfflineMap.TYPE_NEW_OFFLINE:
 			// 有新离线地图安装
-			Log.d("OfflineDemo", String.format("add offlinemap num:%d", state));
 			break;
 		case MKOfflineMap.TYPE_VER_UPDATE:
 			// 版本更新提示

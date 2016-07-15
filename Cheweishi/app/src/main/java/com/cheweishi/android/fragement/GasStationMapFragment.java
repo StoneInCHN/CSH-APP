@@ -409,7 +409,6 @@ public class GasStationMapFragment extends BaseFragment implements
         address = result.getAddress();
         mAddressTextView.setText(address);
         // result = null;
-        // Log.i("result", "============底部显示数据===========");
         if (!StringUtil.isEmpty(result)
                 && !StringUtil.isEmpty(result.getLocation())) {
             lat = result.getLocation().latitude;
@@ -1093,7 +1092,6 @@ public class GasStationMapFragment extends BaseFragment implements
     }
 
     private void getcarAddress(String data) {
-        Log.i("result", "===getcarAddress===" + data);
         gasstation_linearlayout_isyingchang.setVisibility(View.VISIBLE);
         try {
             JSONObject jsonObject = new JSONObject(data);

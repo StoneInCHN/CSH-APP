@@ -209,7 +209,6 @@ public class MaintainDetailsActivity extends BaseActivity implements
      * @param data
      */
     private void receiveHistory(String data) {
-        Log.i("result", "===订单详情==" + data);
         if (StringUtil.isEmpty(data)) {
             showToast(R.string.FAIL);
             return;

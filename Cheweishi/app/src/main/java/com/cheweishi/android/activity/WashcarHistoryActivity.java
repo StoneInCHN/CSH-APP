@@ -122,7 +122,6 @@ public class WashcarHistoryActivity extends BaseActivity implements
 
 	@Override
 	public void receive(int type, String data) {
-		Log.i(TAG, data);
 		ProgrosDialog.closeProgrosDialog();
 		try {
 			JSONObject json = new JSONObject(data);
@@ -135,7 +134,6 @@ public class WashcarHistoryActivity extends BaseActivity implements
 				json = json.getJSONObject("data");
 				JSONArray arr = json.getJSONArray("list");
 				lists = gson.fromJson(arr.toString(), typeToken);
-				Log.i("result", "==list.size==" + lists.size());// lists.size();
 			} else if ("RELOGIN".equalsIgnoreCase(json
 					.getString("operationState"))) {
 				DialogTool.getInstance(this).showConflictDialog();

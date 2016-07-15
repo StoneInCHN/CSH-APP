@@ -458,7 +458,6 @@ public class PayActivty extends BaseActivity implements OnClickListener,
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("Tanck", "===Ping++支付结果==" + data);
         // 支付页面返回处理
         if (requestCode == REQUEST_CODE_PAYMENT) {
             if (resultCode == Activity.RESULT_OK) {
@@ -483,8 +482,6 @@ public class PayActivty extends BaseActivity implements OnClickListener,
                 }
                 String errorMsg = data.getExtras().getString("error_msg"); // 错误信息
                 String extraMsg = data.getExtras().getString("extra_msg"); // 错误信息
-                Log.i("Tanck", "===result==" + result + "==errorMsg=="
-                        + errorMsg + "==extraMsg=" + extraMsg);
             }
         }
     }
@@ -570,7 +567,6 @@ public class PayActivty extends BaseActivity implements OnClickListener,
             if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.WEIXIN_PAY_REFRESH, true)) {
                 Constant.EDIT_FLAG = true;
                 // setNow();
-                Log.i("Tanck", "===========payActivity=====Receiver===========");
                 onPaySuccess();
             } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.WEIXIN_PAY_FAIL_REFRESH, true)) {
                 onPayFail();

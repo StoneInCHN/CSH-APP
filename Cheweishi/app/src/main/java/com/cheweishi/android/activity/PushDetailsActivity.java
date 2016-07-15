@@ -137,8 +137,6 @@ public class PushDetailsActivity extends BaseActivity {
 				JSONObject jsonObject = new JSONObject(result);
 				String status = jsonObject.optString("operationState");
 				if (StringUtil.isEquals(status, "SUCCESS", true)) {
-					Log.i("result", "==push=type==推送=" + result);
-					System.out.println("消息推送===========" + result);
 				} else if (StringUtil.isEquals(status, "FAIL", true)) {
 					setPushFail();
 					showToast(jsonObject.optJSONObject("data").optString("msg"));

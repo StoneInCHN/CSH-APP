@@ -165,7 +165,6 @@ public class CarReportMainFragment extends BaseFragment {
                 return;
             }
             String str = (String) msg.obj;
-            Log.i("zzqq", "carreport===" + str);
             try {
                 JSONObject json = new JSONObject(str);
                 String resultStr = json.optString("state");
@@ -178,11 +177,8 @@ public class CarReportMainFragment extends BaseFragment {
                     String time = json.optString("feeTime");
                     String fee = json.optString("fee");
                     String avgOil = json.optString("avgOil");
-                    Log.i("zzqq", "carreport===good1");
                     String drivingScore = json.optString("drivingScore");
-                    Log.i("zzqq", "carreport===good2");
                     rid = json.optInt("rid");
-                    Log.i("zzqq", "carreport===good3");
                     String status = json.optString("status");
                     if ("0".equals(status)) {
                         throw new RuntimeException("break try{}");
@@ -201,7 +197,6 @@ public class CarReportMainFragment extends BaseFragment {
                 } else {
                     showToast(json.optString("message"));
                 }
-                Log.i("zzqq", "carreport===good");
             } catch (Exception e) {
                 for (int i = 0; i < 7; i++) {
                     values[i] = "";
@@ -228,7 +223,6 @@ public class CarReportMainFragment extends BaseFragment {
     private List<View> itemViews = new ArrayList<View>();
 
     private void createMyCircle() {
-        Log.i("zzqq", "-----createMyCircle------");
         if (circleView != null) {
             offsetDegree = (int) circleView.overDegree;
         }
@@ -313,7 +307,6 @@ public class CarReportMainFragment extends BaseFragment {
 
         @Override
         public void onPageScrollStateChanged(int status) {
-            Log.i("zzqq", "--itemPosition---" + itemPosition);
             if (itemPosition == 0 && status == 0) {
                 reportListener.changeDate(CarReportListener.INDEX_RIGHT);
             } else if (itemPosition == 2 && status == 0) {
@@ -330,20 +323,17 @@ public class CarReportMainFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.i("zzqq", "---onPause----");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.i("zzqq", "------onResume------");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
-        Log.i("zzqq", "------onDestroy------");
     }
 
 }

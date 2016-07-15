@@ -466,7 +466,6 @@ public class StringUtil {
 				try {
 					b = Character.toString(c).getBytes("utf-8");
 				} catch (Exception ex) {
-					Log.e("StringUtil", ex.getMessage());
 					b = new byte[0];
 				}
 				for (int j = 0; j < b.length; j++) {
@@ -503,7 +502,6 @@ public class StringUtil {
 			}
 			return new String(oldString.getBytes(oldCharset), newCharset);
 		} catch (UnsupportedEncodingException uee) {
-			Log.e("由于系统不支持编码[" + oldCharset + "]或者[" + newCharset
 					+ "]，因此未能进行转换，直接返回原字符串", uee.getMessage());
 		}
 		return oldString;

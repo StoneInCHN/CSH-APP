@@ -129,7 +129,6 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
     public void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-//		Log.i("result", "=============map=onstart======" + listmMaps.size());
     }
 
     @Override
@@ -137,7 +136,6 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
         super.onResume();
         // bundle = getArguments().getBundle("data");
         // listmMaps = (List<ParkInfo>) bundle.get("data");
-        Log.i("result", "=============map=onResume======");
         // 注册刷新广播
         if (broad == null) {
             broad = new FindParkBroadcastReceiver();
@@ -597,7 +595,6 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
         public void onReceive(Context context, Intent intent) {
             if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
                     Constant.FIND_PARK_REFRESH, true)) {
-                Log.i("Tanck", "=================找车位更新===============");
                 listmMaps = intent.getParcelableArrayListExtra("data");
                 latLng = new LatLng(intent.getDoubleExtra("lat", 0),
                         intent.getDoubleExtra("lng", 0));

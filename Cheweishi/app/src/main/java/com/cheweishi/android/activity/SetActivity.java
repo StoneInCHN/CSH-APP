@@ -131,7 +131,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
                 break;
             case 100:
                 pareJSONGet(data);
-                Log.i("result", "=====设置111111===");
                 break;
             case 101:
                 // pareJSONSet(data);
@@ -226,7 +225,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
      * 获取警告设置信息
      */
     private void getReportSetInfo() {
-        Log.i("resultto", "=====设置设置设置设置===");
         if (isLogined()) {
             ProgrosDialog.openDialog(SetActivity.this);
             RequestParams rp = new RequestParams();
@@ -321,7 +319,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
                 JSONObject jsonObject = new JSONObject(result);
                 String status = jsonObject.optString("operationState");
                 if (StringUtil.isEquals(status, "SUCCESS", true)) {
-                    Log.i("result", "==push=type==推送=" + result);
                     System.out.println("消息推送===========" + result);
                 } else if (StringUtil.isEquals(status, "FAIL", true)) {
                     setPushFail();
@@ -495,7 +492,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
 //							// 只有环信退出成功才能进行自己系统退出操作
 //							MainConstant.getInstance(SetActivity.this)
 //									.setPassword(null);
-//							Log.i("result", "=====环信退出成功===");
 //							logoutConnectToServer();
 //						}
 //					});
@@ -509,7 +505,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
 //				public void onError(int code, String message) {
 //					// 环信退出失败，关闭dialog、并作出相应提示
 //					ProgrosDialog.closeProgrosDialog();
-//					Log.i("result", "=====环信退出失败===");
 //					// 提示连接失败，请重试
 //					// Toast.makeText(SettingActivity.this,
 //					// R.string.server_link_fault, Toast.LENGTH_LONG).show();
@@ -517,7 +512,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
 //				}
 //			});
 //		} else {
-//			Log.i("result", "=====环信没有登陆===");
 //			logoutConnectToServer();
 //		}
 //	}
@@ -548,7 +542,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
 //        btn_setout.setText(R.string.login);
         // LoginMessageUtils.deleteLoginMessage(SetActivity.this);
 //        DBTools.getInstance(this).delete(LoginResponse.class);
-        // Log.i("result", "===uid==" + loginMessage.getUid() + "_"
         // +loginMessage.getMobile());
         Intent intent = new Intent(baseContext, LoginActivity.class);
         startActivity(intent);

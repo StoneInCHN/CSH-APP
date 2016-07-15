@@ -98,7 +98,6 @@ public class CarReportFreeFragment extends BaseFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.i("zzqq", "--free time--" + System.currentTimeMillis());
 		time = getArguments().getString("time");
 		rid = getArguments().getInt("rid");
 	}
@@ -364,7 +363,6 @@ public class CarReportFreeFragment extends BaseFragment {
 		// "&key="
 		// + message.getKey() + "&cid=" + car.getCid() + "&type=" + "fee"
 		// + "&time=" + time + "&rid=" + rid;
-		// Log.i("zzqq", "---free url----" + url);
 		SimpleHttpUtils utils = new SimpleHttpUtils(baseContext, params,
 				API.REPORT_FREE_URL, handler);
 		utils.PostHttpUtils();
@@ -400,7 +398,6 @@ public class CarReportFreeFragment extends BaseFragment {
 				return;
 			}
 			String str = (String) msg.obj;
-			Log.i("zzqq", "--report free---" + str);
 
 			try {
 				JSONObject json = new JSONObject(str);

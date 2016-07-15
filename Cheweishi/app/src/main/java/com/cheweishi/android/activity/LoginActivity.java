@@ -614,7 +614,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     // SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     // System.out.println("tag:" + "=环信服务器登录成功==" + sf.format(date)
     // + " ______" + EMChat.getInstance().isLoggedIn());
-    // Log.i("result", "chat_login = " + chat_login);
 
     // // ActivityControl.removeActivityFromName(SettingActivity.class
     // // .getName());
@@ -640,7 +639,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
 
     // } else {
     // mLoginButton.setClickable(true);
-    // Log.i("result", "chat_login = " + 0);
     // showToast(R.string.Login_failed);
     // // 清除登陆信息
     // LoginMessageUtils.deleteLoginMessage(LoginActivity.this);

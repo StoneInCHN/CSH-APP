@@ -233,7 +233,6 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     @Override
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
         super.onActivityResult(arg0, arg1, arg2);
-        Log.i("result", "===argo==" + arg0 + "====arg1==" + arg1);
         if (arg1 == RESULT_OK) {
             switch (arg0) {
                 case 1000:

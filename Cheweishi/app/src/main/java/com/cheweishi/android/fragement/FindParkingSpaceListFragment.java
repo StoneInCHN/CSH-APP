@@ -56,7 +56,6 @@ public class FindParkingSpaceListFragment extends BaseFragment {
 			parkInfos = getArguments().getParcelableArrayList("data");
 //			latLng = new LatLng(getArguments().getDouble("lat"),getArguments().getDouble("lng"));
 		}
-//		Log.i("result", "=============list=onstart======" + parkInfos.size());
 		 adapter = new MyStallAdapter(baseContext, parkInfos);
 		 mycar_xlistview.setAdapter(adapter);
 	}
@@ -64,7 +63,6 @@ public class FindParkingSpaceListFragment extends BaseFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		Log.i("result", "=============list=onResume======");
 		// 注册刷新广播
 		if (broad == null) {
 			broad = new FindParkBroadcastReceiver();
@@ -79,7 +77,6 @@ public class FindParkingSpaceListFragment extends BaseFragment {
 		public void onReceive(Context context, Intent intent) {
 			if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 					Constant.FIND_PARK_REFRESH, true)) {
-				Log.i("result", "=================找车位更新===============");
 				parkInfos = intent.getParcelableArrayListExtra("data");
 				// latLng = new LatLng(intent.getDoubleExtra("lat", 0),
 				// intent.getDoubleExtra("lng", 0));

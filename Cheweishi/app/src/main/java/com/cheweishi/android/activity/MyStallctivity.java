@@ -426,7 +426,6 @@ public class MyStallctivity extends BaseActivity implements OnClickListener {
 			layoutFoot.setClickable(true);
 		}
 		searchAdapter = new FindCarSearchAdapter(this, historyDatas);
-//		Log.i("result", "====mListView==" + mListView + "==searchAdapter===" + searchAdapter);
 		mListView.setAdapter(searchAdapter);
 
 		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -585,7 +584,6 @@ public class MyStallctivity extends BaseActivity implements OnClickListener {
 	private void initData() {
 		getIntentData();
 		getResData();
-		Log.i("result", "==status==" + stutic);
 		if (stutic == 0) {
 			initStatut0();
 		} else {
@@ -608,7 +606,6 @@ public class MyStallctivity extends BaseActivity implements OnClickListener {
 	private void initStatus1() {
 		lon = getIntent().getDoubleExtra("lon", 0) + "";
 		lat = getIntent().getDoubleExtra("lat", 0) + "";
-		Log.i("result", "==lon==" + lon + "==lat=" + lat);
 		setStatus1TitleRight();
 	}
 

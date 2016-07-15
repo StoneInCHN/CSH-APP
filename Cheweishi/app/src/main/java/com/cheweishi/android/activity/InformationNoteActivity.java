@@ -113,7 +113,6 @@ public class InformationNoteActivity extends BaseActivity implements
 	public void receive(int type, String data) {
 		switch (type) {
 		case 400:
-			Log.i("washcarorder", "result===400");
 			break;
 		case 10001:
 			parseWashCarOrderCauseJSON(data);
@@ -124,10 +123,8 @@ public class InformationNoteActivity extends BaseActivity implements
 
 	private void parseWashCarOrderCauseJSON(String results) {
 		if (StringUtil.isEmpty(results)) {
-			Log.i("washcarorder", "result===null");
 			return;
 		}
-		Log.i("result============",results);
 		try {
 			JSONObject jsonObject = new JSONObject(results);
 			if("SUCCESS".equals(jsonObject.get("operationState"))){

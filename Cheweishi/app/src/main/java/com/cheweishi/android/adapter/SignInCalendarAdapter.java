@@ -42,7 +42,6 @@ public class SignInCalendarAdapter extends BaseAdapter {
 		dates = getDates();
 		resources = context.getResources();
 		signinDates = list;
-		Log.i("zzqq", "list====" + list);
 	}
 
 	// 根据改变的日期更新日历

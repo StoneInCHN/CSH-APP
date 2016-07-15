@@ -57,15 +57,12 @@ public class JPushReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
         this.mContext = context;
-        Log.i(TAG, "===Jpush=bundle==" + bundle.getString(JPushInterface.EXTRA_EXTRA));
-//		Log.d("result", "[JPushReceiver] onReceive - " + intent.getAction()
 //				+ ", extras: " + printBundle(bundle));
 
 //		processCustomMessage(context, printBundle(bundle));
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
             String regId = bundle
                     .getString(JPushInterface.EXTRA_REGISTRATION_ID);
-            Log.d(TAG, "[JPushReceiver]接收Registration Id : " + regId);
         } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent
                 .getAction())) {
             Log.d(TAG,
@@ -167,7 +164,6 @@ public class JPushReceiver extends BroadcastReceiver {
         // msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
         // }
         // } catch (JSONException e) {
-        Log.i(TAG, " ===发送推送显示广播== ");
         //
         // }
         // }
@@ -190,7 +186,6 @@ public class JPushReceiver extends BroadcastReceiver {
                 sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
             } else if (key.equals(JPushInterface.EXTRA_EXTRA)) {
                 if (bundle.getString(JPushInterface.EXTRA_EXTRA).isEmpty()) {
-                    Log.i(TAG, "This message has no Extra data");
                     continue;
                 }
 
@@ -226,7 +221,6 @@ public class JPushReceiver extends BroadcastReceiver {
                         }
                     }
                 } catch (JSONException e) {
-                    Log.e(TAG, "Get message extra JSON error!");
                 }
 
             } else {
@@ -280,7 +274,6 @@ public class JPushReceiver extends BroadcastReceiver {
             params.addBodyParameter("uid", BaseActivity.loginMessage.getUid());
             params.addBodyParameter("mobile", BaseActivity.loginMessage.getMobile());
             params.addBodyParameter("id", id + "");
-            Log.i("result", "==uid==" + BaseActivity.loginMessage.getUid() + "_" + BaseActivity.loginMessage.getMobile() + "_" + id);
             HttpBiz httpBiz = new HttpBiz(mContext);
             httpBiz.httPostData(1001, API.CSH_MESSAGE_LIST_URL, params, callback);
         }

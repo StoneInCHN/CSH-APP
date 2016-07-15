@@ -221,7 +221,6 @@ public class PlateChooseActivity extends BaseActivity {
 	}
 
 	private void initWheel(int id, String[] strContents) {
-		Log.i("result", "===========");
 		WheelView wheel = getWheel(id);
 		wheel.setAdapter(new StrericWheelAdapter(strContents));
 		wheel.setCurrentItem(0);

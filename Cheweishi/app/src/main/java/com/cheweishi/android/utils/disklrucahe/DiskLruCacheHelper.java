@@ -379,7 +379,6 @@ public class DiskLruCacheHelper {
             DiskLruCache.Editor edit = mDiskLruCache.edit(key);
             //edit maybe null :the entry is editing
             if (edit == null) {
-                Log.w(TAG, "the entry spcified key:" + key + " is editing by other . ");
             }
             return edit;
         } catch (IOException e) {
@@ -396,7 +395,6 @@ public class DiskLruCacheHelper {
             DiskLruCache.Snapshot snapshot = mDiskLruCache.get(Utils.hashKeyForDisk(key));
             if (snapshot == null) //not find entry , or entry.readable = false
             {
-                Log.e(TAG, "not find entry , or entry.readable = false");
                 return null;
             }
             //write READ

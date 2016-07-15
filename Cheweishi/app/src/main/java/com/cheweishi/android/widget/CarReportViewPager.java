@@ -100,10 +100,8 @@ public class CarReportViewPager extends ViewPager {
 			 */
 			// mTrans = -getPageMargin() - effectOffset * positionOffsetPixels /
 			// 2;
-			// Log.i("zzqq", "-----getWidth:" + getWidth()
 			// + "\n----getPageMargin():" + getPageMargin()
 			// + "\n-----positionOffsetPixels:" + positionOffsetPixels);
-			// Log.i("zzqq", "----mTrans:" + mTrans);
 			// rightView.setScaleX(mScale);
 			// rightView.setScaleY(mScale);
 		}

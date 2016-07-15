@@ -247,7 +247,6 @@ public class CarReportDriveTimeFragment extends BaseFragment {
 	}
 
 	public void receive(int type, String data) {
-		Log.i("result", "=="+data);
 		((CarReportActivity) baseContext).disMissCustomDialog();
 		switch (type) {
 		case 10009:

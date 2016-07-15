@@ -48,20 +48,17 @@
 //            if (mCamera == null) {
 //                // mCamera = Camera.open();
 //                camera_count = Camera.getNumberOfCameras();
-//                Log.e(TAG, "camera count:" + camera_count);
 //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
 //                    for (int i = 0; i < camera_count; i++) {
 //                        CameraInfo info = new CameraInfo();
 //                        Camera.getCameraInfo(i, info);
 //                        // find front camera
 //                        if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
-//                            Log.e(TAG, "to open front camera");
 //                            mCamera = Camera.open(i);
 //                        }
 //                    }
 //                }
 //                if (mCamera == null) {
-//                    Log.e(TAG, "AAAAA OPEN camera");
 //                    mCamera = Camera.open();
 //                }
 //
@@ -77,7 +74,6 @@
 //            mCamera.setParameters(mParameters);
 //            int mformat = mParameters.getPreviewFormat();
 //            int bitsperpixel = ImageFormat.getBitsPerPixel(mformat);
-//            Log.e(TAG, "pzy bitsperpixel: " + bitsperpixel);
 //            yuv_frame = new byte[mwidth * mheight * bitsperpixel / 8];
 //            yuv_Rotate90 = new byte[mwidth * mheight * bitsperpixel / 8];
 //            yuv_Rotate90lr = new byte[mwidth * mheight * bitsperpixel / 8];
@@ -89,7 +85,6 @@
 //            EMVideoCallHelper.getInstance().setResolution(mwidth, mheight);
 //
 //            mCamera.startPreview();
-//            Log.d(TAG, "camera start preview");
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //            if(mCamera != null)

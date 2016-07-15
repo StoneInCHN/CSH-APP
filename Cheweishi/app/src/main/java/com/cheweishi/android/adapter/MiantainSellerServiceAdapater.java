@@ -154,8 +154,6 @@ public class MiantainSellerServiceAdapater extends BaseAdapter implements
 			bundle.putString("goods_id", list.get((Integer) v.getTag()).getId());
 			bundle.putString("store_id", mainSellerInfo.getId());
 			bundle.putString("price", list.get((Integer)v.getTag()).getfPrice());
-			Log.i("result", "===goods_id===" + list.get((Integer) v.getTag()).getId() + "==store_id==" + mainSellerInfo.getId() + "===price===" + list.get((Integer)v.getTag()).getfPrice());
-			//
 //			if (type.get(groupPosition).getGoodsList().get(childPosition)
 //					.getIs_discount_price().equals("0")) {
 //				bundle.putString("price", type.get(groupPosition)

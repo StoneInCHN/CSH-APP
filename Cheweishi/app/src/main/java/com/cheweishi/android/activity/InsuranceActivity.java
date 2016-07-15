@@ -303,7 +303,6 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener, 
                 }
                 break;
             case TAKE_A_PICTURE:
-                Log.i("Tanck", "TAKE_A_PICTURE-resultCode:" + resultCode);
                 if (resultCode == RESULT_OK) {
                     bitmap = PhotoTools.decodeUriAsBitmap(Uri.fromFile(new File(
                             PhotoTools.IMGPATH, PhotoTools.IMAGE_FILE_NAME)), this);

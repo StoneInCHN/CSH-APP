@@ -153,7 +153,6 @@ public class MaintainDetilsActivity extends BaseActivity {
 					public boolean onGroupClick(ExpandableListView parent,
 							View v, int groupPosition, long id) {
 						// TODO Auto-generated method stub
-						// Log.e("hefeng",
 						// "ExpandableListView GroupClickListener groupPosition="
 						// + groupPosition);
 						return false;
@@ -166,10 +165,6 @@ public class MaintainDetilsActivity extends BaseActivity {
 							View v, int groupPosition, int childPosition,
 							long id) {
 						// TODO Auto-generated method stub
-						Log.e("hefeng",
-								"ExpandableListView ChildClickListener groupPosition="
-										+ groupPosition + "||childPosition="
-										+ childPosition);
 						return false;
 					}
 				});
@@ -236,7 +231,6 @@ public class MaintainDetilsActivity extends BaseActivity {
 
 	@Override
 	public void receive(int type, String data) {
-		Log.i("zzqq", data);
 		ProgrosDialog.closeProgrosDialog();
 		switch (type) {
 		case 400:
@@ -252,7 +246,6 @@ public class MaintainDetilsActivity extends BaseActivity {
 	}
 
 	private void parseJSON(String data) {
-		Log.i("result", "===订单详情==" + data);
 		if (StringUtil.isEmpty(data)) {
 			showToast(R.string.FAIL);
 			return;

@@ -92,7 +92,6 @@ public class Myapplication extends Application implements
         public void onReceiveLocation(BDLocation location) {
             // 重庆市-渝中区
             historyCity = location.getProvince();
-            Log.i("Tanck", "location:" + historyCity);
             boolean cityChangeFlag = false;
             if (historyCity != null
                     && (historyCity.contains(specialLcoationChongqing)

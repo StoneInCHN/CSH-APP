@@ -148,7 +148,6 @@ public class BaseMapUtil {
 			if (latLng != null) {
 				builder.include(latLng);
 			} else {
-				Log.i("zzqq", "latlng==null:" + i);
 			}
 		}
 		LatLngBounds bounds = builder.build();

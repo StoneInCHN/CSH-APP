@@ -444,7 +444,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 //        // + phoneSystem + "&app="
 //        // + APPTools.getVersionName(RegistActivity.this);
 //        // System.out.println(urlString);
-//        Log.i("result", "====注册参数===userName=" + phoneNumber + "=passWord="
 //                + password + "=appVersion=" + appVersion + "=mobileVersion="
 //                + mobileVersion + "=mobileSystem=" + phoneSystem + "=imei="
 //                + phoneDevice);
@@ -630,7 +629,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     ;
 
     private void parseRegistJSON(String msgString) {
-        Log.i("result", "==注册数据=" + msgString);
         if (StringUtil.isEmpty(msgString)) {
             ProgrosDialog.closeProgrosDialog();
             showToast(R.string.data_fail);
@@ -658,7 +656,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     }
 
     private void parseCodeJSON(String msgString) {
-        Log.i("result", "==验证码信息=msgString==" + msgString);
         mRegisterButton.setClickable(true);
         if (StringUtil.isEmpty(msgString)) {
             mGetcodeButton.setTextColor(RegistActivity.this
@@ -680,7 +677,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                     mCode = jsonObject2.optInt("code") + "";
                     tv_remind.setText(mPhoneNumberEditText.getText().toString()
                             .trim());
-                    Log.i("result", "===code==" + mCode);
                     // ll_message_remind.setVisibility(View.VISIBLE);
                     showToast(getResources().getString(R.string.code_success));
                     // save(jsonObject);
@@ -849,11 +845,8 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 
 //	@Override
 //	public void call() {
-    // Log.i("result", "环信注册请求成功");
     // ProgrosDialog.closeProgrosDialog();
-    // // Log.i("reslut","SUCCESS===" + "huanxm");
     // ActivityControl.removeActivityFromName(LoginActivity.class.getName());
-    // Log.i("result", "==移除登录界面成功==");
     // startActivity(new Intent(RegistActivity.this,
     // RegistFinishActivity.class));
     // RegistActivity.this.finish();

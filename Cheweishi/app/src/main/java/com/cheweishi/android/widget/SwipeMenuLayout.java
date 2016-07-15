@@ -101,7 +101,6 @@ public class SwipeMenuLayout extends FrameLayout {
 						&& velocityX < MAX_VELOCITYX) {
 					isFling = true;
 				}
-				// Log.i("byz", MAX_VELOCITYX + ", velocityX = " + velocityX);
 				return super.onFling(e1, e2, velocityX, velocityY);
 			}
 		};
@@ -172,7 +171,6 @@ public class SwipeMenuLayout extends FrameLayout {
 			isFling = false;
 			break;
 		case MotionEvent.ACTION_MOVE:
-			// Log.i("byz", "downX = " + mDownX + ", moveX = " + event.getX());
 			int dis = (int) (mDownX - event.getX());
 			if (state == STATE_OPEN) {
 				dis += mMenuView.getWidth();
@@ -295,7 +293,6 @@ public class SwipeMenuLayout extends FrameLayout {
 	}
 
 	public void setMenuHeight(int measuredHeight) {
-		Log.i("byz", "pos = " + position + ", height = " + measuredHeight);
 		LayoutParams params = (LayoutParams) mMenuView.getLayoutParams();
 		if (params.height != measuredHeight) {
 			params.height = measuredHeight;

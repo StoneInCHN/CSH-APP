@@ -828,7 +828,6 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 		public void onReceiveLocation(BDLocation location) {
 			// 重庆市-渝中区
 			historyCity = location.getProvince();
-			Log.i("zzq", "location:" + historyCity);
 			boolean cityChangeFlag = false;
 			if (historyCity != null
 					&& (historyCity.contains(specialLcoationChongqing)
@@ -948,8 +947,7 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 	 * @param isClicked
 	 */
 	public void disableSubView(boolean isClicked) {
-		Log.i("zzqq", "--disableSubView--" + isClicked);
-//		if (isClicked) {
+//		hif (isClicked) {
 //			MainActivity.instance.showLLeftSide();
 //		} else {
 //			MainActivity.instance.closeLeftSide();
@@ -1121,9 +1119,6 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 		mRequestParams.addBodyParameter("uid", loginMessage.getUid());
 		mRequestParams.addBodyParameter("key", loginMessage.getKey());
 		mRequestParams.addBodyParameter("cid", loginMessage.getCar().getCid());
-		Log.i("zqtest", "uid:" + loginMessage.getUid() + "--key--:"
-				+ loginMessage.getKey() + "--cid--:"
-				+ loginMessage.getCar().getCid());
 		httpBiz.httPostData(1001, API.WASHCAR_CHECKORDER, mRequestParams, this);
 	}
 
@@ -1141,8 +1136,6 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 			params.addBodyParameter("key", key);
 			params.addBodyParameter("device", device);
 			params.addBodyParameter("cid", cid);
-			Log.i("result", "uid = " + uid + "   key = " + key + "   device="
-					+ device + "   cid = " + cid);
 			httpBiz.httPostData(20000, API.REAL_TIME_CONDITION_URL, params,
 					MyCarFragment.this);
 		}
@@ -1161,7 +1154,6 @@ public class MyCarFragment extends BaseFragment implements OnPanelListener {
 		if (type == 20000) {
 			doAboutCheck(data);
 		} else if (type == 1001) {
-			Log.i("zqtest", data);
 			doAboutWashcar(data);
 		} else if (type == 400) {
 		} else if (type == 401) {

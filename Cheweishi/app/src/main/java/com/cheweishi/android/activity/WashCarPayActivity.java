@@ -666,7 +666,6 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//		Log.i("result", "===Ping++支付结果==" + data);
         // 支付页面返回处理
         if (requestCode == REQUEST_CODE_PAYMENT) {
             if (resultCode == Activity.RESULT_OK) {
@@ -690,8 +689,6 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                     }
                     String errorMsg = data.getExtras().getString("error_msg"); // 错误信息
                     String extraMsg = data.getExtras().getString("extra_msg"); // 错误信息
-                    Log.i("Tanck", "===result==" + result + "==errorMsg=="
-                            + errorMsg + "==extraMsg=" + extraMsg);
                 }
             }
         }
@@ -805,7 +802,6 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.WEIXIN_PAY_REFRESH, true)) {
                 Constant.EDIT_FLAG = true;
                 getPaySuccessData();
-                Log.i("Tanck", "===========WashCarPayActivity=====Receiver===========");
             } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.WEIXIN_PAY_FAIL_REFRESH, true)) {
                 onPayFail();
             }

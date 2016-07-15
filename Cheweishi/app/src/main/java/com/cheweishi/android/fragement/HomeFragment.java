@@ -237,7 +237,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             list_business.setAdapter(listViewAdapter);
 
             initScrollView();
-            iniBaiduNavi();
+//            iniBaiduNavi();
             initData();
         }
     }
@@ -285,15 +285,12 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private BNaviEngineManager.NaviEngineInitListener mNaviEngineInitListener = new BNaviEngineManager.NaviEngineInitListener() {
         public void engineInitSuccess() {
-            Log.i("Tanck", "=========engineInitSuccess=========");
         }
 
         public void engineInitStart() {
-            Log.i("Tanck", "=========engineInitStart=========");
         }
 
         public void engineInitFail() {
-            Log.i("Tanck", "=========engineInitFail=========");
         }
     };
 
@@ -686,7 +683,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             switch (code) {
                 case 0:
                     logs = "Set tag and alias success";
-                    Log.i("Tanck", logs);
                     if (!StringUtil.isEmpty(alias)) {
                         LogHelper.d("==alias=" + alias);
                     }
@@ -728,19 +724,16 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             super.handleMessage(msg);
             switch (msg.what) {
                 case MSG_SET_ALIAS:
-                    Log.d("Tanck", "Set alias in handler.");
                     JPushInterface.setAlias(baseContext.getApplicationContext(),
                             (String) msg.obj, mTagsCallback);
                     break;
 
                 case MSG_SET_TAGS:
-                    Log.d("Tanck", "Set tags in handler.");
                     JPushInterface.setTags(baseContext.getApplicationContext(),
                             (Set<String>) msg.obj, mTagsCallback);
                     break;
 
                 default:
-                    Log.i("Tanck", "Unhandled msg - " + msg.what);
             }
         }
     };

@@ -331,7 +331,6 @@ public class NavigationActivity extends BaseActivity {
 			if (mBaseMapUtil == null) {
 				return;
 			}
-			Log.i("zzqq", "location:" + location.getAddrStr());
 			mBaseMapUtil.setMylocationData(location.getLatitude(),
 					location.getLongitude(), location.getRadius(),
 					location.getDirection());

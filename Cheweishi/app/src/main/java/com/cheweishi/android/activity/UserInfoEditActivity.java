@@ -695,7 +695,6 @@ public class UserInfoEditActivity extends BaseActivity implements
                 }
                 break;
             case TAKE_A_PICTURE:
-                Log.i("zou", "TAKE_A_PICTURE-resultCode:" + resultCode);
                 if (resultCode == RESULT_OK) {
                     bitmap = PhotoTools.decodeUriAsBitmap(Uri.fromFile(new File(
                             PhotoTools.IMGPATH, PhotoTools.IMAGE_FILE_NAME)), this);
