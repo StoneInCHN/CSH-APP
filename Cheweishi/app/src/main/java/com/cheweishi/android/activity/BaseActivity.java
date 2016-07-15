@@ -637,9 +637,10 @@ public abstract class BaseActivity extends FragmentActivity implements
                             Intent intent = new Intent(baseContext, AddCarActivity.class);
                             startActivity(intent);
                         } else { // 绑定设备
-                            Intent intent = new Intent(baseContext, DevicesListActivity.class);
-                            intent.putExtra("cid", loginResponse.getMsg().getDefaultVehicleId());
-                            startActivity(intent);
+//                            Intent intent = new Intent(baseContext, DevicesListActivity.class);
+//                            intent.putExtra("cid", loginResponse.getMsg().getDefaultVehicleId());
+//                            startActivity(intent);
+                            OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
                         }
                     }
                 });
@@ -674,9 +675,10 @@ public abstract class BaseActivity extends FragmentActivity implements
                             Intent intent = new Intent(baseContext, AddCarActivity.class);
                             startActivity(intent);
                         } else { // 绑定
-                            Intent intent = new Intent(baseContext, DevicesListActivity.class);
-                            intent.putExtra("cid", cid);
-                            startActivity(intent);
+//                            Intent intent = new Intent(baseContext, DevicesListActivity.class);
+//                            intent.putExtra("cid", cid);
+//                            startActivity(intent);
+                            OpenCamera(cid);
                         }
                         activity.finish();
                     }

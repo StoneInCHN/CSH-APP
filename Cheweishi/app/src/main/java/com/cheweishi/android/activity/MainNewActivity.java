@@ -200,7 +200,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         instance = this;
 
         initScrollView();
-        iniBaiduNavi();
+//        iniBaiduNavi();
         initData();
 
 
@@ -820,7 +820,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
                 isLogin(MessagerCenterActivity.class);
                 break;
             case R.id.btn_scanning:// 扫一扫
-                OpenCamera(false);
+                OpenCamera(loginResponse.getMsg().getDefaultVehicleId());
                 break;
             case R.id.btn_my_wallet:// 我的钱包
                 isLogin(PurseActivity.class);// PurseActivity
