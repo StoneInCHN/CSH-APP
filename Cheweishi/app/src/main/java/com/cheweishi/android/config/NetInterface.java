@@ -157,6 +157,10 @@ public class NetInterface {
 
     public static final String GET_DUIBA_LOGIN_URL = "getLoginUrl";//获取兑吧登陆url
 
+    public static final String REG_TENANT = "/endUserIntf/reg.jhtml";//新的登陆
+
+    public static final String orgCode = ""; // 固定的Id
+
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 
 }
