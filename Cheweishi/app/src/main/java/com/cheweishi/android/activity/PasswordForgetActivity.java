@@ -343,7 +343,6 @@ public class PasswordForgetActivity extends BaseActivity implements
      */
     private void parseCodeJSON(String msgString) {
         btn_next.setClickable(true);
-        System.out.println(msgString);
         if (StringUtil.isEmpty(msgString)) {
             showToast(R.string.data_fail);
             btn_next.setText(R.string.next);

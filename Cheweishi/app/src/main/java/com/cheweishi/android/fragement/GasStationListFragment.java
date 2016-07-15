@@ -680,7 +680,6 @@ public class GasStationListFragment extends BaseFragment implements
 
     @Override
     public void receive(int type, String data) {
-        System.out.println(data);
         ProgrosDialog.closeProgrosDialog();
         switch (type) {
             case DATA_CODE:

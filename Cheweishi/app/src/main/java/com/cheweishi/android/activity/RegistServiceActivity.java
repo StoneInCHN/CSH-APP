@@ -82,7 +82,6 @@ public class RegistServiceActivity extends BaseActivity {
 		if (StringUtil.isEmpty(result)) {
 			return;
 		}
-		System.out.println(result);
 		try {
 			JSONObject jsonObject = new JSONObject(result);
 			if (StringUtil.isEquals(jsonObject.optString("operationState"),

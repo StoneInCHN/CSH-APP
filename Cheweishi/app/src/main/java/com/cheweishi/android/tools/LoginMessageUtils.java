@@ -85,7 +85,6 @@ public class LoginMessageUtils {
             Editor editor = preferences.edit();
             editor.putString("loginMessage", productBase64);
             editor.commit();
-            Log.i("ok", "存储成功");
             oos.close();
             // Toast.makeText(LoginActivity.this, "存储成功！",
             // Toast.LENGTH_LONG).show();
@@ -153,10 +152,8 @@ public class LoginMessageUtils {
             String productBase64 = preferences.getString("loginMessage", "");
             if (productBase64 == "") {
                 // init();
-                // System.out.println("不好");
                 return null;
             }
-            System.out.println("不好");
             // 读取字节
             byte[] base64 = Base64.decodeBase64(productBase64.getBytes());
 
@@ -168,11 +165,6 @@ public class LoginMessageUtils {
                 try {
                     // 读取对象
                     loginMessageTemp = (LoginMessage) bis.readObject();
-                    if (loginMessageTemp != null) {
-                        System.out.println("很好");
-                    } else {
-                        System.out.println("不好的");
-                    }
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -204,10 +196,8 @@ public class LoginMessageUtils {
             String productBase64 = preferences.getString("loginMessage", "");
             if (productBase64 == "") {
                 // init();
-                // System.out.println("不好");
                 return null;
             }
-            System.out.println("不好");
             // 读取字节
             byte[] base64 = Base64.decodeBase64(productBase64.getBytes());
 
@@ -219,11 +209,6 @@ public class LoginMessageUtils {
                 try {
                     // 读取对象
                     loginMessageTemp = (LoginResponse) bis.readObject();
-                    if (loginMessageTemp != null) {
-                        System.out.println("很好");
-                    } else {
-                        System.out.println("不好的");
-                    }
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

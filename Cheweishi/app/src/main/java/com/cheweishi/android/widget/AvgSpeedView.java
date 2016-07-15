@@ -189,13 +189,6 @@ public class AvgSpeedView extends View {
 							paint.setColor(getContext().getResources()
 									.getColor(R.color.main_blue));
 						}
-						System.out
-								.println(listSpeed.get(i).getStart() + "_"
-										+ listSpeed.get(i).getEnd() + "_"
-										+ XPoint
-										+ (listSpeed.get(i).getStart())
-										* XScale + "_" + XPoint
-										+ (listSpeed.get(i).getEnd()) * XScale);
 						paint.setStyle(Paint.Style.FILL_AND_STROKE);
 						RectF rg = new RectF((listSpeed.get(i).getStart())
 								* XScale, YPoint

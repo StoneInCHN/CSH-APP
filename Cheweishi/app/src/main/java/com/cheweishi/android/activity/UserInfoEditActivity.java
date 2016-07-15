@@ -248,8 +248,6 @@ public class UserInfoEditActivity extends BaseActivity implements
                                   int count) {
             if (judge(s.toString()) == true) {
             } else {
-                System.out.println(posBefore + "_"
-                        + et_userNick.getSelectionEnd());
                 if (et_userNick.getSelectionEnd() >= posBefore) {
                     et_userNick.setText(cutString(s.toString().substring(
                             posBefore, et_userNick.getSelectionStart())));
@@ -825,7 +823,6 @@ public class UserInfoEditActivity extends BaseActivity implements
      * @throws Exception
      */
     private void setImageView(String pathString) {
-//        System.out.println("imgpath===" + pathString);
 //        String url = NetInterface.HEADER_ALL + NetInterface.EDIT_USER_INFO + NetInterface.SUFFIX;
 //        File file = new File(pathString);
 //        RequestParams params = new RequestParams();

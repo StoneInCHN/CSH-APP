@@ -618,55 +618,44 @@
 //
 //		public void onReceive(Context context, Intent intent) {
 //			Constant.EDIT_FLAG = false;
-//			System.out.println("SUCCESS====main_" + Constant.CURRENT_REFRESH);
 //			if (!StringUtil.isEquals(intent.getAction(), Constant.REFRESH_FLAG,
 //					true)) {
-//				System.out.println("SUCCESS====" + "更新false");
 //				return;
 //			}
 //			if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 //					Constant.LOGIN_REFRESH, true)) {
-//				System.out.println("SUCCESS====" + "登录信息更新Main");
 //				refreshLogin();
 //			} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 //					Constant.CAR_MANAGER_REFRESH, true)) {
-//				System.out.println("SUCCESS====" + "车辆信息更新");
 //				refreshNetPhone();
 //			} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 //					Constant.MESSAGE_CENTER_REFRESH, true)) {
-//				System.out.println("SUCCESS====" + "消息中心更新");
 //				// if (intent != null) {
 //				// refreshMessageCenter(intent);
 //				// }
 //				refreshLogin();
 //			} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 //					Constant.SPECIAL_SIGN_REFRESH, true)) {
-//				System.out.println("SUCCESS====" + "个性签名更新");
 //				refreshSpecialSign(intent);
 //			} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 //					Constant.USER_CENTER_REFRESH, true)) {
-//				System.out.println("SUCCESS====" + "个人中心更新");
 //				refreshLogin();
 //			} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 //					Constant.NET_PHONE_REFRESH, true)) {
 //
 //				if (Constant.CALL_REQUEST) {
-//					System.out.println("SUCCESS====" + "网络电话更新");
 //					Constant.CALL_REQUEST = false;
 //					refreshNetPhone();
 //				}
 //			} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 //					Constant.USER_NICK_EDIT_REFRESH, true)) {
 //
-//				System.out.println("SUCCESS====" + "个人编辑更新");
 //				setUpMenuTop();
 //			} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 //					Constant.INSURANCE_REFRESH, true)) {
-//				System.out.println("SUCCESS====" + "保险更新");
 //				refreshLogin();
 //			} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 //					Constant.SIGN_REFRESH, true)) {
-//				System.out.println("SUCCESS====" + "当日签到");
 //				refreshLogin();
 //			} 
 //		}
@@ -715,7 +704,6 @@
 //	@Override
 //	public void onResume() {
 //		super.onResume();
-//		System.out.println("SUCCESS====" + "haha" + "_"
 //				+ Constant.CURRENT_REFRESH);
 //		// showToast("haha");
 //		// 注册刷新广播
@@ -949,7 +937,6 @@
 //			if (StringUtil.isEmpty(data)) {
 //				return;
 //			}
-//			System.out.println(data);
 //			try {
 //				JSONObject jsonObject = new JSONObject(data);
 //				String resultStr = jsonObject.optString("operationState");

@@ -259,7 +259,6 @@ public class RechargeActivity extends BaseActivity implements OnClickListener {
 		}.getType();
 		loginMessage = gson.fromJson(jsonObject, type);
 		LoginMessageUtils.saveProduct(loginMessage, this);
-		System.out.println("SUCCESS=============" + "success");
 		initViews();
 		Intent mIntent = new Intent();
 		Constant.CURRENT_REFRESH = Constant.LOGIN_REFRESH;
@@ -271,7 +270,6 @@ public class RechargeActivity extends BaseActivity implements OnClickListener {
 		if (StringUtil.isEmpty(data)) {
 			return;
 		}
-		System.out.println(data);
 		try {
 			JSONObject jsonObject = new JSONObject(data);
 			String resultStr = jsonObject.optString("operationState");
@@ -306,7 +304,6 @@ public class RechargeActivity extends BaseActivity implements OnClickListener {
 			Constant.EDIT_FLAG = false;
 			if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 					Constant.INSURANCE_REFRESH, true)) {
-				System.out.println("SUCCESS====" + "保险更新");
 				initViews();
 			}else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 					Constant.LOGIN_REFRESH, true)) {

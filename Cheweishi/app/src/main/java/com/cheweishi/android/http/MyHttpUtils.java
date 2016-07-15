@@ -45,7 +45,6 @@ public class MyHttpUtils {
 		if (isNetworkAvailable(context)) {
 			HttpUtils http = new HttpUtils(30 * 1000);
 			http.configCurrentHttpCacheExpiry(3000 * 10);
-			System.out.println(url);
 			http.send(HttpRequest.HttpMethod.GET, url, null,
 					new RequestCallBack<String>() {
 						@Override
@@ -57,12 +56,10 @@ public class MyHttpUtils {
 						public void onLoading(long total, long current,
 								boolean isUploading) {
 							super.onLoading(total, current, isUploading);
-							System.out.println(current);
 						}
 
 						@Override
 						public void onSuccess(ResponseInfo<String> arg0) {
-							System.out.println(arg0.result);
 							// if (context != null) {
 							dialog.dismiss();
 							// }
@@ -74,7 +71,6 @@ public class MyHttpUtils {
 						@Override
 						public void onFailure(HttpException arg0, String arg1) {
 							// TODO Auto-generated method stub
-							System.out.println(arg1);
 							// if (context != null) {
 							dialog.dismiss();
 							// }
@@ -95,7 +91,6 @@ public class MyHttpUtils {
 	 * post请求
 	 */
 	public void PostHttpUtils() {
-		System.out.println(url);
 		if (isNetworkAvailable(context)) {
 			HttpUtils http = new HttpUtils(30 * 1000);
 			http.configCurrentHttpCacheExpiry(30000);
@@ -205,10 +200,6 @@ public class MyHttpUtils {
 
 			if (networkInfo != null && networkInfo.length > 0) {
 				for (int i = 0; i < networkInfo.length; i++) {
-					System.out.println(i + "===状态==="
-							+ networkInfo[i].getState());
-					System.out.println(i + "===类型==="
-							+ networkInfo[i].getTypeName());
 					// 判断当前网络状态是否为连接状态
 					if (networkInfo[i].getState() == NetworkInfo.State.CONNECTED) {
 						return true;

@@ -242,7 +242,6 @@ public class ScaleView extends View {
 		// GeoPoint geoPoint = baiduMap.getMapCenter();
 		// 得到当前中心位置纬度
 		double latitude = baiduMap.getLocationData().latitude;
-		System.out.println(latitude);
 		// 得到象素数，比如当前比例尺是1/10000，比如scale=10000，对应在该纬度应在地图中绘多少象素
 		// 参考http://rainbow702.iteye.com/blog/1124244
 		return (int) (baiduMap.getProjection().metersToEquatorPixels(scale) / (Math

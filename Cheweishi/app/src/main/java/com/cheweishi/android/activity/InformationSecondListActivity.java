@@ -95,7 +95,6 @@ public class InformationSecondListActivity extends BaseActivity {
 		if (StringUtil.isEmpty(result)) {
 
 		} else {
-			System.out.println("chezixun" + result);
 			try {
 				JSONObject jsonObject = new JSONObject(result);
 				if (StringUtil.isEquals(jsonObject.optString("operationState"),

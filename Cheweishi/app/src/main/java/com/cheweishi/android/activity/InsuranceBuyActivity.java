@@ -160,7 +160,6 @@ public class InsuranceBuyActivity extends BaseActivity implements
 	// if (StringUtil.isEmpty(result)) {
 	// return;
 	// }
-	// System.out.println(result);
 	// try {
 	// JSONObject jsonObject = new JSONObject(result);
 	// if (StringUtil.isEquals(jsonObject.optString("operationState"),
@@ -192,7 +191,6 @@ public class InsuranceBuyActivity extends BaseActivity implements
 		if (StringUtil.isEmpty(result)) {
 			return;
 		}
-		System.out.println(result);
 		try {
 			JSONObject jsonObject = new JSONObject(result);
 			if (StringUtil.isEquals(jsonObject.optString("operationState"),
@@ -240,7 +238,6 @@ public class InsuranceBuyActivity extends BaseActivity implements
 		if (StringUtil.isEmpty(data)) {
 			return;
 		}
-		System.out.println(data);
 		try {
 			JSONObject jsonObject = new JSONObject(data);
 			String resultStr = jsonObject.optString("operationState");

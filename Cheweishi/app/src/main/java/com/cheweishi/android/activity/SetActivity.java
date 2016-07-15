@@ -149,7 +149,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
             showToast(getString(R.string.FAIL));
             return;
         }
-        System.out.println("退出======" + data);
         try {
             JSONObject jsonObject = new JSONObject(data);
             if (StringUtil.isEquals(API.returnSuccess,
@@ -309,7 +308,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
     // }
     // }
     private void parseMessageJSON(String result) {
-        System.out.println("用户退出====" + result);
         if (result == null || result.equals("")) {
             showToast(R.string.no_result);
             setPushFail();
@@ -319,7 +317,6 @@ public class SetActivity extends BaseActivity implements OnClickListener,
                 JSONObject jsonObject = new JSONObject(result);
                 String status = jsonObject.optString("operationState");
                 if (StringUtil.isEquals(status, "SUCCESS", true)) {
-                    System.out.println("消息推送===========" + result);
                 } else if (StringUtil.isEquals(status, "FAIL", true)) {
                     setPushFail();
                     showToast(jsonObject.optJSONObject("data").optString("msg"));

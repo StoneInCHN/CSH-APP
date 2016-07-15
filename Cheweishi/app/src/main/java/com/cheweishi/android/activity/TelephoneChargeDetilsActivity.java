@@ -171,7 +171,6 @@ public class TelephoneChargeDetilsActivity extends BaseActivity implements
 	public void receive(int type, String data) {
 		super.receive(type, data);
 		pullToRefreshListView.onRefreshComplete();
-		System.out.println(data);
 		ProgrosDialog.closeProgrosDialog();
 		switch (type) {
 		case TELEPHONE_CODE:

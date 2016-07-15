@@ -247,7 +247,6 @@ public class ReturnTheMoneyDatailsActivity extends BaseActivity implements
 		ProgrosDialog.closeProgrosDialog();
 		switch (code) {
 		case 400:
-			System.out.println("SUCCESS================haha1");
 			headView.setVisibility(View.GONE);
 			listView.removeHeaderView(headView);
 			showToast(R.string.server_link_fault);
@@ -256,8 +255,6 @@ public class ReturnTheMoneyDatailsActivity extends BaseActivity implements
 			parseInsuranceJSON(data);
 			break;
 		case RETURNT_CODE:
-			System.out.println("SUCCESS================haha");
-			System.out.println(data);
 			pullToRefreshListView.onRefreshComplete();
 			try {
 				JSONObject jsonObject = new JSONObject(data);
@@ -326,7 +323,6 @@ public class ReturnTheMoneyDatailsActivity extends BaseActivity implements
 		if (StringUtil.isEmpty(result)) {
 			return;
 		}
-		System.out.println(result);
 		try {
 			JSONObject jsonObject = new JSONObject(result);
 			if (StringUtil.isEquals(jsonObject.optString("operationState"),
@@ -338,7 +334,6 @@ public class ReturnTheMoneyDatailsActivity extends BaseActivity implements
 				insuranceInfo = gson.fromJson(dataResult, type);
 				if (!StringUtil.isEmpty(insuranceInfo)) {
 					if (loginMessage.getAccount().getInsurance() == 0) {
-						System.out.println("SUCCESS==========haha");
 
 						tv_insurance_desc.setText("保当前金额" + "|"
 								+ insuranceInfo.getNum() + "|"
@@ -348,7 +343,6 @@ public class ReturnTheMoneyDatailsActivity extends BaseActivity implements
 					}
 					tv_insurance_name.setText(insuranceInfo.getName());
 				} else {
-					System.out.println("SUCCESS==========haha1");
 					headView.setVisibility(View.GONE);
 					listView.removeHeaderView(headView);
 				}
@@ -427,7 +421,6 @@ public class ReturnTheMoneyDatailsActivity extends BaseActivity implements
 			Constant.EDIT_FLAG = false;
 			if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 					Constant.INSURANCE_REFRESH, true)) {
-				System.out.println("SUCCESS====" + "保险更新");
 				list.clear();
 				mList.clear();
 				page = 1;

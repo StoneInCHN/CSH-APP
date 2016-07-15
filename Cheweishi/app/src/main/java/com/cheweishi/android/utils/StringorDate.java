@@ -16,8 +16,7 @@ public class StringorDate {
 		}  
 		catch (ParseException e)  
 		{  
-		    System.out.println(e.getMessage());  
-		}  
+		}
 		
 		return null;
 	}

@@ -156,7 +156,6 @@ public class ProvinceCityCountryActivity extends BaseActivity implements
 	}
 
 	private void parseNameJSON(String result) {
-		System.out.println("城市信息====" + result);
 		if (StringUtil.isEmpty(result)) {
 			showToast(R.string.data_fail);
 		} else {
@@ -276,7 +275,6 @@ public class ProvinceCityCountryActivity extends BaseActivity implements
 
 	private void parseCityJSON(String result) {
 		ProgrosDialog.closeProgrosDialog();
-		System.out.println("城市信息====" + result);
 		if (StringUtil.isEmpty(result)) {
 			showToast(R.string.data_fail);
 		} else {

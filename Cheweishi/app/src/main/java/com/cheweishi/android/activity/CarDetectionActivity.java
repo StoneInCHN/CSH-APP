@@ -358,7 +358,6 @@ public class CarDetectionActivity extends BaseActivity {
         public void onReceive(Context context, Intent intent) {
             if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
                     Constant.CAR_MANAGER_REFRESH, true)) {
-                System.out.println("SUCCESS====" + "默认车辆更新");
                 initView();
             }
         }

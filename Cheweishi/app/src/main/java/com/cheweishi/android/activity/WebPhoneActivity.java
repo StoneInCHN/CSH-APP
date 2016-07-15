@@ -89,7 +89,6 @@ public class WebPhoneActivity extends BaseActivity implements OnClickListener {
 		if (StringUtil.isEmpty(result)) {
 			return;
 		}
-		System.out.println("网络电话====" + result);
 		try {
 			JSONObject jsonObject = new JSONObject(result);
 			if (StringUtil.isEquals(API.returnSuccess,

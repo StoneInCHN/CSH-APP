@@ -443,7 +443,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 //        // + "&nick=" + phoneNumber + "&phone=" + phoneDevice + "&system="
 //        // + phoneSystem + "&app="
 //        // + APPTools.getVersionName(RegistActivity.this);
-//        // System.out.println(urlString);
 //                + password + "=appVersion=" + appVersion + "=mobileVersion="
 //                + mobileVersion + "=mobileSystem=" + phoneSystem + "=imei="
 //                + phoneDevice);
@@ -599,7 +598,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     public void receive(int type, String data) {
         switch (type) {
             case 100001:
-                System.out.println("获取验证码成功");
                 ProgrosDialog.closeProgrosDialog();
                 parseCodeJSON(data);
                 break;
@@ -607,7 +605,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                 parseRegistJSON(data);
                 break;
             case 400:
-                System.out.println("获取验证码失败");
                 ProgrosDialog.closeProgrosDialog();
                 if (getCodeFlag == true) {
                     mRegisterButton.setClickable(true);
@@ -633,13 +630,11 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
             ProgrosDialog.closeProgrosDialog();
             showToast(R.string.data_fail);
         } else {
-            System.out.println(msgString);
             try {
                 JSONObject jsonObject = new JSONObject(msgString);
                 // JSONObject jsonObject2 = jsonObject.optJSONObject("data");
                 if (StringUtil.isEquals(jsonObject.optString("state"),
                         "200000", true)) {
-                    System.out.println("SUCCESS==========" + "注册请求成功");
                     // ProgrosDialog.closeProgrosDialog();
                     showToast("注册成功");
                     LoginMessageUtils.setLogined(this, true);
@@ -663,13 +658,11 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                     .getColor(R.color.orange_text_color));
             showToast(R.string.code_error);
         } else {
-            System.out.println(msgString);
             try {
                 JSONObject jsonObject = new JSONObject(msgString);
                 JSONObject jsonObject2 = jsonObject.optJSONObject("data");
                 if (StringUtil.isEquals(jsonObject.optString("state"),
                         API.returnSuccess, true)) {
-                    System.out.println("获取验证码成功Success");
                     mGetcodeButton.setTextColor(RegistActivity.this
                             .getApplicationContext().getResources()
                             .getColor(R.color.btn_gray_normal));
@@ -768,7 +761,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
         ActivityControl.removeActivityFromName(LoginActivity.class.getName());
         startActivity(new Intent(RegistActivity.this, MainNewActivity.class));
         this.finish();
-        // System.out.println("SUCCESS==========" + "环信注册请求");
         // 环信登录
         // MainConstant.getInstance(RegistActivity.this).setLoginStatus("0");//
         // 设置未登录状态

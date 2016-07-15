@@ -77,7 +77,6 @@ public class FootmarkMapActivity extends BaseActivity {
 		}else {
 			mCenterTextView.setText("足迹详情");
 		}
-		System.out.println(latlon);
 		mleftAction.setText(getResources().getString(R.string.back));
 
 		mleftAction.setOnClickListener(listener);

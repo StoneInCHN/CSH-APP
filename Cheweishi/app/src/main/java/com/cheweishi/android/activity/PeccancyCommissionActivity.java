@@ -222,11 +222,9 @@ public class PeccancyCommissionActivity extends BaseActivity implements
 			}
 			break;
 		case 10001:
-			System.out.println("item========haha");
 			if (!StringUtil.isEmpty(data)
 					&& !StringUtil.isEmpty(data.getStringExtra("item"))) {
 				String itemData = data.getStringExtra("item");
-				System.out.println("item========" + itemData);
 				bt_peccancy_province.setText(itemData);
 			}
 			break;
@@ -234,7 +232,6 @@ public class PeccancyCommissionActivity extends BaseActivity implements
 			if (data != null
 					&& !StringUtil.isEmpty(data.getStringExtra("item"))) {
 				String itemData = data.getStringExtra("item");
-				System.out.println("item========" + itemData);
 				bt_peccancy_char.setText(itemData);
 			}
 			break;

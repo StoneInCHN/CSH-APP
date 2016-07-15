@@ -106,7 +106,6 @@ public class FindCarportListAdapter extends BaseAdapter {
 						baiduMapView.initMap(context);
 						if (isDraw) {
 							
-							System.out.println(latLng+"----------------------------");
 							if (latLng!=null) {
 								baiduMapView.baiduNavigation(latLng.latitude,
 										latLng.longitude,

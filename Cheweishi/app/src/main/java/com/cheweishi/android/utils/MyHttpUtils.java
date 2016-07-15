@@ -55,28 +55,22 @@ public class MyHttpUtils {
 //								boolean isUploading) {
 //							// TODO Auto-generated method stub
 //							super.onLoading(total, current, isUploading);
-//							System.out.println(current);
 //						}
 //
 //						@Override
-//						public void onSuccess(ResponseInfo<String> arg0) {
 //							// TODO Auto-generated method stub
-//							System.out.println(arg0.result);
 //							// progressDialog.dismiss();
 //							Message mes = new Message();
 //							mes.obj = arg0.result;
-//							handler.sendMessage(mes);
 //						}
 //
 //						@Override
 //						public void onFailure(HttpException arg0, String arg1) {
 //							// TODO Auto-generated method stub
 //							// progressDialog.dismiss();
-//							System.out.println(arg1);
 //							Message mes = new Message();
 //							mes.what = 400;
 //							handler.sendMessage(mes);
-//
 //						}
 //					});
 //		} else {
@@ -198,10 +192,6 @@ public class MyHttpUtils {
 
 			if (networkInfo != null && networkInfo.length > 0) {
 				for (int i = 0; i < networkInfo.length; i++) {
-					System.out.println(i + "===状态==="
-							+ networkInfo[i].getState());
-					System.out.println(i + "===类型==="
-							+ networkInfo[i].getTypeName());
 					// 判断当前网络状态是否为连接状态
 					if (networkInfo[i].getState() == NetworkInfo.State.CONNECTED) {
 						return true;

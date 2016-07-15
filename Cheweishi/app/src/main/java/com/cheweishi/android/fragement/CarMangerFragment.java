@@ -162,7 +162,6 @@ public class CarMangerFragment extends BaseFragment {
 					.show();
 		} else {
 			try {
-				System.out.println(result);
 				JSONObject jsonObject = new JSONObject(result);
 				if (jsonObject.optString("operationState").equals("SUCCESS")) {
 					JSONArray jsonArray = jsonObject.optJSONObject("data")

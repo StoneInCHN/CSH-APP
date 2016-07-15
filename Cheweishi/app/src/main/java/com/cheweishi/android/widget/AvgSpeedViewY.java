@@ -367,7 +367,6 @@ public class AvgSpeedViewY extends View {
 		case MotionEvent.ACTION_DOWN:
 			int x1 = (int) event.getX();
 			int y1 = (int) event.getY();
-			System.out.println(x1 + "_" + y1);
 			for (int i = 0; i < data.size() - 1; i++) {
 				if (x1 <= (XPoint + (i + 1) * XScale)
 						&& x1 >= (XPoint + (i) * XScale)) {
@@ -389,7 +388,6 @@ public class AvgSpeedViewY extends View {
 			}
 			// handler.sendEmptyMessage(0x1234);
 			// for (int i = 0; i < data.size() - 1; i++) {
-			// System.out.println((XPoint + (i) * XScale) + "_"
 			// + (YPoint - data.get(i) * YScale) + "--"
 			// + (XPoint + (i + 1) * XScale) + "_"
 			// + (YPoint - data.get(i + 1) * YScale));
@@ -517,7 +515,6 @@ public class AvgSpeedViewY extends View {
 	// // // Toast.makeText(getContext(), "goo" +
 	// // // listSpeed.get(i).getListSubSpeed().size(),
 	// // // Toast.LENGTH_LONG).show();
-	// // System.out.println("goo"
 	// // + listSpeed.get(i).getListSubSpeed().size());
 	// // for (int j = 0; j < listSpeed.get(i).getListSubSpeed()
 	// // .size() - 1; j++) {
@@ -544,7 +541,6 @@ public class AvgSpeedViewY extends View {
 	// // .get(j + 1).getSpeed() >= 120) {
 	// // // Toast.makeText(getContext(), "goo1",
 	// // // Toast.LENGTH_LONG).show();
-	// // System.out.println("good1");
 	// // // Paint paint = new Paint();
 	// // paint.setStyle(Paint.Style.STROKE);
 	// // paint.setAntiAlias(true); //
@@ -566,7 +562,6 @@ public class AvgSpeedViewY extends View {
 	// // } else {
 	// // // Toast.makeText(getContext(), "goo2",
 	// // // Toast.LENGTH_LONG).show();
-	// // System.out.println("good2");
 	// // if (listSpeed.get(i).getListSubSpeed().get(j)
 	// // .getSpeed() <= 30
 	// // && listSpeed.get(i).getListSubSpeed()
@@ -595,7 +590,6 @@ public class AvgSpeedViewY extends View {
 	// // } else {
 	// // // Toast.makeText(getContext(), "goo3",
 	// // // Toast.LENGTH_LONG).show();
-	// // System.out.println("good3");
 	// // paint.setStyle(Paint.Style.STROKE);
 	// // paint.setAntiAlias(true); //
 	// // paint.setColor(Color.GREEN);

@@ -212,7 +212,6 @@ public class CarManagerBindActivity extends BaseActivity {
 	}
 
 	private void judgeCurrentRefreahGoBack() {
-		System.out.println("SUCCESS========" + "判断");
 
 		Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
 		Intent mIntent = new Intent();

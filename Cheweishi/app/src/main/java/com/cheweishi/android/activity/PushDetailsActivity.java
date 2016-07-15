@@ -128,7 +128,6 @@ public class PushDetailsActivity extends BaseActivity {
 	}
 
 	private void parseMessageJSON(String result) {
-		System.out.println("用户退出====" + result);
 		if (result == null || result.equals("")) {
 			showToast(R.string.no_result);
 			setPushFail();

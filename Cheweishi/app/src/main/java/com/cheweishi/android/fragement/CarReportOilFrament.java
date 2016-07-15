@@ -584,11 +584,8 @@ public class CarReportOilFrament extends BaseFragment {
 	public class MyBroadcastReceiver extends BroadcastReceiver {
 
 		public void onReceive(Context context, Intent intent) {
-			System.out.println("SUCCESS========" + "判断列表" + "_"
-					+ Constant.CURRENT_REFRESH);
 			if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 					Constant.LOGIN_REFRESH, true)) {
-				System.out.println("SUCCESS====" + "列表更新");
 				initViews();
 
 			}

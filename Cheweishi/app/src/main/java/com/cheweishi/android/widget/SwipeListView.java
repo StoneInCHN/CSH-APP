@@ -69,7 +69,6 @@ public class SwipeListView extends ListView {
 		switch (ev.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			mIsHorizontal = null;
-			System.out.println("onInterceptTouchEvent----->ACTION_DOWN");
 			mFirstX = lastX;
 			mFirstY = lastY;
 			int motionPosition = pointToPosition((int) mFirstX, (int) mFirstY);
@@ -93,10 +92,8 @@ public class SwipeListView extends ListView {
 
 		case MotionEvent.ACTION_UP:
 		case MotionEvent.ACTION_CANCEL:
-			System.out.println("onInterceptTouchEvent----->ACTION_UP");
 			if (mIsShown
 					&& (mPreItemView != mCurrentItemView || isHitCurItemLeft(lastX))) {
-				System.out.println("1---> hiddenRight");
 				/**
 				 * 情况一：
 				 * <p>
@@ -126,10 +123,8 @@ public class SwipeListView extends ListView {
 
 		if (Math.abs(dx) > 30 && Math.abs(dx) > 2 * Math.abs(dy)) {
 			mIsHorizontal = true;
-			System.out.println("mIsHorizontal---->" + mIsHorizontal);
 		} else if (Math.abs(dy) > 30 && Math.abs(dy) > 2 * Math.abs(dx)) {
 			mIsHorizontal = false;
-			System.out.println("mIsHorizontal---->" + mIsHorizontal);
 		} else {
 			canJudge = false;
 		}
@@ -174,7 +169,6 @@ public class SwipeListView extends ListView {
 
 		switch (ev.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			System.out.println("---->ACTION_DOWN");
 			break;
 
 		case MotionEvent.ACTION_MOVE:
@@ -191,7 +185,6 @@ public class SwipeListView extends ListView {
 			if (mIsHorizontal) {
 				if (mCurrentItemView != null) {
 					if (mIsShown && mPreItemView != mCurrentItemView) {
-						System.out.println("2---> hiddenRight");
 						/**
 						 * 情况二：
 						 * <p>
@@ -206,7 +199,6 @@ public class SwipeListView extends ListView {
 
 					if (mIsShown && mPreItemView == mCurrentItemView) {
 						dx = dx - mRightViewWidth;
-						System.out.println("======dx " + dx);
 					}
 
 					// can't move beyond boundary
@@ -217,7 +209,6 @@ public class SwipeListView extends ListView {
 				return true;
 			} else {
 				if (mIsShown) {
-					System.out.println("3---> hiddenRight");
 					/**
 					 * 情况三：
 					 * <p>
@@ -233,10 +224,8 @@ public class SwipeListView extends ListView {
 
 		case MotionEvent.ACTION_UP:
 		case MotionEvent.ACTION_CANCEL:
-			System.out.println("============ACTION_UP");
 			clearPressedState();
 			if (mIsShown) {
-				System.out.println("4---> hiddenRight");
 				/**
 				 * 情况四：
 				 * <p>
@@ -251,7 +240,6 @@ public class SwipeListView extends ListView {
 				if (mFirstX - lastX > mRightViewWidth / 2) {
 					showRight(mCurrentItemView);
 				} else {
-					System.out.println("5---> hiddenRight");
 					/**
 					 * 情况五：
 					 * <p>
@@ -281,7 +269,6 @@ public class SwipeListView extends ListView {
 
 	private void showRight(View view) {
 		if (view != null) {
-			System.out.println("=========showRight");
 
 			Message msg = new MoveHandler().obtainMessage();
 			msg.obj = view;
@@ -296,7 +283,6 @@ public class SwipeListView extends ListView {
 	public void hiddenRight(View view) {
 		// Toast.makeText(getContext(), "good1", Toast.LENGTH_LONG).show();
 		if (view != null) {
-			System.out.println("=========hiddenRight");
 			if (mCurrentItemView == null) {
 				return;
 			}
@@ -311,7 +297,6 @@ public class SwipeListView extends ListView {
 		} else {
 			// Toast.makeText(getContext(), "good", Toast.LENGTH_LONG).show();
 			if (mPreItemView != null) {
-				System.out.println("=========hiddenRight");
 				if (mCurrentItemView == null) {
 					return;
 				}

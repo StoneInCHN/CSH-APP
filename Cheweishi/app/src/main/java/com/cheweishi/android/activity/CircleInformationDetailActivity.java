@@ -97,7 +97,6 @@ public class CircleInformationDetailActivity extends BaseActivity implements
 	private void parseJSON(String result) {
 		ProgrosDialog.closeProgrosDialog();
 		if (!StringUtil.isEmpty(result)) {
-			System.out.println("chezixun============" + result);
 			try {
 				JSONObject jsonObject = new JSONObject(result);
 				if (StringUtil.isEquals(jsonObject.optString("operationState"),

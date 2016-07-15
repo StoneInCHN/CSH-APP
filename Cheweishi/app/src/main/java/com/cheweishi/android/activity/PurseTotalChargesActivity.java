@@ -134,7 +134,6 @@ public class PurseTotalChargesActivity extends BaseActivity{
 	@Override
 	public void receive(int type, String data) {
 		super.receive(type, data);
-		System.out.println(data);
 		ProgrosDialog.closeProgrosDialog();
 		switch (type) {
 		case TELEPHONE_CODE:

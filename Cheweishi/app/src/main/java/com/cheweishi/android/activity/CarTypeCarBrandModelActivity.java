@@ -271,7 +271,6 @@ public class CarTypeCarBrandModelActivity extends BaseActivity implements
     @Override
     public void receive(int type, String data) {
         // TODO Auto-generated method stub
-        System.out.println("品牌=======" + data);
         switch (type) {
             case 10001:
                 parseBrandJSON(data);

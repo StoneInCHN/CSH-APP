@@ -70,7 +70,6 @@ public class RegularExpressionTools {
         final String REGEX2="^[a-z0-9;]+$";
         Matcher m=Pattern.compile(REGEX, Pattern.CASE_INSENSITIVE).matcher(str);
         if(m.find()){
-            System.out.println("纯英");
             flag = true;
         }else{
             m=Pattern.compile(REGEX1, Pattern.CASE_INSENSITIVE).matcher(str);
@@ -79,7 +78,6 @@ public class RegularExpressionTools {
             }else{
                 m=Pattern.compile(REGEX2, Pattern.CASE_INSENSITIVE).matcher(str);
                 if(m.find()){
-                    System.out.println("英数混合");
                     flag = true;
                 }else{
                 	flag = false;

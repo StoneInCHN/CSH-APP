@@ -232,14 +232,10 @@ public class SCActivity extends BaseActivity {
 		if (StringUtil.isEmpty(result)) {
 			showToast(R.string.data_fail);
 		} else {
-			System.out.println("SUCCESS============" + result);
 			try {
 				JSONObject json = new JSONObject(result);
 				username = json.optJSONObject("datas").optString("username");
-				key = json.optJSONObject("datas").optString("key");
 				// 从assets目录下面的加载html
-				System.out.println("cookie=====================" + username
-						+ "========" + key);
 
 				initViews();
 			} catch (JSONException e) {

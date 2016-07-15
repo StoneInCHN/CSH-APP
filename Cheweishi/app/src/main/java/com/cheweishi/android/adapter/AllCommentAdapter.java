@@ -73,10 +73,8 @@ public class AllCommentAdapter extends BaseAdapter {
 //			float density = mContext.getResources().getDisplayMetrics().density;
 //			if (density - (1.5f) < 0.0001f) {
 //				lp.height = px2dip(mContext, 27) * 3 / 2;
-//				System.out.println("hdpi======true");
 //			} else {
 //				lp.height = px2dip(mContext, 27) * 2;
-//				System.out.println("hdpi======false");
 //			}
 //			viewHolder.ratingBar1.setLayoutParams(lp);
             convertView.setTag(viewHolder);

@@ -89,7 +89,6 @@ public class FindCarportActivity extends BaseActivity {
 		public void onCheckedChanged(RadioGroup radioGroup, int id) {
 
 			
-			System.out.println(radioGroup.getCheckedRadioButtonId());
 			switch (radioGroup.getCheckedRadioButtonId()) {
 			// 选中地图
 			case R.id.rb_map:

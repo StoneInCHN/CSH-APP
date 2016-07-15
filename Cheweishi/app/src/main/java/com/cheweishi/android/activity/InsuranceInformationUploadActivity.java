@@ -265,7 +265,6 @@ public class InsuranceInformationUploadActivity extends BaseActivity implements
 	 * @param result
 	 */
 	private void parseImgJSON(String result) {
-		System.out.println("修改信息====" + result);
 		if (!StringUtil.isEmpty(result)) {
 			try {
 				JSONObject jsonObject = new JSONObject(result);

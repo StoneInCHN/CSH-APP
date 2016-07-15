@@ -195,7 +195,6 @@ public class DrvingBehaviorActivity extends BaseActivity implements
 		if (StringUtil.isEmpty(result)) {
 			showToast(R.string.data_fail);
 		} else {
-			System.out.println("驾驶行为=================" + result);
 			try {
 				JSONObject jsonObject1 = new JSONObject(result);
 				String resultStr = jsonObject1.optString("operationState");

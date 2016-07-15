@@ -317,7 +317,6 @@ public class FindCarportListFragment extends BaseFragment implements
 
 	protected void ansisy(String result) {
 		try {
-			System.out.println(result);
 			JSONObject jsonObject = new JSONObject(result);
 			if (jsonObject.optString("operationState").equals("SUCCESS")) {
 
@@ -374,8 +373,7 @@ public class FindCarportListFragment extends BaseFragment implements
 		if (adapter == null) {
 			adapter = new FindCarportListAdapter(baseContext, list, isDraw,
 					latlngBean.getLatLng());
-			System.out.println(latlngBean.getLatLng()+"--------------------------------");
-			
+
 			listView.setAdapter(adapter);
 		}
 	}
@@ -445,7 +443,6 @@ public class FindCarportListFragment extends BaseFragment implements
 		HttpBiz httpBiz = new HttpBiz(baseContext);
 		ProgrosDialog.openDialog(baseContext);
 		httpBiz.httPostData(FINDCARPORT_CODE, API.FINDCARPORT_URL, params, this);
-//		System.out.println(API.FINDCARPORT_URL + "?latitude="
 //				+ latLng.longitude + "&longitude=" + latLng.latitude
 //				+ "&keyWord=停车场&size=20&page=0");
 	};

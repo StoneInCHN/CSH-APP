@@ -199,8 +199,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
 
         Date date = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println("tag:" + "环信请求===================="
-                + sf.format(date));
         if (!CommonUtils.isNetWorkConnected(this)) {
             mLoginButton.setClickable(true);
             showToast(R.string.network_isnot_available);
@@ -612,7 +610,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     //
     // Date date = new Date();
     // SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    // System.out.println("tag:" + "=环信服务器登录成功==" + sf.format(date)
     // + " ______" + EMChat.getInstance().isLoggedIn());
 
     // // ActivityControl.removeActivityFromName(SettingActivity.class

@@ -28,7 +28,6 @@ public class GetContactsInfo {
 	private String[] strArray = { "-", " ", "+86", "17951" };
 
 	public ArrayList<SortModel> getContact() {
-		System.out.println("haha");
 		ArrayList<SortModel> listMembers = new ArrayList<SortModel>();
 		Cursor cursor = null;
 
@@ -65,7 +64,6 @@ public class GetContactsInfo {
 									.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
 					// String sortKey = getSortKey(cursor.getString(1));
 
-					System.out.println("haha" + name + "_" + contact_phone);
 					// int contact_id = cursor
 					//
 					// .getInt(cursor

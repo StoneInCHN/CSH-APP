@@ -104,7 +104,6 @@
 //	@Override
 //	public void onClick(View arg0) {
 //		// TODO Auto-generated method stub
-//		System.out.println("good");
 //	}
 //
 //	@Override
@@ -229,7 +228,6 @@
 //				JSONObject jsonObject = new JSONObject(result);
 //				String resultStr = jsonObject.optString("operationState");
 //				if (StringUtil.isEquals(resultStr, "SUCCESS", true)) {
-//					System.out.println("车辆url" + result);
 //					listCarManagerTemp = new ArrayList<CarManager>();
 //					Gson gson = new Gson();
 //					java.lang.reflect.Type type = new TypeToken<List<CarManager>>() {
@@ -281,7 +279,6 @@
 //	 * @param result
 //	 */
 //	private void parseJson(String result) {
-//		System.out.println("用户信息====" + result);
 //		if (StringUtil.isEmpty(result)) {
 //			showToast(R.string.data_fail);
 //		} else {
@@ -406,11 +403,9 @@
 //	public class MyBroadcastReceiver extends BroadcastReceiver {
 //
 //		public void onReceive(Context context, Intent intent) {
-//			System.out.println("SUCCESS========" + "判断列表" + "_"
 //					+ Constant.CURRENT_REFRESH);
 //			if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 //					Constant.CAR_MANAGER_REFRESH, true)) {
-//				System.out.println("SUCCESS====" + "列表更新");
 //				reconnect();
 //
 //			}

@@ -141,12 +141,10 @@ public class PushDialogActivity extends BaseActivity {
 				String str = (String) msg.obj;
 				if (str == null) {
 				} else {
-					System.out.println(str);
 					try {
 						JSONObject jsonObject = new JSONObject(str);
 						if (jsonObject.optString("operationState").equals(
 								"SUCCESS")) {
-							// System.out.println("重新登陆==" +
 							// msg.obj.toString());
 
 							save(jsonObject);

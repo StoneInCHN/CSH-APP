@@ -55,7 +55,6 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		time = getArguments().getString("time");
-		System.out.println(time);
 		rid = getArguments().getInt("rid");
 	}
 
@@ -93,7 +92,6 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 		// view.measure(w, h);
 		// height = view.getMeasuredHeight();
 		// int width = view.getMeasuredWidth();
-		// System.out.println(height + "------------" + width);
 		// width =
 		// getActivity().getWindowManager().getDefaultDisplay().getWidth();
 		// height = getActivity().getWindowManager().getDefaultDisplay()
@@ -280,8 +278,6 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 			case R.id.btnShare:
 				content = speedFlag + oil + "L,击败了全国" + percent + "的车友,"
 						+ slogan;
-				System.out.println(content);
-				System.out.println(imgUrl);
 //				ShareTools.showShare(baseContext, title, content, titleUrl,
 //						imgUrl);
 				break;

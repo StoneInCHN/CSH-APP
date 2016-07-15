@@ -962,7 +962,6 @@ public class AddCarActivity extends BaseActivity {
      */
     private void parseAddCarJSON(String result) {
         if (!StringUtil.isEmpty(result)) {
-            System.out.println("SUCCESS===========" + result);
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 if (StringUtil.isEquals(jsonObject.optString("state"),

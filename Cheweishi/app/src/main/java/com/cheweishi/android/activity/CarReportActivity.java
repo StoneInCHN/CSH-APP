@@ -609,7 +609,6 @@ public class CarReportActivity extends BaseActivity implements
         if (mSecondFragment == null) {
             return;
         }
-        System.out.println("切换===" + mSecondFragment.getClass().getName());
         Animator.AnimatorListener listener = new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator arg0) {
@@ -624,8 +623,6 @@ public class CarReportActivity extends BaseActivity implements
                 bundle.putInt("rid", rid);
                 mSecondFragment.setArguments(bundle);
 
-                System.out.println("切换==="
-                        + mSecondFragment.getClass().getName());
                 trans.commitAllowingStateLoss();
                 fragmentBase = mSecondFragment;
             }

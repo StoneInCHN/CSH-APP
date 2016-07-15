@@ -366,7 +366,6 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
 	}
 
 	private void parseUserDetailJSON(String result) {
-		System.out.println("用户信息haha====" + result);
 		if (!StringUtil.isEmpty(result)) {
 			try {
 				JSONObject jsonObject = new JSONObject(result);
@@ -425,7 +424,6 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
 	}
 
 	private void parseImgJSON(String result) {
-		System.out.println("修改信息====" + result);
 		if (!StringUtil.isEmpty(result)) {
 			try {
 				JSONObject jsonObject = new JSONObject(result);
@@ -583,7 +581,6 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
 	 * 
 	 * @Title: showDialog
 	 * @Description: TODO(dialog弹出和显示的样式)
-	 * @param 设定文件
 	 * @return void 返回类型
 	 * @throws
 	 */
@@ -622,30 +619,22 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
 	public class MyBroadcastReceiver extends BroadcastReceiver {
 
 		public void onReceive(Context context, Intent intent) {
-			System.out.println("SUCCESS====" + "haha1" + intent.getAction()
-					+ "_" + Constant.CURRENT_REFRESH + "_"
-					+ Constant.LOGIN_REFRESH);
 			if (!StringUtil.isEquals(intent.getAction(), Constant.REFRESH_FLAG,
 					true)) {
-				System.out
-						.println("SUCCESS====" + "haha0" + intent.getAction());
-				return;
-			}
-			if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-					Constant.CAR_MANAGER_REFRESH, true)) {
-				Constant.EDIT_FLAG = true;
-				connectToServer();
-			} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-					Constant.USER_NICK_EDIT_REFRESH, true)) {
-				Constant.EDIT_FLAG = true;
-				System.out.println("SUCCESS=========个人中心昵称更新");
-				initViews();
-			} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-					Constant.USER_NICK_EDIT_REFRESH_OTHER, true)) {
-				System.out.println("SUCCESS=========个人中心编辑更新");
-				connectToServer();
-			} else {
-				Constant.CURRENT_REFRESH = "";
+				if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
+						Constant.CAR_MANAGER_REFRESH, true)) {
+					Constant.EDIT_FLAG = true;
+					connectToServer();
+				} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
+						Constant.USER_NICK_EDIT_REFRESH, true)) {
+					Constant.EDIT_FLAG = true;
+					initViews();
+				} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
+						Constant.USER_NICK_EDIT_REFRESH_OTHER, true)) {
+					connectToServer();
+				} else {
+					Constant.CURRENT_REFRESH = "";
+				}
 			}
 		}
 	}

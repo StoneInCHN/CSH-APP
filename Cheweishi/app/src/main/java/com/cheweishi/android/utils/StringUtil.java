@@ -502,7 +502,6 @@ public class StringUtil {
 			}
 			return new String(oldString.getBytes(oldCharset), newCharset);
 		} catch (UnsupportedEncodingException uee) {
-					+ "]，因此未能进行转换，直接返回原字符串", uee.getMessage());
 		}
 		return oldString;
 	}
@@ -1006,7 +1005,6 @@ public class StringUtil {
 
 	public static void main(String[] args) throws Exception {
 		String[] strs = { "a", "b" };
-		System.out.println(valueOf(strs));
 	}
 
 	/**

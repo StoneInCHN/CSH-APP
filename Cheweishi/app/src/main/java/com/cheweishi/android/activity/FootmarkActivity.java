@@ -585,33 +585,25 @@ public class FootmarkActivity extends BaseActivity implements
 	//
 	// public void onReceive(Context context, Intent intent) {
 	// Constant.EDIT_FLAG = false;
-	// System.out.println("SUCCESS====main_" + Constant.CURRENT_REFRESH);
 	// if (!StringUtil.isEquals(intent.getAction(), Constant.REFRESH_FLAG,
 	// true)) {
-	// System.out.println("SUCCESS====" + "更新false");
 	// return;
 	// }
 	// if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 	// Constant.LOGIN_REFRESH, true)) {
-	// System.out.println("SUCCESS====" + "登录信息更新Main");
 	//
 	//
 	// } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 	// Constant.CAR_MANAGER_REFRESH, true)) {
-	// System.out.println("SUCCESS====" + "车辆信息更新");
 	// } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 	// Constant.MESSAGE_CENTER_REFRESH, true)) {
-	// System.out.println("SUCCESS====" + "消息中心更新");
 	// } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 	// Constant.SPECIAL_SIGN_REFRESH, true)) {
-	// System.out.println("SUCCESS====" + "个性签名更新");
 	// } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 	// Constant.USER_CENTER_REFRESH, true)) {
-	// System.out.println("SUCCESS====" + "个人中心更新");
 	// } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 	// Constant.USER_NICK_EDIT_REFRESH, true)) {
 	//
-	// System.out.println("SUCCESS====" + "个人编辑更新");
 	//
 	// }
 	//

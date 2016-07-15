@@ -157,15 +157,9 @@ public class FindCarportMapFragment extends BaseFragment implements
 	}
 
 	private void isCarAndperson() {
-		System.out.println("------------1---------"
-				+ sharedPreferencesis.getBoolean("isdex", false));
 		if (sharedPreferencesis.getBoolean("isdex", false)) {
-			System.out.println("---------2------------"
-					+ sharedPreferencesis.getBoolean("isdex", false));
 			sharedPreferences.edit().putBoolean("isDraw", isDraw).commit();
 
-			System.out.println("---------11------------"
-					+ sharedPreferences2.getBoolean("isdraw", false));
 			if (sharedPreferences2.getBoolean("isdraw", false)) {
 				mCaRadioButton.setChecked(true);
 			} else {
@@ -174,8 +168,6 @@ public class FindCarportMapFragment extends BaseFragment implements
 				sharedPreferences.edit().putBoolean("isDraw", isDraw).commit();
 			}
 		} else {
-			System.out.println("----------3-----------"
-					+ sharedPreferencesis.getBoolean("isdex", false));
 			sharedPreferences.edit().putBoolean("isDraw", isDraw).commit();
 			mCaRadioButton.setChecked(true);
 		}
@@ -611,9 +603,6 @@ public class FindCarportMapFragment extends BaseFragment implements
 								.commit();
 						httpBiz.httPostData(FINDCAR_CODE, API.CAR_DYNAMIC,
 								params, this);
-						System.out.println(API.CAR_DYNAMIC + "?carId="
-								+ getCarId() + "&uid=" + getUid() + "&key="
-								+ getKey() + "&isMode=0");
 					} else {
 						isBand();
 					}
@@ -703,8 +692,6 @@ public class FindCarportMapFragment extends BaseFragment implements
 		ProgrosDialog.openDialog(baseContext);
 		httpBiz.httPostData(FINDCARPORT_CODE, API.FINDCARPORT_URL, params, this);
 
-		System.out.println(API.FINDCARPORT_URL + "?latitude=" + lat
-				+ "&longitude=" + lng + "&keyWord=停车场&size=20&page=0");
 	};
 
 	@Override
@@ -763,7 +750,6 @@ public class FindCarportMapFragment extends BaseFragment implements
 	@Override
 	public void receive(int type, String data) {
 		super.receive(type, data);
-		System.out.println(data);
 		ProgrosDialog.closeProgrosDialog();
 		switch (type) {
 		case FINDCAR_CODE:

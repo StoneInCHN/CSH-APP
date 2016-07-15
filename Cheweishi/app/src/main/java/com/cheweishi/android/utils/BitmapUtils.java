@@ -234,8 +234,6 @@ public class BitmapUtils {
 			return null;
 		}
 		Bitmap bitmap2 = comp(context, bitmap);
-		System.out.println("bitmap2Size=" + bitmap2.getRowBytes()
-				* bitmap2.getHeight() / 1024);
 		return bitmap2;
 	}
 
@@ -244,12 +242,10 @@ public class BitmapUtils {
 		image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
 		int options = 100;
 		while (baos.toByteArray().length / 1024 > 50) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
-			System.out.println("循环");
 			baos.reset();// 重置baos即清空baos
 			image.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
 			options -= 10;
 		}
-		System.out.println(baos.toByteArray().length / 1024 + "bitmaosize");
 		ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
 		Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
 		return bitmap;
@@ -284,13 +280,10 @@ public class BitmapUtils {
 		if (w > h && w > width) {// 如果宽度大的话根据宽度固定大小缩放
 			be = (int) (newOpts.outWidth / ww);
 
-			System.out.println(newOpts.outWidth + "-----outwidth--------");
 
 		} else if (w < h && h > height) {// 如果高度高的话根据宽度固定大小缩放
 			be = (int) (newOpts.outHeight / hh);
-			System.out.println(newOpts.outHeight + "-----outheight--------");
 		}
-		System.out.println(be + "=be---------------");
 		if (be <= 0)
 			be = 1;
 

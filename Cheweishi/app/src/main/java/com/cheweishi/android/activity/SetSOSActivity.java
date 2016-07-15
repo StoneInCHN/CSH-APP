@@ -293,7 +293,6 @@ public class SetSOSActivity extends BaseActivity {
 	private void parseStatusJSON(String result) {
 
 		if (!StringUtil.isEmpty(result)) {
-			System.out.println("haha" + result);
 			try {
 				if (StringUtil.isEquals(
 						new JSONObject(result).optString("operationState"),
@@ -315,7 +314,6 @@ public class SetSOSActivity extends BaseActivity {
 	private void parseAddJSON(String result) {
 
 		if (!StringUtil.isEmpty(result)) {
-			System.out.println("haha" + result);
 			try {
 				if (StringUtil.isEquals(
 						new JSONObject(result).optString("operationState"),
@@ -338,7 +336,6 @@ public class SetSOSActivity extends BaseActivity {
 
 		if (!StringUtil.isEmpty(result)) {
 
-			System.out.println("联系人列表==========" + result);
 			Gson gson = new Gson();
 			Type type = new TypeToken<List<SOS>>() {
 			}.getType();

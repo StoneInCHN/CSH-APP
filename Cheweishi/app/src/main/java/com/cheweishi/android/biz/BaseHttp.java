@@ -102,7 +102,6 @@ public class BaseHttp {
 
 				// }
 				ProgrosDialog.closeProgrosDialog();
-				System.out.println("Success========网络请求超时");
 				if (!com.cheweishi.android.utils.StringUtil.isEmpty(mToast)) {
 					mToast.show();
 				}

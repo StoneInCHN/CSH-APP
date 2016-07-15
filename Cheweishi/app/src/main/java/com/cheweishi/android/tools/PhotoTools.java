@@ -104,7 +104,6 @@ public class PhotoTools {
 		}
 		if (be <= 0)
 			be = 1;
-		System.out.println("SUUCESS===========" + be);
 		newOpts.inSampleSize = be;// 设置缩放比例
 		// 重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
 		bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
@@ -118,16 +117,12 @@ public class PhotoTools {
 		// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
 		int options = 100;
 		while (baos.toByteArray().length / 1024 > 20) { //
-			System.out.println("压缩==========" + baos.toByteArray().length + "_"
-					+ options);
 			// 循环判断如果压缩后图片是否大于100kb,大于继续压缩
 			baos.reset();// 重置baos即清空baos
 			image.compress(Bitmap.CompressFormat.JPEG, options, baos);//
 			// 这里压缩options%，把压缩后的数据存放到baos中
 			options -= 10;// 每次都减少10
 		}
-		System.out.println("压缩完==========" + baos.toByteArray().length + "_"
-				+ options);
 		ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());//
 		// 把压缩后的数据baos存放到ByteArrayInputStream中
 		Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);//
@@ -137,7 +132,6 @@ public class PhotoTools {
 
 	public String getSDPath(Context context) {
 		File sdDir = context.getFilesDir();
-		System.out.println(sdDir.getPath());
 		return sdDir.getPath();
 
 	}

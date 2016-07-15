@@ -111,8 +111,6 @@ public class PlateChooseActivity extends BaseActivity {
 				setRightDrawable(false);
 				APPTools.closeBoard(PlateChooseActivity.this, et_plate);
 				hideLinearLayout();
-				System.out.println(getWheelValue(R.id.passw_1));
-				System.out.println(getWheelValue(R.id.passw_2));
 			}
 		});
 		pwd_cancel.setOnClickListener(new OnClickListener() {

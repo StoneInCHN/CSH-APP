@@ -287,7 +287,6 @@ public class MyTreasureActivity extends BaseActivity {
 		if (StringUtil.isEmpty(data)) {
 			return;
 		}
-		System.out.println(data);
 		try {
 			JSONObject jsonObject = new JSONObject(data);
 			String resultStr = jsonObject.optString("operationState");

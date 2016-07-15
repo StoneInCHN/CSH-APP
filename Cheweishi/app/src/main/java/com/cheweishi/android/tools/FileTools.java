@@ -26,6 +26,5 @@ public class FileTools {
 				ProgrosDialog.closeProgrosDialog();
 			}
 		}
-		System.out.println("success==" + "delete");
 	}
 }

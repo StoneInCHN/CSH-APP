@@ -388,13 +388,11 @@ public class GasStationMapFragment extends BaseFragment implements
     protected void bottomShowDistance(ReverseGeoCodeResult result) {
         if (isDraw) {
             String distance1 = sortList.get(0).get("distance");
-//            System.out.println(distance1);
             mDistanceTextView.setText(distance1 + "");
         } else {
             LatLng latLng = MyMapUtils.getLatLng(baseContext);
             double distance1 = DistanceUtil.getDistance(latLng,
                     result.getLocation());
-//            System.out.println(distance1);
             mDistanceTextView.setText((int) distance1 + "");
         }
     }
@@ -595,7 +593,6 @@ public class GasStationMapFragment extends BaseFragment implements
         if (result == null) {
         } else {
             try {
-                System.out.println(result);
                 JSONObject jsonObject = new JSONObject(result);
                 if (jsonObject.optString("operationState").equals("SUCCESS")) {
                     JSONObject jsonObject2 = jsonObject.optJSONObject("data");
@@ -1076,7 +1073,6 @@ public class GasStationMapFragment extends BaseFragment implements
     @Override
     public void receive(int type, String data) {
         super.receive(type, data);
-        System.out.println(data);
         switch (type) {
             case CAR_CODE:
                 ProgrosDialog.closeProgrosDialog();

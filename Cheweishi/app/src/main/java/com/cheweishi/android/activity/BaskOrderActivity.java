@@ -249,9 +249,6 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
 //        float currentRating1 = rtb_skill.getRating();
 //        float currentRating2 = rtb_manner.getRating();
 //        float currentRating3 = rtb_environment.getRating();
-//        System.out.println("max=" + max1 + ",currentRating" + currentRating1);
-//        System.out.println("max=" + max2 + ",currentRating" + currentRating2);
-//        System.out.println("max=" + max3 + ",currentRating" + currentRating3);
 
 
 //        intent.putExtra("price", mData.get(po).getPrice());
@@ -455,7 +452,6 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
      * @throws Exception
      */
     private void setImageView(String pathString) {
-        System.out.println("imgpath===" + pathString);
         File file = new File(pathString);
         RequestParams params = new RequestParams();
         params.addBodyParameter("file", file);
@@ -470,7 +466,6 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
     }
 
     private void parseImgJSON(String result) {
-        System.out.println("修改信息====" + result);
         if (!StringUtil.isEmpty(result)) {
             try {
                 JSONObject jsonObject = new JSONObject(result);

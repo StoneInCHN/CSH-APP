@@ -339,13 +339,10 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 
             if (!StringUtil.isEquals(intent.getAction(), Constant.REFRESH_FLAG,
                     true)) {
-                System.out
-                        .println("SUCCESS====" + "haha0" + intent.getAction());
                 return;
             }
             if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
                     Constant.LOGIN_REFRESH, true)) {
-                System.out.println("SUCCESS====" + "haha2");
                 initViews();
             }
         }

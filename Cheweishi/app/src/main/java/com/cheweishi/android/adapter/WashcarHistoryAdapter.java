@@ -76,7 +76,6 @@ public class WashcarHistoryAdapter extends MyBaseAdapter<WashcarHistoryVO>
 						@Override
 						public void onClick(View v) {
 							Log.i("washcarorder", "washcarorder");
-							System.out.println("washcarorder===washcarorder");
 							showPhoneDialog(position);
 
 						}
@@ -210,14 +209,12 @@ public class WashcarHistoryAdapter extends MyBaseAdapter<WashcarHistoryVO>
 
 						dialog.dismiss();
 						Log.i("washcarorder", "result===messagefront");
-						System.out.println("washcarorder===messagefront");
 						LoginMessage loginMessage = LoginMessageUtils
 								.getLoginMessage(context);
 
 						if ((!(StringUtil.isEmpty(loginMessage)) && (!StringUtil
 								.isEmpty(loginMessage.getUid())))) {
 							Log.i("washcarorder", "result===requesttop");
-							System.out.println("washcarorder===requesttop");
 							httpBiz = new HttpBiz(context);
 							RequestParams mRequestParams = new RequestParams();
 							mRequestParams.addBodyParameter("uid",
@@ -227,13 +224,10 @@ public class WashcarHistoryAdapter extends MyBaseAdapter<WashcarHistoryVO>
 							mRequestParams.addBodyParameter("uno", mData
 									.get(po).getUno());
 							Log.i("washcarorder", "result===requestmiddele");
-							System.out.println("washcarorder===requestmiddele");
 							httpBiz.httPostData(10001, API.CONFIRM_AN_ORDER,
 									mRequestParams, WashcarHistoryAdapter.this);
 							Log.i("washcarorder", "result===requestSUCC");
-							System.out.println("washcarorder===requestSUCC");
 						} else {
-							System.out.println("washcarorder===loginnull");
 							Log.i("washcarorder", "result===loginnull");
 						}
 					}

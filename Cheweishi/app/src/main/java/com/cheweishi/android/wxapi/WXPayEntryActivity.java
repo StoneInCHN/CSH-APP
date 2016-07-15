@@ -98,7 +98,6 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 //		}.getType();
 //		loginMessage = gson.fromJson(jsonObject, type);
 //		LoginMessageUtils.saveProduct(loginMessage, this);
-//		System.out.println("SUCCESS=============" + "success");
 ////		initViews();
 //		Intent mIntent = new Intent();
 //		Constant.CURRENT_REFRESH = Constant.LOGIN_REFRESH;
@@ -113,7 +112,6 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 //		if (StringUtil.isEmpty(data)) {
 //			return;
 //		}
-//		System.out.println(data);
 //		try {
 //			JSONObject jsonObject = new JSONObject(data);
 //			String resultStr = jsonObject.optString("operationState");

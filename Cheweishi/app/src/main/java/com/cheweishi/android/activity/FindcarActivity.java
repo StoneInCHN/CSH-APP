@@ -1214,7 +1214,6 @@ public class FindcarActivity extends BaseActivity {
 		} else {
 			try {
 				JSONObject jsonObject = new JSONObject(result);
-				System.out.println(result);
 				if (StringUtil.isEquals(jsonObject.optString("operationState"),
 						"SUCCESS", true)) {
 					Gson gson = new Gson();
