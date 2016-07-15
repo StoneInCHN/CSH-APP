@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/tongxunlv_icon_down_2x" android:state_expanded="true"></item>
-    <item android:drawable="@drawable/tongxunlv_icon_up_2x"></item>
-
-</selector>
