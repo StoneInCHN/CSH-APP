@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.yunjia365.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
@@ -58,6 +56,7 @@ import com.cheweishi.android.widget.WheelView;
 import com.cheweishi.android.widget.XCRoundImageView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.yunjia365.android.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,8 +70,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author Xiaojin车辆管理-绑定车辆/编辑车辆
@@ -873,6 +870,8 @@ public class AddCarActivity extends BaseActivity {
 //        sendBroadcast(mIntent);
 
         cid = response.getDesc();
+
+        sendBind(cid);
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         if (isNeedBingd) {
@@ -893,13 +892,13 @@ public class AddCarActivity extends BaseActivity {
 
     }
 
-    private void sendBind(int id) {
+    private void sendBind(String id) {
         ProgrosDialog.openDialog(baseContext);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.BIND_QR + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
-//        param.put("tenantId", result);
+        param.put("orgCode", NetInterface.orgCode);
         param.put("vehicleId", id);
         param.put(Constant.PARAMETER_TAG, NetInterface.BIND_QR);
         netWorkHelper.PostJson(url, param, this);
