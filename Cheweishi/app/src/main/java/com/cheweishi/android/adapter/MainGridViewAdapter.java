@@ -71,7 +71,6 @@ public class MainGridViewAdapter extends BaseAdapter {
             if (position == 5) {
                 float f = 1;
 //				float p = 12.5f;
-                Log.i("result", "=====屏幕宽度====" + ScreenTools.getScreentWidth((Activity) mContext));
                 if (ScreenTools.getScreentWidth((Activity) mContext) <= 480) {
                     f = 0.5f;
 //					p = 13f;
