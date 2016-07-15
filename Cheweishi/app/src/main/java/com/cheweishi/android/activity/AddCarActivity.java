@@ -893,6 +893,19 @@ public class AddCarActivity extends BaseActivity {
 
     }
 
+    private void sendBind(int id) {
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.BIND_QR + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+//        param.put("tenantId", result);
+        param.put("vehicleId", id);
+        param.put(Constant.PARAMETER_TAG, NetInterface.BIND_QR);
+        netWorkHelper.PostJson(url, param, this);
+
+    }
+
 
     /**
      * 绑定车辆提示dialog
