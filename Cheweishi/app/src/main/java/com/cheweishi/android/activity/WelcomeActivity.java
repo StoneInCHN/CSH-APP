@@ -165,7 +165,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
                 handler.sendMessageDelayed(Message.obtain(), 1000); // 更新UI
                 delay = 10000;
             } else { // 无广告
-                delay = 3000;
+                delay = 1000;
             }
 
             Timer timer = new Timer();// timer中有一个线程,这个线程不断执行task
