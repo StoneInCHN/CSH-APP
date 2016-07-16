@@ -729,7 +729,7 @@
     <string name="car_store_error">商户号不能为空！</string>
     <string name="car_time_error">下次年检时间应设置在当日时间之后！</string>
     <string name="car_information_handle">正在处理车辆信息，请稍候...</string>
-    <string name="device_error">设备效验失败，请联系销售商户，或拨打4007930888</string>
+    <string name="device_error">设备效验失败，请联系销售商户，或拨打4001502488</string>
     <string name="customerServiceCall">拨打客服</string>
     <string name="customerServicePhone">4001502488</string>
     <string name="whatIsDeviceIDQuestion">什么是设备ID？</string>
@@ -738,7 +738,7 @@
     <string name="whyInputMyVinAnswer">当您为您的账号绑定了车架号之后，您即可享受后续我们为您提供的在线查询违章记录，代缴罚款等业务。</string>
     <string name="whyInputLastKeepRequestion">为什么要输入上次保养行驶里程？</string>
     <string name="whyInputLastKeepAnswer">当您输入了您上次保养后行驶里程后，我们即可根据您的车辆数据为您提供实时保养提醒服务。</string>
-    <string name="answerCall">我的疑问没有得到解决?请联系400-793-0888</string>
+    <string name="answerCall">我的疑问没有得到解决?请联系400-150-2488</string>
     <string name="car_icon">车图标</string>
     <string name="auto_get">(自动获取)</string>
     <string name="haveToInput">必填项</string>

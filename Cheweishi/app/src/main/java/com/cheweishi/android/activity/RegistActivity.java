@@ -460,7 +460,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 
 
         // TODO new interface
-        String url = NetInterface.BASE_URL + NetInterface.REG_TENANT;
+        String url = NetInterface.BASE_URL+NetInterface.IMG_PROJECT_NAME + NetInterface.REG_TENANT;
         Map<String, Object> param = new HashMap<>();
         param.put("userName", phoneNumber);
         password = KeyGenerator.encrypt(password);

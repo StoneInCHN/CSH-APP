@@ -838,6 +838,7 @@ public class AddCarActivity extends BaseActivity {
                 String url;
                 if (null == carManagerTemp) { // 添加
                     url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.ADD + NetInterface.SUFFIX;
+                    param.put("isDefault", true);
                 } else { // 编辑
                     url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.EDIT + NetInterface.SUFFIX;
                     param.put("vehicleId", carManagerTemp.getId());

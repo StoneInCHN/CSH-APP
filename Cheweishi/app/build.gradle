@@ -18,6 +18,13 @@ android {
             keyAlias "yunjia365"
             keyPassword "yunjia365"
         }
+
+        yunjia{
+            storeFile file('E:\\carlief\\CSH-APP\\Cheweishi\\AppKey.keystore')
+            storePassword "369258147"
+            keyAlias "myappkey"
+            keyPassword "369258147"
+        }
     }
     buildTypes {
         release {
@@ -34,7 +41,7 @@ android {
 //            zipAlignEnabled true
 //            pseudoLocalesEnabled true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.dbgKey
+            signingConfig signingConfigs.yunjia
         }
     }
 

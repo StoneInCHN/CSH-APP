@@ -246,11 +246,11 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
             Map<String, Object> param = new HashMap<>();
             param.put("userId", loginResponse.getDesc());
             param.put("token", loginResponse.getToken());
-            param.put("piWidth", ScreenUtils.getScreenWidth(this));
-            param.put("piHeight", ScreenUtils.getScreenHeight(this));
+//            param.put("piWidth", ScreenUtils.getScreenWidth(this));
+//            param.put("piHeight", ScreenUtils.getScreenHeight(this));
             param.put("appPlatform", "ANDROID"); // TODO 暂时不加
             param.put("regId", JPushId);
-            param.put("versionCode", APPTools.getVersionCode(baseContext));
+//            param.put("versionCode", APPTools.getVersionCode(baseContext));
             param.put(Constant.PARAMETER_TAG, NetInterface.SET_ID);
             netWorkHelper.PostJson(url, param, this);
         }
@@ -773,7 +773,7 @@ public class MainNewActivity extends BaseActivity implements AdapterView.OnItemC
         } else {
             XUtilsImageLoader.getxUtilsImageLoader(this,
                     R.drawable.tianjiacar_img2x, ibtn_user,
-                    loginResponse.getMsg().getDefaultVehicleIcon());
+                    loginResponse.getMsg().getPhoto());
         }
     }
 
