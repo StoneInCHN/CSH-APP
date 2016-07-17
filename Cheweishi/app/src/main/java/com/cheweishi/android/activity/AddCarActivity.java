@@ -35,6 +35,7 @@ import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ImgDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.AddCarTenantResponse;
 import com.cheweishi.android.entity.MyCarManagerResponse;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.AllCapTransformationMethod;
@@ -858,7 +859,7 @@ public class AddCarActivity extends BaseActivity {
     public void receive(String data) {
         ProgrosDialog.closeProgrosDialog();
         addCarFlag = false;
-        BaseResponse response = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+        AddCarTenantResponse response = (AddCarTenantResponse) GsonUtil.getInstance().convertJsonStringToObject(data, AddCarTenantResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
             return;
@@ -870,7 +871,8 @@ public class AddCarActivity extends BaseActivity {
 //        mIntent.setAction(Constant.REFRESH_FLAG);
 //        sendBroadcast(mIntent);
 
-        cid = response.getDesc();
+//        cid = response.getDesc();
+        cid = "" + response.getMsg().getVehicleId();
 
         sendBind(cid);
         loginResponse.setToken(response.getToken());
@@ -879,7 +881,7 @@ public class AddCarActivity extends BaseActivity {
             if (carManagerTemp == null && null != cid && !"".equals(cid)) {
                 showCustomDialog(getString(R.string.no_device), "前往绑定", 1, this, cid);
             } else {
-                if (StringUtil.isEmpty(carManagerTemp.getDeviceNo()) && !StringUtil.isEmpty(cid)) {
+                if (null != carManagerTemp && StringUtil.isEmpty(carManagerTemp.getDeviceNo()) && !StringUtil.isEmpty(cid)) {
                     showCustomDialog(getString(R.string.no_device), "前往绑定", 1, this, cid);
                 } else {
                     finish();

@@ -103,9 +103,9 @@ public class WashCarActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+
 		/* 1 */
 		ViewUtils.inject(this);
-		httpBiz = new HttpBiz(this);
 
 		/* 2 */
 		initView();
@@ -263,7 +263,6 @@ public class WashCarActivity extends BaseActivity {
 	/**
 	 * 解析子控件
 	 * 
-	 * @param inflater
 	 */
 	private void inflateChildView() {
 		LayoutInflater inflater = LayoutInflater.from(this);

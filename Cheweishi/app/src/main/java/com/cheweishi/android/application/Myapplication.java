@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 
 import cn.jpush.android.api.JPushInterface;
@@ -49,6 +50,8 @@ public class Myapplication extends Application implements
 
 
 
+//        Log.d("Tanck",getAppInfo());
+
 //		Thread.setDefaultUncaughtExceptionHandler(this);
 //        Thread.setDefaultUncaughtExceptionHandler(this);
         //
@@ -66,6 +69,18 @@ public class Myapplication extends Application implements
 //		JPushInterface.stopPush(applicationContext);
     }
 
+    private String getAppInfo() {
+        try {
+            String pkName = this.getPackageName();
+            String versionName = this.getPackageManager().getPackageInfo(
+                    pkName, 0).versionName;
+            int versionCode = this.getPackageManager()
+                    .getPackageInfo(pkName, 0).versionCode;
+            return pkName + "   " + versionName + "  " + versionCode;
+        } catch (Exception e) {
+        }
+        return null;
+    }
 //	private void umengInit() {
 //		mPushAgent = PushAgent.getInstance(this);
 //		mPushAgent.setDebugMode(false);

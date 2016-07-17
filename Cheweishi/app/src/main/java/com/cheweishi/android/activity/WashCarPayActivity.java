@@ -173,8 +173,10 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_washcar_pay);
-        ViewUtils.inject(this);
-        init();
+        showToast("当前暂时不能充值");
+        finish();
+//        ViewUtils.inject(this);
+//        init();
 
     }
 

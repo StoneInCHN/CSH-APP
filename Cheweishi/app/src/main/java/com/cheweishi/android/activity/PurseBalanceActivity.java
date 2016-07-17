@@ -123,8 +123,9 @@ public class PurseBalanceActivity extends BaseActivity implements
                 PurseBalanceActivity.this.finish();
                 break;
             case R.id.ll_purse_balance_pay:
-                intent = new Intent(PurseBalanceActivity.this, PayActivty.class);
-                startActivity(intent);
+                showToast("当前暂时不能充值");
+//                intent = new Intent(PurseBalanceActivity.this, PayActivty.class);
+//                startActivity(intent);
                 break;
             case R.id.ll_purse_balance_device:
 //                intent = new Intent(PurseBalanceActivity.this, PayActivty.class);
