@@ -701,6 +701,7 @@ public class CarDynamicActivity extends BaseActivity {
         cancelCarTimer();
         carTimer = null;
         carTask = null;
+        mMapView.onDestroy();
         handler.removeCallbacksAndMessages(null);
         mLocationUtil.onDestory();
         mLocationUtil = null;
@@ -712,7 +713,6 @@ public class CarDynamicActivity extends BaseActivity {
             mBaseMapUtil.onDestory();
             mBaseMapUtil = null;
         }
-        mMapView.onDestroy();
         disMissPDialog();
         checkedChangeListener = null;
         handler = null;
