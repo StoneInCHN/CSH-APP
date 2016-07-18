@@ -164,6 +164,27 @@ public class XUtilsImageLoader {
         return mImageLoader;
     }
 
+    /**
+     * 单例拿到对象
+     *
+     * @param context
+     * @return
+     */
+    public static XUtilsImageLoader getxUtilsImageLoader(
+            Context context, int resid,int errorid, ImageView imageView, String uri) {
+        if (null == uri)
+            return null;
+
+        mImageLoader = getInstance(context, resid);
+        picasso
+                .load(NetInterface.IMG_URL + uri)
+                .placeholder(resid)
+                .error(errorid)
+                .config(Bitmap.Config.RGB_565)
+                .into(imageView);
+        return mImageLoader;
+    }
+
 
     /**
      * 单例拿到对象

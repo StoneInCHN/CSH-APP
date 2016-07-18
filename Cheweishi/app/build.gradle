@@ -4,7 +4,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
     defaultConfig {
-        applicationId "com.yunjia365.android"
+        applicationId "com.cheweishi.android"
         multiDexEnabled true
         minSdkVersion 14
         targetSdkVersion 23
@@ -13,10 +13,10 @@ android {
     }
     signingConfigs {
         dbgKey {
-            storeFile file('E:\\carlife\\CSH-APP\\Cheweishi\\yunjia365.jks')
-            storePassword "yunjia02488"
-            keyAlias "yunjia365"
-            keyPassword "yunjia365"
+            storeFile file('E:\\carlife\\CSH-APP\\Cheweishi\\csh_app_latest.jks')
+            storePassword "ditoo2003C"
+            keyAlias "cheshenghuo"
+            keyPassword "wksh2014C"
         }
 
         yunjia{
@@ -41,7 +41,7 @@ android {
 //            zipAlignEnabled true
 //            pseudoLocalesEnabled true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.yunjia
+            signingConfig signingConfigs.dbgKey
         }
     }
 

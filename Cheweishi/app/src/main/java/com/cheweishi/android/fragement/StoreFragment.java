@@ -1,20 +1,35 @@
 package com.cheweishi.android.fragement;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.HeaderViewListAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.MainNewActivity;
+import com.cheweishi.android.activity.WashcarDetailsActivity;
 import com.cheweishi.android.adapter.StoreCateGoryAdapter;
+import com.cheweishi.android.adapter.StoreListAdapter;
+import com.cheweishi.android.config.Constant;
+import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.StoreListResponse;
+import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.utils.DisplayUtil;
+import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
+import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.ScreenUtils;
 import com.cheweishi.android.widget.BackgroundDarkPopupWindow;
 import com.cheweishi.android.widget.UnSlidingListView;
@@ -23,12 +38,14 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.ViewUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by tangce on 7/6/2016.
  */
-public class StoreFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class StoreFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener, PullToRefreshListView.OnRefreshListener {
 
     private boolean isLoaded = false;
 
@@ -44,11 +61,29 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
 
     private TextView tv_store_category_service, tv_store_category_sort;// 服务类别和排序
 
+    private TextView tv_store_select;// 默认选择
+
+    private ImageView iv_store_select;//默认图标
+
     private List<String> serviceData = new ArrayList<>();// 服务
 
     private List<String> sortData = new ArrayList<>();// 排序服务
 
     private PullToRefreshListView prl_store; // 租户列表
+
+    private StoreListAdapter adapter; // 租户列表适配器
+
+    private List<StoreListResponse.MsgBean> list = new ArrayList<>(); // 租户数据类表
+
+    private int currentPage = 1; // 当前页面
+
+    private int total; // 总共Item
+
+    private boolean isSort = false;
+
+    private String currentService = "洗车服务"; // 默认洗车
+
+    private String currentSort = "距离优先"; // 默认距离
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,9 +101,13 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
 
         prl_store = (PullToRefreshListView) view.findViewById(R.id.prl_store);
 
-
         categoryView = View.inflate(baseContext, R.layout.store_service_category, null);
+
         usl_store_category = (UnSlidingListView) categoryView.findViewById(R.id.usl_store_category);
+
+        tv_store_select = (TextView) view.findViewById(R.id.tv_store_select);
+
+        iv_store_select = (ImageView) view.findViewById(R.id.iv_store_select);
 
 
         tv_store_category_service.setOnClickListener(this);
@@ -77,7 +116,11 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
         usl_store_category.setAdapter(cateGoryAdapter);
         usl_store_category.setOnItemClickListener(this);
 
+        adapter = new StoreListAdapter(baseContext, list);
+        prl_store.setAdapter(adapter);
         prl_store.setMode(PullToRefreshBase.Mode.DISABLED);
+        prl_store.setOnRefreshListener(this);
+        prl_store.setOnItemClickListener(this);
     }
 
     private void onLoad() {
@@ -92,11 +135,138 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
         sortData.add("距离优先");
         sortData.add("好评优先");
         sortData.add("价格优先");
+        sendPacket(0, "DISTANCEASC", "2");//默认加载洗车
+    }
+
+
+    /**
+     * 1    保养
+     * 2	洗车
+     * 3	维修
+     * 4	紧急救援
+     * 5	美容
+     *
+     * @param type              0:显示全局对话框
+     * @param sortType          距离
+     * @param serviceCategoryId 服务id
+     */
+    private void sendPacket(int type, String sortType, String serviceCategoryId) {
+        if (0 == type) { // 全局对话框
+            ProgrosDialog.openDialog(baseContext);
+        }
+
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("latitude", MyMapUtils.getLatitude(baseContext.getApplicationContext()));//维度
+        param.put("longitude", MyMapUtils.getLongitude(baseContext.getApplicationContext()));//经度
+
+        param.put("serviceCategoryId", serviceCategoryId);
+        param.put("sortType", sortType);
+        param.put("pageSize", 5);
+        param.put("pageNumber", currentPage);
+        param.put(Constant.PARAMETER_TAG, NetInterface.LIST + "Store");
+        netWorkHelper.PostJson(url, param, this);
+    }
+
+    @Override
+    public void receive(String TAG, String data) {
+
+        switch (TAG) {
+            case NetInterface.LIST + "Store":
+                StoreListResponse response = (StoreListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, StoreListResponse.class);
+                if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(response.getDesc());
+                    return;
+                }
+
+                List<StoreListResponse.MsgBean> temp = response.getMsg();
+
+                if (null != temp && 0 < temp.size()) {
+                    total = response.getPage().getTotal();
+                    list.addAll(temp);
+                    if (list.size() < total)
+                        prl_store.setMode(PullToRefreshBase.Mode.BOTH);
+                    else if (5 > list.size())
+                        prl_store.setMode(PullToRefreshBase.Mode.DISABLED);
+                    else
+                        prl_store.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                    adapter.setData(list);
+                } else {
+                    EmptyTools.setEmptyView(baseContext, prl_store);
+                    EmptyTools.setImg(R.drawable.mycar_icon);
+                    EmptyTools.setMessage("当前还没有租户信息");
+                }
+
+                loginResponse.setToken(response.getToken());
+                break;
+        }
+
+        ProgrosDialog.closeProgrosDialog();
+        prl_store.onRefreshComplete();
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        ProgrosDialog.closeProgrosDialog();
+        prl_store.onRefreshComplete();
+        showToast(R.string.server_link_fault);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (parent.getAdapter() instanceof StoreCateGoryAdapter) {// 搜索的一些条件
+            String sort = "DISTANCEASC";
+            String service = "2";
+            if (isSort) {
+                currentSort = sortData.get(position);
+                switch (currentSort) {
+                    case "距离优先":
+                        sort = "DISTANCEASC";
+                        break;
+                    case "好评优先":
+                        sort = "SCOREDESC";
+                        break;
+                    case "价格优先":
+                        sort = "PRICEASC";
+                        break;
+                }
+            } else {
+                currentService = serviceData.get(position);
+                /**
+                 * 1    保养
+                 * 2	洗车
+                 * 3	维修
+                 * 4	紧急救援
+                 * 5	美容
+                 */
+                switch (currentService) {
+                    case "洗车服务":
+                        service = "2";
+                        iv_store_select.setImageResource(R.drawable.xiche);
+                        break;
+                    case "保养服务":
+                        service = "1";
+                        iv_store_select.setImageResource(R.drawable.baoyang);
+                        break;
+                    case "美容服务":
+                        service = "5";
+                        iv_store_select.setImageResource(R.drawable.meirong);
+                        break;
+                }
+            }
 
+            tv_store_select.setText(currentService + " - " + currentSort);
+            dismissPopupWindow();
+            currentPage = 1;
+            list.clear();
+            sendPacket(0, sort, service);
+        } else {
+            Intent intent = new Intent(baseContext, WashcarDetailsActivity.class);
+            intent.putExtra("id", list.get(position - 1).getId());
+            startActivity(intent);
+        }
     }
 
 
@@ -125,7 +295,7 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
         }
         measureView(categoryView);
         popupWindow = new BackgroundDarkPopupWindow(categoryView, ScreenUtils.getScreenWidth(baseContext.getApplicationContext()), categoryView.getMeasuredHeight(), ((MainNewActivity) baseContext).getBottomHeight());
-//        popupWindow.setFocusable(true);
+        popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setDarkStyle(-1);
@@ -162,9 +332,11 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_store_category_service: // 分类服务
+                isSort = false;
                 showPopup(ll_store_top_category, 1, serviceData);
                 break;
             case R.id.tv_store_category_sort:// 排序
+                isSort = true;
                 showPopup(ll_store_top_category, 0, sortData);
                 break;
         }
@@ -176,5 +348,16 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
         dismissPopupWindow();
     }
 
+    @Override
+    public void onRefresh(PullToRefreshBase refreshView) {
+        list.clear();
+        currentPage++;
+        sendPacket(1, "DISTANCEASC", "2");
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        dismissPopupWindow();
+    }
 }

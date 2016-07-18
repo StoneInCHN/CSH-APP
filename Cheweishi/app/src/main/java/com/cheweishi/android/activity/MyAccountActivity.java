@@ -41,8 +41,8 @@ public class MyAccountActivity extends BaseActivity implements OnClickListener {
     private LinearLayout ll_car_manager;
     @ViewInject(R.id.ll_net_phone)
     private LinearLayout ll_net_phone;
-    @ViewInject(R.id.ll_msg_center)
-    private LinearLayout ll_msg_center;
+//    @ViewInject(R.id.ll_msg_center)
+//    private LinearLayout ll_msg_center;
     @ViewInject(R.id.ll_communicate)
     private LinearLayout ll_communicate;
     @ViewInject(R.id.ll_feed_back)
@@ -116,7 +116,7 @@ public class MyAccountActivity extends BaseActivity implements OnClickListener {
     }
 
     @OnClick({R.id.ll_myAccount_user, R.id.ll_car_manager, R.id.ll_net_phone,
-            R.id.ll_msg_center, R.id.ll_communicate, R.id.ll_feed_back,
+           R.id.ll_communicate, R.id.ll_feed_back,
             R.id.ll_my_money, R.id.tv_special_sign, R.id.ll_setting,
             R.id.left_action, R.id.ll_my_order})
     @Override
@@ -134,9 +134,9 @@ public class MyAccountActivity extends BaseActivity implements OnClickListener {
             case R.id.ll_net_phone:// 网络电话
                 turnToNetPhone();
                 break;
-            case R.id.ll_msg_center:// 消息中心
-                turnToMssageCenter();
-                break;
+//            case R.id.ll_msg_center:// 消息中心
+//                turnToMssageCenter();
+//                break;
             case R.id.ll_communicate:// 联系客服
                 showPhoneDialog();
                 break;

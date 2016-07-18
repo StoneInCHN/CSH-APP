@@ -429,7 +429,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void
     receive(String TAG, String data) {
-        ProgrosDialog.closeProgrosDialog();
         switch (TAG) {
             case NetInterface.LIST + "HOME":
                 response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
@@ -499,10 +498,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
             case NetInterface.SET_ID:
                 PushResponse baseResponse = (PushResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PushResponse.class);
-                if (null == baseResponse)
+                if (null == baseResponse) {
+                    ProgrosDialog.closeProgrosDialog();
                     return;
+                }
                 if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(baseResponse.getDesc());
+                    ProgrosDialog.closeProgrosDialog();
                     return;
                 }
 
@@ -529,6 +531,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
                 loginResponse.setToken(baseResponse.getToken());
                 refresh_scrollview.onRefreshComplete();
+                ProgrosDialog.closeProgrosDialog();
 //                homeUI.sendEmptyMessage(0x1);
 //                ProgrosDialog.closeProgrosDialog();
                 break;

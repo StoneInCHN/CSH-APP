@@ -77,12 +77,6 @@
                 android:textColor="@color/gray_pressed"
                 android:textSize="10sp" />
 
-            <!-- <View
-                android:layout_width="20dp"
-                android:layout_height="0.5dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:background="@color/gray_pressed" /> -->
         </RelativeLayout>
     </LinearLayout>
 

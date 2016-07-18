@@ -31,6 +31,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
+import com.cheweishi.android.adapter.AddCarResponse;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
@@ -860,7 +861,7 @@ public class AddCarActivity extends BaseActivity {
     public void receive(String data) {
         ProgrosDialog.closeProgrosDialog();
         addCarFlag = false;
-        BaseResponse response = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+        AddCarResponse response = (AddCarResponse) GsonUtil.getInstance().convertJsonStringToObject(data, AddCarResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
             return;
@@ -872,14 +873,15 @@ public class AddCarActivity extends BaseActivity {
 //        mIntent.setAction(Constant.REFRESH_FLAG);
 //        sendBroadcast(mIntent);
 
-        cid = response.getDesc();
+//        cid = response.getDesc();
+        cid = response.getMsg().getVehicleId();
         loginResponse.setToken(response.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         if (isNeedBingd) {
             if (carManagerTemp == null && null != cid && !"".equals(cid)) {
                 showCustomDialog(getString(R.string.no_device), "前往绑定", 1, this, cid);
             } else {
-                if (StringUtil.isEmpty(carManagerTemp.getDeviceNo()) && !StringUtil.isEmpty(cid)) {
+                if (null != carManagerTemp && StringUtil.isEmpty(carManagerTemp.getDeviceNo()) && !StringUtil.isEmpty(cid)) {
                     showCustomDialog(getString(R.string.no_device), "前往绑定", 1, this, cid);
                 } else {
                     finish();
@@ -1088,14 +1090,14 @@ public class AddCarActivity extends BaseActivity {
         wheel.setCyclic(false);
         wheel.setInterpolator(new AnticipateOvershootInterpolator());
 //        if (id == R.id.car_wheel) {
-            wheel.setCyclic(false);
-            wheel.addChangingListener(new OnWheelChangedListener() {
+        wheel.setCyclic(false);
+        wheel.addChangingListener(new OnWheelChangedListener() {
 
-                @Override
-                public void onChanged(WheelView wheel, int oldValue,
-                                      int newValue) {
-                }
-            });
+            @Override
+            public void onChanged(WheelView wheel, int oldValue,
+                                  int newValue) {
+            }
+        });
 //        }
     }
 
