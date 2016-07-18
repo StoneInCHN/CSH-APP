@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.HeaderViewListAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -26,16 +23,13 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.StoreListResponse;
 import com.cheweishi.android.tools.EmptyTools;
-import com.cheweishi.android.utils.DisplayUtil;
 import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.ScreenUtils;
 import com.cheweishi.android.widget.BackgroundDarkPopupWindow;
 import com.cheweishi.android.widget.UnSlidingListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lidroid.xutils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +39,7 @@ import java.util.Map;
 /**
  * Created by tangce on 7/6/2016.
  */
-public class StoreFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener, PullToRefreshListView.OnRefreshListener {
+public class StoreFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener, PullToRefreshListView.OnRefreshListener2 {
 
     private boolean isLoaded = false;
 
@@ -81,9 +75,9 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
 
     private boolean isSort = false;
 
-    private String currentService = "洗车服务"; // 默认洗车
+    private String currentService = "2"; // 默认洗车
 
-    private String currentSort = "距离优先"; // 默认距离
+    private String currentSort = "DISTANCEASC"; // 默认距离
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -192,7 +186,7 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
                         prl_store.setMode(PullToRefreshBase.Mode.DISABLED);
                     else
                         prl_store.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-                    adapter.setData(list);
+                    adapter.setData(list, currentService);
                 } else {
                     EmptyTools.setEmptyView(baseContext, prl_store);
                     EmptyTools.setImg(R.drawable.mycar_icon);
@@ -217,19 +211,17 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getAdapter() instanceof StoreCateGoryAdapter) {// 搜索的一些条件
-            String sort = "DISTANCEASC";
-            String service = "2";
             if (isSort) {
                 currentSort = sortData.get(position);
                 switch (currentSort) {
                     case "距离优先":
-                        sort = "DISTANCEASC";
+                        currentSort = "DISTANCEASC";
                         break;
                     case "好评优先":
-                        sort = "SCOREDESC";
+                        currentSort = "SCOREDESC";
                         break;
                     case "价格优先":
-                        sort = "PRICEASC";
+                        currentSort = "PRICEASC";
                         break;
                 }
             } else {
@@ -243,30 +235,63 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
                  */
                 switch (currentService) {
                     case "洗车服务":
-                        service = "2";
+                        currentService = "2";
                         iv_store_select.setImageResource(R.drawable.xiche);
                         break;
                     case "保养服务":
-                        service = "1";
+                        currentService = "1";
                         iv_store_select.setImageResource(R.drawable.baoyang);
                         break;
                     case "美容服务":
-                        service = "5";
+                        currentService = "5";
                         iv_store_select.setImageResource(R.drawable.meirong);
                         break;
                 }
             }
 
-            tv_store_select.setText(currentService + " - " + currentSort);
             dismissPopupWindow();
             currentPage = 1;
             list.clear();
-            sendPacket(0, sort, service);
+
+            if ("PRICEASC".equals(currentSort))
+                if ("5".equals(currentService) || "1".equals(currentService)) {
+                    currentSort = "DISTANCEASC";
+                }
+            sendPacket(0, currentSort, currentService);
+            showTtitl();
         } else {
             Intent intent = new Intent(baseContext, WashcarDetailsActivity.class);
             intent.putExtra("id", list.get(position - 1).getId());
             startActivity(intent);
         }
+    }
+
+    private void showTtitl() {
+        String sort = null;
+        String service = null;
+        switch (currentSort) {
+            case "DISTANCEASC":
+                sort = "距离优先";
+                break;
+            case "SCOREDESC":
+                sort = "好评优先";
+                break;
+            case "PRICEASC":
+                sort = "价格优先";
+                break;
+        }
+        switch (currentService) {
+            case "2":
+                service = "洗车服务";
+                break;
+            case "1":
+                service = "保养服务";
+                break;
+            case "5": // 美容服务
+                service = "美容服务";
+                break;
+        }
+        tv_store_select.setText(service + " - " + sort);
     }
 
 
@@ -348,16 +373,35 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
         dismissPopupWindow();
     }
 
-    @Override
-    public void onRefresh(PullToRefreshBase refreshView) {
+    public void getDataForWashCar() {
+        if (!isLoaded)
+            return;
+        currentService = "2";//洗车
+        currentSort = "DISTANCEASC";
         list.clear();
-        currentPage++;
-        sendPacket(1, "DISTANCEASC", "2");
+        currentPage = 1;
+        sendPacket(0, currentSort, currentService);
+        tv_store_select.setText("洗车服务 - 距离优先");
     }
+
 
     @Override
     public void onPause() {
         super.onPause();
         dismissPopupWindow();
+    }
+
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+        list.clear();
+        currentPage = 1;
+        sendPacket(1, currentSort, currentService);
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+//        list.clear();
+        currentPage++;
+        sendPacket(1, currentSort, currentService);
     }
 }

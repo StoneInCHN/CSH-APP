@@ -971,7 +971,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 getDuiBaUrl();
                 break;
             case R.id.rl_home_top_info: // 洗车
-                ((MainNewActivity) getActivity()).store();
+                ((MainNewActivity) getActivity()).loadWashCarStore();
                 break;
         }
     }

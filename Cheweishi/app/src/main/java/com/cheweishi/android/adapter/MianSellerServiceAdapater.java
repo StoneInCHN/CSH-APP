@@ -34,6 +34,7 @@ import com.cheweishi.android.entity.MainSellerServiceInfo;
 import com.cheweishi.android.entity.ServiceListResponse;
 import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.response.BaseResponse;
+import com.cheweishi.android.utils.ButtonUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
@@ -117,6 +118,10 @@ public class MianSellerServiceAdapater extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
                             //  TODO 预约
+                            //快速点击忽略处理
+                            if (ButtonUtils.isFastClick()) {
+                                return;
+                            }
                             Serviceid = list.getCarService().get(position).getService_id();
                             Intent intent = new Intent(mContext, MaintainComponentActivity.class);
                             intent.putExtra("serviceid", Serviceid);
@@ -142,7 +147,10 @@ public class MianSellerServiceAdapater extends BaseAdapter {
 
                         @Override
                         public void onClick(View v) {
-
+                            //快速点击忽略处理
+                            if (ButtonUtils.isFastClick()) {
+                                return;
+                            }
                             LogHelper.d("name:" + list.getTenantName());
                             // TODO 点击跳转到洗车界面
                             Intent intent = new Intent(mContext, WashCarPayActivity.class);
@@ -182,6 +190,10 @@ public class MianSellerServiceAdapater extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
                             //  TODO 预约
+                            //快速点击忽略处理
+                            if (ButtonUtils.isFastClick()) {
+                                return;
+                            }
                             DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(mContext);
                             builder.setWheelViewVisibility(View.GONE);
                             builder.setOnSaveListener(new mYSaveListener());

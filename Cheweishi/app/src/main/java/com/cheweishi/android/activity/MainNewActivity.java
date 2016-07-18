@@ -290,7 +290,7 @@ public class MainNewActivity extends BaseActivity {
         ChangeFragment(0, home, store, news, my);
     }
 
-    public void store() {
+    private void store() {
         tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
         tv_home_bottom_store.setTextColor(getResources().getColor(R.color.orange));
         tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
@@ -299,6 +299,11 @@ public class MainNewActivity extends BaseActivity {
         setTitle("门店");
         ll_home_header.setVisibility(View.VISIBLE);
         ChangeFragment(1, home, store, news, my);
+    }
+
+    public void loadWashCarStore() {
+        store();
+        store.getDataForWashCar();
     }
 
     private void news() {
