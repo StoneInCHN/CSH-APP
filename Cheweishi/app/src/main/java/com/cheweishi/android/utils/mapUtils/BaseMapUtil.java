@@ -311,8 +311,10 @@ public class BaseMapUtil {
 	public void onDestory() {
 		// TODO sth
 		// TODO 关闭定位图层
-		mBaiduMap.setMyLocationEnabled(false);
-		mBaiduMap = null;
+		if(null!=mBaiduMap) {
+			mBaiduMap.setMyLocationEnabled(false);
+			mBaiduMap = null;
+		}
 	}
 
 	public Marker setMarkerOverlayer(LatLng latLng, int icon, String position) {
