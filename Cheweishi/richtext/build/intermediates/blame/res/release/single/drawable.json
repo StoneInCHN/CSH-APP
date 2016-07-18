@@ -56,12 +56,12 @@
         "source": "E:\\carlife\\CSH-APP\\Cheweishi\\richtext\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.0\\res\\drawable\\abc_dialog_material_background_dark.xml"
     },
     {
-        "merged": "E:\\carlife\\CSH-APP\\Cheweishi\\richtext\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_holo_dark.xml",
-        "source": "E:\\carlife\\CSH-APP\\Cheweishi\\richtext\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.0\\res\\drawable\\abc_list_selector_holo_dark.xml"
-    },
-    {
         "merged": "E:\\carlife\\CSH-APP\\Cheweishi\\richtext\\build\\intermediates\\res\\merged\\release\\drawable\\abc_item_background_holo_dark.xml",
         "source": "E:\\carlife\\CSH-APP\\Cheweishi\\richtext\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.0\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\carlife\\CSH-APP\\Cheweishi\\richtext\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "E:\\carlife\\CSH-APP\\Cheweishi\\richtext\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.0\\res\\drawable\\abc_list_selector_holo_dark.xml"
     },
     {
         "merged": "E:\\carlife\\CSH-APP\\Cheweishi\\richtext\\build\\intermediates\\res\\merged\\release\\drawable\\abc_text_cursor_material.xml",

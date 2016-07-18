@@ -254,13 +254,13 @@ public class CarManagerActivity extends BaseActivity implements
                 listView_carManager.hiddenRight(null);
                 listView_carManager.requestLayout();
 
-                for (int i = 0; i < listCarManager.size(); i++) { // 寻找默认车辆的索引
-                    if (listCarManager.get(i).isDefault()) {
-                        currentDefaultIndex = i;
-                        setMainIcon(listCarManager.get(i).getBrandIcon());
-                        break;
-                    }
-                }
+//                for (int i = 0; i < listCarManager.size(); i++) { // 寻找默认车辆的索引
+//                    if (listCarManager.get(i).isDefault()) {
+//                        currentDefaultIndex = i;
+//                        setMainIcon(listCarManager.get(i).getBrandIcon());
+//                        break;
+//                    }
+//                }
                 adapter.setData(listCarManager);
                 listView_front.setVisibility(View.INVISIBLE);
                 if (listCarManager.size() >= 3) {
@@ -320,9 +320,9 @@ public class CarManagerActivity extends BaseActivity implements
     }
 
     private void setMainIcon(String defaultIcon) {
-        XUtilsImageLoader.getxUtilsImageLoader(this,
-                R.drawable.tianjiacar_img2x, MainNewActivity.ibtn_user,
-                defaultIcon);
+//        XUtilsImageLoader.getxUtilsImageLoader(this,
+//                R.drawable.tianjiacar_img2x, MainNewActivity.ibtn_user,
+//                defaultIcon);
     }
 
     @Override

@@ -134,14 +134,14 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
             try {
                 QRCodeResponse response = (QRCodeResponse) GsonUtil.getInstance().convertJsonStringToObject(resultString, QRCodeResponse.class);
                 if (flag.equals(response.getFlag())) {
-                    Intent resultIntent = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("result", "" + response.getTenantInfo());
-                    resultIntent.setClass(MipcaActivityCapture.this, QRCodeResultActivity.class);
-                    resultIntent.putExtras(bundle);
-
-                    MipcaActivityCapture.this.startActivity(resultIntent);
-                    MipcaActivityCapture.this.finish();
+//                    Intent resultIntent = new Intent();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("result", "" + response.getTenantInfo());
+//                    resultIntent.setClass(MipcaActivityCapture.this, QRCodeResultActivity.class);
+//                    resultIntent.putExtras(bundle);
+//
+//                    MipcaActivityCapture.this.startActivity(resultIntent);
+//                    MipcaActivityCapture.this.finish();
                     return;
                 }
             } catch (Exception e) {
@@ -158,7 +158,7 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
 //                return;
 //            }
 
-            showToast("目前不支持该扫描结果");
+//            showToast("目前不支持该扫描结果");
 
             if (null == cid || "".equals(cid)) { // 扫一扫过来的或者其他异常情况过来的直接进入选择车辆
                 Intent resultIntent = new Intent();

@@ -33,7 +33,7 @@ android {
             zipAlignEnabled true
             pseudoLocalesEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.dbgKey
+            signingConfig signingConfigs.yunjia
         }
         debug {
 //            minifyEnabled true

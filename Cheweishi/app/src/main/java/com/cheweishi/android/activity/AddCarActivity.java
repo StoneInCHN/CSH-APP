@@ -362,9 +362,9 @@ public class AddCarActivity extends BaseActivity {
                     carModelUrl = carManagerTemp.getBrandIcon();
                 }
 
-                XUtilsImageLoader.getxUtilsImageLoader(AddCarActivity.this,
-                        R.drawable.car_default, img_car_xcRoundImg,
-                        carModelUrl);
+//                XUtilsImageLoader.getxUtilsImageLoader(AddCarActivity.this,
+//                        R.drawable.car_default, img_car_xcRoundImg,
+//                        carModelUrl);
 //                ll_top_top.setVisibility(View.VISIBLE);
 //                carPlate = carManagerTemp.getPlate();
 //                brandId = carManagerTemp.getBrand().getBrand();
@@ -1057,9 +1057,9 @@ public class AddCarActivity extends BaseActivity {
                     carModelUrl = data.getStringExtra("carLogoUrl");
                     tv_car_style.setText(data.getStringExtra("mResultFirstName")
                             + "-" + data.getStringExtra("mResultLastName"));
-                    XUtilsImageLoader.getxUtilsImageLoader(AddCarActivity.this,
-                            R.drawable.car_default, img_car_xcRoundImg,
-                            carModelUrl);
+//                    XUtilsImageLoader.getxUtilsImageLoader(AddCarActivity.this,
+//                            R.drawable.car_default, img_car_xcRoundImg,
+//                            carModelUrl);
                     ll_top_top.setVisibility(View.VISIBLE);
                 }
                 break;
