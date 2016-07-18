@@ -20,7 +20,7 @@ android {
         }
 
         yunjia{
-            storeFile file('E:\\carlief\\CSH-APP\\Cheweishi\\AppKey.keystore')
+            storeFile file('E:\\carlife\\CSH-APP\\Cheweishi\\AppKey.keystore')
             storePassword "369258147"
             keyAlias "myappkey"
             keyPassword "369258147"
