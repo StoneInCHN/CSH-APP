@@ -702,7 +702,6 @@ public class CarDynamicActivity extends BaseActivity {
         carTimer = null;
         carTask = null;
         handler.removeCallbacksAndMessages(null);
-
         mLocationUtil.onDestory();
         mLocationUtil = null;
         if (mMapSearchUtil != null) {
