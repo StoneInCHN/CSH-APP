@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cheweishi.android.R;
 import com.cheweishi.android.entity.StoreListResponse;
 
 import java.util.List;
@@ -44,7 +45,15 @@ public class StoreListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        ViewHolder holder = null;
+        if (null == convertView) {
+            holder = new ViewHolder();
+            convertView = View.inflate(context, R.layout.item_store_list, null);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+        return convertView;
     }
 
     private class ViewHolder {

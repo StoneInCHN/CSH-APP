@@ -144,7 +144,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static int default_ptr_rotate=0x7f020001;
         public static int indicator_bg_bottom=0x7f020002;
         public static int indicator_bg_top=0x7f020003;
-        public static int top_img=0x7f020004;
+        public static int load_1=0x7f020004;
+        public static int load_2=0x7f020005;
+        public static int load_3=0x7f020006;
+        public static int load_4=0x7f020007;
+        public static int loading_anim=0x7f020008;
+        public static int top_img=0x7f020009;
     }
     public static final class id {
         public static int both=0x7f070003;
@@ -152,7 +157,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static int fl_inner=0x7f07000c;
         public static int flip=0x7f07000a;
         public static int gridview=0x7f070000;
-        public static int imageView=0x7f070011;
+        public static int imageView=0x7f07000f;
         public static int manualOnly=0x7f070005;
         public static int pullDownFromTop=0x7f070006;
         public static int pullFromEnd=0x7f070007;
@@ -160,8 +165,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static int pullUpFromBottom=0x7f070009;
         public static int pull_to_refresh_image=0x7f07000d;
         public static int pull_to_refresh_progress=0x7f07000e;
-        public static int pull_to_refresh_sub_text=0x7f070010;
-        public static int pull_to_refresh_text=0x7f07000f;
         public static int rotate=0x7f07000b;
         public static int scrollview=0x7f070001;
         public static int webview=0x7f070002;

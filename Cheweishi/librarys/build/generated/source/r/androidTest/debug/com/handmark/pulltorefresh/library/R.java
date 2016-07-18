@@ -47,7 +47,12 @@ public final class R {
 		public static final int default_ptr_rotate = 0x7f020001;
 		public static final int indicator_bg_bottom = 0x7f020002;
 		public static final int indicator_bg_top = 0x7f020003;
-		public static final int top_img = 0x7f020004;
+		public static final int load_1 = 0x7f020004;
+		public static final int load_2 = 0x7f020005;
+		public static final int load_3 = 0x7f020006;
+		public static final int load_4 = 0x7f020007;
+		public static final int loading_anim = 0x7f020008;
+		public static final int top_img = 0x7f020009;
 	}
 	public static final class id {
 		public static final int both = 0x7f070003;
@@ -55,7 +60,7 @@ public final class R {
 		public static final int fl_inner = 0x7f07000c;
 		public static final int flip = 0x7f07000a;
 		public static final int gridview = 0x7f070000;
-		public static final int imageView = 0x7f070011;
+		public static final int imageView = 0x7f07000f;
 		public static final int manualOnly = 0x7f070005;
 		public static final int pullDownFromTop = 0x7f070006;
 		public static final int pullFromEnd = 0x7f070007;
@@ -63,8 +68,6 @@ public final class R {
 		public static final int pullUpFromBottom = 0x7f070009;
 		public static final int pull_to_refresh_image = 0x7f07000d;
 		public static final int pull_to_refresh_progress = 0x7f07000e;
-		public static final int pull_to_refresh_sub_text = 0x7f070010;
-		public static final int pull_to_refresh_text = 0x7f07000f;
 		public static final int rotate = 0x7f07000b;
 		public static final int scrollview = 0x7f070001;
 		public static final int webview = 0x7f070002;

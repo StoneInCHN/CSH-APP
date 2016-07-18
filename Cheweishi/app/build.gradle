@@ -4,24 +4,30 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
     defaultConfig {
-        applicationId "com.cheweishi.android"
+        applicationId "com.yunjia365.android"
         multiDexEnabled true
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 87
-        versionName "3.5.6"
+        versionCode 78
+        versionName "2.1.0"
     }
     signingConfigs {
         dbgKey {
-            storeFile file('E:/carlife/CSH-APP/Cheweishi/csh_app_latest.jks')
-            storePassword "ditoo2003C"
-            keyAlias "cheshenghuo"
-            keyPassword "wksh2014C"
+            storeFile file('E:\\carlife\\CSH-APP\\Cheweishi\\yunjia365.jks')
+            storePassword "yunjia02488"
+            keyAlias "yunjia365"
+            keyPassword "yunjia365"
+        }
+
+        yunjia{
+            storeFile file('E:\\carlife\\CSH-APP\\Cheweishi\\AppKey.keystore')
+            storePassword "369258147"
+            keyAlias "myappkey"
+            keyPassword "369258147"
         }
     }
     buildTypes {
         release {
-            buildConfigField "boolean", "LOG_DEBUG", "false"
             minifyEnabled true
             shrinkResources true
             zipAlignEnabled true
@@ -30,13 +36,12 @@ android {
             signingConfig signingConfigs.dbgKey
         }
         debug {
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-            minifyEnabled true
-            shrinkResources true
-            zipAlignEnabled true
-            pseudoLocalesEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.dbgKey
+//            minifyEnabled true
+//            shrinkResources true
+//            zipAlignEnabled true
+//            pseudoLocalesEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.yunjia
         }
     }
 
@@ -73,7 +78,6 @@ dependencies {
     compile files('libs/volley.jar')
     compile files('libs/org.jbundle.util.osgi.wrapped.org.apache.http.client-4.1.2.jar')
     compile files('libs/commons-codec-1.4.jar')
-//    compile 'de.hdodenhof:circleimageview:2.1.0'
     compile project(':librarys')
     compile project(':richtext')
 }
