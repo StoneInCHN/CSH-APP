@@ -13,6 +13,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ScrollView;
 
 import com.cheweishi.android.R;
+import com.cheweishi.android.utils.LogHelper;
 
 
 /**
@@ -223,7 +224,7 @@ public class PullScrollView extends ScrollView {
             }
         }
 
-        // 禁止控件本身的滑动.
+//        // 禁止控件本身的滑动.
         boolean isHandle = isMoving;
         if (!isMoving) {
             try {
@@ -232,7 +233,7 @@ public class PullScrollView extends ScrollView {
                 Log.w(LOG_TAG, e);
             }
         }
-        return isHandle;
+        return isMoving;
     }
 
     /**

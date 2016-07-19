@@ -186,11 +186,13 @@ public class WashcarDetailsActivity extends BaseActivity implements
         if (!washCar.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(washCar.getDesc());
 //            psl_tenant_detail.scrollTo(0,0);
+            psl_tenant_detail.smoothScrollTo(0,0);
             return;
         }
 
         setData();
 //        psl_tenant_detail.scrollTo(0,0);
+        psl_tenant_detail.smoothScrollTo(0,0);
         loginResponse.setToken(washCar.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }

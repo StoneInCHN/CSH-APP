@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
+        android:scrollbars="none"
         app:headerHeight="450dp"
         app:headerVisibleHeight="250dp">
 
@@ -27,14 +28,15 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <!--android:focusable="true"
+                android:focusableInTouchMode="true"-->
             <RelativeLayout
                 android:id="@+id/park_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="250dp"
                 android:background="@color/white"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
+
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/small_padding"
                 android:paddingLeft="@dimen/normal_padding"
@@ -216,15 +218,16 @@
                 android:visibility="gone" />
 
             <View
-                android:background="@color/gray_backgroud"
                 android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                android:layout_height="20dp"
+                android:background="@color/gray_backgroud" />
 
+            <!--android:focusable="true"
+                android:focusableInTouchMode="true"-->
             <com.cheweishi.android.widget.UnSlidingExpandableListView
                 android:id="@+id/lv_washcar_detils"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/large_marging"
                 android:background="@color/white"
                 android:cacheColorHint="#00000000"
                 android:divider="#ebebeb"

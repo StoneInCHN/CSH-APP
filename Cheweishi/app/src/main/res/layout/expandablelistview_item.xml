@@ -88,14 +88,15 @@
             android:visibility="gone" />
     </LinearLayout>
 
+    <!--android:focusable="true"
+        android:focusableInTouchMode="true"-->
     <TextView
         android:id="@+id/btn_pay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/large_marging"
         android:background="@drawable/pay_click_selector"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+
         android:paddingBottom="5dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
