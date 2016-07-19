@@ -352,7 +352,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
         LogHelper.d("onScroll:" + y);
         if (0 != y) { // 向上滚动
             title.setVisibility(View.VISIBLE);
-            float alpha = y * 1.0f / 700;
+            float alpha = y * 1.0f / 500;
             if (1.0f < alpha)
                 alpha = 1.0f;
             else if (alpha < 0.0f)
