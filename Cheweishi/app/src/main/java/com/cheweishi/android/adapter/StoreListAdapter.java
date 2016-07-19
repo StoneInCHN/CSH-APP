@@ -136,6 +136,7 @@ public class StoreListAdapter extends BaseAdapter {
             holder.money.setVisibility(View.VISIBLE);
             holder.showMoney.setVisibility(View.VISIBLE);
             holder.moneyDesc.setVisibility(View.VISIBLE);
+            holder.pay.setVisibility(View.VISIBLE);
             holder.pay.setBackgroundResource(R.drawable.pay_click_selector);
             holder.pay.setTextColor(context.getResources().getColor(R.color.main_blue));
             holder.pay.setText("支付");
@@ -168,43 +169,44 @@ public class StoreListAdapter extends BaseAdapter {
             holder.money.setVisibility(View.GONE);
             holder.showMoney.setVisibility(View.GONE);
             holder.moneyDesc.setVisibility(View.GONE);
-            switch (currentType) {
-                case "1": // 保养
-                    holder.pay.setBackgroundResource(R.drawable.maintain_click_selector);
-                    holder.pay.setTextColor(context.getResources().getColor(R.color.main_orange));
-                    holder.serviceDesc.setText("保养");
-                    holder.pay.setText("预约");
-                    holder.pay.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            int id = list.get(position).getCarService().getService_id();
-                            Intent intent = new Intent(context, MaintainComponentActivity.class);
-                            intent.putExtra("serviceid", id);
-                            intent.putExtra("serviceName", "常规保养");
-                            context.startActivity(intent);
-                        }
-                    });
-                    break;
-                case "5"://美容
-                    holder.serviceDesc.setText("美容");
-                    holder.pay.setBackgroundResource(R.drawable.maintain_click_selector);
-                    holder.pay.setTextColor(context.getResources().getColor(R.color.main_orange));
-                    holder.pay.setText("预约");
-                    holder.pay.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-                            //  TODO 预约
-                            DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(context);
-                            builder.setWheelViewVisibility(View.GONE);
-                            builder.setOnSaveListener(new mYSaveListener());
-                            builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, context);
-                            builder.show();
-                            mServiceId = list.get(position).getCarService().getService_id();
-                        }
-                    });
-                    break;
-            }
+            holder.pay.setVisibility(View.GONE);
+//            switch (currentType) {
+//                case "1": // 保养
+//                    holder.pay.setBackgroundResource(R.drawable.maintain_click_selector);
+//                    holder.pay.setTextColor(context.getResources().getColor(R.color.main_orange));
+//                    holder.serviceDesc.setText("保养");
+//                    holder.pay.setText("预约");
+//                    holder.pay.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            int id = list.get(position).getCarService().getService_id();
+//                            Intent intent = new Intent(context, MaintainComponentActivity.class);
+//                            intent.putExtra("serviceid", id);
+//                            intent.putExtra("serviceName", "常规保养");
+//                            context.startActivity(intent);
+//                        }
+//                    });
+//                    break;
+//                case "5"://美容
+//                    holder.serviceDesc.setText("美容");
+//                    holder.pay.setBackgroundResource(R.drawable.maintain_click_selector);
+//                    holder.pay.setTextColor(context.getResources().getColor(R.color.main_orange));
+//                    holder.pay.setText("预约");
+//                    holder.pay.setOnClickListener(new View.OnClickListener() {
+//
+//                        @Override
+//                        public void onClick(View v) {
+//                            //  TODO 预约
+//                            DateTimeSelectorDialogBuilder builder = DateTimeSelectorDialogBuilder.getInstance(context);
+//                            builder.setWheelViewVisibility(View.GONE);
+//                            builder.setOnSaveListener(new mYSaveListener());
+//                            builder.setSencondeCustomView(R.layout.yuyue_date_time_seletor, context);
+//                            builder.show();
+//                            mServiceId = list.get(position).getCarService().getService_id();
+//                        }
+//                    });
+//                    break;
+//            }
         }
         return convertView;
     }

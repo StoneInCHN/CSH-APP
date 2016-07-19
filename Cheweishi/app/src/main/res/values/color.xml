@@ -5,6 +5,7 @@
     <color name="gray_backgroud">#f5f5f5</color>
     <!-- 各个基色 -->
     <color name="reside_bj">#1c2e42</color>
+    <color name="alpha_black">#70000000</color>
     <color name="red">#fe6270</color>
     <color name="red_purse">#fb8c79</color>
     <color name="red_deep">#f96268</color>

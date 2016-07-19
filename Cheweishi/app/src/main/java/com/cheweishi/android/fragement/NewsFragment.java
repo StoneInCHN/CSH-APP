@@ -15,6 +15,8 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.NewsTypeResponse;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
+import com.cheweishi.android.utils.ScreenUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +43,7 @@ public class NewsFragment extends BaseFragment {
 
     private void initView(View view) {
         viewPager = (ViewPager) view.findViewById(R.id.vp_news);
-//        tl_news = (TabLayout) view.findViewById(R.id.tl_news);
+        tl_news = (TabLayout) view.findViewById(R.id.tl_news);
     }
 
     @Override
@@ -65,13 +67,15 @@ public class NewsFragment extends BaseFragment {
             showToast(response.getDesc());
             return;
         }
-        if (null == response.getMsg() || 0 < response.getMsg().size())
+        if (null == response.getMsg() || 0 >= response.getMsg().size())
             return;
 
         adapter = new NewsFragmentPagerAdapter(((MainNewActivity) baseContext).getSupportFragmentManager(), baseContext, response.getMsg());
         viewPager.setAdapter(adapter);
-//        tl_news.setTabMode(TabLayout.MODE_SCROLLABLE);
-//        tl_news.setupWithViewPager(viewPager);
+        tl_news.setupWithViewPager(viewPager);
+
+        if (5 <= response.getMsg().size())
+            tl_news.setTabGravity(TabLayout.MODE_SCROLLABLE);
 
         loginResponse.setToken(response.getToken());
         BaseActivity.loginResponse = loginResponse;

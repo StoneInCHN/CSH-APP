@@ -49,6 +49,7 @@ public class BaseFragment extends Fragment implements JSONCallback {
             onDataLoading(msg.what);
         }
     };
+    protected boolean isVisible;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -322,5 +323,23 @@ public class BaseFragment extends Fragment implements JSONCallback {
 
     public void onDataLoading(int what) {
 
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();
+        } else {
+            isVisible = false;
+        }
+    }
+
+    /**
+     * 第一次初始化
+     */
+    protected void onVisible() {
     }
 }
