@@ -12,7 +12,7 @@
         android:layout_marginTop="-100dp"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/udesk_defalut_image_loading" />
 
     <com.cheweishi.android.widget.PullScrollView
         android:id="@+id/psl_tenant_detail"
@@ -33,9 +33,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="250dp"
                 android:background="@color/white"
-                android:orientation="horizontal"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
+                android:orientation="horizontal"
                 android:paddingBottom="@dimen/small_padding"
                 android:paddingLeft="@dimen/normal_padding"
                 android:paddingRight="@dimen/normal_padding"
@@ -215,12 +215,16 @@
                 android:background="@color/white"
                 android:visibility="gone" />
 
+            <View
+                android:background="@color/gray_backgroud"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
             <com.cheweishi.android.widget.UnSlidingExpandableListView
                 android:id="@+id/lv_washcar_detils"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/large_marging"
-                android:layout_marginTop="@dimen/xlarge_marging"
                 android:background="@color/white"
                 android:cacheColorHint="#00000000"
                 android:divider="#ebebeb"

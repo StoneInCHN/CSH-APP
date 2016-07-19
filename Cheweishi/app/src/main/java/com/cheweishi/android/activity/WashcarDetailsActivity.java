@@ -114,10 +114,10 @@ public class WashcarDetailsActivity extends BaseActivity implements
     private TextView car_tv_car_iv_location;
     @ViewInject(R.id.tv_phone)
     private TextView tv_phone;
-    @ViewInject(R.id.iv_tenant_detail)
-    private ImageView iv_tenant_detail;//下拉大图
     @ViewInject(R.id.psl_tenant_detail)
     private PullScrollView psl_tenant_detail; // 下拉控件
+    @ViewInject(R.id.iv_tenant_detail)
+    private ImageView iv_tenant_detail;//下拉大图
     private List<UserComment> comments;
     private WashCarCommentAdapter commentAdapter;
     private ExpandableListViewAdapter exListAdapter;
@@ -262,6 +262,8 @@ public class WashcarDetailsActivity extends BaseActivity implements
      * 获取从服务器解析出的数据对象并填充视图
      */
     private void setData() {
+        XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.udesk_defalut_image_loading, R.drawable.udesk_defualt_failure,
+                iv_tenant_detail, washCar.getMsg().getPhoto());
         XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.zhaochewei_img,
                 car_iv_location, washCar.getMsg().getPhoto());
         car_tv_car_iv_location.setText(washCar.getMsg().getTenantName());
@@ -349,7 +351,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
 
     @Override
     public void onScroll(int y) {
-        LogHelper.d("onScroll:" + y);
+//        LogHelper.d("onScroll:" + y);
         if (0 != y) { // 向上滚动
             title.setVisibility(View.VISIBLE);
             float alpha = y * 1.0f / 500;
