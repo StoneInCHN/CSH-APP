@@ -13,6 +13,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -37,6 +39,7 @@ import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.BaiduMapView;
+import com.cheweishi.android.widget.PullScrollView;
 import com.cheweishi.android.widget.UnSlidingExpandableListView;
 import com.cheweishi.android.widget.UnSlidingListView;
 import com.google.gson.Gson;
@@ -45,15 +48,15 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.nineoldandroids.view.ViewHelper;
 
 /**
  * 商家详情
  *
  * @author Xiaojin
  */
-@ContentView(R.layout.activity_washcar_malldetails)
 public class WashcarDetailsActivity extends BaseActivity implements
-        View.OnClickListener, ExpandableListView.OnChildClickListener {
+        View.OnClickListener, ExpandableListView.OnChildClickListener, PullScrollView.OnScrollListener {
     public static final String TAG = "WashcarDetailsActivity";
     /**
      * 详情界面
@@ -82,6 +85,9 @@ public class WashcarDetailsActivity extends BaseActivity implements
      * 来自我的订单列表预约中
      */
     public static final int INDEX_FROM_ING = 1006;
+
+    @ViewInject(R.id.include_tenant_title)
+    private View title; // 顶部视图
     @ViewInject(R.id.title)
     private TextView tvTitle;
     @ViewInject(R.id.left_action)
@@ -108,6 +114,10 @@ public class WashcarDetailsActivity extends BaseActivity implements
     private TextView car_tv_car_iv_location;
     @ViewInject(R.id.tv_phone)
     private TextView tv_phone;
+    @ViewInject(R.id.iv_tenant_detail)
+    private ImageView iv_tenant_detail;//下拉大图
+    @ViewInject(R.id.psl_tenant_detail)
+    private PullScrollView psl_tenant_detail; // 下拉控件
     private List<UserComment> comments;
     private WashCarCommentAdapter commentAdapter;
     private ExpandableListViewAdapter exListAdapter;
@@ -117,6 +127,9 @@ public class WashcarDetailsActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_washcar_malldetails);
         ViewUtils.inject(this);
         init();
     }
@@ -125,16 +138,13 @@ public class WashcarDetailsActivity extends BaseActivity implements
      * 初始化视图
      */
     private void init() {
-        comments = new ArrayList<UserComment>();
-        // for (int i = 0; i < 3; i++) {
-        // UserComment comm = new UserComment();
-        // comm.setUser_name("x******1");
-        // comm.setTime("2015-12-28");
-        // comm.setUserMsg("东西很好，物流很快，很满意！！！");
-        // comments.add(comm);
-        // }
-        commentAdapter = new WashCarCommentAdapter(this, comments);
-        lv_washcar_pinglun.setAdapter(commentAdapter);
+        title.setVisibility(View.GONE);
+        psl_tenant_detail.setHeader(iv_tenant_detail);
+        psl_tenant_detail.setOnScrollListener(this);
+        // TODO 暂时没有评论
+//        comments = new ArrayList<UserComment>();
+//        commentAdapter = new WashCarCommentAdapter(this, comments);
+//        lv_washcar_pinglun.setAdapter(commentAdapter);
         tvTitle.setText("商家详情");
         btnLeft.setText("返回");
         id = String.valueOf(getIntent().getIntExtra("id", 0));
@@ -171,14 +181,16 @@ public class WashcarDetailsActivity extends BaseActivity implements
     @Override
     public void receive(String data) {
         ProgrosDialog.closeProgrosDialog();
+
         washCar = (ServiceDetailResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceDetailResponse.class);
         if (!washCar.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(washCar.getDesc());
+//            psl_tenant_detail.scrollTo(0,0);
             return;
         }
 
         setData();
-
+//        psl_tenant_detail.scrollTo(0,0);
         loginResponse.setToken(washCar.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
@@ -333,5 +345,21 @@ public class WashcarDetailsActivity extends BaseActivity implements
         intent.putExtra("desc", desc);
         startActivity(intent);
         return true;
+    }
+
+    @Override
+    public void onScroll(int y) {
+        LogHelper.d("onScroll:" + y);
+        if (0 != y) { // 向上滚动
+            title.setVisibility(View.VISIBLE);
+            float alpha = y * 1.0f / 700;
+            if (1.0f < alpha)
+                alpha = 1.0f;
+            else if (alpha < 0.0f)
+                alpha = 0.0f;
+            ViewHelper.setAlpha(title, alpha);
+        } else if (0 == y) {
+            title.setVisibility(View.GONE);
+        }
     }
 }
