@@ -239,4 +239,19 @@
     <include
         android:id="@+id/include_tenant_title"
         layout="@layout/title" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/tenant_title_back"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_tenant_title"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:src="@drawable/udesk_titlebar_back" />
+    </LinearLayout>
 </RelativeLayout>

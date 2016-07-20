@@ -121,6 +121,8 @@ public class WashcarDetailsActivity extends BaseActivity implements
     private PullScrollView psl_tenant_detail; // 下拉控件
     @ViewInject(R.id.iv_tenant_detail)
     private ImageView iv_tenant_detail;//下拉大图
+    @ViewInject(R.id.iv_tenant_title)
+    private ImageView iv_tenant_title;//隐藏的返回
     private List<UserComment> comments;
     private WashCarCommentAdapter commentAdapter;
     private ExpandableListViewAdapter exListAdapter;
@@ -306,7 +308,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
     }
 
     @OnClick({R.id.left_action, R.id.rel_user_comm, R.id.img_maintain_phone,
-            R.id.img_maintain_ditu, R.id.car_iv_location})
+            R.id.img_maintain_ditu, R.id.car_iv_location, R.id.iv_tenant_title, R.id.iv_tenant_detail})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -315,6 +317,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
                         AllCommentActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.iv_tenant_title:
             case R.id.left_action:
                 finish();
                 break;
@@ -324,6 +327,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
             case R.id.img_maintain_ditu:// 导航
                 turnToNav();
                 break;
+            case R.id.iv_tenant_detail:
             case R.id.car_iv_location://商家头像
                 if (null != washCar && null != washCar.getMsg().getTenantImages() && 0 >= washCar.getMsg().getTenantImages().size()) {
                     return;
@@ -381,11 +385,15 @@ public class WashcarDetailsActivity extends BaseActivity implements
             float alpha = y * 1.0f / tempHead;
             if (1.0f < alpha)
                 alpha = 1.0f;
-            else if (alpha < 0.0f)
+            else if (0.0f > alpha)
                 alpha = 0.0f;
+            else if (0.0f < alpha && 1.0f > alpha)
+                ((View) iv_tenant_title.getParent()).setVisibility(View.GONE);
             ViewHelper.setAlpha(title, alpha);
         } else if (0 == y) {
             title.setVisibility(View.GONE);
+            ((View) iv_tenant_title.getParent()).setVisibility(View.VISIBLE);
+//            iv_tenant_title.setVisibility(View.VISIBLE);
         }
     }
 }
