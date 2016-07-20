@@ -56,7 +56,7 @@ import java.util.List;
  *
  * @author zhangq
  */
-public abstract class BaseActivity extends AppCompatActivity implements
+public abstract class BaseActivity extends FragmentActivity implements
         JSONCallback {
     public static final int MY_CAMEAR_PREMESSION = 0; // 拍照
     public static final int MY_LOCATION_PREMESSION = 1; // 定位

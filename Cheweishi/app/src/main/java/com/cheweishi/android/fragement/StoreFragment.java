@@ -79,6 +79,8 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
 
     private String currentSort = "DISTANCEASC"; // 默认距离
 
+    private boolean isEmpty = false;//是否设置过空视图了
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_store, container, false);
@@ -187,7 +189,9 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
                     else
                         prl_store.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                     adapter.setData(list, currentService);
-                } else {
+                    isEmpty = false;
+                } else if (!isEmpty) {
+                    isEmpty = true;
                     EmptyTools.setEmptyView(baseContext, prl_store);
                     EmptyTools.setImg(R.drawable.mycar_icon);
                     EmptyTools.setMessage("当前还没有租户信息");

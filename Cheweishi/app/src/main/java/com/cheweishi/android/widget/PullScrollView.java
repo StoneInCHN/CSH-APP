@@ -185,7 +185,22 @@ public class PullScrollView extends ScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return onTouchEvent(ev) || super.onInterceptTouchEvent(ev);
+
+        if (null != mContentView) {
+            int action = ev.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    mStartPoint.set(ev.getX(), ev.getY());
+                    mCurrentTop = mInitTop = mHeader.getTop();
+                    mCurrentBottom = mInitBottom = mHeader.getBottom();
+                    return super.onInterceptTouchEvent(ev);
+            }
+        }
+
+////        return onTouchEvent(ev) || super.onInterceptTouchEvent(ev);
+//        boolean is = super.onInterceptTouchEvent(ev);
+//        LogHelper.d("scrollview onInterceptTouchEvent:" + is);
+        return super.onInterceptTouchEvent(ev);
     }
 
     @Override
@@ -224,7 +239,7 @@ public class PullScrollView extends ScrollView {
             }
         }
 
-//        // 禁止控件本身的滑动.
+        // 禁止控件本身的滑动.
         boolean isHandle = isMoving;
         if (!isMoving) {
             try {
@@ -233,7 +248,10 @@ public class PullScrollView extends ScrollView {
                 Log.w(LOG_TAG, e);
             }
         }
-        return isMoving;
+        return isHandle;
+//        boolean is = super.onTouchEvent(ev);
+//        LogHelper.d("scrollview onTouchEvent:"+is);
+//        return is;
     }
 
     /**

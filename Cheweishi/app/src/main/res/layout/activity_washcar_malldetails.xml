@@ -36,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="250dp"
                 android:background="@color/white"
-
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/small_padding"
                 android:paddingLeft="@dimen/normal_padding"
@@ -219,7 +218,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="30dp"
                 android:background="@color/gray_backgroud" />
 
             <!--android:focusable="true"

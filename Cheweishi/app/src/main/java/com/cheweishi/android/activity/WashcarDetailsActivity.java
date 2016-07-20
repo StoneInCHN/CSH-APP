@@ -37,6 +37,7 @@ import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
+import com.cheweishi.android.utils.ScreenUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.BaiduMapView;
 import com.cheweishi.android.widget.PullScrollView;
@@ -85,6 +86,8 @@ public class WashcarDetailsActivity extends BaseActivity implements
      * 来自我的订单列表预约中
      */
     public static final int INDEX_FROM_ING = 1006;
+
+    private int tempHead = 0;//顶部距离
 
     @ViewInject(R.id.include_tenant_title)
     private View title; // 顶部视图
@@ -186,13 +189,13 @@ public class WashcarDetailsActivity extends BaseActivity implements
         if (!washCar.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(washCar.getDesc());
 //            psl_tenant_detail.scrollTo(0,0);
-            psl_tenant_detail.smoothScrollTo(0,0);
+            psl_tenant_detail.smoothScrollTo(0, 0);
             return;
         }
 
         setData();
 //        psl_tenant_detail.scrollTo(0,0);
-        psl_tenant_detail.smoothScrollTo(0,0);
+        psl_tenant_detail.smoothScrollTo(0, 0);
         loginResponse.setToken(washCar.getToken());
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
@@ -281,6 +284,25 @@ public class WashcarDetailsActivity extends BaseActivity implements
         for (int i = 0; i < washCar.getMsg().getCarServices().size(); i++) {
             lv_washcar_detils.expandGroup(i);
         }
+        tempHead = getHeight(exListAdapter) - (ScreenUtils.getScreenHeight(baseContext) - psl_tenant_detail.getChildAt(0).getHeight());
+//        LogHelper.d("height:" + tempHead);
+        tempHead = 0 < tempHead ? tempHead : 0;
+//        LogHelper.d("height:" + tempHead);
+    }
+
+    private int getHeight(ExpandableListViewAdapter adapter) {
+        int totalHeight = 0;
+        for (int i = 0; i < adapter.getGroupCount(); i++) {   //listAdapter.getCount()返回数据项的数目
+            View groupItem = adapter.getGroupView(i, true, null, lv_washcar_detils);
+            groupItem.measure(0, 0);
+            totalHeight += groupItem.getMeasuredHeight();
+            for (int j = 0; j < adapter.getChildrenCount(i); j++) {
+                View listItem = adapter.getChildView(i, j, false, null, lv_washcar_detils);
+                listItem.measure(0, 0);  //计算子项View 的宽高
+                totalHeight += listItem.getMeasuredHeight();  //统计所有子项的总高度
+            }
+        }
+        return totalHeight;
     }
 
     @OnClick({R.id.left_action, R.id.rel_user_comm, R.id.img_maintain_phone,
@@ -356,7 +378,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
 //        LogHelper.d("onScroll:" + y);
         if (0 != y) { // 向上滚动
             title.setVisibility(View.VISIBLE);
-            float alpha = y * 1.0f / 500;
+            float alpha = y * 1.0f / tempHead;
             if (1.0f < alpha)
                 alpha = 1.0f;
             else if (alpha < 0.0f)
