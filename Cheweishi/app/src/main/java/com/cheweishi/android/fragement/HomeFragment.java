@@ -943,10 +943,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (hidden) { // 隐藏了
-            LogHelper.d("隐藏,暂停滚动");
+//            LogHelper.d("隐藏,暂停滚动");
             mygallery.pause();
         } else {
-            LogHelper.d("我获取到焦点了.开始滚动");
+//            LogHelper.d("我获取到焦点了.开始滚动");
             mygallery.start();
         }
         currentHided = hidden;

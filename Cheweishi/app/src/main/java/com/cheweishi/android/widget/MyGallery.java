@@ -22,7 +22,7 @@ public class MyGallery extends Gallery {
             switch (msg.what) {
                 case timerAnimation:
                     int position = getSelectedItemPosition();
-                    LogHelper.d("我在正在滚动:" + position);
+//                    LogHelper.d("我在正在滚动:" + position);
                     if (-1 == position) {
                         destroy();
                         return;
