@@ -800,7 +800,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 
     public void ChangeFragment(int index, Fragment home, Fragment store, Fragment news, Fragment my) {
-        LogHelper.d("current:" + currentIndex + "---" + index);
+//        LogHelper.d("current:" + currentIndex + "---" + index);
         if (0 > index)
             return;
         if (currentIndex == index)

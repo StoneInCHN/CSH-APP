@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
@@ -28,6 +30,7 @@ import com.cheweishi.android.utils.ButtonUtils;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
+import com.cheweishi.android.widget.PullScrollView;
 import com.cheweishi.android.widget.XCRoundImageView;
 
 /**
@@ -77,6 +80,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     //意见反馈
     private LinearLayout ll_feed_back;
 
+    //下拉
+    private PullScrollView psl_my;
+
+    //顶部
+    private ImageView iv_my_top;
+
     private CustomDialog.Builder builder;
     private CustomDialog phoneDialog;
 
@@ -104,6 +113,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         ll_communicate = (LinearLayout) view.findViewById(R.id.ll_communicate);
         ll_feed_back = (LinearLayout) view.findViewById(R.id.ll_feed_back);
         ll_my_default_coupon = (LinearLayout) view.findViewById(R.id.ll_my_default_coupon);
+        psl_my = (PullScrollView) view.findViewById(R.id.psl_my);
+        iv_my_top = (ImageView) view.findViewById(R.id.iv_my_top);
+
+
 
         iv_myAccountUserIcon.setOnClickListener(this);
         tv_setting.setOnClickListener(this);
@@ -124,12 +137,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-    }
 
     private void onLoad() {
         isLoad = true;
+        psl_my.setHeader(iv_my_top);
         XUtilsImageLoader.getxUtilsImageLoader(baseContext,
                 R.drawable.info_touxiang_moren, iv_myAccountUserIcon,
                 loginResponse.getMsg().getPhoto());

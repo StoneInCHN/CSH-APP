@@ -1,15 +1,27 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
     xmlns:tanck="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_backgroud"
-    android:orientation="vertical">
+    android:background="@color/gray_backgroud">
 
-    <ScrollView
+    <ImageView
+        android:id="@+id/iv_my_top"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="-100dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/udesk_defalut_image_loading" />
+
+    <com.cheweishi.android.widget.PullScrollView
+        android:id="@+id/psl_my"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        app:headerHeight="250dp"
+        app:headerVisibleHeight="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,6 +30,7 @@
 
             <RelativeLayout
                 android:id="@+id/ll_myAccount_user"
+                android:layout_marginTop="150dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/home_ring"
@@ -139,12 +152,12 @@
 
                             <TextView
                                 android:id="@+id/tv_my_user_car_id"
-                                android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:textColor="@color/gray_pressed"
-                                android:textSize="14sp" />
+                                android:textSize="14sp"
+                                android:visibility="gone" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -159,14 +172,14 @@
                 android:background="@color/line_gray" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_car_manager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/more_back"
                 android:gravity="center_vertical"
-                android:padding="@dimen/large_padding">
+                android:padding="@dimen/large_padding"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_left_carManager"
@@ -388,6 +401,6 @@
                 android:layout_height="1dp"
                 android:background="@color/line_gray" />
         </LinearLayout>
-    </ScrollView>
+    </com.cheweishi.android.widget.PullScrollView>
 
-</LinearLayout>
+</RelativeLayout>

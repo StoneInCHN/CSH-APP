@@ -209,52 +209,6 @@ public class WashcarDetailsActivity extends BaseActivity implements
         showToast(R.string.server_link_fault);
     }
 
-    /**
-     * 获取从服务器获取的json数据
-     */
-    @Override
-    public void receive(int type, String data) {
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case 1003:
-                receiveHistory(data);
-                break;
-            default:
-                break;
-        }
-    }
-
-    /**
-     * 解析商家详情
-     *
-     * @param data
-     */
-    private void receiveHistory(String data) {
-        if (StringUtil.isEmpty(data)) {
-            showToast(R.string.FAIL);
-            return;
-        }
-        try {
-            JSONObject json = new JSONObject(data);
-            if (StringUtil.isEquals(API.returnSuccess, json.optString("state"),
-                    true)) {
-                Gson gson = new Gson();
-                java.lang.reflect.Type type = new TypeToken<WashCar>() {
-                }.getType();
-                washCar = gson.fromJson(json.optString("data"), type);
-                setData();
-            } else if (API.returnRelogin.equalsIgnoreCase(json
-                    .getString("operationState"))) {
-                ReLoginDialog.getInstance(this).showDialog(
-                        json.optString("message"));
-            } else {
-                showToast(json.getString("message"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     @OnClick(R.id.left_action)
     public void finishActivity(View v) {
