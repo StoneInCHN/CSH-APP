@@ -165,6 +165,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private ServiceListResponse response;
     private AdvResponse advResponse; // 广告数据
 
+    private boolean currentHided = false;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -265,7 +267,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         gridViewAdapter = new MainGridViewAdapter(baseContext, gridInfos);
         gv_service.setAdapter(gridViewAdapter);
         gv_service.setOnItemClickListener(this);
-        imgAdapter = new ImgAdapter((BaseActivity) getActivity(), null, -1);
+        imgAdapter = new ImgAdapter((BaseActivity) getActivity(), null, 0);
         mygallery.setAdapter(imgAdapter);
         getMainData();
     }
@@ -618,9 +620,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         // TODO 更新广告
         InitFocusIndicatorContainer(advResponse);
-        imgAdapter.setData(advResponse);
+        imgAdapter.setData(advResponse, -1);
         mygallery.setFocusable(true);
         mygallery.setOnItemSelectedListener(this);
+        mygallery.start();
     }
 
 
@@ -939,17 +942,22 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(hidden){ // 隐藏了
+        if (hidden) { // 隐藏了
+            LogHelper.d("隐藏,暂停滚动");
             mygallery.pause();
-        }else{
+        } else {
+            LogHelper.d("我获取到焦点了.开始滚动");
             mygallery.start();
         }
+        currentHided = hidden;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mygallery.start();
+//        if (!currentHided && null != advResponse)
+        if (!currentHided)
+            mygallery.start();
         if (null != refresh_scrollview)
             refresh_scrollview.onRefreshComplete();
     }

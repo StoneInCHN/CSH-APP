@@ -15,14 +15,19 @@ import java.util.TimerTask;
 @SuppressWarnings("deprecation")
 public class MyGallery extends Gallery {
 
+
     private static final int timerAnimation = 1;
     private final Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case timerAnimation:
                     int position = getSelectedItemPosition();
-//				Log.i("msg", "position:" + position);
-                    if (position >= (getCount() - 1)) {
+                    LogHelper.d("我在正在滚动:" + position);
+                    if (-1 == position) {
+                        destroy();
+                        return;
+                    }
+                    if (position >= (getCount() % -1)) {
                         onKeyDown(KeyEvent.KEYCODE_DPAD_LEFT, null);
                     } else {
                         onKeyDown(KeyEvent.KEYCODE_DPAD_RIGHT, null);
@@ -71,8 +76,10 @@ public class MyGallery extends Gallery {
         return false;
     }
 
+    @Override
     public boolean onFling(MotionEvent paramMotionEvent1,
                            MotionEvent paramMotionEvent2, float paramFloat1, float paramFloat2) {
+        LogHelper.d("onFling");
         int keyCode;
         if (isScrollingLeft(paramMotionEvent1, paramMotionEvent2)) {
             keyCode = KeyEvent.KEYCODE_DPAD_LEFT;
@@ -84,22 +91,31 @@ public class MyGallery extends Gallery {
     }
 
     public void destroy() {
-        timer.cancel();
-        timer.purge();
-        timer = null;
-        task.cancel();
-        task = null;
+        if (null != timer) {
+            timer.cancel();
+            timer.purge();
+            timer = null;
+        }
+        if (null != task) {
+            task.cancel();
+            task = null;
+        }
     }
 
     public void pause() {
-        timer.cancel();
-        timer.purge();
-        timer = null;
-        task.cancel();
-        task = null;
+        if (null != timer) {
+            timer.cancel();
+            timer.purge();
+            timer = null;
+        }
+        if (null != task) {
+            task.cancel();
+            task = null;
+        }
     }
 
     public void start() {
+        destroy();
         if (null == timer)
             timer = new Timer();
         if (null == task)
@@ -112,4 +128,6 @@ public class MyGallery extends Gallery {
         timer.purge();
         timer.schedule(task, 3000, 3000);
     }
+
+
 }

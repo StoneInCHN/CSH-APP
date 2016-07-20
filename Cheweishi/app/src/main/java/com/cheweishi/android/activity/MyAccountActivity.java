@@ -54,7 +54,7 @@ public class MyAccountActivity extends BaseActivity implements OnClickListener {
     @ViewInject(R.id.ll_setting)
     private LinearLayout ll_setting;
     @ViewInject(R.id.iv_myAccountUserIcon)
-    public static ImageView iv_myAccountUserIcon;
+    private  ImageView iv_myAccountUserIcon;
     @ViewInject(R.id.tv_nickName)
     private TextView tv_nickName;
     @ViewInject(R.id.tv_myDefaultCar)
@@ -247,16 +247,16 @@ public class MyAccountActivity extends BaseActivity implements OnClickListener {
                                 .parse("tel:"
                                         + getResources().getString(
                                         R.string.customerServicePhone)));
-//                        if (ActivityCompat.checkSelfPermission(baseContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-//                            // TODO: Consider calling
-//                            //    ActivityCompat#requestPermissions
-//                            // here to request the missing permissions, and then overriding
-//                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                            //                                          int[] grantResults)
-//                            // to handle the case where the user grants the permission. See the documentation
-//                            // for ActivityCompat#requestPermissions for more details.
-//                            return;
-//                        }
+                        if (ActivityCompat.checkSelfPermission(baseContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
                         startActivity(intent);
 
                     }
@@ -307,6 +307,6 @@ public class MyAccountActivity extends BaseActivity implements OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(broad);
-        iv_myAccountUserIcon = null;
+//        iv_myAccountUserIcon = null;
     }
 }

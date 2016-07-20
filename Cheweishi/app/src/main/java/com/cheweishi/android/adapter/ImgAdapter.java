@@ -1,5 +1,6 @@
 package com.cheweishi.android.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -30,6 +31,10 @@ public class ImgAdapter extends BaseAdapter {
     private AdvResponse adInfos;
     private int returnCount = -1;
 
+    private int h, w;
+
+    private List<ViewHolder> holders = new ArrayList<>();
+
     public ImgAdapter(BaseActivity context, List<Integer> imgList) {
         _context = context;
         this.imgList = imgList;
@@ -40,10 +45,13 @@ public class ImgAdapter extends BaseAdapter {
         _context = context;
         this.adInfos = adInfos;
         this.returnCount = returnCount;
+        w = ScreenTools.getScreentWidth(_context);
+        h = (int) (((float) ScreenTools.getScreentWidth(_context)) * (((float) 80) / ((float) 320)));
     }
 
-    public void setData(AdvResponse adInfos){
+    public void setData(AdvResponse adInfos, int count) {
         this.adInfos = adInfos;
+        this.returnCount = count;
         notifyDataSetChanged();
     }
 
@@ -67,57 +75,47 @@ public class ImgAdapter extends BaseAdapter {
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-        if (convertView == null) {
-            viewHolder = new ViewHolder();
-            ImageView imageView = new ImageView(_context);
-            imageView.setAdjustViewBounds(true);
-            imageView.setScaleType(ScaleType.FIT_XY);
-            imageView.setLayoutParams(new Gallery.LayoutParams(
-                    LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-            convertView = imageView;
-            viewHolder.imageView = (ImageView) convertView;
-            convertView.setTag(viewHolder);
-
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-        if (imgList != null && imgList.size() > 0) {
-            viewHolder.imageView.setImageResource(imgList.get(position
-                    % imgList.size()));
-        } else {
-
-            if (adInfos != null && adInfos.getMsg().size() > 0) {
-                ViewGroup.LayoutParams lp = viewHolder.imageView
-                        .getLayoutParams();
-                lp.width = ScreenTools.getScreentWidth(_context);
-                lp.height = (int) (((float) ScreenTools
-                        .getScreentWidth(_context)) * (((float) 80) / ((float) 320)));
-
-                viewHolder.imageView.setLayoutParams(lp);
-                XUtilsImageLoader.getxUtilsImageLoader(_context,
-                        R.drawable.ad_default_back,
-                        viewHolder.imageView, adInfos.getMsg().get(position % adInfos.getMsg().size()).getAdvImageUrl());
-                // ImageLoader imageLoader = ImageLoader.getInstance();
-                // imageLoader.init(ImageLoaderConfiguration.createDefault(_context));
-                // imageLoader.displayImage(
-                // API.CSH_GET_IMG_BASE_URL
-                // + adInfos.get(position % adInfos.size()).getAdv_content(),
-                // viewHolder.imageView, options);
-
-                viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(_context, WebActivity.class);
-                        intent.putExtra("url", adInfos.getMsg().get(position % adInfos.getMsg().size()).getAdvContentLink());
-                        _context.startActivity(intent);
-                    }
-                });
+        int p = 0;
+        if (null != adInfos && null != adInfos.getMsg() && 0 < adInfos.getMsg().size()) {
+            p = position % adInfos.getMsg().size();
+            try {
+                viewHolder = holders.get(p);
+            } catch (Exception e) {
             }
+            if (null == viewHolder) {
+                viewHolder = new ViewHolder();
+                ImageView imageView = new ImageView(_context);
+                imageView.setAdjustViewBounds(true);
+                imageView.setScaleType(ScaleType.FIT_XY);
+                imageView.setLayoutParams(new Gallery.LayoutParams(
+                        LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                viewHolder.imageView = imageView;
+                holders.add(p, viewHolder);
+//                holders.set(p, viewHolder);
+            }
+
+            ViewGroup.LayoutParams lp = viewHolder.imageView
+                    .getLayoutParams();
+            lp.width = w;
+            lp.height = h;
+            viewHolder.imageView.setLayoutParams(lp);
+            XUtilsImageLoader.getxUtilsImageLoader(_context,
+                    R.drawable.ad_default_back,
+                    viewHolder.imageView, adInfos.getMsg().get(p).getAdvImageUrl());
+            viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(_context, WebActivity.class);
+                    intent.putExtra("url", adInfos.getMsg().get(position % adInfos.getMsg().size()).getAdvContentLink());
+                    _context.startActivity(intent);
+                }
+            });
         }
-        return convertView;
+        return null == viewHolder ? new View(_context) : viewHolder.imageView;
     }
 
     private static class ViewHolder {
         ImageView imageView;
     }
+
 }

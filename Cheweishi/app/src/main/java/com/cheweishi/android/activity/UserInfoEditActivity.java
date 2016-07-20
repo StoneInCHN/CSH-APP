@@ -203,7 +203,6 @@ public class UserInfoEditActivity extends BaseActivity implements
      */
     private void initdata() {
         if (isLogined()) {
-            LogHelper.d("加载头像..." + loginResponse.getMsg().getPhoto());
             XUtilsImageLoader.getxUtilsImageLoader(this,
                     R.drawable.info_touxiang_moren, img_userEdit_userIcon,
                     loginResponse.getMsg().getPhoto());
@@ -856,12 +855,16 @@ public class UserInfoEditActivity extends BaseActivity implements
                         R.drawable.info_touxiang_moren, img_userEdit_userIcon,
                         photoResponse.getMsg().getPhoto());
 
-                XUtilsImageLoader.getxUtilsImageLoader(UserInfoEditActivity.this,
-                        R.drawable.info_touxiang_moren, MyAccountActivity.iv_myAccountUserIcon,
-                        photoResponse.getMsg().getPhoto());
+//                XUtilsImageLoader.getxUtilsImageLoader(UserInfoEditActivity.this,
+//                        R.drawable.info_touxiang_moren, MyAccountActivity.iv_myAccountUserIcon,
+//                        photoResponse.getMsg().getPhoto());
                 loginResponse.getMsg().setPhoto(photoResponse.getMsg().getPhoto());
                 loginResponse.setToken(photoResponse.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                Intent mIntent = new Intent();
+                Constant.CURRENT_REFRESH = Constant.SPECIAL_SIGN_REFRESH;
+                mIntent.setAction(Constant.REFRESH_FLAG);
+                sendBroadcast(mIntent);
             } else {
                 showToast(R.string.server_link_fault);
             }
