@@ -83,7 +83,7 @@ import cn.jpush.android.api.TagAliasCallback;
 /**
  * Created by tangce on 7/6/2016.
  */
-public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
 
     // 服务模块gridview
@@ -122,10 +122,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     // 小圆点容器
     private LinearLayout ll_focus_indicator_container;
 
+    private ImageView iv_home_hascoupon;// 活动中心按钮
+
     // 可下拉刷新的scrollview
     private PullToRefreshScrollView refresh_scrollview;
-
-    private ImageView iv_home_hascoupon;// 活动中心按钮
 
     private TextView tv_home_user_car_full_name; // 车系名字
 
@@ -163,6 +163,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private CustomDialog.Builder builder;
     private CustomDialog versionDialog;
     private ServiceListResponse response;
+    private AdvResponse advResponse; // 广告数据
 
 
     @Override
@@ -264,6 +265,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         gridViewAdapter = new MainGridViewAdapter(baseContext, gridInfos);
         gv_service.setAdapter(gridViewAdapter);
         gv_service.setOnItemClickListener(this);
+        imgAdapter = new ImgAdapter((BaseActivity) getActivity(), null, -1);
+        mygallery.setAdapter(imgAdapter);
         getMainData();
     }
 
@@ -458,7 +461,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 break;
 
             case NetInterface.HOME_ADV:
-                AdvResponse advResponse = (AdvResponse) GsonUtil.getInstance().convertJsonStringToObject(data, AdvResponse.class);
+                advResponse = (AdvResponse) GsonUtil.getInstance().convertJsonStringToObject(data, AdvResponse.class);
                 if (null == advResponse)
                     return;
                 if (!setJpush())
@@ -487,7 +490,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                         MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
                     }
                 }
-                showData(advResponse);
+                showData();
 //                loginResponse.setToken(advResponse.getToken());
 //                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
@@ -611,31 +614,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     /**
      * 显示数据
      */
-    private void showData(final AdvResponse advResponse) {
+    private void showData() {
 
         // TODO 更新广告
         InitFocusIndicatorContainer(advResponse);
-        imgAdapter = new ImgAdapter((BaseActivity) getActivity(), advResponse, -1);
-        mygallery.setAdapter(imgAdapter);
+        imgAdapter.setData(advResponse);
         mygallery.setFocusable(true);
-        mygallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int selIndex, long arg3) {
-//                LogHelper.d("arg3:" + arg3 + "current:" + preSelImgIndex + "---selIndex:" + selIndex + "---size:" + advResponse.getMsg().size());
-                if (advResponse.getMsg() != null && advResponse.getMsg().size() > 0) {
-                    selIndex = selIndex % advResponse.getMsg().size();
-                    portImg.get(preSelImgIndex).setImageResource(
-                            R.drawable.lunbo_dian);
-                    portImg.get(selIndex).setImageResource(
-                            R.drawable.lunbo_dian_click);
-                    preSelImgIndex = selIndex;
-                }
-            }
-
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
+        mygallery.setOnItemSelectedListener(this);
     }
 
 
@@ -952,6 +937,30 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden){ // 隐藏了
+            mygallery.pause();
+        }else{
+            mygallery.start();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mygallery.start();
+        if (null != refresh_scrollview)
+            refresh_scrollview.onRefreshComplete();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mygallery.pause();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
@@ -986,10 +995,22 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         netWorkHelper.PostJson(url, param, this);
     }
 
+
     @Override
-    public void onResume() {
-        super.onResume();
-        if (null != refresh_scrollview)
-            refresh_scrollview.onRefreshComplete();
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int selIndex, long arg3) {
+        //                LogHelper.d("arg3:" + arg3 + "current:" + preSelImgIndex + "---selIndex:" + selIndex + "---size:" + advResponse.getMsg().size());
+        if (advResponse.getMsg() != null && advResponse.getMsg().size() > 0) {
+            selIndex = selIndex % advResponse.getMsg().size();
+            portImg.get(preSelImgIndex).setImageResource(
+                    R.drawable.lunbo_dian);
+            portImg.get(selIndex).setImageResource(
+                    R.drawable.lunbo_dian_click);
+            preSelImgIndex = selIndex;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

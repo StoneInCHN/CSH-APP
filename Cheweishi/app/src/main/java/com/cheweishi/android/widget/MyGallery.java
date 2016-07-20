@@ -7,6 +7,8 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.Gallery;
 
+import com.cheweishi.android.utils.LogHelper;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,8 +37,8 @@ public class MyGallery extends Gallery {
         ;
     };
 
-    private final Timer timer = new Timer();
-    private final TimerTask task = new TimerTask() {
+    private Timer timer = new Timer();
+    private TimerTask task = new TimerTask() {
         public void run() {
             mHandler.sendEmptyMessage(timerAnimation);
         }
@@ -44,19 +46,19 @@ public class MyGallery extends Gallery {
 
     public MyGallery(Context paramContext) {
         super(paramContext);
-        timer.schedule(task, 3000, 3000);
+//        timer.schedule(task, 3000, 3000);
     }
 
     public MyGallery(Context paramContext, AttributeSet paramAttributeSet) {
         super(paramContext, paramAttributeSet);
-        timer.schedule(task, 3000, 3000);
+//        timer.schedule(task, 3000, 3000);
 
     }
 
     public MyGallery(Context paramContext, AttributeSet paramAttributeSet,
                      int paramInt) {
         super(paramContext, paramAttributeSet, paramInt);
-        timer.schedule(task, 3000, 3000);
+//        timer.schedule(task, 3000, 3000);
 
     }
 
@@ -83,6 +85,31 @@ public class MyGallery extends Gallery {
 
     public void destroy() {
         timer.cancel();
+        timer.purge();
+        timer = null;
         task.cancel();
+        task = null;
+    }
+
+    public void pause() {
+        timer.cancel();
+        timer.purge();
+        timer = null;
+        task.cancel();
+        task = null;
+    }
+
+    public void start() {
+        if (null == timer)
+            timer = new Timer();
+        if (null == task)
+            task = new TimerTask() {
+                @Override
+                public void run() {
+                    mHandler.sendEmptyMessage(timerAnimation);
+                }
+            };
+        timer.purge();
+        timer.schedule(task, 3000, 3000);
     }
 }

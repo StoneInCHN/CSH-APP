@@ -42,6 +42,11 @@ public class ImgAdapter extends BaseAdapter {
         this.returnCount = returnCount;
     }
 
+    public void setData(AdvResponse adInfos){
+        this.adInfos = adInfos;
+        notifyDataSetChanged();
+    }
+
     public int getCount() {
         if (returnCount == -1) {
             return Integer.MAX_VALUE;
