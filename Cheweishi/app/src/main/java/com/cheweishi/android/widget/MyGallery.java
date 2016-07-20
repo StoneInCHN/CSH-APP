@@ -27,11 +27,13 @@ public class MyGallery extends Gallery {
                         destroy();
                         return;
                     }
-                    if (position >= (getCount() % -1)) {
-                        onKeyDown(KeyEvent.KEYCODE_DPAD_LEFT, null);
-                    } else {
-                        onKeyDown(KeyEvent.KEYCODE_DPAD_RIGHT, null);
-                    }
+                    onKeyDown(KeyEvent.KEYCODE_DPAD_RIGHT, null);
+//                    if (position >= (getCount() % -1)) {
+//                        onKeyDown(KeyEvent.KEYCODE_DPAD_LEFT, null);
+//                    } else {
+//                        onKeyDown(KeyEvent.KEYCODE_DPAD_RIGHT, null);
+//                    }
+//                    setSelection((position + 1) % 6, true);
                     break;
 
                 default:
