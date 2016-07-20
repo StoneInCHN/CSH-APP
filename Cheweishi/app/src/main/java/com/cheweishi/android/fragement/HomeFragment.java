@@ -269,6 +269,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         gv_service.setOnItemClickListener(this);
         imgAdapter = new ImgAdapter((BaseActivity) getActivity(), null, 0);
         mygallery.setAdapter(imgAdapter);
+        mygallery.setOnItemSelectedListener(this);
         getMainData();
     }
 
@@ -276,28 +277,28 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     /**
      * 初始化百度导航
      */
-    private void iniBaiduNavi() {
-        // 初始化导航引擎
-        BaiduNaviManager.getInstance().initEngine(getActivity(),
-
-                getSdcardDir(), mNaviEngineInitListener, new LBSAuthManagerListener() {
-                    @Override
-                    public void onAuthResult(int status, String msg) {
-                    }
-                });
-    }
-
-
-    private BNaviEngineManager.NaviEngineInitListener mNaviEngineInitListener = new BNaviEngineManager.NaviEngineInitListener() {
-        public void engineInitSuccess() {
-        }
-
-        public void engineInitStart() {
-        }
-
-        public void engineInitFail() {
-        }
-    };
+//    private void iniBaiduNavi() {
+//        // 初始化导航引擎
+//        BaiduNaviManager.getInstance().initEngine(getActivity(),
+//
+//                getSdcardDir(), mNaviEngineInitListener, new LBSAuthManagerListener() {
+//                    @Override
+//                    public void onAuthResult(int status, String msg) {
+//                    }
+//                });
+//    }
+//
+//
+//    private BNaviEngineManager.NaviEngineInitListener mNaviEngineInitListener = new BNaviEngineManager.NaviEngineInitListener() {
+//        public void engineInitSuccess() {
+//        }
+//
+//        public void engineInitStart() {
+//        }
+//
+//        public void engineInitFail() {
+//        }
+//    };
 
     private String getSdcardDir() {
         if (Environment.getExternalStorageState().equalsIgnoreCase(
@@ -622,7 +623,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         InitFocusIndicatorContainer(advResponse);
         imgAdapter.setData(advResponse, -1);
         mygallery.setFocusable(true);
-        mygallery.setOnItemSelectedListener(this);
         mygallery.start();
     }
 

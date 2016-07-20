@@ -11,6 +11,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -74,8 +75,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 设置全屏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
 
         homeUrl = SharePreferenceTools.getPhoneUrl(baseContext);
@@ -190,8 +190,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
             localImageView.setId(i);
             ImageView.ScaleType localScaleType = ImageView.ScaleType.FIT_XY;
             localImageView.setScaleType(localScaleType);
-            LinearLayout.LayoutParams localLayoutParams = new LinearLayout.LayoutParams(
-                    36, 36);
+            LinearLayout.LayoutParams localLayoutParams = new LinearLayout.LayoutParams(36, 36);
             localImageView.setLayoutParams(localLayoutParams);
             localImageView.setPadding(5, 5, 5, 5);
             localImageView.setImageResource(R.drawable.huanyinye_dian);
@@ -231,6 +230,9 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
         handler = null;
         inflater = null;
         timer.cancel();
+        timer = null;
+        task.cancel();
+        task = null;
         System.gc();
         if (imgList != null) {
             imgList.clear();
@@ -270,5 +272,10 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
                 nextStep();
                 break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return true;
     }
 }

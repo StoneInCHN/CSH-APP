@@ -375,7 +375,7 @@ public class MainNewActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (0 != currentIndex) {
             tv_home_bottom_index.setTextColor(getResources().getColor(R.color.orange));
             tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
@@ -392,8 +392,9 @@ public class MainNewActivity extends BaseActivity {
             ExitApp();
             return true;
         }
-        return super.onKeyUp(keyCode, event);
+        return super.onKeyDown(keyCode, event);
     }
+
 
     @Override
     protected void onNewIntent(Intent intent) {
