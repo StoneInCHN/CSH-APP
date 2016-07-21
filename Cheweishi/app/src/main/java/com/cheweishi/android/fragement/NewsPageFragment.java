@@ -1,12 +1,15 @@
 package com.cheweishi.android.fragement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.cheweishi.android.R;
+import com.cheweishi.android.activity.WebActivity;
 import com.cheweishi.android.adapter.NewsListAdapter;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
@@ -24,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2 {
+public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2, AdapterView.OnItemClickListener {
 
     public static final String ARG_PAGE = "ARG_PAGE";
 
@@ -89,6 +92,7 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
         listView.setAdapter(adapter);
         listView.setMode(PullToRefreshBase.Mode.DISABLED);
         listView.setOnRefreshListener(this);
+        listView.setOnItemClickListener(this);
         loading.sendEmptyMessageDelayed(0x10, 500);
     }
 
@@ -163,11 +167,22 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-
+        currentPage = 1;
+        list.clear();
+        sendPacket(1);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+        currentPage++;
+        sendPacket(1);
+    }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        position = position - 1;
+        Intent intent = new Intent(baseContext, WebActivity.class);
+        intent.putExtra("id", list.get(position).getId());
+        startActivity(intent);
     }
 }

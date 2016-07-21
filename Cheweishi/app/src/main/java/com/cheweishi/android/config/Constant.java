@@ -86,13 +86,6 @@ public class Constant {
     // 密码Publick key
     public static final String SERVER_PUBLIC_KEY_STORE = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCBMPGboxzPh9SApXHBKMQHF31rgB6LQBZxg3VirK9Rbp0qvgIDw+2ygZxPQAkgiK24PTWuBbw2UTNy5NxglSCsCnY8+vJXd8cwZKrBpnwXEcO0Wuh5G8Z++X0AIisMCIoiDZZwWnvqJ7a3vUQIj62qTX259s0UqvjGA7uvoDM9tQIDAQAB";
 
-
-    //用户id
-    public static final String USER_ID = "userid";
-
-    //当前用户toke
-    public static final String CURRENT_TOKEN = "token";
-
     //自动登录
     public static final String AUTO_LOGIN = "AUTO_LOGIN";
 }

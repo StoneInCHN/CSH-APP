@@ -163,6 +163,8 @@ public class NetInterface {
 
     public static final String GET_NEWS_LIST = "getNewsList";//获取新闻列表内容
 
+    public static final String READ_NEWS = "readNewsDetail";//阅读新闻
+
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 
 }
