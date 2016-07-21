@@ -63,6 +63,7 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center_vertical"
                     android:singleLine="true"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/item_back"
                     android:textSize="@dimen/key_text_small" />
 
@@ -82,8 +83,9 @@
                     android:textSize="@dimen/titile_side_text_size" />
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45dp"
                     android:layout_alignParentBottom="true"
                     android:layout_below="@id/tv_my_phone"
                     android:background="@color/grid_state_pressed"
@@ -92,14 +94,15 @@
                     <LinearLayout
                         android:id="@+id/ll_my_default_coupon"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1.0"
                         android:gravity="center">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/ic_launcher" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/my_coupon" />
 
                         <TextView
                             android:id="@+id/tv_coupon_number_my"
@@ -121,14 +124,15 @@
                     <LinearLayout
                         android:id="@+id/ll_my_default_car"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1.0"
                         android:gravity="center">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/ic_launcher" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/my_car" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -149,7 +153,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:textColor="@color/gray_pressed"
+                                android:textColor="@color/line_gray"
                                 android:textSize="14sp"
                                 android:visibility="gone" />
                         </LinearLayout>
@@ -273,9 +277,10 @@
 
                 <TextView
                     android:id="@+id/tv_my_scan"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:drawableLeft="@drawable/myorder"
                     android:drawablePadding="@dimen/normal_padding"
                     android:ellipsize="end"
@@ -284,6 +289,16 @@
                     android:singleLine="true"
                     android:text="@string/main_saoyisao"
                     android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/key_text_small" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:singleLine="true"
+                    android:text="@string/mpic_desc"
+                    android:textColor="@color/gray_pressed"
                     android:textSize="@dimen/key_text_small" />
             </LinearLayout>
 

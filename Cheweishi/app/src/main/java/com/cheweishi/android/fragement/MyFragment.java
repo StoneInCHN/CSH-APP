@@ -151,7 +151,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             tv_my_user_car_id.setVisibility(View.VISIBLE);
             tv_my_user_car_id.setText(plate);
         }
-        tv_my_name.setText(loginResponse.getMsg().getNickName());
+
+        tv_my_name.setText(StringUtil.isEmpty(loginResponse.getMsg().getNickName()) ? getResources().getText(R.string.app_name) : loginResponse.getMsg().getNickName());
         tv_my_phone.setText(loginResponse.getMsg().getUserName());
 
     }

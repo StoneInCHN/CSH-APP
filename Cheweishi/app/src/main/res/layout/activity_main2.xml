@@ -89,9 +89,9 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/home_home" />
 
             <TextView
                 android:id="@+id/tv_home_bottom_index"
@@ -111,9 +111,9 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/home_store" />
 
             <TextView
                 android:id="@+id/tv_home_bottom_store"
@@ -133,9 +133,9 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/home_news" />
 
             <TextView
                 android:id="@+id/tv_home_bottom_news"
@@ -155,9 +155,9 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/home_my" />
 
             <TextView
                 android:id="@+id/tv_home_bottom_my"

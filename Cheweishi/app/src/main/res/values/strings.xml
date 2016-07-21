@@ -316,6 +316,7 @@
     <string name="no_money">0元</string>
     <string name="my_money">我的钱包</string>
     <string name="purposes_desc">劵、积分、余额、优惠券</string>
+    <string name="mpic_desc">购买设备、绑定商户</string>
     <string name="my_order">我的订单</string>
     <string name="msg_center">消息中心</string>
     <string name="say_something">说点什么吧</string>
