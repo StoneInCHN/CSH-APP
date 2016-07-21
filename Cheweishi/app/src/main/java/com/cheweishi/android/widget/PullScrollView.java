@@ -111,6 +111,16 @@ public class PullScrollView extends ScrollView {
      */
     private State mState = State.NORMAL;
 
+    /**
+     * 是否需要同步
+     */
+    private boolean mNeedScrollSync = false;
+
+
+    public void setNeedScrollSync(boolean mNeedScrollSync) {
+        this.mNeedScrollSync = mNeedScrollSync;
+    }
+
     public PullScrollView(Context context) {
         super(context);
         init(context, null);
@@ -135,8 +145,10 @@ public class PullScrollView extends ScrollView {
 
             if (ta != null) {
                 mHeaderHeight = (int) ta.getDimension(R.styleable.PullScrollView_headerHeight, -1);
+//                mHeaderHeight = -1 == mHeaderHeight ? 50 : mHeaderHeight;
                 mHeaderVisibleHeight = (int) ta.getDimension(R.styleable
                         .PullScrollView_headerVisibleHeight, -1);
+//                mHeaderVisibleHeight = -1 == mHeaderVisibleHeight ? 50 : mHeaderVisibleHeight;
                 ta.recycle();
             }
         }
@@ -194,6 +206,12 @@ public class PullScrollView extends ScrollView {
                     mCurrentTop = mInitTop = mHeader.getTop();
                     mCurrentBottom = mInitBottom = mHeader.getBottom();
                     return super.onInterceptTouchEvent(ev);
+                case MotionEvent.ACTION_MOVE:
+                    float deltaY = Math.abs(ev.getY() - mStartPoint.y);
+                    if (deltaY > 10 && deltaY > Math.abs(ev.getX() - mStartPoint.x)) {
+                        return true;
+                    }
+                    break;
             }
         }
 
@@ -307,7 +325,8 @@ public class PullScrollView extends ScrollView {
             mCurrentBottom = (int) (mInitBottom + headerMoveHeight);
 
             // 计算content移动距离(手势移动的距离*阻尼系数)
-            float contentMoveHeight = deltaY * SCROLL_RATIO;
+//            float contentMoveHeight = deltaY * SCROLL_RATIO;
+            float contentMoveHeight = mNeedScrollSync ? deltaY * 0.5f * SCROLL_RATIO : deltaY * SCROLL_RATIO;
 
             // 修正content移动的距离，避免超过header的底边缘
             int headerBottom = mCurrentBottom - mHeaderVisibleHeight;

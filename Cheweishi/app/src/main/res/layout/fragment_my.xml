@@ -1,18 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/tools"
-    xmlns:tanck="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_backgroud">
 
-    <ImageView
+    <View
         android:id="@+id/iv_my_top"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="-100dp"
-        android:contentDescription="@null"
-        android:scaleType="fitXY"
-        android:src="@drawable/udesk_defalut_image_loading" />
+        android:layout_height="300dp"
+        android:layout_marginTop="-300dp"
+        android:background="@color/home_ring" />
 
     <com.cheweishi.android.widget.PullScrollView
         android:id="@+id/psl_my"
@@ -20,8 +17,8 @@
         android:layout_height="match_parent"
         android:overScrollMode="never"
         android:scrollbars="none"
-        app:headerHeight="250dp"
-        app:headerVisibleHeight="100dp">
+        app:headerHeight="300dp"
+        app:headerVisibleHeight="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,12 +26,9 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/ll_myAccount_user"
-                android:layout_marginTop="150dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/home_ring"
-                android:orientation="horizontal">
+                android:background="@color/home_ring">
 
                 <com.cheweishi.android.widget.XCRoundImageView
                     android:id="@+id/iv_myAccountUserIcon"
@@ -44,8 +38,8 @@
                     android:layout_marginTop="30dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/info_touxiang_moren"
-                    tanck:border_outside_color="@color/hyal_head"
-                    tanck:border_thickness="3dp" />
+                    app:border_outside_color="@color/hyal_head"
+                    app:border_thickness="3dp" />
 
 
                 <TextView

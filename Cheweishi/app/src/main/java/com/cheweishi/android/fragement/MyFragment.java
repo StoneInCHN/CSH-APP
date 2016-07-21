@@ -84,7 +84,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private PullScrollView psl_my;
 
     //顶部
-    private ImageView iv_my_top;
+    private View iv_my_top;
 
     private CustomDialog.Builder builder;
     private CustomDialog phoneDialog;
@@ -114,8 +114,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         ll_feed_back = (LinearLayout) view.findViewById(R.id.ll_feed_back);
         ll_my_default_coupon = (LinearLayout) view.findViewById(R.id.ll_my_default_coupon);
         psl_my = (PullScrollView) view.findViewById(R.id.psl_my);
-        iv_my_top = (ImageView) view.findViewById(R.id.iv_my_top);
-
+        iv_my_top = view.findViewById(R.id.iv_my_top);
 
 
         iv_myAccountUserIcon.setOnClickListener(this);
@@ -141,6 +140,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private void onLoad() {
         isLoad = true;
         psl_my.setHeader(iv_my_top);
+        psl_my.setNeedScrollSync(true);
         XUtilsImageLoader.getxUtilsImageLoader(baseContext,
                 R.drawable.info_touxiang_moren, iv_myAccountUserIcon,
                 loginResponse.getMsg().getPhoto());
