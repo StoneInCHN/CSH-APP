@@ -158,7 +158,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private int[] icon = {R.drawable.xian, R.drawable.xiche,
             R.drawable.jinjijiuyuan, R.drawable.baoyang, R.drawable.jiayouzhan,
             0, 0, R.drawable.meirong, R.drawable.dongtai, R.drawable.weizhang,
-            R.drawable.chewei, R.drawable.chewei};
+            R.drawable.chewei, R.drawable.home_more};
 
     private CustomDialog.Builder builder;
     private CustomDialog versionDialog;

@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
                 android:gravity="center"
+                android:drawableLeft="@drawable/news_read_count"
                 android:text="1111"
                 android:textColor="@color/light_gray"
                 android:textSize="14sp" />
@@ -84,6 +85,7 @@
                 android:layout_weight="1.0"
                 android:gravity="center"
                 android:text="1111"
+                android:drawableLeft="@drawable/news_count"
                 android:textColor="@color/light_gray"
                 android:textSize="14sp" />
 
@@ -94,6 +96,7 @@
                 android:layout_weight="1.0"
                 android:gravity="center"
                 android:text="1111"
+                android:drawableLeft="@drawable/news_like"
                 android:textColor="@color/light_gray"
                 android:textSize="14sp" />
 

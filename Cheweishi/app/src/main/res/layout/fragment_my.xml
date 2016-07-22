@@ -281,7 +281,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/myorder"
+                    android:drawableLeft="@drawable/scan_icon"
                     android:drawablePadding="@dimen/normal_padding"
                     android:ellipsize="end"
                     android:gravity="center_vertical"

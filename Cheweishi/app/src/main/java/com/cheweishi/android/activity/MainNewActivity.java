@@ -280,6 +280,10 @@ public class MainNewActivity extends BaseActivity {
     }
 
     public void home() {
+        ((ImageView) ll_home_bottom_index.getChildAt(0)).setImageResource(R.drawable.home_home_select);
+        ((ImageView) ll_home_bottom_store.getChildAt(0)).setImageResource(R.drawable.home_store);
+        ((ImageView) ll_home_bottom_news.getChildAt(0)).setImageResource(R.drawable.home_news);
+        ((ImageView) ll_home_bottom_my.getChildAt(0)).setImageResource(R.drawable.home_my);
         tv_home_bottom_index.setTextColor(getResources().getColor(R.color.orange));
         tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
         tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
@@ -291,6 +295,10 @@ public class MainNewActivity extends BaseActivity {
     }
 
     private void store() {
+        ((ImageView) ll_home_bottom_index.getChildAt(0)).setImageResource(R.drawable.home_home);
+        ((ImageView) ll_home_bottom_store.getChildAt(0)).setImageResource(R.drawable.home_store_select);
+        ((ImageView) ll_home_bottom_news.getChildAt(0)).setImageResource(R.drawable.home_news);
+        ((ImageView) ll_home_bottom_my.getChildAt(0)).setImageResource(R.drawable.home_my);
         tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
         tv_home_bottom_store.setTextColor(getResources().getColor(R.color.orange));
         tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
@@ -307,6 +315,10 @@ public class MainNewActivity extends BaseActivity {
     }
 
     private void news() {
+        ((ImageView) ll_home_bottom_index.getChildAt(0)).setImageResource(R.drawable.home_home);
+        ((ImageView) ll_home_bottom_store.getChildAt(0)).setImageResource(R.drawable.home_store);
+        ((ImageView) ll_home_bottom_news.getChildAt(0)).setImageResource(R.drawable.home_news_select);
+        ((ImageView) ll_home_bottom_my.getChildAt(0)).setImageResource(R.drawable.home_my);
         tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
         tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
         tv_home_bottom_news.setTextColor(getResources().getColor(R.color.orange));
@@ -318,6 +330,10 @@ public class MainNewActivity extends BaseActivity {
     }
 
     private void my() {
+        ((ImageView) ll_home_bottom_index.getChildAt(0)).setImageResource(R.drawable.home_home);
+        ((ImageView) ll_home_bottom_store.getChildAt(0)).setImageResource(R.drawable.home_store);
+        ((ImageView) ll_home_bottom_news.getChildAt(0)).setImageResource(R.drawable.home_news);
+        ((ImageView) ll_home_bottom_my.getChildAt(0)).setImageResource(R.drawable.home_my_select);
         tv_home_bottom_index.setTextColor(getResources().getColor(R.color.gray));
         tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
         tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));

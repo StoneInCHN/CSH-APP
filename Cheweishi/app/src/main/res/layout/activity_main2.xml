@@ -91,14 +91,14 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/home_home" />
+                android:src="@drawable/home_home_select" />
 
             <TextView
                 android:id="@+id/tv_home_bottom_index"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="首页"
-                android:textColor="@color/gray" />
+                android:textColor="@color/orange" />
         </LinearLayout>
 
         <LinearLayout
