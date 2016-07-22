@@ -46,7 +46,6 @@
             android:ellipsize="end"
             android:maxEms="15"
             android:singleLine="true"
-            android:text="高速公路快速行驶高速公路快速行驶"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -56,7 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:maxLines="2"
-            android:text="高速公路快速行驶高速公路快速行驶"
             android:textColor="@color/light_gray"
             android:textSize="14sp" />
 
@@ -72,9 +70,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:gravity="center"
                 android:drawableLeft="@drawable/news_read_count"
-                android:text="1111"
+                android:gravity="center|left"
+                android:text="0"
                 android:textColor="@color/light_gray"
                 android:textSize="14sp" />
 
@@ -83,9 +81,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:gravity="center"
-                android:text="1111"
                 android:drawableLeft="@drawable/news_count"
+                android:gravity="center|left"
+                android:text="0"
                 android:textColor="@color/light_gray"
                 android:textSize="14sp" />
 
@@ -94,9 +92,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:gravity="center"
-                android:text="1111"
                 android:drawableLeft="@drawable/news_like"
+                android:gravity="center|left"
+                android:text="0"
                 android:textColor="@color/light_gray"
                 android:textSize="14sp" />
 
