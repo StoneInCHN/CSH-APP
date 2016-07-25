@@ -9,15 +9,18 @@ import android.view.Window;
 import android.webkit.DownloadListener;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cheweishi.android.R;
+import com.cheweishi.android.adapter.PessanyAdapter;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ReadNewsResponse;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
@@ -39,6 +42,12 @@ public class WebActivity extends BaseActivity implements OnClickListener {
     private String newsId;// 新闻id
     private String url;//web url
     private String title;//标题
+    private View web_bottom;//顶部评论
+    private EditText et_web;//评论输入
+    private Button bt_web;//评论
+    private TextView tv_web_comment;//评论个数
+    private TextView tv_web_like;// 喜欢个数
+    private int like = -1;//点赞
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +57,7 @@ public class WebActivity extends BaseActivity implements OnClickListener {
         tvTitle = (TextView) findViewById(R.id.web_title);
         loading = (ProgressBar) findViewById(R.id.pb_web_loading);
         tvLeft = (Button) findViewById(R.id.left_action);
+
 
         tvLeft.setOnClickListener(this);
         tvLeft.setOnClickListener(new OnClickListener() {
@@ -75,6 +85,13 @@ public class WebActivity extends BaseActivity implements OnClickListener {
                 openWebView(url);
             }
         } else { // 为新闻
+            web_bottom = findViewById(R.id.web_bottom);
+            et_web = (EditText) findViewById(R.id.et_web);
+            bt_web = (Button) findViewById(R.id.bt_web);
+            tv_web_comment = (TextView) findViewById(R.id.tv_web_comment);
+            tv_web_like = (TextView) findViewById(R.id.tv_web_like);
+            tv_web_like.setOnClickListener(this);
+            bt_web.setOnClickListener(this);
             sendPacketForUrl();
         }
     }
@@ -107,9 +124,33 @@ public class WebActivity extends BaseActivity implements OnClickListener {
                 url = newsResponse.getMsg().getContentUrl();
                 if (StringUtil.isEmpty(url))
                     finish();
+                web_bottom.setVisibility(View.VISIBLE);
+                tv_web_comment.setText(newsResponse.getMsg().getReadCounts());
+                tv_web_like.setText(newsResponse.getMsg().getLikeCounts());
                 openWebView(url);
-
                 loginResponse.setToken(newsResponse.getToken());
+                break;
+            case NetInterface.DO_COMMENT: // 评论
+                BaseResponse response = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+                if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(response.getDesc());
+                    return;
+                }
+                et_web.setText("");
+                sendPacketForUrl();
+                loginResponse.setToken(response.getToken());
+                break;
+            case NetInterface.DO_LIKE: // 点赞
+                BaseResponse likeResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+                if (!likeResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(likeResponse.getDesc());
+                    return;
+                }
+                // UPDATE ui
+                String temp = tv_web_like.getText().toString();
+                temp = String.valueOf((Integer.valueOf(temp) + like));
+                tv_web_like.setText(temp);
+                loginResponse.setToken(likeResponse.getToken());
                 break;
         }
     }
@@ -159,7 +200,45 @@ public class WebActivity extends BaseActivity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        finish();
+        switch (v.getId()) {
+            case R.id.bt_web: // 评论
+                String content = et_web.getText().toString();
+                if (!StringUtil.isEmpty(content))
+                    doComment(content);
+                break;
+            case R.id.tv_web_like://点赞
+                doLike();
+                break;
+            case R.id.left_action: // 左上角
+                finish();
+                break;
+        }
+
+    }
+
+    private void doComment(String content) {
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_NEWS + NetInterface.DO_COMMENT + NetInterface.SUFFIX;
+        Map<String, Object> para = new HashMap<>();
+        para.put("userId", loginResponse.getDesc());
+        para.put("token", loginResponse.getToken());
+        para.put("newsId", newsId);
+        para.put("comment", content);
+        para.put(Constant.PARAMETER_TAG, NetInterface.DO_COMMENT);
+        netWorkHelper.PostJson(url, para, this);
+    }
+
+    private void doLike() {
+        like = -1 == like ? 1 : -1;
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_NEWS + NetInterface.DO_LIKE + NetInterface.SUFFIX;
+        Map<String, Object> para = new HashMap<>();
+        para.put("userId", loginResponse.getDesc());
+        para.put("token", loginResponse.getToken());
+        para.put("newsId", newsId);
+        para.put("doLikeOpr", like);
+        para.put(Constant.PARAMETER_TAG, NetInterface.DO_LIKE);
+        netWorkHelper.PostJson(url, para, this);
     }
 
 

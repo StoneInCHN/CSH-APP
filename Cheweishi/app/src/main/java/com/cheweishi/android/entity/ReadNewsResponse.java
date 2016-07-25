@@ -24,6 +24,24 @@ public class ReadNewsResponse extends BaseResponse {
     public static class MsgBean {
         private String contentUrl;
         private String title;
+        private String readCounts;
+        private String likeCounts;
+
+        public String getReadCounts() {
+            return readCounts;
+        }
+
+        public void setReadCounts(String readCounts) {
+            this.readCounts = readCounts;
+        }
+
+        public String getLikeCounts() {
+            return likeCounts;
+        }
+
+        public void setLikeCounts(String likeCounts) {
+            this.likeCounts = likeCounts;
+        }
 
         public String getTitle() {
             return title;

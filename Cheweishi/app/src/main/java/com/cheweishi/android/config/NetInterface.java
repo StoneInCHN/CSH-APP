@@ -165,6 +165,10 @@ public class NetInterface {
 
     public static final String READ_NEWS = "readNewsDetail";//阅读新闻
 
+    public static final String DO_COMMENT = "doComment";//评论新闻
+
+    public static final String DO_LIKE = "doLikeClick";//用户点赞
+
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 
 }
