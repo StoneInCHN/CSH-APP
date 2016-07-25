@@ -50,6 +50,7 @@ public class MyGallery extends Gallery {
             mHandler.sendEmptyMessage(timerAnimation);
         }
     };
+    private float oldX;
 
     public MyGallery(Context paramContext) {
         super(paramContext);
@@ -71,8 +72,10 @@ public class MyGallery extends Gallery {
 
     private boolean isScrollingLeft(MotionEvent paramMotionEvent1,
                                     MotionEvent paramMotionEvent2) {
-        float f2 = paramMotionEvent2.getX();
-        float f1 = paramMotionEvent1.getX();
+        float f1, f2;
+        f1 = null != paramMotionEvent1 ? paramMotionEvent1.getX() : oldX;
+        f2 = null != paramMotionEvent2 ? paramMotionEvent2.getX() : 0;
+        LogHelper.d("onFling:" + f1 + "----2:" + f2);
         if (f2 > f1)
             return true;
         return false;
@@ -81,14 +84,16 @@ public class MyGallery extends Gallery {
     @Override
     public boolean onFling(MotionEvent paramMotionEvent1,
                            MotionEvent paramMotionEvent2, float paramFloat1, float paramFloat2) {
-        LogHelper.d("onFling");
+//        LogHelper.d("onFling");
         int keyCode;
         if (isScrollingLeft(paramMotionEvent1, paramMotionEvent2)) {
             keyCode = KeyEvent.KEYCODE_DPAD_LEFT;
         } else {
             keyCode = KeyEvent.KEYCODE_DPAD_RIGHT;
         }
+//        LogHelper.d("onFling:" + keyCode);
         onKeyDown(keyCode, null);
+        start();
         return true;
     }
 
@@ -117,6 +122,7 @@ public class MyGallery extends Gallery {
     }
 
     public void start() {
+//        LogHelper.d("我开始滚动了");
         destroy();
         if (null == timer)
             timer = new Timer();
@@ -131,5 +137,21 @@ public class MyGallery extends Gallery {
         timer.schedule(task, 3000, 3000);
     }
 
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        int action = ev.getAction();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                oldX = ev.getX();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (10 < Math.abs(ev.getX() - oldX)) {
+                    pause();
+                    return true;
+                }
+                break;
+        }
 
+        return super.onInterceptTouchEvent(ev);
+    }
 }
