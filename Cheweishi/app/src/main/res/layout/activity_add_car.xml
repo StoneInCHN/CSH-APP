@@ -136,10 +136,10 @@
                         android:background="@null"
                         android:drawableRight="@drawable/right"
                         android:editable="false"
-                        android:singleLine="true"
-                        android:maxLength="20"
                         android:gravity="right"
                         android:hint="@string/carModelChoose"
+                        android:maxLength="20"
+                        android:singleLine="true"
                         android:textColor="@color/black"
                         android:textSize="@dimen/titile_side_text_size" />
                 </LinearLayout>
@@ -652,11 +652,11 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="match_parent"
@@ -672,8 +672,8 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="@dimen/normal_padding"
-                    android:visibility="gone"
-                    android:singleLine="true">
+                    android:singleLine="true"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -807,6 +807,45 @@
                         android:background="@color/line_gray" />
                 </LinearLayout>
 
+                <RelativeLayout
+                    android:id="@+id/rl_add_car_default"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="@dimen/normal_padding"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/car_default"
+                        android:textColor="@color/gray_normal"
+                        android:textSize="@dimen/titile_side_text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cb_add_car_default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:button="@drawable/check" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/normal_marging"
+                        android:layout_marginRight="@dimen/normal_marging"
+                        android:background="@color/line_gray" />
+                </LinearLayout>
+
                 <Button
                     android:id="@+id/bt_addCar"
                     android:layout_width="match_parent"
@@ -898,10 +937,10 @@
             </LinearLayout>
 
             <!--<com.cheweishi.android.widget.WheelView-->
-                <!--android:id="@+id/car_wheel"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1" />-->
+            <!--android:id="@+id/car_wheel"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1" />-->
         </LinearLayout>
     </LinearLayout>
 

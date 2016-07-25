@@ -390,7 +390,7 @@ public abstract class BaseActivity extends FragmentActivity implements
     }
 
     /**
-     * 判断是否绑定车辆
+     * 判断是否有车辆
      *
      * @return
      */

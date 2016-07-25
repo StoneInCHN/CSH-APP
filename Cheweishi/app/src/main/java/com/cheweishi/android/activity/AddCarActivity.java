@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,10 +23,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
@@ -39,7 +41,6 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ImgDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.MyCarManagerResponse;
-import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.AllCapTransformationMethod;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
@@ -47,7 +48,6 @@ import com.cheweishi.android.tools.RegularExpressionTools;
 import com.cheweishi.android.tools.ReturnBackDialogRemindTools;
 import com.cheweishi.android.utils.CommonUtils;
 import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
@@ -72,8 +72,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author Xiaojin车辆管理-绑定车辆/编辑车辆
@@ -190,8 +188,16 @@ public class AddCarActivity extends BaseActivity {
     private ImgDialog imgDialog;
     @ViewInject(R.id.img_vin_desc)
     private ImageView img_vin_desc;
+    @ViewInject(R.id.rl_add_car_default)
+    private RelativeLayout rl_add_car_default;//设置默认
+    @ViewInject(R.id.cb_add_car_default)
+    private CheckBox cb_add_car_default;//设置默认的按钮
+
+    private boolean mNeedDefault = false;//是否需要默认
 
     private boolean isNeedBingd = true;
+
+    private boolean mIsChecked = true;
 
     // private DateTimeSelectorDialog dateDialog;
     @Override
@@ -270,6 +276,15 @@ public class AddCarActivity extends BaseActivity {
             carManagerTemp = (MyCarManagerResponse.MsgBean) getIntent().getExtras()
                     .getSerializable("car");
             if (carManagerTemp != null) {
+
+                // 编辑车辆判断是否编辑默认车辆
+                if (carManagerTemp.getPlate().equals(loginResponse.getMsg().getDefaultVehiclePlate())) { // 有车
+                    mNeedDefault = true;
+                    rl_add_car_default.setVisibility(View.GONE);
+                } else { // 不是编辑的默认车辆
+                    mNeedDefault = false;
+                    rl_add_car_default.setVisibility(View.VISIBLE);
+                }
                 title.setText(R.string.car_edit);
                 brandId = carManagerTemp.getVehicleFullBrand();
 //                styleId = String.valueOf(carManagerTemp.getId());
@@ -406,7 +421,7 @@ public class AddCarActivity extends BaseActivity {
                     break;
                 }
             }
-            LogHelper.d("---" + MyMapUtils.getCity(AddCarActivity.this));
+//            LogHelper.d("---" + MyMapUtils.getCity(AddCarActivity.this));
             bt_char.setText("A");
             tv_color_flag.setBackgroundResource(R.color.red);
             color = getResources().getString(R.string.color_red);
@@ -414,6 +429,14 @@ public class AddCarActivity extends BaseActivity {
             tv_car_color.setHint(R.string.null_hint);
             tv_car_color.setVisibility(View.GONE);
 
+            // 判断是否有车
+            if (hasCar()) { // 有车
+                mNeedDefault = false;
+                rl_add_car_default.setVisibility(View.VISIBLE);
+            } else { // 没得车
+                mNeedDefault = true;
+                rl_add_car_default.setVisibility(View.GONE);
+            }
         }
 
     }
@@ -476,6 +499,12 @@ public class AddCarActivity extends BaseActivity {
         tv_last_keepFit.setOnFocusChangeListener(foucusListener);
         tv_car_vin.setOnFocusChangeListener(foucusListener);// .setOnClickListener(listener);
         tv_car_device.setOnFocusChangeListener(foucusListener);
+        cb_add_car_default.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mIsChecked = isChecked;
+            }
+        });
     }
 
     /**
@@ -839,6 +868,11 @@ public class AddCarActivity extends BaseActivity {
                 param.put("nextAnnualInspection", tv_annualSurvey.getText());
                 param.put("driveMileage", Long.parseLong(tv_car_mile.getText().toString()));
                 param.put("lastMaintainMileage", Long.parseLong(tv_last_keepFit.getText().toString()));
+                if(mNeedDefault){
+                    param.put("isDefault",mNeedDefault);
+                }else{
+                    param.put("isDefault",mIsChecked);
+                }
                 String url;
                 if (null == carManagerTemp) { // 添加
                     url = NetInterface.BASE_URL + NetInterface.TEMP_CAR_URL + NetInterface.ADD + NetInterface.SUFFIX;

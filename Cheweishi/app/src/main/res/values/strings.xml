@@ -1238,6 +1238,7 @@
     <string name="age_unit">&#160;岁</string>
     <string name="brith_change_age">选择出生日期，系统将会自动转化为年龄</string>
     <string name="title_activity_footmark_setting">FootmarkSettingActivity</string>
+    <string name="car_default">设置默认</string>
 
     <!-- 驾驶时间 -->
     <string name="drive_time_results_str1">其中最长连续驾驶</string>
