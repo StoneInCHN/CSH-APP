@@ -137,6 +137,7 @@ public class StoreListAdapter extends BaseAdapter {
             holder.showMoney.setVisibility(View.VISIBLE);
             holder.moneyDesc.setVisibility(View.VISIBLE);
             holder.pay.setVisibility(View.VISIBLE);
+            holder.serviceDesc.setVisibility(View.VISIBLE);
             holder.pay.setBackgroundResource(R.drawable.pay_click_selector);
             holder.pay.setTextColor(context.getResources().getColor(R.color.main_blue));
             holder.pay.setText("支付");
@@ -166,6 +167,7 @@ public class StoreListAdapter extends BaseAdapter {
                 }
             });
         } else { // 不是洗车服务
+            holder.serviceDesc.setVisibility(View.GONE);
             holder.money.setVisibility(View.GONE);
             holder.showMoney.setVisibility(View.GONE);
             holder.moneyDesc.setVisibility(View.GONE);
