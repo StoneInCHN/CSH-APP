@@ -151,8 +151,10 @@ public class XUtilsImageLoader {
      */
     public static XUtilsImageLoader getxUtilsImageLoader(
             Context context, int resid, ImageView imageView, String uri) {
-        if (null == uri)
+        if (null == uri) {
+            imageView.setImageResource(resid);
             return null;
+        }
 
         mImageLoader = getInstance(context, resid);
         picasso
@@ -171,9 +173,11 @@ public class XUtilsImageLoader {
      * @return
      */
     public static XUtilsImageLoader getxUtilsImageLoader(
-            Context context, int resid,int errorid, ImageView imageView, String uri) {
-        if (null == uri)
+            Context context, int resid, int errorid, ImageView imageView, String uri) {
+        if (null == uri) {
+            imageView.setImageResource(errorid);
             return null;
+        }
 
         mImageLoader = getInstance(context, resid);
         picasso

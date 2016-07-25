@@ -90,7 +90,7 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
 //        LogHelper.d("onVisible:" + mPage);
         adapter = new NewsListAdapter(baseContext, list);
         listView.setAdapter(adapter);
-        listView.setMode(PullToRefreshBase.Mode.DISABLED);
+        listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         listView.setOnRefreshListener(this);
         listView.setOnItemClickListener(this);
         loading.sendEmptyMessageDelayed(0x10, 500);
@@ -143,8 +143,8 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
             list.addAll(temp);
             if (list.size() < total)
                 listView.setMode(PullToRefreshBase.Mode.BOTH);
-            else if (5 > list.size())
-                listView.setMode(PullToRefreshBase.Mode.DISABLED);
+//            else if (5 > list.size())
+//                listView.setMode(PullToRefreshBase.Mode.DISABLED);
             else
                 listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
             adapter.setData(list);

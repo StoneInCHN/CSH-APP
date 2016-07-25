@@ -114,7 +114,7 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
 
         adapter = new StoreListAdapter(baseContext, list);
         prl_store.setAdapter(adapter);
-        prl_store.setMode(PullToRefreshBase.Mode.DISABLED);
+        prl_store.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         prl_store.setOnRefreshListener(this);
         prl_store.setOnItemClickListener(this);
     }
@@ -184,8 +184,8 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
                     list.addAll(temp);
                     if (list.size() < total)
                         prl_store.setMode(PullToRefreshBase.Mode.BOTH);
-                    else if (5 > list.size())
-                        prl_store.setMode(PullToRefreshBase.Mode.DISABLED);
+//                    else if (5 > list.size())
+//                        prl_store.setMode(PullToRefreshBase.Mode.DISABLED);
                     else
                         prl_store.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                     adapter.setData(list, currentService);
