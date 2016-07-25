@@ -34,6 +34,7 @@ import com.cheweishi.android.activity.CouponActivity;
 import com.cheweishi.android.activity.CreditActivity;
 import com.cheweishi.android.activity.FindParkingSpaceActivity;
 import com.cheweishi.android.activity.GasStationActivity;
+import com.cheweishi.android.activity.HomeMoreActivity;
 import com.cheweishi.android.activity.LoginActivity;
 import com.cheweishi.android.activity.MainNewActivity;
 import com.cheweishi.android.activity.MaintainListActivity_new;
@@ -267,7 +268,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //            gridInfo.setImgUrl("asdasdas");// TODO:暂无可配图片地址
             gridInfos.add(gridInfo);
         }
-        gridViewAdapter = new MainGridViewAdapter(baseContext, gridInfos);
+        gridViewAdapter = new MainGridViewAdapter(baseContext, gridInfos, true);
         gv_service.setAdapter(gridViewAdapter);
         gv_service.setOnItemClickListener(this);
         imgAdapter = new ImgAdapter((BaseActivity) getActivity(), null, 0);
@@ -676,7 +677,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             String logs;
             switch (code) {
                 case 0:
-                    logs = "Set tag and alias success";
                     if (!StringUtil.isEmpty(alias)) {
                         LogHelper.d("==alias=" + alias);
                     }
@@ -903,7 +903,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //                isLoginOrHasCar(PessanySearchActivity.class);
                 break;
             case 11:// 更多
-                showToast("敬请期待");
+//                showToast("敬请期待");
+                Intent more = new Intent(baseContext, HomeMoreActivity.class);
+                startActivity(more);
                 break;
 //            case 8:// 车辆动态
 //                updateCache("CAR_DETECTION");

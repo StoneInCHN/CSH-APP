@@ -24,6 +24,7 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.entity.MainGridInfo;
 import com.cheweishi.android.tools.ScreenTools;
 import com.cheweishi.android.utils.DisplayUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 
 /**
@@ -35,10 +36,14 @@ public class MainGridViewAdapter extends BaseAdapter {
 
     private List<MainGridInfo> list;
     private Context mContext;
+    private TextView textView;
+    private ImageView imageView;
+    private boolean showIcon;//是否展示中间标志
 
-    public MainGridViewAdapter(Context mContext, List<MainGridInfo> list) {
+    public MainGridViewAdapter(Context mContext, List<MainGridInfo> list, boolean showIcon) {
         this.mContext = mContext;
         this.list = list;
+        this.showIcon = showIcon;
     }
 
     @Override
@@ -59,67 +64,28 @@ public class MainGridViewAdapter extends BaseAdapter {
     @SuppressLint("ResourceAsColor")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
-        if (convertView == null) {
-            holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(
-                    R.layout.item_main_gridview, null);
-            holder.textView = (TextView) convertView.findViewById(R.id.tv_name);
-            holder.imageView = (ImageView) convertView
-                    .findViewById(R.id.img_icon);
-            convertView.setBackgroundResource(R.drawable.more_back);
-            if (position == 5) {
-                float f = 1;
-//				float p = 12.5f;
-                if (ScreenTools.getScreentWidth((Activity) mContext) <= 480) {
-                    f = 0.5f;
-//					p = 13f;
-                } else {
-                    f = 1;
-//					p = 12.5f;
-                }
-                convertView.setLayoutParams(new LayoutParams(ScreenTools.getScreentWidth((Activity) mContext) / 2 - DisplayUtil.dip2px(mContext, f), LayoutParams.WRAP_CONTENT));
-                holder.textView.setVisibility(View.GONE);
-                holder.imageView.setImageResource(R.drawable.main_logo);
-                convertView.setBackgroundResource(R.color.white);
-//				holder.imageView.setPadding(0, DisplayUtil.dip2px(mContext, 12.5f), 0, DisplayUtil.dip2px(mContext, p));
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.item_main_gridview, null);
+        textView = (TextView) convertView.findViewById(R.id.tv_name);
+        imageView = (ImageView) convertView.findViewById(R.id.img_icon);
+        convertView.setBackgroundResource(R.drawable.more_back);
+        if (!showIcon || (position != 5 && position != 6)) {
+            textView.setText(list.get(position).getName());
+            imageView.setImageResource(list.get(position).getImgId());
+        } else if (showIcon && position == 5) {
+            float f;
+            if (ScreenTools.getScreentWidth((Activity) mContext) <= 480) {
+                f = 0.5f;
+            } else {
+                f = 1;
             }
-            if (position == 6) {
-                convertView.setVisibility(View.GONE);
-            }
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-        if (!StringUtil.isEmpty(list) && list.size() > position) {
-            if (position != 5 && position != 6) {
-//				holder.imageView.setImageResource(R.drawable.main_logo);
-//				holder.textView.setVisibility(View.GONE);
-//			}else {
-                holder.textView.setText(list.get(position).getName());
-                holder.imageView.setImageResource(list.get(position).getImgId());
-//			}
-
-//			DisplayImageOptions options = new DisplayImageOptions.Builder()
-//					.cacheInMemory(true).cacheOnDisk(true)
-//					.showImageForEmptyUri(R.drawable.ic_launcher)
-//					.showImageOnFail(R.drawable.ic_launcher)
-//					.showImageOnLoading(R.drawable.ic_launcher)
-//					.bitmapConfig(Bitmap.Config.RGB_565).build();
-//
-//			// if (imgListStr != null && imgListStr.size() > 0) {
-//			ImageLoader.getInstance().displayImage(
-//					"http://115.28.161.11:8080/XAI/appDownLoad/downLoadPhoto?path="
-//							+ list.get(position), holder.imageView, options);
-            }
+            convertView.setLayoutParams(new LayoutParams(ScreenTools.getScreentWidth((Activity) mContext) / 2 - DisplayUtil.dip2px(mContext, f), LayoutParams.WRAP_CONTENT));
+            textView.setVisibility(View.GONE);
+            imageView.setImageResource(R.drawable.main_logo);
+            convertView.setBackgroundResource(R.color.white);
+        } else if (showIcon && position == 6) {
+            convertView.setVisibility(View.GONE);
         }
         return convertView;
-    }
-
-
-    class ViewHolder {
-        TextView textView;
-        ImageView imageView;
     }
 
 }

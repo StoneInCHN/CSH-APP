@@ -204,4 +204,10 @@ public class PessanySearchActivity extends BaseActivity implements
         param.put(Constant.PARAMETER_TAG, NetInterface.LIST + "CHANGE");
         netWorkHelper.PostJson(url, param, this);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EmptyTools.destory();
+    }
 }

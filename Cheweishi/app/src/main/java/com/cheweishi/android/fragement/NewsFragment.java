@@ -96,4 +96,11 @@ public class NewsFragment extends BaseFragment {
         if (!hidden && !isLoaded)
             loading.sendEmptyMessage(0x2);
     }
+
+
+    public void getDataForNews() {
+        if (!isLoaded)
+            return;
+        sendPacket();
+    }
 }

@@ -319,6 +319,11 @@ public class MainNewActivity extends BaseActivity {
         store.getDataForWashCar();
     }
 
+    public void loadNews() {
+        news();
+        news.getDataForNews();
+    }
+
     private void news() {
         ((ImageView) ll_home_bottom_index.getChildAt(0)).setImageResource(R.drawable.home_home);
         ((ImageView) ll_home_bottom_store.getChildAt(0)).setImageResource(R.drawable.home_store);
@@ -424,9 +429,9 @@ public class MainNewActivity extends BaseActivity {
 //        LogHelper.d("onNewIntent----------onNewIntent");
         if (intent.getBooleanExtra(getResources().getString(R.string.store_wash_the_car), false)) { // 洗车的情况
             loadWashCarStore();
-            return;
-        }
-        if (null != home) {
+        } else if (intent.getBooleanExtra(getResources().getString(R.string.newnotify), false)) { // 新闻资讯
+            loadNews();
+        } else if (null != home) {
             home();
             home.onDataLoading(0x1);
         }
