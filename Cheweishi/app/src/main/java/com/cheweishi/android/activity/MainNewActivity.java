@@ -309,6 +309,11 @@ public class MainNewActivity extends BaseActivity {
         ChangeFragment(1, home, store, news, my);
     }
 
+    public void goToCarManager() {
+        Intent intent = new Intent(baseContext, CarManagerActivity.class);
+        startActivity(intent);
+    }
+
     public void loadWashCarStore() {
         store();
         store.getDataForWashCar();
@@ -416,7 +421,11 @@ public class MainNewActivity extends BaseActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        LogHelper.d("onNewIntent----------onNewIntent");
+//        LogHelper.d("onNewIntent----------onNewIntent");
+        if (intent.getBooleanExtra(getResources().getString(R.string.store_wash_the_car), false)) { // 洗车的情况
+            loadWashCarStore();
+            return;
+        }
         if (null != home) {
             home();
             home.onDataLoading(0x1);
@@ -426,4 +435,6 @@ public class MainNewActivity extends BaseActivity {
     public int getBottomHeight() {
         return ll_home_bottom.getHeight();
     }
+
+
 }

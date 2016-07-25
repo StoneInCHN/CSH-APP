@@ -133,7 +133,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private ImageView iv_home_user_car; // 车icon
 
-    private TextView tv_home_weather;// 天气
+    public static TextView tv_home_weather;// 天气
 
     private RelativeLayout rl_home_top_info;//顶部信息
 
@@ -990,8 +990,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             case R.id.rl_integral_mall:// 积分商城
                 getDuiBaUrl();
                 break;
-            case R.id.rl_home_top_info: // 洗车
-                ((MainNewActivity) getActivity()).loadWashCarStore();
+            case R.id.rl_home_top_info: // 去我的车辆
+                ((MainNewActivity) getActivity()).goToCarManager();
                 break;
         }
     }

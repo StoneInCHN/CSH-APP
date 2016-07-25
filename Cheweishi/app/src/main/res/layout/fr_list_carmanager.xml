@@ -9,8 +9,7 @@
     <include layout="@layout/title" />
 
 
-    <include
-        layout="@layout/no_data" />
+    <include layout="@layout/no_data" />
 
     <RelativeLayout
         android:id="@+id/rl_car_manager"
@@ -29,7 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:text="适合洗车" />
+                android:textColor="@color/light_gray"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <FrameLayout

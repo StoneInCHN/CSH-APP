@@ -1,5 +1,6 @@
 package com.cheweishi.android.activity;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.entity.LoginUserInfoResponse;
 import com.cheweishi.android.entity.MyCarManagerResponse;
+import com.cheweishi.android.fragement.HomeFragment;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.DialogTool;
@@ -96,6 +98,10 @@ public class CarManagerActivity extends BaseActivity implements
     @ViewInject(R.id.tv_no_data)
     private TextView tv_no_data;
 
+    //洗车参数
+    @ViewInject(R.id.ll_car_manager_bottom)
+    private LinearLayout ll_car_manager_bottom;
+
     private static final float DEFAULT_MIN_ALPHA = 0.0f;
     private float mMinAlpha = DEFAULT_MIN_ALPHA;
     private MyCarManagerResponse response;
@@ -120,11 +126,12 @@ public class CarManagerActivity extends BaseActivity implements
         right_action.setText(R.string.button_add);
         ll_car_manager_no_data.setVisibility(View.GONE);
         ll_car_manager_edit.setOnClickListener(this);
+        ((TextView) ll_car_manager_bottom.getChildAt(0)).setText(HomeFragment.tv_home_weather.getText());
         connectToServer();
     }
 
 
-    @OnClick({R.id.ll_car_manager_no_data, R.id.left_action, R.id.right_action})
+    @OnClick({R.id.ll_car_manager_no_data, R.id.left_action, R.id.right_action, R.id.ll_car_manager_bottom})
     @Override
     public void onClick(View arg0) {
         switch (arg0.getId()) {
@@ -145,6 +152,13 @@ public class CarManagerActivity extends BaseActivity implements
                 bundle.putSerializable("car", response.getMsg().get(CurrentPosition));
                 edit.putExtras(bundle);
                 startActivity(edit);
+                break;
+            case R.id.ll_car_manager_bottom://洗车
+                Intent home = new Intent(baseContext, MainNewActivity.class);
+                home.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                home.putExtra(getResources().getString(R.string.store_wash_the_car), true);
+                startActivity(home);
+                finish();
                 break;
         }
     }
@@ -209,7 +223,6 @@ public class CarManagerActivity extends BaseActivity implements
 
     @Override
     public void receive(String TAG, String data) {
-        ProgrosDialog.closeProgrosDialog();
         switch (TAG) {
             case NetInterface.LIST:
                 response = (MyCarManagerResponse) GsonUtil.getInstance().convertJsonStringToObject(data, MyCarManagerResponse.class);
@@ -241,6 +254,7 @@ public class CarManagerActivity extends BaseActivity implements
 
                 loginResponse.setToken(response.getToken());
                 LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                ProgrosDialog.closeProgrosDialog();
                 break;
             case NetInterface.SET_DEFAULT_DEVICE:
 
