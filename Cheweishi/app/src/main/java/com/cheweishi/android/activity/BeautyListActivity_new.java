@@ -134,7 +134,7 @@ public class BeautyListActivity_new extends BaseActivity implements
                         }
                     }
                     loginResponse.setToken(response.getToken());
-                    LoginMessageUtils.saveloginmsg(baseContext,loginResponse);
+//                    LoginMessageUtils.saveloginmsg(baseContext,loginResponse);
                 } else if (response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
                     // TODO 超时
                     Intent intent = new Intent(BeautyListActivity_new.this, LoginActivity.class);

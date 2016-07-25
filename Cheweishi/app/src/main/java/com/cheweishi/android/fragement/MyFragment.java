@@ -60,7 +60,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private TextView tv_my_user_car_number;
 
     //默认车牌号
-    private TextView tv_my_user_car_id;
+    public static TextView tv_my_user_car_id;
 
     //车库
     private LinearLayout ll_my_default_car;

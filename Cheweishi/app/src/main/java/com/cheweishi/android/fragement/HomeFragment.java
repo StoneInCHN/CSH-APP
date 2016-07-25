@@ -222,15 +222,18 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         rl_activity_area.setOnClickListener(this);
         rl_integral_mall.setOnClickListener(this);
 
+        upDateCar();
+
+
+    }
+
+    private void upDateCar() {
         if (isLogined()) {
             XUtilsImageLoader.getxUtilsImageLoader(baseContext, R.drawable.tianjiacar_img2x, iv_home_user_car, loginResponse.getMsg().getDefaultVehicleIcon());
             tv_home_user_car_full_name.setText(loginResponse.getMsg().getDefaultVehicle());
             tv_home_user_car_name.setText(loginResponse.getMsg().getDefaultVehiclePlate());
         }
-
-
     }
-
 
     @Override
     public void onDataLoading(int what) {
@@ -299,7 +302,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //        public void engineInitFail() {
 //        }
 //    };
-
     private String getSdcardDir() {
         if (Environment.getExternalStorageState().equalsIgnoreCase(
                 Environment.MEDIA_MOUNTED)) {
@@ -323,6 +325,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
                 // 执行刷新函数
 //                new GetDataTask().execute();
+                upDateCar();
                 requestAdv();
 //                getMainData();
 //                refresh_scrollview.onRefreshComplete();

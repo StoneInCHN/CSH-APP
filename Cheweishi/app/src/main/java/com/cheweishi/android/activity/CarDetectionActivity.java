@@ -352,6 +352,12 @@ public class CarDetectionActivity extends BaseActivity {
         registerReceiver(broad, intentFilter);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broad);
+    }
+
     private class DeteBroadcastReceiver extends BroadcastReceiver {
 
         @Override

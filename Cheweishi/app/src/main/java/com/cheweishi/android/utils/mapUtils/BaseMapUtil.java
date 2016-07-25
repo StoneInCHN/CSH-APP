@@ -44,6 +44,7 @@ public class BaseMapUtil {
 	private static final int DEFAULT_POLYLINE_COLOR = Color.rgb(255, 0, 0);
 
 	private BaiduMap mBaiduMap;
+	private OnMarkerClickListener listener;
 
 	public BaseMapUtil(BaiduMap mBaiduMap) {
 		this.mBaiduMap = mBaiduMap;
@@ -309,10 +310,10 @@ public class BaseMapUtil {
 	 * activity/fragment onDestory()调用
 	 */
 	public void onDestory() {
-		// TODO sth
 		// TODO 关闭定位图层
 		if(null!=mBaiduMap) {
-			mBaiduMap.setMyLocationEnabled(false);
+			mBaiduMap.removeMarkerClickListener(listener);
+//			mBaiduMap.clear();
 			mBaiduMap = null;
 		}
 	}
@@ -329,6 +330,7 @@ public class BaseMapUtil {
 	}
 
 	public void setMarkerListener(OnMarkerClickListener markerClickListener) {
+		this.listener = markerClickListener;
 		mBaiduMap.setOnMarkerClickListener(markerClickListener);
 	}
 }

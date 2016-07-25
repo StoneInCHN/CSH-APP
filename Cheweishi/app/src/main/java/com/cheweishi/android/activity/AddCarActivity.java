@@ -41,6 +41,7 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ImgDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.MyCarManagerResponse;
+import com.cheweishi.android.fragement.MyFragment;
 import com.cheweishi.android.tools.AllCapTransformationMethod;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
@@ -278,7 +279,7 @@ public class AddCarActivity extends BaseActivity {
             if (carManagerTemp != null) {
 
                 // 编辑车辆判断是否编辑默认车辆
-                if (carManagerTemp.getPlate().equals(loginResponse.getMsg().getDefaultVehiclePlate())) { // 有车
+                if (carManagerTemp.isDefault()) { // 有车
                     mNeedDefault = true;
                     rl_add_car_default.setVisibility(View.GONE);
                 } else { // 不是编辑的默认车辆
@@ -854,6 +855,7 @@ public class AddCarActivity extends BaseActivity {
             if (isLogined()) {
                 addCarFlag = true;
 
+
                 ProgrosDialog.openDialog(this);
                 Map<String, Object> param = new HashMap<>();
                 param.put("userId", loginResponse.getDesc());
@@ -868,10 +870,18 @@ public class AddCarActivity extends BaseActivity {
                 param.put("nextAnnualInspection", tv_annualSurvey.getText());
                 param.put("driveMileage", Long.parseLong(tv_car_mile.getText().toString()));
                 param.put("lastMaintainMileage", Long.parseLong(tv_last_keepFit.getText().toString()));
-                if(mNeedDefault){
-                    param.put("isDefault",mNeedDefault);
-                }else{
-                    param.put("isDefault",mIsChecked);
+                if (mNeedDefault) {
+                    param.put("isDefault", mNeedDefault);
+                } else {
+                    param.put("isDefault", mIsChecked);
+                    if (mIsChecked && null != carManagerTemp) { // 更改了
+                        MyFragment.tv_my_user_car_id.setText(carManagerTemp.getPlate());
+                        loginResponse.getMsg().setDefaultVehiclePlate(carManagerTemp.getPlate());
+                        loginResponse.getMsg().setDefaultDeviceNo(carManagerTemp.getDeviceNo());
+                        loginResponse.getMsg().setDefaultVehicle(carManagerTemp.getVehicleFullBrand());
+                        loginResponse.getMsg().setDefaultVehicleIcon(carManagerTemp.getBrandIcon());
+                        loginResponse.getMsg().setDefaultVehicleId(String.valueOf(carManagerTemp.getId()));
+                    }
                 }
                 String url;
                 if (null == carManagerTemp) { // 添加
