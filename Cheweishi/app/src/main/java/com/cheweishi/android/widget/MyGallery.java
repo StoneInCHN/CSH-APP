@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.widget.AdapterView;
 import android.widget.Gallery;
 
 import com.cheweishi.android.utils.LogHelper;
@@ -75,7 +76,7 @@ public class MyGallery extends Gallery {
         float f1, f2;
         f1 = null != paramMotionEvent1 ? paramMotionEvent1.getX() : oldX;
         f2 = null != paramMotionEvent2 ? paramMotionEvent2.getX() : 0;
-        LogHelper.d("onFling:" + f1 + "----2:" + f2);
+//        LogHelper.d("onFling:" + f1 + "----2:" + f2);
         if (f2 > f1)
             return true;
         return false;
@@ -96,6 +97,13 @@ public class MyGallery extends Gallery {
         start();
         return true;
     }
+
+//    @Override
+//    public void setOnItemSelectedListener(OnItemSelectedListener listener) {
+//        super.setOnItemSelectedListener(listener);
+//        LogHelper.d("----");
+//        start();
+//    }
 
     public void destroy() {
         if (null != timer) {
@@ -150,6 +158,11 @@ public class MyGallery extends Gallery {
                     return true;
                 }
                 break;
+//            case MotionEvent.ACTION_CANCEL:
+//            case MotionEvent.ACTION_UP:
+//                LogHelper.d("开始滚动");
+//                start();
+//                break;
         }
 
         return super.onInterceptTouchEvent(ev);
