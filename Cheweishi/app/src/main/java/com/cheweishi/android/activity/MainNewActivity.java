@@ -403,14 +403,19 @@ public class MainNewActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (0 != currentIndex) {
-            tv_home_bottom_index.setTextColor(getResources().getColor(R.color.orange));
-            tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
-            tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
-            tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
-            ll_right_msg.setVisibility(View.VISIBLE);
-            setTitle(bindTitle);
-            ll_home_header.setVisibility(View.VISIBLE);
-            ChangeFragment(0, home, store, news, my);
+//            ((ImageView) ll_home_bottom_index.getChildAt(0)).setImageResource(R.drawable.home_home_select);
+//            ((ImageView) ll_home_bottom_store.getChildAt(0)).setImageResource(R.drawable.home_store);
+//            ((ImageView) ll_home_bottom_news.getChildAt(0)).setImageResource(R.drawable.home_news);
+//            ((ImageView) ll_home_bottom_my.getChildAt(0)).setImageResource(R.drawable.home_my);
+//            tv_home_bottom_index.setTextColor(getResources().getColor(R.color.orange));
+//            tv_home_bottom_store.setTextColor(getResources().getColor(R.color.gray));
+//            tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
+//            tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
+//            ll_right_msg.setVisibility(View.VISIBLE);
+//            setTitle(bindTitle);
+//            ll_home_header.setVisibility(View.VISIBLE);
+//            ChangeFragment(0, home, store, news, my);
+            home();
             return true;
         }
 
