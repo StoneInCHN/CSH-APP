@@ -128,7 +128,7 @@ public class MainListViewAdapter extends BaseAdapter implements OnClickListener 
         }
 
         XUtilsImageLoader.getxUtilsImageLoader(mContext,
-                R.drawable.zhaochewei_img, hodler.img_sellser,
+                R.drawable.udesk_defalut_image_loading, R.drawable.udesk_defualt_failure, hodler.img_sellser,
                 list.get(position).getPhoto());
         if (null != list && null != list.get(position) && null != list.get(position).getCarService() && 0 < list.get(position).getCarService().size()) {
             serviceAdapater = new MianSellerServiceAdapater(mContext,

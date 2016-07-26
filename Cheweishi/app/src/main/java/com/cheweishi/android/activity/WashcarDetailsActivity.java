@@ -226,7 +226,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
     private void setData() {
         XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.udesk_defalut_image_loading, R.drawable.udesk_defualt_failure,
                 iv_tenant_detail, washCar.getMsg().getPhoto());
-        XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.zhaochewei_img,
+        XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.udesk_defalut_image_loading, R.drawable.udesk_defualt_failure,
                 car_iv_location, washCar.getMsg().getPhoto());
         car_tv_car_iv_location.setText(washCar.getMsg().getTenantName());
         if (null != washCar.getMsg().getBusinessTime())

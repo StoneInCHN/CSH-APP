@@ -57,6 +57,8 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
 
     private int total;
 
+    private boolean isHeaderRefresh = false; // 是否为下拉刷新
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +77,12 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
         pullListView.setOnRefreshListener(this);
         pullListView.setOnItemClickListener(this);
-        getServerData();
+        getServerData(0);
     }
 
-    private void getServerData() {
-        ProgrosDialog.openDialog(baseContext);
+    private void getServerData(int type) {
+        if (0 == type)
+            ProgrosDialog.openDialog(baseContext);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_COUPON + NetInterface.GETLISTCOUPON + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
@@ -92,7 +95,7 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
 
     @Override
     public void receive(String TAG, String data) {
-        ProgrosDialog.closeProgrosDialog();
+
         pullListView.onRefreshComplete();
         switch (TAG) {
             case NetInterface.GETLISTCOUPON:
@@ -106,25 +109,31 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
 
                 List<ActivityCouponResponse.MsgBean> temp = couponResponse.getMsg();
 
-                if (null != temp) {
-                    list.addAll(temp);
-                }
-                if (0 == list.size()) {
-                    EmptyTools.setEmptyView(baseContext, pullListView);
-                    EmptyTools.setImg(R.drawable.dingdanwu_icon);
-                    EmptyTools.setMessage("当前暂时没有优惠券活动");
-                    pullListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-                } else {
-                    total = list.size();
-                    adapter.setData(list);
-                    if (10 > list.size()) {
+                if (null != temp && 0 < temp.size()) {
+                    total = couponResponse.getPage().getTotal();
+                    if (isHeaderRefresh) {
+                        list = temp;
+                    } else {
+                        list.addAll(temp);
+                    }
+                    if (list.size() < total) {
+                        pullListView.onRefreshComplete();
+                        pullListView.setMode(PullToRefreshBase.Mode.BOTH);
+                    } else {
+                        pullListView.onRefreshComplete();
                         pullListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                     }
+                    adapter.setData(list);
+                } else {
+                    EmptyTools.setEmptyView(baseContext, pullListView);
+                    EmptyTools.setImg(R.drawable.mycar_icon);
+                    EmptyTools.setMessage("当前暂时没有优惠券活动");
+                    pullListView.onRefreshComplete();
                 }
 
 
                 loginResponse.setToken(couponResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
                 break;
             case NetInterface.GETCOUPON: // 领取优惠券
@@ -141,10 +150,10 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
                 }
 
                 loginResponse.setToken(getCouponResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }
-
+        ProgrosDialog.closeProgrosDialog();
 
     }
 
@@ -162,20 +171,16 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+        isHeaderRefresh = true;
         page = 1;
-        list.clear();
-        getServerData();
+        getServerData(1);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-        if (null != list && list.size() >= total) {
-            showToast("没有更多了");
-            onRefreshOver(refreshView);
-            return;
-        }
+        isHeaderRefresh = false;
         page++;
-        getServerData();
+        getServerData(1);
     }
 
     @Override
