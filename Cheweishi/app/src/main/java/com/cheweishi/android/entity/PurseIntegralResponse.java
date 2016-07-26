@@ -77,12 +77,12 @@ public class PurseIntegralResponse extends BaseResponse {
 
     public static class MsgBean {
         private int id;
-        private int money;
-        private int score;
+        private String money;
+        private String score;
         private String balanceType;
         private long createDate;
         private String remark;
-        private int redPacket;
+        private String redPacket;
 
         public int getId() {
             return id;
@@ -92,19 +92,19 @@ public class PurseIntegralResponse extends BaseResponse {
             this.id = id;
         }
 
-        public int getMoney() {
+        public String getMoney() {
             return money;
         }
 
-        public void setMoney(int money) {
+        public void setMoney(String money) {
             this.money = money;
         }
 
-        public int getScore() {
+        public String getScore() {
             return score;
         }
 
-        public void setScore(int score) {
+        public void setScore(String score) {
             this.score = score;
         }
 
@@ -132,11 +132,11 @@ public class PurseIntegralResponse extends BaseResponse {
             this.remark = remark;
         }
 
-        public int getRedPacket() {
+        public String getRedPacket() {
             return redPacket;
         }
 
-        public void setRedPacket(int redPacket) {
+        public void setRedPacket(String redPacket) {
             this.redPacket = redPacket;
         }
     }

@@ -78,7 +78,7 @@ public class MyCarCouponFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void receive(String data) {
-        mListView.onRefreshComplete();
+
         ProgrosDialog.closeProgrosDialog();
 
         MyCarCouponResponse response = (MyCarCouponResponse) GsonUtil.getInstance().convertJsonStringToObject(data, MyCarCouponResponse.class);
@@ -92,13 +92,16 @@ public class MyCarCouponFragment extends BaseFragment implements AdapterView.OnI
             list.addAll(temp);
             if (0 < list.size()) {
                 adapter.setData(list);
+                mListView.onRefreshComplete();
             } else {
+                mListView.onRefreshComplete();
                 EmptyTools.setEmptyView(baseContext, mListView);
                 EmptyTools.setImg(R.drawable.dingdanwu_icon);
                 EmptyTools.setMessage("您还没有优惠券,赶快去领取吧");
                 mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
             }
         } else {
+            mListView.onRefreshComplete();
             EmptyTools.setEmptyView(baseContext, mListView);
             EmptyTools.setImg(R.drawable.dingdanwu_icon);
             EmptyTools.setMessage("您还没有优惠券,赶快去领取吧");
@@ -107,7 +110,7 @@ public class MyCarCouponFragment extends BaseFragment implements AdapterView.OnI
 
 
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
 
     }

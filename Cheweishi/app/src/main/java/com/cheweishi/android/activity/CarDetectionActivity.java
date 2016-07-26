@@ -131,7 +131,7 @@ public class CarDetectionActivity extends BaseActivity {
                     icon);
         }
 //        }
-
+        msg.add(0, getResources().getString(R.string.car_dynamic));
         getCarReport();
     }
 
@@ -177,6 +177,7 @@ public class CarDetectionActivity extends BaseActivity {
         }
 
         CarDetectionResponse.MsgBean msg = response.getMsg();
+
         try {
             String oil = String.valueOf(msg.getFuelConsumption());
             String avgOil = String.valueOf(msg.getAverageFuelConsumption());
@@ -312,7 +313,6 @@ public class CarDetectionActivity extends BaseActivity {
             case R.id.right_action:// 车辆列表
 //                startActivity(new Intent(CarDetectionActivity.this,
 //                        CarManagerActivity.class));
-                msg.add(0, "车辆动态");
                 showPopupWindow(v);
                 break;
 

@@ -80,7 +80,7 @@ public class NewsListResponse extends BaseResponse {
         private String commentCounts;
         private String likeCounts;
         private String subTitle;
-        private long modifyDate;
+        private long createDate;
         private String readCounts;
         private String id;
         private String title;
@@ -118,11 +118,11 @@ public class NewsListResponse extends BaseResponse {
         }
 
         public long getModifyDate() {
-            return modifyDate;
+            return createDate;
         }
 
         public void setModifyDate(long modifyDate) {
-            this.modifyDate = modifyDate;
+            this.createDate = modifyDate;
         }
 
         public String getReadCounts() {

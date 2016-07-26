@@ -83,7 +83,7 @@
     <string name="home_goto_bind">前往绑定</string>
     <string name="notLogined">您还未登陆</string>
     <string name="noCar">您还未绑定车辆</string>
-    <string name="car_dynamic">车动态</string>
+    <string name="car_dynamic">车辆动态</string>
     <string name="str_forward">前进</string>
     <string name="mycar_now_location">当前位置:</string>
     <string name="mycar_find_car_port">找车位</string>

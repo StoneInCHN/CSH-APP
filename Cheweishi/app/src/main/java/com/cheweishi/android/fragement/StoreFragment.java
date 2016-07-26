@@ -81,6 +81,8 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
 
     private boolean isEmpty = false;//是否设置过空视图了
 
+    private boolean isHeaderRefresh = false; // 是否为下拉刷新
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_store, container, false);
@@ -181,13 +183,20 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
 
                 if (null != temp && 0 < temp.size()) {
                     total = response.getPage().getTotal();
-                    list.addAll(temp);
-                    if (list.size() < total)
+                    if (isHeaderRefresh) {
+                        list = temp;
+                    } else {
+                        list.addAll(temp);
+                    }
+                    if (list.size() < total) {
+                        prl_store.onRefreshComplete();
                         prl_store.setMode(PullToRefreshBase.Mode.BOTH);
 //                    else if (5 > list.size())
 //                        prl_store.setMode(PullToRefreshBase.Mode.DISABLED);
-                    else
+                    } else {
+                        prl_store.onRefreshComplete();
                         prl_store.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                    }
                     adapter.setData(list, currentService);
                     isEmpty = false;
                 } else if (!isEmpty) {
@@ -195,6 +204,7 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
                     EmptyTools.setEmptyView(baseContext, prl_store);
                     EmptyTools.setImg(R.drawable.mycar_icon);
                     EmptyTools.setMessage("当前还没有租户信息");
+                    prl_store.onRefreshComplete();
                 }
 
                 loginResponse.setToken(response.getToken());
@@ -202,7 +212,6 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
         }
 
         ProgrosDialog.closeProgrosDialog();
-        prl_store.onRefreshComplete();
     }
 
     @Override
@@ -397,7 +406,8 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-        list.clear();
+//        list.clear();
+        isHeaderRefresh = true;
         currentPage = 1;
         sendPacket(1, currentSort, currentService);
     }
@@ -406,6 +416,7 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 //        list.clear();
         currentPage++;
+        isHeaderRefresh = false;
         sendPacket(1, currentSort, currentService);
     }
 }

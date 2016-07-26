@@ -52,6 +52,8 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
 
     private int total;
 
+    private boolean isHeadRefresh = false;
+
     public static NewsPageFragment newInstance(int page, int id) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
@@ -140,22 +142,29 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
 
         if (null != temp && 0 < temp.size()) {
             total = response.getPage().getTotal();
-            list.addAll(temp);
-            if (list.size() < total)
+            if (isHeadRefresh) {
+                list = temp;
+            } else {
+                list.addAll(temp);
+            }
+            if (list.size() < total) {
+                listView.onRefreshComplete();
                 listView.setMode(PullToRefreshBase.Mode.BOTH);
-//            else if (5 > list.size())
-//                listView.setMode(PullToRefreshBase.Mode.DISABLED);
-            else
+//            else if (total == list.size())
+//                listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+            } else {
+                listView.onRefreshComplete();
                 listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+            }
             adapter.setData(list);
         } else {
             EmptyTools.setEmptyView(baseContext, listView);
             EmptyTools.setImg(R.drawable.mycar_icon);
             EmptyTools.setMessage("当前列表没有新闻信息");
+            listView.onRefreshComplete();
         }
 
         loginResponse.setToken(response.getToken());
-        listView.onRefreshComplete();
     }
 
     @Override
@@ -168,13 +177,15 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
         currentPage = 1;
-        list.clear();
+//        list.clear();
+        isHeadRefresh = true;
         sendPacket(1);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
         currentPage++;
+        isHeadRefresh = false;
         sendPacket(1);
     }
 

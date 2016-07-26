@@ -321,7 +321,7 @@ public class MainNewActivity extends BaseActivity {
 
     public void loadNews() {
         news();
-        news.getDataForNews();
+//        news.getDataForNews(); //  TODO 暂时不需要Load数据
     }
 
     private void news() {

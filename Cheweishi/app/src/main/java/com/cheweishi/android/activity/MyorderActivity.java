@@ -59,12 +59,13 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
     // @ViewInject(R.id.layoutNoData)
     // private LinearLayout layoutNoData;
     private List<OrderResponse.MsgBean> list = new ArrayList<OrderResponse.MsgBean>();
-    private List<OrderResponse.MsgBean> listTemp;
     private MyorderAdapter adapter;
     private int pageNumber = 1;
     private CustomDialog.Builder builder;
     private CustomDialog deleteDialog;
     private static boolean refresh = false;
+    private int total = 0; //分页总数
+    private boolean isHeaderRefresh = false; //是否下拉刷新
 
     // WashcarHistoryActivity
     @Override
@@ -93,7 +94,7 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
         adapter = new MyorderAdapter(list, this);
         mListView.setAdapter(adapter);
 
-        connectToServer();
+        connectToServer(0);
     }
 
 
@@ -145,8 +146,9 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
         httpBiz.httPostData(10003, API.CSH_MYORDER_LIST_DELETE_URL, rp, this);
     }
 
-    private void connectToServer() {
-        ProgrosDialog.openDialog(this);
+    private void connectToServer(int type) {
+        if (0 == type)
+            ProgrosDialog.openDialog(this);
         // TODO 发包
         String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER + NetInterface.USER_ORDER + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
@@ -172,58 +174,33 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
                 }
 
 
-                listTemp = response.getMsg();
-                if (listTemp.size() == 0 && list.size() == 0) {
-                    // layoutNoData.setVisibility(View.VISIBLE);
-                    EmptyTools.setEmptyView(baseContext, lv_myOrder);
-                    EmptyTools.setImg(R.drawable.dingdanwu_icon);
-                    EmptyTools.setMessage("您还没有订单");
-                } else if (!(StringUtil.isEmpty(listTemp) || listTemp.size() == 0)) {
-                    list.addAll(listTemp);
+                List<OrderResponse.MsgBean> temp = response.getMsg();
+                if (null != temp && 0 < temp.size()) {
+                    total = response.getPage().getTotal();
+                    if (isHeaderRefresh) {
+                        list = temp;
+                    } else {
+                        list.addAll(temp);
+                    }
+                    if (list.size() < total) {
+                        lv_myOrder.onRefreshComplete();
+                        lv_myOrder.setMode(PullToRefreshBase.Mode.BOTH);
+                    } else {
+                        lv_myOrder.onRefreshComplete();
+                        lv_myOrder.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                    }
+                    adapter.setData(list);
                 } else {
-                    showToast(R.string.no_more);
-                    return;
+                    EmptyTools.setEmptyView(baseContext, mListView);
+                    EmptyTools.setImg(R.drawable.mycar_icon);
+                    EmptyTools.setMessage("您当前还没有订单");
+                    lv_myOrder.onRefreshComplete();
                 }
-                adapter.setData(list);
 
                 loginResponse.setToken(response.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-                break;
-            case "reconnection":
-                OrderResponse orderResponse = (OrderResponse) GsonUtil.getInstance().convertJsonStringToObject(data, OrderResponse.class);
-                if (!orderResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-                    showToast(orderResponse.getDesc());
-                    return;
-                }
-
-
-                listTemp = orderResponse.getMsg();
-                if (listTemp.size() == 0 && list.size() == 0) {
-                    // layoutNoData.setVisibility(View.VISIBLE);
-                    EmptyTools.setEmptyView(baseContext, lv_myOrder);
-                    EmptyTools.setImg(R.drawable.dingdanwu_icon);
-                    EmptyTools.setMessage("您还没有订单");
-                } else if (!(StringUtil.isEmpty(listTemp) || listTemp.size() == 0)) {
-                    list.clear();
-                    list.addAll(listTemp);
-                } else {
-                    showToast(R.string.no_more);
-                    return;
-                }
-                adapter.setData(list);
-                loginResponse.setToken(orderResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }
-    }
-
-    @Override
-    public void receive(String data) {
-
-
-//        lv_myOrder.setAdapter(adapter);
-
-
     }
 
     @Override
@@ -236,22 +213,16 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-        // TODO Auto-generated method stub
+        isHeaderRefresh = true;
         pageNumber = 1;
-        list.clear();
-        connectToServer();
+        connectToServer(1);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-        // TODO Auto-generated method stub
-        if (!(StringUtil.isEmpty(listTemp) && listTemp.size() == 20)) {
-            pageNumber++;
-            connectToServer();
-        } else {
-            showToast(R.string.no_more);
-        }
-
+        isHeaderRefresh = false;
+        pageNumber++;
+        connectToServer(1);
     }
 
     @Override
@@ -270,21 +241,8 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
             refresh = true;
         } else {
             // 重新连接
-            reConnection();
+            connectToServer(0);
         }
-    }
-
-
-    private void reConnection() {
-        ProgrosDialog.openDialog(this);
-        String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER + NetInterface.USER_ORDER + NetInterface.SUFFIX;
-        Map<String, Object> param = new HashMap<>();
-        param.put("userId", loginResponse.getDesc());
-        param.put("token", loginResponse.getToken());
-        param.put("pageNumber", pageNumber);
-        param.put("pageSize", 10);
-        param.put(Constant.PARAMETER_TAG, "reconnection");
-        netWorkHelper.PostJson(url, param, this);
     }
 
 

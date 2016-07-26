@@ -61,7 +61,7 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     public void receive(String data) {
-        ProgrosDialog.closeProgrosDialog();
+//        ProgrosDialog.closeProgrosDialog();
         NewsTypeResponse response = (NewsTypeResponse) GsonUtil.getInstance().convertJsonStringToObject(data, NewsTypeResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
@@ -72,11 +72,9 @@ public class NewsFragment extends BaseFragment {
 
         adapter = new NewsFragmentPagerAdapter(((MainNewActivity) baseContext).getSupportFragmentManager(), baseContext, response.getMsg());
         viewPager.setAdapter(adapter);
-        tl_news.setupWithViewPager(viewPager);
-
         if (5 <= response.getMsg().size())
-            tl_news.setTabGravity(TabLayout.MODE_SCROLLABLE);
-
+            tl_news.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tl_news.setupWithViewPager(viewPager);
         loginResponse.setToken(response.getToken());
         BaseActivity.loginResponse = loginResponse;
     }

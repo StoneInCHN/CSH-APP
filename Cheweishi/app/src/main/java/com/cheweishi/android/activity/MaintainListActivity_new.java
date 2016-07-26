@@ -56,17 +56,13 @@ public class MaintainListActivity_new extends BaseActivity implements
     private Button btnLeft;
     @ViewInject(R.id.listview)
     private PullToRefreshListView mListView;
-    @ViewInject(R.id.lay_wash_beauty)
-    private LinearLayout lay_wash_beauty;
-    // private WashcarListAdapter mListViewAdapter;
     private MainListViewAdapter listViewAdapter;
-    // private int count = 0;
     private List<ServiceListResponse.MsgBean> washcarList;
-    private List<LatLng> positionList;
 
     private int page = 1;
 
     private int total;
+    private boolean isHeaderRefresh = false; //是否下拉刷新
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,35 +73,33 @@ public class MaintainListActivity_new extends BaseActivity implements
 
 		/**/
         initView();
-        getDataFromIntent();
+        getDataFromIntent(0);
     }
 
-    private void getDataFromIntent() {
-        if (isLogined()) {
+    private void getDataFromIntent(int type) {
 
+        if (0 == type)
             ProgrosDialog.openDialog(this);
-            String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
-            Map<String, Object> param = new HashMap<>();
-            param.put("userId", loginResponse.getDesc());
-            LogHelper.d("----send:" + loginResponse.getToken());
-            param.put("token", loginResponse.getToken());
-            param.put("latitude", MyMapUtils.getLatitude(this));//维度
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("latitude", MyMapUtils.getLatitude(this));//维度
 //            param.put("latitude", "10");//维度
-            param.put("longitude", MyMapUtils.getLongitude(this));//经度
+        param.put("longitude", MyMapUtils.getLongitude(this));//经度
 //            param.put("longitude", "10");//经度
-            /**
-             * 1保养
-             2	洗车
-             3	维修
-             4	紧急救援
-             5	美容
-             */
-            param.put("serviceCategoryId", 1); // TODO 目前只有一种
-            param.put("pageSize", 5);
-            param.put("pageNumber", page);
-            param.put(Constant.PARAMETER_TAG, NetInterface.LIST);
-            netWorkHelper.PostJson(url, param, this);
-        }
+        /**
+         * 1保养
+         2	洗车
+         3	维修
+         4	紧急救援
+         5	美容
+         */
+        param.put("serviceCategoryId", 1); // TODO 目前只有一种
+        param.put("pageSize", 5);
+        param.put("pageNumber", page);
+        param.put(Constant.PARAMETER_TAG, NetInterface.LIST);
+        netWorkHelper.PostJson(url, param, this);
     }
 
     @Override
@@ -116,32 +110,33 @@ public class MaintainListActivity_new extends BaseActivity implements
             case NetInterface.LIST:
                 ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
                 if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-                    // TODO 成功
-                    if (null != response.getMsg()) {
-                        washcarList.addAll(0 <= (washcarList.size() - 1) ? (washcarList.size() - 1) : 0, response.getMsg());
-                    }
 
-                    if (0 == washcarList.size()) {
+                    List<ServiceListResponse.MsgBean> temp = response.getMsg();
+
+                    if (null != temp && 0 < temp.size()) {
+                        total = response.getPage().getTotal();
+                        if (isHeaderRefresh) {
+                            washcarList = temp;
+                        } else {
+                            washcarList.addAll(temp);
+                        }
+                        if (washcarList.size() < total) {
+                            mListView.onRefreshComplete();
+                            mListView.setMode(PullToRefreshBase.Mode.BOTH);
+                        } else {
+                            mListView.onRefreshComplete();
+                            mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                        }
+                        listViewAdapter.setData(washcarList);
+                    } else {
                         EmptyTools.setEmptyView(baseContext, mListView);
                         EmptyTools.setImg(R.drawable.mycar_icon);
                         EmptyTools.setMessage("当前没有保养信息");
-                    } else {
-                        listViewAdapter.setData(washcarList);
-                        total = response.getPage().getTotal();
-                        if (total < 5) {
-                            mListView.setMode(Mode.PULL_FROM_START);
-                        }
+                        mListView.onRefreshComplete();
                     }
+
                     loginResponse.setToken(response.getToken());
-                    LoginMessageUtils.saveloginmsg(baseContext,loginResponse);
-                } else if (response.getCode().equals(NetInterface.RESPONSE_TOKEN)) {
-                    // TODO 超时
-                    Intent intent = new Intent(MaintainListActivity_new.this, LoginActivity.class);
-                    intent.putExtra(Constant.AUTO_LOGIN, true);
-                    startActivity(intent);
-                    this.finish();
-                    overridePendingTransition(R.anim.score_business_query_enter,
-                            R.anim.score_business_query_exit);
+//                    LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 }
                 break;
         }
@@ -152,21 +147,10 @@ public class MaintainListActivity_new extends BaseActivity implements
     @Override
     public void error(String errorMsg) {
         ProgrosDialog.closeProgrosDialog();
+        mListView.onRefreshComplete();
         showToast(R.string.FAIL);
     }
 
-    @Override
-    public void receive(int type, String data) {
-        ProgrosDialog.closeProgrosDialog();
-        mListView.onRefreshComplete();
-        switch (type) {
-            case 1001:
-                doAboutWashcar(data);
-                break;
-            default:
-                break;
-        }
-    }
 
     private void initView() {
         tvTitle.setText("到店保养");
@@ -175,14 +159,9 @@ public class MaintainListActivity_new extends BaseActivity implements
         mListView.setMode(Mode.BOTH);
 
         washcarList = new ArrayList<ServiceListResponse.MsgBean>();
-//		serviceInfos = new ArrayList<MainSellerServiceInfo>();
         // TODO 修改主页而注释
         listViewAdapter = new MainListViewAdapter(this, washcarList);
         mListView.setAdapter(listViewAdapter);
-        // lay_wash_beauty.setVisibility(View.GONE);
-        // mListViewAdapter = new MainListViewAdapter(mListViewLists, this);
-        // listViewAdapter = new MainListViewAdapter(this, washcarList);
-        // mListView.setAdapter(listViewAdapter);
     }
 
     @OnClick({R.id.left_action, R.id.tvHistory})
@@ -201,92 +180,6 @@ public class MaintainListActivity_new extends BaseActivity implements
         }
     }
 
-    /**
-     * 解析洗车店列表数据
-     *
-     * @param data
-     */
-    private void doAboutWashcar(String data) {
-        if (StringUtil.isEmpty(data)) {
-            showToast(R.string.FAIL);
-            return;
-        }
-        try {
-            JSONObject json = new JSONObject(data);
-            if (StringUtil.isEquals(API.returnSuccess, json.optString("state"),
-                    true)) {
-                JSONArray array = json.optJSONArray("data");
-                JSONObject jsonObject = null;
-                MainSellerInfo sellerInfo = null;
-                for (int i = 0; i < array.length(); i++) {
-                    jsonObject = array.optJSONObject(i);
-                    sellerInfo = new MainSellerInfo();
-                    sellerInfo.setName(jsonObject.optString("store_name"));
-                    sellerInfo.setAddress(jsonObject.optString("address"));
-                    sellerInfo.setImgUrl(jsonObject.optString("image_1"));//
-                    sellerInfo.setEvaluateImg(jsonObject.optInt("evaluateImg"));// ?
-                    sellerInfo.setEvaluate(jsonObject.optString("evaluate"));// ?
-                    String distance = String.format("%.2f",
-                            jsonObject.optDouble("distance") / 1000);
-                    sellerInfo.setDistance(distance + "km");
-                    sellerInfo.setId(jsonObject.optString("id"));
-                    sellerInfo.setAppoint(jsonObject.optString("is_appoint"));
-                    // sellerInfo.setLon(jsonObject.getDouble("lon"));
-
-                    JSONArray array2 = jsonObject.optJSONArray("commodity");
-                    JSONObject object = null;
-                    MainSellerServiceInfo serviceInfo = null;
-                    List<MainSellerServiceInfo> serviceInfos = new ArrayList<MainSellerServiceInfo>();
-                    for (int j = 0; j < array2.length(); j++) {
-                        serviceInfo = new MainSellerServiceInfo();
-                        object = array2.optJSONObject(j);
-                        serviceInfo.setName(object.optString("goods_name"));
-                        serviceInfo.setfPrice(object
-                                .optString("discount_price"));
-                        serviceInfo.setPrice(object.optString("price"));
-                        serviceInfo.setId(object.optString("id"));
-                        serviceInfo.setIsFPrice(object
-                                .optInt("is_discount__price"));
-                        serviceInfo.setIsRed(object.optInt("support_red") + "");
-                        serviceInfo.setCate_id_2(object.optString("cate_id_2"));
-                        serviceInfos.add(serviceInfo);
-                    }
-                    // Log.i("result", "===serviceInfos==" +
-                    // serviceInfos.size());
-                    sellerInfo.setServices(serviceInfos);
-//					washcarList.add(sellerInfo);
-                }
-//				Log.i("result", "===washcarList==" + washcarList.size());
-                if (StringUtil.isEmpty(washcarList) || washcarList.size() <= 0) {
-                    EmptyTools.setEmptyView(this, mListView);
-                    EmptyTools.setImg(R.drawable.dingdanwu_icon);
-                    EmptyTools.setMessage("亲，暂无相关数据");
-                } else {
-                    // TODO 修改主页而注释
-//					listViewAdapter.setData(washcarList);
-                }
-
-            } else if (StringUtil.isEquals(API.returnRelogin,
-                    json.optString("state"), true)) {
-                ReLoginDialog.getInstance(this).showDialog(
-                        json.optString("message"));
-            } else {
-                showToast(json.optString("message"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // @OnCompoundButtonCheckedChange(R.id.cbox_map)
-    // public void turnToMap(View v, boolean isChecked) {
-    // Intent intent = new Intent(this, WashCarActivity.class);
-    // intent.putExtra("index", WashCarActivity.INDEX_FROM_LIST);
-    // intent.putParcelableArrayListExtra("list",
-    // (ArrayList<? extends Parcelable>) mListViewLists);
-    // startActivity(intent);
-    // finish();
-    // }
 
     @Override
     protected void onDestroy() {
@@ -296,19 +189,15 @@ public class MaintainListActivity_new extends BaseActivity implements
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-        washcarList.clear();
-//		serviceInfos.clear();
+        isHeaderRefresh = true;
         page = 1;
-        getDataFromIntent();
+        getDataFromIntent(1);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-        if (null != washcarList && total <= washcarList.size()) {
-            showToast("没有更多记录了");
-            return;
-        }
+        isHeaderRefresh = false;
         page++;
-        getDataFromIntent();
+        getDataFromIntent(1);
     }
 }

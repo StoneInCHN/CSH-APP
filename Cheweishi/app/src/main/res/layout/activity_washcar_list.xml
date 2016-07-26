@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/gray_backgroud"
     android:orientation="vertical">
 
     <!--  -->
@@ -41,12 +41,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/tv_right"
+            android:layout_marginRight="@dimen/normal_padding"
             android:layout_toRightOf="@+id/tv_my_car"
             android:ellipsize="end"
-            android:singleLine="true"
             android:paddingBottom="@dimen/normal_padding"
             android:paddingTop="@dimen/normal_padding"
-            android:layout_marginRight="@dimen/normal_padding"
+            android:singleLine="true"
             android:text="现代 朗动  2015款 1.6L 自动领先型66666"
             android:textSize="@dimen/ttf_fourteen" />
 
@@ -58,7 +58,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/lay_wash_beauty"
         android:descendantFocusability="blocksDescendants"
-        android:listSelector="@android:color/transparent" />
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none" />
 
     <!--  <CheckBox
          android:id="@+id/cbox_map"

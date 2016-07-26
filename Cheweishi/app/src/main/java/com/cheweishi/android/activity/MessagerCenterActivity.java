@@ -671,8 +671,7 @@ public class MessagerCenterActivity extends BaseActivity {
         left_action.setEnabled(true);
         this.left_action.setText(R.string.back);
         // this.left_action.setTextColor(R.color.orange_text_color);
-        this.left_action.setTextColor(MessagerCenterActivity.this
-                .getResources().getColor(R.color.gray_normal_6));
+        this.left_action.setTextColor(getResources().getColor(R.color.gray_normal_6));
 
     }
 
@@ -1069,6 +1068,6 @@ public class MessagerCenterActivity extends BaseActivity {
 
 
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
 }

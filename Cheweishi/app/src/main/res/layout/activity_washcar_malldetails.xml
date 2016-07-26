@@ -44,13 +44,11 @@
 
                 <ImageView
                     android:id="@+id/car_iv_location"
-                    android:layout_width="@dimen/img_start_height"
-                    android:layout_height="@dimen/img_start_height"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentTop="true"
-                    android:adjustViewBounds="true"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/zhaochewei_img" />
+                    android:src="@drawable/udesk_defalut_image_loading" />
+
 
                 <LinearLayout
                     android:id="@+id/linearLayout2"

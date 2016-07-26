@@ -24,10 +24,11 @@
 
         <ImageView
             android:id="@+id/img_sellser"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
             android:scaleType="fitXY"
-            android:src="@drawable/zhaochewei_img" />
+            android:src="@drawable/udesk_defalut_image_loading" />
+
 
         <TextView
             android:id="@+id/tv_seller_name"
