@@ -1324,12 +1324,13 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 
 		LoadingLayout createLoadingLayout(Context context, Mode mode, Orientation scrollDirection, TypedArray attrs) {
 			switch (this) {
+				case FLIP:
 				case ROTATE:
 				default:
 //					return new RotateLoadingLayout(context, mode, scrollDirection, attrs);
 					return new TweenAnimLoadingLayout(context, mode, scrollDirection, attrs);
-				case FLIP:
-					return new FlipLoadingLayout(context, mode, scrollDirection, attrs);
+//				case FLIP:
+//					return new FlipLoadingLayout(context, mode, scrollDirection, attrs);
 			}
 		}
 	}
