@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.entity.NewsListResponse;
+import com.cheweishi.android.utils.LogHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -62,8 +63,8 @@ public class NewsListAdapter extends BaseAdapter {
             holder.time = (TextView) convertView.findViewById(R.id.tv_news_item_time);
             holder.title = (TextView) convertView.findViewById(R.id.tv_news_item_title);
             holder.subTitle = (TextView) convertView.findViewById(R.id.tv_news_item_subtitle);
-            holder.readCount = (TextView) convertView.findViewById(R.id.tv_news_item_red);
-            holder.commentCount = (TextView) convertView.findViewById(R.id.tv_news_item_red);
+            holder.readCount = (TextView) convertView.findViewById(R.id.tv_news_item_read);
+            holder.commentCount = (TextView) convertView.findViewById(R.id.tv_news_item_comment);
             holder.likeCount = (TextView) convertView.findViewById(R.id.tv_news_item_like);
 
             convertView.setTag(holder);
@@ -72,6 +73,7 @@ public class NewsListAdapter extends BaseAdapter {
         }
         XUtilsImageLoader.getxUtilsImageLoader(context, R.drawable.udesk_defalut_image_loading, R.drawable.udesk_defualt_failure, holder.icon, list.get(position).getImgUrl());
 
+//        LogHelper.d("第:" + position + "消息是:" + list.get(position).getReadCounts() + "--" + list.get(position).getTitle());
         holder.title.setText(list.get(position).getTitle());
         holder.subTitle.setText(list.get(position).getSubTitle());
         holder.readCount.setText(list.get(position).getReadCounts());
