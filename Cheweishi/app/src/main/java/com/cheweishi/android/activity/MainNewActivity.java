@@ -304,7 +304,7 @@ public class MainNewActivity extends BaseActivity {
         tv_home_bottom_news.setTextColor(getResources().getColor(R.color.gray));
         tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
         ll_right_msg.setVisibility(View.INVISIBLE);
-        setTitle("门店");
+        setTitle(getResources().getString(R.string.store));
         ll_home_header.setVisibility(View.VISIBLE);
         ChangeFragment(1, home, store, news, my);
     }
@@ -334,7 +334,7 @@ public class MainNewActivity extends BaseActivity {
         tv_home_bottom_news.setTextColor(getResources().getColor(R.color.orange));
         tv_home_bottom_my.setTextColor(getResources().getColor(R.color.gray));
         ll_right_msg.setVisibility(View.INVISIBLE);
-        setTitle("车蓝调");
+        setTitle(getResources().getString(R.string.news));
         ll_home_header.setVisibility(View.VISIBLE);
         ChangeFragment(2, home, store, news, my);
     }
