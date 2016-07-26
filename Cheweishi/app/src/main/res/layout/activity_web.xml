@@ -69,22 +69,25 @@
             android:focusableInTouchMode="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/et_web"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5.0"
-                android:hint="我来说两句..."
+                android:hint="@string/say_two"
                 android:singleLine="true" />
 
             <Button
                 android:id="@+id/bt_web"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1.0"
-                android:text="评论"
+                android:background="@drawable/car_manager_rect_selector"
+                android:text="@string/comment"
+                android:textColor="@color/light_gray"
                 android:textSize="12sp" />
 
             <TextView
@@ -92,8 +95,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:gravity="center_vertical"
                 android:drawableLeft="@drawable/news_read_count"
+                android:gravity="center_vertical"
                 android:text="0"
                 android:textColor="@color/light_gray"
                 android:textSize="12sp" />
@@ -101,10 +104,10 @@
             <TextView
                 android:id="@+id/tv_web_like"
                 android:layout_width="0dp"
-                android:gravity="center_vertical"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
                 android:drawableLeft="@drawable/news_like"
+                android:gravity="center_vertical"
                 android:text="0"
                 android:textColor="@color/light_gray"
                 android:textSize="12sp" />

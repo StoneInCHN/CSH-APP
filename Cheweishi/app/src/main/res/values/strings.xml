@@ -1440,6 +1440,8 @@
     <string name="pay_1000">1000元</string>
     <string name="pay_true">确认充值</string>
 
+
+
     <!-- WXPayEntryACtivity -->
     <string name="app_tip">提示</string>
     <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
@@ -1579,5 +1581,12 @@
 
     <!--租户查看图片详情-->
     <string name="tenant_title_head">租户详情</string>
+
+
+    <string name="comment_content_empty">评论内容不能为空</string>
+
+    <string name="comment">评论</string>
+
+    <string name="say_two">我来说两句...</string>
 
 </resources>

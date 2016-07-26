@@ -203,8 +203,11 @@ public class WebActivity extends BaseActivity implements OnClickListener {
         switch (v.getId()) {
             case R.id.bt_web: // 评论
                 String content = et_web.getText().toString();
-                if (!StringUtil.isEmpty(content))
-                    doComment(content);
+                if (StringUtil.isEmpty(content)) {
+                    showToast(R.string.comment_content_empty);
+                    return;
+                }
+                doComment(content);
                 break;
             case R.id.tv_web_like://点赞
                 doLike();
@@ -246,7 +249,7 @@ public class WebActivity extends BaseActivity implements OnClickListener {
     // 覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && null != mWebView && mWebView.canGoBack()) {
             mWebView.goBack();
             return true;
         }
