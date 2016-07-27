@@ -19,9 +19,11 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.IntegralInfo;
 import com.cheweishi.android.entity.LoginMessage;
+import com.cheweishi.android.entity.OrderResponse;
 import com.cheweishi.android.entity.PurseIntegralResponse;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.DialogTool;
+import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.StringUtil;
@@ -94,6 +96,8 @@ public class PurseIntegralActivity extends BaseActivity implements
     private List<PurseIntegralResponse.MsgBean> mList;
 
     private int pageNumber = 1;
+    private int total = 0;
+    private boolean isHeaderRefresh = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,9 +119,8 @@ public class PurseIntegralActivity extends BaseActivity implements
         left_action.setText(getResources().getString(R.string.back));
         left_action.setOnClickListener(listener);
         ley_integral.setOnClickListener(listener);
-        // TODO 接收数据处理
         tv_balance_num.setText(getIntent().getStringExtra("score"));
-        request();
+        request(1);
     }
 
     private OnClickListener listener = new OnClickListener() {
@@ -249,8 +252,7 @@ public class PurseIntegralActivity extends BaseActivity implements
 
     @Override
     public void receive(String data) {
-        mListView.onRefreshComplete();
-        ProgrosDialog.closeProgrosDialog();
+
         PurseIntegralResponse response = (PurseIntegralResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PurseIntegralResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
@@ -258,19 +260,38 @@ public class PurseIntegralActivity extends BaseActivity implements
         }
 
         List<PurseIntegralResponse.MsgBean> temp = response.getMsg();
-        if (!StringUtil.isEmpty(temp) && temp.size() > 0) {
-            mList.addAll(temp);
+
+        if (null != temp && 0 < temp.size()) {
+            total = response.getPage().getTotal();
+            if (isHeaderRefresh) {
+                mList = temp;
+            } else {
+                mList.addAll(temp);
+            }
+            if (mList.size() < total) {
+                mListView.onRefreshComplete();
+                mListView.setMode(PullToRefreshBase.Mode.BOTH);
+            } else {
+                mListView.onRefreshComplete();
+                mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+            }
             mIntegralAdapter.setList(mList);
+        } else {
+            EmptyTools.setEmptyView(baseContext, mListView);
+            EmptyTools.setImg(R.drawable.mycar_icon);
+            EmptyTools.setMessage("您当前还没有订单");
+            mListView.onRefreshComplete();
         }
 
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-
+//        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+        ProgrosDialog.closeProgrosDialog();
 
     }
 
     @Override
     public void error(String errorMsg) {
+        ProgrosDialog.closeProgrosDialog();
         mListView.onRefreshComplete();
         showToast(R.string.server_link_fault);
     }
@@ -307,8 +328,9 @@ public class PurseIntegralActivity extends BaseActivity implements
     /**
      * 网络请求方法
      */
-    private void request() {
-        ProgrosDialog.openDialog(this);
+    private void request(int type) {
+        if (0 == type)
+            ProgrosDialog.openDialog(this);
         if (isLogined()) {
             String url = NetInterface.BASE_URL + NetInterface.TEMP_USER_BALANCE + NetInterface.WALLET_RECORD + NetInterface.SUFFIX;
             Map<String, Object> param = new HashMap<>();
@@ -324,22 +346,22 @@ public class PurseIntegralActivity extends BaseActivity implements
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+        isHeaderRefresh = true;
         pageNumber = 1;
-        if (!StringUtil.isEmpty(mList)) {
-            mList.clear();
-        }
-        request();
+        request(1);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+        isHeaderRefresh = false;
         pageNumber++;
-        request();
+        request(1);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EmptyTools.destory();
         CreditActivity.creditsListener = null;
     }
 }

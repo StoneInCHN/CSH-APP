@@ -14,8 +14,10 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.OrderResponse;
 import com.cheweishi.android.entity.ReturnTheMoneyInfo;
 import com.cheweishi.android.entity.ChargeResponse;
+import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
@@ -51,34 +53,26 @@ import android.widget.TextView;
  */
 public class PurseBalanceActivity extends BaseActivity implements
         OnRefreshListener2<ListView> {
-    private static final int INSURANCE_CODE = 100001;
     @ViewInject(R.id.left_action)
     private Button left_action;
     @ViewInject(R.id.title)
     private TextView title;
-    @ViewInject(R.id.ll_purse_balance_pay)
-    private LinearLayout ll_purse_balance_pay;
-    @ViewInject(R.id.ll_purse_balance_device)
-    private LinearLayout ll_purse_balance_device;
-    @ViewInject(R.id.xcRoundImg)
-    private XCRoundImageView xcRoundImg;
     @ViewInject(R.id.tv_balance_num)
     private TextView tv_balance_num;
     private MyBroadcastReceiver broad;
     // 上拉加载下拉刷新列表
     @ViewInject(R.id.telephonechargedetils_listview)
     private PullToRefreshListView telephonechargedetils_listview;
-    @ViewInject(R.id.telephonemoney_linearlayout_nodata)
-    private LinearLayout mLinearLayout;
     // item的数据
-    private List<ChargeResponse.MsgBean> list = new ArrayList<ChargeResponse.MsgBean>();
-    private List<ChargeResponse.MsgBean> mList = new ArrayList<ChargeResponse.MsgBean>();
+    private List<ChargeResponse.MsgBean> list = new ArrayList<>();
     // 定义一个私有的余额详情adapter
     private TelephonEchargeDetailsAdapter telephonEchargeDetailsAdapter;
     private Intent intent;
     private int pageNumber = 1;
     private int pageSize = 10;
     private ListView mListView;
+    private int total = 0;
+    private boolean isHeaderRefresh = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +84,8 @@ public class PurseBalanceActivity extends BaseActivity implements
 
     @Override
     protected void onDestroy() {
-        // TODO Auto-generated method stub
         super.onDestroy();
+        EmptyTools.destory();
         unregisterReceiver(broad);
     }
 
@@ -104,8 +98,7 @@ public class PurseBalanceActivity extends BaseActivity implements
         telephonechargedetils_listview.setOnRefreshListener(this);
         telephonechargedetils_listview.setMode(Mode.BOTH);
         mListView = telephonechargedetils_listview.getRefreshableView();
-        telephonEchargeDetailsAdapter = new TelephonEchargeDetailsAdapter(this,
-                list);
+        telephonEchargeDetailsAdapter = new TelephonEchargeDetailsAdapter(this, list);
         mListView.setAdapter(telephonEchargeDetailsAdapter);
         String money = getIntent().getStringExtra("money");
         if (StringUtil.isEmpty(money)) {
@@ -113,7 +106,7 @@ public class PurseBalanceActivity extends BaseActivity implements
         } else {
             tv_balance_num.setText(money);
         }
-        request();
+        request(1);
     }
 
     @OnClick({R.id.left_action, R.id.title, R.id.ll_purse_balance_pay, R.id.ll_purse_balance_device})
@@ -157,9 +150,9 @@ public class PurseBalanceActivity extends BaseActivity implements
 //    }
 
     // 网络请求方法
-    private void request() {
-        ProgrosDialog.openDialog(baseContext);
-        // 判断是否登陆
+    private void request(int type) {
+        if (0 == type)
+            ProgrosDialog.openDialog(baseContext);
         if (isLogined()) {
             String url = NetInterface.BASE_URL + NetInterface.TEMP_USER_BALANCE + NetInterface.WALLET_RECORD + NetInterface.SUFFIX;
             Map<String, Object> param = new HashMap<>();
@@ -170,37 +163,47 @@ public class PurseBalanceActivity extends BaseActivity implements
             param.put("pageSize", pageSize);
             param.put("pageNumber", pageNumber);
             netWorkHelper.PostJson(url, param, this);
-
-//			params_insurance.addBodyParameter("uid", loginMessage.getUid());
-//			params_insurance.addBodyParameter("mobile",
-//					loginMessage.getMobile());
-//			params_insurance.addBodyParameter("pageSize", pageSize + "");
-//			params_insurance.addBodyParameter("pageNumber", pageNumber + "");
-//			httpBiz.httPostData(INSURANCE_CODE, API.CSH_REST_OF_MONEY_LIST_URL,
-//					params_insurance, this);
         }
 
     }
 
     @Override
     public void receive(String data) {
-        telephonechargedetils_listview.onRefreshComplete();
-        ProgrosDialog.closeProgrosDialog();
+
         ChargeResponse response = (ChargeResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ChargeResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
             return;
         }
 
-        mList = response.getMsg();
-        if (!StringUtil.isEmpty(mList) && mList.size() > 0) {
-            list.addAll(mList);
+
+        List<ChargeResponse.MsgBean> temp = response.getMsg();
+        if (null != temp && 0 < temp.size()) {
+            total = response.getPage().getTotal();
+            if (isHeaderRefresh) {
+                list = temp;
+            } else {
+                list.addAll(temp);
+            }
+            if (list.size() < total) {
+                telephonechargedetils_listview.onRefreshComplete();
+                telephonechargedetils_listview.setMode(PullToRefreshBase.Mode.BOTH);
+            } else {
+                telephonechargedetils_listview.onRefreshComplete();
+                telephonechargedetils_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+            }
             telephonEchargeDetailsAdapter.setlist(list);
+        } else {
+            EmptyTools.setEmptyView(baseContext, mListView);
+            EmptyTools.setImg(R.drawable.mycar_icon);
+            EmptyTools.setMessage("您当前还没有记录");
+            telephonechargedetils_listview.onRefreshComplete();
         }
 
         tv_balance_num.setText(response.getDesc());
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+        ProgrosDialog.closeProgrosDialog();
+//        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
 
     @Override
@@ -209,85 +212,19 @@ public class PurseBalanceActivity extends BaseActivity implements
         ProgrosDialog.closeProgrosDialog();
     }
 
-    /**
-     * 接受服务器返回的JSON字符串
-     */
-    @Override
-    public void receive(int code, String data) {
-        super.receive(code, data);
-        ProgrosDialog.closeProgrosDialog();
-        telephonechargedetils_listview.onRefreshComplete();
-        switch (code) {
-            case 400:
-                showToast(R.string.server_link_fault);
-                break;
-            case INSURANCE_CODE:
-                parseInsuranceJSON(data);
-                break;
-            default:
-                break;
-        }
-    }
-
-    /**
-     * 解析JSON字符串
-     *
-     * @param result
-     */
-    private void parseInsuranceJSON(String result) {
-        if (StringUtil.isEmpty(result)) {
-            return;
-        }
-        try {
-            JSONObject jsonObject = new JSONObject(result);
-            if (StringUtil.isEquals(jsonObject.optString("state"),
-                    API.returnSuccess, true)) {
-                String balance = jsonObject.optJSONObject("data").optString(
-                        "balance");
-                if (StringUtil.isEmpty(balance)) {
-                    tv_balance_num.setText("0.00");
-                } else {
-                    tv_balance_num.setText(balance);
-                }
-                Gson gson = new Gson();
-                java.lang.reflect.Type type = new TypeToken<List<ReturnTheMoneyInfo>>() {
-                }.getType();
-                mList = gson.fromJson(jsonObject.optJSONObject("data")
-                        .optString("walletRecordList"), type);
-                if (!StringUtil.isEmpty(mList) && mList.size() > 0) {
-                    list.addAll(mList);
-                    telephonEchargeDetailsAdapter.setlist(list);
-                }
-            } else if (StringUtil.isEquals(jsonObject.optString("state"),
-                    API.returnRelogin, true)) {
-                ReLoginDialog.getInstance(this).showDialog(
-                        jsonObject.optString("message"));
-            } else {
-                showToast(jsonObject.optString("message"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-        // TODO Auto-generated method stub
+        isHeaderRefresh = true;
         pageNumber = 1;
-        if (!StringUtil.isEmpty(list)) {
-            list.clear();
-        }
-        if (!StringUtil.isEmpty(mList)) {
-            mList.clear();
-        }
-        request();
+        request(1);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-        // TODO Auto-generated method stub
+        isHeaderRefresh = false;
         pageNumber++;
-        request();
+        request(1);
     }
 
     @Override
@@ -310,23 +247,20 @@ public class PurseBalanceActivity extends BaseActivity implements
             if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
                     Constant.RECHARGE_REFRESH, true)) {
                 Constant.EDIT_FLAG = true;
-
-                list.clear();
+                isHeaderRefresh = true;
                 pageNumber = 1;
-                request();
+                request(0);
             } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
                     Constant.WEIXIN_PAY_REFRESH, true)) {
                 Constant.EDIT_FLAG = true;
-
-                list.clear();
+                isHeaderRefresh = true;
                 pageNumber = 1;
-                request();
+                request(0);
             } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.PAY_REFRESH, true)) {
                 Constant.EDIT_FLAG = true;
-
-                list.clear();
+                isHeaderRefresh = true;
                 pageNumber = 1;
-                request();
+                request(0);
             }
         }
     }

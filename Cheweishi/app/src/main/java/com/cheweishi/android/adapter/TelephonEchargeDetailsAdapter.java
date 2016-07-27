@@ -26,9 +26,7 @@ public class TelephonEchargeDetailsAdapter extends BaseAdapter {
     private List<ChargeResponse.MsgBean> list;
     private Context context;
 
-    public TelephonEchargeDetailsAdapter(Context context,
-                                         List<ChargeResponse.MsgBean> list) {
-        // TODO Auto-generated constructor stub
+    public TelephonEchargeDetailsAdapter(Context context, List<ChargeResponse.MsgBean> list) {
         this.list = list;
         this.context = context;
 
@@ -37,7 +35,6 @@ public class TelephonEchargeDetailsAdapter extends BaseAdapter {
     public void setlist(List<ChargeResponse.MsgBean> list) {
         this.list = list;
         notifyDataSetChanged();
-
     }
 
     @Override
@@ -47,19 +44,16 @@ public class TelephonEchargeDetailsAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
         return list.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public boolean isEnabled(int position) {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -72,7 +66,6 @@ public class TelephonEchargeDetailsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup arg2) {
-        // TODO Auto-generated method stub
 
         ViewHolder viewHolder;
         if (convertView == null) {
