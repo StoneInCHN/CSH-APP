@@ -27,7 +27,15 @@ public class PushMsgResponse {
     private String title;
     private String unreadCount;
 
-    private String contentUrl;
+    private String newsId; // 新闻ID
+
+    public String getNewsId() {
+        return newsId;
+    }
+
+    public void setNewsId(String newsId) {
+        this.newsId = newsId;
+    }
 
     private String type; //消息类型
 
@@ -39,13 +47,6 @@ public class PushMsgResponse {
         this.type = type;
     }
 
-    public String getContentUrl() {
-        return contentUrl;
-    }
-
-    public void setContentUrl(String contentUrl) {
-        this.contentUrl = contentUrl;
-    }
 
     public String getMsgId() {
         return msgId;

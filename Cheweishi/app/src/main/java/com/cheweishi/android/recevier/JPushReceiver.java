@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 
 import cn.jpush.android.api.JPushInterface;
@@ -108,7 +109,7 @@ public class JPushReceiver extends BroadcastReceiver {
             PushMsgResponse response = (PushMsgResponse) GsonUtil.getInstance().convertJsonStringToObject(bundle.getString(JPushInterface.EXTRA_EXTRA), PushMsgResponse.class);
             if (null != response.getType() && "NEWSMSG".equals(response.getType())) { // 新闻消息
                 Intent web = new Intent(context, WebActivity.class);
-                web.putExtra("url", response.getContentUrl());
+                web.putExtra("id", response.getNewsId());
                 web.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(web);
             } else { // 常规消息
