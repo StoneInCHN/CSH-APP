@@ -224,16 +224,19 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         rl_activity_area.setOnClickListener(this);
         rl_integral_mall.setOnClickListener(this);
 
-        upDateCar();
-
 
     }
 
     private void upDateCar() {
         if (isLogined()) {
-            XUtilsImageLoader.getxUtilsImageLoader(baseContext, R.drawable.tianjiacar_img2x, iv_home_user_car, loginResponse.getMsg().getDefaultVehicleIcon());
-            tv_home_user_car_full_name.setText(loginResponse.getMsg().getDefaultVehicle());
-            tv_home_user_car_name.setText(loginResponse.getMsg().getDefaultVehiclePlate());
+            if (hasCar()) {// 目前根据车牌号判断是否有车的
+                XUtilsImageLoader.getxUtilsImageLoader(baseContext, R.drawable.tianjiacar_img2x, iv_home_user_car, loginResponse.getMsg().getDefaultVehicleIcon());
+                tv_home_user_car_full_name.setText(loginResponse.getMsg().getDefaultVehicle());
+                tv_home_user_car_name.setText(loginResponse.getMsg().getDefaultVehiclePlate());
+            } else {
+                tv_home_user_car_full_name.setText("当前没有添加车辆");
+                tv_home_user_car_name.setText("未添加车辆");
+            }
         }
     }
 
@@ -243,7 +246,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             ProgrosDialog.openDialog(baseContext);
             listViewAdapter = new MainListViewAdapter(baseContext, null);
             list_business.setAdapter(listViewAdapter);
-
+            upDateCar();
             initScrollView();
 //            iniBaiduNavi();
             initData();

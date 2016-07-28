@@ -219,14 +219,13 @@ public class BaseFragment extends Fragment implements JSONCallback {
     }
 
     /**
-     * 判断是否绑定车辆
+     * 判断是否有车辆
      *
      * @return
      */
     public boolean hasCar() {
         if (isLogined()) {
-            if (!StringUtil.isEmpty(loginResponse.getMsg())
-                    && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle())) {
+            if (!StringUtil.isEmpty(loginResponse.getMsg()) && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehiclePlate())) {
                 return true;
             }
 
