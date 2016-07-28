@@ -67,6 +67,9 @@
 -dontwarn com.google.gson**
 -keep class com.google.gson.**{*;}
 
+#-dontwarn com.nineoldandroids.**
+#-keep class com.nineoldandroids.**{*;}
+
 -dontwarn org.apache.http**
 -keep class org.apache.http.**{*;}
 
