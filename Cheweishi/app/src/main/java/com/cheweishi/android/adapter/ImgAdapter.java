@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -33,7 +34,7 @@ public class ImgAdapter extends BaseAdapter {
 
     private int h, w;
 
-    private List<ViewHolder> holders = new ArrayList<>();
+    private SparseArray<ViewHolder> holders = new SparseArray<>();
 
     public ImgAdapter(BaseActivity context, List<Integer> imgList) {
         _context = context;
@@ -90,7 +91,7 @@ public class ImgAdapter extends BaseAdapter {
                 imageView.setLayoutParams(new Gallery.LayoutParams(
                         LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 viewHolder.imageView = imageView;
-                holders.add(p, viewHolder);
+                holders.put(p, viewHolder);
 //                holders.set(p, viewHolder);
             }
 

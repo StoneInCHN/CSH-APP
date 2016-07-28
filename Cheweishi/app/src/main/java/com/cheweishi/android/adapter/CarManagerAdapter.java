@@ -21,6 +21,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ import android.widget.TextView;
 public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
     private Context context;
 
-    private List<View> views = new ArrayList<>();
+    private SparseArray<View> views = new SparseArray<>();
 
     private List<MyCarManagerResponse.MsgBean> list;
 
@@ -121,6 +122,7 @@ public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
 
     private void init() {
         if (null != list && null != context) {
+            views.clear();
             View view = null;
             for (int i = 0; i < list.size(); i++) {
                 SoftReference<View> softReference = Constant.carView.get(i);
@@ -134,7 +136,7 @@ public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
                         Constant.carView.put(i, new SoftReference<View>(view));
                     }
                 }
-                views.add(view);
+                views.put(i, view);
             }
         }
     }
@@ -152,6 +154,9 @@ public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view = views.get(position);
+        if (null != view.getParent()) {
+            ((ViewGroup)view.getParent()).removeView(view);
+        }
         handlerView(view, position);
         container.addView(view);
         return view;
