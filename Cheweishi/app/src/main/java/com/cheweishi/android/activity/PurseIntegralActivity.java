@@ -172,7 +172,7 @@ public class PurseIntegralActivity extends BaseActivity implements
                 }
 
                 loginResponse.setToken(duibaResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }
     }
@@ -281,6 +281,7 @@ public class PurseIntegralActivity extends BaseActivity implements
             EmptyTools.setImg(R.drawable.mycar_icon);
             EmptyTools.setMessage("您当前还没有订单");
             mListView.onRefreshComplete();
+            mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         }
 
         loginResponse.setToken(response.getToken());

@@ -198,6 +198,7 @@ public class PurseBalanceActivity extends BaseActivity implements
             EmptyTools.setImg(R.drawable.mycar_icon);
             EmptyTools.setMessage("您当前还没有记录");
             telephonechargedetils_listview.onRefreshComplete();
+            telephonechargedetils_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         }
 
         tv_balance_num.setText(response.getDesc());

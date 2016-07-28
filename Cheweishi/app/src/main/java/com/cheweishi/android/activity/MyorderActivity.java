@@ -195,6 +195,7 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
                     EmptyTools.setImg(R.drawable.mycar_icon);
                     EmptyTools.setMessage("您当前还没有订单");
                     lv_myOrder.onRefreshComplete();
+                    lv_myOrder.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                 }
 
                 loginResponse.setToken(response.getToken());
