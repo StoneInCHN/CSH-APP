@@ -259,7 +259,6 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                 mViewChild.tv_discount_price_remind.setVisibility(View.GONE);
                 mViewChild.tv_original_price.setVisibility(View.GONE);
                 mViewChild.tv_item_child_discount_showOrNot.setVisibility(View.GONE);
-                ;
                 break;
         }
 

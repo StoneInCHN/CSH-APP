@@ -38,7 +38,7 @@ public class NavigationUtil {
 							Intent intent = new Intent(mContext,
 									BNavigatorActivity.class);
 							intent.putExtras(configParams);
-							((Activity) mContext).startActivity(intent);
+							mContext.startActivity(intent);
 						}
 
 						@Override

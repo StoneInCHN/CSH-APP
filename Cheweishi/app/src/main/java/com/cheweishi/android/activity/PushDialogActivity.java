@@ -171,7 +171,7 @@ public class PushDialogActivity extends BaseActivity {
 				mNotificationManager.cancel(builder_id);
 				finish();
 			}
-		};
+		}
 	};
 
 	protected void save(JSONObject jsonObject) {

@@ -75,7 +75,7 @@ public class CarMangerFragment extends BaseFragment {
 					analysis(result);
 				}
 			}
-		};
+		}
 	};
 
 	protected void analysis(String result) {
@@ -153,7 +153,7 @@ public class CarMangerFragment extends BaseFragment {
 				parseUserDetailJSON((String) msg.obj);
 				break;
 			}
-		};
+		}
 	};
 
 	protected void parseUserDetailJSON(String result) {

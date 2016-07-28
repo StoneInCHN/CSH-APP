@@ -40,7 +40,7 @@ public enum Effectstype {
     Sidefill(SideFall.class);
     private Class<? extends BaseEffects> effectsClazz;
 
-    private Effectstype(Class<? extends BaseEffects> mclass) {
+    Effectstype(Class<? extends BaseEffects> mclass) {
         effectsClazz = mclass;
     }
 

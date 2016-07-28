@@ -330,11 +330,7 @@ public class UserInfoEditActivity extends BaseActivity implements
     private boolean judge(String fontStr) {
         int fontOne = getFontCount(fontStr);
         int fontSecond = fontStr.length() - fontOne;
-        if ((fontOne * 2 + fontSecond) <= 14) {
-            return true;
-        } else {
-            return false;
-        }
+        return (fontOne * 2 + fontSecond) <= 14;
     }
 
     @OnClick({R.id.left_action, R.id.right_action, R.id.rbtn_man,

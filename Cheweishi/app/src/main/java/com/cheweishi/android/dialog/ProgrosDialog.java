@@ -110,11 +110,7 @@ public class ProgrosDialog extends BaseDialog {
         if (mProgrosDialog == null) {
             return false;
         } else {
-            if (mProgrosDialog.isShowing()) {
-                return true;
-            } else {
-                return false;
-            }
+            return mProgrosDialog.isShowing();
         }
     }
 

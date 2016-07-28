@@ -254,8 +254,8 @@ public class ValidateLoginActivity extends BaseActivity {
 			initColorTextView(true);
 			break;
 		}
-	};
-	
+	}
+
 
 	/**
 	 * 保存登录信息

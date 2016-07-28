@@ -57,7 +57,7 @@ public class JPushReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
-        this.mContext = context;
+        mContext = context;
 //				+ ", extras: " + printBundle(bundle));
 
 //		processCustomMessage(context, printBundle(bundle));

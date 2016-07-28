@@ -60,14 +60,14 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener 
 
 	public void initLists() {
 		
-	};
+	}
 
 	public void initDatas() {
 		
-	};
+	}
 
 	public void onClick(View view) {
 		
-	};
-	
+	}
+
 }

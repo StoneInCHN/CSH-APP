@@ -249,7 +249,7 @@ public class CarReportMileFragment extends BaseFragment {
 		default:
 			break;
 		}
-	};
+	}
 
 	/**
 	 * 数据解析处理

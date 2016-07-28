@@ -190,7 +190,7 @@ public class FindCarportActivity extends BaseActivity {
 				Context.MODE_PRIVATE).edit().clear().commit();
 		getSharedPreferences("resultSharedPreferences",
 				Context.MODE_PRIVATE).edit().clear().commit();
-	};
+	}
 
 	@Override
 	protected void onPause() {

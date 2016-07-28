@@ -445,7 +445,7 @@ public class FindCarportListFragment extends BaseFragment implements
 		httpBiz.httPostData(FINDCARPORT_CODE, API.FINDCARPORT_URL, params, this);
 //				+ latLng.longitude + "&longitude=" + latLng.latitude
 //				+ "&keyWord=停车场&size=20&page=0");
-	};
+	}
 
 	private void setRequestParams(RequestParams params, LatLng latLng) {
 		// TODO Auto-generated method stub

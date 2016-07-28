@@ -91,9 +91,9 @@ public class PhotoTools {
 		int h = newOpts.outHeight;
 		// 现在主流f机比较多是800*480分辨率，所以高和宽我们设置为getBitmapSize
 		float hh = 400;
-		;// 这里设置高度为800f
+		// 这里设置高度为800f
 		float ww = 400;
-		;// 这里设置高度为800f;//
+		// 这里设置高度为800f;//
 			// 这里设置宽度为480f
 			// 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
 		int be = 1;// be=1表示不缩放

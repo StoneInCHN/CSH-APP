@@ -246,5 +246,5 @@ public class GasStationActivity extends BaseActivity {
 		sharedPreferences.edit().clear().commit();
 		sharedPreferences2.edit().clear().commit();
 		super.onDestroy();
-	};
+	}
 }

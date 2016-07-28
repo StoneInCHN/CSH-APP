@@ -186,15 +186,15 @@ public class SpeedFontView extends View {
 						if (sp.getAvgCurrent() >= 75) {
 							if ((sp.getStart() + (sp.getEnd() - sp.getStart()) / 2) < 72000) {
 								path.moveTo(XPoint + firstX * XScale, YPoint
-										- firstY * ((float) YScale) - 20
+										- firstY * YScale - 20
 										* RATIO);
 								path.lineTo(XPoint + firstX * XScale + 50
 										* RATIO, YPoint - firstY
-										* ((float) YScale) + 30 * RATIO);
+										* YScale + 30 * RATIO);
 
 								path.lineTo(XPoint + firstX * XScale + 250
 										* RATIO, YPoint - firstY
-										* ((float) YScale) + 30 * RATIO);
+										* YScale + 30 * RATIO);
 								canvas.drawPath(path, paint);
 								paint.setStyle(Paint.Style.FILL);
 								if (speedFlag == false) {
@@ -207,7 +207,7 @@ public class SpeedFontView extends View {
 												XPoint + firstX * XScale + 50
 														* RATIO, YPoint
 														- firstY
-														* ((float) YScale) + 30
+														* YScale + 30
 														* RATIO - 10 * RATIO,
 												paint);
 										canvas.drawText(
@@ -215,7 +215,7 @@ public class SpeedFontView extends View {
 												XPoint + firstX * XScale + 50
 														* RATIO, YPoint
 														- firstY
-														* ((float) YScale) + 30
+														* YScale + 30
 														* RATIO + 30 * RATIO,
 												paint);
 									}
@@ -227,7 +227,7 @@ public class SpeedFontView extends View {
 																	.getMaxCurrent() / 6f),
 											XPoint + firstX * XScale + 50
 													* RATIO, YPoint - firstY
-													* ((float) YScale) + 30
+													* YScale + 30
 													* RATIO - 10 * RATIO, paint);
 									canvas.drawText(
 											"平均油耗"
@@ -236,29 +236,29 @@ public class SpeedFontView extends View {
 																	.getAvgCurrent() / 6f),
 											XPoint + firstX * XScale + 50
 													* RATIO, YPoint - firstY
-													* ((float) YScale) + 30
+													* YScale + 30
 													* RATIO + 30 * RATIO, paint);
 								}
 
 								RectF rf = new RectF(XPoint + firstX * XScale
 										- 5 * RATIO, YPoint - firstY
-										* ((float) YScale) - 10 * RATIO - 20
+										* YScale - 10 * RATIO - 20
 										* RATIO, XPoint + firstX * XScale + 10
 										* RATIO, YPoint - firstY
-										* ((float) YScale) + 5 * RATIO - 20
+										* YScale + 5 * RATIO - 20
 										* RATIO);
 								canvas.drawOval(rf, paint);
 							} else {
 								path.moveTo(XPoint + firstX * XScale, YPoint
-										- firstY * ((float) YScale) - 20
+										- firstY * YScale - 20
 										* RATIO);
 								path.lineTo(XPoint + firstX * XScale - 50
 										* RATIO, YPoint - firstY
-										* ((float) YScale) + 30 * RATIO);
+										* YScale + 30 * RATIO);
 
 								path.lineTo(XPoint + firstX * XScale - 250
 										* RATIO, YPoint - firstY
-										* ((float) YScale) + 30 * RATIO);
+										* YScale + 30 * RATIO);
 								canvas.drawPath(path, paint);
 								paint.setStyle(Paint.Style.FILL);
 								if (speedFlag == false) {
@@ -271,7 +271,7 @@ public class SpeedFontView extends View {
 													* RATIO
 													- getFontWidth("最高油耗"
 															+ sp.getMaxCurrent()),
-											YPoint - firstY * ((float) YScale)
+											YPoint - firstY * YScale
 													+ 30 * RATIO - 10 * RATIO,
 											paint);
 									canvas.drawText(
@@ -283,7 +283,7 @@ public class SpeedFontView extends View {
 													* RATIO
 													- getFontWidth("平均油耗"
 															+ sp.getAvgCurrent()),
-											YPoint - firstY * ((float) YScale)
+											YPoint - firstY * YScale
 													+ 30 * RATIO + 30 * RATIO,
 											paint);
 
@@ -302,7 +302,7 @@ public class SpeedFontView extends View {
 													+ TextViewTools
 															.toTwoEndFromFloat(sp
 																	.getMaxCurrent() / 6f)), YPoint
-													- firstY * ((float) YScale)
+													- firstY * YScale
 													+ 30 * RATIO - 10 * RATIO,
 											paint);
 									canvas.drawText(
@@ -319,7 +319,7 @@ public class SpeedFontView extends View {
 													+ TextViewTools
 															.toTwoEndFromFloat(sp
 																	.getAvgCurrent() / 6f)), YPoint
-													- firstY * ((float) YScale)
+													- firstY * YScale
 													+ 30 * RATIO + 30 * RATIO,
 											paint);
 
@@ -327,25 +327,25 @@ public class SpeedFontView extends View {
 
 								RectF rf = new RectF(XPoint + firstX * XScale
 										- 5 * RATIO, YPoint - firstY
-										* ((float) YScale) - 10 * RATIO - 20
+										* YScale - 10 * RATIO - 20
 										* RATIO, XPoint + firstX * XScale + 10
 										* RATIO, YPoint - firstY
-										* ((float) YScale) + 5 * RATIO - 20
+										* YScale + 5 * RATIO - 20
 										* RATIO);
 								canvas.drawOval(rf, paint);
 							}
 						} else {
 							if ((sp.getStart() + (sp.getEnd() - sp.getStart()) / 2) < 72000) {
 								path.moveTo(XPoint + firstX * XScale, YPoint
-										- firstY * ((float) YScale) - 20
+										- firstY * YScale - 20
 										* RATIO);
 								path.lineTo(XPoint + firstX * XScale + 50
 										* RATIO, YPoint - firstY
-										* ((float) YScale) - 70 * RATIO);
+										* YScale - 70 * RATIO);
 
 								path.lineTo(XPoint + firstX * XScale + 250
 										* RATIO, YPoint - firstY
-										* ((float) YScale) - 70 * RATIO);
+										* YScale - 70 * RATIO);
 								canvas.drawPath(path, paint);
 
 								paint.setStyle(Paint.Style.FILL);
@@ -354,13 +354,13 @@ public class SpeedFontView extends View {
 											"最高时速" + sp.getMaxCurrent(), XPoint
 													+ firstX * XScale + 50
 													* RATIO, YPoint - firstY
-													* ((float) YScale) - 70
+													* YScale - 70
 													* RATIO - 10 * RATIO, paint);
 									canvas.drawText(
 											"平均时速" + sp.getAvgCurrent(), XPoint
 													+ firstX * XScale + 50
 													* RATIO, YPoint - firstY
-													* ((float) YScale) - 70
+													* YScale - 70
 													* RATIO + 30 * RATIO, paint);
 
 								} else {
@@ -371,7 +371,7 @@ public class SpeedFontView extends View {
 																	.getMaxCurrent() / 6f),
 											XPoint + firstX * XScale + 50
 													* RATIO, YPoint - firstY
-													* ((float) YScale) - 70
+													* YScale - 70
 													* RATIO - 10 * RATIO, paint);
 									canvas.drawText(
 											"平均油耗"
@@ -380,30 +380,30 @@ public class SpeedFontView extends View {
 																	.getAvgCurrent() / 6f),
 											XPoint + firstX * XScale + 50
 													* RATIO, YPoint - firstY
-													* ((float) YScale) - 70
+													* YScale - 70
 													* RATIO + 30 * RATIO, paint);
 
 								}
 
 								RectF rf = new RectF(XPoint + firstX * XScale
 										- 5 * RATIO, YPoint - firstY
-										* ((float) YScale) - 10 * RATIO - 20
+										* YScale - 10 * RATIO - 20
 										* RATIO, XPoint + firstX * XScale + 10
 										* RATIO, YPoint - firstY
-										* ((float) YScale) + 5 * RATIO - 20
+										* YScale + 5 * RATIO - 20
 										* RATIO);
 								canvas.drawOval(rf, paint);
 							} else {
 								path.moveTo(XPoint + firstX * XScale, YPoint
-										- firstY * ((float) YScale) - 20
+										- firstY * YScale - 20
 										* RATIO);
 								path.lineTo(XPoint + firstX * XScale - 50
 										* RATIO, YPoint - firstY
-										* ((float) YScale) - 70 * RATIO);
+										* YScale - 70 * RATIO);
 
 								path.lineTo(XPoint + firstX * XScale - 250
 										* RATIO, YPoint - firstY
-										* ((float) YScale) - 70 * RATIO);
+										* YScale - 70 * RATIO);
 								canvas.drawPath(path, paint);
 								paint.setStyle(Paint.Style.FILL);
 								if (speedFlag == false) {
@@ -416,7 +416,7 @@ public class SpeedFontView extends View {
 													* RATIO
 													- getFontWidth("最高时速"
 															+ sp.getMaxCurrent()),
-											YPoint - firstY * ((float) YScale)
+											YPoint - firstY * YScale
 													- 70 * RATIO - 10 * RATIO,
 											paint);
 									canvas.drawText(
@@ -428,7 +428,7 @@ public class SpeedFontView extends View {
 													* RATIO
 													- getFontWidth("平均时速"
 															+ sp.getAvgCurrent()),
-											YPoint - firstY * ((float) YScale)
+											YPoint - firstY * YScale
 													- 70 * RATIO + 30 * RATIO,
 											paint);
 									// }
@@ -447,7 +447,7 @@ public class SpeedFontView extends View {
 													+ TextViewTools
 															.toTwoEndFromFloat(sp
 																	.getMaxCurrent() / 6f)), YPoint
-													- firstY * ((float) YScale)
+													- firstY * YScale
 													- 70 * RATIO - 10 * RATIO,
 											paint);
 									canvas.drawText(
@@ -463,17 +463,17 @@ public class SpeedFontView extends View {
 													- getFontWidth("平均油耗"
 															+ sp.getAvgCurrent()
 															/ 6f), YPoint
-													- firstY * ((float) YScale)
+													- firstY * YScale
 													- 70 * RATIO + 30 * RATIO,
 											paint);
 								}
 
 								RectF rf = new RectF(XPoint + firstX * XScale
 										- 5 * RATIO, YPoint - firstY
-										* ((float) YScale) - 10 * RATIO - 20
+										* YScale - 10 * RATIO - 20
 										* RATIO, XPoint + firstX * XScale + 10
 										* RATIO, YPoint - firstY
-										* ((float) YScale) + 5 * RATIO - 20
+										* YScale + 5 * RATIO - 20
 										* RATIO);
 								canvas.drawOval(rf, paint);
 							}

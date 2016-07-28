@@ -692,7 +692,7 @@ public class FindCarportMapFragment extends BaseFragment implements
 		ProgrosDialog.openDialog(baseContext);
 		httpBiz.httPostData(FINDCARPORT_CODE, API.FINDCARPORT_URL, params, this);
 
-	};
+	}
 
 	@Override
 	public void onResume() {

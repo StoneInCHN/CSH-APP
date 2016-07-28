@@ -350,8 +350,8 @@ public class YouhaoView extends View implements OnTouchListener {
 			if (event.getX() > rect.left && event.getX() < rect.right
 					&& event.getY() > rect.top && rect.bottom > event.getY()) {
 				if (isF) {
-					k = (float) ((buttom - (buttom - heightdrawle * center)) / ((buttom - heightdrawle
-							* center) - (top + heightdrawle * uh))) - 0.15f;
+					k = (buttom - (buttom - heightdrawle * center)) / ((buttom - heightdrawle
+							* center) - (top + heightdrawle * uh)) - 0.15f;
 					kkk = 1
 							- ((double) (buttom - heightdrawle * center) - (top + heightdrawle
 									* uh))

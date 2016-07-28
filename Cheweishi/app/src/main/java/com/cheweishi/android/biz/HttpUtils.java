@@ -70,11 +70,11 @@ public class HttpUtils {
     }
 
     public HttpUtils() {
-        this(15000, (String) null);
+        this(15000, null);
     }
 
     public HttpUtils(int connTimeout) {
-        this(connTimeout, (String) null);
+        this(connTimeout, null);
     }
 
     public HttpUtils(String userAgent) {
@@ -90,7 +90,7 @@ public class HttpUtils {
         HttpConnectionParams.setSoTimeout(params, connTimeout);
         HttpConnectionParams.setConnectionTimeout(params, connTimeout);
         if (TextUtils.isEmpty(userAgent)) {
-            userAgent = OtherUtils.getUserAgent((Context) null);
+            userAgent = OtherUtils.getUserAgent(null);
         }
 
         HttpProtocolParams.setUserAgent(params, userAgent);
@@ -229,7 +229,7 @@ public class HttpUtils {
 
     public <T> HttpHandler<T> send(HttpMethod method, String url,
                                    RequestCallBack<T> callBack) {
-        return this.send(method, url, (RequestParams) null, callBack);
+        return this.send(method, url, null, callBack);
     }
 
     public <T> HttpHandler<T> send(HttpMethod method, String url,
@@ -245,7 +245,7 @@ public class HttpUtils {
 
     public ResponseStream sendSync(HttpMethod method, String url)
             throws com.lidroid.xutils.exception.HttpException {
-        return this.sendSync(method, url, (RequestParams) null);
+        return this.sendSync(method, url, null);
     }
 
     public ResponseStream sendSync(HttpMethod method, String url,
@@ -262,20 +262,20 @@ public class HttpUtils {
 
     public HttpHandler<File> download(String url, String target,
                                       RequestCallBack<File> callback) {
-        return this.download(HttpMethod.GET, url, target, (RequestParams) null,
+        return this.download(HttpMethod.GET, url, target, null,
                 false, false, callback);
     }
 
     public HttpHandler<File> download(String url, String target,
                                       boolean autoResume, RequestCallBack<File> callback) {
-        return this.download(HttpMethod.GET, url, target, (RequestParams) null,
+        return this.download(HttpMethod.GET, url, target, null,
                 autoResume, false, callback);
     }
 
     public HttpHandler<File> download(String url, String target,
                                       boolean autoResume, boolean autoRename,
                                       RequestCallBack<File> callback) {
-        return this.download(HttpMethod.GET, url, target, (RequestParams) null,
+        return this.download(HttpMethod.GET, url, target, null,
                 autoResume, autoRename, callback);
     }
 
@@ -331,8 +331,8 @@ public class HttpUtils {
                 handler.setPriority(params.getPriority());
             }
 
-            handler.executeOnExecutor(EXECUTOR, new Object[]{request, target,
-                    Boolean.valueOf(autoResume), Boolean.valueOf(autoRename)});
+            handler.executeOnExecutor(EXECUTOR, request, target,
+                    Boolean.valueOf(autoResume), Boolean.valueOf(autoRename));
             return handler;
         }
     }
@@ -349,7 +349,7 @@ public class HttpUtils {
             handler.setPriority(params.getPriority());
         }
 
-        handler.executeOnExecutor(EXECUTOR, new Object[]{request});
+        handler.executeOnExecutor(EXECUTOR, request);
         return handler;
     }
 

@@ -156,7 +156,7 @@ public class CurrentFuelConsumptionFragment extends BaseFragment {
 					btnShare.setClickable(false);
 				}
 			}
-		};
+		}
 	};
 
 

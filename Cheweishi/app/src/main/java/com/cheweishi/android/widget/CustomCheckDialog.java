@@ -95,7 +95,7 @@ public class CustomCheckDialog extends Dialog {
          * @return
          */
         public Builder setMessage(int message) {
-            this.message = (String) context.getText(message);
+            this.message = context.getText(message);
             return this;
         }
 

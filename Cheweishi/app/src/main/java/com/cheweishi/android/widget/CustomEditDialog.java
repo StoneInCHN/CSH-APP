@@ -118,7 +118,7 @@ public class CustomEditDialog extends Dialog {
 				((Button) layout.findViewById(R.id.positiveButton))
 						.setText(positiveButtonText);
 				if (positiveButtonClickListener != null) {
-					((Button) layout.findViewById(R.id.positiveButton))
+					layout.findViewById(R.id.positiveButton)
 							.setOnClickListener(new View.OnClickListener() {
 								public void onClick(View v) {
 									positiveButtonClickListener.onClick(dialog,
@@ -135,7 +135,7 @@ public class CustomEditDialog extends Dialog {
 				((Button) layout.findViewById(R.id.negativeButton))
 						.setText(negativeButtonText);
 				if (negativeButtonClickListener != null) {
-					((Button) layout.findViewById(R.id.negativeButton))
+					layout.findViewById(R.id.negativeButton)
 							.setOnClickListener(new View.OnClickListener() {
 								public void onClick(View v) {
 									negativeButtonClickListener.onClick(dialog,
@@ -166,14 +166,14 @@ public class CustomEditDialog extends Dialog {
 				et1.setText(editText1);
 				setEt1(et1);
 			}else {
-				((EditText) layout.findViewById(R.id.et_message)).setVisibility(View.GONE);
+				layout.findViewById(R.id.et_message).setVisibility(View.GONE);
 			}
 			if (showEdit2 == true) {
 				EditText et2 =((EditText) layout.findViewById(R.id.et_Maintenance_mileage));
 				et2.setText(editText2);
 				setEt2(et2);
 			}else {
-				((EditText) layout.findViewById(R.id.et_Maintenance_mileage)).setVisibility(View.GONE);
+				layout.findViewById(R.id.et_Maintenance_mileage).setVisibility(View.GONE);
 			}
 //			if (showText == true) {
 //				TextView tv =((TextView) layout.findViewById(R.id.tv_year_message));
@@ -183,7 +183,7 @@ public class CustomEditDialog extends Dialog {
 //			}else {
 //				((TextView) layout.findViewById(R.id.tv_year_message)).setVisibility(View.GONE);
 //			}
-			bottom_line = (View) layout.findViewById(R.id.dialog_bottomLayout);
+			bottom_line = layout.findViewById(R.id.dialog_bottomLayout);
 			if (flag == true) {
 				hideLayout();
 			}

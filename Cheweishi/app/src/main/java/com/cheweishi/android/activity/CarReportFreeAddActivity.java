@@ -357,10 +357,7 @@ public class CarReportFreeAddActivity extends BaseActivity {
 		selectDate.setMinutes(min);
 		Calendar c = Calendar.getInstance();
 		Date nowTime = c.getTime();
-		if (selectDate.after(nowTime)) {
-			return true;
-		}
-		return false;
+		return selectDate.after(nowTime);
 	}
 
 	private void clickItem() {

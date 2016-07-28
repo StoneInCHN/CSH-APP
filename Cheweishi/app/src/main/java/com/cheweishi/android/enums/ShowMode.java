@@ -15,5 +15,5 @@ package com.cheweishi.android.enums;
  * @date 2015-1-6 下午5:47:32
  */
 public enum ShowMode {
-	LayDown, PullOut;
+	LayDown, PullOut
 }

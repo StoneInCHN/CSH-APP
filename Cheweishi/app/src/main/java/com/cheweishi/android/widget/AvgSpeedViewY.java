@@ -70,7 +70,7 @@ public class AvgSpeedViewY extends View {
 				AvgSpeedViewY.this.invalidate();
 
 			}
-		};
+		}
 	};
 
 	public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

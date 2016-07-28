@@ -97,7 +97,6 @@ public class SOSContactActivity extends BaseActivity implements OnClickListener 
 				finish();
 			}
 		}
-		;
 	}
 
 	@Override

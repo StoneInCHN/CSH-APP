@@ -442,7 +442,7 @@ public class ProvinceCityCountryActivity extends BaseActivity implements
 				mDrawerLayout.openDrawer(Gravity.RIGHT);
 				provinceId = (int) id;
 				ProgrosDialog.openDialog(this);
-				final int parentId = (int) provinceList.get(position - 1)
+				final int parentId = provinceList.get(position - 1)
 						.getId();
 				getdata("2", parentId + "");
 			}

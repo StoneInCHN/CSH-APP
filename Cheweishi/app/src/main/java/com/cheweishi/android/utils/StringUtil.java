@@ -126,7 +126,7 @@ public class StringUtil {
 			if (val != null)
 				tmp.add(val);
 		}
-		return (Integer[]) tmp.toArray(new Integer[tmp.size()]);
+		return tmp.toArray(new Integer[tmp.size()]);
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class StringUtil {
 			if (val != null)
 				tmp.add(val);
 		}
-		return (Long[]) tmp.toArray(new Long[tmp.size()]);
+		return tmp.toArray(new Long[tmp.size()]);
 	}
 
 	/**
@@ -196,7 +196,7 @@ public class StringUtil {
 			if (val != null)
 				tmp.add(val);
 		}
-		return (Boolean[]) tmp.toArray(new Boolean[tmp.size()]);
+		return tmp.toArray(new Boolean[tmp.size()]);
 	}
 
 	public static float getFloat(String str) {
@@ -225,7 +225,7 @@ public class StringUtil {
 			if (val != null)
 				tmp.add(val);
 		}
-		return (Float[]) tmp.toArray(new Float[tmp.size()]);
+		return tmp.toArray(new Float[tmp.size()]);
 	}
 
 	public static double getDouble(String str) {
@@ -253,7 +253,7 @@ public class StringUtil {
 			if (val != null)
 				tmp.add(val);
 		}
-		return (Double[]) tmp.toArray(new Double[tmp.size()]);
+		return tmp.toArray(new Double[tmp.size()]);
 	}
 
 	/**

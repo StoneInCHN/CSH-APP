@@ -176,17 +176,17 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener, 
 
             case R.id.tv_guohu_type:// 过户
                 CustomCheckDialog.Builder guohu = new CustomCheckDialog.Builder(baseContext);
-                showDialog(R.id.tv_guohu_type, guohu.YES_NO, guohu);
+                showDialog(R.id.tv_guohu_type, CustomCheckDialog.Builder.YES_NO, guohu);
                 break;
 
             case R.id.tv_daikuan_type://贷款
                 CustomCheckDialog.Builder daikuan = new CustomCheckDialog.Builder(baseContext);
-                showDialog(R.id.tv_daikuan_type, daikuan.YES_NO, daikuan);
+                showDialog(R.id.tv_daikuan_type, CustomCheckDialog.Builder.YES_NO, daikuan);
                 break;
 
             case R.id.tv_contact_sex:// 性别
                 CustomCheckDialog.Builder sex = new CustomCheckDialog.Builder(baseContext);
-                showDialog(R.id.tv_contact_sex, sex.SEX, sex);
+                showDialog(R.id.tv_contact_sex, CustomCheckDialog.Builder.SEX, sex);
                 break;
 
             case R.id.iv_driver_license_type:
@@ -203,7 +203,7 @@ public class InsuranceActivity extends BaseActivity implements OnClickListener, 
 
             case R.id.tv_insurance_type: // 保险
                 CustomCheckDialog.Builder insurance = new CustomCheckDialog.Builder(baseContext);
-                showDialog(R.id.tv_insurance_type, insurance.LIST, insurance);
+                showDialog(R.id.tv_insurance_type, CustomCheckDialog.Builder.LIST, insurance);
                 break;
 
             // 调用手机相机

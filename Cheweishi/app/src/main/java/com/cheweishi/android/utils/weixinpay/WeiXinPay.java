@@ -142,7 +142,7 @@ public class WeiXinPay {
         sb.append("key=");
         sb.append(Constant.API_KEY);
 
-        this.sb.append("sign str\n" + sb.toString() + "\n\n");
+        WeiXinPay.sb.append("sign str\n" + sb.toString() + "\n\n");
         String appSign = null;
         try {
             appSign = MD5.getMessageDigest(sb.toString().getBytes("utf-8")).toUpperCase();

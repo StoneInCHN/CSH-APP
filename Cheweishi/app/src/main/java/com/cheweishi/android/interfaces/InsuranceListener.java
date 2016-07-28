@@ -12,5 +12,5 @@ public interface InsuranceListener {
      * @param tag    标志
      * @param result
      */
-    public void getResult(int tag, String result);
+    void getResult(int tag, String result);
 }

@@ -631,7 +631,6 @@ public class MessagerCenterActivity extends BaseActivity {
             }
         }
 
-        ;
     };
 
 
@@ -710,8 +709,6 @@ public class MessagerCenterActivity extends BaseActivity {
             mMessageCenterApdater.setData(pagelist);
         }
     }
-
-    ;
 
     /**
      * 两边保持一致

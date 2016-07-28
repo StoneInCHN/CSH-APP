@@ -395,10 +395,6 @@ public class CarReportViewPager extends ViewPager {
 		double lineB = (cX * oY - oX * cY) / (cX - oX);
 
 		double d = lineK * mX + mY;
-		if ((oX - cX) * (d - lineB) > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return (oX - cX) * (d - lineB) > 0;
 	}
 }

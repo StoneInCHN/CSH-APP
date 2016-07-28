@@ -293,8 +293,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
         return m_szImei;
     }
 
-    ;
-
     int index = 0;
 
 

@@ -143,7 +143,7 @@ public class TelephoneChargeDetilsActivity extends BaseActivity implements
 	Handler handler = new Handler(Looper.getMainLooper()) {
 		public void handleMessage(android.os.Message msg) {
 			pullToRefreshListView.onRefreshComplete();
-		};
+		}
 
 	};
 

@@ -17,5 +17,5 @@ package com.cheweishi.android.enums;
  * 
  */
 public enum Mode {
-	Single, Multiple;
-};
+	Single, Multiple
+}

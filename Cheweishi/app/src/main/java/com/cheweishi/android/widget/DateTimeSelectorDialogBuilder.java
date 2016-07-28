@@ -32,7 +32,7 @@ public class DateTimeSelectorDialogBuilder extends NiftyDialogBuilder implements
     private static DateTimeSelectorDialogBuilder instance;
 
     public interface OnSaveListener {
-        abstract void onSaveSelectedDate(String selectedDate);
+        void onSaveSelectedDate(String selectedDate);
     }
 
     public DateTimeSelectorDialogBuilder(Context context) {

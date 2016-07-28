@@ -44,9 +44,9 @@ public class BaiduOfflineMap implements MKOfflineMapListener {
 				}
 			}
 			return false;
-	 };
-	
-	 public void start() {
+	 }
+
+	public void start() {
 			int cityid = Integer.parseInt(cityID);
 			mOffline.start(cityid);
 			Toast.makeText(activity, "开始下载离线地图.", Toast.LENGTH_SHORT)

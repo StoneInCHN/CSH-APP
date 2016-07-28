@@ -137,7 +137,7 @@ public class BaiduMapView {
 							Intent intent = new Intent(mContext,
 									BNavigatorActivity.class);
 							intent.putExtras(configParams);
-							((Activity) mContext).startActivity(intent);
+							mContext.startActivity(intent);
 						}
 
 						@Override
@@ -305,7 +305,6 @@ public class BaiduMapView {
 	 */
 	public void setMarkers(LatLng latlng, int[] icons) {
 		ArrayList<BitmapDescriptor> bitmaps = new ArrayList<BitmapDescriptor>();
-		;
 		for (int rid : icons) {
 			BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory
 					.fromResource(rid);
@@ -324,7 +323,6 @@ public class BaiduMapView {
 	 */
 	public void setMarkers(LatLng latlng, int[] icons, int zindex) {
 		ArrayList<BitmapDescriptor> bitmaps = new ArrayList<BitmapDescriptor>();
-		;
 		for (int rid : icons) {
 			BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory
 					.fromResource(rid);
@@ -1012,19 +1010,19 @@ public class BaiduMapView {
 	 * 
 	 */
 	public interface MapCallBack {
-		public void address(BDLocation location) throws Exception;
+		void address(BDLocation location) throws Exception;
 
-		public void address(ReverseGeoCodeResult result) throws Exception;
+		void address(ReverseGeoCodeResult result) throws Exception;
 
-		public void interestSearch(PoiResult poiResults, int index)
+		void interestSearch(PoiResult poiResults, int index)
 				throws Exception;
 
-		public void suggestionSearch(SuggestionResult suggestionresult)
+		void suggestionSearch(SuggestionResult suggestionresult)
 				throws Exception;
 
-		public void navigationStatus(boolean status);
+		void navigationStatus(boolean status);
 
-		public void telephoneLocation(BDLocation location);
+		void telephoneLocation(BDLocation location);
 	}
 
 	/**

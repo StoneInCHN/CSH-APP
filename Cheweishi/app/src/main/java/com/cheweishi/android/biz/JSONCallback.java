@@ -18,7 +18,7 @@ public interface JSONCallback {
      * @param type
      * @param data
      */
-    public void receive(int type, String data);
+    void receive(int type, String data);
 
     /**
      * 下载文件的返回
@@ -26,7 +26,7 @@ public interface JSONCallback {
      * @param type
      * @param arg0
      */
-    public void downFile(int type, ResponseInfo<File> arg0);
+    void downFile(int type, ResponseInfo<File> arg0);
 
 
     /**
@@ -35,7 +35,7 @@ public interface JSONCallback {
      * @param TAG
      * @param data
      */
-    public void receive(String TAG, String data);
+    void receive(String TAG, String data);
 
 
     /**
@@ -43,7 +43,7 @@ public interface JSONCallback {
      *
      * @param data
      */
-    public void receive(String data);
+    void receive(String data);
 
 
     /**
@@ -51,5 +51,5 @@ public interface JSONCallback {
      *
      * @param errorMsg
      */
-    public void error(String errorMsg);
+    void error(String errorMsg);
 }

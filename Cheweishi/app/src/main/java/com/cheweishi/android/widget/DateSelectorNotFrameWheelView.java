@@ -419,11 +419,7 @@ public class DateSelectorNotFrameWheelView extends RelativeLayout implements
 			e.printStackTrace();
 		}
 		// 比较
-		if (d1.getTime() - d2.getTime() > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return d1.getTime() - d2.getTime() > 0;
 	}
 
 	/**

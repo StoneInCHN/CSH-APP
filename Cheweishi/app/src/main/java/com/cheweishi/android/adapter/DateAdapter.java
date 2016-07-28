@@ -118,7 +118,7 @@ public class DateAdapter extends BaseAdapter {
 				sc.getDaysOfMonth(sc.isLeapYear(year_c), month_c));
 		Log.i(TAG, "week_c:" + week_c);
 		currentYear = String.valueOf(year_c);
-		; // 得到当前的年份
+		// 得到当前的年份
 		currentMonth = String.valueOf(month_c); // 得到本月
 												// （jumpMonth为滑动的次数，每滑动一次就增加一月或减一月）
 		currentDay = String.valueOf(sys_day); // 得到当前日期是哪天
@@ -300,10 +300,7 @@ public class DateAdapter extends BaseAdapter {
 
 	private boolean isToday(int position) {
 		String s = getClickDate(position);
-		if (sdate.equals(s)) {
-			return true;
-		}
-		return false;
+		return sdate.equals(s);
 	}
 	
 	/**

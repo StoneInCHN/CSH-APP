@@ -203,7 +203,7 @@ public class ReturnTheMoneyDatailsActivity extends BaseActivity implements
 	Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			pullToRefreshListView.onRefreshComplete();
-		};
+		}
 
 	};
 

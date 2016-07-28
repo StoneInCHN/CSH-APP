@@ -16,9 +16,9 @@ import android.widget.Button;
 public class AssortView extends Button {
 
 	public interface OnTouchAssortListener {
-		public void onTouchAssortListener(int index);
+		void onTouchAssortListener(int index);
 
-		public void onTouchAssortUP();
+		void onTouchAssortUP();
 	}
 
 	public AssortView(Context context) {

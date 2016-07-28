@@ -42,7 +42,6 @@ public class MyGallery extends Gallery {
             }
         }
 
-        ;
     };
 
     private Timer timer = new Timer();
@@ -77,9 +76,7 @@ public class MyGallery extends Gallery {
         f1 = null != paramMotionEvent1 ? paramMotionEvent1.getX() : oldX;
         f2 = null != paramMotionEvent2 ? paramMotionEvent2.getX() : 0;
 //        LogHelper.d("onFling:" + f1 + "----2:" + f2);
-        if (f2 > f1)
-            return true;
-        return false;
+        return f2 > f1;
     }
 
     @Override

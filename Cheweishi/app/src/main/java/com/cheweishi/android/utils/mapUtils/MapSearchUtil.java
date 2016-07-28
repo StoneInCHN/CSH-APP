@@ -94,7 +94,6 @@ public class MapSearchUtil {
 			break;
 
 		default:
-			;
 		}
 
 	}

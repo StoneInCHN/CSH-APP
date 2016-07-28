@@ -1,6 +1,7 @@
 package com.cheweishi.android.fragement;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -391,7 +392,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         if (LoginMessageUtils.getPush(baseContext))
             JPushInterface.resumePush(baseContext);
         // 获取极光推送
-        String alias = ((TelephonyManager) baseContext.getSystemService(baseContext.TELEPHONY_SERVICE))
+        String alias = ((TelephonyManager) baseContext.getSystemService(Context.TELEPHONY_SERVICE))
                 .getDeviceId();
         JPushInterface.setAlias(baseContext.getApplicationContext(), alias, mTagsCallback);
         String JPushId = JPushInterface.getRegistrationID(baseContext);

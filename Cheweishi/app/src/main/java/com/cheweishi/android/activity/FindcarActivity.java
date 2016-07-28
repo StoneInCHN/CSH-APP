@@ -302,7 +302,7 @@ public class FindcarActivity extends BaseActivity {
 		initList();
 		latlngList = new ArrayList<LatLng>();
 		markersList = new ArrayList<Marker>();
-	};
+	}
 
 	private void moveTolocation() {
 		personLatLng = MyMapUtils.getLatLng(this);
@@ -310,12 +310,12 @@ public class FindcarActivity extends BaseActivity {
 		mBaiduMapView.updateOritentation(personLatLng,
 				R.drawable.chedongtai_person, 20, 20);
 		mBaiduMapView.moveLatLng(personLatLng, 16);
-	};
+	}
 
 	private void moveTolocation(LatLng latLng) {
 		mBaiduMapView.setMarker(latLng, R.drawable.zhaochewei_weizhi);
 		mBaiduMapView.moveLatLng(latLng, 16);
-	};
+	}
 
 	protected void moveToPerson() {
 		isDefult = false;
@@ -345,7 +345,7 @@ public class FindcarActivity extends BaseActivity {
 		httpBiz = new HttpBiz(this);
 		ProgrosDialog.openDialog(this);
 		httpBiz.httPostData(FINDCARPORT_CODE, API.FINDCAR_URL, params, this);
-	};
+	}
 
 	private void init() {
 		left_action.setOnClickListener(listener);
@@ -662,11 +662,11 @@ public class FindcarActivity extends BaseActivity {
 				((TextView) lists.get(i).findViewById(
 						R.id.findcarportviewpager_map_item_costTextView))
 						.setText(listmMaps.get(i).getPrice());
-				((TextView) lists.get(i).findViewById(
-						R.id.findcarport_viewpager_tv_notive))
+				lists.get(i).findViewById(
+						R.id.findcarport_viewpager_tv_notive)
 						.setOnClickListener(new NotiveOnclickListener(i));
-				((LinearLayout) lists.get(i)
-						.findViewById(R.id.tishijulidaohang))
+				lists.get(i)
+						.findViewById(R.id.tishijulidaohang)
 						.setOnClickListener(new TiaozhuanOnclickListener(i));
 				((TextView) lists.get(i).findViewById(
 						R.id.findcarportviewpager_map_item_name))

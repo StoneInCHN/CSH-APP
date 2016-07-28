@@ -32,11 +32,7 @@ public class RegularExpressionTools {
 		Pattern pattern = Pattern
 				.compile("[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}");
 		Matcher matcher = pattern.matcher(carPlate);
-		if (!matcher.matches()) {
-			return false;
-		} else {
-			return true;
-		}
+		return matcher.matches();
 	}
 
 	public static boolean isFacingExpression(String faceExpression) {
@@ -77,11 +73,7 @@ public class RegularExpressionTools {
             	flag = true;
             }else{
                 m=Pattern.compile(REGEX2, Pattern.CASE_INSENSITIVE).matcher(str);
-                if(m.find()){
-                    flag = true;
-                }else{
-                	flag = false;
-                }
+				flag = m.find();
             }
         }
         return flag;

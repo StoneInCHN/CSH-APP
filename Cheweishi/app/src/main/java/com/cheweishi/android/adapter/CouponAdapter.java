@@ -27,7 +27,7 @@ public class CouponAdapter extends BaseAdapter {
     private OnCouponClickListener listener;
 
     public interface OnCouponClickListener {
-        public void onCouponClick(int id, int position);
+        void onCouponClick(int id, int position);
     }
 
     public void setOnCouponClickListener(OnCouponClickListener listener) {

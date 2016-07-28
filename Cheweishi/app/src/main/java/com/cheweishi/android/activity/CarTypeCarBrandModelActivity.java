@@ -433,7 +433,6 @@ public class CarTypeCarBrandModelActivity extends BaseActivity implements
             }
         }
 
-        ;
     };
 
     private void setModelDataAdapter() {

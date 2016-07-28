@@ -983,14 +983,10 @@ public class GasStationMapFragment extends BaseFragment implements
         mGeoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latLng));
     }
 
-    ;
-
     @Override
     public void onResume() {
         super.onResume();
     }
-
-    ;
 
     @Override
     public void onStart() {

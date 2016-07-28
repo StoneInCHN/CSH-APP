@@ -203,7 +203,7 @@ public class IntegralActivity extends BaseActivity implements OnScrollListener,
 		integral_tv_sign_jifen.setText(sign);
 		integral_tv_today.setText(total);
 		integral_tv_note_jifen.setText(mile);
-	};
+	}
 
 	/**
 	 * 网络请求方法
@@ -281,7 +281,7 @@ public class IntegralActivity extends BaseActivity implements OnScrollListener,
 	Handler handler = new Handler(Looper.getMainLooper()) {
 		public void handleMessage(android.os.Message msg) {
 			mListView.onRefreshComplete();
-		};
+		}
 
 	};
 

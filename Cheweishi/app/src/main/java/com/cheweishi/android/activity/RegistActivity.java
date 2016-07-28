@@ -623,8 +623,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
         }
     }
 
-    ;
-
     private void parseRegistJSON(String msgString) {
         if (StringUtil.isEmpty(msgString)) {
             ProgrosDialog.closeProgrosDialog();
@@ -697,8 +695,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
         String m_szImei = TelephonyMgr.getDeviceId();
         return m_szImei;
     }
-
-    ;
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {

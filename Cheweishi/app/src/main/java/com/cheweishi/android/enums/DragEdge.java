@@ -17,5 +17,5 @@ package com.cheweishi.android.enums;
  * 
  */
 public enum DragEdge {
-	Left, Right, Top, Bottom;
-};
+	Left, Right, Top, Bottom
+}

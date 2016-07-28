@@ -31,7 +31,7 @@ public class UseCouponAdapter extends BaseAdapter {
          *
          * @param position
          */
-        public void onCheckCoupon(int position);
+        void onCheckCoupon(int position);
     }
 
 

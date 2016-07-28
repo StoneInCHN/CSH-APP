@@ -334,8 +334,6 @@ public class PasswordForgetActivity extends BaseActivity implements
         }
     }
 
-    ;
-
     /**
      * 对获取到的验证码Json数据解析
      *

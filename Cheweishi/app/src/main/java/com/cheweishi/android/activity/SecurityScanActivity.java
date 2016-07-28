@@ -138,7 +138,6 @@ public class SecurityScanActivity extends BaseActivity {
 
         }
 
-        ;
     };
     private Runnable runnable = new Runnable() {
 

@@ -200,11 +200,8 @@ public class BaseFragment extends Fragment implements JSONCallback {
         //
         // }
         loginResponse = BaseActivity.loginResponse;
-        if (StringUtil.isEmpty(loginResponse)
-                || StringUtil.isEmpty(loginResponse.getDesc())) {
-            return false;
-        }
-        return true;
+        return !(StringUtil.isEmpty(loginResponse)
+                || StringUtil.isEmpty(loginResponse.getDesc()));
     }
 
     /**

@@ -69,7 +69,7 @@ public class HttpBiz extends BaseHttp {
 				mToast.show();
 				break;
 			}
-		};
+		}
 	};
 
 	/**

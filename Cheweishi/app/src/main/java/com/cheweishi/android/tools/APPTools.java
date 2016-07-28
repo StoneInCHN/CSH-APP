@@ -78,15 +78,11 @@ public class APPTools {
                 .getRunningAppProcesses();
         for (RunningAppProcessInfo appProcess : appProcesses) {
             if (appProcess.processName.equals(context.getPackageName())) {
-                if (appProcess.importance == RunningAppProcessInfo.IMPORTANCE_BACKGROUND) {
-                    // Log.i(String.format("Background App:",
-                    // appProcess.processName));
-                    return true;
-                } else {
-                    // Log.i(String.format("Foreground App:",
-                    // appProcess.processName));
-                    return false;
-                }
+                // Log.i(String.format("Background App:",
+// appProcess.processName));
+// Log.i(String.format("Foreground App:",
+// appProcess.processName));
+                return appProcess.importance == RunningAppProcessInfo.IMPORTANCE_BACKGROUND;
             }
         }
         return false;

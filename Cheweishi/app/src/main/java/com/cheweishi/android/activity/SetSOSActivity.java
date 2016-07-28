@@ -344,7 +344,7 @@ public class SetSOSActivity extends BaseActivity {
 						new JSONObject(result).optString("operationState"),
 						API.returnSuccess, true)) {
 
-					listSOS = (List<SOS>) gson.fromJson(new JSONObject(result)
+					listSOS = gson.fromJson(new JSONObject(result)
 							.optJSONObject("data").optString("list"), type);
 					adapter.setData(listSOS);
 					Utility.setListViewHeightBasedOnChildren(listView_sos);
@@ -509,7 +509,7 @@ public class SetSOSActivity extends BaseActivity {
 			}
 			break;
 		}
-	};
+	}
 
 	/**
 	 * 删除对话框

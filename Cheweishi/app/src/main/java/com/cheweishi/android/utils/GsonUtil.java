@@ -90,7 +90,6 @@ public class GsonUtil {
 		if (o != null) {
 			try {
 				s = gson.toJson(o);
-				;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

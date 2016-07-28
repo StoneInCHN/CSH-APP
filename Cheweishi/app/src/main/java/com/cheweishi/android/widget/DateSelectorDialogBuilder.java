@@ -19,7 +19,7 @@ public class DateSelectorDialogBuilder extends Dialog {
 	 * // * 默认方向标示 //
 	 */
 	public interface OnSaveListener {
-		abstract void onSaveSelectedDate(String selectedDate);
+		void onSaveSelectedDate(String selectedDate);
 	}
 
 	public DateSelectorDialogBuilder(Context context) {

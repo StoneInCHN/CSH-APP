@@ -227,11 +227,11 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
                 ((TextView) lists.get(i).findViewById(
                         R.id.findcarportviewpager_map_item_costTextView))
                         .setText(listmMaps.get(i).getPrice());
-                ((TextView) lists.get(i).findViewById(
-                        R.id.findcarport_viewpager_tv_notive))
+                lists.get(i).findViewById(
+                        R.id.findcarport_viewpager_tv_notive)
                         .setOnClickListener(new NotiveOnclickListener(i));
-                ((LinearLayout) lists.get(i)
-                        .findViewById(R.id.tishijulidaohang))
+                lists.get(i)
+                        .findViewById(R.id.tishijulidaohang)
                         .setOnClickListener(new TiaozhuanOnclickListener(i));
                 ((TextView) lists.get(i).findViewById(
                         R.id.findcarportviewpager_map_item_name))
@@ -367,8 +367,6 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
         markersList = new ArrayList<Marker>();
     }
 
-    ;
-
     private void initList() {
         for (int i = 0; i < 10; i++) {
             lists.add(LayoutInflater.from(baseContext).inflate(
@@ -385,14 +383,10 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
         mBaiduMapView.moveLatLng(latLng, 16);
     }
 
-    ;
-
     private void moveTolocation(LatLng latLng) {
         mBaiduMapView.setMarker(latLng, R.drawable.zhaochewei_weizhi);
         mBaiduMapView.moveLatLng(latLng, 16);
     }
-
-    ;
 
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
 

@@ -66,7 +66,7 @@ public class CustomDialog extends Dialog {
          * @return
          */
         public Builder setMessage(int message) {
-            this.message = (String) context.getText(message);
+            this.message = context.getText(message);
             return this;
         }
 
@@ -154,7 +154,7 @@ public class CustomDialog extends Dialog {
                 ((Button) layout.findViewById(R.id.positiveButton))
                         .setText(positiveButtonText);
                 if (positiveButtonClickListener != null) {
-                    ((Button) layout.findViewById(R.id.positiveButton))
+                    layout.findViewById(R.id.positiveButton)
                             .setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
                                     positiveButtonClickListener.onClick(dialog,
@@ -172,7 +172,7 @@ public class CustomDialog extends Dialog {
                 ((Button) layout.findViewById(R.id.negativeButton))
                         .setText(negativeButtonText);
                 if (negativeButtonClickListener != null) {
-                    ((Button) layout.findViewById(R.id.negativeButton))
+                    layout.findViewById(R.id.negativeButton)
                             .setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
                                     negativeButtonClickListener.onClick(dialog,
@@ -205,19 +205,19 @@ public class CustomDialog extends Dialog {
                                 LayoutParams.FILL_PARENT));
             }
             if (showEtFlag == true) {
-                ((TextView) layout.findViewById(R.id.message))
+                layout.findViewById(R.id.message)
                         .setVisibility(View.GONE);
-                ((EditText) layout.findViewById(R.id.et_message))
+                layout.findViewById(R.id.et_message)
                         .setVisibility(View.VISIBLE);
                 setEt(((EditText) layout.findViewById(R.id.et_message)));
             } else {
-                ((TextView) layout.findViewById(R.id.message))
+                layout.findViewById(R.id.message)
                         .setVisibility(View.VISIBLE);
-                ((EditText) layout.findViewById(R.id.et_message))
+                layout.findViewById(R.id.et_message)
                         .setVisibility(View.GONE);
             }
 
-            bottom_line = (View) layout.findViewById(R.id.dialog_bottomLayout);
+            bottom_line = layout.findViewById(R.id.dialog_bottomLayout);
             if (flag == true) {
                 hideLayout();
             }

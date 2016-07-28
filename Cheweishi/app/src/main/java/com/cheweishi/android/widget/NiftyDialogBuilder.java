@@ -166,7 +166,7 @@ public class NiftyDialogBuilder extends Dialog implements DialogInterface {
 			params.height = windowHeight;
 		}
 		getWindow().setAttributes(
-				(android.view.WindowManager.LayoutParams) params);
+				params);
 		getWindow().setBackgroundDrawableResource(
 				R.drawable.background_transparent);
 	}

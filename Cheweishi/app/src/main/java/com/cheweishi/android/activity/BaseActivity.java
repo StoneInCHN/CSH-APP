@@ -349,11 +349,8 @@ public abstract class BaseActivity extends FragmentActivity implements
         if (StringUtil.isEmpty(loginResponse)) {
             loginResponse = LoginMessageUtils.getLoginResponse(baseContext);
         }
-        if (StringUtil.isEmpty(BaseActivity.loginResponse)
-                || StringUtil.isEmpty(loginResponse.getDesc())) {
-            return false;
-        }
-        return true;
+        return !(StringUtil.isEmpty(BaseActivity.loginResponse)
+                || StringUtil.isEmpty(loginResponse.getDesc()));
     }
 
     @SuppressWarnings("unchecked")
@@ -411,11 +408,7 @@ public abstract class BaseActivity extends FragmentActivity implements
      * @return
      */
     public boolean hasDevice() {
-        if (hasCar() && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle()) && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultDeviceNo())) {
-            return true;
-        } else {
-            return false;
-        }
+        return hasCar() && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehicle()) && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultDeviceNo());
     }
 
     /**

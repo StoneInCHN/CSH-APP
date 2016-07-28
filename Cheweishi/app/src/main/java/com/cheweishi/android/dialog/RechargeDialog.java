@@ -71,7 +71,7 @@ public class RechargeDialog extends Dialog {
 		 * @return
 		 */
 		public Builder setMessage(int message) {
-			this.message = (String) context.getText(message);
+			this.message = context.getText(message);
 			return this;
 		}
 
@@ -160,7 +160,7 @@ public class RechargeDialog extends Dialog {
 				((Button) layout.findViewById(R.id.positiveButton))
 						.setText(positiveButtonText);
 				if (positiveButtonClickListener != null) {
-					((Button) layout.findViewById(R.id.positiveButton))
+					layout.findViewById(R.id.positiveButton)
 							.setOnClickListener(new View.OnClickListener() {
 								public void onClick(View v) {
 									positiveButtonClickListener.onClick(dialog,
@@ -173,7 +173,7 @@ public class RechargeDialog extends Dialog {
 				((Button) layout.findViewById(R.id.negativeButton))
 						.setText(negativeButtonText);
 				if (negativeButtonClickListener != null) {
-					((Button) layout.findViewById(R.id.negativeButton))
+					layout.findViewById(R.id.negativeButton)
 							.setOnClickListener(new View.OnClickListener() {
 								public void onClick(View v) {
 									negativeButtonClickListener.onClick(dialog,

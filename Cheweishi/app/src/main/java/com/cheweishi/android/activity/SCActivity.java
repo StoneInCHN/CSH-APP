@@ -78,13 +78,13 @@ public class SCActivity extends BaseActivity {
 				flag = true;
 			}
 			// scWeb.loadUrl("http://182.92.82.119/wap/");
-		};
+		}
 
 		public void onPageStarted(WebView view, String url,
 				android.graphics.Bitmap favicon) {
 			ProgrosDialog.openDialog(SCActivity.this);
 
-		};
+		}
 	};
 
 	private void settingsWeb() {

@@ -323,8 +323,6 @@ public class PurseIntegralActivity extends BaseActivity implements
         String mile = dataJsonObject.optString("mile");
     }
 
-    ;
-
     /**
      * 网络请求方法
      */

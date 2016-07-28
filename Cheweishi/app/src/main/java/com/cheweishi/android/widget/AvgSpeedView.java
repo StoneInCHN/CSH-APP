@@ -66,7 +66,7 @@ public class AvgSpeedView extends View {
 				- getFontWidth(TEXT_SIZE) - 3;
 		XScale = (float) XLength / (3600 * 24);
 
-		XLength = (int) (XLength + XLength / 4);
+		XLength = XLength + XLength / 4;
 		if (speedFlag == false) {
 			CarReportSpeedFragment.XLength = XLength;
 			CarReportSpeedFragment.XScale = XScale;

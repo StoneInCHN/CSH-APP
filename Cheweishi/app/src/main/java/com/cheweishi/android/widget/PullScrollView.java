@@ -381,7 +381,7 @@ public class PullScrollView extends ScrollView {
         /**
          * 翻转回调方法
          */
-        public void onTurn();
+        void onTurn();
     }
 
 
@@ -392,6 +392,6 @@ public class PullScrollView extends ScrollView {
          *
          * @param y
          */
-        public void onScroll(int y);
+        void onScroll(int y);
     }
 }

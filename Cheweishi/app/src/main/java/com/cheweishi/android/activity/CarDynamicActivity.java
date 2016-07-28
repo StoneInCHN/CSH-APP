@@ -286,10 +286,7 @@ public class CarDynamicActivity extends BaseActivity {
             latlngs.add(carLatLng);
 
             String acc = response.getMsg().getAcc();
-            if (null != acc && "1".equals(acc))
-                isFired = true;
-            else
-                isFired = false;
+            isFired = null != acc && "1".equals(acc);
             // 是否在地图上画出车辆轨迹
             if (isDraw) {
                 mMapSearchUtil.startReverseGeoCode(carLatLng,

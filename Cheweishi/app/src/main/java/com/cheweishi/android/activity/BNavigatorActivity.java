@@ -156,7 +156,7 @@ public class BNavigatorActivity extends Activity {
 		BNavigator.getInstance().resume();
 		super.onResume();
 		BNMapController.getInstance().onResume();
-	};
+	}
 
 	@Override
 	public void onPause() {

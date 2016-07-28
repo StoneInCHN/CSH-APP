@@ -98,7 +98,7 @@ public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
     private TextView tv_car_manager_item_device;
 
     public interface CarManagerListener {
-        public void onCarLineClick(int type, int position);
+        void onCarLineClick(int type, int position);
     }
 
     //车动态车数据

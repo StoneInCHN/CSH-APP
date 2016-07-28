@@ -51,16 +51,16 @@ public class Panel extends LinearLayout {
 	/**
 	 * Callback invoked when the panel is opened/closed.
 	 */
-	public static interface OnPanelListener {
+	public interface OnPanelListener {
 		/**
 		 * Invoked when the panel becomes fully closed.
 		 */
-		public void onPanelClosed(Panel panel);
+		void onPanelClosed(Panel panel);
 
 		/**
 		 * Invoked when the panel becomes fully opened.
 		 */
-		public void onPanelOpened(Panel panel);
+		void onPanelOpened(Panel panel);
 	}
 
 	private boolean mIsShrinking;
@@ -86,7 +86,7 @@ public class Panel extends LinearLayout {
 
 	private enum State {
 		ABOUT_TO_ANIMATE, ANIMATING, READY, TRACKING, FLYING, CLICK
-	};
+	}
 
 	private State mState;
 	private Interpolator mInterpolator;

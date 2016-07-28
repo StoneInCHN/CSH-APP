@@ -70,7 +70,7 @@ public class MapMenssageDialog extends BaseDialog {
 	@Override
 	public void initDatas() {
 		message.setText(msg);
-	};
+	}
 
 	@Override
 	public void onBackPressed() {

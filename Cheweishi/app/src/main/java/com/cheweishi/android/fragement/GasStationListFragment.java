@@ -352,10 +352,7 @@ public class GasStationListFragment extends BaseFragment implements
      * @return
      */
     private boolean isSeccess(JSONObject jsonObject) {
-        if (jsonObject.optString("operationState").equals("SUCCESS")) {
-            return true;
-        }
-        return false;
+        return jsonObject.optString("operationState").equals("SUCCESS");
     }
 
     /***

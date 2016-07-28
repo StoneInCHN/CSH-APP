@@ -240,8 +240,6 @@ public class PasswordModifyActivity extends BaseActivity implements
         }
     }
 
-    ;
-
     /**
      * 对服务器返回的json数据进行解析
      *

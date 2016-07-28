@@ -63,7 +63,7 @@ public class ImgDialog extends Dialog {
          * @return
          */
         public Builder setMessage(int message) {
-            this.message = (String) context.getText(message);
+            this.message = context.getText(message);
             return this;
         }
 
@@ -166,7 +166,7 @@ public class ImgDialog extends Dialog {
 //				((Button) layout.findViewById(R.id.positiveButton))
 //						.setText(positiveButtonText);
                 if (positiveButtonClickListener != null) {
-                    ((ImageButton) layout.findViewById(R.id.ib_dialog))
+                    layout.findViewById(R.id.ib_dialog)
                             .setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
                                     positiveButtonClickListener.onClick(dialog,

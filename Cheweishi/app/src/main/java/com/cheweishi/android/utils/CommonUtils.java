@@ -36,11 +36,8 @@ public class CommonUtils {
 	 * @return
 	 */
 	public static boolean isExitsSdcard() {
-		if (android.os.Environment.getExternalStorageState().equals(
-				android.os.Environment.MEDIA_MOUNTED))
-			return true;
-		else
-			return false;
+		return android.os.Environment.getExternalStorageState().equals(
+				android.os.Environment.MEDIA_MOUNTED);
 	}
 	/**
 	 * 获取顶部activity的类名

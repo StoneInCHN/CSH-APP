@@ -107,28 +107,28 @@ public class CreditActivity extends Activity {
          * @param shareTitle 分享的标题
          * @param shareSubtitle 分享的副标题
          */
-        public void onShareClick(WebView webView, String shareUrl, String shareThumbnail, String shareTitle, String shareSubtitle);
+		void onShareClick(WebView webView, String shareUrl, String shareThumbnail, String shareTitle, String shareSubtitle);
 
         /**
          * 当点击登录
          * @param webView 用于登录成功后返回到当前的webview并刷新。
          * @param currentUrl 当前页面的url
          */
-        public void onLoginClick(WebView webView, String currentUrl);
+		void onLoginClick(WebView webView, String currentUrl);
 
         /**
          * 当点复制券码时
          * @param mWebView mWebView对象。
          * @param code 复制的券码
          */
-		public void onCopyCode(WebView mWebView, String code);
+		void onCopyCode(WebView mWebView, String code);
 
 		/**
 		 * 通知本地，刷新积分
 		 * @param mWebView
 		 * @param credits
 		 */
-		public void onLocalRefresh(WebView mWebView, String credits);
+		void onLocalRefresh(WebView mWebView, String credits);
     }
 
     protected String url;
