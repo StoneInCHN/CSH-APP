@@ -10,7 +10,6 @@
         android:id="@+id/tv_peccancy_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="天府大道中段"
         android:textColor="@color/block_column_1"
         android:textSize="@dimen/titile_side_text_size" />
 

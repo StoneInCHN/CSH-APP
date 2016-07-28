@@ -104,9 +104,13 @@ public class CarManagerActivity extends BaseActivity implements
 
     private static final float DEFAULT_MIN_ALPHA = 0.0f;
     private float mMinAlpha = DEFAULT_MIN_ALPHA;
+
+    private List<MyCarManagerResponse.MsgBean> list = new ArrayList<>();
+
     private MyCarManagerResponse response;
 
     private int CurrentPosition = 0;
+
     private Intent intent = new Intent();
 
     @Override
@@ -127,6 +131,10 @@ public class CarManagerActivity extends BaseActivity implements
         ll_car_manager_no_data.setVisibility(View.GONE);
         ll_car_manager_edit.setOnClickListener(this);
         ((TextView) ll_car_manager_bottom.getChildAt(0)).setText(HomeFragment.tv_home_weather.getText());
+        adapter = new CarManagerAdapter(baseContext, list, this);
+        vp_car_manager.setAdapter(adapter);
+        vp_car_manager.setPageTransformer(true, this);
+        vp_car_manager.setOnPageChangeListener(this);
         connectToServer();
     }
 
@@ -233,27 +241,26 @@ public class CarManagerActivity extends BaseActivity implements
                 if (null != response && response.getMsg().size() > 0) {
                     ll_car_manager_no_data.setVisibility(View.GONE);
                     rl_car_manager.setVisibility(View.VISIBLE);
-                    adapter = new CarManagerAdapter(baseContext, response.getMsg(), this);
-                    vp_car_manager.setAdapter(adapter);
-                    vp_car_manager.setPageTransformer(true, this);
-                    vp_car_manager.setOnPageChangeListener(this);
+//                    adapter = new CarManagerAdapter(baseContext, response.getMsg(), this);
+//                    vp_car_manager.setAdapter(adapter);
+//                    vp_car_manager.setPageTransformer(true, this);
+//                    vp_car_manager.setOnPageChangeListener(this);
+                    adapter.setData(response.getMsg());
                     tv_car_manager_number.setText("1/" + response.getMsg().size());
+                    if (response.getMsg().size() >= 3) { // TODO 默认只能添加三辆车
+                        right_action.setVisibility(View.GONE);
+                    } else {
+                        right_action.setVisibility(View.VISIBLE);
+                    }
                 } else {
-//                    EmptyTools.setEmptyView(this, vp_car_manager);
-//                    EmptyTools.setImg(R.drawable.mycar_icon);
-//                    EmptyTools.setMessage("您还没有添加车辆");
                     ll_car_manager_no_data.setVisibility(View.VISIBLE);
                     img_no_data.setImageResource(R.drawable.mycar_icon);
                     tv_no_data.setText("当前没有车辆,点击图片添加车辆");
                 }
-//                if (listCarManager.size() >= 3) {
-//                    right_action.setVisibility(View.GONE);
-//                } else {
-//                    right_action.setVisibility(View.VISIBLE);
-//                }
+
 
                 loginResponse.setToken(response.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 ProgrosDialog.closeProgrosDialog();
                 break;
             case NetInterface.SET_DEFAULT_DEVICE:

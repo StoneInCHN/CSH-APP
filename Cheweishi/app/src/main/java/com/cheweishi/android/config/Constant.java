@@ -14,12 +14,21 @@
 package com.cheweishi.android.config;
 
 import android.os.Environment;
+import android.util.SparseArray;
+import android.view.View;
 
 import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.utils.StringUtil;
 
+import java.lang.ref.SoftReference;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Constant {
+    public static final SparseArray<SoftReference<View>> carView = new SparseArray<>();
+//    public static final SparseArray<View> carView = new SparseArray<>();
+
     public static final String NEW_FRIENDS_USERNAME = "item_new_friends";
     public static final String GROUP_USERNAME = "item_groups";
     public static final String MESSAGE_ATTR_IS_VOICE_CALL = "is_voice_call";

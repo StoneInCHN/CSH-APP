@@ -27,7 +27,6 @@
         android:layout_toRightOf="@id/car_iv_location"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="你阿黄萨斯"
         android:textColor="@color/text_black_colcor"
         android:textSize="@dimen/title_center_text_size" />
 
@@ -46,7 +45,6 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/chewei_fangxiang"
             android:drawablePadding="@dimen/small_padding"
-            android:text="你哈桑先生"
             android:textColor="@color/gray_normal_6"
             android:textSize="@dimen/text_size_small" />
 

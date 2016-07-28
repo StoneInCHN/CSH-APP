@@ -1,5 +1,6 @@
 package com.cheweishi.android.adapter;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
+import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.entity.MyCarManagerResponse;
 import com.cheweishi.android.entity.ServiceDetailResponse;
@@ -111,15 +113,31 @@ public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
         init();
     }
 
+    public void setData(List<MyCarManagerResponse.MsgBean> list) {
+        this.list = list;
+        init();
+        notifyDataSetChanged();
+    }
+
     private void init() {
-        if (null != list) {
+        if (null != list && null != context) {
+            View view = null;
             for (int i = 0; i < list.size(); i++) {
-                View view = View.inflate(context, R.layout.car_manager_item, null);
+                SoftReference<View> softReference = Constant.carView.get(i);
+                if (null == softReference) {
+                    view = View.inflate(context, R.layout.car_manager_item, null);
+                    Constant.carView.put(i, new SoftReference<View>(view));
+                } else {
+                    view = softReference.get();
+                    if (null == view) {
+                        view = View.inflate(context, R.layout.car_manager_item, null);
+                        Constant.carView.put(i, new SoftReference<View>(view));
+                    }
+                }
                 views.add(view);
             }
         }
     }
-
 
     @Override
     public int getCount() {
@@ -141,9 +159,7 @@ public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
 
     private void handlerView(View view, int p) {
         ViewUtils.inject(this, view);
-        XUtilsImageLoader.getxUtilsImageLoader(context,
-                R.drawable.tianjiacar_img2x, iv_car_manager_item_car_icon,
-                list.get(p).getBrandIcon());
+        XUtilsImageLoader.getxUtilsImageLoader(context, R.drawable.tianjiacar_img2x, iv_car_manager_item_car_icon, list.get(p).getBrandIcon());
         tv_car_manager_item_carid.setText(list.get(p).getPlate());
         tv_car_manager_item_plate.setText(list.get(p).getPlate());
         tv_car_manager_item_carname.setText(list.get(p).getVehicleFullBrand());
