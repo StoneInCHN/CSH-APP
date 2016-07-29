@@ -235,17 +235,21 @@ public class CarManagerActivity extends BaseActivity implements
             case NetInterface.LIST:
                 response = (MyCarManagerResponse) GsonUtil.getInstance().convertJsonStringToObject(data, MyCarManagerResponse.class);
                 if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    ProgrosDialog.closeProgrosDialog();
                     showToast(response.getDesc());
                     return;
                 }
+//                List<MyCarManagerResponse.MsgBean> temp = response.getMsg();
                 if (null != response && response.getMsg().size() > 0) {
                     ll_car_manager_no_data.setVisibility(View.GONE);
                     rl_car_manager.setVisibility(View.VISIBLE);
-//                    adapter = new CarManagerAdapter(baseContext, response.getMsg(), this);
-//                    vp_car_manager.setAdapter(adapter);
+                    adapter = new CarManagerAdapter(baseContext, response.getMsg(), this);
+                    vp_car_manager.setAdapter(adapter);
 //                    vp_car_manager.setPageTransformer(true, this);
 //                    vp_car_manager.setOnPageChangeListener(this);
-                    adapter.setData(response.getMsg());
+//                    list.clear();
+//                    list = temp;
+//                    adapter.setData(list);
                     tv_car_manager_number.setText("1/" + response.getMsg().size());
                     if (response.getMsg().size() >= 3) { // TODO 默认只能添加三辆车
                         right_action.setVisibility(View.GONE);

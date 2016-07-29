@@ -11,8 +11,8 @@ android {
         multiDexEnabled true
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 78
-        versionName "2.1.0"
+        versionCode 88
+        versionName "3.5.7"
     }
 
     signingConfigs {
@@ -83,6 +83,7 @@ dependencies {
     compile files('libs/org.jbundle.util.osgi.wrapped.org.apache.http.client-4.1.2.jar')
     compile files('libs/commons-codec-1.4.jar')
     compile 'com.android.support:design:23.3.0'
+//    compile 'com.umeng.analytics:analytics:latest.integration'
     compile project(':librarys')
     compile project(':richtext')
 }

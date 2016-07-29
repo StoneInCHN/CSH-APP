@@ -224,7 +224,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         rl_activity_area.setOnClickListener(this);
         rl_integral_mall.setOnClickListener(this);
 
-
     }
 
     private void upDateCar() {
@@ -244,9 +243,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onDataLoading(int what) {
         if (0x1 == what) {
             ProgrosDialog.openDialog(baseContext);
+            upDateCar();
             listViewAdapter = new MainListViewAdapter(baseContext, null);
             list_business.setAdapter(listViewAdapter);
-            upDateCar();
+
             initScrollView();
 //            iniBaiduNavi();
             initData();

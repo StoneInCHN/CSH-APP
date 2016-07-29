@@ -64,11 +64,14 @@ public class NewsFragment extends BaseFragment {
 //        ProgrosDialog.closeProgrosDialog();
         NewsTypeResponse response = (NewsTypeResponse) GsonUtil.getInstance().convertJsonStringToObject(data, NewsTypeResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            ProgrosDialog.closeProgrosDialog();
             showToast(response.getDesc());
             return;
         }
-        if (null == response.getMsg() || 0 >= response.getMsg().size())
+        if (null == response.getMsg() || 0 >= response.getMsg().size()) {
+            ProgrosDialog.closeProgrosDialog();
             return;
+        }
 
         adapter = new NewsFragmentPagerAdapter(((MainNewActivity) baseContext).getSupportFragmentManager(), baseContext, response.getMsg());
         viewPager.setAdapter(adapter);
