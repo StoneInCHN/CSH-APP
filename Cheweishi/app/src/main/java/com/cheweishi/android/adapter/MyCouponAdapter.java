@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.entity.ActivityCouponResponse;
 import com.cheweishi.android.entity.MyCouponResponse;
 
 import java.util.List;
@@ -109,7 +108,7 @@ public class MyCouponAdapter extends BaseAdapter {
 
         if (list.get(position).isIsUsed()) { // 判断是否使用
             holder.overTime.setVisibility(View.VISIBLE);
-            holder.overTime.setImageResource(R.drawable.b_item_clicked);// TODO 需要图片
+            holder.overTime.setImageResource(R.drawable.b_item_coupon_got);// TODO 需要图片
             holder.totalnumber.setVisibility(View.GONE);
             holder.get.setVisibility(View.GONE);
         } else {
@@ -121,7 +120,7 @@ public class MyCouponAdapter extends BaseAdapter {
 
         if (list.get(position).isIsOverDue()) { // 判断是否过期
             holder.overTime.setVisibility(View.VISIBLE);
-            holder.overTime.setImageResource(R.drawable.b_item_clicked);// TODO 需要图片
+            holder.overTime.setImageResource(R.drawable.b_item_coupon_overtime);// TODO 需要图片
             holder.totalnumber.setVisibility(View.GONE);
             holder.get.setVisibility(View.GONE);
         } else {
