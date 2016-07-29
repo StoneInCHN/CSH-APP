@@ -26,6 +26,7 @@ import com.cheweishi.android.interfaces.CarReportListener;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.http.ResponseInfo;
+import com.umeng.analytics.MobclickAgent;
 
 public class BaseFragment extends Fragment implements JSONCallback {
     protected Context baseContext;
@@ -94,7 +95,7 @@ public class BaseFragment extends Fragment implements JSONCallback {
         /**
          * 友盟页面统计
          */
-//        MobclickAgent.onPageStart(getClass().getName());
+        MobclickAgent.onPageStart(getClass().getSimpleName());
     }
 
     @Override
@@ -103,7 +104,7 @@ public class BaseFragment extends Fragment implements JSONCallback {
         /**
          * 友盟页面统计
          */
-//        MobclickAgent.onPageEnd(getClass().getName());
+        MobclickAgent.onPageEnd(getClass().getSimpleName());
 
     }
 

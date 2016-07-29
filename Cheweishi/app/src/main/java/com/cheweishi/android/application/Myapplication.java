@@ -25,6 +25,7 @@ import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.ScreenUtils;
 import com.cheweishi.android.utils.mapUtils.LocationUtil;
 import com.cheweishi.android.widget.CustomDialog;
+import com.umeng.analytics.MobclickAgent;
 
 public class Myapplication extends Application implements
         UncaughtExceptionHandler {
@@ -61,6 +62,8 @@ public class Myapplication extends Application implements
         super.onCreate();
         applicationContext = this;
         instance = this;
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+
         // baidu初始化
         SDKInitializer.initialize(this);
 //		umengInit();
@@ -72,7 +75,6 @@ public class Myapplication extends Application implements
 
 
         JPushInit();//极光推送初始化
-
 
 
 //		Thread.setDefaultUncaughtExceptionHandler(this);

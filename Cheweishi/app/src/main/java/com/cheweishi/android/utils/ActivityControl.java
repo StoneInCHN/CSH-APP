@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.Toast;
 
 import com.cheweishi.android.activity.LoginActivity;
+import com.umeng.analytics.MobclickAgent;
 
 public class ActivityControl {
     private static List<Activity> acitivityList = new ArrayList<Activity>();
@@ -40,13 +42,14 @@ public class ActivityControl {
 //		android.os.Process.killProcess(android.os.Process.myPid()); // TODO
     }
 
-    public static void GG() {
+    public static void GG(Context context) {
         for (Activity activity : acitivityList) {
             if (null != activity && !(activity instanceof LoginActivity)) {
                 activity.finish();
             }
         }
 //		finishFlag = true;
+        MobclickAgent.onKillProcess(context);
         System.exit(0);
         android.os.Process.killProcess(android.os.Process.myPid()); // TODO
     }

@@ -78,6 +78,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -204,8 +205,14 @@ public class MainNewActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);       //统计时长
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 
     @Override
     protected void onStart() {
@@ -396,7 +403,7 @@ public class MainNewActivity extends BaseActivity {
             showToast("再按一次退出程序");
             exitTime = System.currentTimeMillis();
         } else {
-            ActivityControl.GG();
+            ActivityControl.GG(baseContext.getApplicationContext());
         }
     }
 
