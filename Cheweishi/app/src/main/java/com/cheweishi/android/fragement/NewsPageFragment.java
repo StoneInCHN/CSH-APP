@@ -101,14 +101,14 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
 
     @Override
     public void onDataLoading(int what) {
-        if (isLoaded) {
-            if (0 == list.size()) {
-                EmptyTools.setEmptyView(baseContext, listView);
-                EmptyTools.setImg(R.drawable.mycar_icon);
-                EmptyTools.setMessage("当前列表没有新闻信息");
-            }
-            return;
-        }
+//        if (isLoaded) {
+//            if (0 == list.size()) {
+//                EmptyTools.setEmptyView(baseContext, listView);
+//                EmptyTools.setImg(R.drawable.mycar_icon);
+//                EmptyTools.setMessage("当前列表没有新闻信息");
+//            }
+//            return;
+//        }
 
         if (0x10 == what && !isLoaded) {
             isLoaded = true;
