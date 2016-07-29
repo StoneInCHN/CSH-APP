@@ -151,6 +151,7 @@ public class MyConpouFragment extends BaseFragment implements
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+        isHeaderRefresh = true;
         list.clear();
         page = 1;
         getData();
@@ -158,6 +159,7 @@ public class MyConpouFragment extends BaseFragment implements
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+        isHeaderRefresh = false;
         page++;
         getData();
     }
