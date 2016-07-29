@@ -134,8 +134,9 @@ public class WebViewView {
         mWebView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
         mWebView.getSettings().setSupportZoom(true);
         mWebView.getSettings().setUseWideViewPort(true);
+//        mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setBuiltInZoomControls(false);
-//        mWebView.setInitialScale(25);
+        mWebView.setInitialScale(25);
     }
 
     public void setContext(Context mContext) {

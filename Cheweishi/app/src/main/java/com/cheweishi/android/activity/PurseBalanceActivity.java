@@ -73,6 +73,7 @@ public class PurseBalanceActivity extends BaseActivity implements
     private ListView mListView;
     private int total = 0;
     private boolean isHeaderRefresh = false;
+    private boolean isEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,25 +186,28 @@ public class PurseBalanceActivity extends BaseActivity implements
             } else {
                 list.addAll(temp);
             }
-            if (list.size() < total) {
-                telephonechargedetils_listview.onRefreshComplete();
-                telephonechargedetils_listview.setMode(PullToRefreshBase.Mode.BOTH);
-            } else {
-                telephonechargedetils_listview.onRefreshComplete();
-                telephonechargedetils_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-            }
-            telephonEchargeDetailsAdapter.setlist(list);
-        } else {
+
+            isEmpty = false;
+        } else if (!isEmpty) { // 已经添加了
+            isEmpty = true;
+            list = temp;
+
             EmptyTools.setEmptyView(baseContext, mListView);
             EmptyTools.setImg(R.drawable.mycar_icon);
             EmptyTools.setMessage("您当前还没有记录");
-            telephonechargedetils_listview.onRefreshComplete();
-            telephonechargedetils_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         }
 
+        telephonEchargeDetailsAdapter.setlist(list);
         tv_balance_num.setText(response.getDesc());
         loginResponse.setToken(response.getToken());
         ProgrosDialog.closeProgrosDialog();
+        if (list.size() < total) {
+            telephonechargedetils_listview.onRefreshComplete();
+            telephonechargedetils_listview.setMode(PullToRefreshBase.Mode.BOTH);
+        } else {
+            telephonechargedetils_listview.onRefreshComplete();
+            telephonechargedetils_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        }
 //        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
 

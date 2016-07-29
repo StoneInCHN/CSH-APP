@@ -38,6 +38,9 @@ public class MyConpouFragment extends BaseFragment implements
     // 定义加载的页面数量
     private int page = 1;
     private MyCouponAdapter adapter;
+    private boolean isEmpty;
+    private int total;
+    private boolean isHeaderRefresh;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,11 +84,10 @@ public class MyConpouFragment extends BaseFragment implements
 
     @Override
     public void receive(String data) {
-        mListView.onRefreshComplete();
-        ProgrosDialog.closeProgrosDialog();
 
         MyCouponResponse response = (MyCouponResponse) GsonUtil.getInstance().convertJsonStringToObject(data, MyCouponResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            ProgrosDialog.closeProgrosDialog();
             showToast(response.getDesc());
             return;
         }
@@ -94,30 +96,37 @@ public class MyConpouFragment extends BaseFragment implements
             ((PurseRedPacketsActivity) getActivity()).showTab();
         }
 
-        if (null != response.getMsg()) {
-            List<MyCouponResponse.MsgBean> temp = response.getMsg();
-            list.addAll(temp);
-            if (0 < list.size()) {
-                if (response.getPage().getTotal() < list.size()) {
-                    mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-                }
-                adapter.setData(list);
+        List<MyCouponResponse.MsgBean> temp = response.getMsg();
+
+
+        if (null != temp && 0 < temp.size()) {
+            total = response.getPage().getTotal();
+            if (isHeaderRefresh) {
+                list = temp;
             } else {
-                EmptyTools.setEmptyView(baseContext, mListView);
-                EmptyTools.setImg(R.drawable.dingdanwu_icon);
-                EmptyTools.setMessage("您还没有优惠券,赶快去领取吧");
-                mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                list.addAll(temp);
             }
-        } else {
+
+            isEmpty = false;
+        } else if (!isEmpty) { // 已经添加了
+            isEmpty = true;
+            list = temp;
             EmptyTools.setEmptyView(baseContext, mListView);
             EmptyTools.setImg(R.drawable.dingdanwu_icon);
             EmptyTools.setMessage("您还没有优惠券,赶快去领取吧");
-            mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         }
 
-
+        adapter.setData(list);
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+        ProgrosDialog.closeProgrosDialog();
+        if (list.size() < total) {
+            mListView.onRefreshComplete();
+            mListView.setMode(PullToRefreshBase.Mode.BOTH);
+        } else {
+            mListView.onRefreshComplete();
+            mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        }
+//        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
 
     }

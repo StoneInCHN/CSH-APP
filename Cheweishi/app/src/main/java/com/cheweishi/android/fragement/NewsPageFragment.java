@@ -53,6 +53,7 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
     private int total;
 
     private boolean isHeadRefresh = false;
+    private boolean isEmpty;
 
     public static NewsPageFragment newInstance(int page, int id) {
         Bundle args = new Bundle();
@@ -130,10 +131,11 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
 
     @Override
     public void receive(String data) {
-        ProgrosDialog.closeProgrosDialog();
+
         NewsListResponse response = (NewsListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, NewsListResponse.class);
 
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            ProgrosDialog.closeProgrosDialog();
             showToast(response.getDesc());
             listView.onRefreshComplete();
             return;
@@ -141,30 +143,33 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
         List<NewsListResponse.MsgBean> temp = response.getMsg();
 
         if (null != temp && 0 < temp.size()) {
+//            EmptyTools.hintEmpty();
             total = response.getPage().getTotal();
             if (isHeadRefresh) {
                 list = temp;
             } else {
                 list.addAll(temp);
             }
-            if (list.size() < total) {
-                listView.onRefreshComplete();
-                listView.setMode(PullToRefreshBase.Mode.BOTH);
-//            else if (total == list.size())
-//                listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-            } else {
-                listView.onRefreshComplete();
-                listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-            }
-            adapter.setData(list);
-        } else {
+            isEmpty = false;
+        } else if (!isEmpty) { // 已经添加了
+            isEmpty = true;
+            list = temp;
+//            adapter.setData(list);
             EmptyTools.setEmptyView(baseContext, listView);
             EmptyTools.setImg(R.drawable.mycar_icon);
             EmptyTools.setMessage("当前列表没有新闻信息");
-            listView.onRefreshComplete();
         }
 
+        adapter.setData(list);
         loginResponse.setToken(response.getToken());
+        ProgrosDialog.closeProgrosDialog();
+        if (list.size() < total) {
+            listView.onRefreshComplete();
+            listView.setMode(PullToRefreshBase.Mode.BOTH);
+        } else {
+            listView.onRefreshComplete();
+            listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        }
     }
 
     @Override

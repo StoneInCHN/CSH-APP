@@ -91,8 +91,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_yuyue"
-                            android:padding="@dimen/two_dp_padding"
                             android:layout_centerHorizontal="true"
+                            android:padding="@dimen/two_dp_padding"
                             android:textColor="@color/order_dr"
                             android:textSize="@dimen/ttf_ten" />
                     </RelativeLayout>
@@ -115,9 +115,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/img_daodian"
+                            android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/small_marging"
                             android:text="到店服务"
-                            android:layout_centerHorizontal="true"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/ttf_fourteen" />
 
@@ -134,10 +134,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_daodian"
+                            android:layout_centerHorizontal="true"
                             android:padding="@dimen/two_dp_padding"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/ttf_ten"
-                            android:layout_centerHorizontal="true"
                             android:visibility="gone" />
                     </RelativeLayout>
 
@@ -170,19 +170,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_ok"
+                            android:layout_centerHorizontal="true"
                             android:padding="@dimen/two_dp_padding"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/ttf_ten"
-                            android:layout_centerHorizontal="true"
                             android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tv_ok"
-                            android:layout_centerHorizontal="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_below="@+id/img_ok"
+                            android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/small_marging"
                             android:gravity="center"
                             android:text="确认支付"
@@ -220,10 +220,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_order_ok"
+                            android:layout_centerHorizontal="true"
                             android:padding="@dimen/two_dp_padding"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/ttf_ten"
-                            android:layout_centerHorizontal="true"
                             android:visibility="gone" />
 
                         <TextView
@@ -232,8 +232,8 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_below="@+id/img_order_ok"
-                            android:layout_marginTop="@dimen/small_marging"
                             android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/small_marging"
                             android:text="订单完成"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/ttf_fourteen" />
@@ -262,11 +262,10 @@
 
                     <ImageView
                         android:id="@+id/car_iv_location"
-                        android:layout_width="@dimen/img_start_height"
-                        android:layout_height="@dimen/img_start_height"
-                        android:adjustViewBounds="true"
+                        android:layout_width="100dp"
+                        android:layout_height="60dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/zhaochewei_img" />
+                        android:src="@drawable/udesk_defalut_image_loading" />
                 </LinearLayout>
 
                 <LinearLayout

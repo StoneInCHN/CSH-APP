@@ -66,6 +66,7 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
     private static boolean refresh = false;
     private int total = 0; //分页总数
     private boolean isHeaderRefresh = false; //是否下拉刷新
+    private boolean isEmpty;
 
     // WashcarHistoryActivity
     @Override
@@ -163,12 +164,12 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void receive(String TAG, String data) {
-        lv_myOrder.onRefreshComplete();
-        ProgrosDialog.closeProgrosDialog();
+
         switch (TAG) {
             case "normal":
                 OrderResponse response = (OrderResponse) GsonUtil.getInstance().convertJsonStringToObject(data, OrderResponse.class);
                 if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    ProgrosDialog.closeProgrosDialog();
                     showToast(response.getDesc());
                     return;
                 }
@@ -182,23 +183,26 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
                     } else {
                         list.addAll(temp);
                     }
-                    if (list.size() < total) {
-                        lv_myOrder.onRefreshComplete();
-                        lv_myOrder.setMode(PullToRefreshBase.Mode.BOTH);
-                    } else {
-                        lv_myOrder.onRefreshComplete();
-                        lv_myOrder.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-                    }
-                    adapter.setData(list);
-                } else {
-                    EmptyTools.setEmptyView(baseContext, mListView);
+
+                    isEmpty = false;
+                } else if (!isEmpty) { // 已经添加了
+                    isEmpty = true;
+                    list = temp;
+                    EmptyTools.setEmptyView(baseContext, lv_myOrder);
                     EmptyTools.setImg(R.drawable.mycar_icon);
                     EmptyTools.setMessage("您当前还没有订单");
+                }
+
+                adapter.setData(list);
+                loginResponse.setToken(response.getToken());
+                ProgrosDialog.closeProgrosDialog();
+                if (list.size() < total) {
+                    lv_myOrder.onRefreshComplete();
+                    lv_myOrder.setMode(PullToRefreshBase.Mode.BOTH);
+                } else {
                     lv_myOrder.onRefreshComplete();
                     lv_myOrder.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                 }
-
-                loginResponse.setToken(response.getToken());
 //                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }

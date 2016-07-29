@@ -131,10 +131,10 @@ public class CarManagerActivity extends BaseActivity implements
         ll_car_manager_no_data.setVisibility(View.GONE);
         ll_car_manager_edit.setOnClickListener(this);
         ((TextView) ll_car_manager_bottom.getChildAt(0)).setText(HomeFragment.tv_home_weather.getText());
-        adapter = new CarManagerAdapter(baseContext, list, this);
-        vp_car_manager.setAdapter(adapter);
-        vp_car_manager.setPageTransformer(true, this);
-        vp_car_manager.setOnPageChangeListener(this);
+//        adapter = new CarManagerAdapter(baseContext, list, this);
+//        vp_car_manager.setAdapter(adapter);
+//        vp_car_manager.setPageTransformer(true, this);
+//        vp_car_manager.setOnPageChangeListener(this);
         connectToServer();
     }
 
@@ -245,8 +245,8 @@ public class CarManagerActivity extends BaseActivity implements
                     rl_car_manager.setVisibility(View.VISIBLE);
                     adapter = new CarManagerAdapter(baseContext, response.getMsg(), this);
                     vp_car_manager.setAdapter(adapter);
-//                    vp_car_manager.setPageTransformer(true, this);
-//                    vp_car_manager.setOnPageChangeListener(this);
+                    vp_car_manager.setPageTransformer(true, this);
+                    vp_car_manager.setOnPageChangeListener(this);
 //                    list.clear();
 //                    list = temp;
 //                    adapter.setData(list);

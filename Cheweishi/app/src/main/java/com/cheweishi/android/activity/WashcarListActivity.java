@@ -65,6 +65,7 @@ public class WashcarListActivity extends BaseActivity implements
 
     private int total;
     private boolean isHeaderRefresh = false; // 是否为下拉刷新
+    private boolean isEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,40 +112,46 @@ public class WashcarListActivity extends BaseActivity implements
         switch (TAG) {
             case NetInterface.LIST:
                 ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
-                if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    ProgrosDialog.closeProgrosDialog();
+                    showToast(response.getDesc());
+                    return;
+                }
 
-                    List<ServiceListResponse.MsgBean> temp = response.getMsg();
+                List<ServiceListResponse.MsgBean> temp = response.getMsg();
 
-                    if (null != temp && 0 < temp.size()) {
-                        total = response.getPage().getTotal();
-                        if (isHeaderRefresh) {
-                            washcarList = temp;
-                        } else {
-                            washcarList.addAll(temp);
-                        }
-                        if (washcarList.size() < total) {
-                            mListView.onRefreshComplete();
-                            mListView.setMode(PullToRefreshBase.Mode.BOTH);
-                        } else {
-                            mListView.onRefreshComplete();
-                            mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-                        }
-                        listViewAdapter.setData(washcarList);
+                if (null != temp && 0 < temp.size()) {
+                    total = response.getPage().getTotal();
+                    if (isHeaderRefresh) {
+                        washcarList = temp;
                     } else {
-                        EmptyTools.setEmptyView(baseContext, mListView);
-                        EmptyTools.setImg(R.drawable.mycar_icon);
-                        EmptyTools.setMessage("当前没有洗车信息");
-                        mListView.onRefreshComplete();
+                        washcarList.addAll(temp);
                     }
 
-                    loginResponse.setToken(response.getToken());
-//                    LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                    isEmpty = false;
+                } else if (!isEmpty) { // 已经添加了
+                    isEmpty = true;
+                    washcarList = temp;
+                    EmptyTools.setEmptyView(baseContext, mListView);
+                    EmptyTools.setImg(R.drawable.mycar_icon);
+                    EmptyTools.setMessage("当前没有洗车信息");
                 }
+
+                listViewAdapter.setData(washcarList);
+                loginResponse.setToken(response.getToken());
+                ProgrosDialog.closeProgrosDialog();
+                if (washcarList.size() < total) {
+                    mListView.onRefreshComplete();
+                    mListView.setMode(PullToRefreshBase.Mode.BOTH);
+                } else {
+                    mListView.onRefreshComplete();
+                    mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                }
+//                    LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }
-
-
     }
+
 
     @Override
     public void error(String errorMsg) {

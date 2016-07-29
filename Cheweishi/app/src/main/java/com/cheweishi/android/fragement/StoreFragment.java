@@ -204,7 +204,7 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
                     EmptyTools.setEmptyView(baseContext, prl_store);
                     EmptyTools.setImg(R.drawable.mycar_icon);
                     EmptyTools.setMessage("当前还没有租户信息");
-                    prl_store.onRefreshComplete();
+
                 }
 
                 loginResponse.setToken(response.getToken());
@@ -212,6 +212,7 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
         }
 
         ProgrosDialog.closeProgrosDialog();
+        prl_store.onRefreshComplete();
     }
 
     @Override

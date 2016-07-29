@@ -98,6 +98,7 @@ public class PurseIntegralActivity extends BaseActivity implements
     private int pageNumber = 1;
     private int total = 0;
     private boolean isHeaderRefresh = false;
+    private boolean isEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,6 +256,7 @@ public class PurseIntegralActivity extends BaseActivity implements
 
         PurseIntegralResponse response = (PurseIntegralResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PurseIntegralResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            ProgrosDialog.closeProgrosDialog();
             showToast(response.getDesc());
             return;
         }
@@ -268,25 +270,28 @@ public class PurseIntegralActivity extends BaseActivity implements
             } else {
                 mList.addAll(temp);
             }
-            if (mList.size() < total) {
-                mListView.onRefreshComplete();
-                mListView.setMode(PullToRefreshBase.Mode.BOTH);
-            } else {
-                mListView.onRefreshComplete();
-                mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-            }
-            mIntegralAdapter.setList(mList);
-        } else {
+
+            isEmpty = false;
+        } else if (!isEmpty) { // 已经添加了
+            isEmpty = true;
+            mList = temp;
+
             EmptyTools.setEmptyView(baseContext, mListView);
             EmptyTools.setImg(R.drawable.mycar_icon);
             EmptyTools.setMessage("您当前还没有订单");
-            mListView.onRefreshComplete();
-            mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         }
 
+        mIntegralAdapter.setList(mList);
         loginResponse.setToken(response.getToken());
 //        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         ProgrosDialog.closeProgrosDialog();
+        if (mList.size() < total) {
+            mListView.onRefreshComplete();
+            mListView.setMode(PullToRefreshBase.Mode.BOTH);
+        } else {
+            mListView.onRefreshComplete();
+            mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        }
 
     }
 
