@@ -101,7 +101,7 @@ public class MainNewActivity extends BaseActivity {
     @ViewInject(R.id.tv_home_title)
     public static TextView tv_home_title;
 
-    public static String bindTitle = "车生活";
+    public static String bindTitle;
 
     @ViewInject(R.id.ibtn_user)
     // title左边按钮
@@ -187,6 +187,8 @@ public class MainNewActivity extends BaseActivity {
 //        initLocation();
 
         initContent();
+
+        bindTitle = getResources().getString(R.string.app_name);
 
         tv_home_bottom_index.setTextColor(getResources().getColor(R.color.orange));
 
