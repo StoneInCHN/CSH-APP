@@ -29,6 +29,7 @@ import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.SharePreferenceTools;
 import com.cheweishi.android.utils.ButtonUtils;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.WelcomeGallery;
 
@@ -74,6 +75,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        LogHelper.d("welcome start time:"+System.currentTimeMillis());
         // 设置全屏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
@@ -180,7 +182,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
 //                });
 //            }
         }
-
+//        LogHelper.d("welcome end time:"+System.currentTimeMillis());
     }
 
     private void InitFocusIndicatorContainer() {

@@ -1,7 +1,9 @@
 package com.cheweishi.android.application;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.List;
 
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
@@ -18,7 +20,9 @@ import cn.jpush.android.api.JPushInterface;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.SDKInitializer;
+import com.baidu.navisdk.ui.routeguide.subview.L;
 import com.cheweishi.android.R;
+import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
@@ -29,8 +33,8 @@ import com.umeng.analytics.MobclickAgent;
 
 public class Myapplication extends Application implements
         UncaughtExceptionHandler {
-    public static Context applicationContext;
-    private static Myapplication instance;
+//    public static Context applicationContext;
+//    private static Myapplication instance;
     // login user name
     public final String PREF_USERNAME = "username";
     //	public static PushAgent mPushAgent;
@@ -57,24 +61,29 @@ public class Myapplication extends Application implements
 //	public static String currentUserNick = "";
 //	public static MyHXSDKHelper hxSDKHelper = new MyHXSDKHelper();
     @Override
-    public void onCreate() {
-        // TODO Auto-generated method stub
+    public void onCreate() { // TODO 百度sdk导致多次初始化
         super.onCreate();
-        applicationContext = this;
-        instance = this;
-        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+//        LogHelper.d("app start time:" + System.currentTimeMillis());
+        String processName = APPTools.getProcessName(this, android.os.Process.myPid());
+        if (processName != null) {
+            boolean defaultProcess = processName.equals(getPackageName());
+            if (defaultProcess) {
+                //必要的初始化资源操作
+                MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
 
-        // baidu初始化
-        SDKInitializer.initialize(this);
+                // baidu初始化
+                SDKInitializer.initialize(this);
 //		umengInit();
 //		HXinit();
-        initLocation();
-        mLocationUtil = new LocationUtil(this, LocationUtil.SCANSPAN_TYPE_LONG,
-                locationListener);
-        mLocationUtil.onStart();
+                initLocation();
+                mLocationUtil = new LocationUtil(this, LocationUtil.SCANSPAN_TYPE_LONG,
+                        locationListener);
+                mLocationUtil.onStart();
 
 
-        JPushInit();//极光推送初始化
+                JPushInit();//极光推送初始化
+            }
+        }
 
 
 //		Thread.setDefaultUncaughtExceptionHandler(this);
@@ -82,6 +91,7 @@ public class Myapplication extends Application implements
         //
 //		 CrashHandler crashHandler=CrashHandler.getInstance();
 //		 crashHandler.init(getApplicationContext());
+//        LogHelper.d("app end time:" + System.currentTimeMillis() );
     }
 
 
@@ -239,9 +249,9 @@ public class Myapplication extends Application implements
 //		EMChat.getInstance().setAutoLogin(false);
 //		hxSDKHelper.onInit(applicationContext);
 //	}
-    public static Myapplication getInstance() {
-        return instance;
-    }
+//    public static Myapplication getInstance() {
+//        return instance;
+//    }
 
     /**
      * 退出登录,清空数据
@@ -250,18 +260,18 @@ public class Myapplication extends Application implements
 //		// 先调用sdk logout，在清理app中自己的数据
 //		hxSDKHelper.logout(emCallBack);
 //	}
-    public void showDialog(String text, String title) {
-        builder = new CustomDialog.Builder(Myapplication.instance);
-        builder.setMessage(text);
-        builder.setTitle(title);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.create().show();
-
-    }
+//    public void showDialog(String text, String title) {
+//        builder = new CustomDialog.Builder(Myapplication.instance);
+//        builder.setMessage(text);
+//        builder.setTitle(title);
+//        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        });
+//        builder.create().show();
+//
+//    }
 
     @Override
     public void uncaughtException(Thread t, Throwable e) {
