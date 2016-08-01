@@ -86,4 +86,10 @@ public class FindParkingSpaceListFragment extends BaseFragment {
 			}
 		}
 	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		baseContext.unregisterReceiver(broad);
+	}
 }

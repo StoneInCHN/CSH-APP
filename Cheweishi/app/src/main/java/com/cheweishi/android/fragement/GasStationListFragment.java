@@ -253,7 +253,7 @@ public class GasStationListFragment extends BaseFragment implements
      */
     protected void moveToPerson() {
         if (baseContext != null) {
-            LatLng personLatLng = MyMapUtils.getLatLng(baseContext);
+            LatLng personLatLng = MyMapUtils.getLatLng(baseContext.getApplicationContext());
             request(personLatLng);
         }
     }
@@ -269,13 +269,11 @@ public class GasStationListFragment extends BaseFragment implements
                     && !StringUtil.isEmpty(loginResponse.getMsg().getDefaultVehiclePlate())) {
                 httputils();
             } else {
-                MapMenssageDialog.OpenDialog(baseContext,
-                        getString(R.string.no_band_gasstation));
+                MapMenssageDialog.OpenDialog(baseContext, getString(R.string.no_band_gasstation));
                 mpersonButton.setChecked(true);
             }
         } else {
-            MapMenssageDialog.OpenDialog(baseContext,
-                    getString(R.string.no_login_gasstation));
+            MapMenssageDialog.OpenDialog(baseContext, getString(R.string.no_login_gasstation));
             mpersonButton.setChecked(true);
         }
 
@@ -630,6 +628,7 @@ public class GasStationListFragment extends BaseFragment implements
     public void onDestroy() {
         super.onDestroy();
         mListView = null;
+        mGeoCoder.destroy();
     }
 
     OnGetGeoCoderResultListener getGeoCoderResultListener = new OnGetGeoCoderResultListener() {
@@ -662,8 +661,8 @@ public class GasStationListFragment extends BaseFragment implements
                     param.put("userId", loginResponse.getDesc());
                     param.put("token", loginResponse.getToken());
                     param.put("keyWord", "加油站");
-                    param.put("longitude", MyMapUtils.getLongitude(baseContext));
-                    param.put("latitude", MyMapUtils.getLatitude(baseContext));
+                    param.put("longitude", MyMapUtils.getLongitude(baseContext.getApplicationContext()));
+                    param.put("latitude", MyMapUtils.getLatitude(baseContext.getApplicationContext()));
                     param.put(Constant.PARAMETER_TAG, NetInterface.SEARCH);
                     netWorkHelper.PostJson(url, param, GasStationListFragment.this);
                 }

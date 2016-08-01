@@ -249,7 +249,7 @@ public class PullToRefreshExpandableListView extends PullToRefreshAdapterViewBas
 						//scale----->1
 						matrix.postScale(1, scale, imgWidth / 2, 0);
 						imageView.setImageMatrix(matrix);
-						scaleY = (float) (scaleY / 2 - 1);
+						scaleY = scaleY / 2 - 1;
 						mHandler.sendEmptyMessageDelayed(BACK_SCALE, 20);
 					} else {
 						scaleY = 0;

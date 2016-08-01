@@ -50,4 +50,5 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
                 break;
         }
     }
+
 }

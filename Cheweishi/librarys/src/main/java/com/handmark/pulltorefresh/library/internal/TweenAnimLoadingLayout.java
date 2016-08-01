@@ -10,6 +10,7 @@ import android.view.View;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Orientation;
 import com.handmark.pulltorefresh.library.R;
+import com.nineoldandroids.view.ViewHelper;
 
 /**
  * @author Tanck
@@ -62,17 +63,18 @@ public class TweenAnimLoadingLayout extends LoadingLayout {
 //        if (1.0 >= scaleOfLayout && 0.5 < scaleOfLayout) {
 //            mHeaderImage.setImageResource(R.drawable.pull_image);
 //        } else
-        if (0.9 >= scaleOfLayout && 0 < scaleOfLayout) {
+        if (1.0 >= scaleOfLayout && 0 < scaleOfLayout) {
             mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_01);
-        } else if (1.0 >= scaleOfLayout && 0.9 < scaleOfLayout) {
+            ViewHelper.setScaleY(mHeaderImage, scaleOfLayout);
+        } else if (1.1 >= scaleOfLayout && 1.05 < scaleOfLayout) {
             mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_02);
-        } else if (1.2 >= scaleOfLayout && 1.1 < scaleOfLayout) {
+        } else if (1.15 >= scaleOfLayout && 1.1 < scaleOfLayout) {
             mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_03);
-        } else if (1.4 >= scaleOfLayout && 1.2 < scaleOfLayout) {
+        } else if (1.2 >= scaleOfLayout && 1.15 < scaleOfLayout) {
             mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_04);
-        } else if (1.6 >= scaleOfLayout && 1.4 < scaleOfLayout) {
+        } else if (1.25 >= scaleOfLayout && 1.2 < scaleOfLayout) {
             mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_05);
-        } else if (1.6 < scaleOfLayout) {
+        } else if (1.25 < scaleOfLayout) {
             mHeaderImage.setImageResource(R.drawable.loading_anim_mt);
             animationDrawable = (AnimationDrawable) mHeaderImage.getDrawable();
             animationDrawable.start();
@@ -90,6 +92,7 @@ public class TweenAnimLoadingLayout extends LoadingLayout {
     @Override
     protected void refreshingImpl() {
         // 播放帧动画
+        ViewHelper.setScaleY(mHeaderImage, 1.0f);
         mHeaderImage.setImageResource(R.drawable.loading_anim_mt);
         animationDrawable = (AnimationDrawable) mHeaderImage.getDrawable();
         animationDrawable.stop();

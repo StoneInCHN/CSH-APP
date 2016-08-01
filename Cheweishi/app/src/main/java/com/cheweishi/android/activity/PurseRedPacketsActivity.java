@@ -120,4 +120,10 @@ public class PurseRedPacketsActivity extends BaseActivity implements View.OnClic
     public void showTab() {
         ll_mycoupon_tab.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EmptyTools.destory();
+    }
 }

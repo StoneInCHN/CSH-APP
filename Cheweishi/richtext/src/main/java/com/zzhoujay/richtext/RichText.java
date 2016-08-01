@@ -56,6 +56,12 @@ public class RichText {
 
     private TextView textView;
 
+    public void onDestroy() {
+        mImageFixCallback = null;
+        if (null != textView)
+            textView = null;
+    }
+
 
     private RichText(boolean autoFix, boolean async, String richText, Drawable placeHolder, Drawable errorImage) {
         this.autoFix = autoFix;
