@@ -1,6 +1,8 @@
 package com.cheweishi.android.activity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -34,7 +36,7 @@ import java.util.Map;
  *
  * @author zhangq
  */
-public class WebActivity extends BaseActivity implements OnClickListener {
+public class WebActivity extends BaseActivity implements OnClickListener, TextWatcher {
     private WebView mWebView;
     private Button tvLeft;
     private TextView tvTitle;
@@ -90,6 +92,7 @@ public class WebActivity extends BaseActivity implements OnClickListener {
             bt_web = (Button) findViewById(R.id.bt_web);
             tv_web_comment = (TextView) findViewById(R.id.tv_web_comment);
             tv_web_like = (TextView) findViewById(R.id.tv_web_like);
+            et_web.addTextChangedListener(this);
             tv_web_like.setOnClickListener(this);
             bt_web.setOnClickListener(this);
             sendPacketForUrl();
@@ -256,4 +259,21 @@ public class WebActivity extends BaseActivity implements OnClickListener {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (0 < count)
+            bt_web.setVisibility(View.VISIBLE);
+        else
+            bt_web.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
 }
