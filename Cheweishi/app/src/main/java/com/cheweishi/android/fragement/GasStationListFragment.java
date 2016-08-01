@@ -706,7 +706,7 @@ public class GasStationListFragment extends BaseFragment implements
                 pson(response);
 
                 loginResponse.setToken(response.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
             case NetInterface.DYNAMIC: // 车辆定位
 
@@ -721,8 +721,14 @@ public class GasStationListFragment extends BaseFragment implements
                 else
                     showToast(R.string.gain_car_address_error);
                 loginResponse.setToken(carDynamicResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        adapter = null;
     }
 }

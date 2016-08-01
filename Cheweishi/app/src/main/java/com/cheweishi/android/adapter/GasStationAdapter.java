@@ -146,18 +146,18 @@ public class GasStationAdapter extends BaseAdapter {
                 double lng = Double.parseDouble(list.get(arg0).get("lng"));
                 if (lat != 0 && lng != 0) {
                     BaiduMapView baiduMapView = new BaiduMapView();
-                    baiduMapView.initMap(context);
+                    baiduMapView.initMap(context.getApplicationContext());
                     if (isDraw) {
                         baiduMapView.baiduNavigation(
                                 GasStationAdapter.this.latLng.latitude,
                                 GasStationAdapter.this.latLng.longitude,
-                                MyMapUtils.getAddress(context), lat, lng, list
+                                MyMapUtils.getAddress(context.getApplicationContext()), lat, lng, list
                                         .get(arg0).get("address"));
                     } else {
                         baiduMapView.baiduNavigation(MyMapUtils
-                                .getLatLng(context).latitude, MyMapUtils
-                                .getLatLng(context).longitude, MyMapUtils
-                                .getAddress(context), lat, lng, list.get(arg0)
+                                .getLatLng(context.getApplicationContext()).latitude, MyMapUtils
+                                .getLatLng(context.getApplicationContext()).longitude, MyMapUtils
+                                .getAddress(context.getApplicationContext()), lat, lng, list.get(arg0)
                                 .get("address"));
                     }
                 }
