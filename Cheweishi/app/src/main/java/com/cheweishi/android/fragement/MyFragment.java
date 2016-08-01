@@ -1,18 +1,16 @@
 package com.cheweishi.android.fragement;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
@@ -26,8 +24,8 @@ import com.cheweishi.android.activity.PurseRedPacketsActivity;
 import com.cheweishi.android.activity.SetActivity;
 import com.cheweishi.android.activity.UserInfoEditActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
+import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.utils.ButtonUtils;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.cheweishi.android.widget.PullScrollView;
@@ -86,10 +84,17 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     //顶部
     private View iv_my_top;
 
+    //广播
+    private MyBroadcastReceiver broad;
+
     private CustomDialog.Builder builder;
     private CustomDialog phoneDialog;
 
-    private boolean isLoad = false;
+    private boolean isLoaded = false;
+
+    public void setLoaded(boolean loaded) {
+        isLoaded = loaded;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -138,12 +143,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
 
     private void onLoad() {
-        isLoad = true;
+        isLoaded = true;
         psl_my.setHeader(iv_my_top);
         psl_my.setNeedScrollSync(true);
-        XUtilsImageLoader.getxUtilsImageLoader(baseContext,
-                R.drawable.info_touxiang_moren, iv_myAccountUserIcon,
-                loginResponse.getMsg().getPhoto());
+        XUtilsImageLoader.getxUtilsImageLoader(baseContext, R.drawable.info_touxiang_moren, iv_myAccountUserIcon, loginResponse.getMsg().getPhoto());
         tv_coupon_number_my.setText("优惠券(" + ((MainNewActivity) getActivity()).getCouponNumber() + ")");
         tv_my_user_car_number.setText("我的车库(" + ((MainNewActivity) getActivity()).getCarNumber() + ")");
         String plate = loginResponse.getMsg().getDefaultVehiclePlate();
@@ -295,7 +298,39 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden && !isLoad)
+        if (!hidden && !isLoaded)
             loading.sendEmptyMessage(0x4);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (broad == null) {
+            broad = new MyBroadcastReceiver();
+        }
+        IntentFilter intentFilter = new IntentFilter(Constant.REFRESH_FLAG);
+        baseContext.registerReceiver(broad, intentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        baseContext.unregisterReceiver(broad);
+    }
+
+    private class MyBroadcastReceiver extends BroadcastReceiver {
+
+        public void onReceive(Context context, Intent intent) {
+            Constant.EDIT_FLAG = false;
+            if (!StringUtil.isEquals(intent.getAction(), Constant.REFRESH_FLAG,
+                    true)) {
+                return;
+            }
+            if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.USER_NICK_EDIT_REFRESH, true)) { // 修改名字
+                tv_my_name.setText(StringUtil.isEmpty(loginResponse.getMsg().getNickName()) ? getResources().getString(R.string.app_name) : loginResponse.getMsg().getNickName());
+            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.USER_CENTER_REFRESH, true)) { // 修改头像
+                XUtilsImageLoader.getxUtilsImageLoader(baseContext, R.drawable.info_touxiang_moren, iv_myAccountUserIcon, loginResponse.getMsg().getPhoto());
+            }
+        }
     }
 }

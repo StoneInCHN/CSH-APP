@@ -448,6 +448,7 @@ public class MainNewActivity extends BaseActivity {
         } else if (null != home) {
             home();
             home.onDataLoading(0x1);
+            my.setLoaded(false);
         }
     }
 

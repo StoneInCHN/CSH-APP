@@ -227,6 +227,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 tv_home_user_car_full_name.setText(loginResponse.getMsg().getDefaultVehicle());
                 tv_home_user_car_name.setText(loginResponse.getMsg().getDefaultVehiclePlate());
             } else {
+                iv_home_user_car.setImageResource(R.drawable.tianjiacar_img2x);
                 tv_home_user_car_full_name.setText("当前没有添加车辆");
                 tv_home_user_car_name.setText("未添加车辆");
             }

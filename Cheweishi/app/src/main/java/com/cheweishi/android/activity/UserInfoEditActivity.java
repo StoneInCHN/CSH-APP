@@ -856,9 +856,9 @@ public class UserInfoEditActivity extends BaseActivity implements
 //                        photoResponse.getMsg().getPhoto());
                 loginResponse.getMsg().setPhoto(photoResponse.getMsg().getPhoto());
                 loginResponse.setToken(photoResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 Intent mIntent = new Intent();
-                Constant.CURRENT_REFRESH = Constant.SPECIAL_SIGN_REFRESH;
+                Constant.CURRENT_REFRESH = Constant.USER_CENTER_REFRESH;
                 mIntent.setAction(Constant.REFRESH_FLAG);
                 sendBroadcast(mIntent);
             } else {

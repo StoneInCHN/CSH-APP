@@ -128,11 +128,13 @@ public class UserNickActivity extends BaseActivity implements OnClickListener {
             return;
         }
         showToast(R.string.change_success);
-        LoginUserInfoResponse userInfoResponse = loginResponse.getMsg();
-        userInfoResponse.setNickName(response.getMsg().getNickName());
-        loginResponse.setMsg(userInfoResponse);
-        LoginMessageUtils.saveProduct(loginResponse, baseContext);
-        DBTools.getInstance(baseContext).save(loginResponse);
+//        LoginUserInfoResponse userInfoResponse = loginResponse.getMsg();
+//        userInfoResponse.setNickName(response.getMsg().getNickName());
+        loginResponse.getMsg().setNickName(response.getMsg().getNickName());
+        loginResponse.setToken(response.getToken());
+//        loginResponse.setMsg(userInfoResponse);
+//        LoginMessageUtils.saveProduct(loginResponse, baseContext);
+//        DBTools.getInstance(baseContext).save(loginResponse);
         Constant.CURRENT_REFRESH = Constant.USER_NICK_EDIT_REFRESH;
         Intent mIntent = new Intent();
         mIntent.setAction(Constant.REFRESH_FLAG);
