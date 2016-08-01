@@ -249,7 +249,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        loading.sendEmptyMessageDelayed(0x1, 500);
+        loading.sendEmptyMessageDelayed(0x1, 200);
     }
 
     /**

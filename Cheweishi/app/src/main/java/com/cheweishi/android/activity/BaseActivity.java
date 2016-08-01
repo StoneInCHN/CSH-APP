@@ -95,7 +95,6 @@ public abstract class BaseActivity extends FragmentActivity implements
     };
     private FragmentManager fmanager;
 
-    private RichText richText;
 
     /**
      * Activity的回调函数。当application进入前台时，该函数会被自动调用。
@@ -213,10 +212,6 @@ public abstract class BaseActivity extends FragmentActivity implements
     protected void onDestroy() {
         ActivityControl.removeActivity(this);
         super.onDestroy();
-        if (null != richText) {
-            richText.onDestroy();
-        }
-        richText = null;
         baseContext = null;
         if (progress != null) {
             progress.dismiss();
@@ -605,17 +600,7 @@ public abstract class BaseActivity extends FragmentActivity implements
         }
     }
 
-    public void setRitchText(String text, TextView textView) {
-        richText = RichText.from(text);
-        richText.autoFix(false).fix(new ImageFixCallback() {
-            @Override
-            public void onFix(ImageHolder holder, boolean imageReady) {
-                if (holder.getWidth() > 500 && holder.getHeight() > 500) {
-                    holder.setAutoFix(true);
-                }
-            }
-        }).into(textView);
-    }
+
 
     /**
      * @param msg

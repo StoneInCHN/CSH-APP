@@ -9,11 +9,14 @@ import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
+import com.zzhoujay.richtext.ImageFixCallback;
+import com.zzhoujay.richtext.ImageHolder;
+import com.zzhoujay.richtext.RichText;
 
 /**
  * Created by Tanck on 2016/4/28.
  */
-public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener {
+public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener, ImageFixCallback {
 
     private Button left_action;
 
@@ -23,6 +26,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
     private TextView title, tv_service_detail_title;
     private LinearLayout ll_service_detail_no;
+    private RichText richText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,9 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
             tv_service_detail_title.setVisibility(View.GONE);
             ll_service_detail_no.setVisibility(View.VISIBLE);
         } else {
-            setRitchText(desc, tv_service_detail_desc);
+//            setRitchText(desc, tv_service_detail_desc);
+            richText = RichText.from(desc);
+            richText.autoFix(false).fix(this).into(tv_service_detail_desc);
         }
     }
 
@@ -64,4 +70,22 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
                 break;
         }
     }
+
+    @Override
+    public void onFix(ImageHolder holder, boolean imageReady) {
+        if (holder.getWidth() > 500 && holder.getHeight() > 500) {
+            holder.setAutoFix(true);
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != richText) {
+            richText.onDestroy();
+        }
+        richText = null;
+    }
+
 }

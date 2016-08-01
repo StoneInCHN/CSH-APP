@@ -57,9 +57,15 @@ public class RichText {
     private TextView textView;
 
     public void onDestroy() {
+        recycle();
         mImageFixCallback = null;
-        if (null != textView)
+        if (null != textView) {
+            textView.setMovementMethod(null);
+            textView.setText(null);
+            textView.clearComposingText();
+            textView.addTextChangedListener(null);
             textView = null;
+        }
     }
 
 
@@ -243,7 +249,7 @@ public class RichText {
             final URLDrawable urlDrawable = new URLDrawable();
             ImageHolder holder = mImages.get(source);
             final ImageTargetBitmap target = new ImageTargetBitmap(urlDrawable, holder);
-            final BitmapTypeRequest load = Glide.with(textView.getContext()).load(source).asBitmap();
+            final BitmapTypeRequest load = Glide.with(textView.getContext().getApplicationContext()).load(source).asBitmap();
 
             targets.add(target);
             if (!autoFix && mImageFixCallback != null && holder != null) {
