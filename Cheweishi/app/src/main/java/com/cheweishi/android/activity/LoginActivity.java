@@ -341,11 +341,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
 //            }
 //        }
 //        ActivityControl.finishActivity(ActivityControl.getCount() - 1);
-        LogHelper.d("-----login:" + loginResponse.getToken());
+//        LogHelper.d("-----login:" + loginResponse.getToken());
         save(loginResponse);
 
-        Intent intent = new Intent(LoginActivity.this,
-                MainNewActivity.class);
+        Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         finish();
