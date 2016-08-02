@@ -41,7 +41,7 @@
     <color name="main_red">#f92929</color>
     <color name="main_light_blue">#e7f3fe</color>
     <!-- 用车报告淡蓝色 -->
-    <color name="light_blue">#a9d3fe</color>
+    <color name="light_blue">#afd3fe</color>
     <!-- app统一灰色线条颜色 -->
     <color name="line_gray">#eeeeee</color>
     <!-- app统一橘黄色字体 -->
@@ -68,6 +68,7 @@
     <!-- 主界面 -->
     <color name="home_blue_light">#57a7f9</color>
     <color name="home_ring">#77b7f9</color>
+    <color name="home_head_right">#55b7f9</color>
     <color name="home_blue_click">#499ff7</color>
     <color name="more_ll_color">#88a6a6a6</color>
     <!-- 天气 -->

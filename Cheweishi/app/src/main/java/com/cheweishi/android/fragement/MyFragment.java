@@ -322,8 +322,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
         public void onReceive(Context context, Intent intent) {
             Constant.EDIT_FLAG = false;
-            if (!StringUtil.isEquals(intent.getAction(), Constant.REFRESH_FLAG,
-                    true)) {
+            if (!StringUtil.isEquals(intent.getAction(), Constant.REFRESH_FLAG, true)) {
                 return;
             }
             if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.USER_NICK_EDIT_REFRESH, true)) { // 修改名字

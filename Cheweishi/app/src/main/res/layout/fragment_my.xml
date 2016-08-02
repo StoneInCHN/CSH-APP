@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!--android:background="@color/home_ring"-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,10 +61,10 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_my_name"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="5dp"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:layout_marginBottom="10dp"
                     android:textColor="@color/item_back"
                     android:textSize="@dimen/key_text_small" />
 
