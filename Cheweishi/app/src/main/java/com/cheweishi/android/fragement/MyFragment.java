@@ -329,6 +329,20 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 tv_my_name.setText(StringUtil.isEmpty(loginResponse.getMsg().getNickName()) ? getResources().getString(R.string.app_name) : loginResponse.getMsg().getNickName());
             } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.USER_CENTER_REFRESH, true)) { // 修改头像
                 XUtilsImageLoader.getxUtilsImageLoader(baseContext, R.drawable.info_touxiang_moren, iv_myAccountUserIcon, loginResponse.getMsg().getPhoto());
+            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.CAR_MANAGER_REFRESH, true)) { // 添加了车辆
+                try {
+                    int carNumber = Integer.valueOf(((MainNewActivity) getActivity()).getCarNumber());
+                    ((MainNewActivity) getActivity()).setCarNumber(String.valueOf(carNumber + 1));
+                } catch (Exception e) {
+                }
+                tv_my_user_car_number.setText("我的车库(" + ((MainNewActivity) getActivity()).getCarNumber() + ")");
+            } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.COUPON_REFRESH, true)) { // 领取优惠券
+                try {
+                    int couponNumber = Integer.valueOf(((MainNewActivity) getActivity()).getCouponNumber());
+                    ((MainNewActivity) getActivity()).setCouponNumber(String.valueOf(couponNumber + 1));
+                } catch (Exception e) {
+                }
+                tv_coupon_number_my.setText("优惠券(" + ((MainNewActivity) getActivity()).getCouponNumber() + ")");
             }
         }
     }

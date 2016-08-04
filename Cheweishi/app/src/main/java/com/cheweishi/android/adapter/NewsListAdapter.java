@@ -11,6 +11,7 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.entity.NewsListResponse;
 import com.cheweishi.android.utils.LogHelper;
+import com.cheweishi.android.widget.SimpleTagImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -59,7 +60,7 @@ public class NewsListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = View.inflate(context, R.layout.item_news_list, null);
 
-            holder.icon = (ImageView) convertView.findViewById(R.id.iv_news_item_icon);
+            holder.icon = (SimpleTagImageView) convertView.findViewById(R.id.iv_news_item_icon);
             holder.time = (TextView) convertView.findViewById(R.id.tv_news_item_time);
             holder.title = (TextView) convertView.findViewById(R.id.tv_news_item_title);
             holder.subTitle = (TextView) convertView.findViewById(R.id.tv_news_item_subtitle);
@@ -72,6 +73,7 @@ public class NewsListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         XUtilsImageLoader.getxUtilsImageLoader(context, R.drawable.udesk_defalut_image_loading, R.drawable.udesk_defualt_failure, holder.icon, list.get(position).getImgUrl());
+        holder.icon.setTagText("热门");
 
 //        LogHelper.d("第:" + position + "消息是:" + list.get(position).getReadCounts() + "--" + list.get(position).getTitle());
         holder.title.setText(list.get(position).getTitle());
@@ -85,7 +87,7 @@ public class NewsListAdapter extends BaseAdapter {
     }
 
     private class ViewHolder {
-        private ImageView icon;
+        private SimpleTagImageView icon;
         private TextView time;
         private TextView title;
         private TextView subTitle;

@@ -21,6 +21,7 @@
     <color name="white_like">#FFFFEF</color>
     <color name="yellow">#fdaa4c</color>
     <color name="orange">#2eb3e8</color>
+    <color name="orange_alpha">#882eb3e8</color>
     <color name="maintain_orange">#ffb359</color>
     <color name="deep_orange">#ff7f00</color>
     <color name="blue">#33B6EA</color>

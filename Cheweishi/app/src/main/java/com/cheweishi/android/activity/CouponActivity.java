@@ -149,6 +149,12 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
                     adapter.setData(list);
                 }
 
+                // TODO通知更新优惠券
+                Constant.CURRENT_REFRESH = Constant.COUPON_REFRESH;
+                Intent mIntent = new Intent();
+                mIntent.setAction(Constant.REFRESH_FLAG);
+                sendBroadcast(mIntent);
+
                 loginResponse.setToken(getCouponResponse.getToken());
 //                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;

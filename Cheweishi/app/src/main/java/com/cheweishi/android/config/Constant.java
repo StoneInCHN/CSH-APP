@@ -43,6 +43,7 @@ public class Constant {
     public static String SettingOrPhone = "Phone";
     public static int Server_Hall_index = 0;
     public static String LOGIN_REFRESH = "com.cheweishi.android.activity.LoginActivity";
+    public static String COUPON_REFRESH = "com.cheweishi.android.activity.CouponActivity";
     public static String CAR_MANAGER_REFRESH = "com.cheweishi.android.activity.CarManagerActivity";
     public static String MESSAGE_CENTER_REFRESH = "com.cheweishi.android.activity.MessageCenterActivtiy";
     public static String SPECIAL_SIGN_REFRESH = "com.cheweishi.android.activtiy.UserSignActivity";

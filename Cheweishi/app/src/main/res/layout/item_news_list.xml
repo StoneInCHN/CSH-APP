@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -9,12 +10,15 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.cheweishi.android.widget.SimpleTagImageView
             android:id="@+id/iv_news_item_icon"
             android:layout_width="120dp"
             android:layout_height="80dp"
             android:scaleType="fitXY"
-            android:src="@drawable/udesk_defalut_image_loading" />
+            android:src="@drawable/udesk_defalut_image_loading"
+            app:simple_tag_background_color="@color/orange_alpha"
+            app:simple_tag_textSize="12sp"
+            app:simple_tag_width="15dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +30,6 @@
                 android:id="@+id/tv_news_item_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2016-7-19"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>

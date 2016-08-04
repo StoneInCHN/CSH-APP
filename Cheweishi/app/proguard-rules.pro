@@ -86,6 +86,8 @@
 
 -keep public class com.android.vending.licensing.ILicensingService
 
+-printmapping mapping.txt #混淆后文件映射
+
 #-keep public class com.cheweishi.android.R$*{
 #    public static final int *;
 #}

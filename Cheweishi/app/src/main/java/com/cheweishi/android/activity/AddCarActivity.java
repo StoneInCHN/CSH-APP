@@ -872,6 +872,8 @@ public class AddCarActivity extends BaseActivity {
                 param.put("lastMaintainMileage", Long.parseLong(tv_last_keepFit.getText().toString()));
                 if (mNeedDefault) {
                     param.put("isDefault", mNeedDefault);
+                    loginResponse.getMsg().setDefaultVehiclePlate(carPlate);
+                    loginResponse.getMsg().setDefaultVehicle(brandId);
                 } else {
                     param.put("isDefault", mIsChecked);
                     if (mIsChecked && null != carManagerTemp) { // 更改了
@@ -912,15 +914,15 @@ public class AddCarActivity extends BaseActivity {
         }
 
 
-//        Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
-//        Intent mIntent = new Intent();
-//        mIntent.setAction(Constant.REFRESH_FLAG);
-//        sendBroadcast(mIntent);
+        Constant.CURRENT_REFRESH = Constant.CAR_MANAGER_REFRESH;
+        Intent mIntent = new Intent();
+        mIntent.setAction(Constant.REFRESH_FLAG);
+        sendBroadcast(mIntent);
 
 //        cid = response.getDesc();
         cid = response.getMsg().getVehicleId();
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         if (isNeedBingd) {
             if (carManagerTemp == null && null != cid && !"".equals(cid)) {
                 showCustomDialog(getString(R.string.no_device), "前往绑定", 1, this, cid);
