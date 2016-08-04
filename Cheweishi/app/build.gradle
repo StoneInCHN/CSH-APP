@@ -11,8 +11,8 @@ android {
         multiDexEnabled true
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 88
-        versionName "3.5.7"
+        versionCode 89
+        versionName "3.5.9"
     }
 
     signingConfigs {
