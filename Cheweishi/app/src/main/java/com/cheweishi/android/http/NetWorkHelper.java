@@ -96,7 +96,7 @@ public class NetWorkHelper {
                 if (NetInterface.RESPONSE_TOKEN.equals(jsonObject.optString("code")) && !url.contains("login") && !url.contains("endUser/logout")) {
                     //&& !url.contains("tenantInfo/list")
                     Toast.makeText(context.getApplicationContext(),
-                            "登陆超时,正在重新登陆", Toast.LENGTH_SHORT).show();
+                            "登录超时,正在重新登录", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, LoginActivity.class);
                     intent.putExtra(Constant.AUTO_LOGIN, true);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

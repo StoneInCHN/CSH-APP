@@ -311,7 +311,7 @@ public class API {
 	public static final String CSH_REGISTER_URL = CSH_BASE_URL
 			+ "app/auth/register";
 
-	/** 登陆 */
+	/** 登录 */
 	public static final String CSH_LOGIN_URL = CSH_BASE_URL + "app/auth/login";
 
 	/** 退出 */

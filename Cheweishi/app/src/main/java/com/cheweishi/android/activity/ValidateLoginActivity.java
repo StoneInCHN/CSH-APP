@@ -83,7 +83,7 @@ public class ValidateLoginActivity extends BaseActivity {
 
 	private void init() {
 		left_action.setText(R.string.back);
-		title.setText("验证登陆");
+		title.setText("验证登录");
 		if (!StringUtil.isEmpty(loginMessage)) {
 			et_phonenumber.setText(loginMessage.getMobile());
 		}

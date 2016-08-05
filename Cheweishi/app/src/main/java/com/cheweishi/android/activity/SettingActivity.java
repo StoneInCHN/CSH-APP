@@ -56,7 +56,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
     private Button bt_aboutUs_setting;// 关于我们
 
     @ViewInject(R.id.bt_logout_setting)
-    private Button bt_logout_setting;// 退出、登陆
+    private Button bt_logout_setting;// 退出、登录
     private CustomDialog.Builder builder;
     private LoginMessage loginMessage;
 
