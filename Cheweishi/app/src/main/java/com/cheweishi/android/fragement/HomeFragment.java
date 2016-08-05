@@ -302,13 +302,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //        public void engineInitFail() {
 //        }
 //    };
-    private String getSdcardDir() {
-        if (Environment.getExternalStorageState().equalsIgnoreCase(
-                Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().toString();
-        }
-        return null;
-    }
+//    private String getSdcardDir() {
+//        if (Environment.getExternalStorageState().equalsIgnoreCase(
+//                Environment.MEDIA_MOUNTED)) {
+//            return Environment.getExternalStorageDirectory().toString();
+//        }
+//        return null;
+//    }
 
     /**
      * 初始化ScrollView

@@ -45,30 +45,29 @@ public class PurseActivity extends BaseActivity {
     private Button left_action;
     @ViewInject(R.id.title)
     private TextView title;
-    @ViewInject(R.id.rel_purse_certificates)
     // 卡券
+    @ViewInject(R.id.rel_purse_certificates)
     private RelativeLayout rel_purse_certificates;
-    @ViewInject(R.id.rel_purse_integral)
     // 积分
+    @ViewInject(R.id.rel_purse_integral)
     private RelativeLayout rel_purse_integral;
-    @ViewInject(R.id.rel_purse_balance)
     // 账户余额
+    @ViewInject(R.id.rel_purse_balance)
     private RelativeLayout rel_purse_balance;
-    @ViewInject(R.id.rel_purse_phone)
     // 话费余额
+    @ViewInject(R.id.rel_purse_phone)
     private RelativeLayout rel_purse_phone;
-    @ViewInject(R.id.tv_purse_integral)
     // 积分Text
+    @ViewInject(R.id.tv_purse_integral)
     private TextView tv_purse_integral;
-
-    @ViewInject(R.id.tv_purse_certificates)
     // 红包text
+    @ViewInject(R.id.tv_purse_certificates)
     private TextView tv_purse_certificates;
-    @ViewInject(R.id.tv_purse_balance)
     // 余额text
+    @ViewInject(R.id.tv_purse_balance)
     private TextView tv_purse_balance;
-    @ViewInject(R.id.tv_purse_fee_balance)
     // 花费text
+    @ViewInject(R.id.tv_purse_fee_balance)
     private TextView tv_purse_fee_balance;
 
     private static final int URL_TYPE = 100000;

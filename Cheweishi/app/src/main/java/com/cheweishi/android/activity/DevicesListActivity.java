@@ -107,7 +107,7 @@ public class DevicesListActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 loginResponse.setToken(response.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }
     }

@@ -810,7 +810,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (null != userId || !"".equals(userId)) {
+        if (null != userId && !"".equals(userId)) {
             save(userId);
             return true;
         }
