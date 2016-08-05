@@ -541,6 +541,7 @@ public class SetActivity extends BaseActivity implements OnClickListener,
 //        DBTools.getInstance(this).delete(LoginResponse.class);
         // +loginMessage.getMobile());
         Intent intent = new Intent(baseContext, LoginActivity.class);
+        intent.putExtra("hasAccount", true);
         startActivity(intent);
 //        ActivityControl.finishProgrom();
         this.finish();

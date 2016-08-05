@@ -162,10 +162,15 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
-                if (ProgrosDialog.isProgressShowing() == false) {
-                    LoginActivity.this.finish();
-                    overridePendingTransition(R.anim.score_business_query_enter,
-                            R.anim.score_business_query_exit);
+//
+                if (getIntent().getBooleanExtra("hasAccount", false)) {
+                    return true;
+                }else{
+                    if (ProgrosDialog.isProgressShowing() == false) {
+                        LoginActivity.this.finish();
+                        overridePendingTransition(R.anim.score_business_query_enter,
+                                R.anim.score_business_query_exit);
+                    }
                 }
                 break;
         }
