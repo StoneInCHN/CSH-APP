@@ -735,6 +735,7 @@
                         android:hint="@string/add_vinChoose"
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
+                        android:maxLength="15"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@null"
                         android:textSize="@dimen/titile_side_text_size" />
