@@ -102,20 +102,25 @@ public class UserNickActivity extends BaseActivity implements OnClickListener {
      */
     // TODO 昵称发包
     private void connectToNickServer() {
-        if (isLogined()) {
+        String nick = et_nick.getText().toString();
+        if (StringUtil.isEmpty(nick)) {
+            showToast("修改昵称不能为空");
+            return;
+        }
+//        if (isLogined()) {
 //            httpBiz = new HttpBiz(this);
 //            RequestParams rp = new RequestParams();
 //            rp.addBodyParameter("uid", loginMessage.getUid());
 //            rp.addBodyParameter("nick_name", et_nick.getText().toString());
 //            ProgrosDialog.openDialog(UserNickActivity.this);
 //            httpBiz.httPostData(10009, API.CSH_UPDATE_USER_NICK_URL, rp, this);
-            String url = NetInterface.HEADER_ALL + NetInterface.EDIT_USER_INFO + NetInterface.SUFFIX;
-            Map<String, Object> param = new HashMap<>();
-            param.put("userId", loginResponse.getDesc());
-            param.put("token", loginResponse.getToken());
-            param.put("nickName", et_nick.getText().toString());
-            netWorkHelper.PostJson(url, param, this);
-        }
+        String url = NetInterface.HEADER_ALL + NetInterface.EDIT_USER_INFO + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("nickName", nick);
+        netWorkHelper.PostJson(url, param, this);
+//        }
     }
 
     @Override
