@@ -424,7 +424,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
                 break;
             case R.id.login_delete:
 //                if (ll_loginLayout.getVisibility() == View.VISIBLE) {
-                LoginActivity.this.finish();
+                ActivityControl.GG(baseContext);
+//                LoginActivity.this.finish();
 //                    overridePendingTransition(R.anim.score_business_query_enter,
 //                            R.anim.score_business_query_exit);
 //                }
