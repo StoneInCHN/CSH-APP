@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.baidu.lbsapi.auth.LBSAuthManagerListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
+import com.baidu.navisdk.BNaviEngineManager;
 import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
 import com.baidu.navisdk.BaiduNaviManager;
 import com.cheweishi.android.R;
@@ -191,7 +192,7 @@ public class MainNewActivity extends BaseActivity {
         bindTitle = getResources().getString(R.string.app_name);
 
         tv_home_bottom_index.setTextColor(getResources().getColor(R.color.orange));
-
+        iniBaiduNavi();
     }
 
     private void initContent() {
@@ -201,6 +202,39 @@ public class MainNewActivity extends BaseActivity {
         my = new MyFragment();
         InitHomeFragment(R.id.fl_home_content, home, store, news, my);
 //        store.setBottomHeight(ll_home_bottom.getMeasuredHeight());
+    }
+
+    /**
+     * 初始化百度导航
+     */
+    private void iniBaiduNavi() {
+        // 初始化导航引擎
+        BaiduNaviManager.getInstance().initEngine(this,
+
+                getSdcardDir(), mNaviEngineInitListener, new LBSAuthManagerListener() {
+                    @Override
+                    public void onAuthResult(int status, String msg) {
+                    }
+                });
+    }
+
+
+    private BNaviEngineManager.NaviEngineInitListener mNaviEngineInitListener = new BNaviEngineManager.NaviEngineInitListener() {
+        public void engineInitSuccess() {
+        }
+
+        public void engineInitStart() {
+        }
+
+        public void engineInitFail() {
+        }
+    };
+    private String getSdcardDir() {
+        if (Environment.getExternalStorageState().equalsIgnoreCase(
+                Environment.MEDIA_MOUNTED)) {
+            return Environment.getExternalStorageDirectory().toString();
+        }
+        return null;
     }
 
 
