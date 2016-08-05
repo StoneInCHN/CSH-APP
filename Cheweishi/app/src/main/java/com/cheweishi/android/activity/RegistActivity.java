@@ -483,7 +483,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 //        params.addBodyParameter("type", "0");// 0注册， 1找回密码
 //        params.addBodyParameter("path", path);
 //        httpBiz.httPostData(100001, API.CSH_CODE_URL, params, this);
-
+        mPhoneNumberEditText.setFocusable(false);
 
         // TODO new Interface
         String url = NetInterface.HEADER_ALL + NetInterface.SMS_TOKEN + NetInterface.SUFFIX;
