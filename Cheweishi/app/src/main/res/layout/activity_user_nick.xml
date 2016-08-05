@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_backgroud"
-    tools:context=".UserNickActivity"
     android:orientation="vertical">
 
     <include layout="@layout/title" />
@@ -12,11 +11,13 @@
         android:id="@+id/et_nick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/normal_padding"
-        android:textColor="@color/black"
-        android:textSize="@dimen/titile_side_text_size"
-        android:hint="@string/input_nick"
         android:layout_marginTop="@dimen/double_large_marging"
-        android:background="@color/white" />
+        android:background="@color/white"
+        android:hint="@string/input_nick"
+        android:maxLength="12"
+        android:padding="@dimen/normal_padding"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/titile_side_text_size" />
 
 </LinearLayout>
