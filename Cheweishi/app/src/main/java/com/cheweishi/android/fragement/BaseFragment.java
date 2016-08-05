@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.umeng.analytics.MobclickAgent;
 
 public class BaseFragment extends Fragment implements JSONCallback {
+    private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
     protected Context baseContext;
     protected LayoutInflater inflater;
     /**
@@ -55,6 +57,16 @@ public class BaseFragment extends Fragment implements JSONCallback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            boolean isSupportHidden = savedInstanceState.getBoolean(STATE_SAVE_IS_HIDDEN);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            if (isSupportHidden) {
+                ft.hide(this);
+            } else {
+                ft.show(this);
+            }
+            ft.commit();
+        }
         baseContext = getContext();
         netWorkHelper = NetWorkHelper.getInstance(baseContext);
         isLogined();
@@ -338,5 +350,11 @@ public class BaseFragment extends Fragment implements JSONCallback {
      * 第一次初始化
      */
     protected void onVisible() {
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
     }
 }
