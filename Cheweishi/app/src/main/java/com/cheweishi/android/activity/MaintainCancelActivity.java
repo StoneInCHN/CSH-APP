@@ -63,7 +63,7 @@ public class MaintainCancelActivity extends BaseActivity {
 
 	@OnClick({ R.id.left_action, R.id.tv_cancel_sumbit, R.id.cbserve,
 			R.id.cbtime, R.id.ckNone })
-	private void onClick(View v) {
+	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.left_action:// 返回
 			MaintainCancelActivity.this.finish();

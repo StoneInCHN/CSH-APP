@@ -357,7 +357,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
     @OnClick({R.id.left_action, R.id.rb_alipay, R.id.rb_weixin,
             R.id.tv_wash_affirm, R.id.ll_alipay, R.id.ll_weixin, R.id.ll_wallet, R.id.cb_red, R.id.ll_washcar_pay
     })
-    private void onClick(View v) {
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.left_action:
                 finish();

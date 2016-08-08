@@ -56,7 +56,7 @@ public class OrderPaymentSuccessActivity extends BaseActivity {
     }
 
     @OnClick({R.id.tv_see_details, R.id.left_action})
-    private void onClick(View v) {
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_see_details:
                 Intent intent = new Intent(OrderPaymentSuccessActivity.this, OrderDetailsActivity.class);

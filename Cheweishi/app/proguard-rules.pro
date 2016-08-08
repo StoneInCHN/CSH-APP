@@ -46,6 +46,7 @@
 -dontwarn cn.jpush**
 -keep class cn.jpush.** { *; }#Jpush
 
+-dontwarn com.lidroid**
 -keep class com.lidroid.**{*;}#ViewInject
 
 

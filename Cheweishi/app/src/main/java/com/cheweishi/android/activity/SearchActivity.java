@@ -519,7 +519,7 @@ public class SearchActivity extends BaseActivity {
 	}
 
 	@OnClick({ R.id.tv_cancel })
-	private void onClick(View v) {
+	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_cancel:
 			finish();

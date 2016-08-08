@@ -106,7 +106,7 @@ public class PurseActivity extends BaseActivity {
     @OnClick({R.id.left_action, R.id.title, R.id.rel_purse_certificates,
             R.id.rel_purse_integral, R.id.rel_purse_balance,
             R.id.rel_purse_phone})
-    private void onClick(View v) {
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.left_action:// 返回
                 PurseActivity.this.finish();
