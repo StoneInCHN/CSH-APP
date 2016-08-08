@@ -629,6 +629,7 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
 						Constant.USER_NICK_EDIT_REFRESH, true)) {
 					Constant.EDIT_FLAG = true;
 					initViews();
+					showToast(R.string.change_success);
 				} else if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
 						Constant.USER_NICK_EDIT_REFRESH_OTHER, true)) {
 					connectToServer();

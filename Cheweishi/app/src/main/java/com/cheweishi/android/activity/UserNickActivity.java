@@ -132,7 +132,6 @@ public class UserNickActivity extends BaseActivity implements OnClickListener {
             showToast(response.getDesc());
             return;
         }
-        showToast(R.string.change_success);
 //        LoginUserInfoResponse userInfoResponse = loginResponse.getMsg();
 //        userInfoResponse.setNickName(response.getMsg().getNickName());
         loginResponse.getMsg().setNickName(response.getMsg().getNickName());
