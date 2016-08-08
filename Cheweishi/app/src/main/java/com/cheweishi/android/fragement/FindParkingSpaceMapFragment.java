@@ -103,8 +103,7 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
     private List<TextView> listMarkersNo;
     private List<BitmapDescriptor> listBitmapDescriptorsNo;
     private List<BitmapDescriptor> listBitmapDescriptors;
-    private BitmapDescriptor bitmapDescriptorsmile = BitmapDescriptorFactory
-            .fromResource(R.drawable.zhaochewei_location);
+    private BitmapDescriptor bitmapDescriptorsmile = BitmapDescriptorFactory.fromResource(R.drawable.zhaochewei_location);
     private static final int NO_DATE = -1;
     private LatLng latLng;// 经纬度
     private FindParkBroadcastReceiver broad;
@@ -183,17 +182,15 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
 
         OverlayOptions option = null;
         if (i == 0) {
-            option = new MarkerOptions().position(latlng).icon(
-                    listBitmapDescriptors.get(i));
+            option = new MarkerOptions().position(latlng).icon(listBitmapDescriptors.get(i));
         } else if (i < 10) {
-            option = new MarkerOptions().position(latlng).icon(
-                    listBitmapDescriptorsNo.get(i));
+            option = new MarkerOptions().position(latlng).icon(listBitmapDescriptorsNo.get(i));
         } else if (i > 9 && i < 20) {
-            option = new MarkerOptions().position(latlng).icon(
-                    bitmapDescriptorsmile);
+            option = new MarkerOptions().position(latlng).icon(bitmapDescriptorsmile);
         }
         Marker marker = (Marker) mBaiduMap.addOverlay(option);
-        marker.setTitle(i + "");
+        if (0 <= i && 10 > i)
+            marker.setTitle(i + "");
         markersList.add(marker);
     }
 
@@ -538,10 +535,15 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
                 costTextView.setText(listmMaps.get(i).getPrice() + "");
                 name.setText(listmMaps.get(i).getName());
                 notive.setOnClickListener(new NotiveOnclickListener(i));
-                tishijulidaohang
-                        .setOnClickListener(new TiaozhuanOnclickListener(i));
+                tishijulidaohang.setOnClickListener(new TiaozhuanOnclickListener(i));
                 view.setPadding(30, 0, 30, 20);
-                viewpager_relativelayout.addView(view);
+//                if (null != view.getParent()) {
+//                    ((ViewGroup) view.getParent()).removeView(view);
+//                }
+                try {
+                    viewpager_relativelayout.addView(view);
+                } catch (Exception e) {
+                }
 
                 viewPager.setVisibility(View.GONE);
 
