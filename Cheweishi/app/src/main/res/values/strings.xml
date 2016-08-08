@@ -127,7 +127,7 @@
     <string name="set_alarm">报警设置</string>
     <string name="set_sound">声音提醒</string>
     <string name="set_shake">震动提醒</string>
-    <string name="set_push">接受推送消息</string>
+    <string name="set_push">接收推送消息</string>
     <string name="set_reputation">5星好评</string>
     <string name="set_version">当前版本</string>
     <string name="set_about_my">关于我们</string>
