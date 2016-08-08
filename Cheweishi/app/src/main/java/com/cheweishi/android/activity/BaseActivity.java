@@ -79,7 +79,7 @@ public abstract class BaseActivity extends FragmentActivity implements
     public static List<LoginMessage> loginMessages;
     public static List<LoginResponse> loginResponses;
     protected Context baseContext;
-    protected NetWorkHelper netWorkHelper;
+    public NetWorkHelper netWorkHelper;
 
     protected int currentIndex;
 

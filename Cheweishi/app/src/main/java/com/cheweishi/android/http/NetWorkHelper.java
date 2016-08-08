@@ -151,6 +151,7 @@ public class NetWorkHelper {
         };
         request.setRetryPolicy(getRetryPolicy());
         requestQueue.add(request);
+        requestQueue.start();
     }
 
 
@@ -219,8 +220,13 @@ public class NetWorkHelper {
         };
         request.setRetryPolicy(getRetryPolicy());
         requestQueue.add(request);
+        requestQueue.start();
     }
 
+
+    public void stop(){
+        requestQueue.stop();
+    }
 
     /**
      * 重试策略

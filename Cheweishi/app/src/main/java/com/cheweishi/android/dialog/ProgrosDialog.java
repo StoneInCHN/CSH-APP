@@ -77,7 +77,10 @@ public class ProgrosDialog extends BaseDialog {
     public void onBackPressed() {
         if (isDismiss == true) {
             closeProgrosDialog();
-            claoseActivity();
+            if (null != mContext) {
+                ((BaseActivity) mContext).netWorkHelper.stop();
+            }
+//            claoseActivity();
         }
         super.onBackPressed();
     }

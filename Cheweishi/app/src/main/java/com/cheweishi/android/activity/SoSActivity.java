@@ -136,7 +136,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
     public void receive(String data) {
 
         ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
-        if (null != response || !response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+        if (null == response || !response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(R.string.server_link_fault);
             return;
         }
