@@ -262,12 +262,11 @@ public class WebActivity extends BaseActivity implements OnClickListener, TextWa
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        LogHelper.d("beforeTextChanged:" + count);
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        LogHelper.d("onTextChanged:" + count);
+        count = s.length();
         if (0 < count)
             bt_web.setVisibility(View.VISIBLE);
         else
