@@ -82,12 +82,13 @@
                 android:layout_weight="5.0"
                 android:background="@drawable/web_comment_bg"
                 android:hint="@string/say_two"
+                android:maxLength="200"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:textSize="14sp"
                 android:paddingRight="10dp"
-                android:singleLine="true" />
+                android:paddingTop="5dp"
+                android:singleLine="true"
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/bt_web"

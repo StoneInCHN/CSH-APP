@@ -110,9 +110,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        initSDK(this);
+//        initSDK(this);
         ViewUtils.inject(this);
-        thirdHandler = new Handler(this);
+//        thirdHandler = new Handler(this);
         init();
         setListeners();
 
@@ -129,7 +129,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
      * 初始化视图
      */
     private void init() {
-        handler = new Handler(this);
+//        handler = new Handler(this);
         left_action.setText(R.string.back);
         title.setText(R.string.login);
         mPhoneNumberEditText.setText(SharePreferenceTools
