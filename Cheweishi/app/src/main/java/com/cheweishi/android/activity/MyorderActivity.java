@@ -246,6 +246,7 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
             refresh = true;
         } else {
             // 重新连接
+            list.clear();
             connectToServer(0);
         }
     }
