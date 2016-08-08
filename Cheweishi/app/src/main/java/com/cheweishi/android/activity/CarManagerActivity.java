@@ -264,6 +264,7 @@ public class CarManagerActivity extends BaseActivity implements
 
 
                 loginResponse.setToken(response.getToken());
+                CurrentPosition = 0 ; //TODO 将位置置为0,防止bug.
 //                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 ProgrosDialog.closeProgrosDialog();
                 break;
