@@ -933,7 +933,7 @@ public class GasStationMapFragment extends BaseFragment implements
         @Override
         public void onGetReverseGeoCodeResult(ReverseGeoCodeResult arg0) {
 
-            if (!StringUtil.isEmpty(arg0)) {
+            if (!StringUtil.isEmpty(arg0) && null != arg0.getLocation()) {
 //					&& !StringUtil.isEmpty(arg0.getAddressDetail())
 //					&& !StringUtil.isEmpty(arg0.getAddressDetail().district)) {
 //				String cityname = arg0.getAddressDetail().district;
@@ -963,6 +963,7 @@ public class GasStationMapFragment extends BaseFragment implements
                 netWorkHelper.PostJson(url, param, GasStationMapFragment.this);
             } else {
                 showToast("定位失败");
+                ProgrosDialog.closeProgrosDialog();
             }
         }
 

@@ -270,6 +270,7 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
             if ("PRICEASC".equals(currentSort))
                 if ("5".equals(currentService) || "1".equals(currentService)) {
                     currentSort = "DISTANCEASC";
+                    showToast("当前服务不支持价格优先筛选");
                 }
             sendPacket(0, currentSort, currentService);
             showTtitl();
