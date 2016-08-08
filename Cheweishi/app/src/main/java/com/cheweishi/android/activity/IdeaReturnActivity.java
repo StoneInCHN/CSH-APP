@@ -145,13 +145,7 @@ public class IdeaReturnActivity extends BaseActivity implements OnClickListener 
         switch (v.getId()) {
             case R.id.idea_btn:
                 submit = idea_ed.getText().toString();
-                httpBiz = new HttpBiz(IdeaReturnActivity.this);
-                RequestParams mRequestParams = new RequestParams();
-                // mRequestParams.addBodyParameter("carwashId",
-                // intent.getStringExtra("userId"));
-                // mRequestParams.addBodyParameter("orderNumber",
-                // intent.getStringExtra("orderId"));
-                if (StringUtil.isEmpty(submit)) {
+                if (StringUtil.isEmpty(submit.trim())) {
                     showToast("输入不能为空！");
                     return;
 
@@ -185,50 +179,9 @@ public class IdeaReturnActivity extends BaseActivity implements OnClickListener 
         }
         showToast("提交成功");
         loginResponse.setToken(baseResponse.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         IdeaReturnActivity.this.finish();
     }
 
-    @Override
-    public void receive(int type, String data) {
-        ProgrosDialog.closeProgrosDialog();
-        Log.i("=======", data);
-        switch (type) {
-            case 400:
-                Log.i("idea", "result===400");
-                break;
-            case 10001:
-                IdeaReturnJSON(data);
-                break;
 
-            default:
-                break;
-        }
-
-    }
-
-    private void IdeaReturnJSON(String results) {
-        if (StringUtil.isEmpty(results)) {
-            Log.i("idea", "result===null");
-            return;
-        }
-        Log.i("result============", results);
-        try {
-            JSONObject jsonObject = new JSONObject(results);
-            if (StringUtil.isEquals(API.returnSuccess,
-                    jsonObject.optString("state"), true)) {
-                IdeaReturnActivity.this.finish();
-
-            } else if (StringUtil.isEquals(API.returnRelogin,
-                    jsonObject.optString("state"), true)) {
-                ReLoginDialog.getInstance(this).showDialog(
-                        jsonObject.optString("message"));
-            } else {
-                showToast(jsonObject.optString("message"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 }
