@@ -244,6 +244,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
         tempHead = getHeight(exListAdapter) - (ScreenUtils.getScreenHeight(baseContext) - psl_tenant_detail.getChildAt(0).getHeight());
 //        LogHelper.d("height:" + tempHead);
         tempHead = 0 < tempHead ? tempHead : 0;
+        tempHead /= 2;
 //        LogHelper.d("height:" + tempHead);
     }
 
