@@ -94,7 +94,7 @@ public class PessanySearchActivity extends BaseActivity implements
             ProgrosDialog.closeProgrosDialog();
 
         PessanyResponse response = (PessanyResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PessanyResponse.class);
-        if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+        if (null != response || !response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             showToast(response.getDesc());
             return;
         }

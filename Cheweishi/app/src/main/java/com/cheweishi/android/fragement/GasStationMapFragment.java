@@ -123,8 +123,7 @@ public class GasStationMapFragment extends BaseFragment implements
     private LinearLayout mNetiveLayout;
     private List<Map<String, String>> listmMaps;
     // 实例化加油站图标
-    private BitmapDescriptor bitmap = BitmapDescriptorFactory
-            .fromResource(R.drawable.jiayouzhan22x);
+    private BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.jiayouzhan22x);
     // 下面的布局
     @ViewInject(R.id.gasstation_linearlayout_isyingchang)
     private LinearLayout gasstation_linearlayout_isyingchang;
@@ -370,8 +369,7 @@ public class GasStationMapFragment extends BaseFragment implements
      */
     private void moveLatLng(LatLng latlng, int i) {
 
-        OverlayOptions option = new MarkerOptions().position(latlng).icon(
-                bitmap);
+        OverlayOptions option = new MarkerOptions().position(latlng).icon(bitmap);
         Marker marker = (Marker) mBaiduMap.addOverlay(option);
         marker.setTitle(sortList.get(i).get("name"));
         if (isF) {
@@ -1028,7 +1026,7 @@ public class GasStationMapFragment extends BaseFragment implements
         switch (TAG) {
             case NetInterface.SEARCH:
                 SearchResponse response = (SearchResponse) GsonUtil.getInstance().convertJsonStringToObject(data, SearchResponse.class);
-                if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                if (null == response || !response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(response.getDesc());
                     return;
                 }
@@ -1037,7 +1035,7 @@ public class GasStationMapFragment extends BaseFragment implements
                 sort();
 
                 loginResponse.setToken(response.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
             case NetInterface.DYNAMIC: // 车辆定位
 
@@ -1052,7 +1050,7 @@ public class GasStationMapFragment extends BaseFragment implements
                 else
                     showToast(R.string.gain_car_address_error);
                 loginResponse.setToken(carDynamicResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }
     }

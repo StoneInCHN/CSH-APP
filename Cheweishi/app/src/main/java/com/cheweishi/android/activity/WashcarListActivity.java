@@ -112,7 +112,7 @@ public class WashcarListActivity extends BaseActivity implements
         switch (TAG) {
             case NetInterface.LIST:
                 ServiceListResponse response = (ServiceListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ServiceListResponse.class);
-                if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                if (null != response || !response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     ProgrosDialog.closeProgrosDialog();
                     showToast(response.getDesc());
                     return;
