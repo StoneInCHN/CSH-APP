@@ -174,7 +174,7 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
         switch (TAG) {
             case NetInterface.LIST + "Store":
                 StoreListResponse response = (StoreListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, StoreListResponse.class);
-                if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                if (null != response || !response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(response.getDesc());
                     return;
                 }

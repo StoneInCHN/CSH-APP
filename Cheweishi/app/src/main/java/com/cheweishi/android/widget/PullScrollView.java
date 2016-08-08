@@ -202,9 +202,11 @@ public class PullScrollView extends ScrollView {
             int action = ev.getAction();
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    mStartPoint.set(ev.getX(), ev.getY());
-                    mCurrentTop = mInitTop = mHeader.getTop();
-                    mCurrentBottom = mInitBottom = mHeader.getBottom();
+                    if (null != mHeader) {
+                        mStartPoint.set(ev.getX(), ev.getY());
+                        mCurrentTop = mInitTop = mHeader.getTop();
+                        mCurrentBottom = mInitBottom = mHeader.getBottom();
+                    }
                     return super.onInterceptTouchEvent(ev);
                 case MotionEvent.ACTION_MOVE:
                     float deltaY = Math.abs(ev.getY() - mStartPoint.y);
