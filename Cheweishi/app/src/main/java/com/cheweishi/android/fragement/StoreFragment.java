@@ -219,6 +219,7 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
     public void error(String errorMsg) {
         ProgrosDialog.closeProgrosDialog();
         prl_store.onRefreshComplete();
+        adapter.setData(list, currentService);
         showToast(R.string.server_link_fault);
     }
 
