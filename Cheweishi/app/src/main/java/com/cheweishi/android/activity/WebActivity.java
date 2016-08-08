@@ -207,7 +207,7 @@ public class WebActivity extends BaseActivity implements OnClickListener, TextWa
         switch (v.getId()) {
             case R.id.bt_web: // 评论
                 String content = et_web.getText().toString();
-                if (StringUtil.isEmpty(content)) {
+                if (StringUtil.isEmpty(content.trim())) {
                     showToast(R.string.comment_content_empty);
                     return;
                 }
