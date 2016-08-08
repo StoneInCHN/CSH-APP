@@ -128,7 +128,8 @@ public class WebActivity extends BaseActivity implements OnClickListener, TextWa
                 if (StringUtil.isEmpty(url))
                     finish();
                 web_bottom.setVisibility(View.VISIBLE);
-                tv_web_comment.setText(newsResponse.getMsg().getReadCounts());
+//                tv_web_comment.setText(String.valueOf(Integer.valueOf(newsResponse.getMsg().getCommentCounts()) + 1));
+                tv_web_comment.setText(newsResponse.getMsg().getCommentCounts());
                 tv_web_like.setText(newsResponse.getMsg().getLikeCounts());
                 openWebView(url);
                 loginResponse.setToken(newsResponse.getToken());
@@ -261,11 +262,12 @@ public class WebActivity extends BaseActivity implements OnClickListener, TextWa
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        LogHelper.d("beforeTextChanged:" + count);
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+        LogHelper.d("onTextChanged:" + count);
         if (0 < count)
             bt_web.setVisibility(View.VISIBLE);
         else

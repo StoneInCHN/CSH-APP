@@ -26,6 +26,15 @@ public class ReadNewsResponse extends BaseResponse {
         private String title;
         private String readCounts;
         private String likeCounts;
+        private String commentCounts;
+
+        public String getCommentCounts() {
+            return commentCounts;
+        }
+
+        public void setCommentCounts(String commentCounts) {
+            this.commentCounts = commentCounts;
+        }
 
         public String getReadCounts() {
             return readCounts;
