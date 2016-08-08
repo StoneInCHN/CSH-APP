@@ -19,6 +19,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.AnticipateOvershootInterpolator;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -42,6 +43,7 @@ import com.cheweishi.android.dialog.ImgDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.MyCarManagerResponse;
 import com.cheweishi.android.fragement.MyFragment;
+import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.AllCapTransformationMethod;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
@@ -498,8 +500,20 @@ public class AddCarActivity extends BaseActivity {
         tv_car_note.setOnFocusChangeListener(foucusListener);
         tv_car_mile.setOnFocusChangeListener(foucusListener);
         tv_last_keepFit.setOnFocusChangeListener(foucusListener);
-        tv_car_vin.setOnFocusChangeListener(foucusListener);// .setOnClickListener(listener);
+//        tv_car_vin.setOnFocusChangeListener(foucusListener);// .setOnClickListener(listener);
         tv_car_device.setOnFocusChangeListener(foucusListener);
+        tv_car_vin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                /*判断是否是“GO”键*/
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    /*隐藏软键盘*/
+                    APPTools.closeBoard(baseContext,tv_car_vin);
+                    return true;
+                }
+                return false;
+            }
+        });
         cb_add_car_default.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
