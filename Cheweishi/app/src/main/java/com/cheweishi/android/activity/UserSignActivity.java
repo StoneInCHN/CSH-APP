@@ -70,7 +70,6 @@ public class UserSignActivity extends BaseActivity implements OnClickListener {
 
     private void initViews() {
         // closeBoard();
-        httpBiz = new HttpBiz(this);
         title.setText(R.string.individualSignature);
         left_action.setText(R.string.back);
         right_action.setText(R.string.finish);
@@ -150,6 +149,7 @@ public class UserSignActivity extends BaseActivity implements OnClickListener {
     public void onClick(View arg0) {
         switch (arg0.getId()) {
             case R.id.left_action:
+                APPTools.closeBoard(this, et_userSign);
                 if (!et_userSign.getText().toString().equals(pre)) {
                     ReturnBackDialogRemindTools.getInstance(UserSignActivity.this)
                             .show();
@@ -158,6 +158,7 @@ public class UserSignActivity extends BaseActivity implements OnClickListener {
                 }
                 break;
             case R.id.right_action:
+                APPTools.closeBoard(this, et_userSign);
                 connectToServer();
                 break;
         }
