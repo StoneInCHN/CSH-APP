@@ -164,18 +164,32 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
             case KeyEvent.KEYCODE_BACK:
 //
                 if (getIntent().getBooleanExtra("hasAccount", false)) {
+                    ExitApp();
                     return true;
                 }else{
                     if (ProgrosDialog.isProgressShowing() == false) {
-                        LoginActivity.this.finish();
-                        overridePendingTransition(R.anim.score_business_query_enter,
-                                R.anim.score_business_query_exit);
+                        ExitApp();
+                        return true;
+//                        LoginActivity.this.finish();
+//                        overridePendingTransition(R.anim.score_business_query_enter,
+//                                R.anim.score_business_query_exit);
                     }
                 }
                 break;
         }
         return super.onKeyDown(keyCode, event);
 
+    }
+
+    private long exitTime = 0;
+
+    private void ExitApp() {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            showToast("再按一次退出程序");
+            exitTime = System.currentTimeMillis();
+        } else {
+            ActivityControl.GG(baseContext.getApplicationContext());
+        }
     }
 
     /**
