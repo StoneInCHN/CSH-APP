@@ -18,13 +18,13 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/itme_heigth"
                 android:layout_marginTop="@dimen/large_marging"
                 android:background="@color/white"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -154,25 +154,20 @@
                 android:layout_marginTop="@dimen/xlarge_marging"
                 android:background="@drawable/more_back"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/xlarge_marging">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/large_marging"
                     android:layout_weight="1"
+                    android:drawableRight="@drawable/right"
                     android:gravity="center_vertical|left"
                     android:text="@string/set_reputation"
                     android:textColor="@color/gray_normal"
                     android:textSize="@dimen/text_size_medium" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:drawableRight="@drawable/right"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/large_padding" />
             </LinearLayout>
 
             <View
@@ -221,25 +216,20 @@
                 android:layout_height="@dimen/itme_heigth"
                 android:background="@drawable/more_back"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/xlarge_marging">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/large_marging"
                     android:layout_weight="1"
+                    android:drawableRight="@drawable/right"
                     android:gravity="center_vertical|left"
                     android:text="@string/set_about_my"
                     android:textColor="@color/gray_normal"
                     android:textSize="@dimen/text_size_medium" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:drawableRight="@drawable/right"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/large_padding" />
             </LinearLayout>
 
             <View
@@ -254,25 +244,20 @@
                 android:layout_height="@dimen/itme_heigth"
                 android:background="@drawable/more_back"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/xlarge_marging">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/large_marging"
                     android:layout_weight="1"
+                    android:drawableRight="@drawable/right"
                     android:gravity="center_vertical|left"
                     android:text="@string/set_clear_cache"
                     android:textColor="@color/gray_normal"
                     android:textSize="@dimen/text_size_medium" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:drawableRight="@drawable/right"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/large_padding" />
             </LinearLayout>
 
             <Button
