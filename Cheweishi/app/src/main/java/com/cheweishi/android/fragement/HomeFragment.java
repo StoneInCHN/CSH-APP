@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
@@ -325,10 +324,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
                 // 执行刷新函数
 //                new GetDataTask().execute();
-                upDateCar();
-                requestAdv();
+//                upDateCar();
+//                requestAdv();
 //                getMainData();
 //                refresh_scrollview.onRefreshComplete();
+                updateCache("PULL_BASE", 1);
             }
 
         });
@@ -353,7 +353,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         String url = NetInterface.BASE_URL + NetInterface.TEMP_HOME_URL + NetInterface.LIST + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
-        LogHelper.d("----send:" + loginResponse.getToken());
         param.put("token", loginResponse.getToken());
         param.put("latitude", MyMapUtils.getLatitude(baseContext.getApplicationContext()));//维度
 //        param.put("latitude", "10");//维度
@@ -415,15 +414,27 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     private void updateCache(String tag) {
-        if (isLogined()) {
+//        if (isLogined()) {
+//            ProgrosDialog.openDialog(baseContext);
+//            String url = NetInterface.HEADER_ALL + NetInterface.UPDATE_CACHE + NetInterface.SUFFIX;
+//            Map<String, Object> param = new HashMap<>();
+//            param.put("userId", loginResponse.getDesc());
+//            param.put("token", loginResponse.getToken());
+//            param.put(Constant.PARAMETER_TAG, tag);
+//            netWorkHelper.PostJson(url, param, this);
+//        }
+        updateCache(tag, 0);
+    }
+
+    private void updateCache(String tag, int type) {
+        if (0 == type)
             ProgrosDialog.openDialog(baseContext);
-            String url = NetInterface.HEADER_ALL + NetInterface.UPDATE_CACHE + NetInterface.SUFFIX;
-            Map<String, Object> param = new HashMap<>();
-            param.put("userId", loginResponse.getDesc());
-            param.put("token", loginResponse.getToken());
-            param.put(Constant.PARAMETER_TAG, tag);
-            netWorkHelper.PostJson(url, param, this);
-        }
+        String url = NetInterface.HEADER_ALL + NetInterface.UPDATE_CACHE + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put(Constant.PARAMETER_TAG, tag);
+        netWorkHelper.PostJson(url, param, this);
     }
 
     private void goDuiba(String url) {
@@ -464,6 +475,14 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
 //                loginResponse.setToken(response.getToken());
 //                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+                break;
+
+            case "PULL_BASE"://下拉刷新
+                LoginResponse refreshLogin = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
+                loginResponse = refreshLogin;
+                BaseActivity.loginResponse = loginResponse;
+                upDateCar();
+                requestAdv();
                 break;
 
             case NetInterface.HOME_ADV:
