@@ -508,7 +508,7 @@ public class AddCarActivity extends BaseActivity {
                 /*判断是否是“GO”键*/
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     /*隐藏软键盘*/
-                    APPTools.closeBoard(baseContext,tv_car_vin);
+                    APPTools.closeBoard(baseContext, tv_car_vin);
                     return true;
                 }
                 return false;
@@ -887,7 +887,7 @@ public class AddCarActivity extends BaseActivity {
                 if (mNeedDefault) {
                     param.put("isDefault", mNeedDefault);
                     loginResponse.getMsg().setDefaultVehiclePlate(carPlate);
-                    loginResponse.getMsg().setDefaultVehicle(brandId);
+                    loginResponse.getMsg().setDefaultVehicle(tv_car_style.getText().toString());
                 } else {
                     param.put("isDefault", mIsChecked);
                     if (mIsChecked && null != carManagerTemp) { // 更改了
