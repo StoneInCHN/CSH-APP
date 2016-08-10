@@ -162,6 +162,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private boolean currentHided = false;
 
+    private final String PULL_REFRESH_TAG = "PULL_BASE";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -328,7 +330,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //                requestAdv();
 //                getMainData();
 //                refresh_scrollview.onRefreshComplete();
-                updateCache("PULL_BASE", 1);
+                updateCache(PULL_REFRESH_TAG, 1);
             }
 
         });
@@ -477,7 +479,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 //                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
 
-            case "PULL_BASE"://下拉刷新
+            case PULL_REFRESH_TAG://下拉刷新
                 LoginResponse refreshLogin = (LoginResponse) GsonUtil.getInstance().convertJsonStringToObject(data, LoginResponse.class);
                 loginResponse = refreshLogin;
                 BaseActivity.loginResponse = loginResponse;
