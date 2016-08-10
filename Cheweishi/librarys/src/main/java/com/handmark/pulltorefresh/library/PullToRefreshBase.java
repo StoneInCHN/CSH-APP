@@ -55,7 +55,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 
 	static final float FRICTION = 2.0f;
 
-	public static final int SMOOTH_SCROLL_DURATION_MS = 200;
+	public static final int SMOOTH_SCROLL_DURATION_MS = 500;
 	public static final int SMOOTH_SCROLL_LONG_DURATION_MS = 325;
 	static final int DEMO_SCROLL_INTERVAL = 225;
 
@@ -1326,8 +1326,8 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 			switch (this) {
 				case ROTATE:
 				default:
-					return new RotateLoadingLayout(context, mode, scrollDirection, attrs);
-//					return new TweenAnimLoadingLayout(context, mode, scrollDirection, attrs);
+//					return new RotateLoadingLayout(context, mode, scrollDirection, attrs);
+					return new TweenAnimLoadingLayout(context, mode, scrollDirection, attrs);
 				case FLIP:
 					return new FlipLoadingLayout(context, mode, scrollDirection, attrs);
 			}

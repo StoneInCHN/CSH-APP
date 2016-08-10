@@ -24,14 +24,14 @@ public class TweenAnimLoadingLayout extends LoadingLayout {
                                   Orientation scrollDirection, TypedArray attrs) {
         super(context, mode, scrollDirection, attrs);
         // 初始化
-        mHeaderImage.setImageResource(R.drawable.pull_image);
+        mHeaderImage.setImageResource(R.drawable.status_one);
 //        animationDrawable = (AnimationDrawable) mHeaderImage.getDrawable();
     }
 
     // 默认图片
     @Override
     protected int getDefaultDrawableResId() {
-        return R.drawable.pull_image;
+        return R.drawable.status_one;
     }
 
     @Override
@@ -63,19 +63,36 @@ public class TweenAnimLoadingLayout extends LoadingLayout {
 //        if (1.0 >= scaleOfLayout && 0.5 < scaleOfLayout) {
 //            mHeaderImage.setImageResource(R.drawable.pull_image);
 //        } else
+
+        // TODO 美团
+//        if (1.0 >= scaleOfLayout && 0 < scaleOfLayout) {
+//            mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_01);
+//            ViewHelper.setScaleY(mHeaderImage, scaleOfLayout);
+//        } else if (1.1 >= scaleOfLayout && 1.05 < scaleOfLayout) {
+//            mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_02);
+//        } else if (1.15 >= scaleOfLayout && 1.1 < scaleOfLayout) {
+//            mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_03);
+//        } else if (1.2 >= scaleOfLayout && 1.15 < scaleOfLayout) {
+//            mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_04);
+//        } else if (1.25 >= scaleOfLayout && 1.2 < scaleOfLayout) {
+//            mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_05);
+//        } else if (1.25 < scaleOfLayout) {
+//            mHeaderImage.setImageResource(R.drawable.loading_anim_mt);
+//            animationDrawable = (AnimationDrawable) mHeaderImage.getDrawable();
+//            animationDrawable.start();
+//        }
+
         if (1.0 >= scaleOfLayout && 0 < scaleOfLayout) {
-            mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_01);
+            mHeaderImage.setImageResource(R.drawable.status_one);
             ViewHelper.setScaleY(mHeaderImage, scaleOfLayout);
         } else if (1.1 >= scaleOfLayout && 1.05 < scaleOfLayout) {
-            mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_02);
+            mHeaderImage.setImageResource(R.drawable.status_two);
         } else if (1.15 >= scaleOfLayout && 1.1 < scaleOfLayout) {
-            mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_03);
-        } else if (1.2 >= scaleOfLayout && 1.15 < scaleOfLayout) {
-            mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_04);
-        } else if (1.25 >= scaleOfLayout && 1.2 < scaleOfLayout) {
-            mHeaderImage.setImageResource(R.drawable.pull_end_image_frame_05);
+            mHeaderImage.setImageResource(R.drawable.status_three);
+        } else if (1.25 >= scaleOfLayout &&1.15 < scaleOfLayout) {
+            mHeaderImage.setImageResource(R.drawable.status_four);
         } else if (1.25 < scaleOfLayout) {
-            mHeaderImage.setImageResource(R.drawable.loading_anim_mt);
+            mHeaderImage.setImageResource(R.drawable.loading_anim_qm);
             animationDrawable = (AnimationDrawable) mHeaderImage.getDrawable();
             animationDrawable.start();
         }
@@ -93,7 +110,7 @@ public class TweenAnimLoadingLayout extends LoadingLayout {
     protected void refreshingImpl() {
         // 播放帧动画
         ViewHelper.setScaleY(mHeaderImage, 1.0f);
-        mHeaderImage.setImageResource(R.drawable.loading_anim_mt);
+        mHeaderImage.setImageResource(R.drawable.loading_anim_qm);
         animationDrawable = (AnimationDrawable) mHeaderImage.getDrawable();
         animationDrawable.stop();
         animationDrawable.start();
