@@ -24,6 +24,7 @@ import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.BeautyListActivity_new;
 import com.cheweishi.android.activity.CarDetectionActivity;
 import com.cheweishi.android.activity.CarDynamicActivity;
+import com.cheweishi.android.activity.CarShopActivity;
 import com.cheweishi.android.activity.CouponActivity;
 import com.cheweishi.android.activity.CreditActivity;
 import com.cheweishi.android.activity.FindParkingSpaceActivity;
@@ -1010,7 +1011,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 startActivity(intent);
                 break;
             case R.id.rl_integral_mall:// 积分商城
-                getDuiBaUrl();
+//                getDuiBaUrl();
+                Intent intent = new Intent(baseContext, CarShopActivity.class);
+                startActivity(intent);
                 break;
             case R.id.rl_home_top_info: // 去我的车辆
                 ((MainNewActivity) getActivity()).goToCarManager();
