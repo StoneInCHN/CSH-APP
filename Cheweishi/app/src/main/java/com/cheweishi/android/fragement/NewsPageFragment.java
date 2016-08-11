@@ -14,10 +14,8 @@ import com.cheweishi.android.adapter.NewsListAdapter;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.NewsListResponse;
-import com.cheweishi.android.entity.StoreListResponse;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.LogHelper;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -75,7 +73,7 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_news_page, container, false);
 //        LogHelper.d("onCreateView:" + mPage);
         listView = (PullToRefreshListView) view.findViewById(R.id.prl_news);
         isPrepared = true;

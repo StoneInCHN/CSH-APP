@@ -4,30 +4,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <!--app:tabBackground="@color/shop_top_bg"-->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="40dp">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tl_shop"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
+            android:layout_marginRight="30dp"
+            android:overScrollMode="never"
             app:tabBackground="@color/white"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/orange"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/orange"
-            app:tabTextColor="@color/black" />
+            app:tabTextColor="@color/shop_top_category_tab_text" />
 
-        <ImageView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:background="#ff0000"
-            android:src="@drawable/ic_launcher" />
-    </LinearLayout>
+            android:layout_gravity="right"
+            android:gravity="center">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shop_top_bg" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/down_arrow_gray" />
+        </LinearLayout>
+
+    </FrameLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_shop"

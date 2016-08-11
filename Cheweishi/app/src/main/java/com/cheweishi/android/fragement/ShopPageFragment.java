@@ -1,31 +1,22 @@
 package com.cheweishi.android.fragement;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.activity.WebActivity;
-import com.cheweishi.android.adapter.NewsListAdapter;
-import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.adapter.ShopListAdapter;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.NewsListResponse;
-import com.cheweishi.android.tools.EmptyTools;
-import com.cheweishi.android.utils.GsonUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
-public class ShopPageFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2, AdapterView.OnItemClickListener {
+public class ShopPageFragment extends BaseFragment {
 
     public static final String ARG_PAGE = "ARG_PAGE";
 
@@ -38,15 +29,15 @@ public class ShopPageFragment extends BaseFragment implements PullToRefreshBase.
 
     private boolean isLoaded;//是否已经联网加载过数据了
 
-    private PullToRefreshListView listView;
+    private PullToRefreshGridView gridView;
 
     private int currentPage = 1;
 
     private int currentId;
 
-    private List<NewsListResponse.MsgBean> list = new ArrayList<>();
+    private List<String> list = new ArrayList<>();
 
-    private NewsListAdapter adapter;
+    private ShopListAdapter adapter;
 
     private int total;
 
@@ -67,15 +58,13 @@ public class ShopPageFragment extends BaseFragment implements PullToRefreshBase.
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
         currentId = getArguments().getInt(ARG_ID);
-//        LogHelper.d("onCreate:" + mPage);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_page, container, false);
-//        LogHelper.d("onCreateView:" + mPage);
-        listView = (PullToRefreshListView) view.findViewById(R.id.prl_news);
+        View view = inflater.inflate(R.layout.fragment_shop_page, container, false);
+        gridView = (PullToRefreshGridView) view.findViewById(R.id.prg_shops);
         isPrepared = true;
         onVisible();
         return view;
@@ -87,13 +76,14 @@ public class ShopPageFragment extends BaseFragment implements PullToRefreshBase.
         if (!isPrepared || !isVisible) {//|| isLoaded
             return;
         }
-//        isLoaded = true;
-//        LogHelper.d("onVisible:" + mPage);
-        adapter = new NewsListAdapter(baseContext, list);
-        listView.setAdapter(adapter);
-        listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        listView.setOnRefreshListener(this);
-        listView.setOnItemClickListener(this);
+        for (int i = 0; i < 50; i++) {
+            list.add("haha");
+        }
+        adapter = new ShopListAdapter(baseContext, list);
+        gridView.setAdapter(adapter);
+        gridView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+//        gridView.setOnRefreshListener(this);
+//        gridView.setOnItemClickListener(this);
         loading.sendEmptyMessageDelayed(0x10, 500);
     }
 
@@ -108,99 +98,15 @@ public class ShopPageFragment extends BaseFragment implements PullToRefreshBase.
 //            return;
 //        }
 
-        if (0x10 == what && !isLoaded) {
-            isLoaded = true;
-            sendPacket(0);
-        } else if (0 == list.size()) {
-            EmptyTools.setEmptyView(baseContext, listView);
-            EmptyTools.setImg(R.drawable.mycar_icon);
-            EmptyTools.setMessage("当前列表没有新闻信息");
-        }
-    }
-
-    private void sendPacket(int type) {
-        if (0 == type)
-            ProgrosDialog.openDialog(baseContext);
-        String url = NetInterface.BASE_URL + NetInterface.TEMP_NEWS + NetInterface.GET_NEWS_LIST + NetInterface.SUFFIX;
-        Map<String, Object> param = new HashMap<>();
-        param.put("userId", loginResponse.getDesc());
-        param.put("token", loginResponse.getToken());
-        param.put("pageNumber", currentPage);
-        param.put("pageSize", 5);
-        param.put("categoryId", currentId);
-        netWorkHelper.PostJson(url, param, this);
-    }
-
-    @Override
-    public void receive(String data) {
-
-        NewsListResponse response = (NewsListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, NewsListResponse.class);
-
-        if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-            ProgrosDialog.closeProgrosDialog();
-            showToast(response.getDesc());
-            listView.onRefreshComplete();
-            return;
-        }
-        List<NewsListResponse.MsgBean> temp = response.getMsg();
-
-        if (null != temp && 0 < temp.size()) {
-//            EmptyTools.hintEmpty();
-            total = response.getPage().getTotal();
-            if (isHeadRefresh) {
-                list = temp;
-            } else {
-                list.addAll(temp);
-            }
-            isEmpty = false;
-        } else if (!isEmpty) { // 已经添加了
-            isEmpty = true;
-            list = temp;
-//            adapter.setData(list);
-            EmptyTools.setEmptyView(baseContext, listView);
-            EmptyTools.setImg(R.drawable.mycar_icon);
-            EmptyTools.setMessage("当前列表没有新闻信息");
-        }
-
-        adapter.setData(list);
-        loginResponse.setToken(response.getToken());
+//        if (0x10 == what && !isLoaded) {
+//            isLoaded = true;
+//            sendPacket(0);
+//        } else if (0 == list.size()) {
+//            EmptyTools.setEmptyView(baseContext, listView);
+//            EmptyTools.setImg(R.drawable.mycar_icon);
+//            EmptyTools.setMessage("当前列表没有新闻信息");
+//        }
         ProgrosDialog.closeProgrosDialog();
-        if (list.size() < total) {
-            listView.onRefreshComplete();
-            listView.setMode(PullToRefreshBase.Mode.BOTH);
-        } else {
-            listView.onRefreshComplete();
-            listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        }
     }
 
-    @Override
-    public void error(String errorMsg) {
-        ProgrosDialog.closeProgrosDialog();
-        listView.onRefreshComplete();
-        showToast(R.string.server_link_fault);
-    }
-
-    @Override
-    public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-        currentPage = 1;
-//        list.clear();
-        isHeadRefresh = true;
-        sendPacket(1);
-    }
-
-    @Override
-    public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-        currentPage++;
-        isHeadRefresh = false;
-        sendPacket(1);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        position = position - 1;
-        Intent intent = new Intent(baseContext, WebActivity.class);
-        intent.putExtra("id", list.get(position).getId());
-        startActivity(intent);
-    }
 }
