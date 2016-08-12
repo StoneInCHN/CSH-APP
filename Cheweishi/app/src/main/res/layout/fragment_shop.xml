@@ -13,7 +13,7 @@
             android:id="@+id/tl_shop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="40dp"
             android:overScrollMode="never"
             app:tabBackground="@color/white"
             app:tabGravity="fill"
@@ -29,7 +29,7 @@
             android:gravity="center">
 
             <View
-                android:layout_width="20dp"
+                android:layout_width="10dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/shop_top_bg" />
 
