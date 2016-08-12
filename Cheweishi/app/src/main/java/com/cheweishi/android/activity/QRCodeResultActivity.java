@@ -126,7 +126,7 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
                 }
 
                 loginResponse.setToken(response.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
 
             case NetInterface.BIND_QR:
@@ -141,7 +141,7 @@ public class QRCodeResultActivity extends BaseActivity implements AdapterView.On
 
                 setTitle(baseResponse.getMsg().getAppTitleName());
                 loginResponse.setToken(baseResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
 
                 if (baseResponse.getMsg().isIsGetCoupon()) {

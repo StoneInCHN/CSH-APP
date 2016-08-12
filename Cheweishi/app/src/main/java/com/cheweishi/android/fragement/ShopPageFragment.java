@@ -140,7 +140,7 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        LogHelper.d("onItemClick:" + position);
     }
 
 
