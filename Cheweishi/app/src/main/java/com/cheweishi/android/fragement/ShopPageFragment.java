@@ -2,6 +2,7 @@ package com.cheweishi.android.fragement;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.method.Touch;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,6 +16,7 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.activity.CarShopActivity;
 import com.cheweishi.android.adapter.ShopListAdapter;
 import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.ShopListResponse;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.widget.XListView;
@@ -44,7 +46,7 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
 
     private int currentId;
 
-    private List<String> list = new ArrayList<>();
+    private List<ShopListResponse.MsgBean> list = new ArrayList<>();
 
     private ShopListAdapter adapter;
 
@@ -52,6 +54,8 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
 
     private boolean isHeadRefresh = false;
     private boolean isEmpty;
+    private float oldy;
+    private float detalY;
 
     public static ShopPageFragment newInstance(int page, int id) {
         Bundle args = new Bundle();
@@ -86,7 +90,7 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
             return;
         }
         for (int i = 0; i < 51; i++) {
-            list.add("haha");
+            list.add(new ShopListResponse.MsgBean());
         }
         adapter = new ShopListAdapter(baseContext, list);
         gridView.setAdapter(adapter);
@@ -105,6 +109,11 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if (firstVisibleItem == 0) {
+                    View view2 = gridView.getChildAt(firstVisibleItem);
+                    if (view2 != null) {
+                        int[] location = new int[2];
+                        view2.getLocationOnScreen(location);
+                    }
                     ((CarShopActivity) getActivity()).showTitle();
                 } else if (firstVisibleItem > 2) {
                     ((CarShopActivity) getActivity()).hideTitle();

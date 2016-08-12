@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.entity.NewsListResponse;
+import com.cheweishi.android.entity.ShopListResponse;
 import com.cheweishi.android.widget.SimpleTagImageView;
 
 import java.text.SimpleDateFormat;
@@ -22,15 +23,15 @@ public class ShopListAdapter extends BaseAdapter {
 
     private Context context;
 
-    private List<String> list;
+    private List<ShopListResponse.MsgBean> list;
 
 
-    public ShopListAdapter(Context context, List<String> list) {
+    public ShopListAdapter(Context context, List<ShopListResponse.MsgBean> list) {
         this.context = context;
         this.list = list;
     }
 
-    public void setData(List<String> list) {
+    public void setData(List<ShopListResponse.MsgBean> list) {
         this.list = list;
         notifyDataSetChanged();
     }
