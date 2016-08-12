@@ -56,6 +56,8 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
     private ShopCateGoryAdapter cateGoryAdapter;//下拉分类适配
 
+    private View ll_common_title;
+
     private ShopTypeResponse response;
 
 
@@ -67,6 +69,8 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void init() {
+
+        ll_common_title = findViewById(R.id.ll_common_title);
 
         left_action = (Button) findViewById(R.id.left_action);
 
@@ -201,5 +205,11 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
         dismissPopupWindow();
     }
 
+    public void showTitle() {
+        ll_common_title.setVisibility(View.VISIBLE);
+    }
 
+    public void hideTitle() {
+        ll_common_title.setVisibility(View.GONE);
+    }
 }

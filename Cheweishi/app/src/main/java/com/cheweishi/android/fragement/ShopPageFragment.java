@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.cheweishi.android.R;
+import com.cheweishi.android.activity.CarShopActivity;
 import com.cheweishi.android.adapter.ShopListAdapter;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.tools.EmptyTools;
@@ -95,7 +96,6 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
         gridView.setOnScrollListener(new XListView.OnXScrollListener() {
             @Override
             public void onXScrolling(View view) {
-                LogHelper.d("current :" + view.getScrollY() + "---" + view.getY());
             }
 
             @Override
@@ -104,9 +104,11 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                int[] location = new int[2];
-//                adapter.getView(0,null,null);
-//                LogHelper.d(" onScroll current :" + location[0] + "---" + location[1]);
+                if (firstVisibleItem == 0) {
+                    ((CarShopActivity) getActivity()).showTitle();
+                } else if (firstVisibleItem > 2) {
+                    ((CarShopActivity) getActivity()).hideTitle();
+                }
             }
         });
         loading.sendEmptyMessageDelayed(0x10, 500);
@@ -142,7 +144,6 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 
     }
-
 
 
 }
