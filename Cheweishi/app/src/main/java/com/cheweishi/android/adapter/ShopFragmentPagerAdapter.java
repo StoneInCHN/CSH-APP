@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.cheweishi.android.entity.NewsTypeResponse;
+import com.cheweishi.android.entity.ShopTypeResponse;
 import com.cheweishi.android.fragement.NewsPageFragment;
 import com.cheweishi.android.fragement.ShopPageFragment;
 
@@ -18,9 +19,9 @@ public class ShopFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private Context context;
 
-    private List<NewsTypeResponse.MsgBean> list;
+    private List<ShopTypeResponse.MsgBean> list;
 
-    public ShopFragmentPagerAdapter(FragmentManager fm, Context context, List<NewsTypeResponse.MsgBean> list) {
+    public ShopFragmentPagerAdapter(FragmentManager fm, Context context, List<ShopTypeResponse.MsgBean> list) {
         super(fm);
         this.context = context;
         this.list = list;
@@ -28,7 +29,7 @@ public class ShopFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ShopPageFragment.newInstance(position,list.get(position).getId());
+        return ShopPageFragment.newInstance(position, list.get(position).getId());
     }
 
     @Override

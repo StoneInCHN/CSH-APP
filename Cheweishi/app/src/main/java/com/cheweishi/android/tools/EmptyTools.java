@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 public class EmptyTools {
@@ -18,6 +20,14 @@ public class EmptyTools {
      * 空数据布局
      */
     private static View view;
+
+    public static void setEmptyView(Context context, PullToRefreshGridView listView) {
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();// 调用Activity的getLayoutInflater()
+        view = inflater.inflate(R.layout.no_data, null);
+        ((ViewGroup) listView.getParent()).addView(view, new LayoutParams(
+                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        listView.setEmptyView(view);
+    }
 
     public static void setEmptyView(Context context, ListView listView) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();// 调用Activity的getLayoutInflater()

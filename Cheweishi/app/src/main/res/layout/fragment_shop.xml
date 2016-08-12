@@ -23,10 +23,12 @@
             app:tabTextColor="@color/shop_top_category_tab_text" />
 
         <LinearLayout
+            android:id="@+id/ll_shop_top_down_array"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <View
                 android:layout_width="10dp"

@@ -7,16 +7,16 @@
     android:padding="10dp">
 
     <ImageView
+        android:id="@+id/iv_shop_item_img"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@drawable/ic_launcher" />
+        android:layout_height="150dp" />
 
     <TextView
+        android:id="@+id/tv_shop_item_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
         android:textColor="@color/light_gray"
         android:textSize="18sp" />
 
@@ -34,20 +34,21 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/tv_shop_item_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/tv_shop_item_left"
-            android:text="999"
+            android:text="0"
             android:textColor="@color/red"
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/tv_shop_item_buy_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="101人购买"
             android:textColor="@color/gray"
             android:textSize="14sp" />
     </RelativeLayout>

@@ -2,13 +2,21 @@ package com.cheweishi.android.fragement;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.ShopListAdapter;
 import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.tools.EmptyTools;
+import com.cheweishi.android.utils.LogHelper;
+import com.cheweishi.android.widget.XListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 
@@ -16,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ShopPageFragment extends BaseFragment {
+public class ShopPageFragment extends BaseFragment implements AdapterView.OnItemClickListener, PullToRefreshBase.OnRefreshListener2 {
 
     public static final String ARG_PAGE = "ARG_PAGE";
 
@@ -76,37 +84,65 @@ public class ShopPageFragment extends BaseFragment {
         if (!isPrepared || !isVisible) {//|| isLoaded
             return;
         }
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 51; i++) {
             list.add("haha");
         }
         adapter = new ShopListAdapter(baseContext, list);
         gridView.setAdapter(adapter);
         gridView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-//        gridView.setOnRefreshListener(this);
-//        gridView.setOnItemClickListener(this);
+        gridView.setOnRefreshListener(this);
+        gridView.setOnItemClickListener(this);
+        gridView.setOnScrollListener(new XListView.OnXScrollListener() {
+            @Override
+            public void onXScrolling(View view) {
+                LogHelper.d("current :" + view.getScrollY() + "---" + view.getY());
+            }
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int[] location = new int[2];
+//                adapter.getView(0,null,null);
+//                LogHelper.d(" onScroll current :" + location[0] + "---" + location[1]);
+            }
+        });
         loading.sendEmptyMessageDelayed(0x10, 500);
     }
 
     @Override
     public void onDataLoading(int what) {
-//        if (isLoaded) {
-//        if (0 == list.size()) {
-//            EmptyTools.setEmptyView(baseContext, listView);
-//            EmptyTools.setImg(R.drawable.mycar_icon);
-//            EmptyTools.setMessage("当前列表没有新闻信息");
-//        }
-//            return;
-//        }
 
-//        if (0x10 == what && !isLoaded) {
-//            isLoaded = true;
+        if (0x10 == what && !isLoaded) {
+            isLoaded = true;
 //            sendPacket(0);
-//        } else if (0 == list.size()) {
-//            EmptyTools.setEmptyView(baseContext, listView);
-//            EmptyTools.setImg(R.drawable.mycar_icon);
-//            EmptyTools.setMessage("当前列表没有新闻信息");
-//        }
+        } else if (0 == list.size()) {
+            EmptyTools.setEmptyView(baseContext, gridView);
+            EmptyTools.setImg(R.drawable.mycar_icon);
+            EmptyTools.setMessage("当前列表没有商品信息");
+        }
         ProgrosDialog.closeProgrosDialog();
     }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+
+    }
+
+
 
 }

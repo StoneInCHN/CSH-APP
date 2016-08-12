@@ -64,6 +64,7 @@
 
     <!-- 公共 -->
     <string name="back">返回</string>
+    <string name="car_shop">精品商城</string>
     <string name="save">保存</string>
     <string name="finish">完成</string>
     <string name="choose">选择</string>
@@ -1439,7 +1440,6 @@
     <string name="pay_600">600元</string>
     <string name="pay_1000">1000元</string>
     <string name="pay_true">确认充值</string>
-
 
 
     <!-- WXPayEntryACtivity -->

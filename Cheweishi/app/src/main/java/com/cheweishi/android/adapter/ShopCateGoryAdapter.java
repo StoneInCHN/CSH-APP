@@ -8,36 +8,34 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.entity.NewsListResponse;
-import com.cheweishi.android.widget.SimpleTagImageView;
+import com.cheweishi.android.entity.ShopTypeResponse;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
- * Created by tangce on 7/19/2016.
+ * Created by tangce on 7/14/2016.
  */
-public class ShopListAdapter extends BaseAdapter {
+public class ShopCateGoryAdapter extends BaseAdapter {
 
     private Context context;
 
-    private List<String> list;
+    private List<ShopTypeResponse.MsgBean> list;
 
 
-    public ShopListAdapter(Context context, List<String> list) {
+    public ShopCateGoryAdapter(Context context, List<ShopTypeResponse.MsgBean> list) {
         this.context = context;
         this.list = list;
     }
 
-    public void setData(List<String> list) {
+    public void setData(List<ShopTypeResponse.MsgBean> list) {
         this.list = list;
         notifyDataSetChanged();
     }
 
+
     @Override
     public int getCount() {
-        return list.size();
+        return null != list ? list.size() : 0;
     }
 
     @Override
@@ -52,31 +50,22 @@ public class ShopListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         ViewHolder holder = null;
-
         if (null == convertView) {
             holder = new ViewHolder();
-            convertView = View.inflate(context, R.layout.item_shop_list, null);
-            holder.icon = (ImageView) convertView.findViewById(R.id.iv_shop_item_img);
-            holder.desc = (TextView) convertView.findViewById(R.id.tv_shop_item_desc);
-            holder.buyCount = (TextView) convertView.findViewById(R.id.tv_shop_item_buy_count);
-            holder.money = (TextView) convertView.findViewById(R.id.tv_shop_item_money);
+            convertView = View.inflate(context, R.layout.shop_category_item, null);
+            holder.name = (TextView) convertView.findViewById(R.id.tv_shop_category_item);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-//        holder.desc.setText();
+        holder.name.setText(list.get(position).getName());
 
         return convertView;
     }
 
     private class ViewHolder {
-        private ImageView icon;
-        private TextView desc;
-        private TextView money;
-        private TextView buyCount;
+        private TextView name;
     }
-
 }
