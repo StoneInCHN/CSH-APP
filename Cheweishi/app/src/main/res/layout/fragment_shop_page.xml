@@ -14,7 +14,7 @@
         android:id="@+id/prg_shops"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:horizontalSpacing="@dimen/small_marging"
+        android:horizontalSpacing="@dimen/set_top_marging"
         android:numColumns="2"
         android:verticalSpacing="@dimen/set_top_marging"
         android:scrollbars="none" />
