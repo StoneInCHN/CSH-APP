@@ -187,6 +187,8 @@ public class RichText {
 
         @Override
         public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+            if(null==textView)
+                return;
             Drawable drawable = new BitmapDrawable(textView.getContext().getResources(), resource);
             if (!autoFix && (holder.getWidth() <= 0 || holder.getHeight() <= 0) && mImageFixCallback != null) {
                 holder.setWidth(resource.getWidth());

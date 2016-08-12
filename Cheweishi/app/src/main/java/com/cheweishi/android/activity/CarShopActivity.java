@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -34,12 +35,9 @@ import java.util.Map;
  */
 public class CarShopActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private ShopFragment shopFragment;
 
-    @ViewInject(R.id.left_action)
     private Button left_action;
 
-    @ViewInject(R.id.title)
     private TextView title;
 
     private ViewPager vp_shops;//滚动
@@ -60,15 +58,20 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
     private ShopTypeResponse response;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_shop);
-        ViewUtils.inject(this);
         init();
     }
 
     private void init() {
+
+        left_action = (Button) findViewById(R.id.left_action);
+
+        title = (TextView) findViewById(R.id.title);
+
         vp_shops = (ViewPager) findViewById(R.id.vp_shop);
 
         tl_shop = (TabLayout) findViewById(R.id.tl_shop);
@@ -85,6 +88,7 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
         ll_shop_top_down_array = (LinearLayout) findViewById(R.id.ll_shop_top_down_array);
 
+        left_action.setOnClickListener(this);
         ll_shop_top_down_array.setOnClickListener(this);
         title.setText(getString(R.string.car_shop));
         left_action.setText(getString(R.string.back));
@@ -125,6 +129,9 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.left_action:
+                finish();
+                break;
             case R.id.ll_shop_top_down_array:
                 showPopup(tl_shop, response.getMsg());
                 break;
