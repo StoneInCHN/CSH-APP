@@ -685,8 +685,8 @@ public class MessagerCenterActivity extends BaseActivity {
             intent.putExtra("title", messagCenterInfo.getMessageTitle());
             intent.putExtra("content", messagCenterInfo.getMessageContent());
             intent.putExtra("time", messagCenterInfo.getCreateDate());
-            intent.setClass(MessagerCenterActivity.this,
-                    MessageCenterDetailsActivity.class);
+            intent.putExtra("isRead", messagCenterInfo.isIsRead());
+            intent.setClass(MessagerCenterActivity.this, MessageCenterDetailsActivity.class);
             mMessageCenterApdater.flag = false;
             messagCenterInfo.setIsRead(true);
             startActivity(intent);

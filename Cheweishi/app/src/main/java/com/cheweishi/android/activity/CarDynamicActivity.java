@@ -323,7 +323,7 @@ public class CarDynamicActivity extends BaseActivity {
         } catch (Exception e) {
         }
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
 
     @Override

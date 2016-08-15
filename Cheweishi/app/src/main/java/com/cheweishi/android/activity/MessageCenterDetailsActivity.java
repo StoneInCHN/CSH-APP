@@ -69,99 +69,6 @@ public class MessageCenterDetailsActivity extends BaseActivity implements
 
     }
 
-    private void getMessageData(int id) {
-        if (isLogined()) {
-            RequestParams params = new RequestParams();
-            params.addBodyParameter("uid", loginMessage.getUid());
-            params.addBodyParameter("mobile", loginMessage.getMobile());
-            params.addBodyParameter("id", id + "");
-            Log.i("result", "==uid==" + loginMessage.getUid() + "_" + loginMessage.getMobile() + "_" + id);
-            httpBiz.httPostData(1001, API.CSH_MESSAGE_LIST_URL, params, this);
-        }
-    }
-
-    private void getMessageDetails() {
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("id", "1");
-        ProgrosDialog.openDialog(this);
-        httpBiz.httPostData(100000, API.CSH_MESSAGE_DETAILS_URL, params, this);
-    }
-
-    @Override
-    public void receive(int type, String data) {
-        super.receive(type, data);
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case 1001:
-                // paresJsonData(data);
-                parseJsonData(data);
-                break;
-
-            default:
-                showToast(R.string.FAIL);
-                break;
-        }
-    }
-
-    private void paresJsonData(String data) {
-        if (StringUtil.isEmpty(data)) {
-            showToast("获取数据失败");
-            return;
-        }
-
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            if (StringUtil.isEquals(API.returnSuccess,
-                    jsonObject.optString("state"), true)) {
-                tv_centent_details_title.setText(jsonObject.optJSONObject(
-                        "data").optString("title"));
-                tv_centent_time.setText(jsonObject.optJSONObject("data")
-                        .optString("add_time"));
-                tv_centent_details.setText(jsonObject.optJSONObject("data")
-                        .optString("content"));
-                tv_centent_details_body.setText(jsonObject
-                        .optJSONObject("data").optString("body"));
-            } else {
-                showToast(jsonObject.optString("message"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected void parseJsonData(String data) {
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            if (StringUtil.isEquals(API.returnSuccess,
-                    jsonObject.optString("state"), true)) {
-                MessagCenterInfo centerInfo = new MessagCenterInfo();
-                JSONObject object = jsonObject.optJSONObject("data");
-                int id = object.optInt("id");
-                centerInfo.setId(id);
-                centerInfo.setAdd_time(object.getString("add_time"));
-                centerInfo.setContent(object.getString("content"));
-                centerInfo.setUid(object.getInt("uid"));
-                centerInfo.setBody(object.getString("body"));
-                centerInfo.setIcon(object.getString("icon"));
-                centerInfo.setIsRead(1);
-                centerInfo.setTitle(object.getString("title"));
-                centerInfo.setType(object.getString("type"));
-                if (StringUtil.isEmpty(DBTools.getInstance(this).findFirst(MessagCenterInfo.class, "id", id + ""))) {
-                    DBTools.getInstance(this).save(centerInfo);
-                } else {
-                    DBTools.getInstance(this).deleteById(MessagCenterInfo.class, id + "");
-                    DBTools.getInstance(this).save(centerInfo);
-                }
-                tv_centent_details_title.setText(centerInfo.getTitle());
-                tv_centent_time.setText(centerInfo.getAdd_time());
-                tv_centent_details.setText(centerInfo.getContent());
-            } else {
-                showToast(jsonObject.optString("message"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     private String transferLongToDate(Long millSec) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
@@ -180,44 +87,46 @@ public class MessageCenterDetailsActivity extends BaseActivity implements
         }
 
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
 
         // TODO 更新主页消息提示UI数量
+        if (!getIntent().getBooleanExtra("isRead", true)) {
 
-        if (null != number && !"".equals(number)) {
-            int msgnumber = 0;
-            try {
-                msgnumber = Integer.valueOf(number);
-            } catch (Exception e) {
-                msgnumber = Integer.valueOf(number.substring(0, 2));
-            }
-            if (0 < msgnumber && 1 != msgnumber) {
-                MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
-                if (99 >= (msgnumber - 1))
-                    MainNewActivity.tv_msg_center_num.setText("" + (msgnumber - 1));
-                else
-                    MainNewActivity.tv_msg_center_num.setText("99+");
-            } else {
-                MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
-            }
-        } else {
-            String tnumber = MainNewActivity.tv_msg_center_num.getText().toString();
-            if (null != tnumber && !"".equals(tnumber)) {
-                int mImsgNumber = 0;
+            if (null != number && !"".equals(number)) {
+                int msgnumber = 0;
                 try {
-                    mImsgNumber = Integer.valueOf(tnumber);
+                    msgnumber = Integer.valueOf(number);
                 } catch (Exception e) {
-                    mImsgNumber = Integer.valueOf(tnumber.substring(0, 2));
+                    msgnumber = Integer.valueOf(number.substring(0, 2));
                 }
-                if (0 < mImsgNumber && 1 != mImsgNumber) {
+                if (0 < msgnumber && 1 != msgnumber) {
                     MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
-                    if (99 > (mImsgNumber - 1))
-                        MainNewActivity.tv_msg_center_num.setText("" + (mImsgNumber - 1));
+                    if (99 >= (msgnumber - 1))
+                        MainNewActivity.tv_msg_center_num.setText("" + (msgnumber - 1));
                     else
                         MainNewActivity.tv_msg_center_num.setText("99+");
                 } else {
                     MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
+                }
+            } else {
+                String tnumber = MainNewActivity.tv_msg_center_num.getText().toString();
+                if (null != tnumber && !"".equals(tnumber)) {
+                    int mImsgNumber = 0;
+                    try {
+                        mImsgNumber = Integer.valueOf(tnumber);
+                    } catch (Exception e) {
+                        mImsgNumber = Integer.valueOf(tnumber.substring(0, 2));
+                    }
+                    if (0 < mImsgNumber && 1 != mImsgNumber) {
+                        MainNewActivity.tv_msg_center_num.setVisibility(View.VISIBLE);
+                        if (99 > (mImsgNumber - 1))
+                            MainNewActivity.tv_msg_center_num.setText("" + (mImsgNumber - 1));
+                        else
+                            MainNewActivity.tv_msg_center_num.setText("99+");
+                    } else {
+                        MainNewActivity.tv_msg_center_num.setVisibility(View.GONE);
+                    }
                 }
             }
         }
