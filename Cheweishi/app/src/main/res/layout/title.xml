@@ -48,6 +48,16 @@
             android:singleLine="true"
             android:textColor="@color/main_blue"
             android:textSize="@dimen/titile_side_text_size" />
+
+        <ImageView
+            android:id="@+id/iv_common_title_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/normal_padding"
+            android:src="@drawable/shop_buy"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <TextView

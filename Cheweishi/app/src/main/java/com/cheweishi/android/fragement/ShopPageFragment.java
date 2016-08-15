@@ -1,5 +1,6 @@
 package com.cheweishi.android.fragement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.method.Touch;
@@ -14,6 +15,7 @@ import android.widget.GridView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.CarShopActivity;
+import com.cheweishi.android.activity.ProductDetailActivity;
 import com.cheweishi.android.adapter.ShopListAdapter;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ShopListResponse;
@@ -141,6 +143,8 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         LogHelper.d("onItemClick:" + position);
+        Intent detail = new Intent(baseContext, ProductDetailActivity.class);
+        startActivity(detail);
     }
 
 
