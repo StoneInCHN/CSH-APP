@@ -86,4 +86,5 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile project(':librarys')
     compile project(':richtext')
+    compile 'com.android.support:cardview-v7:23.3.0'
 }
