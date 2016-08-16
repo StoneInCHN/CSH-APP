@@ -1,13 +1,5 @@
 package com.cheweishi.android.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
@@ -26,11 +18,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import cn.jpush.android.api.JPushInterface;
-
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.MessageCenterApdater;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.MessageCenterDialog;
@@ -48,14 +37,19 @@ import com.cheweishi.android.widget.SwipeMenuItem;
 import com.cheweishi.android.widget.SwipeMenuListView;
 import com.cheweishi.android.widget.SwipeMenuListView.OnMenuItemClickListener;
 import com.cheweishi.android.widget.XListView.IXListViewListener;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
-import static com.cheweishi.android.tools.DBTools.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import cn.jpush.android.api.JPushInterface;
+
+import static com.cheweishi.android.tools.DBTools.getInstance;
 
 /**
  * 消息中心
@@ -245,6 +239,7 @@ public class MessagerCenterActivity extends BaseActivity {
         ProgrosDialog.closeProgrosDialog();
         showToast(R.string.server_link_fault);
     }
+
 
 
     /**
@@ -592,8 +587,9 @@ public class MessagerCenterActivity extends BaseActivity {
             intent.putExtra("title", messagCenterInfo.getMessageTitle());
             intent.putExtra("content", messagCenterInfo.getMessageContent());
             intent.putExtra("time", messagCenterInfo.getCreateDate());
-            intent.putExtra("isRead", messagCenterInfo.isIsRead());
-            intent.setClass(MessagerCenterActivity.this, MessageCenterDetailsActivity.class);
+            intent.putExtra("isRead",messagCenterInfo.isIsRead());
+            intent.setClass(MessagerCenterActivity.this,
+                    MessageCenterDetailsActivity.class);
             mMessageCenterApdater.flag = false;
             messagCenterInfo.setIsRead(true);
             startActivity(intent);

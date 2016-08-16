@@ -975,7 +975,6 @@
 
 
         <!--消息中心-->
-        <activity android:name="com.cheweishi.android.activity.MessageCenterActivity" />
 
         <!-- 商城-->
         <activity android:name="com.cheweishi.android.activity.CarShopActivity" />
