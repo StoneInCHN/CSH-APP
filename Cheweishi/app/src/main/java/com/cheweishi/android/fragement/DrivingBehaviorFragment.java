@@ -1,7 +1,6 @@
 package com.cheweishi.android.fragement;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,23 +21,17 @@ import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.CarReportActivity;
-import com.cheweishi.android.activity.DrvingBehaviorActivity;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
-import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.CarDetectionResponse;
-import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.entity.DrvingScore;
 import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.lidroid.xutils.http.RequestParams;
 
 public class DrivingBehaviorFragment extends BaseFragment {
     private String time;
@@ -119,35 +112,35 @@ public class DrivingBehaviorFragment extends BaseFragment {
         return view;
     }
 
-    private OnClickListener onClickListener = new OnClickListener() {
-
-        @Override
-        public void onClick(View arg0) {
-            // TODO Auto-generated method stub
-            Intent intent = new Intent(mContext, DrvingBehaviorActivity.class);
-            switch (arg0.getId()) {
-                case R.id.ll_rapidAcceleration:
-                    intent.putExtra("pageIndex", 0);
-                    break;
-                case R.id.ll_brokenOn:
-                    intent.putExtra("pageIndex", 1);
-                    break;
-                case R.id.ll_suddenTurn:
-                    intent.putExtra("pageIndex", 2);
-                    break;
-                case R.id.ll_fatigueDriving:
-                    intent.putExtra("pageIndex", 3);
-                    break;
-                default:
-                    intent.putExtra("pageIndex", 0);
-                    break;
-            }
-            intent.putExtra("time", time);
-            startActivity(intent);
-
-        }
-
-    };
+//    private OnClickListener onClickListener = new OnClickListener() {
+//
+//        @Override
+//        public void onClick(View arg0) {
+//            // TODO Auto-generated method stub
+//            Intent intent = new Intent(mContext, DrvingBehaviorActivity.class);
+//            switch (arg0.getId()) {
+//                case R.id.ll_rapidAcceleration:
+//                    intent.putExtra("pageIndex", 0);
+//                    break;
+//                case R.id.ll_brokenOn:
+//                    intent.putExtra("pageIndex", 1);
+//                    break;
+//                case R.id.ll_suddenTurn:
+//                    intent.putExtra("pageIndex", 2);
+//                    break;
+//                case R.id.ll_fatigueDriving:
+//                    intent.putExtra("pageIndex", 3);
+//                    break;
+//                default:
+//                    intent.putExtra("pageIndex", 0);
+//                    break;
+//            }
+//            intent.putExtra("time", time);
+//            startActivity(intent);
+//
+//        }
+//
+//    };
 
     private void initData() {
         if (!isLogined()) {

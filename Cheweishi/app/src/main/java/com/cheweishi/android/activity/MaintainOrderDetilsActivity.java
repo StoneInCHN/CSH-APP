@@ -76,8 +76,8 @@ public class MaintainOrderDetilsActivity extends BaseActivity{
 			MaintainOrderDetilsActivity.this.finish();
 			break;
 		case R.id.right_action:
-			intent = new Intent(MaintainOrderDetilsActivity.this,MaintainCancelActivity.class);
-			startActivity(intent);
+//			intent = new Intent(MaintainOrderDetilsActivity.this,MaintainCancelActivity.class);
+//			startActivity(intent);
 			break;
 		default:
 			break;

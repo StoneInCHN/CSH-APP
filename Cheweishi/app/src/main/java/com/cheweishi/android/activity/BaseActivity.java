@@ -73,11 +73,7 @@ public abstract class BaseActivity extends FragmentActivity implements
     public static boolean isConflictDialogShow;
     public static boolean isAccountRemovedDialogShow;
     private Toast mToast;
-    public HttpBiz httpBiz;
-    public static LoginMessage loginMessage;
     public static LoginResponse loginResponse;
-    public static List<LoginMessage> loginMessages;
-    public static List<LoginResponse> loginResponses;
     protected Context baseContext;
     public NetWorkHelper netWorkHelper;
 
@@ -354,38 +350,7 @@ public abstract class BaseActivity extends FragmentActivity implements
                 || StringUtil.isEmpty(loginResponse.getDesc()));
     }
 
-    @SuppressWarnings("unchecked")
-    public boolean isLogined_old() {
-        if (StringUtil.isEmpty(loginMessage)) {
-            loginMessages = (List<LoginMessage>) DBTools.getInstance(this)
-                    .findAll(LoginMessage.class);
-            if (!StringUtil.isEmpty(loginMessages) && loginMessages.size() > 0) {
-                loginMessage = loginMessages.get(0);
-            }
-        }
-        Log.i("result", "===loginMessage==" + String.valueOf(loginMessage));
-        if (StringUtil.isEmpty(BaseActivity.loginMessage)
-                || StringUtil.isEmpty(loginMessage.getUid())) {
-            return false;
-        }
-        Log.i("result", "===uid==" + loginMessage.getUid() + "===mobile=="
-                + loginMessage.getMobile());
-        return true;
-    }
 
-    /**
-     * 判断环信账号
-     *
-     * @return
-     */
-    public boolean hasNo() {
-        if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getNo())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * 判断是否有车辆
@@ -428,15 +393,6 @@ public abstract class BaseActivity extends FragmentActivity implements
         return false;
     }
 
-    public boolean hasAccount() {
-        if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getAccount())
-                    && !StringUtil.isEmpty(loginMessage.getAccount().getAid())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public boolean hasPhoto() {
         if (isLogined()) {
@@ -468,15 +424,6 @@ public abstract class BaseActivity extends FragmentActivity implements
     public boolean hasNick() {
         if (isLogined()) {
             if (!StringUtil.isEmpty(loginResponse.getMsg().getNickName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean hasSign() {
-        if (isLogined()) {
-            if (BaseActivity.loginMessage.getSign() == 1) {
                 return true;
             }
         }

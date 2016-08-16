@@ -212,55 +212,6 @@ public class UserSignActivity extends BaseActivity implements OnClickListener {
         showToast(R.string.server_link_fault);
     }
 
-    /**
-     * 接受网络请求回调参数并判断
-     */
-    @Override
-    public void receive(int type, String data) {
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case 10000:
-                parseUserDetailJSON(data);
-                break;
-            case 400:
-                right_action.setClickable(true);
-                break;
-        }
-    }
-
-    /**
-     * 解析服务返回的Json数据
-     *
-     * @param result
-     */
-    private void parseUserDetailJSON(String result) {
-        if (StringUtil.isEmpty(result)) {
-            showToast(R.string.data_fail);
-        } else {
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-                if (StringUtil.isEquals(jsonObject.optString("state"),
-                        API.returnSuccess, true)) {
-                    et_userSign.setFocusable(false);
-                    showToast(R.string.individualSignature_setting_success);
-                    loginMessage.setSignature(et_userSign.getText().toString());
-                    LoginMessageUtils.saveProduct(loginMessage, this);
-                    Constant.CURRENT_REFRESH = Constant.SPECIAL_SIGN_REFRESH;
-                    Intent mIntent = new Intent();
-                    mIntent.setAction(Constant.REFRESH_FLAG);
-                    sendBroadcast(mIntent);
-                    finish();
-                } else {
-                    right_action.setClickable(true);
-                    showToast(jsonObject.optString("message"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-    }
 
     /**
      * 控制Android系统返回键

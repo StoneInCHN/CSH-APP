@@ -445,57 +445,6 @@ public class BaskOrderActivity extends BaseActivity implements OnClickListener {
         }
     }
 
-    /**
-     * 上传头像
-     *
-     * @param pathString
-     * @throws Exception
-     */
-    private void setImageView(String pathString) {
-        File file = new File(pathString);
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("file", file);
-        params.addBodyParameter("uid", loginMessage.getUid());
-        params.addBodyParameter("key", loginMessage.getKey());
-        // httpBiz.httPostData(RELOGIN_TYPE, API.LOGIN_MESSAGE_RELOGIN_URL,
-        // params, this);
-        httpBiz = new HttpBiz(this);
-        httpBiz.uploadMethod(UPLOAD_IMG_TYPE, params, API.UPLOAD_IMG_URL, this,
-                this);
-        ProgrosDialog.openDialog(this);
-    }
 
-    private void parseImgJSON(String result) {
-        if (!StringUtil.isEmpty(result)) {
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-                String resultStr = jsonObject.optString("title");
-                if (StringUtil.isEquals(resultStr, API.returnSuccess, true)) {
-                    Constant.CURRENT_REFRESH = Constant.LOGIN_REFRESH;
-                    String path = jsonObject.optJSONObject("data").optString(
-                            "file");
 
-                    Constant.CURRENT_REFRESH = Constant.LOGIN_REFRESH;
-                    // }
-                    Intent mIntent = new Intent();
-                    mIntent.setAction(Constant.REFRESH_FLAG);
-                    sendBroadcast(mIntent);
-                    showToast("头像设置成功");
-
-                } else if (StringUtil.isEquals(resultStr, "FAIL", true)) {
-                    showToast(jsonObject.optJSONObject("data").optString("msg"));
-                } else if (StringUtil.isEquals(resultStr, "RELOGIN", true)) {
-                    DialogTool.getInstance(BaskOrderActivity.this)
-                            .showConflictDialog();
-                } else if (StringUtil.isEquals(resultStr, "DEFAULT", true)) {
-                    showToast(jsonObject.optJSONObject("data").optString("msg"));
-                }
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-        }
-
-    }
 }

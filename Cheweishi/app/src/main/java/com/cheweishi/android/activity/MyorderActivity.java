@@ -107,7 +107,7 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
                 finish();
                 break;
             case R.id.right_action:
-                showDeleteDialog();
+//                showDeleteDialog();
                 break;
 
             default:
@@ -116,36 +116,7 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
 
     }
 
-    private void showDeleteDialog() {
-        builder = new CustomDialog.Builder(this);
-        builder.setMessage(R.string.order_delete_remind);
-        builder.setTitle(R.string.remind);
-        builder.setPositiveButton(R.string.sure,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        connectToDeleteServer();
 
-                    }
-                });
-
-        builder.setNegativeButton(R.string.cancel,
-                new android.content.DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        // setRadioButtonLight();
-                    }
-                });
-        deleteDialog = builder.create();
-        deleteDialog.show();
-    }
-
-    private void connectToDeleteServer() {
-        ProgrosDialog.openDialog(this);
-        RequestParams rp = new RequestParams();
-        rp.addBodyParameter("uid", loginMessage.getUid());
-        httpBiz.httPostData(10003, API.CSH_MYORDER_LIST_DELETE_URL, rp, this);
-    }
 
     private void connectToServer(int type) {
         if (0 == type)

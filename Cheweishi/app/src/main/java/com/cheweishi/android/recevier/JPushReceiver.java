@@ -211,7 +211,7 @@ public class JPushReceiver extends BroadcastReceiver {
 //							MessagCenterInfo centerInfo;
                             if (NOTIFICATION_ID != bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID)) {
                                 NOTIFICATION_ID = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-                                getMessageData(json.optInt("id"));
+//                                getMessageData(json.optInt("id"));
 //								centerInfo = new MessagCenterInfo();
 //								centerInfo.setId(json.optInt("id"));
 //								DBTools.getInstance(ActivityControl.getActivity(0)).save(centerInfo);
@@ -269,90 +269,5 @@ public class JPushReceiver extends BroadcastReceiver {
         }
     }
 
-    private static void getMessageData(int id) {
-        if (!StringUtil.isEmpty(BaseActivity.loginMessage) && !StringUtil.isEmpty(BaseActivity.loginMessage.getUid())) {
-            RequestParams params = new RequestParams();
-            params.addBodyParameter("uid", BaseActivity.loginMessage.getUid());
-            params.addBodyParameter("mobile", BaseActivity.loginMessage.getMobile());
-            params.addBodyParameter("id", id + "");
-            HttpBiz httpBiz = new HttpBiz(mContext);
-            httpBiz.httPostData(1001, API.CSH_MESSAGE_LIST_URL, params, callback);
-        }
-    }
 
-    private static JSONCallback callback = new JSONCallback() {
-
-        @Override
-        public void receive(int type, String data) {
-            switch (type) {
-                case 1001:
-                    parseJsonData(data);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        /**
-         * 返回的json数据
-         *
-         * @param TAG
-         * @param data
-         */
-        @Override
-        public void receive(String TAG, String data) {
-
-        }
-
-        /**
-         * 返回的json数据
-         *
-         * @param data
-         */
-        @Override
-        public void receive(String data) {
-
-        }
-
-        /**
-         * 失败数据
-         *
-         * @param errorMsg
-         */
-        @Override
-        public void error(String errorMsg) {
-
-        }
-
-
-        @Override
-        public void downFile(int type, ResponseInfo<File> arg0) {
-        }
-    };
-
-
-    protected static void parseJsonData(String data) {
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            if (StringUtil.isEquals(API.returnSuccess, jsonObject.optString("state"), true)) {
-                MessagCenterInfo centerInfo = new MessagCenterInfo();
-                JSONObject object = jsonObject.optJSONObject("data");
-                centerInfo.setId(object.optInt("id"));
-                centerInfo.setAdd_time(object.getString("add_time"));
-                centerInfo.setContent(object.getString("content"));
-                centerInfo.setUid(object.getInt("uid"));
-                centerInfo.setBody(object.getString("body"));
-                centerInfo.setIcon(object.getString("icon"));
-                centerInfo.setTitle(object.getString("title"));
-                centerInfo.setIsRead(0);
-                centerInfo.setType(object.getString("type"));
-                if (StringUtil.isEmpty(DBTools.getInstance(ActivityControl.getActivity(0)).findFirst(MessagCenterInfo.class, "id", object.optInt("id") + ""))) {
-                    DBTools.getInstance(ActivityControl.getActivity(0)).save(centerInfo);
-                }
-            } else {
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 }

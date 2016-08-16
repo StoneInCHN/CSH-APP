@@ -91,7 +91,6 @@ public class PasswordForgetActivity extends BaseActivity implements
      * 初始化视图
      */
     private void initViews() {
-        httpBiz = new HttpBiz(this);
         Intent intent = getIntent();
         if (intent.getStringExtra("tel") != null) {
             String str = intent.getStringExtra("tel");
@@ -313,73 +312,6 @@ public class PasswordForgetActivity extends BaseActivity implements
         initColorTextView(true);
     }
 
-    public void receive(int type, String data) {
-        switch (type) {
-            case 10001:
-                parseCodeJSON(data);
-                break;
-            case 400:
-                showToast(R.string.server_link_fault);
-                btn_pass_forget_getcode.setClickable(true);
-                btn_next.setClickable(true);
-                time.cancel();
-                btn_pass_forget_getcode.setText(R.string.get_again);
-                btn_pass_forget_getcode.setTextColor(PasswordForgetActivity.this
-                        .getApplicationContext().getResources()
-                        .getColor(R.color.orange_text_color));
-                btn_next.setClickable(true);
-                tv_voice.setClickable(true);
-                initColorTextView(true);
-                break;
-        }
-    }
-
-    /**
-     * 对获取到的验证码Json数据解析
-     *
-     * @param msgString
-     */
-    private void parseCodeJSON(String msgString) {
-        btn_next.setClickable(true);
-        if (StringUtil.isEmpty(msgString)) {
-            showToast(R.string.data_fail);
-            btn_next.setText(R.string.next);
-            btn_next.setClickable(true);
-            btn_pass_forget_getcode.setTextColor(PasswordForgetActivity.this
-                    .getApplicationContext().getResources()
-                    .getColor(R.color.orange_text_color));
-            tv_voice.setClickable(true);
-            initColorTextView(true);
-        } else {
-            try {
-                JSONObject jsonObject = new JSONObject(msgString);
-                JSONObject jsonObject2 = jsonObject.optJSONObject("data");
-                if (StringUtil.isEquals(jsonObject.optString("state"),
-                        API.returnSuccess, true)) {
-                    showToast(getResources().getString(R.string.code_success));
-                    time.start();
-                    mCode = jsonObject2.optInt("code") + "";
-                    tv_remind.setText(pass_forget_phonenumber.getText()
-                            .toString().replaceAll(" ", ""));
-                } else {
-                    time.cancel();
-                    btn_next.setText(R.string.next);
-                    btn_next.setClickable(true);
-                    tv_voice.setClickable(true);
-                    initColorTextView(true);
-                    btn_pass_forget_getcode.setClickable(true);
-                    btn_pass_forget_getcode.setText(R.string.code_get);
-                    showToast(jsonObject.optString("message"));
-                    btn_pass_forget_getcode
-                            .setTextColor(PasswordForgetActivity.this
-                                    .getApplicationContext().getResources()
-                                    .getColor(R.color.orange_text_color));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     class TimeCount extends CountDownTimer {
 

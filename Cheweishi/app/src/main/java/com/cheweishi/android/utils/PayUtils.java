@@ -3,24 +3,16 @@ package com.cheweishi.android.utils;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.cheweishi.android.activity.BaseActivity;
-import com.cheweishi.android.activity.PayActivty;
-import com.cheweishi.android.activity.RechargeActivity;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 

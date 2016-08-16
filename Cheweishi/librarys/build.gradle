@@ -1,5 +1,8 @@
 apply plugin: 'com.android.library'
 android {
+    lintOptions{
+        abortOnError false
+    }
     compileSdkVersion 19
     buildToolsVersion "23.0.3"
 

@@ -220,14 +220,6 @@ public class MaintainDetilsActivity extends BaseActivity {
 
 	}
 
-	private void connectToServer() {
-		ProgrosDialog.openDialog(this);
-		String id = getIntent().getStringExtra("id");
-		RequestParams mRequestParams = new RequestParams();
-		mRequestParams.addBodyParameter("id", id);
-		httpBiz.httPostData(10003, API.CSH_WASHCARDETAILS_URL, mRequestParams,
-				this);
-	}
 
 	@Override
 	public void receive(int type, String data) {

@@ -38,7 +38,6 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.cheweishi.android.R;
-import com.cheweishi.android.activity.RechargeActivity.MyBroadcastReceiver;
 import com.cheweishi.android.adapter.FindcarViewpagerAdapter;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.entity.ParkInfo;

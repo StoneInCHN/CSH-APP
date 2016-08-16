@@ -60,8 +60,8 @@ public class WelcomeAdapter extends BaseAdapter {
 //					_context.startActivity(i);
 //					WelcomeActivity.instance.finish();
 
-					if (!(StringUtil.isEmpty(BaseActivity.loginMessage) || StringUtil
-							.isEmpty(BaseActivity.loginMessage.getUid()))) {
+					if (!(StringUtil.isEmpty(BaseActivity.loginResponse) || StringUtil
+							.isEmpty(BaseActivity.loginResponse.getId()))) {
 						Intent intent = new Intent(_context,
 								MainNewActivity.class);
 						intent.putExtra("className", "WelcomeActivity");

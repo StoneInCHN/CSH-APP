@@ -894,25 +894,6 @@ public class GasStationMapFragment extends BaseFragment implements
 
     }
 
-    // private String getKey() {
-    // return loginMessage.getKey();
-    // }
-
-    private String getUid() {
-        return BaseActivity.loginMessage.getUid();
-    }
-
-    private String getMobile() {
-        return BaseActivity.loginMessage.getMobile();
-    }
-
-    private String getcid() {
-        return getcar().getId();
-    }
-
-    private CarManager getcar() {
-        return BaseActivity.loginMessage.getCarManager();
-    }
 
     /***
      * 在地图上标记车 的位置

@@ -231,7 +231,7 @@ public class OrderDetailsActivity extends BaseActivity implements
      */
     private void cancelOrder() {
         Intent intent = new Intent();
-        intent.setClass(OrderDetailsActivity.this, MaintainCancelActivity.class);
+//        intent.setClass(OrderDetailsActivity.this, MaintainCancelActivity.class);
 //        intent.putExtra("orderId", orderDetail.getOrderId());
         startActivity(intent);
     }

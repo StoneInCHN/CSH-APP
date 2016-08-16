@@ -1,43 +1,27 @@
 package com.cheweishi.android.adapter;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.cheweishi.android.R;
-import com.cheweishi.android.activity.BaskOrderActivity;
-import com.cheweishi.android.activity.CancelOrderActivity;
-import com.cheweishi.android.activity.MyorderActivity;
-import com.cheweishi.android.activity.OrderDetailsActivity;
-import com.cheweishi.android.activity.WashCarPayActivity;
-import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.config.API;
-import com.cheweishi.android.entity.MyOrderBean;
-import com.cheweishi.android.entity.OrderResponse;
-import com.cheweishi.android.tools.DialogTool;
-import com.cheweishi.android.utils.LogHelper;
-import com.cheweishi.android.utils.StringUtil;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-
 import android.content.Context;
 import android.content.Intent;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.cheweishi.android.R;
+import com.cheweishi.android.activity.BaskOrderActivity;
+import com.cheweishi.android.activity.OrderDetailsActivity;
+import com.cheweishi.android.activity.WashCarPayActivity;
+import com.cheweishi.android.biz.XUtilsImageLoader;
+import com.cheweishi.android.entity.MyOrderBean;
+import com.cheweishi.android.entity.OrderResponse;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class MyorderAdapter extends BaseAdapter {
     private List<OrderResponse.MsgBean> mData;

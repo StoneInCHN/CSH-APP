@@ -459,22 +459,6 @@
             android:name="com.cheweishi.android.activity.StarRankingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.FootmarkActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.NavigationActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.FindCarportActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/translucent"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.UserDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
         <!--<activity-->
         <!--android:name="com.cheweishi.android.activity.RepairServiceActivity"-->
         <!--android:screenOrientation="portrait"-->
@@ -483,10 +467,6 @@
         <!--android:name="com.cheweishi.android.activity.RepairServiceDetailActivity"-->
         <!--android:screenOrientation="portrait"-->
         <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
-        <activity
-            android:name="com.cheweishi.android.activity.SignInDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
         <activity
             android:name="com.cheweishi.android.activity.PrivacySettingsActivity"
             android:launchMode="singleTask"
@@ -589,11 +569,6 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity> -->
         <activity
-            android:name="com.cheweishi.android.activity.ProvinceCityCountryActivity"
-            android:label="@string/title_activity_province_city_country"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
             android:name="com.cheweishi.android.activity.WebActivity"
             android:label="@string/title_activity_province_city_country"
             android:screenOrientation="portrait"
@@ -602,10 +577,6 @@
             android:name="com.cheweishi.android.activity.DetactionInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.PushDialogActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/MyDialogStyle"></activity>
         <!--<activity-->
         <!--android:name="com.cheweishi.android.activity.RepairGalleryActivity"-->
         <!--android:label="@string/title_activity_repair_gallery"-->
@@ -752,11 +723,6 @@
         <!--</intent-filter>-->
         <!--</activity>-->
         <activity
-            android:name="com.cheweishi.android.activity.DrvingBehaviorActivity"
-            android:label="@string/title_activity_drving_behavior"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
             android:name="com.cheweishi.android.activity.PurseActivity"
             android:label="@string/title_activity_drving_behavior"
             android:screenOrientation="portrait"
@@ -773,11 +739,6 @@
             android:theme="@style/myAnimationNoTileBar"></activity>
         <activity
             android:name="com.cheweishi.android.activity.PurseBalanceActivity"
-            android:label="@string/title_activity_drving_behavior"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.PurseTotalChargesActivity"
             android:label="@string/title_activity_drving_behavior"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
@@ -805,15 +766,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <activity
-            android:name="com.cheweishi.android.activity.CarReportFreeAddActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.IntegralActivity"
-            android:label="@string/title_activity_integral"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
             android:name="com.cheweishi.android.activity.IntegralHelpActivity"
             android:label="@string/title_activity_integral_help"
             android:screenOrientation="portrait"
@@ -828,10 +780,6 @@
             android:label="@string/title_activity_choosedate"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.MyTreasureActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar" />
         <!-- 消息中心 -->
         <activity
             android:name="com.cheweishi.android.activity.MessagerCenterActivity"
@@ -845,15 +793,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <activity
-            android:name="com.cheweishi.android.activity.CarManagerBindActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.CarManagerAfterBindActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
             android:name="com.cheweishi.android.activity.ReturnFeeThatActivity"
             android:label="@string/title_activity_return_fee_that"
             android:screenOrientation="portrait"
@@ -863,40 +802,10 @@
             android:label="@string/title_activity_telephone_explain"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.WithdrawDepositActivity"
-            android:label="@string/title_activity_withdraw_deposit"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.ReturnTheMoneyDatailsActivity"
-            android:label="@string/title_activity_return_the_money_datails"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.TelephoneChargeDetilsActivity"
-            android:label="@string/title_activity_telephone_charge_detils"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.PushDetailsActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.CircleInformationDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.InformationSecondListActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
         <!--<activity-->
         <!--android:name="com.cheweishi.android.activity.ServiceHallActivity"-->
         <!--android:screenOrientation="portrait"-->
         <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
-        <activity
-            android:name="com.cheweishi.android.activity.CarInformationActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
         <activity
             android:name="com.cheweishi.android.activity.DetectionExplainActivity"
             android:screenOrientation="portrait"
@@ -922,40 +831,7 @@
         <!--android:screenOrientation="portrait"-->
         <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <activity
-            android:name="com.cheweishi.android.activity.FindcarActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.MyStallctivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.ParkDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.SetReportActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.SetSOSActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
             android:name="com.cheweishi.android.activity.SOSCrashLevelActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.SOSContactActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.RechargeActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.WashCarActivity"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <activity
@@ -970,10 +846,6 @@
             android:name="com.cheweishi.android.activity.WashCarPayActivity"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.SCActivity"
-            android:label="@string/title_activity_sc"
-            android:screenOrientation="portrait"></activity>
         <!-- alipay sdk begin -->
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
@@ -990,20 +862,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
         <!-- alipay sdk end -->
-        <activity
-            android:name="com.cheweishi.android.activity.InsurancePolicyActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:label="@string/title_activity_insurance_policy"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.InsuranceBuyActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:label="@string/title_activity_insurance_buy"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.WashcarHistoryActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
 
         <receiver android:name="com.cheweishi.android.utils.weixinpay.simcpux.AppRegister">
             <intent-filter>
@@ -1025,34 +883,8 @@
         <!--android:screenOrientation="portrait"-->
         <!--android:theme="@style/myAnimationNoTileBar"></activity>-->
         <activity
-            android:name="com.cheweishi.android.activity.InsuranceActivity"
-            android:label="@string/title_activity_insurance"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.InsuranceInformationUploadActivity"
-            android:label="@string/title_activity_insurance_information_upload"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.PeccancyCommissionActivity"
-            android:label="@string/title_activity_peccancy_commission"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
             android:name="com.cheweishi.android.activity.PessanySearchActivity"
             android:label="@string/title_activity_pessany_search"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.PessanySearchResultActivity"
-            android:label="@string/title_activity_pessany_search_result"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.PayPessanyActivity"
-            android:label="@string/title_activity_pay_pessany"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <activity
@@ -1079,31 +911,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <activity
-            android:name="com.cheweishi.android.activity.BeautyListActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar" />
-        <activity
-            android:name="com.cheweishi.android.activity.BeautyActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar" />
-        <activity
-            android:name="com.cheweishi.android.activity.AppointmentMaintainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar" />
-        <activity
-            android:name="com.cheweishi.android.activity.MaintainListActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar" />
-        <activity
             android:name="com.cheweishi.android.activity.MaintainDetilsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar" />
         <activity
             android:name="com.cheweishi.android.activity.MaintainOrderDetilsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar" />
-        <activity
-            android:name="com.cheweishi.android.activity.MaintainCancelActivity"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar" />
         <activity
@@ -1157,15 +969,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
         <activity
-            android:name="com.cheweishi.android.activity.ValidateLoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
             android:name="com.cheweishi.android.activity.OrderPaymentSuccessActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/myAnimationNoTileBar"></activity>
-        <activity
-            android:name="com.cheweishi.android.activity.WebPhoneActivity"
             android:screenOrientation="portrait"
             android:theme="@style/myAnimationNoTileBar"></activity>
 

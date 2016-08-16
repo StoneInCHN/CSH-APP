@@ -78,9 +78,6 @@ public class PurseIntegralActivity extends BaseActivity implements
     // 下拉加载的listview
     @ViewInject(R.id.integral_xlistview)
     private PullToRefreshListView mListView;
-    // 返回顶部的button
-    @ViewInject(R.id.integral_return_top)
-    private Button mReturnTop;
     //总积分
     @ViewInject(R.id.tv_balance_num)
     private TextView tv_balance_num;
@@ -130,9 +127,6 @@ public class PurseIntegralActivity extends BaseActivity implements
             switch (view.getId()) {
                 case R.id.left_action:
                     PurseIntegralActivity.this.finish();
-                    break;
-                case R.id.integral_return_top:
-                    listView.setSelection(0);
                     break;
                 case R.id.ley_integral: // 点击积分商城的时候
                     getDuiBaUrl();

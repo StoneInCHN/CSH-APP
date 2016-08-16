@@ -155,16 +155,11 @@ public class MaintainListActivity_new extends BaseActivity implements
         mListView.setAdapter(listViewAdapter);
     }
 
-    @OnClick({R.id.left_action, R.id.tvHistory})
+    @OnClick({R.id.left_action})
     public void finishActivity(View v) {
         switch (v.getId()) {
             case R.id.left_action:
                 onBackPressed();
-                break;
-            case R.id.tvHistory:
-                Intent intent = new Intent(this, WashcarHistoryActivity.class);
-                // intent.putExtra("count", count);
-                startActivity(intent);
                 break;
             default:
                 break;

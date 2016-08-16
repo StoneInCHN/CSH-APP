@@ -1,50 +1,34 @@
 package com.cheweishi.android.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.baidu.mapapi.model.LatLng;
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.MainListViewAdapter;
-import com.cheweishi.android.biz.HttpBiz;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.MainSellerInfo;
-import com.cheweishi.android.entity.MainSellerServiceInfo;
 import com.cheweishi.android.entity.ServiceListResponse;
-import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.EmptyTools;
-import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
-import com.cheweishi.android.utils.StringUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhangq
@@ -171,15 +155,11 @@ public class WashcarListActivity extends BaseActivity implements
         mListView.setAdapter(listViewAdapter);
     }
 
-    @OnClick({R.id.left_action, R.id.tvHistory})
+    @OnClick({R.id.left_action})
     public void finishActivity(View v) {
         switch (v.getId()) {
             case R.id.left_action:
                 onBackPressed();
-                break;
-            case R.id.tvHistory:
-                Intent intent = new Intent(this, WashcarHistoryActivity.class);
-                startActivity(intent);
                 break;
             default:
                 break;

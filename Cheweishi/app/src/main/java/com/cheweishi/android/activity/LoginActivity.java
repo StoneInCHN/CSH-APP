@@ -671,9 +671,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            Intent intent = new Intent(LoginActivity.this,
-                                    ValidateLoginActivity.class);
-                            startActivity(intent);
+//                            Intent intent = new Intent(LoginActivity.this,
+//                                    ValidateLoginActivity.class);
+//                            startActivity(intent);
 
                         }
                     });

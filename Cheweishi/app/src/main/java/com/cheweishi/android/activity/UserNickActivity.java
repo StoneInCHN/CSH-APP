@@ -151,52 +151,7 @@ public class UserNickActivity extends BaseActivity implements OnClickListener {
         showToast(R.string.server_link_fault);
     }
 
-    /**
-     * 接受网络请求回调参数并判断
-     */
-    @Override
-    public void receive(int type, String data) {
-        super.receive(type, data);
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case 10009:
-                parseUserInfoSaveJOSN(data);
-                break;
-            case 400:
-                showToast(R.string.server_link_fault);
-                break;
-        }
-    }
 
-    /**
-     * 数据返回结果
-     *
-     * @param result
-     */
-    protected void parseUserInfoSaveJOSN(String result) {
-        if (StringUtil.isEmpty(result)) {
-            showToast(R.string.no_result);
-        } else {
-            try {
-                JSONObject object = new JSONObject(result);
-                if (object.optString("state").equals(API.returnSuccess)) {
-                    showToast(R.string.change_success);
-                    loginMessage.setNick_name(et_nick.getText().toString());
-                    DBTools.getInstance(this).save(loginMessage);
-                    // LoginMessageUtils.saveProduct(loginMessage, this);
-                    Constant.CURRENT_REFRESH = Constant.USER_NICK_EDIT_REFRESH;
-                    Intent mIntent = new Intent();
-                    mIntent.setAction(Constant.REFRESH_FLAG);
-                    sendBroadcast(mIntent);
-                    finish();
-                } else {
-                    showToast(object.optString("message"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     /**
      * 控制Android系统返回键

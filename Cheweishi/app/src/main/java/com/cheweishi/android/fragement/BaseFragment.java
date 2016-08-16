@@ -37,12 +37,8 @@ public class BaseFragment extends Fragment implements JSONCallback {
      * 这个某些需要用到
      */
     protected CarReportListener reportListener;
-    public HttpBiz httpBiz;
     private Toast mToast;
-    public static LoginMessage loginMessage;
     public static LoginResponse loginResponse;
-    public static List<LoginMessage> loginMessages;
-    public static List<LoginResponse> loginResponses;
 
     protected NetWorkHelper netWorkHelper;
 
@@ -83,9 +79,6 @@ public class BaseFragment extends Fragment implements JSONCallback {
     public void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
-        if (httpBiz != null) {
-            httpBiz.removeAllHandler();
-        }
     }
 
     /**
@@ -217,19 +210,6 @@ public class BaseFragment extends Fragment implements JSONCallback {
                 || StringUtil.isEmpty(loginResponse.getDesc()));
     }
 
-    /**
-     * 判断环信账号
-     *
-     * @return
-     */
-    public boolean hasNo() {
-        if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getNo())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * 判断是否有车辆
@@ -242,90 +222,6 @@ public class BaseFragment extends Fragment implements JSONCallback {
                 return true;
             }
 
-        }
-        return false;
-    }
-
-    /**
-     * 判断积分
-     *
-     * @return
-     */
-    public boolean hasScore() {
-        if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getScore())
-                    && !StringUtil.isEmpty(loginMessage.getScore().getCid())
-                    && !StringUtil.isEmpty(loginMessage.getScore().getNow())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean hasAccount() {
-        if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getAccount())
-                    && !StringUtil.isEmpty(loginMessage.getAccount().getAid())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean hasPhoto() {
-        if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getPhoto())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean hasBrandName() {
-        if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getCar())
-                    && !StringUtil.isEmpty(loginMessage.getCarManager()
-                    .getBrandName())
-                    && !StringUtil.isEmpty(loginMessage.getCarManager()
-                    .getSeriesName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean hasNick() {
-        if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getNick_name())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean hasSign() {
-        if (isLogined()) {
-            if (BaseActivity.loginMessage.getSign() == 1) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean hasTel() {
-        if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getMobile())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean hasNote() {
-        if (isLogined()) {
-            if (!StringUtil.isEmpty(loginMessage.getSignature())) {
-                return true;
-            }
         }
         return false;
     }

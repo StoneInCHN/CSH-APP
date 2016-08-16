@@ -101,7 +101,6 @@ public class PasswordModifyActivity extends BaseActivity implements
      * 初始化视图
      */
     private void initViews() {
-        httpBiz = new HttpBiz(this);
         left_action.setText(R.string.back);
         title.setText(R.string.pass_forget);
         img_line1.setImageResource(R.drawable.mima_line2);
@@ -225,53 +224,7 @@ public class PasswordModifyActivity extends BaseActivity implements
         showToast(R.string.server_link_fault);
     }
 
-    /**
-     * 回调获取服务器返回的json数据
-     */
-    public void receive(int type, String data) {
-        switch (type) {
-            case 10001:
-                parseJSON(data);
-                break;
-            case 400:
-                btn_modify.setClickable(true);
-                showToast(R.string.server_link_fault);
-                break;
-        }
-    }
 
-    /**
-     * 对服务器返回的json数据进行解析
-     *
-     * @param msgString
-     */
-    private void parseJSON(String msgString) {
-        ProgrosDialog.closeProgrosDialog();
-        btn_modify.setClickable(true);
-        if (StringUtil.isEmpty(msgString)) {
-            showToast(R.string.data_fail);
-        } else {
-            try {
-                JSONObject jsonObject = new JSONObject(msgString);
-                JSONObject jsonObject2 = jsonObject.optJSONObject("data");
-                if (StringUtil.isEquals(jsonObject.optString("state"),
-                        API.returnSuccess, true)) {
-                    showToast(R.string.pass_success);
-                    SharedPreferences preferences = PasswordModifyActivity.this
-                            .getSharedPreferences("user", MODE_PRIVATE);
-                    Editor editor = preferences.edit();
-                    editor.putString("pass", "");
-                    editor.commit();
-                    okShow();
-                } else {
-                    btn_modify.setClickable(true);
-                    showToast(jsonObject2.optString("message"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     /**
      * 密码重置成功操作
