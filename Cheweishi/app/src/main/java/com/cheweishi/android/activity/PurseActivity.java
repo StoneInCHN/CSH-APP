@@ -71,6 +71,14 @@ public class PurseActivity extends BaseActivity {
     // 花费text
     private TextView tv_purse_fee_balance;
 
+    //成长红包
+    @ViewInject(R.id.rel_purse_red)
+    private RelativeLayout rel_purse_red;
+
+    //成长红包金额
+    @ViewInject(R.id.tv_purse_red)
+    private TextView tv_purse_red;
+
     private static final int URL_TYPE = 100000;
     private Intent intent;
     private int walletId = 0;
@@ -106,8 +114,8 @@ public class PurseActivity extends BaseActivity {
 
     @OnClick({R.id.left_action, R.id.title, R.id.rel_purse_certificates,
             R.id.rel_purse_integral, R.id.rel_purse_balance,
-            R.id.rel_purse_phone})
-    private void onClick(View v) {
+            R.id.rel_purse_phone, R.id.rel_purse_red})
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.left_action:// 返回
                 PurseActivity.this.finish();
@@ -134,6 +142,12 @@ public class PurseActivity extends BaseActivity {
                 showToast("敬请期待");
 //                intent = new Intent(PurseActivity.this, WebPhoneActivity.class);
 //                startActivity(intent);
+                break;
+            case R.id.rel_purse_red: // 成长红包
+                intent = new Intent(PurseActivity.this, PurseUpRedActivity.class);
+                intent.putExtra("walletId", walletId);
+                intent.putExtra("score", redPacket);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -174,10 +188,10 @@ public class PurseActivity extends BaseActivity {
         }
 
         if (StringUtil.isEmpty(response.getMsg().getGiftAmount())) {
-            tv_purse_certificates.setText(0 + "");
+            tv_purse_red.setText(0 + "");
             this.redPacket = 0 + "";
         } else {
-            tv_purse_certificates.setText(String.valueOf(response.getMsg().getGiftAmount()));
+            tv_purse_red.setText(String.valueOf(response.getMsg().getGiftAmount()));
             this.redPacket = String.valueOf(response.getMsg().getGiftAmount());
         }
         String money = String.valueOf(response.getMsg().getBalanceAmount());

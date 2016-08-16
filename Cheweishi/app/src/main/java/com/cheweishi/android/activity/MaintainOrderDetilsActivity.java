@@ -70,7 +70,7 @@ public class MaintainOrderDetilsActivity extends BaseActivity{
 	}
 	
 	@OnClick({R.id.left_action,R.id.right_action})
-	private void onClick(View v){
+	public void onClick(View v){
 		switch (v.getId()) {
 		case R.id.left_action://返回
 			MaintainOrderDetilsActivity.this.finish();

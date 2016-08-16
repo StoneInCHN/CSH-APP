@@ -223,7 +223,7 @@ public class SecurityScanActivity extends BaseActivity {
 
     @OnClick({R.id.left_action, R.id.rl_detection_state, R.id.btn_car_report,
             R.id.btn_see_details})
-    private void onClick(View v) {
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.left_action:
                 finish();

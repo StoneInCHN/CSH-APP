@@ -154,7 +154,7 @@ public class FindParkingSpaceActivity extends BaseActivity {
     }
 
     @OnClick({R.id.left_action, R.id.right_action, R.id.ll_map, R.id.ll_list})
-    private void onClick(View v) {
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.left_action:// 返回
                 this.finish();

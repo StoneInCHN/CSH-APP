@@ -1223,6 +1223,9 @@
         <!--商城-->
         <activity android:name=".activity.CreditActivity" />
 
+        <!--成长红包-->
+        <activity android:name=".activity.PurseUpRedActivity"/>
+
     </application>
 
 </manifest>

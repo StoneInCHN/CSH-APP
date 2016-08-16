@@ -117,7 +117,7 @@ public class PurseBalanceActivity extends BaseActivity implements
     }
 
     @OnClick({R.id.left_action, R.id.title, R.id.ll_purse_balance_pay, R.id.ll_purse_balance_device})
-    private void onClick(View v) {
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.left_action:// 返回
                 PurseBalanceActivity.this.finish();
