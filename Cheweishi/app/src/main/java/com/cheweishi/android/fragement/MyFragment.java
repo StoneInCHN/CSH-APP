@@ -87,6 +87,14 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     //广播
     private MyBroadcastReceiver broad;
 
+    private final String DEFAULT_NUMBER = "0";
+
+    //车数量
+    private String carNumber;
+
+    //优惠券数量
+    private String couponNumber;
+
     private CustomDialog.Builder builder;
     private CustomDialog phoneDialog;
 
@@ -147,8 +155,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         psl_my.setHeader(iv_my_top);
         psl_my.setNeedScrollSync(true);
         XUtilsImageLoader.getxUtilsImageLoader(baseContext, R.drawable.info_touxiang_moren, iv_myAccountUserIcon, loginResponse.getMsg().getPhoto());
-        tv_coupon_number_my.setText("优惠券(" + ((MainNewActivity) getActivity()).getCouponNumber() + ")");
-        tv_my_user_car_number.setText("我的车库(" + ((MainNewActivity) getActivity()).getCarNumber() + ")");
+        carNumber = StringUtil.isEmpty(((MainNewActivity) getActivity()).getCarNumber()) ? DEFAULT_NUMBER : ((MainNewActivity) getActivity()).getCarNumber();
+        couponNumber = StringUtil.isEmpty(((MainNewActivity) getActivity()).getCouponNumber()) ? DEFAULT_NUMBER : ((MainNewActivity) getActivity()).getCouponNumber();
+        tv_coupon_number_my.setText("优惠券(" + couponNumber + ")");
+        tv_my_user_car_number.setText("我的车库(" + carNumber + ")");
         String plate = loginResponse.getMsg().getDefaultVehiclePlate();
         if (!StringUtil.isEmpty(plate)) {
             tv_my_user_car_id.setVisibility(View.VISIBLE);
@@ -335,14 +345,16 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                     ((MainNewActivity) getActivity()).setCarNumber(String.valueOf(carNumber + 1));
                 } catch (Exception e) {
                 }
-                tv_my_user_car_number.setText("我的车库(" + ((MainNewActivity) getActivity()).getCarNumber() + ")");
+                carNumber = StringUtil.isEmpty(((MainNewActivity) getActivity()).getCarNumber()) ? DEFAULT_NUMBER : ((MainNewActivity) getActivity()).getCarNumber();
+                tv_my_user_car_number.setText("我的车库(" + carNumber + ")");
             } else if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.COUPON_REFRESH, true)) { // 领取优惠券
                 try {
                     int couponNumber = Integer.valueOf(((MainNewActivity) getActivity()).getCouponNumber());
                     ((MainNewActivity) getActivity()).setCouponNumber(String.valueOf(couponNumber + 1));
                 } catch (Exception e) {
                 }
-                tv_coupon_number_my.setText("优惠券(" + ((MainNewActivity) getActivity()).getCouponNumber() + ")");
+                couponNumber = StringUtil.isEmpty(((MainNewActivity) getActivity()).getCouponNumber()) ? DEFAULT_NUMBER : ((MainNewActivity) getActivity()).getCouponNumber();
+                tv_coupon_number_my.setText("优惠券(" + couponNumber + ")");
             }
         }
     }
