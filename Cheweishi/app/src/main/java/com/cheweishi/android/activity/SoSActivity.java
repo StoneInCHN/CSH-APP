@@ -164,7 +164,7 @@ public class SoSActivity extends BaseActivity implements OnClickListener,
                 turnToPhone();
 
                 loginResponse.setToken(baseResponse.getToken());
-                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 break;
         }
     }
