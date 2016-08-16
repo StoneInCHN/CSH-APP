@@ -5,26 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.TelephonEchargeDetailsAdapter;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.OrderResponse;
-import com.cheweishi.android.entity.ReturnTheMoneyInfo;
 import com.cheweishi.android.entity.ChargeResponse;
 import com.cheweishi.android.tools.EmptyTools;
-import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.StringUtil;
-import com.cheweishi.android.widget.XCRoundImageView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -33,16 +22,13 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 

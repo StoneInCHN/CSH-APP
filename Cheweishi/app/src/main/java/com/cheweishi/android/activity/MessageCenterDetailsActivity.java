@@ -1,30 +1,18 @@
 package com.cheweishi.android.activity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.biz.HttpBiz;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.MessagCenterInfo;
 import com.cheweishi.android.response.BaseResponse;
-import com.cheweishi.android.tools.DBTools;
-import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -213,28 +201,4 @@ public class MessageCenterDetailsActivity extends BaseActivity implements
         }
     }
 
-    /**
-     * 设置回调
-     *
-     * @param mMessagCenterInfo
-     */
-    private void setDataBack(MessagCenterInfo mMessagCenterInfo) {
-        // 数据是使用Intent返回
-        Intent intent = new Intent();
-        int position = getIntent().getExtras().getInt("isread");
-        Bundle bundle = new Bundle();
-        bundle.putInt("position", position);
-        /** 消息已读未读处理 0 未读 1已读 **/
-        int isRead = mMessagCenterInfo.getIsRead();
-        if (isRead == 0) {
-            // 把返回数据存入Intent
-            bundle.putString("result", "0");
-        } else if (isRead == 1) {
-            // 把返回数据存入Intent
-            bundle.putString("result", "0");
-        }
-        intent.putExtras(bundle);
-        // 设置返回数据
-        MessageCenterDetailsActivity.this.setResult(RESULT_OK, intent);
-    }
 }

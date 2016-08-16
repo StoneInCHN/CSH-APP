@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,11 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
@@ -386,24 +383,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Call
 //            LruCacheUtils.addJsonLruCache(Constant.USER_ID, loginResponse.getDesc());
             LoginMessageUtils.saveProduct(loginResponse, baseContext);
 //            DBTools.getInstance(this).save(loginResponse);
-        }
-        // saveProduct(loginMessage, LoginActivity.this);
-    }
-
-    /**
-     * 保存登录信息
-     *
-     * @param jsonObject
-     */
-    protected void save(JSONObject jsonObject) {
-        Gson gson = new Gson();
-        java.lang.reflect.Type type = new TypeToken<LoginMessage>() {
-        }.getType();
-        LoginMessage loginMessage = gson.fromJson(jsonObject.optString("data"),
-                type);
-        // 保存用户信息
-        if (!StringUtil.isEmpty(loginMessage)) {
-            DBTools.getInstance(this).save(loginMessage);
         }
         // saveProduct(loginMessage, LoginActivity.this);
     }

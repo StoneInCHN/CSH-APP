@@ -24,7 +24,7 @@ import com.cheweishi.android.activity.MaintainDetilsActivity;
 import com.cheweishi.android.activity.WashcarDetailsActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.API;
-import com.cheweishi.android.entity.MainSellerInfo;
+import com.cheweishi.android.entity.MainSellerInfoNative;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.UnSlidingListView;
 
@@ -38,15 +38,15 @@ public class MaintainListNewAdapter extends BaseAdapter implements
 		OnClickListener, OnItemClickListener {
 
 	private Context mContext;
-	private List<MainSellerInfo> list;
+	private List<MainSellerInfoNative> list;
 	private MiantainSellerServiceAdapater serviceAdapater;
 
-	public MaintainListNewAdapter(Context mContext, List<MainSellerInfo> list) {
+	public MaintainListNewAdapter(Context mContext, List<MainSellerInfoNative> list) {
 		this.mContext = mContext;
 		this.list = list;
 	}
 
-	public void setData(List<MainSellerInfo> list) {
+	public void setData(List<MainSellerInfoNative> list) {
 		this.list = list;
 		notifyDataSetChanged();
 	}

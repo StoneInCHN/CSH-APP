@@ -14,11 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.entity.AkeyTextAllInfo;
-import com.cheweishi.android.entity.DTCInfo;
-import com.cheweishi.android.entity.DetectionInfo;
+import com.cheweishi.android.entity.DTCInfoNative;
+import com.cheweishi.android.entity.DetectionInfoNative;
 import com.cheweishi.android.utils.DisplayUtil;
-import com.cheweishi.android.utils.StringUtil;
 
 public class DetectionInfoAdapter extends BaseAdapter implements
         OnClickListener {
@@ -36,8 +34,8 @@ public class DetectionInfoAdapter extends BaseAdapter implements
 //	private List<AkeytestInfo> dtcs;// 故障码
 //	private List<String> dtcNames;
 
-    private List<DetectionInfo> detectionInfos;
-    private List<DTCInfo> dtcInfos;
+    private List<DetectionInfoNative> detectionInfos;
+    private List<DTCInfoNative> dtcInfos;
 
     private List<Map<String, Object>> data;
 
@@ -46,7 +44,7 @@ public class DetectionInfoAdapter extends BaseAdapter implements
      *
      * @param context
      */
-    public DetectionInfoAdapter(Context context, List<DetectionInfo> detectionInfos, List<DTCInfo> dtcInfos) {
+    public DetectionInfoAdapter(Context context, List<DetectionInfoNative> detectionInfos, List<DTCInfoNative> dtcInfos) {
         this.context = context;
         this.detectionInfos = detectionInfos;
         this.dtcInfos = dtcInfos;
@@ -81,13 +79,6 @@ public class DetectionInfoAdapter extends BaseAdapter implements
     }
 
 
-    public void setList(AkeyTextAllInfo allInfo) {
-//		this.allInfo = allInfo;
-//		carStatus = allInfo.getAkeyone();
-//		maintances = allInfo.getAkeytwo();
-//		dtcs = allInfo.getAkeythere();
-//		paseDtcValue();
-    }
 
     @Override
     public int getCount() {

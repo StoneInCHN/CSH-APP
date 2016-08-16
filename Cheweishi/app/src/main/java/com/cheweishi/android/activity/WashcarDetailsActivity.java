@@ -1,17 +1,12 @@
 package com.cheweishi.android.activity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,27 +22,20 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.ExpandableListViewAdapter;
 import com.cheweishi.android.adapter.WashCarCommentAdapter;
 import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ServiceDetailResponse;
-import com.cheweishi.android.entity.UserComment;
-import com.cheweishi.android.entity.WashCar;
+import com.cheweishi.android.entity.UserCommentNative;
 import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.ScreenUtils;
-import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.BaiduMapView;
 import com.cheweishi.android.widget.PullScrollView;
 import com.cheweishi.android.widget.UnSlidingExpandableListView;
 import com.cheweishi.android.widget.UnSlidingListView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.nineoldandroids.view.ViewHelper;
@@ -124,7 +112,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
     private ImageView iv_tenant_detail;//下拉大图
     @ViewInject(R.id.ll_tenant_title)
     private LinearLayout ll_tenant_title;//隐藏的返回
-    private List<UserComment> comments;
+    private List<UserCommentNative> comments;
     private WashCarCommentAdapter commentAdapter;
     private ExpandableListViewAdapter exListAdapter;
     String id = "";
@@ -148,7 +136,7 @@ public class WashcarDetailsActivity extends BaseActivity implements
         psl_tenant_detail.setHeader(iv_tenant_detail);
         psl_tenant_detail.setOnScrollListener(this);
         // TODO 暂时没有评论
-//        comments = new ArrayList<UserComment>();
+//        comments = new ArrayList<UserCommentNativeNative>();
 //        commentAdapter = new WashCarCommentAdapter(this, comments);
 //        lv_washcar_pinglun.setAdapter(commentAdapter);
         tvTitle.setText("商家详情");

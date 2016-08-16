@@ -5,7 +5,6 @@ import java.util.List;
 import android.content.Context;
 
 import com.cheweishi.android.activity.BaseActivity;
-import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.DbUtils;

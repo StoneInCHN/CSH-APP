@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,6 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.GasStationAdapter;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
@@ -42,11 +40,9 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.MapMenssageDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.CarDynamicResponse;
-import com.cheweishi.android.entity.DistanceBean;
-import com.cheweishi.android.entity.LatlngBean;
+import com.cheweishi.android.entity.DistanceBeanNative;
+import com.cheweishi.android.entity.LatlngBeanNative;
 import com.cheweishi.android.entity.SearchResponse;
-import com.cheweishi.android.tools.DialogTool;
-import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.MyMapUtils;
@@ -54,7 +50,6 @@ import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.XListView;
 import com.cheweishi.android.widget.XListView.IXListViewListener;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 /***
@@ -67,7 +62,7 @@ public class GasStationListFragment extends BaseFragment implements
     private GeoCoder mGeoCoder = null;
     @ViewInject(R.id.gasstationlist_listview)
     private XListView mListView;
-    private LatlngBean latlngBean;
+    private LatlngBeanNative latlngBean;
     private List<Map<String, String>> list;
     @ViewInject(R.id.gasstationlist_list_rgroup)
     private RadioGroup mRadioGroup;
@@ -97,7 +92,7 @@ public class GasStationListFragment extends BaseFragment implements
      */
     private void initoncreate() {
         mGeoCoder = GeoCoder.newInstance();
-        latlngBean = new LatlngBean();
+        latlngBean = new LatlngBeanNative();
         // mGeoCoder = GeoCoder.newInstance();
         list = new ArrayList<Map<String, String>>();
     }
@@ -485,7 +480,7 @@ public class GasStationListFragment extends BaseFragment implements
      */
     private void personSort(List<Map<String, String>> personList) {
         if (getActivity() != null) {
-            List<DistanceBean> distanceBeans = new ArrayList<DistanceBean>();
+            List<DistanceBeanNative> distanceBeans = new ArrayList<DistanceBeanNative>();
             personDistance(distanceBeans, personList);
             // new 对象数组来接收 数据对象的长度
             Object[] objects = new Object[distanceBeans.size()];
@@ -527,7 +522,7 @@ public class GasStationListFragment extends BaseFragment implements
      * @param objects
      * @param dis
      */
-    private void personObject(List<DistanceBean> distanceBeans,
+    private void personObject(List<DistanceBeanNative> distanceBeans,
                               Object[] objects, double[] dis) {
         for (int i = 0; i < distanceBeans.size(); i++) {
             dis[i] = distanceBeans.get(i).getGetDistance();
@@ -566,10 +561,10 @@ public class GasStationListFragment extends BaseFragment implements
      * @param distanceBeans
      * @param personList
      */
-    private void personDistance(List<DistanceBean> distanceBeans,
+    private void personDistance(List<DistanceBeanNative> distanceBeans,
                                 List<Map<String, String>> personList) {
         for (int i = 0; i < personList.size(); i++) {
-            DistanceBean distanceBean = new DistanceBean();
+            DistanceBeanNative distanceBean = new DistanceBeanNative();
             double lat = StringUtil.getDouble(personList.get(i).get("lat"));
             double lng = StringUtil.getDouble(personList.get(i).get("lng"));
             if (isDraw) {
@@ -597,7 +592,7 @@ public class GasStationListFragment extends BaseFragment implements
      */
     private void sort(List<Map<String, String>> list2) {
         if (getActivity() != null) {
-            List<DistanceBean> distanceBeans = new ArrayList<DistanceBean>();
+            List<DistanceBeanNative> distanceBeans = new ArrayList<DistanceBeanNative>();
             personDistance(distanceBeans, list2);
             Object[] objects = new Object[distanceBeans.size()];
             double[] dis = new double[distanceBeans.size()];

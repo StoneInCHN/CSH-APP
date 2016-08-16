@@ -1,7 +1,6 @@
 package com.cheweishi.android.activity;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,7 +23,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,20 +30,15 @@ import cn.jpush.android.api.JPushInterface;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.MessageCenterApdater;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.MessageCenterDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.MessagCenterInfo;
 import com.cheweishi.android.entity.MessageResponse;
 import com.cheweishi.android.response.BaseResponse;
-import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.utils.ACache;
-import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
@@ -59,7 +51,6 @@ import com.cheweishi.android.widget.XListView.IXListViewListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -255,90 +246,6 @@ public class MessagerCenterActivity extends BaseActivity {
         showToast(R.string.server_link_fault);
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void receive(int type, String data) {
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case 10001:
-                parseJSONData(data);
-                break;
-            default:
-                // textlist = ((ArrayList<MessagCenterInfo>) mACache
-                // .getAsObject(loginMessage.getUid()));
-                // if (textlist == null) {
-                // textlist = new ArrayList<MessagCenterInfo>();
-                // }
-                // messagerCenterListView.stopRefresh();
-                // initpage();
-                break;
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private void parseJSONData(String data) {
-        if (!StringUtil.isEmpty(data)) {
-            try {
-                JSONObject jsonObject = new JSONObject(data);
-                if (StringUtil.isEquals(API.returnSuccess,
-                        jsonObject.optString("state"), true)) {
-                    Gson gson = new Gson();
-                    java.lang.reflect.Type type = new TypeToken<List<MessagCenterInfo>>() {
-                    }.getType();
-                    httpList = gson
-                            .fromJson(jsonObject.getString("data"), type);
-                } else {
-                    showToast(jsonObject.getString("message"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-        // textlist = ((ArrayList<MessagCenterInfo>) mACache
-        // .getAsObject(loginMessage.getUid()));
-        // if (textlist == null) {
-        // textlist = new ArrayList<MessagCenterInfo>();
-        // }
-        // if (!"".equals(data) && data != null) {
-        // ArrayList<MessagCenterInfo> messageText = new
-        // ArrayList<MessagCenterInfo>();
-        // JSONObject js;
-        // try {
-        // js = new JSONObject(data);
-        // String status = js.getString("operationState");
-        // if (StringUtil.isEquals("SUCCESS", status, true)) {
-        // JSONObject mJsonObject = js.optJSONObject("data");
-        // JSONArray array = mJsonObject.optJSONArray("data");
-        // MessagCenterInfo centerInfo;
-        // JSONObject item;
-        // if (array.length() > 0) {
-        // for (int i = 0; i < array.length(); i++) {
-        // item = array.optJSONObject(i);
-        // // centerInfo = new MessagCenterInfo(
-        // // item.optString("title"),
-        // // item.optString("time"),
-        // // item.optString("content"), 0,0);
-        // // messageText.add(centerInfo);
-        // }
-        // textlist.addAll(0, messageText);
-        // }
-        //
-        // } else if (StringUtil.isEquals("RELOGIN", status, true)) {
-        // DialogTool.getInstance(this).showConflictDialog();
-        // } else {
-        // js = js.getJSONObject("data");
-        // showToast(js.getString("msg"));
-        // }
-        //
-        // } catch (JSONException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-        // }
-        // messagerCenterListView.stopRefresh();
-        // initpage();
-    }
 
     /**
      * 删除点击时间

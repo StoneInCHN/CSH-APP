@@ -3,37 +3,22 @@ package com.cheweishi.android.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.ExpandableListViewAdapter;
 import com.cheweishi.android.adapter.ImgAdapter;
 import com.cheweishi.android.adapter.WashCarCommentAdapter;
-import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.config.API;
-import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.MainGridInfo;
-import com.cheweishi.android.entity.UserComment;
-import com.cheweishi.android.entity.WashCar;
-import com.cheweishi.android.tools.DialogTool;
-import com.cheweishi.android.utils.StringUtil;
+import com.cheweishi.android.entity.MainGridInfoNative;
 import com.cheweishi.android.widget.CustomDialog;
 import com.cheweishi.android.widget.MyGallery;
 import com.cheweishi.android.widget.UnSlidingExpandableListView;
 import com.cheweishi.android.widget.UnSlidingListView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -60,7 +45,6 @@ public class MaintainDetilsActivity extends BaseActivity {
 	private MyGallery mygallery;
 	private ImgAdapter imgAdapter;// mygrallery适配器
 	private List<Integer> adList;
-	WashCar washCar;
 	private ExpandableListViewAdapter exListAdapter;
 	private ArrayList<ImageView> portImg;
 
@@ -78,7 +62,7 @@ public class MaintainDetilsActivity extends BaseActivity {
 	@ViewInject(R.id.lv_maintain_detils)
 	private UnSlidingExpandableListView lv_maintain_detils;// 二级列表
 	private ExpandableListViewAdapter mExpandableListViewAdapter;
-	private List<UserComment> comments;
+//	private List<UserCommentNative> comments;
 	private WashCarCommentAdapter commentAdapter;
 
 	@ViewInject(R.id.car_tv_car_iv_location)
@@ -112,20 +96,20 @@ public class MaintainDetilsActivity extends BaseActivity {
 		tvTitle.setText("保养详情");
 		btnLeft.setText(R.string.back);
 
-		comments = new ArrayList<UserComment>();
-		for (int i = 0; i < 3; i++) {
-			UserComment comm = new UserComment();
-			comm.setUser_name("x******1");
-			comm.setTime("2015-12-28");
-			comm.setUserMsg("东西很好，物流很快，很满意！！！");
-			comments.add(comm);
-		}
-		commentAdapter = new WashCarCommentAdapter(this, comments);
-		lv_maintain_pinglun.setAdapter(commentAdapter);
+//		comments = new ArrayList<UserCommentNative>();
+//		for (int i = 0; i < 3; i++) {
+//			UserCommentNative comm = new UserCommentNative();
+//			comm.setUser_name("x******1");
+//			comm.setTime("2015-12-28");
+//			comm.setUserMsg("东西很好，物流很快，很满意！！！");
+//			comments.add(comm);
+//		}
+//		commentAdapter = new WashCarCommentAdapter(this, comments);
+//		lv_maintain_pinglun.setAdapter(commentAdapter);
 
 		adList = new ArrayList<Integer>();
 		for (int i = 0; i < 4; i++) {
-			MainGridInfo gridInfo = new MainGridInfo();
+			MainGridInfoNative gridInfo = new MainGridInfoNative();
 			gridInfo.setImgUrl("asdasdas");
 			adList.add(R.drawable.fuwu_bj);
 		}
@@ -209,70 +193,8 @@ public class MaintainDetilsActivity extends BaseActivity {
 		dialog.show();
 	}
 
-	/**
-	 * 确认预约
-	 */
-	private void order() {
-
-	}
-
-	private void setValues() {
-
-	}
 
 
-	@Override
-	public void receive(int type, String data) {
-		ProgrosDialog.closeProgrosDialog();
-		switch (type) {
-		case 400:
-			showToast(R.string.server_link_fault);
-			break;
-		case 10003:
-			parseJSON(data);
-			break;
 
-		default:
-			break;
-		}
-	}
 
-	private void parseJSON(String data) {
-		if (StringUtil.isEmpty(data)) {
-			showToast(R.string.FAIL);
-			return;
-		}
-		try {
-
-			JSONObject json = new JSONObject(data);
-			if (StringUtil.isEquals(API.returnSuccess, json.optString("state"),
-					true)) {
-				Gson gson = new Gson();
-				java.lang.reflect.Type type = new TypeToken<WashCar>() {
-				}.getType();
-				washCar = gson.fromJson(json.optString("data"), type);
-				setData(washCar);
-			} else if (API.returnRelogin.equalsIgnoreCase(json
-					.getString("operationState"))) {
-				DialogTool.getInstance(this).showConflictDialog();
-			} else {
-				showToast(json.getString("message"));
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	private void setData(WashCar washCar) {
-		// TODO 2016-3-26 16:52:17 因调试商家详情而注释
-//		XUtilsImageLoader.getxUtilsImageLoader(this, R.drawable.zhaochewei_img,
-//				car_iv_location, washCar.getImage_1());
-//		car_tv_car_iv_location.setText(washCar.getStore_name());
-//		tv_service.setText(washCar.getBusiness_time());
-//		car_xlocation.setText(washCar.getAddress());
-//		exListAdapter = new ExpandableListViewAdapter(this, washCar.getType(),
-//				washCar);
-//		lv_maintain_detils.setAdapter(exListAdapter);
-	}
 }

@@ -13,7 +13,7 @@ import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.LoginResponse;
-import com.cheweishi.android.entity.MainGridInfo;
+import com.cheweishi.android.entity.MainGridInfoNative;
 import com.cheweishi.android.utils.ButtonUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.widget.UnslidingGridView;
@@ -64,9 +64,9 @@ public class HomeMoreActivity extends BaseActivity implements AdapterView.OnItem
     private void init() {
         title.setText(getResources().getString(R.string.more_car));
         left_action.setText(getResources().getString(R.string.back));
-        List<MainGridInfo> gridInfos = new ArrayList<MainGridInfo>();
+        List<MainGridInfoNative> gridInfos = new ArrayList<MainGridInfoNative>();
         for (int i = 0; i < 10; i++) {
-            MainGridInfo gridInfo = new MainGridInfo();
+            MainGridInfoNative gridInfo = new MainGridInfoNative();
             gridInfo.setName(name[i]);
             gridInfo.setImgId(icon[i]);
 //            gridInfo.setImgUrl("asdasdas");// TODO:暂无可配图片地址

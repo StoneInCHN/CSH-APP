@@ -13,7 +13,6 @@ import android.text.SpannableString;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,14 +24,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Config;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ImgDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.entity.LoginUserInfoResponse;
 import com.cheweishi.android.entity.RegisterResponse;
@@ -48,10 +45,8 @@ import com.cheweishi.android.utils.KeyGenerator;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.ResType;
 import com.lidroid.xutils.view.annotation.ResInject;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -595,100 +590,8 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
         showToast(R.string.server_link_fault);
     }
 
-    public void receive(int type, String data) {
-        switch (type) {
-            case 100001:
-                ProgrosDialog.closeProgrosDialog();
-                parseCodeJSON(data);
-                break;
-            case 100002:
-                parseRegistJSON(data);
-                break;
-            case 400:
-                ProgrosDialog.closeProgrosDialog();
-                if (getCodeFlag == true) {
-                    mRegisterButton.setClickable(true);
-                    time.cancel();
-                    mGetcodeButton.setTextColor(RegistActivity.this
-                            .getApplicationContext().getResources()
-                            .getColor(R.color.orange_text_color));
-                    mGetcodeButton.setText(R.string.get_again);
-                } else {
-                    initColorTextView(true);
-                    tv_voice.setClickable(true);
-                    mRegisterButton.setClickable(true);
-                }
-                mGetcodeButton.setClickable(true);
-                break;
-        }
-    }
 
-    private void parseRegistJSON(String msgString) {
-        if (StringUtil.isEmpty(msgString)) {
-            ProgrosDialog.closeProgrosDialog();
-            showToast(R.string.data_fail);
-        } else {
-            try {
-                JSONObject jsonObject = new JSONObject(msgString);
-                // JSONObject jsonObject2 = jsonObject.optJSONObject("data");
-                if (StringUtil.isEquals(jsonObject.optString("state"),
-                        "200000", true)) {
-                    // ProgrosDialog.closeProgrosDialog();
-                    showToast("注册成功");
-                    LoginMessageUtils.setLogined(this, true);
-                    save(jsonObject);
-                } else {
-                    ProgrosDialog.closeProgrosDialog();
-                    showToast(jsonObject.optString("message"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        mRegisterButton.setClickable(true);
-    }
 
-    private void parseCodeJSON(String msgString) {
-        mRegisterButton.setClickable(true);
-        if (StringUtil.isEmpty(msgString)) {
-            mGetcodeButton.setTextColor(RegistActivity.this
-                    .getApplicationContext().getResources()
-                    .getColor(R.color.orange_text_color));
-            showToast(R.string.code_error);
-        } else {
-            try {
-                JSONObject jsonObject = new JSONObject(msgString);
-                JSONObject jsonObject2 = jsonObject.optJSONObject("data");
-                if (StringUtil.isEquals(jsonObject.optString("state"),
-                        API.returnSuccess, true)) {
-                    mGetcodeButton.setTextColor(RegistActivity.this
-                            .getApplicationContext().getResources()
-                            .getColor(R.color.btn_gray_normal));
-                    time.start();
-                    mCode = jsonObject2.optInt("code") + "";
-                    tv_remind.setText(mPhoneNumberEditText.getText().toString()
-                            .trim());
-                    // ll_message_remind.setVisibility(View.VISIBLE);
-                    showToast(getResources().getString(R.string.code_success));
-                    // save(jsonObject);
-                    // startActivity(new Intent(RegistActivity.this,
-                    // LoginActivity.class));
-                } else {
-                    time.cancel();
-                    mGetcodeButton.setTextColor(RegistActivity.this
-                            .getApplicationContext().getResources()
-                            .getColor(R.color.orange_text_color));
-                    mGetcodeButton.setText(R.string.code_get);
-                    mGetcodeButton.setClickable(true);
-                    initColorTextView(true);
-                    tv_voice.setClickable(true);
-                    showToast(jsonObject.optString("message"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     public String getinfor() {
         TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
@@ -739,30 +642,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     }
 
 
-    protected void save(JSONObject jsonObject) {
-        ProgrosDialog.closeProgrosDialog();
-        SharePreferenceTools.setUser(RegistActivity.this, mPhoneNumberEditText
-                .getText().toString(), mPasswordEditText.getText().toString());
-        Gson gson = new Gson();
-        java.lang.reflect.Type type = new TypeToken<LoginMessage>() {
-        }.getType();
-        LoginMessage loginMessage = gson.fromJson(jsonObject.optString("data"),
-                type);
-        DBTools.getInstance(this).save(loginMessage);
-        // saveProduct(loginMessage, RegistActivity.this);
-        // LoginMessageUtils.saveProduct(loginMessage, RegistActivity.this);
-        // SharePreferenceTools.saveString(RegistActivity.this, "channelId",
-        // loginMessage.getNo());
-
-        ActivityControl.removeActivityFromName(LoginActivity.class.getName());
-        startActivity(new Intent(RegistActivity.this, MainNewActivity.class));
-        this.finish();
-        // 环信登录
-        // MainConstant.getInstance(RegistActivity.this).setLoginStatus("0");//
-        // 设置未登录状态
-        // MainConstant.getInstance(RegistActivity.this).HXlogin(
-        // RegistActivity.this);
-    }
 
     class TimeCount extends CountDownTimer {
 

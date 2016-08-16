@@ -12,11 +12,9 @@ import org.apache.commons.codec.binary.Base64;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.util.Log;
 
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.config.Constant;
-import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.fragement.BaseFragment;
 import com.cheweishi.android.utils.disklrucahe.DiskLruCacheHelper;

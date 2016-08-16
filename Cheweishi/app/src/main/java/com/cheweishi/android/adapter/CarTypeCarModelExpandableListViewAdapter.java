@@ -4,13 +4,9 @@ import java.util.List;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.config.API;
-import com.cheweishi.android.entity.CarType;
-import com.cheweishi.android.entity.Carobject;
 import com.cheweishi.android.entity.QueryCarModeResponse;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

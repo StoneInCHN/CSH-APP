@@ -2,12 +2,10 @@ package com.cheweishi.android.fragement;
 
 import java.util.List;
 
-import com.baidu.mapapi.model.LatLng;
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.MyStallAdapter;
 import com.cheweishi.android.config.Constant;
-import com.cheweishi.android.entity.ParkInfo;
-import com.cheweishi.android.fragement.FindParkingSpaceMapFragment.FindParkBroadcastReceiver;
+import com.cheweishi.android.entity.ParkInfoNative;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -17,7 +15,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +34,7 @@ public class FindParkingSpaceListFragment extends BaseFragment {
 	private MyStallAdapter adapter;
 
 	private Bundle bundle;
-	private List<ParkInfo> parkInfos;
+	private List<ParkInfoNative> parkInfos;
 	
 	private FindParkBroadcastReceiver broad;
 

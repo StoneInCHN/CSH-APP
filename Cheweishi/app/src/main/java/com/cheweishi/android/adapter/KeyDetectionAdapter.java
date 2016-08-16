@@ -1,7 +1,6 @@
 package com.cheweishi.android.adapter;
 
 import java.util.List;
-import java.util.StringTokenizer;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.entity.DetectionInfo;
 
 /**
  * 一键检测

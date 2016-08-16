@@ -1,20 +1,13 @@
 package com.cheweishi.android.adapter;
 
 import java.lang.ref.SoftReference;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
-import com.cheweishi.android.entity.CarManager;
 import com.cheweishi.android.entity.MyCarManagerResponse;
-import com.cheweishi.android.entity.ServiceDetailResponse;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
-import com.cheweishi.android.widget.FontAwesomeView;
 import com.cheweishi.android.widget.XCRoundImageView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -22,16 +15,11 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class CarManagerAdapter extends PagerAdapter implements OnClickListener {

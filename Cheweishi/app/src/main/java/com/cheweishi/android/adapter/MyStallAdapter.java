@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.ParkInfo;
+import com.cheweishi.android.entity.ParkInfoNative;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.BaiduMapView;
@@ -29,17 +29,17 @@ import com.cheweishi.android.widget.BaiduMapView;
 public class MyStallAdapter extends BaseAdapter implements OnClickListener {
 
 	private Context mContext;
-	private List<ParkInfo> list;
-	private ParkInfo mParkInfo;
+	private List<ParkInfoNative> list;
+	private ParkInfoNative mParkInfo;
 
 	// private int position;
 
-	public MyStallAdapter(Context mContext, List<ParkInfo> list) {
+	public MyStallAdapter(Context mContext, List<ParkInfoNative> list) {
 		this.list = list;
 		this.mContext = mContext;
 	}
 
-	public void refreshData(List<ParkInfo> list) {
+	public void refreshData(List<ParkInfoNative> list) {
 		this.list = list;
 		this.notifyDataSetChanged();
 	}

@@ -1,7 +1,5 @@
 package com.cheweishi.android.adapter;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import android.view.LayoutInflater;
@@ -14,8 +12,6 @@ import android.widget.TextView;
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.entity.PessanyResponse;
-import com.cheweishi.android.entity.PessanySearch;
-import com.cheweishi.android.utils.StringUtil;
 
 public class PessanyAdapter extends BaseAdapter {
     private BaseActivity context;

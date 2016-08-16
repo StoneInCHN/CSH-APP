@@ -5,26 +5,18 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.GradientDrawable.Orientation;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import cn.jpush.android.helpers.h;
-
 import com.cheweishi.android.R;
-import com.cheweishi.android.entity.MainGridInfo;
+import com.cheweishi.android.entity.MainGridInfoNative;
 import com.cheweishi.android.tools.ScreenTools;
 import com.cheweishi.android.utils.DisplayUtil;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 
 /**
@@ -34,13 +26,13 @@ import com.cheweishi.android.utils.StringUtil;
  */
 public class MainGridViewAdapter extends BaseAdapter {
 
-    private List<MainGridInfo> list;
+    private List<MainGridInfoNative> list;
     private Context mContext;
     private TextView textView;
     private ImageView imageView;
     private boolean showIcon;//是否展示中间标志
 
-    public MainGridViewAdapter(Context mContext, List<MainGridInfo> list, boolean showIcon) {
+    public MainGridViewAdapter(Context mContext, List<MainGridInfoNative> list, boolean showIcon) {
         this.mContext = mContext;
         this.list = list;
         this.showIcon = showIcon;

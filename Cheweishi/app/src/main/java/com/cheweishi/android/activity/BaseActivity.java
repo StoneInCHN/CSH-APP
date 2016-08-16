@@ -21,35 +21,24 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Window;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.JSONCallback;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.http.NetWorkHelper;
-import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.ActivityControl;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.lidroid.xutils.http.ResponseInfo;
-import com.zzhoujay.richtext.ImageFixCallback;
-import com.zzhoujay.richtext.ImageHolder;
-import com.zzhoujay.richtext.RichText;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * 所有Activity的父类

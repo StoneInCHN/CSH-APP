@@ -14,7 +14,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,7 +24,7 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.entity.CarDetectionResponse;
-import com.cheweishi.android.entity.DrvingScore;
+import com.cheweishi.android.entity.DrvingScoreNative;
 import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.GsonUtil;
@@ -47,7 +46,7 @@ public class DrivingBehaviorFragment extends BaseFragment {
     private LinearLayout ll_suddenTurn;
     private LinearLayout ll_fatigueDriving;
     private Context mContext;
-    private DrvingScore drvingScore;
+    private DrvingScoreNative drvingScore;
     private int rid;
     private MyBroadcastReceiver broad;
     private View view;
@@ -242,7 +241,7 @@ public class DrivingBehaviorFragment extends BaseFragment {
                 String resultStr = jsonObject.optString("state");
                 if (resultStr.equals(API.returnSuccess)) {
                     Gson gson = new Gson();
-                    java.lang.reflect.Type type = new TypeToken<DrvingScore>() {
+                    java.lang.reflect.Type type = new TypeToken<DrvingScoreNative>() {
                     }.getType();
                     drvingScore = gson.fromJson(jsonObject.optString("data"),
                             type);

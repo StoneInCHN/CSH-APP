@@ -16,11 +16,10 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.model.LatLng;
 import com.cheweishi.android.R;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.ParkInfo;
+import com.cheweishi.android.entity.ParkInfoNative;
 import com.cheweishi.android.entity.SearchResponse;
 import com.cheweishi.android.fragement.BaseFragment;
 import com.cheweishi.android.fragement.FindParkingSpaceListFragment;
@@ -86,7 +85,7 @@ public class FindParkingSpaceActivity extends BaseActivity {
     private LatLng latLng;// 经纬度
     private String type;// 数据请求类型
     private final int FIND_PARK_CODE = 1808;// 数据返回参数
-    private List<ParkInfo> listmMaps;// 地图数据
+    private List<ParkInfoNative> listmMaps;// 地图数据
 
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
@@ -417,7 +416,7 @@ public class FindParkingSpaceActivity extends BaseActivity {
     private void prepareData(SearchResponse response) {
         listmMaps = new ArrayList<>();
         for (int i = 0; i < response.getMsg().size(); i++) {
-            ParkInfo parkInfo = new ParkInfo();
+            ParkInfoNative parkInfo = new ParkInfoNative();
             parkInfo.setAddr(response.getMsg().get(i).getAddress());
             parkInfo.setAreaName(response.getMsg().get(i).getDistrict());
             parkInfo.setCityName(response.getMsg().get(i).getCityName());
@@ -467,7 +466,7 @@ public class FindParkingSpaceActivity extends BaseActivity {
                 if (StringUtil.isEquals(jsonObject.optString("operationState"),
                         "SUCCESS", true)) {
                     Gson gson = new Gson();
-                    java.lang.reflect.Type type = new TypeToken<List<ParkInfo>>() {
+                    java.lang.reflect.Type type = new TypeToken<List<ParkInfoNative>>() {
                     }.getType();
                     listmMaps = gson.fromJson(jsonObject.optJSONObject("data")
                                     .optJSONObject("data").optString("parkInfoList"),
@@ -495,13 +494,7 @@ public class FindParkingSpaceActivity extends BaseActivity {
         }
 
     }
-//	public List<ParkInfo> getParkList(){
-//		return listmMaps;
-//	}
-//	
-//	public LatLng getLatLng(){
-//		return latLng;
-//	}
+
 
 
     @Override

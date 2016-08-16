@@ -18,8 +18,8 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.entity.CarReporMileViewInfo;
-import com.cheweishi.android.entity.CarReportMileInfo;
+import com.cheweishi.android.entity.CarReporMileViewInfoNative;
+import com.cheweishi.android.entity.CarReportMileInfoNative;
 import com.cheweishi.android.tools.ScreenTools;
 import com.cheweishi.android.utils.DisplayUtil;
 
@@ -60,8 +60,8 @@ public class CarReportMileView extends View {
 	private float hisRigth = 0;// 历史里程右边坐标
 	private float hisWidth = 0;// 历史里程宽度
 	private float mobile = 0;// 移动距离
-	private List<CarReporMileViewInfo> mileViewInfoList;// 里程矩形图信息列表
-//	private List<CarReportMileInfo> mileInfoList;// 里程单个里程信息列表
+	private List<CarReporMileViewInfoNative> mileViewInfoList;// 里程矩形图信息列表
+//	private List<CarReportMileInfoNative> mileInfoList;// 里程单个里程信息列表
 //	private String date = "";// 日期
 	private float maxMile;// 最大里程
 	private float minMile;// 最小里程
@@ -82,7 +82,7 @@ public class CarReportMileView extends View {
 	public CarReportMileView(Context context) {
 		super(context);
 		this.context = context;
-		mileViewInfoList = new ArrayList<CarReporMileViewInfo>();
+		mileViewInfoList = new ArrayList<CarReporMileViewInfoNative>();
 		// 数据初始化
 		WindowManager manager = (WindowManager) context
 				.getSystemService(Context.WINDOW_SERVICE);
@@ -479,7 +479,7 @@ public class CarReportMileView extends View {
 	 * 
 	 * @param list
 	 */
-	private void getDriverMileHeigth(List<CarReportMileInfo> list) {
+	private void getDriverMileHeigth(List<CarReportMileInfoNative> list) {
 		mileViewInfoList.clear();
 		j = 0;
 		isDown = 0;
@@ -499,11 +499,11 @@ public class CarReportMileView extends View {
 		// float left;
 		// float right;
 		// int firstStart = 0;//
-		CarReporMileViewInfo mileViewInfo;
+		CarReporMileViewInfoNative mileViewInfo;
 		if (list != null && list.size() > 1) {
 			// firstStart = list.get(0).getStart();
 			for (int i = 0; i < list.size(); i++) {
-				mileViewInfo = new CarReporMileViewInfo();
+				mileViewInfo = new CarReporMileViewInfoNative();
 				if (minMile == maxMile) {
 					heigth = maxHeigth;
 					mileViewInfo.setHeigth(maxHeigth);
@@ -551,7 +551,7 @@ public class CarReportMileView extends View {
 				mileViewInfoList.add(mileViewInfo);
 			}
 		} else if (list != null && list.size() == 1) {
-			mileViewInfo = new CarReporMileViewInfo();
+			mileViewInfo = new CarReporMileViewInfoNative();
 			mileViewInfo.setHeigth(maxHeigth);
 			width = list.get(0).getEnd() / 60 * unitWidth
 					- list.get(0).getStart() / 60 * unitWidth;
@@ -649,7 +649,7 @@ public class CarReportMileView extends View {
 	}
 
 	public void setInvalidate(Bundle bundle,
-			List<CarReportMileInfo> mileInfoList) {
+			List<CarReportMileInfoNative> mileInfoList) {
 //		this.mileInfoList = mileInfoList;
 
 		maxMile = bundle.getFloat("maxMile");

@@ -1,6 +1,5 @@
 package com.cheweishi.android.recevier;
 
-import java.io.File;
 import java.util.Iterator;
 
 import org.json.JSONException;
@@ -12,34 +11,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.View;
 
 import cn.jpush.android.api.JPushInterface;
 
 import com.cheweishi.android.activity.MainNewActivity;
 import com.cheweishi.android.R;
-import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.LoginActivity;
 import com.cheweishi.android.activity.MessageCenterDetailsActivity;
-import com.cheweishi.android.activity.MessagerCenterActivity;
 import com.cheweishi.android.activity.WebActivity;
-import com.cheweishi.android.biz.HttpBiz;
-import com.cheweishi.android.biz.JSONCallback;
-import com.cheweishi.android.config.API;
-import com.cheweishi.android.entity.LoginMessage;
-import com.cheweishi.android.entity.MessagCenterInfo;
 import com.cheweishi.android.entity.PushMsgResponse;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.ActivityControl;
-import com.cheweishi.android.utils.DateUtils;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
 
 /**
  * 极光推送自定义接收器 如果不定义这个 Receiver，则： 1) 默认用户会打开主界面 2) 接收不到自定义消息
@@ -205,7 +193,6 @@ public class JPushReceiver extends BroadcastReceiver {
 //							 ActivityControl.getActivity(0)).showDialog(
 //							 "您的手机在已另一台手机上登录");
                             LoginMessageUtils.setLogined(ActivityControl.getActivity(0), false);
-                            DBTools.getInstance(ActivityControl.getActivity(0)).delete(LoginMessage.class);
                             showPhoneDialog(bundle);
                         } else {
 //							MessagCenterInfo centerInfo;
@@ -254,7 +241,6 @@ public class JPushReceiver extends BroadcastReceiver {
                             dialog.dismiss();
                             JPushInterface.clearNotificationById(ActivityControl.getActivity(0), bundle
                                     .getInt(JPushInterface.EXTRA_NOTIFICATION_ID));
-                            DBTools.getInstance(ActivityControl.getActivity(0)).delete(LoginMessage.class);
                             // setRadioButtonLight();
                         }
                     });

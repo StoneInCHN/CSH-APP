@@ -1,20 +1,13 @@
 package com.cheweishi.android.activity;
 
-import java.lang.reflect.Type;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.config.API;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.InsuranceInfo;
 import com.cheweishi.android.utils.StringUtil;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;

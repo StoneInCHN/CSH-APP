@@ -3,7 +3,7 @@ package com.cheweishi.android.adapter;
 import java.util.List;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.entity.DetectionInfo;
+import com.cheweishi.android.entity.DetectionInfoNative;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,9 +19,9 @@ import android.widget.TextView;
 public class DetectionExplainAdapter extends BaseAdapter {
 	
 	private Context context;
-	private List<DetectionInfo> list;
+	private List<DetectionInfoNative> list;
 	
-	public DetectionExplainAdapter(Context context,List<DetectionInfo> list) {
+	public DetectionExplainAdapter(Context context,List<DetectionInfoNative> list) {
 		this.context = context;
 		this.list = list;
 	}

@@ -23,21 +23,16 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.CarType;
-import com.cheweishi.android.entity.Carobject;
 import com.cheweishi.android.entity.QueryCarModeResponse;
 import com.cheweishi.android.entity.QueryCarResponse;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.AssortView;
 import com.cheweishi.android.widget.AssortView.OnTouchAssortListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.lidroid.xutils.http.RequestParams;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -168,121 +163,13 @@ public class CarTypeCarBrandModelActivity extends BaseActivity implements
         }
     };
 
-    private void parseBrandJSON(String result) {
-        ProgrosDialog.closeProgrosDialog();
-        this.brandList.clear();
-        if (StringUtil.isEmpty(result)) {
-            showToast(R.string.data_fail);
-        } else {
-            try {
-                JSONObject object1 = new JSONObject(result);
-                if (StringUtil.isEquals(object1.optString("state"),
-                        API.returnSuccess, true)) {
-                    JSONObject object2 = object1.optJSONObject("data");
-                    Gson gson = new Gson();
-                    java.lang.reflect.Type type = new TypeToken<List<Carobject>>() {
-                    }.getType();
-                    this.brandList = gson.fromJson(object1.optString("data"),
-                            type);
-                    this.handler.sendEmptyMessage(CODE_BRAND);
-                } else {
-                    showToast(object1.optJSONObject("data").getString("msg"));
-                }
 
-                //
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    }
 
-    private void parseModelJSON(String result) {
-        ProgrosDialog.closeProgrosDialog();
-        this.modelList.clear();
-        if (StringUtil.isEmpty(result)) {
-            showToast(R.string.data_fail);
-        } else {
-            try {
-                JSONObject object1 = new JSONObject(result);
-                if (StringUtil.isEquals(object1.optString("state"),
-                        API.returnSuccess, true)) {
-                    JSONObject object2 = object1.optJSONObject("data");
-                    Gson gson = new Gson();
-                    java.lang.reflect.Type type = new TypeToken<List<CarType>>() {
-                    }.getType();
-                    Carobject co = new Carobject();
-                    co.setName(carBrandName);
-                    co.setType(carBrandName);
-                    List<CarType> listCarType = gson.fromJson(object1.optString("data"),
-                            type);
-                    co.setList(listCarType);
-                    if (this.modelList != null) {
-                        this.modelList.clear();
-                    }
-//                    this.modelList.add(co);
-//					this.modelList = gson.fromJson(object1.optString("data"),
-//							type);
-                    this.handler.sendEmptyMessage(CODE_MODEL);
-                } else {
-                    showToast(object1.optJSONObject("data").getString("msg"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
-    private void parseStyleJSON(String result) {
-        ProgrosDialog.closeProgrosDialog();
-        if (!StringUtil.isEmpty(result)) {
-            try {
-                JSONObject object1 = new JSONObject(result);
-                if (StringUtil.isEquals(object1.optString("state"),
-                        API.returnSuccess, true)) {
 
-                    JSONArray jsonArray = object1.optJSONArray("data");
-                    if (jsonArray.length() >= 1) {
-                        Intent data = new Intent(this,
-                                CarTypeCarStyleActivity.class);
 
-                        data.putExtra("json", result);
-                        data.putExtra("brandGroup", this.pinyinNum);
-                        data.putExtra("brandGroupName", this.mResultFirstName);
-                        data.putExtra("modelGroupName", this.mResultLastName);
-                        data.putExtra("url", this.url);
-                        this.startActivityForResult(data, 1000);
-                    } else {
-                        showToast(R.string.no_infoForModel);
-                    }
-                } else {
-                    showToast(object1.optJSONObject("data").getString("msg"));
-                }
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
 
-        } else {
-            showToast(R.string.data_fail);
-        }
-    }
 
-    @Override
-    public void receive(int type, String data) {
-        // TODO Auto-generated method stub
-        switch (type) {
-            case 10001:
-                parseBrandJSON(data);
-                break;
-            case 10002:
-                parseModelJSON(data);
-                break;
-            case 10003:
-                parseStyleJSON(data);
-                break;
-        }
-    }
 
     /**
      * 请求车系

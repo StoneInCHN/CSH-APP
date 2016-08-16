@@ -6,19 +6,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.biz.HttpBiz;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.tools.DBTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
@@ -27,7 +23,6 @@ import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
@@ -58,7 +53,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
     @ViewInject(R.id.bt_logout_setting)
     private Button bt_logout_setting;// 退出、登录
     private CustomDialog.Builder builder;
-    private LoginMessage loginMessage;
 
     @ViewInject(R.id.title)
     private TextView title;

@@ -27,8 +27,7 @@ import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.CarDynamicResponse;
-import com.cheweishi.android.entity.CarDynamicVO;
-import com.cheweishi.android.tools.LoginMessageUtils;
+import com.cheweishi.android.entity.CarDynamicVONative;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.tools.SharePreferenceTools;
 import com.cheweishi.android.utils.CustomProgressDialog;
@@ -108,7 +107,7 @@ public class CarDynamicActivity extends BaseActivity {
     private String cid;
     private String uid;
     private String mobile;
-    private CarDynamicVO vo;
+    private CarDynamicVONative vo;
     private Timer carTimer;//
     private boolean isDraw = true;// 控制是否显示车的轨迹
     private boolean isFired = false;// 控制车辆是否移动
@@ -347,7 +346,6 @@ public class CarDynamicActivity extends BaseActivity {
             }
 
             String str = (String) msg.obj;
-            Log.i("zzqq", "msg.str=-----" + str);
             try {
                 JSONObject js = new JSONObject(str);
 
@@ -362,7 +360,7 @@ public class CarDynamicActivity extends BaseActivity {
                     //js = js.optJSONObject("data");
 //					js = js.optJSONObject("body");
 //					str = js.toString();
-                    vo = gson.fromJson(js.optString("data"), CarDynamicVO.class);
+                    vo = gson.fromJson(js.optString("data"), CarDynamicVONative.class);
                     if (StringUtil.isEmpty(vo.getStatus())) {
                         // 根据状态有无数据判断车辆定位是否成功
                         throw new RuntimeException("car location is null");
@@ -713,45 +711,6 @@ public class CarDynamicActivity extends BaseActivity {
         disMissPDialog();
         checkedChangeListener = null;
         handler = null;
-    }
-
-    @Override
-    public void receive(int type, String data) {
-        super.receive(type, data);
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case 1000:
-                parseJsonData(data);
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    private void parseJsonData(String data) {
-        Log.i("result", "result=====data==data" + data);
-        if (StringUtil.isEmpty(data)) {
-            showToast(R.string.FAIL);
-            return;
-        }
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            if (StringUtil.isEquals(API.returnSuccess,
-                    jsonObject.optString("state"), true)) {
-                JSONObject object = jsonObject.optJSONObject("data");
-
-            } else if (StringUtil.isEquals(API.returnRelogin,
-                    jsonObject.optString("state"), true)) {
-                ReLoginDialog.getInstance(this).showDialog(
-                        jsonObject.optString("message"));
-            } else {
-                showToast(jsonObject.optString("message"));
-            }
-        } catch (JSONException e) {
-
-            e.printStackTrace();
-        }
     }
 
 }

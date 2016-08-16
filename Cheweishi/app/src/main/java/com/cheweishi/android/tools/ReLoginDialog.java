@@ -6,7 +6,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 
 import com.cheweishi.android.activity.LoginActivity;
-import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 
@@ -63,7 +62,6 @@ public class ReLoginDialog {
 				}
 			});
 		}
-		DBTools.getInstance(mContext).delete(LoginMessage.class);
 		dialog = builder.create();
 		dialog.show();
 

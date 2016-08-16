@@ -46,7 +46,7 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.AdvResponse;
 import com.cheweishi.android.entity.LoginResponse;
-import com.cheweishi.android.entity.MainGridInfo;
+import com.cheweishi.android.entity.MainGridInfoNative;
 import com.cheweishi.android.entity.PushResponse;
 import com.cheweishi.android.entity.ServiceListResponse;
 import com.cheweishi.android.response.BaseResponse;
@@ -136,7 +136,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private MainGridViewAdapter gridViewAdapter;// gv_service适配器
     private MainListViewAdapter listViewAdapter;// list_business适配器
     private ImgAdapter imgAdapter;// mygrallery适配器
-    private List<MainGridInfo> gridInfos;
+    private List<MainGridInfoNative> gridInfos;
 
     private ArrayList<ImageView> portImg;
 
@@ -261,9 +261,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private void initData() {
 
 
-        gridInfos = new ArrayList<MainGridInfo>();
+        gridInfos = new ArrayList<MainGridInfoNative>();
         for (int i = 0; i < 12; i++) {
-            MainGridInfo gridInfo = new MainGridInfo();
+            MainGridInfoNative gridInfo = new MainGridInfoNative();
             gridInfo.setName(name[i]);
             gridInfo.setImgId(icon[i]);
 //            gridInfo.setImgUrl("asdasdas");// TODO:暂无可配图片地址

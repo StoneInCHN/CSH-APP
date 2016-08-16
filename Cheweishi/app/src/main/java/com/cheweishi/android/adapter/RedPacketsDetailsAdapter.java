@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.entity.ChargeResponse;
-import com.cheweishi.android.entity.RedPacketsInfo;
 
 /*****
  * 话费详情，返费详情 adapter

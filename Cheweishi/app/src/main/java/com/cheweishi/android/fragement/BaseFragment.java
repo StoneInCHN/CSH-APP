@@ -1,7 +1,6 @@
 package com.cheweishi.android.fragement;
 
 import java.io.File;
-import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,20 +10,16 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.cheweishi.android.activity.BaseActivity;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.JSONCallback;
-import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.http.NetWorkHelper;
 import com.cheweishi.android.interfaces.CarReportListener;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.umeng.analytics.MobclickAgent;

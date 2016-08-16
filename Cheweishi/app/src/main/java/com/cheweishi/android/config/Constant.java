@@ -17,13 +17,10 @@ import android.os.Environment;
 import android.util.SparseArray;
 import android.view.View;
 
-import com.cheweishi.android.entity.LoginMessage;
 import com.cheweishi.android.entity.LoginResponse;
 import com.cheweishi.android.utils.StringUtil;
 
 import java.lang.ref.SoftReference;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Constant {
     public static final SparseArray<SoftReference<View>> carView = new SparseArray<>();
@@ -71,7 +68,6 @@ public class Constant {
     public static boolean CALL_REQUEST = false;
     public static String USER_NICK_EDIT_REFRESH = "com.cheweishi.android.activity.UserInfoEditActivity_NICK";
     public static String USER_NICK_EDIT_REFRESH_OTHER = "com.cheweishi.android.activity.UserInfoEditActivity_OTHER";
-    public static LoginMessage loginMessage;
     public static LoginResponse loginResponse;
     public static boolean EDIT_FLAG = false;
     public static boolean CAR_FLAF = false;

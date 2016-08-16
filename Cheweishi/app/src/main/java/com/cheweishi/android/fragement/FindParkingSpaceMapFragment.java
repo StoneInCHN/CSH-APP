@@ -11,7 +11,6 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,7 +39,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.FindcarViewpagerAdapter;
 import com.cheweishi.android.config.Constant;
-import com.cheweishi.android.entity.ParkInfo;
+import com.cheweishi.android.entity.ParkInfoNative;
 import com.cheweishi.android.tools.ScreenTools;
 import com.cheweishi.android.utils.DisplayUtil;
 import com.cheweishi.android.utils.MyMapUtils;
@@ -91,7 +90,7 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
 
     private FindcarViewpagerAdapter adatper;
 
-    private List<ParkInfo> listmMaps;// 地图数据
+    private List<ParkInfoNative> listmMaps;// 地图数据
     private Bundle bundle;
 
     private List<Marker> markersList;
@@ -133,7 +132,6 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         // bundle = getArguments().getBundle("data");
-        // listmMaps = (List<ParkInfo>) bundle.get("data");
         // 注册刷新广播
         if (broad == null) {
             broad = new FindParkBroadcastReceiver();
@@ -144,7 +142,7 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
         // moveTolocation(latLng);
     }
 
-    private void analList(List<ParkInfo> listmMaps) {
+    private void analList(List<ParkInfoNative> listmMaps) {
         settext();
         init();
         for (int i = 0; i < listmMaps.size(); i++) {
@@ -167,7 +165,6 @@ public class FindParkingSpaceMapFragment extends BaseFragment {
         // latLng = baseContext.getL
         // if (!StringUtil.isEmpty(getArguments())) {
         // bundle = getArguments();
-        // listmMaps = (List<ParkInfo>) bundle.get("data");
         if (!StringUtil.isEmpty(listmMaps) && listmMaps.size() > 0) {
             viewpager_relativelayout.setVisibility(View.VISIBLE);
             analList(listmMaps);

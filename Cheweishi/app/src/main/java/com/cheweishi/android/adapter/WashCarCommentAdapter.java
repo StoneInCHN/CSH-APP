@@ -1,10 +1,8 @@
 package com.cheweishi.android.adapter;
 
-import java.util.List;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.entity.IntegralInfo;
-import com.cheweishi.android.entity.UserComment;
+import com.cheweishi.android.entity.UserCommentNative;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,19 +12,21 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class WashCarCommentAdapter extends BaseAdapter{
 
 	private Context mContext;
-	private List<UserComment> mList;
+	private List<UserCommentNative> mList;
 	private LayoutInflater mLayoutInflater;
 	
-	public WashCarCommentAdapter(Context context, List<UserComment> list) {
+	public WashCarCommentAdapter(Context context, List<UserCommentNative> list) {
 		mContext = context;
 		mList = list;
 		mLayoutInflater = LayoutInflater.from(mContext);
 	}
 	
-	public void setList(List<UserComment> list) {
+	public void setList(List<UserCommentNative> list) {
 		mList = list;
 		this.notifyDataSetChanged();
 	}

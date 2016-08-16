@@ -3,7 +3,6 @@ package com.cheweishi.android.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,8 +12,8 @@ import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.OrderDetailsActivity;
-import com.cheweishi.android.entity.MainSellerInfo;
-import com.cheweishi.android.entity.MainSellerServiceInfo;
+import com.cheweishi.android.entity.MainSellerInfoNative;
+import com.cheweishi.android.entity.MainSellerServiceInfoNative;
 import com.cheweishi.android.utils.StringUtil;
 
 import java.util.List;
@@ -29,11 +28,11 @@ public class MiantainSellerServiceAdapater extends BaseAdapter implements
 		OnClickListener {
 
 	private Context mContext;
-	private List<MainSellerServiceInfo> list;
-	private MainSellerInfo mainSellerInfo;
+	private List<MainSellerServiceInfoNative> list;
+	private MainSellerInfoNative mainSellerInfo;
 
 	public MiantainSellerServiceAdapater(Context mContext,
-			MainSellerInfo mainSellerInfo) {
+			MainSellerInfoNative mainSellerInfo) {
 		this.mContext = mContext;
 		this.mainSellerInfo = mainSellerInfo;
 		this.list = mainSellerInfo.getServices();

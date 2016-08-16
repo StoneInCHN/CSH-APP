@@ -4,13 +4,11 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -21,10 +19,7 @@ import android.widget.TextView;
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.WashcarDetailsActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.config.API;
-import com.cheweishi.android.entity.MainSellerInfo;
 import com.cheweishi.android.entity.ServiceListResponse;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.UnSlidingListView;
 

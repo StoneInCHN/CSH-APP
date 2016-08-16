@@ -3,7 +3,6 @@ package com.cheweishi.android.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
@@ -16,34 +15,23 @@ import com.cheweishi.android.adapter.ExpandableListViewAdapter;
 import com.cheweishi.android.adapter.WashCarCommentAdapter;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.R;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ServiceDetailResponse;
-import com.cheweishi.android.entity.UserComment;
-import com.cheweishi.android.entity.WashCar;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.BaiduMapView;
 import com.cheweishi.android.widget.UnSlidingExpandableListView;
 import com.cheweishi.android.widget.UnSlidingListView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -108,7 +96,7 @@ public class MaintainDetailsActivity extends BaseActivity implements
     private TextView car_tv_car_iv_location;
     @ViewInject(R.id.tv_phone)
     private TextView tv_phone;
-    private List<UserComment> comments;
+//    private List<UserCommentNative> comments;
     private WashCarCommentAdapter commentAdapter;
     private ExpandableListViewAdapter exListAdapter;
     String id = "";
@@ -125,15 +113,15 @@ public class MaintainDetailsActivity extends BaseActivity implements
      * 初始化视图
      */
     private void init() {
-        comments = new ArrayList<UserComment>();
+//        comments = new ArrayList<UserCommentNative>();
         // for (int i = 0; i < 3; i++) {
-        // UserComment comm = new UserComment();
+        // UserCommentNative comm = new UserCommentNative();
         // comm.setUser_name("x******1");
         // comm.setTime("2015-12-28");
         // comm.setUserMsg("东西很好，物流很快，很满意！！！");
         // comments.add(comm);
         // }
-        commentAdapter = new WashCarCommentAdapter(this, comments);
+//        commentAdapter = new WashCarCommentAdapter(this, comments);
         lv_washcar_pinglun.setAdapter(commentAdapter);
         tvTitle.setText("保养详情");
         btnLeft.setText("返回");
@@ -188,52 +176,7 @@ public class MaintainDetailsActivity extends BaseActivity implements
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
 
-    /**
-     * 获取从服务器获取的json数据
-     */
-    @Override
-    public void receive(int type, String data) {
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case 1003:
-                receiveHistory(data);
-                break;
-            default:
-                break;
-        }
-    }
 
-    /**
-     * 解析商家详情
-     *
-     * @param data
-     */
-    private void receiveHistory(String data) {
-        if (StringUtil.isEmpty(data)) {
-            showToast(R.string.FAIL);
-            return;
-        }
-        try {
-            JSONObject json = new JSONObject(data);
-            if (StringUtil.isEquals(API.returnSuccess, json.optString("state"),
-                    true)) {
-                Gson gson = new Gson();
-                java.lang.reflect.Type type = new TypeToken<WashCar>() {
-                }.getType();
-                washCar = gson.fromJson(json.optString("data"), type);
-                setData();
-            } else if (API.returnRelogin.equalsIgnoreCase(json
-                    .getString("operationState"))) {
-                ReLoginDialog.getInstance(this).showDialog(
-                        json.optString("message"));
-            } else {
-                showToast(json.getString("message"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     @OnClick(R.id.left_action)
     public void finishActivity(View v) {

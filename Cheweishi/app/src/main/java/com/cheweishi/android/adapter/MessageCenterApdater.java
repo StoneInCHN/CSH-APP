@@ -24,12 +24,9 @@ import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.MessagerCenterActivity;
-import com.cheweishi.android.entity.CheckEntity;
-import com.cheweishi.android.entity.MessagCenterInfo;
+import com.cheweishi.android.entity.CheckEntityNative;
 import com.cheweishi.android.entity.MessageResponse;
 import com.cheweishi.android.tools.DBTools;
-import com.cheweishi.android.utils.StringUtil;
-import com.lidroid.xutils.DbUtils;
 
 public class MessageCenterApdater extends BaseAdapter {
 	private List<MessageResponse.MsgBean> textlist;
@@ -40,7 +37,7 @@ public class MessageCenterApdater extends BaseAdapter {
 	// 右边箭头，1显示 0隐藏
 	private int isShowJianTou = 1;
 	public boolean flag = false;
-	private List<CheckEntity> checkEntities;
+	private List<CheckEntityNative> checkEntities;
 	private MessageResponse.MsgBean messagCenterInfo = null;
 	private boolean isRead = false;
 	public int check = 0;
@@ -63,7 +60,7 @@ public class MessageCenterApdater extends BaseAdapter {
 		this.textlist = textlist;
 		this.mContext = mContext;
 		mInflater = LayoutInflater.from(mContext);
-		checkEntities = new ArrayList<CheckEntity>();
+		checkEntities = new ArrayList<CheckEntityNative>();
 		this.flag = false;
 		initCheckEntities();
 		notifyDataSetChanged();
@@ -74,7 +71,7 @@ public class MessageCenterApdater extends BaseAdapter {
 		int size = textlist.size();
 		checkEntities.clear();
 		for (int i = 0; i < size; i++) {
-			checkEntities.add(new CheckEntity(false));
+			checkEntities.add(new CheckEntityNative(false));
 		}
 	}
 
@@ -318,7 +315,7 @@ public class MessageCenterApdater extends BaseAdapter {
 //			}else {
 //				check--;
 //			}
-			CheckEntity mEntity = checkEntities.remove(position);
+			CheckEntityNative mEntity = checkEntities.remove(position);
 			mEntity.setCheck(isChecked);
 			checkEntities.add(position, mEntity);
 			getcheckTrueSize();
@@ -351,7 +348,7 @@ public class MessageCenterApdater extends BaseAdapter {
 		// this.flag = flag;
 		int size = checkEntities.size();
 		for (int i = size - 1; i >= 0; i--) {
-			CheckEntity checkEntity = checkEntities.get(i);
+			CheckEntityNative checkEntity = checkEntities.get(i);
 			if (checkEntity.isCheck() == true) {
 				((MessagerCenterActivity) mContext).remevePageList(i);
 			}
@@ -359,18 +356,6 @@ public class MessageCenterApdater extends BaseAdapter {
 		((MessagerCenterActivity) mContext).Relafresh();
 	}
 
-	/**
-	 * 单行删除
-	 */
-	public void danHangDelete(int position) {
-		textlist.remove(position);
-		checkEntities.remove(position);
-		DBTools.getInstance(mContext).deleteById(MessagCenterInfo.class, textlist.get(position).getId() + "");
-		this.notifyDataSetChanged();
-	}
 
-	public ArrayList<MessagCenterInfo> getList() {
-		return null;
-	}
 
 }

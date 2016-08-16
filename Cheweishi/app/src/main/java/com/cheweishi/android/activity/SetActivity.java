@@ -1,8 +1,5 @@
 package com.cheweishi.android.activity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,10 +7,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,25 +19,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.biz.HttpBiz;
-import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.LoginMessage;
-import com.cheweishi.android.entity.LoginResponse;
-import com.cheweishi.android.tools.DBTools;
-import com.cheweishi.android.tools.DialogTool;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.SharePreferenceTools;
-import com.cheweishi.android.utils.ActivityControl;
 import com.cheweishi.android.utils.ButtonUtils;
-import com.cheweishi.android.utils.FileSizeUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 

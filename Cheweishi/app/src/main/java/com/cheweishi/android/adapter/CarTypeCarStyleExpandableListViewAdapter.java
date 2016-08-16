@@ -3,8 +3,6 @@ package com.cheweishi.android.adapter;
 import java.util.List;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.entity.CarType;
-import com.cheweishi.android.entity.Carobject;
 import com.cheweishi.android.entity.QueryCarModeResponse;
 
 import android.content.Context;

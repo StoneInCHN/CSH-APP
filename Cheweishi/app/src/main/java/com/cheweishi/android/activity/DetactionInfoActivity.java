@@ -1,43 +1,26 @@
 package com.cheweishi.android.activity;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.DetectionInfoAdapter;
-import com.cheweishi.android.biz.HttpBiz;
-import com.cheweishi.android.config.API;
-import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.Car;
 import com.cheweishi.android.entity.CarScanResponse;
-import com.cheweishi.android.entity.DTCInfo;
-import com.cheweishi.android.entity.DetectionInfo;
-import com.cheweishi.android.utils.CommonUtils;
-import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomEditDialog;
-import com.cheweishi.android.widget.DateSelectorDialogBuilder;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
@@ -70,8 +53,6 @@ public class DetactionInfoActivity extends BaseActivity {
 //	private String DTCdes = "";// 故障码说明
 //	private String status;
 
-    private List<DetectionInfo> detectionInfos;
-    private List<DTCInfo> dtcInfos;
 
     private CarScanResponse response;
 

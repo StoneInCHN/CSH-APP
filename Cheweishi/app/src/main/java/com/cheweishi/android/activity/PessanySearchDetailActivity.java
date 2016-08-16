@@ -51,7 +51,7 @@ public class PessanySearchDetailActivity extends BaseActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pessany_detail);
         ViewUtils.inject(this);
-        data = (PessanyResponse.MsgBean) getIntent().getSerializableExtra("PessanySearch");
+        data = (PessanyResponse.MsgBean) getIntent().getSerializableExtra("PessanySearchNative");
         if (null == data) {
             showToast("页面初始化失败,请重试");
             return;

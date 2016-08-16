@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,11 +45,9 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.MapMenssageDialog;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.CarDynamicResponse;
-import com.cheweishi.android.entity.CarManager;
-import com.cheweishi.android.entity.DistanceBean;
-import com.cheweishi.android.entity.LatlngBean;
+import com.cheweishi.android.entity.DistanceBeanNative;
+import com.cheweishi.android.entity.LatlngBeanNative;
 import com.cheweishi.android.entity.SearchResponse;
-import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.MyMapUtils;
@@ -88,7 +85,7 @@ public class GasStationMapFragment extends BaseFragment implements
     // 定义baiduMap
     private BaiduMap mBaiduMap;
     // 定义一个经纬度对象
-    private LatlngBean latlngBean;
+    private LatlngBeanNative latlngBean;
     // 定义mapview
     @ViewInject(R.id.gasstation_bmapView)
     private MapView mMapView;
@@ -177,7 +174,7 @@ public class GasStationMapFragment extends BaseFragment implements
         View view = inflater.inflate(R.layout.fragment_gasstation_map, null);
         ViewUtils.inject(this, view);
         initGeoder();
-        latlngBean = new LatlngBean();
+        latlngBean = new LatlngBeanNative();
         init();
         return view;
     }
@@ -735,7 +732,7 @@ public class GasStationMapFragment extends BaseFragment implements
      * @param objects       对象数组
      * @param dis           距离数组
      */
-    private void personObject(List<DistanceBean> distanceBeans,
+    private void personObject(List<DistanceBeanNative> distanceBeans,
                               Object[] objects, double[] dis) {
         int n = distanceBeans.size();
         for (int i = 0; i < n; i++) {
@@ -763,10 +760,10 @@ public class GasStationMapFragment extends BaseFragment implements
      * @param distanceBeans
      * @param listmMaps2
      */
-    private void personDistance(List<DistanceBean> distanceBeans,
+    private void personDistance(List<DistanceBeanNative> distanceBeans,
                                 List<Map<String, String>> listmMaps2) {
         for (int i = 0; i < listmMaps2.size(); i++) {
-            DistanceBean distanceBean = new DistanceBean();
+            DistanceBeanNative distanceBean = new DistanceBeanNative();
             double lat = StringUtil.getDouble(listmMaps2.get(i).get("lat"));
             double lng = StringUtil.getDouble(listmMaps2.get(i).get("lng"));
             if (isDraw) {
@@ -790,7 +787,7 @@ public class GasStationMapFragment extends BaseFragment implements
      */
     private void sort(List<Map<String, String>> listmMaps) {
         // TODO Auto-generated method stub
-        List<DistanceBean> distanceBeans = new ArrayList<DistanceBean>();
+        List<DistanceBeanNative> distanceBeans = new ArrayList<DistanceBeanNative>();
         personDistance(distanceBeans, listmMaps);
         Object[] objects = new Object[distanceBeans.size()];
         double[] dis = new double[distanceBeans.size()];

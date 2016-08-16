@@ -1,19 +1,13 @@
 package com.cheweishi.android.activity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -27,20 +21,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.biz.HttpBiz;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.CarScanResponse;
-import com.cheweishi.android.entity.DTCInfo;
-import com.cheweishi.android.entity.DetectionInfo;
-import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.tools.ReLoginDialog;
+import com.cheweishi.android.entity.DTCInfoNative;
+import com.cheweishi.android.entity.DetectionInfoNative;
 import com.cheweishi.android.utils.DisplayUtil;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ContentView;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -296,7 +285,7 @@ public class SecurityScanActivity extends BaseActivity {
 
 
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
         DETECTION_SUSSES = 1;
         endScan();
@@ -311,137 +300,15 @@ public class SecurityScanActivity extends BaseActivity {
         showToast(R.string.server_link_fault);
     }
 
-    @Override
-    public void receive(int type, String data) {
-        super.receive(type, data);
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case 20000:
-                doAboutCheck(data);
-                break;
-            default:
-                GET_DATA_STATE = 1;
-                DETECTION_SUSSES = 0;
-                break;
-        }
-    }
 
     // private ArrayList<String> infoList;// 检测信息
     // private ArrayList<AkeytestInfo> Akeyone;// 第一个
     // private ArrayList<AkeytestInfo> Akeytwo;// 第二个
     // private ArrayList<AkeytestInfo> Akeythere;// 第三个
     // private AkeyTextAllInfo mAkeyTextAllInfo;// 一键检测所有信息
-    private List<DetectionInfo> detectionInfos;
-    private List<DTCInfo> dtcInfos;
+    private List<DetectionInfoNative> detectionInfos;
+    private List<DTCInfoNative> dtcInfos;
 
-    /**
-     * 处理一键检测
-     *
-     * @param data
-     */
-    private void doAboutCheck(String data) {
-        // infoList = new ArrayList<String>();
-        // Akeyone = new ArrayList<AkeytestInfo>();
-        // Akeytwo = new ArrayList<AkeytestInfo>();
-        // Akeythere = new ArrayList<AkeytestInfo>();
-        // AkeytestInfo mAkeytestInfo;
-        // String unit;
-        // String name;
-        // String value;
-        // String fault;
-        // String typeItem;
-
-        if (!StringUtil.isEmpty(data)) {
-            try {
-                JSONObject jsondata = new JSONObject(data);
-                if (API.returnSuccess.equals(jsondata.getString("state"))) {
-                    JSONObject jsonObject = jsondata.optJSONObject("data");
-                    JSONArray dtcArray = jsonObject.optJSONObject("dtc")
-                            .optJSONArray("value");
-                    dtcInfos = new ArrayList<DTCInfo>();
-                    DTCInfo dtcInfo = null;
-                    JSONObject dtcObject = null;
-                    if (!StringUtil.isEmpty(dtcArray) && dtcArray.length() > 0) {
-                        for (int i = 0; i < dtcArray.length(); i++) {
-                            dtcObject = dtcArray.optJSONObject(i);
-                            dtcInfo = new DTCInfo();
-                            dtcInfo.setDescribe(dtcObject.optString("describe"));
-                            dtcInfo.setName(dtcObject.optString("name"));
-                            dtcInfo.setType(dtcObject.optString("type"));
-                            dtcInfos.add(dtcInfo);
-                        }
-                    }
-
-                    JSONArray obdArray = jsonObject.optJSONArray("obd");
-                    detectionInfos = new ArrayList<DetectionInfo>();
-                    DetectionInfo detectionInfo = null;
-                    JSONObject obdObject = null;
-                    for (int i = 0; i < obdArray.length(); i++) {
-                        detectionInfo = new DetectionInfo();
-                        obdObject = obdArray.optJSONObject(i);
-                        detectionInfo.setName(obdObject.optString("name"));
-                        detectionInfo.setValue(obdObject.optString("value"));
-                        detectionInfo.setUnit(obdObject.optString("unit"));
-                        detectionInfo.setFault(obdObject.optString("fault"));
-                        detectionInfo.setType(obdObject.optString("type"));
-                        detectionInfos.add(detectionInfo);
-                    }
-
-                    // String carState = jsonObject.optString("carState");
-                    // String logo = jsonObject.optString("logo");
-                    // String maintainState = jsonObject
-                    // .optString("maintainState");
-                    // String plate = jsonObject.optString("plate");
-                    // String dtc = jsonObject.optString("dtc");
-                    // String synthesis = jsonObject.optString("synthesis");
-                    // JSONArray list = jsonObject.optJSONArray("list");
-                    // JSONObject item;
-                    // for (int i = 0; i < list.length(); i++) {
-                    //
-                    // item = list.optJSONObject(i);
-                    // unit = item.optString("unit");
-                    // name = item.optString("name");
-                    // value = item.optString("value");
-                    // fault = item.optString("fault");
-                    // typeItem = item.optString("type");
-                    // infoList.add(name);
-                    // mAkeytestInfo = new AkeytestInfo(unit, name, value,
-                    // fault, typeItem);
-                    // if ("1".equals(typeItem)) {
-                    // Akeyone.add(mAkeytestInfo);
-                    // }
-                    // if ("2".equals(typeItem)) {
-                    // Akeytwo.add(mAkeytestInfo);
-                    // }
-                    // if ("3".equals(typeItem)) {
-                    // Akeythere.add(mAkeytestInfo);
-                    // }
-                    // }
-                    // mAkeyTextAllInfo = new AkeyTextAllInfo(carState, logo,
-                    // maintainState, plate, dtc, synthesis, Akeyone,
-                    // Akeytwo, Akeythere);
-                    DETECTION_SUSSES = 1;
-                    // seeDetectDetails();
-                    endScan();
-                }
-                // 帐号其他地方登录
-                else if (StringUtil.isEquals(API.returnRelogin,
-                        jsondata.optString("state"), true)) {
-                    DETECTION_SUSSES = 0;
-                    ReLoginDialog.getInstance(this).showDialog(
-                            jsondata.optString("message"));
-                } else {
-                    DETECTION_SUSSES = 0;
-                    showToast(jsondata.optString("message"));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                DETECTION_SUSSES = 0;
-                DETECTION_STATE = 2;
-            }
-            GET_DATA_STATE = 1;
-        }
-    }
 
     /**
      * 查看详情

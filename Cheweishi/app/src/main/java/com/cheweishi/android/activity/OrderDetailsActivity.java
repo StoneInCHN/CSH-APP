@@ -1,41 +1,23 @@
 package com.cheweishi.android.activity;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.cheweishi.android.adapter.OrderExLvAdapter;
-import com.cheweishi.android.biz.HttpBiz;
 import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.config.API;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.OrderDetail;
 import com.cheweishi.android.entity.OrderDetailResponse;
-import com.cheweishi.android.entity.OrderGoods;
-import com.cheweishi.android.tools.LoginMessageUtils;
-import com.cheweishi.android.tools.ReLoginDialog;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
-import com.cheweishi.android.utils.QRImageUtil;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.BaiduMapView;
 import com.cheweishi.android.widget.UnSlidingOrderExpandapleListView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
@@ -265,7 +247,7 @@ public class OrderDetailsActivity extends BaseActivity implements
 
         setValues();
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
     }
 
     @Override
@@ -274,51 +256,7 @@ public class OrderDetailsActivity extends BaseActivity implements
         showToast(R.string.server_link_fault);
     }
 
-    /**
-     * 接收服务器返回数据
-     */
-    @Override
-    public void receive(int type, String data) {
-        // TODO Auto-generated method stub
-        super.receive(type, data);
-        ProgrosDialog.closeProgrosDialog();
-        switch (type) {
-            case 10001:// 服务器连接成功
-                parseJSON(data);
-                break;
-            case 400:// 服务器连接失败
-                showToast(R.string.server_link_fault);
-                break;
-        }
-    }
 
-    private void parseJSON(String result) {
-        if (StringUtil.isEmpty(result)) {// 返回数据出错
-            return;
-        }
-        try {
-            JSONObject jsonObject = new JSONObject(result);
-            if (StringUtil.isEquals(jsonObject.optString("state"),
-                    API.returnSuccess, true)) {
-                rl_order.setVisibility(View.VISIBLE);
-                Gson gson = new Gson();
-                java.lang.reflect.Type type = new TypeToken<OrderDetail>() {
-                }.getType();
-//                orderDetail = gson.fromJson(jsonObject.optString("data"), type);
-//                setValues();
-            } else if (StringUtil.isEquals(jsonObject.optString("state"),
-                    API.returnRelogin, true)) {
-                ReLoginDialog.getInstance(this).showDialog(
-                        jsonObject.optString("message"));
-            } else {
-                showToast(jsonObject.optString("message"));
-            }
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
 
 
     /**

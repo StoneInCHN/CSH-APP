@@ -14,8 +14,6 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaskOrderActivity;
 import com.cheweishi.android.activity.OrderDetailsActivity;
 import com.cheweishi.android.activity.WashCarPayActivity;
-import com.cheweishi.android.biz.XUtilsImageLoader;
-import com.cheweishi.android.entity.MyOrderBean;
 import com.cheweishi.android.entity.OrderResponse;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -26,12 +24,7 @@ import java.util.List;
 public class MyorderAdapter extends BaseAdapter {
     private List<OrderResponse.MsgBean> mData;
     private Context mContext;
-    private int colorGray;
-    private XUtilsImageLoader imageLoader;
-    private int colorGrayNormal;
-    private MyOrderBean bean;
     private LayoutInflater mInflater;
-    private int mPosition;
 
     public MyorderAdapter(List<OrderResponse.MsgBean> mData, Context mContext) {
         super();

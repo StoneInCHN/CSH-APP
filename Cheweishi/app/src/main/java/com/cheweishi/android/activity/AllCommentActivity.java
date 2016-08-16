@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.AllCommentAdapter;
-import com.cheweishi.android.entity.UserComment;
+import com.cheweishi.android.entity.UserCommentNative;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -24,7 +24,7 @@ public class AllCommentActivity extends BaseActivity{
 	private TextView title;
 	@ViewInject(R.id.lv_all_comment)
 	private ListView lv_all_comment;
-	private List<UserComment> comments;
+	private List<UserCommentNative> comments;
 	private AllCommentAdapter commentAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +39,9 @@ public class AllCommentActivity extends BaseActivity{
 		title.setText("全部评论");
 		left_action.setText(R.string.back);
 		
-		comments = new ArrayList<UserComment>();
+		comments = new ArrayList<UserCommentNative>();
 		for (int i = 0; i < 8; i++) {
-			UserComment comm = new UserComment();
+			UserCommentNative comm = new UserCommentNative();
 			comm.setUser_name("x******1");
 			comm.setTime("2015-12-28");
 			comm.setUserMsg("东西很好，物流很快，很满意！！！");

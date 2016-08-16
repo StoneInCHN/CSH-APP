@@ -9,16 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.BaseActivity;
-import com.cheweishi.android.entity.PessanySearchResult;
+import com.cheweishi.android.entity.PessanySearchResultNative;
 
 public class PessanySearchResultAdpater extends BaseAdapter {
 	private BaseActivity context;
 	private ViewHolder viewHolder;
 	private LayoutInflater mInflater;
-	private List<PessanySearchResult> listPessanySearch;
+	private List<PessanySearchResultNative> listPessanySearch;
 
 	public PessanySearchResultAdpater(BaseActivity context,
-			List<PessanySearchResult> listPessanySearch) {
+			List<PessanySearchResultNative> listPessanySearch) {
 		this.context = context;
 		this.listPessanySearch = listPessanySearch;
 		mInflater = LayoutInflater.from(context);
@@ -42,7 +42,7 @@ public class PessanySearchResultAdpater extends BaseAdapter {
 		return 0;
 	}
 
-	public void setData(List<PessanySearchResult> listPessanySearch) {
+	public void setData(List<PessanySearchResultNative> listPessanySearch) {
 		if (listPessanySearch.size() > 0) {
 			this.listPessanySearch = listPessanySearch;
 			this.notifyDataSetChanged();

@@ -3,14 +3,11 @@ package com.cheweishi.android.dialog;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.MessagerCenterActivity;
-import com.cheweishi.android.entity.MessagCenterInfo;
-import com.cheweishi.android.tools.DBTools;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MessageCenterDialog extends BaseDialog {
 	private static MessageCenterDialog mMessageCenterDialog;

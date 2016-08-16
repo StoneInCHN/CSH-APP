@@ -130,7 +130,7 @@ public class PessanySearchActivity extends BaseActivity implements
         }
 
         loginResponse.setToken(response.getToken());
-        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
+//        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
 
     }
 
@@ -150,7 +150,7 @@ public class PessanySearchActivity extends BaseActivity implements
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         Intent intent = new Intent(this, PessanySearchDetailActivity.class);
-        intent.putExtra("PessanySearch", listPessanySearch.get(arg2));
+        intent.putExtra("PessanySearchNative", listPessanySearch.get(arg2));
         startActivity(intent);
     }
 

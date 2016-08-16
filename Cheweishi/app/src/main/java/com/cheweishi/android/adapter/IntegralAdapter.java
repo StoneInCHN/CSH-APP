@@ -3,10 +3,8 @@ package com.cheweishi.android.adapter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.entity.IntegralInfo;
 import com.cheweishi.android.entity.PurseIntegralResponse;
 
 import android.content.Context;

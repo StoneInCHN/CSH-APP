@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.DetectionExplainAdapter;
-import com.cheweishi.android.entity.DetectionInfo;
+import com.cheweishi.android.entity.DetectionInfoNative;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 /**
@@ -26,11 +26,11 @@ public class DetectionExplainActivity extends BaseActivity{
 	private Button left_action;
 	@ViewInject(R.id.title)
 	private TextView title;
-	private ArrayList<DetectionInfo> list;
+	private ArrayList<DetectionInfoNative> list;
 	private DetectionExplainAdapter adapter;
 	private String[] name;
 	private String[] value;
-	private DetectionInfo detectionInfo;
+	private DetectionInfoNative detectionInfo;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,7 +44,7 @@ public class DetectionExplainActivity extends BaseActivity{
 	private void initView() {
 		left_action.setText(R.string.back);
 		title.setText(R.string.test_option_explain);
-		list = new ArrayList<DetectionInfo>();
+		list = new ArrayList<DetectionInfoNative>();
 		setListData();
 //		list = getIntent().getParcelableArrayListExtra("deteList");
 		adapter = new DetectionExplainAdapter(this, list);
@@ -62,7 +62,7 @@ public class DetectionExplainActivity extends BaseActivity{
 		name = getResources().getStringArray(R.array.detection_item_explain_name);
 		value = getResources().getStringArray(R.array.detection_item_explain_range);
 		for (int i = 0; i < name.length; i++) {
-			detectionInfo = new DetectionInfo();
+			detectionInfo = new DetectionInfoNative();
 			detectionInfo.setName(name[i]);
 			detectionInfo.setValue(value[i]);
 			list.add(detectionInfo);
