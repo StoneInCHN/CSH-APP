@@ -462,6 +462,33 @@
                             android:checked="false"
                             android:padding="10dp" />
                     </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/rl_red_packet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tv_red_packet_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/washcar_purse_red"
+                            android:textColor="@color/red" />
+
+                        <CheckBox
+                            android:id="@+id/cb_red_packet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:button="@drawable/check"
+                            android:checked="false"
+                            android:padding="10dp" />
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

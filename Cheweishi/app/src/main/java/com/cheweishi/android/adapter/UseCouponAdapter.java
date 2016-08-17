@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.entity.PayCouponListResponse;
+import com.cheweishi.android.entity.PreparePayCouponResponse;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class UseCouponAdapter extends BaseAdapter {
 
     private Context context;
 
-    private List<PayCouponListResponse.MsgBean> list;
+    private List<PreparePayCouponResponse.MsgBean.CouponListBean> list;
 
     private OnUserClickCouponListener listener;
 
@@ -39,7 +40,7 @@ public class UseCouponAdapter extends BaseAdapter {
         this.listener = listener;
     }
 
-    public UseCouponAdapter(Context context, List<PayCouponListResponse.MsgBean> list) {
+    public UseCouponAdapter(Context context, List<PreparePayCouponResponse.MsgBean.CouponListBean> list) {
         this.context = context;
         this.list = list;
     }
