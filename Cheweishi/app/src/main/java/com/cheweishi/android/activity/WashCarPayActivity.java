@@ -340,6 +340,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             cb_red.setChecked(false);
             unlist_washcar_pay.setVisibility(View.GONE);
         }
+        param.put("isRedPacket",cb_red_packet.isChecked());
         // 表示延迟支付
         if (null != recordId && !"".equals(recordId))
             param.put("recordId", recordId);
