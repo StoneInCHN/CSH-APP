@@ -64,6 +64,7 @@
 
     <!-- 公共 -->
     <string name="back">返回</string>
+    <string name="car_shop">精品商城</string>
     <string name="save">保存</string>
     <string name="finish">完成</string>
     <string name="choose">选择</string>
@@ -81,9 +82,9 @@
     <!-- 我的车 -->
     <string name="home_no_device">请先绑定设备</string>
     <string name="home_goto_bind">前往绑定</string>
-    <string name="notLogined">您还未登陆</string>
+    <string name="notLogined">您还未登录</string>
     <string name="noCar">您还未绑定车辆</string>
-    <string name="car_dynamic">车动态</string>
+    <string name="car_dynamic">车辆动态</string>
     <string name="str_forward">前进</string>
     <string name="mycar_now_location">当前位置:</string>
     <string name="mycar_find_car_port">找车位</string>
@@ -274,7 +275,7 @@
     <string name="tel_cannot_null">手机号码不能为空！</string>
     <string name="tel_error">手机号码不正确！</string>
     <string name="code_error">验证码不匹配！</string>
-    <string name="code_success">验证码获取成功</string>
+    <string name="code_success">验证码已发送至手机</string>
     <string name="code_get">获取验证码</string>
     <string name="please_code_get">获取验证码</string>
     <string name="please_code_enter">请输入验证码</string>
@@ -316,6 +317,7 @@
     <string name="no_money">0元</string>
     <string name="my_money">我的钱包</string>
     <string name="purposes_desc">劵、积分、余额、优惠券</string>
+    <string name="mpic_desc">购买设备、绑定商户</string>
     <string name="my_order">我的订单</string>
     <string name="msg_center">消息中心</string>
     <string name="say_something">说点什么吧</string>
@@ -505,7 +507,7 @@
     <string name="title_activity_key_detection">KeyDetectionActivity</string>
     <string name="message_no_login">您还未登录，去登录?</string>
     <string name="message_reLogin">账号异常，需要重新登录,去登录?</string>
-    <string name="server_link_fault">连接失败，请重试！</string>
+    <string name="server_link_fault">通信出错了,请稍后再试</string>
     <string name="FAIL">请求失败！</string>
     <string name="RELOGIN">账号异常，需要重新登录</string>
     <string name="DEFAULT">服务器错误</string>
@@ -946,7 +948,7 @@
     <string name="more_car">更多</string>
 
     <!-- 加油站 -->
-    <string name="no_login_gasstation">登陆后才能查看你爱车附近的加油站</string>
+    <string name="no_login_gasstation">登录后才能查看你爱车附近的加油站</string>
     <string name="gasstationlist_address">加油站</string>
     <string name="gain_car_address_error">获取车辆位置失败</string>
     <string name="no_band_gasstation">绑定设备后才能查看你爱车附近的加油站</string>
@@ -1237,6 +1239,7 @@
     <string name="age_unit">&#160;岁</string>
     <string name="brith_change_age">选择出生日期，系统将会自动转化为年龄</string>
     <string name="title_activity_footmark_setting">FootmarkSettingActivity</string>
+    <string name="car_default">设置默认</string>
 
     <!-- 驾驶时间 -->
     <string name="drive_time_results_str1">其中最长连续驾驶</string>
@@ -1438,6 +1441,7 @@
     <string name="pay_1000">1000元</string>
     <string name="pay_true">确认充值</string>
 
+
     <!-- WXPayEntryACtivity -->
     <string name="app_tip">提示</string>
     <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
@@ -1490,6 +1494,7 @@
     <string name="purse">我的钱包</string>
     <string name="purse_coupon">使用优惠券抵用</string>
     <string name="washcar_purse_coupon">使用洗车券抵用</string>
+    <string name="washcar_purse_red">使用红包抵用</string>
     <string name="purse_coupon_register">提交成功!!!\n\n\n恭喜你获得了一个优惠券</string>
     <string name="purse_certificates">优惠券</string>
     <string name="purse_integral">积分</string>
@@ -1579,5 +1584,30 @@
 
     <!--租户查看图片详情-->
     <string name="tenant_title_head">租户详情</string>
+
+
+    <string name="comment_content_empty">评论内容不能为空</string>
+
+    <string name="comment">评论</string>
+
+    <string name="say_two">我来说两句...</string>
+
+    <string name="store">门店</string>
+
+    <string name="news">车蓝调</string>
+
+    <!--商品-->
+    <string name="shop_number">购买数量</string>
+    <string name="shop_img_detail">图文详情</string>
+    <string name="shop_param">产品参数</string>
+    <string name="shop_service_desc">服务介绍</string>
+    <string name="shop_normal_issue">常见问题</string>
+    <string name="shop_normal_help">购买帮助</string>
+    <string name="user_common">用户评价(0)</string>
+    <string name="no_user_common">暂无评价</string>
+    <string name="add_buy_car">加入购物车</string>
+    <string name="now_buy">立即购买</string>
+    <string name="shop_detail">商品详情</string>
+    <string name="shop_email">正品全国包邮</string>
 
 </resources>

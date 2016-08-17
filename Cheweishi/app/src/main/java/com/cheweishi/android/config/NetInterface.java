@@ -5,8 +5,8 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-        public static final String BASE_URL = "http://120.27.92.247:10001";// 生产服务器路径
-//    public static final String BASE_URL = "http://120.27.27.99:10001";// 测试服务器路径
+    //    public static final String BASE_URL = "http://120.27.92.247:10001";// 生产服务器路径
+    public static final String BASE_URL = "http://120.27.27.99:10001";// 测试服务器路径
 //    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
@@ -44,6 +44,8 @@ public class NetInterface {
     public static final String TEMP_COUPON = "/csh-interface/coupon/";//优惠券相关
 
     public static final String TEMP_DUIBA = "/csh-interface/estore/duiba/";//兑吧相关
+
+    public static final String TEMP_NEWS = "/csh-interface/news/";//新闻相关
 
     public static final String HEADER_ALL = BASE_URL + TEMP_URL;
 
@@ -156,6 +158,18 @@ public class NetInterface {
     public static final String GET_DEVICES_LIST = "getAvailableDevice"; // 获取可用设备列表
 
     public static final String GET_DUIBA_LOGIN_URL = "getLoginUrl";//获取兑吧登陆url
+
+    public static final String GET_NEWS_TYPES = "getNewsType";//获取新闻列表类型
+
+    public static final String GET_NEWS_LIST = "getNewsList";//获取新闻列表内容
+
+    public static final String READ_NEWS = "readNewsDetail";//阅读新闻
+
+    public static final String DO_COMMENT = "doComment";//评论新闻
+
+    public static final String DO_LIKE = "doLikeClick";//用户点赞
+
+    public static final String GET_PAY_COUPON_RED = "getCouponAndGiftForPay";//获取支付时可用优惠券及可用红包及可用洗车券
 
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 
