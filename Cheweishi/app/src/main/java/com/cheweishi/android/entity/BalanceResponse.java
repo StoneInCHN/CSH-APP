@@ -29,7 +29,7 @@ public class BalanceResponse extends BaseResponse {
         private int id;
         private double score;
         private double balanceAmount;
-        private int giftAmount;
+        private String giftAmount;
 
         public int getId() {
             return id;
@@ -55,11 +55,11 @@ public class BalanceResponse extends BaseResponse {
             this.balanceAmount = balanceAmount;
         }
 
-        public int getGiftAmount() {
+        public String getGiftAmount() {
             return giftAmount;
         }
 
-        public void setGiftAmount(int giftAmount) {
+        public void setGiftAmount(String giftAmount) {
             this.giftAmount = giftAmount;
         }
     }

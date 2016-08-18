@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.IntegralAdapter;
+import com.cheweishi.android.adapter.RedPacketAdapter;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
@@ -69,7 +70,7 @@ public class PurseUpRedActivity extends BaseActivity implements
     // 列表
     private ListView listView;
     // 积分的适配器
-    private IntegralAdapter mIntegralAdapter;
+    private RedPacketAdapter mIntegralAdapter;
 
 
     private List<PurseIntegralResponse.MsgBean> mList;
@@ -84,7 +85,7 @@ public class PurseUpRedActivity extends BaseActivity implements
 
 
         mList = new ArrayList<PurseIntegralResponse.MsgBean>();
-        mIntegralAdapter = new IntegralAdapter(baseContext, mList);
+        mIntegralAdapter = new RedPacketAdapter(baseContext, mList);
         mListView.setAdapter(mIntegralAdapter);
         mListView.setMode(Mode.BOTH);
         mListView.setOnRefreshListener(this);
