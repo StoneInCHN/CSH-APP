@@ -340,7 +340,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             cb_red.setChecked(false);
             unlist_washcar_pay.setVisibility(View.GONE);
         }
-        param.put("isRedPacket",cb_red_packet.isChecked());
+        param.put("isRedPacket", cb_red_packet.isChecked());
         // 表示延迟支付
         if (null != recordId && !"".equals(recordId))
             param.put("recordId", recordId);
@@ -774,7 +774,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
         if (null != msg2 && msg2.length() != 0) {
             str += "\n" + msg2;
         }
-        AlertDialog.Builder builder = new Builder(WashCarPayActivity.this);
+        Builder builder = new Builder(WashCarPayActivity.this);
         builder.setMessage(str);
         builder.setTitle("提示");
         builder.setPositiveButton("确定", null);
@@ -854,14 +854,18 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             tv_red_packet_hint.setText(getString(R.string.washcar_purse_red) + ": ￥" + (tempTotalPrice == 0 ? price : red) + "元");
         }
 
-        double couponMoney = Double.valueOf(couponListResponse.getMsg().getCouponList().get(position).getCoupon().getAmount());
-        if (0 == tempTotalPrice)
-            tv_red_hint.setText("使用优惠券抵扣:" + "￥0元");
-        else
-            tv_red_hint.setText("使用优惠券抵扣:" + "￥" + (couponMoney > tempTotalPrice ? tempTotalPrice : couponMoney) + "元");
-        amount = calcMoney(tempTotalPrice, couponMoney);
+
+        if (0 == tempTotalPrice) {
+            tv_red_hint.setText(getString(R.string.purse_coupon) + ": ￥0元");
+//            cb_red.setChecked(false);
+        } else {
+            double couponMoney = Double.valueOf(couponListResponse.getMsg().getCouponList().get(position).getCoupon().getAmount());
+            tv_red_hint.setText(getString(R.string.purse_coupon) + ": ￥" + (couponMoney > tempTotalPrice ? tempTotalPrice : couponMoney) + "元");
+            amount = calcMoney(tempTotalPrice, couponMoney);
+        }
+
 //        tv_wash_pay_num.setText("￥" + String.format("%.2f", amount) + "元");
-        tv_wash_money.setText("￥" + String.format("%.2f", amount) + "元");
+        tv_wash_money.setText("￥" + String.format("%.1f", amount) + "元");
         currentCouponId = couponListResponse.getMsg().getCouponList().get(position).getId();
     }
 
