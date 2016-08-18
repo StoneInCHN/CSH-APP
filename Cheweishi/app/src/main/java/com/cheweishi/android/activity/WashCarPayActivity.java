@@ -240,6 +240,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
             @Override
             public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+                updateMoney();
                 if (arg1) {
                     if (channel.equals(CHANNEL_COUPON)) { // 如果优惠券打开,则关闭选择
                         img_alipay.setImageResource(R.drawable.dian22x);
@@ -247,7 +248,6 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                         img_wallet_pay.setImageResource(R.drawable.dian12x);
                         img_washcar_coupon.setImageResource(R.drawable.dian12x);
                         channel = CHANNEL_ALIPAY;
-                        updateMoney();
                     }
                     red_status = 1;
                 } else {
@@ -847,23 +847,22 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             return;
         }
 
-        double tempTotalPrice = Double.valueOf(price);
+        amount = Double.valueOf(price);
 
         if (cb_red_packet.isChecked()) { // 红包中了,先计算红包
-            tempTotalPrice = tempTotalPrice - Double.valueOf(red) > 0 ? tempTotalPrice - Double.valueOf(red) : 0;
-            tv_red_packet_hint.setText(getString(R.string.washcar_purse_red) + ": ￥" + (tempTotalPrice == 0 ? price : red) + "元");
+            amount = amount - Double.valueOf(red) > 0 ? amount - Double.valueOf(red) : 0;
+            tv_red_packet_hint.setText(getString(R.string.washcar_purse_red) + ": ￥" + (amount == 0 ? price : red) + "元");
         }
 
 
-        if (0 == tempTotalPrice) {
+        if (0 == amount) {
             tv_red_hint.setText(getString(R.string.purse_coupon) + ": ￥0元");
 //            cb_red.setChecked(false);
         } else {
             double couponMoney = Double.valueOf(couponListResponse.getMsg().getCouponList().get(position).getCoupon().getAmount());
-            tv_red_hint.setText(getString(R.string.purse_coupon) + ": ￥" + (couponMoney > tempTotalPrice ? tempTotalPrice : couponMoney) + "元");
-            amount = calcMoney(tempTotalPrice, couponMoney);
+            tv_red_hint.setText(getString(R.string.purse_coupon) + ": ￥" + (couponMoney > amount ? amount : couponMoney) + "元");
+            amount = calcMoney(amount, couponMoney);
         }
-
 //        tv_wash_pay_num.setText("￥" + String.format("%.2f", amount) + "元");
         tv_wash_money.setText("￥" + String.format("%.1f", amount) + "元");
         currentCouponId = couponListResponse.getMsg().getCouponList().get(position).getId();
