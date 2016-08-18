@@ -1494,7 +1494,7 @@
     <string name="purse">我的钱包</string>
     <string name="purse_coupon">使用优惠券抵用</string>
     <string name="washcar_purse_coupon">使用洗车券抵用</string>
-    <string name="washcar_purse_red">使用红包抵用</string>
+    <string name="washcar_purse_red">使用成长红包抵用</string>
     <string name="purse_coupon_register">提交成功!!!\n\n\n恭喜你获得了一个优惠券</string>
     <string name="purse_certificates">优惠券</string>
     <string name="purse_integral">积分</string>
