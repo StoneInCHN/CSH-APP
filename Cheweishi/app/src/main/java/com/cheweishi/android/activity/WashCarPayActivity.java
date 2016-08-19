@@ -787,8 +787,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
         if (!StringUtil.isEmpty(broad)) {
             unregisterReceiver(broad);
         }
-        if (null != weixinPay)
-            weixinPay.onDestory();
+//        if (null != weixinPay)
+//            weixinPay.onDestory();
     }
 
     @Override
@@ -857,6 +857,9 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
         if (0 == amount) {
             tv_red_hint.setText(getString(R.string.purse_coupon) + ": ￥0元");
+            adapter.setPositionChecked(position,false);
+            showToast("红包已经全额抵扣，无需再使用优惠券");
+            return;
 //            cb_red.setChecked(false);
         } else {
             double couponMoney = Double.valueOf(couponListResponse.getMsg().getCouponList().get(position).getCoupon().getAmount());
