@@ -18,9 +18,9 @@ import com.cheweishi.android.utils.LogHelper;
 
 /**
  * WebView
- * <p/>
+ * <p>
  * eg:
- * <p/>
+ * <p>
  * WebViewView webViewUtil = new WebViewView();
  * webViewUtil.setWebView(mWebView); webViewUtil.setContext(mContext);
  * webViewUtil.setJS(true); webViewUtil.setSelfAdaption();
@@ -32,7 +32,6 @@ import com.cheweishi.android.utils.LogHelper;
  */
 
 public class WebViewView {
-    protected static final String TAG = "WebViewView";
     private WebView mWebView;
     private Context mContext;
 
@@ -65,9 +64,10 @@ public class WebViewView {
             public void onReceivedError(WebView view, int errorCode,
                                         String description, String failingUrl) {
 
-                // ToastUtil.showS(mContext, "Oh no!" + description);
-                Log.e(TAG, "Oh no!" + description);
                 super.onReceivedError(view, errorCode, description, failingUrl);
+                LogHelper.d("web onReceivedError");
+                String data = "Page NO FOUND！";
+                view.loadUrl("javascript:document.body.innerHTML=\"" + data + "\"");
             }
         });
     }
