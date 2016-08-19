@@ -54,7 +54,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
     //    private TextView tv_welcome_skip_second;// 倒计时
     private ImageView iv_home_adv; // 主页广告
     private boolean mHasAdd = false; // 是否有广告
-    private int mCurrentTimes = 10;
+    private int mCurrentTimes = 5;
     private boolean mHadNext = false;
     private String homeUrl;
 
@@ -165,7 +165,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
 //                tv_welcome_skip_second.setVisibility(View.VISIBLE);
                 tv_welcome_skip.setOnClickListener(this);
                 handler.sendMessageDelayed(Message.obtain(), 1000); // 更新UI
-                delay = 10000;
+                delay = 5000;
             } else { // 无广告
                 delay = 3000;
             }
