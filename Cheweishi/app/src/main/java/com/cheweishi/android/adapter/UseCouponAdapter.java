@@ -132,6 +132,11 @@ public class UseCouponAdapter extends BaseAdapter {
             listener.onCheckCoupon(p);
     }
 
+    public void setPositionChecked(int p,boolean result){
+        list.get(p).setCheck(result);
+        notifyDataSetChanged();
+    }
+
     public int getCheckCouponPosition() {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).isCheck())
