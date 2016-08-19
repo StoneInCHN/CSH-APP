@@ -1,6 +1,7 @@
 package com.cheweishi.android.fragement;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -50,6 +51,10 @@ import com.cheweishi.android.entity.MainGridInfoNative;
 import com.cheweishi.android.entity.PushResponse;
 import com.cheweishi.android.entity.ServiceListResponse;
 import com.cheweishi.android.response.BaseResponse;
+import com.cheweishi.android.thirdpart.ConvenientBanner;
+import com.cheweishi.android.thirdpart.holder.CBViewHolderCreator;
+import com.cheweishi.android.thirdpart.holder.NetWorkImgHolder;
+import com.cheweishi.android.thirdpart.listener.OnItemClickListener;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
 import com.cheweishi.android.tools.SharePreferenceTools;
@@ -79,14 +84,17 @@ import cn.jpush.android.api.TagAliasCallback;
 /**
  * Created by tangce on 7/6/2016.
  */
-public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
 
     // 服务模块gridview
     private UnslidingGridView gv_service;
 
-    // 滚动广告模块
-    private MyGallery mygallery;
+    //滚动广告
+    private ConvenientBanner cb_home_av;
+
+//    // 滚动广告模块
+//    private MyGallery mygallery;
 
 //    // 活动专区图片
 //    private ImageView img_activity_area;
@@ -115,8 +123,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     // 商家列表
     private UnSlidingListView list_business;
 
-    // 小圆点容器
-    private LinearLayout ll_focus_indicator_container;
+//    // 小圆点容器
+//    private LinearLayout ll_focus_indicator_container;
 
     private ImageView iv_home_hascoupon;// 活动中心按钮
 
@@ -165,6 +173,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private final String PULL_REFRESH_TAG = "PULL_BASE";
 
+    private final int DEFALULT_ADV_TIME = 5000;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -177,7 +187,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         gv_service = (UnslidingGridView) view.findViewById(R.id.gv_service);
 
-        mygallery = (MyGallery) view.findViewById(R.id.mygallery);
+        cb_home_av = (ConvenientBanner) view.findViewById(R.id.cb_home_av);
+
+//        mygallery = (MyGallery) view.findViewById(R.id.mygallery);
 
 //        img_activity_area = (ImageView) view.findViewById(R.id.img_activity_area);
 //
@@ -193,7 +205,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         list_business = (UnSlidingListView) view.findViewById(R.id.list_business);
 
-        ll_focus_indicator_container = (LinearLayout) view.findViewById(R.id.ll_focus_indicator_container);
+//        ll_focus_indicator_container = (LinearLayout) view.findViewById(R.id.ll_focus_indicator_container);
 
         rl_activity_area = (RelativeLayout) view.findViewById(R.id.rl_activity_area);
 
@@ -252,6 +264,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+//        cb_home_av.setView(baseContext, R.layout.adv_include_viewpager);
         loading.sendEmptyMessageDelayed(0x1, 200);
     }
 
@@ -272,9 +285,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         gridViewAdapter = new MainGridViewAdapter(baseContext, gridInfos, true);
         gv_service.setAdapter(gridViewAdapter);
         gv_service.setOnItemClickListener(this);
-        imgAdapter = new ImgAdapter((BaseActivity) getActivity(), null, 0);
-        mygallery.setAdapter(imgAdapter);
-        mygallery.setOnItemSelectedListener(this);
         getMainData();
     }
 
@@ -643,38 +653,57 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
      * 显示数据
      */
     private void showData() {
-
-        // TODO 更新广告
-        InitFocusIndicatorContainer(advResponse);
-        imgAdapter.setData(advResponse, -1);
-        mygallery.setFocusable(true);
-        mygallery.start();
-    }
-
-
-    /**
-     * 设置小圆点
-     */
-    private void InitFocusIndicatorContainer(AdvResponse advResponse) {
-        portImg = new ArrayList<ImageView>();
-        portImg.clear();
-        this.ll_focus_indicator_container.removeAllViews();
-        if (!StringUtil.isEmpty(advResponse.getMsg())) {
-            for (int i = 0; i < advResponse.getMsg().size(); i++) {
-                ImageView localImageView = new ImageView(baseContext);
-                localImageView.setId(i);
-                ImageView.ScaleType localScaleType = ImageView.ScaleType.FIT_XY;
-                localImageView.setScaleType(localScaleType);
-                LinearLayout.LayoutParams localLayoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                localImageView.setLayoutParams(localLayoutParams);
-                localImageView.setPadding(5, 5, 5, 5);
-                localImageView.setImageResource(R.drawable.lunbo_dian);
-                portImg.add(localImageView);
-                this.ll_focus_indicator_container.addView(localImageView);
-            }
+        if (0 >= advResponse.getMsg().size()) {
+            return;
         }
+
+        cb_home_av.setVisibility(View.VISIBLE);
+        cb_home_av.setPages(new CBViewHolderCreator<NetWorkImgHolder>() {
+            @Override
+            public NetWorkImgHolder createHolder() {
+                return new NetWorkImgHolder();
+            }
+        }, advResponse.getMsg(), (Activity) baseContext)
+                .setPageIndicator(new int[]{R.drawable.lunbo_dian, R.drawable.lunbo_dian_click})
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Intent intent = new Intent(baseContext, WebActivity.class);
+                        intent.putExtra("url", advResponse.getMsg().get(position).getAdvContentLink());
+                        startActivity(intent);
+                    }
+                });
+        cb_home_av.startTurning(DEFALULT_ADV_TIME);
+//        InitFocusIndicatorContainer(advResponse);
+//        imgAdapter.setData(advResponse, -1);
+//        mygallery.setFocusable(true);
+//        mygallery.start();
     }
+
+
+//    /**
+//     * 设置小圆点
+//     */
+//    private void InitFocusIndicatorContainer(AdvResponse advResponse) {
+//        portImg = new ArrayList<ImageView>();
+//        portImg.clear();
+//        this.ll_focus_indicator_container.removeAllViews();
+//        if (!StringUtil.isEmpty(advResponse.getMsg())) {
+//            for (int i = 0; i < advResponse.getMsg().size(); i++) {
+//                ImageView localImageView = new ImageView(baseContext);
+//                localImageView.setId(i);
+//                ImageView.ScaleType localScaleType = ImageView.ScaleType.FIT_XY;
+//                localImageView.setScaleType(localScaleType);
+//                LinearLayout.LayoutParams localLayoutParams = new LinearLayout.LayoutParams(
+//                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                localImageView.setLayoutParams(localLayoutParams);
+//                localImageView.setPadding(5, 5, 5, 5);
+//                localImageView.setImageResource(R.drawable.lunbo_dian);
+//                portImg.add(localImageView);
+//                this.ll_focus_indicator_container.addView(localImageView);
+//            }
+//        }
+//    }
 
     /**
      * 设置极光推送标签
@@ -970,10 +999,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         super.onHiddenChanged(hidden);
         if (hidden) { // 隐藏了
 //            LogHelper.d("隐藏,暂停滚动");
-            mygallery.pause();
+            cb_home_av.stopTurning();
         } else {
 //            LogHelper.d("我获取到焦点了.开始滚动");
-            mygallery.start();
+            cb_home_av.startTurning(DEFALULT_ADV_TIME);
         }
         currentHided = hidden;
     }
@@ -983,7 +1012,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         super.onResume();
 //        if (!currentHided && null != advResponse)
         if (!currentHided)
-            mygallery.start();
+            cb_home_av.startTurning(DEFALULT_ADV_TIME);
         if (null != refresh_scrollview)
             refresh_scrollview.onRefreshComplete();
     }
@@ -991,14 +1020,14 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void onPause() {
         super.onPause();
-        mygallery.pause();
+        cb_home_av.stopTurning();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
-        mygallery.destroy();
+        cb_home_av.stopTurning();
     }
 
 
@@ -1032,21 +1061,4 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
 
-    @Override
-    public void onItemSelected(AdapterView<?> arg0, View arg1, int selIndex, long arg3) {
-        //                LogHelper.d("arg3:" + arg3 + "current:" + preSelImgIndex + "---selIndex:" + selIndex + "---size:" + advResponse.getMsg().size());
-        if (advResponse.getMsg() != null && advResponse.getMsg().size() > 0) {
-            selIndex = selIndex % advResponse.getMsg().size();
-            portImg.get(preSelImgIndex).setImageResource(
-                    R.drawable.lunbo_dian);
-            portImg.get(selIndex).setImageResource(
-                    R.drawable.lunbo_dian_click);
-            preSelImgIndex = selIndex;
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }

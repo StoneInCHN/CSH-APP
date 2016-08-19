@@ -21,6 +21,11 @@
 
 <resources>
 
+    <declare-styleable name="ConvenientBanner">
+        <attr name="canLoop" format="boolean" />
+        <attr name="new_layout" format="boolean"/>
+    </declare-styleable>
+
     <declare-styleable name="SimpleTagImageView">
         <attr name="simple_corner_distance" format="dimension" />
         <attr name="simple_tag_width" format="dimension"/>

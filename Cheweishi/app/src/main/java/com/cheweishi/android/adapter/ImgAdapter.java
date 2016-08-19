@@ -88,8 +88,7 @@ public class ImgAdapter extends BaseAdapter {
                 ImageView imageView = new ImageView(_context);
                 imageView.setAdjustViewBounds(true);
                 imageView.setScaleType(ScaleType.FIT_XY);
-                imageView.setLayoutParams(new Gallery.LayoutParams(
-                        LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                imageView.setLayoutParams(new Gallery.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 viewHolder.imageView = imageView;
                 holders.put(p, viewHolder);
 //                holders.set(p, viewHolder);
