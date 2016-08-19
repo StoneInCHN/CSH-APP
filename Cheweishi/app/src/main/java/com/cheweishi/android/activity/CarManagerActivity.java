@@ -24,6 +24,7 @@ import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.MyCarManagerResponse;
 import com.cheweishi.android.fragement.HomeFragment;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -93,6 +94,8 @@ public class CarManagerActivity extends BaseActivity implements
 
     private Intent intent = new Intent();
 
+    private boolean needReConnection = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,12 +159,14 @@ public class CarManagerActivity extends BaseActivity implements
         super.onResume();
         if (broad == null) {
             broad = new MyBroadcastReceiver();
+            IntentFilter intentFilter = new IntentFilter(Constant.REFRESH_FLAG);
+            registerReceiver(broad, intentFilter);
         } else {
-            reconnect();
+            if (needReConnection) {
+                needReConnection = false;
+                reconnect();
+            }
         }
-
-        IntentFilter intentFilter = new IntentFilter(Constant.REFRESH_FLAG);
-        registerReceiver(broad, intentFilter);
     }
 
 
@@ -244,7 +249,7 @@ public class CarManagerActivity extends BaseActivity implements
 
 
                 loginResponse.setToken(response.getToken());
-                CurrentPosition = 0 ; //TODO 将位置置为0,防止bug.
+                CurrentPosition = 0; //TODO 将位置置为0,防止bug.
 //                LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
                 ProgrosDialog.closeProgrosDialog();
                 break;
@@ -399,10 +404,9 @@ public class CarManagerActivity extends BaseActivity implements
     public class MyBroadcastReceiver extends BroadcastReceiver {
 
         public void onReceive(Context context, Intent intent) {
-            if (StringUtil.isEquals(Constant.CURRENT_REFRESH,
-                    Constant.CAR_MANAGER_REFRESH, true)) {
+            if (StringUtil.isEquals(Constant.CURRENT_REFRESH, Constant.CAR_MANAGER_REFRESH, true)) {
 //                reconnect();
-
+                needReConnection = true;
             }
         }
     }
