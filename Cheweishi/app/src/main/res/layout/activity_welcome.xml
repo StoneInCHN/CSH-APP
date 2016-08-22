@@ -51,7 +51,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/top_left_large_padding"
                 android:layout_marginTop="@dimen/large_padding"
-                android:text="跳过(10)"
+                android:text="跳过(5)"
                 android:textColor="@color/orange"
                 android:textSize="18sp"
                 android:visibility="gone" />
