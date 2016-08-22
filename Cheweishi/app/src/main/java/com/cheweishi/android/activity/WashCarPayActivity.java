@@ -606,7 +606,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 }
 
                 red = couponListResponse.getMsg().getRedPacketAmount();
-                if (!StringUtil.isEmpty(red) && (0 == Double.valueOf(red) || !DEFAULT_AMOUNT.equals(red))) { // 有红包
+                if (!StringUtil.isEmpty(red) && (0 != Double.valueOf(red) || !DEFAULT_AMOUNT.equals(red))) { // 有红包
                     rl_red_packet.setVisibility(View.VISIBLE);
                 }
 
