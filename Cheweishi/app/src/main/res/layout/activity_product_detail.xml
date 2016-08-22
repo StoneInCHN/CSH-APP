@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_backgroud"
@@ -298,6 +299,58 @@
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/line_gray" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/more_back"
+                    android:padding="@dimen/normal_padding">
+
+
+                    <com.cheweishi.android.widget.XCRoundImageView
+                        android:id="@+id/xiv_product_common_user"
+                        android:layout_width="@dimen/thirty_five"
+                        android:layout_height="@dimen/thirty_five"
+                        android:layout_centerVertical="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/info_touxiang_moren" />
+
+                    <TextView
+                        android:id="@+id/tv_product_common_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/divice_main"
+                        android:layout_marginTop="@dimen/divice_main"
+                        android:layout_toRightOf="@id/xiv_product_common_user"
+                        android:text="Tanck"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:id="@+id/tv_product_common_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_product_common_user_name"
+                        android:layout_marginLeft="@dimen/divice_main"
+                        android:layout_toRightOf="@id/xiv_product_common_user"
+                        android:text="2016-8-22 14:19:28"
+                        android:textColor="@color/light_gray"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:id="@+id/tv_product_common_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/tv_product_common_time"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:maxLines="2"
+                        android:text="好评!!"
+                        android:textColor="@color/light_gray"
+                        android:textSize="@dimen/text_size_small" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 
