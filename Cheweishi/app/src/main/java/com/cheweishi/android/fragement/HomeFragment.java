@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -53,7 +52,7 @@ import com.cheweishi.android.entity.ServiceListResponse;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.thirdpart.ConvenientBanner;
 import com.cheweishi.android.thirdpart.holder.CBViewHolderCreator;
-import com.cheweishi.android.thirdpart.holder.NetWorkImgHolder;
+import com.cheweishi.android.thirdpart.holder.HomeNetWorkImgHolder;
 import com.cheweishi.android.thirdpart.listener.OnItemClickListener;
 import com.cheweishi.android.tools.APPTools;
 import com.cheweishi.android.tools.LoginMessageUtils;
@@ -65,7 +64,6 @@ import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.ScreenUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
-import com.cheweishi.android.widget.MyGallery;
 import com.cheweishi.android.widget.UnSlidingListView;
 import com.cheweishi.android.widget.UnslidingGridView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -658,10 +656,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         }
 
         cb_home_av.setVisibility(View.VISIBLE);
-        cb_home_av.setPages(new CBViewHolderCreator<NetWorkImgHolder>() {
+        cb_home_av.setPages(new CBViewHolderCreator<HomeNetWorkImgHolder>() {
             @Override
-            public NetWorkImgHolder createHolder() {
-                return new NetWorkImgHolder();
+            public HomeNetWorkImgHolder createHolder() {
+                return new HomeNetWorkImgHolder();
             }
         }, advResponse.getMsg(), (Activity) baseContext)
                 .setPageIndicator(new int[]{R.drawable.lunbo_dian, R.drawable.lunbo_dian_click})

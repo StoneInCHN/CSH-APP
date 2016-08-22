@@ -10,12 +10,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.interfaces.ScrollViewListener;
-import com.cheweishi.android.utils.LogHelper;
+import com.cheweishi.android.thirdpart.adapter.CBPageAdapter;
+import com.cheweishi.android.thirdpart.holder.CBViewHolderCreator;
+import com.cheweishi.android.thirdpart.holder.CommonNetWorkImgHolder;
+import com.cheweishi.android.thirdpart.holder.HomeNetWorkImgHolder;
+import com.cheweishi.android.thirdpart.view.CBLoopViewPager;
 import com.cheweishi.android.widget.MyScrollView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -52,7 +55,7 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
     private ImageView iv_product_detail_point;// 图片指示灯
 
     @ViewInject(R.id.vp_product_detail)
-    private ViewPager vp_product_detail;//滑动图片
+    private CBLoopViewPager vp_product_detail;//滑动图片
 
     @ViewInject(R.id.ll_shop_buy)
     private LinearLayout ll_shop_buy; // 滑动出来的购物车
@@ -60,6 +63,8 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
     private int headerHeight; // 顶部标题的高度
 
     private List<String> list = new ArrayList<>();// 图片url
+
+    private CBPageAdapter adapter; // 图片适配器
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,7 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
     }
 
     private void init() {
+
         right_action.setVisibility(View.VISIBLE);
         ll_common_title.setVisibility(View.GONE);
         title.setText(getString(R.string.shop_detail));
@@ -78,9 +84,11 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
         headerHeight = getHeadHeight(ll_common_title);
         sv_product_detail.setScrollViewListener(this);
         vp_product_detail.setOnPageChangeListener(this);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 1; i++) {
             list.add("");
         }
+        adapter = new CBPageAdapter(new MyHolder(), list,this);
+        vp_product_detail.setAdapter(adapter, true);
         drawPoint(0);
     }
 
@@ -142,6 +150,15 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
                 View.MeasureSpec.UNSPECIFIED);
         view.measure(w, h);
         return view.getMeasuredHeight();
+    }
+
+
+    private class MyHolder implements CBViewHolderCreator<CommonNetWorkImgHolder> {
+
+        @Override
+        public CommonNetWorkImgHolder createHolder() {
+            return new CommonNetWorkImgHolder();
+        }
     }
 
     @Override
