@@ -2,6 +2,7 @@ package com.cheweishi.android.thirdpart.adapter;
 
 import android.app.Activity;
 import android.support.v4.view.PagerAdapter;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -9,7 +10,10 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.thirdpart.holder.CBViewHolderCreator;
 import com.cheweishi.android.thirdpart.holder.Holder;
 import com.cheweishi.android.thirdpart.view.CBLoopViewPager;
+import com.cheweishi.android.utils.LogHelper;
 
+import java.lang.ref.WeakReference;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -23,6 +27,7 @@ public class CBPageAdapter<T> extends PagerAdapter {
     private CBLoopViewPager viewPager;
     private final int MULTIPLE_COUNT = 300;
     private Activity activity;
+    private LinkedList<View> views = new LinkedList<>(); // 强引用即可.
 
     public int toRealPosition(int position) {
         int realCount = getRealCount();
@@ -43,9 +48,12 @@ public class CBPageAdapter<T> extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+        View view = null;
         int realPosition = toRealPosition(position);
-
-        View view = getView(realPosition, null, container);
+        if (0 < views.size()) {
+            view = views.removeFirst();
+        }
+        view = getView(realPosition, view, container);
 //        if(onItemClickListener != null) view.setOnClickListener(onItemClickListener);
         container.addView(view);
         return view;
@@ -55,6 +63,7 @@ public class CBPageAdapter<T> extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         View view = (View) object;
         container.removeView(view);
+        views.add(view);
     }
 
     @Override
