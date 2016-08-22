@@ -58,7 +58,7 @@ import java.util.Map;
  * @author mingdasen
  */
 public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayListener, UseCouponAdapter.OnUserClickCouponListener {
-    private static final String DEFAULT_AMOUNT = "0.00"; // 默认为0
+    private static final String DEFAULT_AMOUNT = "0"; // 默认为0
     @ViewInject(R.id.tv_wash_pay_num)
     private TextView tv_wash_pay_num;// 价钱
     @ViewInject(R.id.left_action)
@@ -273,7 +273,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                     }
                     amount = 0;
 //                    tv_wash_pay_num.setText("￥" + amount + "元");
-                    tv_wash_money.setText("￥" + amount + "元");
+                    tv_wash_money.setText("￥" + String.format("%.2f", amount) + "元");
                     img_alipay.setImageResource(R.drawable.dian12x);
                     img_weixin.setImageResource(R.drawable.dian12x);
                     img_wallet_pay.setImageResource(R.drawable.dian12x);
@@ -283,7 +283,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                         amount = StringUtil.getDouble(price);
                     }
 //                    tv_wash_pay_num.setText("￥" + amount + "元");
-                    tv_wash_money.setText("￥" + amount + "元");
+                    tv_wash_money.setText("￥" + String.format("%.2f", amount) + "元");
                     img_alipay.setImageResource(R.drawable.dian22x);
                     img_weixin.setImageResource(R.drawable.dian12x);
                     img_wallet_pay.setImageResource(R.drawable.dian12x);
@@ -444,7 +444,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 }
                 amount = 0;
 //                tv_wash_pay_num.setText("￥" + amount + "元");
-                tv_wash_money.setText("￥" + amount + "元");
+                tv_wash_money.setText("￥" + String.format("%.2f", amount) + "元");
                 break;
             case R.id.cb_red:
 
@@ -488,7 +488,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                     }
 
 //                    tv_wash_pay_num.setText("￥" + amount + "元");
-                    tv_wash_money.setText("￥" + amount + "元");
+                    tv_wash_money.setText("￥" + String.format("%.2f", amount) + "元");
                 }
                 break;
             default:
@@ -517,7 +517,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 tv_red_packet_hint.setText(getString(R.string.washcar_purse_red) + ": ￥" + (amount == 0 ? price : red) + "元");
             }
 //            tv_wash_pay_num.setText("￥" + amount + "元");
-            tv_wash_money.setText("￥" + amount + "元");
+            tv_wash_money.setText("￥" + String.format("%.2f", amount) + "元");
         }
 
 
@@ -606,7 +606,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 }
 
                 red = couponListResponse.getMsg().getRedPacketAmount();
-                if (!StringUtil.isEmpty(red) && (0 != Double.valueOf(red) || !DEFAULT_AMOUNT.equals(red))) { // 有红包
+                if (!StringUtil.isEmpty(red) && 0 != Double.valueOf(red)) { // 有红包
                     rl_red_packet.setVisibility(View.VISIBLE);
                 }
 
@@ -843,7 +843,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             }
             tv_red_hint.setText(getString(R.string.purse_coupon) + ": ￥0元");
 //            tv_wash_pay_num.setText("￥" + amount + "元");
-            tv_wash_money.setText("￥" + amount + "元");
+            tv_wash_money.setText("￥" + String.format("%.2f", amount) + "元");
             return;
         }
 
@@ -867,7 +867,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             amount = calcMoney(amount, couponMoney);
         }
 //        tv_wash_pay_num.setText("￥" + String.format("%.2f", amount) + "元");
-        tv_wash_money.setText("￥" + String.format("%.1f", amount) + "元");
+        tv_wash_money.setText("￥" + String.format("%.2f", amount) + "元");
         currentCouponId = couponListResponse.getMsg().getCouponList().get(position).getId();
     }
 

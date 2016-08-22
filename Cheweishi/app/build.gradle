@@ -17,7 +17,7 @@ android {
 
     signingConfigs {
         dbgKey {
-            storeFile file('E:\\carlife\\CSH-APP\\Cheweishi\\csh_app_latest.jks')
+            storeFile file('E:\\carlief\\CSH-APP\\Cheweishi\\csh_app_latest.jks')
             storePassword "ditoo2003C"
             keyAlias "cheshenghuo"
             keyPassword "wksh2014C"
