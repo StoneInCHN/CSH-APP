@@ -1024,6 +1024,9 @@
         <!--商品详情-->
         <activity android:name=".activity.ProductDetailActivity" />
 
+        <!--成长红包-->
+        <activity android:name=".activity.UpRedIntegralActivity"/>
+
     </application>
 
 </manifest>

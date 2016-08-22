@@ -58,7 +58,7 @@ import java.util.Map;
  * @author mingdasen
  */
 public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayListener, UseCouponAdapter.OnUserClickCouponListener {
-    private static final String DEFAULT_AMOUNT = "0"; // 默认为0
+    private static final String DEFAULT_AMOUNT = "0.00"; // 默认为0
     @ViewInject(R.id.tv_wash_pay_num)
     private TextView tv_wash_pay_num;// 价钱
     @ViewInject(R.id.left_action)
@@ -606,7 +606,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
                 }
 
                 red = couponListResponse.getMsg().getRedPacketAmount();
-                if (!StringUtil.isEmpty(red) && !DEFAULT_AMOUNT.equals(red)) { // 有红包
+                if (!StringUtil.isEmpty(red) && (0 == Double.valueOf(red) || !DEFAULT_AMOUNT.equals(red))) { // 有红包
                     rl_red_packet.setVisibility(View.VISIBLE);
                 }
 
@@ -787,8 +787,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
         if (!StringUtil.isEmpty(broad)) {
             unregisterReceiver(broad);
         }
-//        if (null != weixinPay)
-//            weixinPay.onDestory();
+        if (null != weixinPay)
+            weixinPay.onDestory();
     }
 
     @Override
@@ -857,7 +857,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
 
         if (0 == amount) {
             tv_red_hint.setText(getString(R.string.purse_coupon) + ": ￥0元");
-            adapter.setPositionChecked(position,false);
+            adapter.setPositionChecked(position, false);
             showToast("红包已经全额抵扣，无需再使用优惠券");
             return;
 //            cb_red.setChecked(false);
