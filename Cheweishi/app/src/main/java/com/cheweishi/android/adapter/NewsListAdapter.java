@@ -4,13 +4,11 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.entity.NewsListResponse;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.widget.SimpleTagImageView;
 
 import java.text.SimpleDateFormat;
@@ -81,7 +79,7 @@ public class NewsListAdapter extends BaseAdapter {
         holder.readCount.setText(list.get(position).getReadCounts());
         holder.commentCount.setText(list.get(position).getCommentCounts());
         holder.likeCount.setText(list.get(position).getLikeCounts());
-        holder.time.setText(formateDate(list.get(position).getModifyDate()));
+        holder.time.setText(formatDate(list.get(position).getModifyDate()));
 
         return convertView;
     }
@@ -102,7 +100,7 @@ public class NewsListAdapter extends BaseAdapter {
      * @param dateStr
      * @return
      */
-    private String formateDate(Long dateStr) {
+    private String formatDate(Long dateStr) {
         String hms = "今天";
         if (86400000 >= Math.abs(System.currentTimeMillis() - dateStr)) {
             return hms;
