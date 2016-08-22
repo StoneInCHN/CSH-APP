@@ -977,55 +977,94 @@
         <!--消息中心-->
 
         <!-- 商城-->
-        <activity android:name="com.cheweishi.android.activity.CarShopActivity" />
+        <activity
+            android:name="com.cheweishi.android.activity.CarShopActivity"
+            android:screenOrientation="portrait" />
 
         <!--保养-->
-        <activity android:name="com.cheweishi.android.activity.MaintainDetailsActivity" />
+        <activity
+            android:name="com.cheweishi.android.activity.MaintainDetailsActivity"
+            android:screenOrientation="portrait" />
 
         <!--美容-->
-        <activity android:name="com.cheweishi.android.activity.BeautyDetailsActivity" />
+        <activity
+            android:name="com.cheweishi.android.activity.BeautyDetailsActivity"
+            android:screenOrientation="portrait" />
 
         <!--违章详情-->
-        <activity android:name="com.cheweishi.android.activity.PessanySearchDetailActivity" />
+        <activity
+            android:name="com.cheweishi.android.activity.PessanySearchDetailActivity"
+            android:screenOrientation="portrait" />
 
         <!--保养列表-->
-        <activity android:name="com.cheweishi.android.activity.MaintainListActivity_new" />
+        <activity
+            android:name="com.cheweishi.android.activity.MaintainListActivity_new"
+            android:screenOrientation="portrait" />
 
         <!--美容列表-->
-        <activity android:name=".activity.BeautyListActivity_new" />
+        <activity
+            android:name=".activity.BeautyListActivity_new"
+            android:screenOrientation="portrait" />
 
         <!--服务详情-->
-        <activity android:name=".activity.ServiceDetailActivity" />
+        <activity
+            android:name=".activity.ServiceDetailActivity"
+            android:screenOrientation="portrait" />
 
         <!--活动优惠券-->
-        <activity android:name=".activity.CouponActivity" />
+        <activity
+            android:name=".activity.CouponActivity"
+            android:screenOrientation="portrait" />
 
         <!--优惠券详细列表-->
-        <activity android:name=".activity.CouponDetailActivity" />
+        <activity
+            android:name=".activity.CouponDetailActivity"
+            android:screenOrientation="portrait" />
 
         <!--保养-->
-        <activity android:name=".activity.MaintainComponentActivity" />
+        <activity
+            android:name=".activity.MaintainComponentActivity"
+            android:screenOrientation="portrait" />
 
         <!--选择-->
-        <activity android:name=".activity.ChoiceComponentActivity" />
+        <activity
+            android:name=".activity.ChoiceComponentActivity"
+            android:screenOrientation="portrait" />
 
         <!--设备列表-->
-        <activity android:name=".activity.DevicesListActivity" />
+        <activity
+            android:name=".activity.DevicesListActivity"
+            android:screenOrientation="portrait" />
 
         <!--租户头像详情-->
-        <activity android:name=".activity.TenantHeadImgActivity" />
+        <activity
+            android:name=".activity.TenantHeadImgActivity"
+            android:screenOrientation="portrait" />
 
         <!--商城-->
-        <activity android:name=".activity.CreditActivity" />
+        <activity
+            android:name=".activity.CreditActivity"
+            android:screenOrientation="portrait" />
 
         <!--主页更多-->
-        <activity android:name=".activity.HomeMoreActivity" />
+        <activity
+            android:name=".activity.HomeMoreActivity"
+            android:screenOrientation="portrait" />
 
         <!--商品详情-->
-        <activity android:name=".activity.ProductDetailActivity" />
+        <activity
+            android:name=".activity.ProductDetailActivity"
+            android:screenOrientation="portrait" />
 
         <!--成长红包-->
-        <activity android:name=".activity.UpRedIntegralActivity"/>
+        <activity
+            android:name=".activity.UpRedIntegralActivity"
+            android:screenOrientation="portrait" />
+
+        <!--产品详情参数-->
+        <activity
+            android:name=".activity.ProductParamDetailActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

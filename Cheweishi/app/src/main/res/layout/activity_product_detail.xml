@@ -76,9 +76,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/normal_marging"
+                    android:ellipsize="end"
+                    android:maxLines="2"
                     android:text="QQ币"
                     android:textColor="@color/light_gray"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/item_content_size" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -152,9 +154,46 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:text="@string/shop_number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/item_content_size" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true">
+
+                        <ImageView
+                            android:id="@+id/iv_product_detail_num_les"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/product_et_bg"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_num_les" />
+
+                        <EditText
+                            android:id="@+id/et_product_detail_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/product_et_bg"
+                            android:inputType="number"
+                            android:maxLength="2"
+                            android:paddingBottom="@dimen/small_padding"
+                            android:paddingLeft="@dimen/normal_marging"
+                            android:paddingRight="@dimen/normal_marging"
+                            android:paddingTop="@dimen/small_padding"
+                            android:text="1"
+                            android:textSize="@dimen/item_small_text_size" />
+
+                        <ImageView
+                            android:id="@+id/iv_product_detail_num_add"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/product_et_bg"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_num_add" />
+                    </LinearLayout>
 
 
                     <!--补充数据-->
@@ -162,6 +201,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/ll_product_img_txt_detail"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/itme_heigth"
                     android:layout_marginTop="@dimen/normal_marging"
@@ -186,6 +226,7 @@
                     android:background="@color/line_gray" />
 
                 <LinearLayout
+                    android:id="@+id/ll_product_detail_param"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/itme_heigth"
                     android:background="@drawable/more_back"
@@ -286,6 +327,7 @@
                         android:textSize="@dimen/item_content_size" />
 
                     <TextView
+                        android:id="@+id/tv_product_detail_right_more"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
@@ -301,6 +343,7 @@
                     android:background="@color/line_gray" />
 
                 <RelativeLayout
+                    android:id="@+id/rl_product_detail_more"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/more_back"
@@ -375,20 +418,31 @@
                 android:src="@drawable/udesk_titlebar_back" />
         </LinearLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/ll_shop_buy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/normal_marging"
             android:layout_marginTop="@dimen/normal_marging"
-            android:background="@drawable/tenant_title_back"
-            android:gravity="center">
+            android:background="@drawable/tenant_title_back">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:src="@drawable/shop_buy_white" />
-        </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_product_cart_number"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="right"
+                android:background="@drawable/message_notice"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:visibility="gone" />
+        </FrameLayout>
     </RelativeLayout>
 </LinearLayout>

@@ -60,7 +60,7 @@ import java.util.Map;
  *
  * @author mingdasen
  */
-public class RegistActivity extends BaseActivity implements OnClickListener {
+public class RegistActivity extends BaseActivity {
     @ViewInject(R.id.phonenumber)
     private EditText mPhoneNumberEditText;// 手机号码输入框
     @ViewInject(R.id.edt_code)
@@ -153,7 +153,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 
     @OnClick({R.id.btn_getcode, R.id.left_action, R.id.btn_register,
             R.id.linear_saoma, R.id.ib_password, R.id.tv_service, R.id.tv_voice})
-    @Override
     public void onClick(View arg0) {
         switch (arg0.getId()) {
             case R.id.btn_getcode:
@@ -591,8 +590,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
     }
 
 
-
-
     public String getinfor() {
         TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         String m_szImei = TelephonyMgr.getDeviceId();
@@ -640,7 +637,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
         startActivity(new Intent(RegistActivity.this, MainNewActivity.class));
         this.finish();
     }
-
 
 
     class TimeCount extends CountDownTimer {

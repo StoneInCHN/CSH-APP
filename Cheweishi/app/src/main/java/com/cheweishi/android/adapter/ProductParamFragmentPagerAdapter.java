@@ -5,9 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.cheweishi.android.entity.NewsTypeResponse;
 import com.cheweishi.android.entity.ShopTypeResponse;
-import com.cheweishi.android.fragement.NewsPageFragment;
+import com.cheweishi.android.fragement.ImgTxtFragment;
 import com.cheweishi.android.fragement.ShopPageFragment;
 
 import java.util.List;
@@ -15,13 +14,13 @@ import java.util.List;
 /**
  * Created by tanck on 2016/08/07.
  */
-public class ShopFragmentPagerAdapter extends FragmentPagerAdapter {
+public class ProductParamFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private Context context;
 
-    private List<ShopTypeResponse.MsgBean> list;
+    private List<String> list;
 
-    public ShopFragmentPagerAdapter(FragmentManager fm, Context context, List<ShopTypeResponse.MsgBean> list) {
+    public ProductParamFragmentPagerAdapter(FragmentManager fm, Context context, List<String> list) {
         super(fm);
         this.context = context;
         this.list = list;
@@ -29,7 +28,7 @@ public class ShopFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ShopPageFragment.newInstance(position, list.get(position).getId());
+        return new ImgTxtFragment();
     }
 
     @Override
@@ -39,7 +38,7 @@ public class ShopFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return list.get(position).getName();
+        return list.get(position);
     }
 
 }

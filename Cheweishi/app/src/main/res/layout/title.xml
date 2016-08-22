@@ -11,8 +11,7 @@
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/normal_padding"
-        android:paddingRight="@dimen/normal_padding">
+        android:paddingLeft="@dimen/normal_padding">
 
         <Button
             android:id="@+id/left_action"
@@ -45,19 +44,47 @@
             android:ellipsize="end"
             android:gravity="right|center_vertical"
             android:paddingLeft="@dimen/normal_padding"
+            android:paddingRight="@dimen/normal_padding"
             android:singleLine="true"
             android:textColor="@color/main_blue"
             android:textSize="@dimen/titile_side_text_size" />
 
-        <ImageView
-            android:id="@+id/iv_common_title_right"
+
+        <LinearLayout
+            android:id="@+id/ll_common_title_right"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:padding="@dimen/normal_padding"
-            android:src="@drawable/shop_buy"
-            android:visibility="gone" />
+            android:gravity="center"
+            android:visibility="gone">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/normal_marging"
+                android:paddingRight="@dimen/normal_marging">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_marginRight="1dp"
+                    android:paddingTop="2dp"
+                    android:src="@drawable/shop_buy" />
+
+                <TextView
+                    android:id="@+id/tv_common_title_number"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/message_notice"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </LinearLayout>
     </RelativeLayout>
 
     <TextView
