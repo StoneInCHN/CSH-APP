@@ -5,9 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.cheweishi.android.entity.ShopTypeResponse;
-import com.cheweishi.android.fragement.ImgTxtFragment;
-import com.cheweishi.android.fragement.ShopPageFragment;
+import com.cheweishi.android.fragement.ProductParamPageFragment;
 
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class ProductParamFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new ImgTxtFragment();
+        return ProductParamPageFragment.newInstance(position, list.get(position));
     }
 
     @Override

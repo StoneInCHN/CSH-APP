@@ -200,6 +200,7 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (null != response && position <= (response.getMsg().size() - 1)) {
+            showTitle();
             vp_shops.setCurrentItem(position);
         }
         dismissPopupWindow();

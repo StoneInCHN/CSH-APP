@@ -16,6 +16,7 @@ import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.NewsListResponse;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -73,12 +74,22 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_news_page, container, false);
 //        LogHelper.d("onCreateView:" + mPage);
+
+        return inflater.inflate(R.layout.fragment_news_page, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         listView = (PullToRefreshListView) view.findViewById(R.id.prl_news);
+        adapter = new NewsListAdapter(baseContext, list);
+        listView.setAdapter(adapter);
+        listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        listView.setOnRefreshListener(this);
+        listView.setOnItemClickListener(this);
         isPrepared = true;
         onVisible();
-        return view;
     }
 
     @Override
@@ -89,11 +100,7 @@ public class NewsPageFragment extends BaseFragment implements PullToRefreshBase.
         }
 //        isLoaded = true;
 //        LogHelper.d("onVisible:" + mPage);
-        adapter = new NewsListAdapter(baseContext, list);
-        listView.setAdapter(adapter);
-        listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        listView.setOnRefreshListener(this);
-        listView.setOnItemClickListener(this);
+
         loading.sendEmptyMessageDelayed(0x10, 500);
     }
 

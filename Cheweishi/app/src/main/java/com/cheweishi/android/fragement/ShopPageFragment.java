@@ -78,11 +78,43 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_shop_page, container, false);
+        return inflater.inflate(R.layout.fragment_shop_page, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         gridView = (PullToRefreshGridView) view.findViewById(R.id.prg_shops);
+        adapter = new ShopListAdapter(baseContext, list);
+        gridView.setAdapter(adapter);
+        gridView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        gridView.setOnRefreshListener(this);
+        gridView.setOnItemClickListener(this);
+//        gridView.setOnScrollListener(new XListView.OnXScrollListener() {
+//            @Override
+//            public void onXScrolling(View view) {
+//            }
+//
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//                if (firstVisibleItem == 0) {
+//                    View view2 = gridView.getChildAt(firstVisibleItem);
+//                    if (view2 != null) {
+//                        int[] location = new int[2];
+//                        view2.getLocationOnScreen(location);
+//                    }
+//                    ((CarShopActivity) getActivity()).showTitle();
+//                } else if (firstVisibleItem > 2) {
+//                    ((CarShopActivity) getActivity()).hideTitle();
+//                }
+//            }
+//        });
         isPrepared = true;
         onVisible();
-        return view;
     }
 
     @Override
@@ -91,37 +123,11 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
         if (!isPrepared || !isVisible) {//|| isLoaded
             return;
         }
-        for (int i = 0; i < 51; i++) {
+        list.clear();
+        for (int i = 0; i < (mPage+6); i++) {
             list.add(new ShopListResponse.MsgBean());
         }
-        adapter = new ShopListAdapter(baseContext, list);
-        gridView.setAdapter(adapter);
-        gridView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        gridView.setOnRefreshListener(this);
-        gridView.setOnItemClickListener(this);
-        gridView.setOnScrollListener(new XListView.OnXScrollListener() {
-            @Override
-            public void onXScrolling(View view) {
-            }
-
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem == 0) {
-                    View view2 = gridView.getChildAt(firstVisibleItem);
-                    if (view2 != null) {
-                        int[] location = new int[2];
-                        view2.getLocationOnScreen(location);
-                    }
-                    ((CarShopActivity) getActivity()).showTitle();
-                } else if (firstVisibleItem > 2) {
-                    ((CarShopActivity) getActivity()).hideTitle();
-                }
-            }
-        });
+        adapter.setData(list);
         loading.sendEmptyMessageDelayed(0x10, 500);
     }
 
