@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/i_buy_cart_title"
+        layout="@layout/title" />
+
+    <RelativeLayout
+        android:id="@+id/rl_buy_cart_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mess_yuan_click" />
+
+    </RelativeLayout>
+
+
+    <!--<com.handmark.pulltorefresh.library.PullToRefreshListView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_above="@id/rl_buy_cart_bottom"-->
+        <!--android:layout_below="@id/i_buy_cart_title"-->
+        <!--android:divider="@color/line_gray"-->
+        <!--android:dividerHeight="0dp"-->
+        <!--android:scrollbars="none" />-->
+
+</RelativeLayout>

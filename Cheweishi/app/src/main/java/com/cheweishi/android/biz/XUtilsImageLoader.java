@@ -94,7 +94,7 @@ public class XUtilsImageLoader {
             imageView.setImageResource(resid);
             return;
         }
-        Picasso.with(context).load(NetInterface.IMG_URL + uri).config(Bitmap.Config.RGB_565).into(imageView);
+        Picasso.with(context).load(NetInterface.IMG_URL + uri).error(resid).config(Bitmap.Config.RGB_565).into(imageView);
     }
 
 }

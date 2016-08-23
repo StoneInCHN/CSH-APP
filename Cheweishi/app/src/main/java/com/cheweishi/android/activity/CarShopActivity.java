@@ -122,8 +122,7 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
     private void sendPacket() {
         ProgrosDialog.openDialog(baseContext);
-        //TODO send packet
-        String url = NetInterface.BASE_URL + NetInterface.TEMP_NEWS + NetInterface.GET_NEWS_TYPES + NetInterface.SUFFIX;
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_SHOP + NetInterface.GET_SHOP_CATEGORY + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());

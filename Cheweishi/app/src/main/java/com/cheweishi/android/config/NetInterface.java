@@ -5,8 +5,8 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-    public static final String BASE_URL = "http://120.27.92.247:10001";// 生产服务器路径
-//    public static final String BASE_URL = "http://120.27.27.99:10001";// 测试服务器路径
+//    public static final String BASE_URL = "http://120.27.92.247:10001";// 生产服务器路径
+    public static final String BASE_URL = "http://120.27.27.99:10001";// 测试服务器路径
 //    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
@@ -46,6 +46,8 @@ public class NetInterface {
     public static final String TEMP_DUIBA = "/csh-interface/estore/duiba/";//兑吧相关
 
     public static final String TEMP_NEWS = "/csh-interface/news/";//新闻相关
+
+    public static final String TEMP_SHOP = "/csh-interface/estore/product/";//电商相关
 
     public static final String HEADER_ALL = BASE_URL + TEMP_URL;
 
@@ -168,6 +170,8 @@ public class NetInterface {
     public static final String DO_COMMENT = "doComment";//评论新闻
 
     public static final String DO_LIKE = "doLikeClick";//用户点赞
+
+    public static final String GET_SHOP_CATEGORY = "getCategory";//获取商品分类
 
     public static final String GET_PAY_COUPON_RED = "getCouponAndGiftForPay";//获取支付时可用优惠券及可用红包及可用洗车券
 

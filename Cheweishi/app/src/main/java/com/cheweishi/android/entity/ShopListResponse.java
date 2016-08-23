@@ -2,17 +2,29 @@ package com.cheweishi.android.entity;
 
 import com.cheweishi.android.response.BaseResponse;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by tangce on 8/12/2016.
  */
 public class ShopListResponse extends BaseResponse {
+
+    /**
+     * total : 3
+     * pageNumber : 1
+     * pageSize : 2
+     */
+
     private PageBean page;
+    /**
+     * image : null
+     * price : 200
+     * name : 熊猫座椅
+     * id : 2
+     * sales : 20
+     */
 
     private List<MsgBean> msg;
-
 
     public PageBean getPage() {
         return page;
@@ -30,7 +42,7 @@ public class ShopListResponse extends BaseResponse {
         this.msg = msg;
     }
 
-    public static class PageBean implements Serializable {
+    public static class PageBean {
         private int total;
         private int pageNumber;
         private int pageSize;
@@ -60,27 +72,19 @@ public class ShopListResponse extends BaseResponse {
         }
     }
 
-    public static class MsgBean implements Serializable {
-        private int id;
-        private String name;
-        private String price;
+    public static class MsgBean {
         private String image;
+        private String price;
+        private String name;
+        private int id;
         private String sales;
 
-        public int getId() {
-            return id;
+        public String getImage() {
+            return image;
         }
 
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
+        public void setImage(String image) {
+            this.image = image;
         }
 
         public String getPrice() {
@@ -91,12 +95,20 @@ public class ShopListResponse extends BaseResponse {
             this.price = price;
         }
 
-        public String getImage() {
-            return image;
+        public String getName() {
+            return name;
         }
 
-        public void setImage(String image) {
-            this.image = image;
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
         }
 
         public String getSales() {

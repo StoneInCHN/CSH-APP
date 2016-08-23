@@ -68,6 +68,11 @@ public class ShopListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        XUtilsImageLoader.getHomeAdvImg(context, R.drawable.udesk_defualt_failure, holder.icon, list.get(position).getImage());
+        holder.desc.setText(list.get(position).getName());
+        holder.buyCount.setText(list.get(position).getSales());
+        holder.money.setText(list.get(position).getPrice());
+
 //        holder.desc.setText();
 
         return convertView;

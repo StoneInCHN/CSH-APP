@@ -17,16 +17,21 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.activity.CarShopActivity;
 import com.cheweishi.android.activity.ProductDetailActivity;
 import com.cheweishi.android.adapter.ShopListAdapter;
+import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ShopListResponse;
 import com.cheweishi.android.tools.EmptyTools;
+import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
+import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.XListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ShopPageFragment extends BaseFragment implements AdapterView.OnItemClickListener, PullToRefreshBase.OnRefreshListener2 {
@@ -55,9 +60,12 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
     private int total;
 
     private boolean isHeadRefresh = false;
+
     private boolean isEmpty;
-    private float oldy;
-    private float detalY;
+
+    private String mSortType;//当前排序类型
+
+    private String mKeyWord;//当前关键字
 
     public static ShopPageFragment newInstance(int page, int id) {
         Bundle args = new Bundle();
@@ -123,11 +131,6 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
         if (!isPrepared || !isVisible) {//|| isLoaded
             return;
         }
-        list.clear();
-        for (int i = 0; i < (mPage+6); i++) {
-            list.add(new ShopListResponse.MsgBean());
-        }
-        adapter.setData(list);
         loading.sendEmptyMessageDelayed(0x10, 500);
     }
 
@@ -136,7 +139,7 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
 
         if (0x10 == what && !isLoaded) {
             isLoaded = true;
-//            sendPacket(0);
+            sendPacket(0, currentId, mSortType, mKeyWord);
         } else if (0 == list.size()) {
             EmptyTools.setEmptyView(baseContext, gridView);
             EmptyTools.setImg(R.drawable.mycar_icon);
@@ -145,6 +148,65 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
         ProgrosDialog.closeProgrosDialog();
     }
 
+    private void sendPacket(int type, int categoryId, String sortType, String keyWord) {
+        if (0 == type)
+            ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_SHOP + NetInterface.LIST + NetInterface.SUFFIX;
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", loginResponse.getDesc());
+        params.put("token", loginResponse.getToken());
+        params.put("categoryId", categoryId);
+        if (!StringUtil.isEmpty(sortType))
+            params.put("sortType", sortType);
+        if (!StringUtil.isEmpty(keyWord))
+            params.put("keyWord", keyWord);
+        params.put("pageNumber", currentPage);
+        params.put("pageSize", 10);
+        netWorkHelper.PostJson(url, params, this);
+    }
+
+
+    @Override
+    public void receive(String data) {
+        ShopListResponse response = (ShopListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ShopListResponse.class);
+
+        if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            ProgrosDialog.closeProgrosDialog();
+            showToast(response.getDesc());
+            gridView.onRefreshComplete();
+            return;
+        }
+        List<ShopListResponse.MsgBean> temp = response.getMsg();
+
+        if (null != temp && 0 < temp.size()) {
+//            EmptyTools.hintEmpty();
+            total = response.getPage().getTotal();
+            if (isHeadRefresh) {
+                list = temp;
+            } else {
+                list.addAll(temp);
+            }
+            isEmpty = false;
+        } else if (!isEmpty) { // 已经添加了
+            isEmpty = true;
+            list = temp;
+//            adapter.setData(list);
+            EmptyTools.setEmptyView(baseContext, gridView);
+            EmptyTools.setImg(R.drawable.mycar_icon);
+            EmptyTools.setMessage("当前列表没有商品信息");
+        }
+
+        adapter.setData(list);
+        loginResponse.setToken(response.getToken());
+        ProgrosDialog.closeProgrosDialog();
+        if (list.size() < total) {
+            gridView.onRefreshComplete();
+            gridView.setMode(PullToRefreshBase.Mode.BOTH);
+        } else {
+            gridView.onRefreshComplete();
+            gridView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        }
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -156,12 +218,17 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-
+        currentPage = 1;
+//        list.clear();
+        isHeadRefresh = true;
+        sendPacket(1, currentId, mSortType, mKeyWord);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-
+        currentPage++;
+        isHeadRefresh = false;
+        sendPacket(1, currentId, mSortType, mKeyWord);
     }
 
 
