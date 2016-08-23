@@ -7,6 +7,7 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.entity.MyCarManagerResponse;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.XCRoundImageView;
 import com.lidroid.xutils.ViewUtils;
@@ -22,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
+public class CarManagerAdapter extends PagerAdapter {
     private Context context;
 
     private SparseArray<View> views = new SparseArray<>();
@@ -150,7 +151,7 @@ public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
         return view;
     }
 
-    private void handlerView(View view, int p) {
+    private void handlerView(View view, final int p) {
         ViewUtils.inject(this, view);
         XUtilsImageLoader.getxUtilsImageLoader(context, R.drawable.tianjiacar_img2x, iv_car_manager_item_car_icon, list.get(p).getBrandIcon());
         tv_car_manager_item_carid.setText(list.get(p).getPlate());
@@ -173,10 +174,20 @@ public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
             ll_car_manager_item_car_device.setVisibility(View.GONE);
         }
 
-        ll_car_manager_item_car_dynamic.setTag(p);
-        ll_car_manager_item_yjjc.setTag(p);
-        ll_car_manager_item_car_dynamic.setOnClickListener(this);
-        ll_car_manager_item_yjjc.setOnClickListener(this);
+//        ll_car_manager_item_car_dynamic.setTag(p);
+//        ll_car_manager_item_yjjc.setTag(p);
+        ll_car_manager_item_car_dynamic.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onCarLineClick(0, p);
+            }
+        });
+        ll_car_manager_item_yjjc.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onCarLineClick(1,p);
+            }
+        });
 
     }
 
@@ -186,19 +197,19 @@ public class CarManagerAdapter extends PagerAdapter implements OnClickListener {
     }
 
 
-    @Override
-    public void onClick(View v) {
-        if (null == listener)
-            return;
-        switch (v.getId()) {
-            case R.id.ll_car_manager_item_car_dynamic: // 车辆动态
-                listener.onCarLineClick(0, (Integer) ll_car_manager_item_car_dynamic.getTag());
-                break;
-            case R.id.ll_car_manager_item_yjjc: // 一键检测
-                listener.onCarLineClick(1, (Integer) ll_car_manager_item_yjjc.getTag());
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        if (null == listener)
+//            return;
+//        switch (v.getId()) {
+//            case R.id.ll_car_manager_item_car_dynamic: // 车辆动态
+//                listener.onCarLineClick(0, (Integer) ll_car_manager_item_car_dynamic.getTag());
+//                break;
+//            case R.id.ll_car_manager_item_yjjc: // 一键检测
+//                listener.onCarLineClick(1, (Integer) ll_car_manager_item_yjjc.getTag());
+//                break;
+//        }
+//    }
 
 
 }
