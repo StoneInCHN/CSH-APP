@@ -121,24 +121,24 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
         gridView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         gridView.setOnRefreshListener(this);
         gridView.setOnItemClickListener(this);
-//        gridView.getRefreshableView().setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent motionEvent) {
-//                switch (motionEvent.getAction()) {
-//                    case MotionEvent.ACTION_MOVE:
-//                        //(motionEvent.getY() - mInitialMotionY)+
-//                        mLastMotionY = motionEvent.getY();
-//                        float diff = mLastMotionY - mInitialMotionY;
-//                        if (8 <= Math.abs(diff) && 0 > diff) { // 手指向上
+        gridView.getRefreshableView().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_MOVE:
+                        //(motionEvent.getY() - mInitialMotionY)+
+                        mLastMotionY = motionEvent.getY();
+                        float diff = mLastMotionY - mInitialMotionY;
+                        if (8 <= Math.abs(diff) && 0 > diff) { // 手指向上
 //                            Log.d("Tanck", "Up current y:" + diff);
-//                            mCurrentDirection = 0;
-//                        } else if (8 <= Math.abs(diff) && 0 < diff) {//手指向下
+                            mCurrentDirection = 0;
+                        } else if (8 <= Math.abs(diff) && 0 < diff) {//手指向下
 //                            Log.d("Tanck", "Down current y:" + diff);
-//                            mCurrentDirection = 1;
-//                        } else {
-//                            mCurrentDirection = -1;
-//                        }
-//
+                            mCurrentDirection = 1;
+                        } else {
+                            mCurrentDirection = -1;
+                        }
+
 //                        if (0 == mCurrentDirection) {
 ////                            ((CarShopActivity) getActivity()).hideTitle();
 //                            mHeaderView.layout(0, (int) diff, mHeaderView.getWidth(), (int) (mHeaderView.getBottom() + diff));
@@ -148,14 +148,21 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
 //                            mHeaderView.layout(0, (int) diff, mHeaderView.getWidth(), (int) (mHeaderView.getBottom() + diff));
 //                            mHeaderView.requestLayout();
 //                        }
-//                        break;
-//                    case MotionEvent.ACTION_DOWN:
-//                        mInitialMotionY = motionEvent.getY();
-//                        break;
-//                }
-//                return false;
-//            }
-//        });
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        mInitialMotionY = motionEvent.getY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (0 == mCurrentDirection) {
+                            ((CarShopActivity) getActivity()).hideTitle();
+                        } else if (1 == mCurrentDirection) {
+                            ((CarShopActivity) getActivity()).showTitle();
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
         isPrepared = true;
         onVisible();
     }
