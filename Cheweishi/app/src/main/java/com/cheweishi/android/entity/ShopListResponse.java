@@ -75,7 +75,7 @@ public class ShopListResponse extends BaseResponse {
     public static class MsgBean {
         private String image;
         private String price;
-        private String name;
+        private String fullName;
         private int id;
         private String sales;
 
@@ -96,11 +96,11 @@ public class ShopListResponse extends BaseResponse {
         }
 
         public String getName() {
-            return name;
+            return fullName;
         }
 
         public void setName(String name) {
-            this.name = name;
+            this.fullName = name;
         }
 
         public int getId() {

@@ -1,6 +1,7 @@
 package com.cheweishi.android.adapter;
 
 import android.content.Context;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,15 +20,15 @@ public class ShopCateGoryAdapter extends BaseAdapter {
 
     private Context context;
 
-    private List<ShopTypeResponse.MsgBean> list;
+    private SparseArray<String> list;
 
 
-    public ShopCateGoryAdapter(Context context, List<ShopTypeResponse.MsgBean> list) {
+    public ShopCateGoryAdapter(Context context, SparseArray<String> list) {
         this.context = context;
         this.list = list;
     }
 
-    public void setData(List<ShopTypeResponse.MsgBean> list) {
+    public void setData(SparseArray<String> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -60,7 +61,7 @@ public class ShopCateGoryAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.name.setText(list.get(position).getName());
+        holder.name.setText(list.get(position));
 
         return convertView;
     }

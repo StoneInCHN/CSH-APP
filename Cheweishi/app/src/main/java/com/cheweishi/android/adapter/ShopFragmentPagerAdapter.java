@@ -27,9 +27,14 @@ public class ShopFragmentPagerAdapter extends FragmentPagerAdapter {
         this.list = list;
     }
 
+    public void setData(List<ShopTypeResponse.MsgBean> list) {
+        this.list = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public Fragment getItem(int position) {
-        return ShopPageFragment.newInstance(position, list.get(position).getId());
+        return ShopPageFragment.newInstance(position, list.get(position).getId(),list.get(position).getName());
     }
 
     @Override

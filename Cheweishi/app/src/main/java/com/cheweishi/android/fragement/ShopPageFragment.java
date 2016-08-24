@@ -3,7 +3,9 @@ package com.cheweishi.android.fragement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewConfigurationCompat;
 import android.text.method.Touch;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -27,6 +29,7 @@ import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.XListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +42,10 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
     public static final String ARG_PAGE = "ARG_PAGE";
 
     public static final String ARG_ID = "ARG_ID";
+
+    private static final String ARG_NAME = "ARG_NAME";
+
+    private String currentName;
 
     private int mPage;
 
@@ -67,10 +74,23 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
 
     private String mKeyWord;//当前关键字
 
-    public static ShopPageFragment newInstance(int page, int id) {
+    private float mLastMotionY;//上次位置
+
+    private float mInitialMotionY;//手指点下初始化位置
+
+    private int mCurrentDirection = -1;//当前方向.0:向上,1:向下
+
+    private int mTitleHeight;//顶部标题高度
+
+    private View mHeaderView;//顶部整个视图
+
+    private boolean mNeedIntercept = false;//是否需要拦截
+
+    public static ShopPageFragment newInstance(int page, int id, String name) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
         args.putInt(ARG_ID, id);
+        args.putString(ARG_NAME, name);
         ShopPageFragment pageFragment = new ShopPageFragment();
         pageFragment.setArguments(args);
         return pageFragment;
@@ -81,6 +101,7 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
         currentId = getArguments().getInt(ARG_ID);
+        currentName = getArguments().getString(ARG_NAME);
     }
 
     @Nullable
@@ -92,33 +113,47 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mHeaderView = ((CarShopActivity) getActivity()).getHeaderView();
+        mTitleHeight = ((CarShopActivity) getActivity()).getHeaderHeight();
         gridView = (PullToRefreshGridView) view.findViewById(R.id.prg_shops);
         adapter = new ShopListAdapter(baseContext, list);
         gridView.setAdapter(adapter);
         gridView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         gridView.setOnRefreshListener(this);
         gridView.setOnItemClickListener(this);
-//        gridView.setOnScrollListener(new XListView.OnXScrollListener() {
+//        gridView.getRefreshableView().setOnTouchListener(new View.OnTouchListener() {
 //            @Override
-//            public void onXScrolling(View view) {
-//            }
+//            public boolean onTouch(View v, MotionEvent motionEvent) {
+//                switch (motionEvent.getAction()) {
+//                    case MotionEvent.ACTION_MOVE:
+//                        //(motionEvent.getY() - mInitialMotionY)+
+//                        mLastMotionY = motionEvent.getY();
+//                        float diff = mLastMotionY - mInitialMotionY;
+//                        if (8 <= Math.abs(diff) && 0 > diff) { // 手指向上
+//                            Log.d("Tanck", "Up current y:" + diff);
+//                            mCurrentDirection = 0;
+//                        } else if (8 <= Math.abs(diff) && 0 < diff) {//手指向下
+//                            Log.d("Tanck", "Down current y:" + diff);
+//                            mCurrentDirection = 1;
+//                        } else {
+//                            mCurrentDirection = -1;
+//                        }
 //
-//            @Override
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//            }
-//
-//            @Override
-//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//                if (firstVisibleItem == 0) {
-//                    View view2 = gridView.getChildAt(firstVisibleItem);
-//                    if (view2 != null) {
-//                        int[] location = new int[2];
-//                        view2.getLocationOnScreen(location);
-//                    }
-//                    ((CarShopActivity) getActivity()).showTitle();
-//                } else if (firstVisibleItem > 2) {
-//                    ((CarShopActivity) getActivity()).hideTitle();
+//                        if (0 == mCurrentDirection) {
+////                            ((CarShopActivity) getActivity()).hideTitle();
+//                            mHeaderView.layout(0, (int) diff, mHeaderView.getWidth(), (int) (mHeaderView.getBottom() + diff));
+//                            mHeaderView.requestLayout();
+//                        } else if (1 == mCurrentDirection) {
+////                            ((CarShopActivity) getActivity()).showTitle();
+//                            mHeaderView.layout(0, (int) diff, mHeaderView.getWidth(), (int) (mHeaderView.getBottom() + diff));
+//                            mHeaderView.requestLayout();
+//                        }
+//                        break;
+//                    case MotionEvent.ACTION_DOWN:
+//                        mInitialMotionY = motionEvent.getY();
+//                        break;
 //                }
+//                return false;
 //            }
 //        });
         isPrepared = true;
@@ -139,6 +174,8 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
 
         if (0x10 == what && !isLoaded) {
             isLoaded = true;
+            if (-1 == currentId)
+                mKeyWord = currentName;
             sendPacket(0, currentId, mSortType, mKeyWord);
         } else if (0 == list.size()) {
             EmptyTools.setEmptyView(baseContext, gridView);
@@ -155,11 +192,12 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
         Map<String, Object> params = new HashMap<>();
         params.put("userId", loginResponse.getDesc());
         params.put("token", loginResponse.getToken());
-        params.put("categoryId", categoryId);
+        if (-1 != categoryId)
+            params.put("categoryId", categoryId);
         if (!StringUtil.isEmpty(sortType))
             params.put("sortType", sortType);
         if (!StringUtil.isEmpty(keyWord))
-            params.put("keyWord", keyWord);
+            params.put("searchKeyWord", keyWord);
         params.put("pageNumber", currentPage);
         params.put("pageSize", 10);
         netWorkHelper.PostJson(url, params, this);
@@ -221,6 +259,8 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
         currentPage = 1;
 //        list.clear();
         isHeadRefresh = true;
+        if (-1 == currentId)
+            mKeyWord = currentName;
         sendPacket(1, currentId, mSortType, mKeyWord);
     }
 
@@ -228,6 +268,8 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
         currentPage++;
         isHeadRefresh = false;
+        if (-1 == currentId)
+            mKeyWord = currentName;
         sendPacket(1, currentId, mSortType, mKeyWord);
     }
 

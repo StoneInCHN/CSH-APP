@@ -70,7 +70,7 @@ public class ShopListAdapter extends BaseAdapter {
 
         XUtilsImageLoader.getHomeAdvImg(context, R.drawable.udesk_defualt_failure, holder.icon, list.get(position).getImage());
         holder.desc.setText(list.get(position).getName());
-        holder.buyCount.setText(list.get(position).getSales());
+        holder.buyCount.setText(list.get(position).getSales() + "人已购");
         holder.money.setText(list.get(position).getPrice());
 
 //        holder.desc.setText();

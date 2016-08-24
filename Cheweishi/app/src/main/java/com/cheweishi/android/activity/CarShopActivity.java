@@ -5,13 +5,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
@@ -21,11 +23,12 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ShopTypeResponse;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.ScreenUtils;
+import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.BackgroundDarkPopupWindow;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +36,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/3/21.
  */
-public class CarShopActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class CarShopActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
 
 
     private Button left_action;
@@ -48,17 +51,30 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
     private LinearLayout ll_shop_top_down_array; // 顶部选择
 
-    private BackgroundDarkPopupWindow popupWindow;//弹出PopuWindow
+    private BackgroundDarkPopupWindow mFilterWindow;//弹出PopuWindow
+
+    private BackgroundDarkPopupWindow mSearchWindow;//弹出PopuWindow
 
     private View categoryView;//分类
+
+    private View mSearchViewForInflate;//搜索视图
+
+    private SearchView mSearchView;//搜索视图
 
     private ListView lv_shop_category;// 分类列表
 
     private ShopCateGoryAdapter cateGoryAdapter;//下拉分类适配
 
+    private ImageView right_action;//右边查询
+
     private View ll_common_title;
 
-    private ShopTypeResponse response;
+    private List<ShopTypeResponse.MsgBean> mTempData;
+
+    private SparseArray<String> mFilterData = new SparseArray<>();//筛选条件数据
+
+
+//    private ShopTypeResponse response;
 
 
     @Override
@@ -80,11 +96,17 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
         tl_shop = (TabLayout) findViewById(R.id.tl_shop);
 
+        right_action = (ImageView) findViewById(R.id.right_action);
+
         categoryView = View.inflate(baseContext, R.layout.shop_service_category, null);
 
         lv_shop_category = (ListView) categoryView.findViewById(R.id.lv_shop_category);
 
-        cateGoryAdapter = new ShopCateGoryAdapter(baseContext, null);
+        mSearchViewForInflate = View.inflate(baseContext, R.layout.shop_top_search, null);
+
+        mSearchView = (SearchView) mSearchViewForInflate.findViewById(R.id.sv_shop);
+
+        cateGoryAdapter = new ShopCateGoryAdapter(baseContext, mFilterData);
 
         lv_shop_category.setAdapter(cateGoryAdapter);
 
@@ -92,16 +114,21 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
         ll_shop_top_down_array = (LinearLayout) findViewById(R.id.ll_shop_top_down_array);
 
+        mSearchView.setOnQueryTextListener(this);
+        right_action.setOnClickListener(this);
         left_action.setOnClickListener(this);
         ll_shop_top_down_array.setOnClickListener(this);
         title.setText(getString(R.string.car_shop));
         left_action.setText(getString(R.string.back));
+        mFilterData.put(0, "价格由低到高");
+        mFilterData.put(1, "销量由高到低");
+        mFilterData.put(2, "智能推荐");
         sendPacket();
     }
 
     @Override
     public void receive(String data) {
-        response = (ShopTypeResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ShopTypeResponse.class);
+        ShopTypeResponse response = (ShopTypeResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ShopTypeResponse.class);
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             ProgrosDialog.closeProgrosDialog();
             showToast(response.getDesc());
@@ -112,9 +139,10 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
             return;
         }
         ll_shop_top_down_array.setVisibility(View.VISIBLE);
-        adapter = new ShopFragmentPagerAdapter(getSupportFragmentManager(), baseContext, response.getMsg());
+        mTempData = response.getMsg();
+        adapter = new ShopFragmentPagerAdapter(getSupportFragmentManager(), baseContext, mTempData);
         vp_shops.setAdapter(adapter);
-        if (5 <= response.getMsg().size())
+        if (5 <= mTempData.size())
             tl_shop.setTabMode(TabLayout.MODE_SCROLLABLE);
         tl_shop.setupWithViewPager(vp_shops);
         loginResponse.setToken(response.getToken());
@@ -136,34 +164,73 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
                 finish();
                 break;
             case R.id.ll_shop_top_down_array:
-                showPopup(tl_shop, response.getMsg());
+                showFilterPopup(tl_shop, mFilterData);
+                break;
+            case R.id.right_action: // search
+//                doSearch("");
+                showSearchPopup(ll_common_title);
                 break;
         }
     }
 
-    private void showPopup(View belowView, List<ShopTypeResponse.MsgBean> data) {
+    private void doSearch(String key) {
+        dismissPopupWindow();
+        ShopTypeResponse.MsgBean type = new ShopTypeResponse.MsgBean();
+        type.setId(-1);
+        type.setName(key);
+        mTempData.add(type);
+        adapter.setData(mTempData);
+        if (5 <= mTempData.size())
+            tl_shop.setTabMode(TabLayout.MODE_SCROLLABLE);
+        vp_shops.setCurrentItem(mTempData.size() - 1);
+    }
+
+    private void showFilterPopup(View belowView, SparseArray<String> data) {
         cateGoryAdapter.setData(data);
-        if (null != popupWindow) {
-            if (!popupWindow.isShowing()) // 不是正在展示的,重新展示
-                popupWindow.showAsDropDown(belowView, 0, 1);
+        if (null != mFilterWindow) {
+            if (!mFilterWindow.isShowing()) // 不是正在展示的,重新展示
+                mFilterWindow.showAsDropDown(belowView, 0, 1);
             return;
         }
         measureView(categoryView);
         int height = data.size() * categoryView.getMeasuredHeight() > ScreenUtils.getScreenHeight(baseContext.getApplicationContext()) / 2 ? ScreenUtils.getScreenHeight(baseContext.getApplicationContext()) / 2 : data.size() * categoryView.getMeasuredHeight();
-        popupWindow = new BackgroundDarkPopupWindow(categoryView, ScreenUtils.getScreenWidth(baseContext.getApplicationContext()), height, 0);
-        popupWindow.setFocusable(true);
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-        popupWindow.setDarkStyle(-1);
-        popupWindow.setDarkColor(Color.parseColor("#a0000000"));
-        popupWindow.darkFillScreen();
-        popupWindow.darkBelow(belowView);
-        popupWindow.showAsDropDown(belowView, 0, 1);
+        mFilterWindow = new BackgroundDarkPopupWindow(categoryView, ScreenUtils.getScreenWidth(baseContext.getApplicationContext()), height, 0);
+        mFilterWindow.setFocusable(true);
+        mFilterWindow.setOutsideTouchable(true);
+        mFilterWindow.setBackgroundDrawable(new BitmapDrawable());
+        mFilterWindow.setDarkStyle(-1);
+        mFilterWindow.setDarkColor(Color.parseColor("#a0000000"));
+        mFilterWindow.darkFillScreen();
+        mFilterWindow.darkBelow(belowView);
+        mFilterWindow.showAsDropDown(belowView, 0, 1);
+    }
+
+    private void showSearchPopup(View belowView) {
+        if (null != mSearchWindow) {
+            if (!mSearchWindow.isShowing()) // 不是正在展示的,重新展示
+                mSearchWindow.showAsDropDown(belowView, 0, 1);
+//                mSearchWindow.showAtLocation(belowView, Gravity.TOP, 0, 0);
+            return;
+        }
+        measureView(mSearchViewForInflate);
+        mSearchWindow = new BackgroundDarkPopupWindow(mSearchViewForInflate, ScreenUtils.getScreenWidth(baseContext.getApplicationContext()), mSearchViewForInflate.getMeasuredHeight(), 0);
+        mSearchWindow.setFocusable(true);
+        mSearchWindow.setOutsideTouchable(true);
+        mSearchWindow.setBackgroundDrawable(new BitmapDrawable());
+        mSearchWindow.setDarkStyle(-1);
+        mSearchWindow.setDarkColor(Color.parseColor("#a0000000"));
+        mSearchWindow.darkFillScreen();
+        mSearchWindow.darkBelow(ll_common_title);
+        mSearchWindow.showAsDropDown(belowView, 0, 1);
+//        mSearchWindow.showAtLocation(belowView, Gravity.TOP, 0, 0);
     }
 
     private void dismissPopupWindow() {
-        if (null != popupWindow && popupWindow.isShowing())
-            popupWindow.dismiss();
+        if (null != mSearchWindow && mSearchWindow.isShowing()) {
+            mSearchWindow.dismiss();
+            mSearchView.setQuery(null, false);
+        } else if (null != mFilterWindow && mFilterWindow.isShowing())
+            mFilterWindow.dismiss();
     }
 
     private void measureView(View child) {
@@ -198,7 +265,7 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != response && position <= (response.getMsg().size() - 1)) {
+        if (null != mFilterData && position <= (mFilterData.size() - 1)) {
             showTitle();
             vp_shops.setCurrentItem(position);
         }
@@ -212,4 +279,26 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
     public void hideTitle() {
         ll_common_title.setVisibility(View.GONE);
     }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        doSearch(query.trim());
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (null != newText && 10 < newText.length())
+            return true;
+        return false;
+    }
+
+    public int getHeaderHeight() {
+        return ll_common_title != null ? ll_common_title.getMeasuredHeight() : 0;
+    }
+
+    public View getHeaderView() {
+        return ll_common_title;
+    }
+
 }
