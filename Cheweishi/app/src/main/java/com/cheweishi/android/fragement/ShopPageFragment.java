@@ -179,10 +179,6 @@ public class ShopPageFragment extends BaseFragment implements PullToRefreshBase.
         } else if (!isEmpty) { // 已经添加了
             isEmpty = true;
             list = temp;
-//            adapter.setData(list);
-//            EmptyTools.setEmptyView(baseContext, recyclerView);
-//            EmptyTools.setImg(R.drawable.mycar_icon);
-//            EmptyTools.setMessage("当前列表没有商品信息");
         }
 
         adapter.setData(list);
@@ -238,6 +234,7 @@ public class ShopPageFragment extends BaseFragment implements PullToRefreshBase.
                 mSortType = "RECOMMEND";
                 break;
         }
+        isHeadRefresh = true;
         sendPacket(0, currentId, mSortType, mKeyWord);
     }
 }
