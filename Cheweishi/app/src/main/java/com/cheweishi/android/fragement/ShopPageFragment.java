@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ShopPageFragment extends BaseFragment implements AdapterView.OnItemClickListener, PullToRefreshBase.OnRefreshListener2 {
+public class ShopPageFragment extends BaseFragment implements AdapterView.OnItemClickListener, PullToRefreshBase.OnRefreshListener2, View.OnTouchListener {
 
     public static final String ARG_PAGE = "ARG_PAGE";
 
@@ -121,48 +121,6 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
         gridView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         gridView.setOnRefreshListener(this);
         gridView.setOnItemClickListener(this);
-        gridView.getRefreshableView().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_MOVE:
-                        //(motionEvent.getY() - mInitialMotionY)+
-                        mLastMotionY = motionEvent.getY();
-                        float diff = mLastMotionY - mInitialMotionY;
-                        if (8 <= Math.abs(diff) && 0 > diff) { // 手指向上
-//                            Log.d("Tanck", "Up current y:" + diff);
-                            mCurrentDirection = 0;
-                        } else if (8 <= Math.abs(diff) && 0 < diff) {//手指向下
-//                            Log.d("Tanck", "Down current y:" + diff);
-                            mCurrentDirection = 1;
-                        } else {
-                            mCurrentDirection = -1;
-                        }
-
-//                        if (0 == mCurrentDirection) {
-////                            ((CarShopActivity) getActivity()).hideTitle();
-//                            mHeaderView.layout(0, (int) diff, mHeaderView.getWidth(), (int) (mHeaderView.getBottom() + diff));
-//                            mHeaderView.requestLayout();
-//                        } else if (1 == mCurrentDirection) {
-////                            ((CarShopActivity) getActivity()).showTitle();
-//                            mHeaderView.layout(0, (int) diff, mHeaderView.getWidth(), (int) (mHeaderView.getBottom() + diff));
-//                            mHeaderView.requestLayout();
-//                        }
-                        break;
-                    case MotionEvent.ACTION_DOWN:
-                        mInitialMotionY = motionEvent.getY();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if (0 == mCurrentDirection) {
-                            ((CarShopActivity) getActivity()).hideTitle();
-                        } else if (1 == mCurrentDirection) {
-                            ((CarShopActivity) getActivity()).showTitle();
-                        }
-                        break;
-                }
-                return false;
-            }
-        });
         isPrepared = true;
         onVisible();
     }
@@ -188,6 +146,8 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
             EmptyTools.setEmptyView(baseContext, gridView);
             EmptyTools.setImg(R.drawable.mycar_icon);
             EmptyTools.setMessage("当前列表没有商品信息");
+        } else if (6 < list.size()) {
+            gridView.getRefreshableView().setOnTouchListener(this);
         }
         ProgrosDialog.closeProgrosDialog();
     }
@@ -251,6 +211,10 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
             gridView.onRefreshComplete();
             gridView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         }
+
+        if (6 < list.size()) {
+            gridView.getRefreshableView().setOnTouchListener(this);
+        }
     }
 
     @Override
@@ -281,4 +245,34 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
     }
 
 
+    @Override
+    public boolean onTouch(View v, MotionEvent motionEvent) {
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_MOVE:
+                //(motionEvent.getY() - mInitialMotionY)+
+                mLastMotionY = motionEvent.getY();
+                float diff = mLastMotionY - mInitialMotionY;
+                if (8 <= Math.abs(diff) && 0 > diff) { // 手指向上
+//                            Log.d("Tanck", "Up current y:" + diff);
+                    mCurrentDirection = 0;
+                } else if (8 <= Math.abs(diff) && 0 < diff) {//手指向下
+//                            Log.d("Tanck", "Down current y:" + diff);
+                    mCurrentDirection = 1;
+                } else {
+                    mCurrentDirection = -1;
+                }
+                break;
+            case MotionEvent.ACTION_DOWN:
+                mInitialMotionY = motionEvent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                if (0 == mCurrentDirection) {
+                    ((CarShopActivity) getActivity()).hideTitle();
+                } else if (1 == mCurrentDirection) {
+                    ((CarShopActivity) getActivity()).showTitle();
+                }
+                break;
+        }
+        return false;
+    }
 }
