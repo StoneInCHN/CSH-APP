@@ -21,6 +21,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Window;
 import android.widget.ListView;
@@ -45,7 +46,7 @@ import java.io.File;
  *
  * @author zhangq
  */
-public abstract class BaseActivity extends FragmentActivity implements
+public abstract class BaseActivity extends AppCompatActivity implements
         JSONCallback {
     public static final int MY_CAMEAR_PREMESSION = 0; // 拍照
     public static final int MY_LOCATION_PREMESSION = 1; // 定位

@@ -1,5 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_backgroud"
@@ -10,13 +9,35 @@
         android:layout_height="1dp"
         android:background="@color/line_gray" />
 
-    <com.handmark.pulltorefresh.library.PullToRefreshGridView
-        android:id="@+id/prg_shops"
+    <com.handmark.pulltorefresh.library.PullToRefreshRecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:horizontalSpacing="@dimen/set_top_marging"
-        android:numColumns="2"
-        android:verticalSpacing="@dimen/set_top_marging"
-        android:scrollbars="none" />
+        android:scrollbars="none"
+        android:verticalSpacing="@dimen/set_top_marging" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/fl_shop_page_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_marging"
+            android:src="@drawable/mycar_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_marging"
+            android:text="当前列表没有商品信息"
+            android:textColor="@color/light_gray"
+            android:textSize="@dimen/titile_side_text_size" />
+
+    </LinearLayout>
+</RelativeLayout>

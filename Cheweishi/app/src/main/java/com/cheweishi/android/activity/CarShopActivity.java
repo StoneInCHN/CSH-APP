@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,11 +68,12 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
     private ImageView right_action;//右边查询
 
-    private View ll_common_title;
 
     private List<ShopTypeResponse.MsgBean> mTempData;
 
     private SparseArray<String> mFilterData = new SparseArray<>();//筛选条件数据
+
+    private Toolbar toolbar;//顶部标题
 
 
 //    private ShopTypeResponse response;
@@ -86,7 +88,7 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
     private void init() {
 
-        ll_common_title = findViewById(R.id.ll_common_title);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         left_action = (Button) findViewById(R.id.left_action);
 
@@ -123,6 +125,8 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
         mFilterData.put(0, "价格由低到高");
         mFilterData.put(1, "销量由高到低");
         mFilterData.put(2, "智能推荐");
+        toolbar.setTitle("");// 标题的文字需在setSupportActionBar之前，不然会无效
+        setSupportActionBar(toolbar);
         sendPacket();
     }
 
@@ -168,7 +172,7 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.right_action: // search
 //                doSearch("");
-                showSearchPopup(ll_common_title);
+                showSearchPopup(toolbar);
                 break;
         }
     }
@@ -220,7 +224,7 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
         mSearchWindow.setDarkStyle(-1);
         mSearchWindow.setDarkColor(Color.parseColor("#a0000000"));
         mSearchWindow.darkFillScreen();
-        mSearchWindow.darkBelow(ll_common_title);
+        mSearchWindow.darkBelow(toolbar);
         mSearchWindow.showAsDropDown(belowView, 0, 1);
 //        mSearchWindow.showAtLocation(belowView, Gravity.TOP, 0, 0);
     }
@@ -266,19 +270,11 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (null != mFilterData && position <= (mFilterData.size() - 1)) {
-            showTitle();
             vp_shops.setCurrentItem(position);
         }
         dismissPopupWindow();
     }
 
-    public void showTitle() {
-        ll_common_title.setVisibility(View.VISIBLE);
-    }
-
-    public void hideTitle() {
-        ll_common_title.setVisibility(View.GONE);
-    }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
@@ -293,12 +289,5 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
         return false;
     }
 
-    public int getHeaderHeight() {
-        return ll_common_title != null ? ll_common_title.getMeasuredHeight() : 0;
-    }
-
-    public View getHeaderView() {
-        return ll_common_title;
-    }
 
 }

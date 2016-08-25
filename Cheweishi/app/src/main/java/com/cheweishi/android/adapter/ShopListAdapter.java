@@ -1,6 +1,7 @@
 package com.cheweishi.android.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,12 +20,21 @@ import java.util.List;
 /**
  * Created by tangce on 7/19/2016.
  */
-public class ShopListAdapter extends BaseAdapter {
+public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHolder> {
 
     private Context context;
 
     private List<ShopListResponse.MsgBean> list;
 
+    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
+    public interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view, int position);
+    }
 
     public ShopListAdapter(Context context, List<ShopListResponse.MsgBean> list) {
         this.context = context;
@@ -37,13 +47,16 @@ public class ShopListAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
-        return list.size();
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(View.inflate(context, R.layout.item_shop_list, null));
     }
 
     @Override
-    public Object getItem(int position) {
-        return list.get(position);
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        XUtilsImageLoader.getHomeAdvImg(context, R.drawable.udesk_defualt_failure, holder.icon, list.get(position).getImage());
+        holder.desc.setText(list.get(position).getName());
+        holder.buyCount.setText(list.get(position).getSales() + "人已购");
+        holder.money.setText(list.get(position).getPrice());
     }
 
     @Override
@@ -52,37 +65,30 @@ public class ShopListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        ViewHolder holder = null;
-
-        if (null == convertView) {
-            holder = new ViewHolder();
-            convertView = View.inflate(context, R.layout.item_shop_list, null);
-            holder.icon = (ImageView) convertView.findViewById(R.id.iv_shop_item_img);
-            holder.desc = (TextView) convertView.findViewById(R.id.tv_shop_item_desc);
-            holder.buyCount = (TextView) convertView.findViewById(R.id.tv_shop_item_buy_count);
-            holder.money = (TextView) convertView.findViewById(R.id.tv_shop_item_money);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        XUtilsImageLoader.getHomeAdvImg(context, R.drawable.udesk_defualt_failure, holder.icon, list.get(position).getImage());
-        holder.desc.setText(list.get(position).getName());
-        holder.buyCount.setText(list.get(position).getSales() + "人已购");
-        holder.money.setText(list.get(position).getPrice());
-
-//        holder.desc.setText();
-
-        return convertView;
+    public int getItemCount() {
+        return list.size();
     }
 
-    private class ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView icon;
         private TextView desc;
         private TextView money;
         private TextView buyCount;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(this);
+            icon = (ImageView) itemView.findViewById(R.id.iv_shop_item_img);
+            desc = (TextView) itemView.findViewById(R.id.tv_shop_item_desc);
+            buyCount = (TextView) itemView.findViewById(R.id.tv_shop_item_buy_count);
+            money = (TextView) itemView.findViewById(R.id.tv_shop_item_money);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(null!=mOnItemClickListener)
+                mOnItemClickListener.onItemClick(v,getPosition());
+        }
     }
 
 }

@@ -3,20 +3,16 @@ package com.cheweishi.android.fragement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewConfigurationCompat;
-import android.text.method.Touch;
-import android.util.Log;
-import android.view.DragEvent;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.GridView;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.activity.CarShopActivity;
 import com.cheweishi.android.activity.ProductDetailActivity;
 import com.cheweishi.android.adapter.ShopListAdapter;
 import com.cheweishi.android.config.NetInterface;
@@ -26,10 +22,8 @@ import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
-import com.cheweishi.android.widget.XListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshGridView;
-import com.nineoldandroids.view.ViewHelper;
+import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ShopPageFragment extends BaseFragment implements AdapterView.OnItemClickListener, PullToRefreshBase.OnRefreshListener2, View.OnTouchListener {
+public class ShopPageFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2, ShopListAdapter.OnRecyclerViewItemClickListener {
 
     public static final String ARG_PAGE = "ARG_PAGE";
 
@@ -54,7 +48,9 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
 
     private boolean isLoaded;//是否已经联网加载过数据了
 
-    private PullToRefreshGridView gridView;
+    private PullToRefreshRecyclerView recyclerView;
+
+    private LinearLayout fl_shop_page_empty;//空布局
 
     private int currentPage = 1;
 
@@ -74,17 +70,6 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
 
     private String mKeyWord;//当前关键字
 
-    private float mLastMotionY;//上次位置
-
-    private float mInitialMotionY;//手指点下初始化位置
-
-    private int mCurrentDirection = -1;//当前方向.0:向上,1:向下
-
-    private int mTitleHeight;//顶部标题高度
-
-    private View mHeaderView;//顶部整个视图
-
-    private boolean mNeedIntercept = false;//是否需要拦截
 
     public static ShopPageFragment newInstance(int page, int id, String name) {
         Bundle args = new Bundle();
@@ -113,14 +98,15 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mHeaderView = ((CarShopActivity) getActivity()).getHeaderView();
-        mTitleHeight = ((CarShopActivity) getActivity()).getHeaderHeight();
-        gridView = (PullToRefreshGridView) view.findViewById(R.id.prg_shops);
+        fl_shop_page_empty = (LinearLayout) view.findViewById(R.id.fl_shop_page_empty);
+        recyclerView = ((PullToRefreshRecyclerView) ((RelativeLayout) view).getChildAt(1));
         adapter = new ShopListAdapter(baseContext, list);
-        gridView.setAdapter(adapter);
-        gridView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        gridView.setOnRefreshListener(this);
-        gridView.setOnItemClickListener(this);
+        adapter.setOnItemClickListener(this);
+        recyclerView.getRefreshableView().setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.getRefreshableView().setAdapter(adapter);
+        recyclerView.getRefreshableView().setEmptyView(fl_shop_page_empty);
+        recyclerView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        recyclerView.setOnRefreshListener(this);
         isPrepared = true;
         onVisible();
     }
@@ -143,11 +129,9 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
                 mKeyWord = currentName;
             sendPacket(0, currentId, mSortType, mKeyWord);
         } else if (0 == list.size()) {
-            EmptyTools.setEmptyView(baseContext, gridView);
-            EmptyTools.setImg(R.drawable.mycar_icon);
-            EmptyTools.setMessage("当前列表没有商品信息");
-        } else if (6 < list.size()) {
-            gridView.getRefreshableView().setOnTouchListener(this);
+//            EmptyTools.setEmptyView(baseContext, recyclerView);
+//            EmptyTools.setImg(R.drawable.mycar_icon);
+//            EmptyTools.setMessage("当前列表没有商品信息");
         }
         ProgrosDialog.closeProgrosDialog();
     }
@@ -178,7 +162,7 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
         if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
             ProgrosDialog.closeProgrosDialog();
             showToast(response.getDesc());
-            gridView.onRefreshComplete();
+            recyclerView.onRefreshComplete();
             return;
         }
         List<ShopListResponse.MsgBean> temp = response.getMsg();
@@ -196,32 +180,22 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
             isEmpty = true;
             list = temp;
 //            adapter.setData(list);
-            EmptyTools.setEmptyView(baseContext, gridView);
-            EmptyTools.setImg(R.drawable.mycar_icon);
-            EmptyTools.setMessage("当前列表没有商品信息");
+//            EmptyTools.setEmptyView(baseContext, recyclerView);
+//            EmptyTools.setImg(R.drawable.mycar_icon);
+//            EmptyTools.setMessage("当前列表没有商品信息");
         }
 
         adapter.setData(list);
         loginResponse.setToken(response.getToken());
         ProgrosDialog.closeProgrosDialog();
         if (list.size() < total) {
-            gridView.onRefreshComplete();
-            gridView.setMode(PullToRefreshBase.Mode.BOTH);
+            recyclerView.onRefreshComplete();
+            recyclerView.setMode(PullToRefreshBase.Mode.BOTH);
         } else {
-            gridView.onRefreshComplete();
-            gridView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+            recyclerView.onRefreshComplete();
+            recyclerView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         }
 
-        if (6 < list.size()) {
-            gridView.getRefreshableView().setOnTouchListener(this);
-        }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        LogHelper.d("onItemClick:" + position);
-        Intent detail = new Intent(baseContext, ProductDetailActivity.class);
-        startActivity(detail);
     }
 
 
@@ -246,33 +220,9 @@ public class ShopPageFragment extends BaseFragment implements AdapterView.OnItem
 
 
     @Override
-    public boolean onTouch(View v, MotionEvent motionEvent) {
-        switch (motionEvent.getAction()) {
-            case MotionEvent.ACTION_MOVE:
-                //(motionEvent.getY() - mInitialMotionY)+
-                mLastMotionY = motionEvent.getY();
-                float diff = mLastMotionY - mInitialMotionY;
-                if (8 <= Math.abs(diff) && 0 > diff) { // 手指向上
-//                            Log.d("Tanck", "Up current y:" + diff);
-                    mCurrentDirection = 0;
-                } else if (8 <= Math.abs(diff) && 0 < diff) {//手指向下
-//                            Log.d("Tanck", "Down current y:" + diff);
-                    mCurrentDirection = 1;
-                } else {
-                    mCurrentDirection = -1;
-                }
-                break;
-            case MotionEvent.ACTION_DOWN:
-                mInitialMotionY = motionEvent.getY();
-                break;
-            case MotionEvent.ACTION_UP:
-                if (0 == mCurrentDirection) {
-                    ((CarShopActivity) getActivity()).hideTitle();
-                } else if (1 == mCurrentDirection) {
-                    ((CarShopActivity) getActivity()).showTitle();
-                }
-                break;
-        }
-        return false;
+    public void onItemClick(View view, int position) {
+        LogHelper.d("onItemClick:" + position);
+        Intent detail = new Intent(baseContext, ProductDetailActivity.class);
+        startActivity(detail);
     }
 }
