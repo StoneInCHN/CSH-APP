@@ -20,6 +20,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/bt_product_detail_addCart"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
@@ -73,12 +74,12 @@
 
 
                 <TextView
+                    android:id="@+id/tv_product_detail_full_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/normal_marging"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="QQ币"
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/item_content_size" />
 
@@ -100,7 +101,8 @@
                             android:layout_centerVertical="true"
                             android:text="￥"
                             android:textColor="@color/red"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tv_shop_item_money"
@@ -110,14 +112,16 @@
                             android:layout_toRightOf="@id/tv_shop_detail_left"
                             android:text="0"
                             android:textColor="@color/red"
-                            android:textSize="18sp" />
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_product_detail_buy_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:text="100个人购买"
+                            android:text="0个人购买"
                             android:textColor="@color/light_gray"
                             android:textSize="14sp" />
 
@@ -149,6 +153,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/normal_marging"
                     android:background="@color/white"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:padding="@dimen/normal_padding">
 
                     <TextView
@@ -320,9 +326,10 @@
                     android:padding="@dimen/normal_padding">
 
                     <TextView
+                        android:id="@+id/tv_product_detail_user_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/user_common"
+                        android:text="@string/user_comment"
                         android:textColor="@color/black"
                         android:textSize="@dimen/item_content_size" />
 
@@ -331,7 +338,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="@string/no_user_common"
+                        android:text="@string/no_user_comment"
                         android:textColor="@color/deep_orange"
                         android:textSize="@dimen/text_size_medium" />
 
@@ -347,7 +354,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/more_back"
-                    android:padding="@dimen/normal_padding">
+                    android:padding="@dimen/normal_padding"
+                    android:visibility="gone">
 
 
                     <com.cheweishi.android.widget.XCRoundImageView
@@ -365,7 +373,6 @@
                         android:layout_marginLeft="@dimen/divice_main"
                         android:layout_marginTop="@dimen/divice_main"
                         android:layout_toRightOf="@id/xiv_product_common_user"
-                        android:text="Tanck"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_small" />
 
@@ -376,7 +383,6 @@
                         android:layout_below="@id/tv_product_common_user_name"
                         android:layout_marginLeft="@dimen/divice_main"
                         android:layout_toRightOf="@id/xiv_product_common_user"
-                        android:text="2016-8-22 14:19:28"
                         android:textColor="@color/light_gray"
                         android:textSize="@dimen/text_size_small" />
 
@@ -389,7 +395,6 @@
                         android:ellipsize="end"
                         android:gravity="right"
                         android:maxLines="2"
-                        android:text="好评!!"
                         android:textColor="@color/light_gray"
                         android:textSize="@dimen/text_size_small" />
 
@@ -405,8 +410,8 @@
 
         <LinearLayout
             android:id="@+id/ll_product_detail_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="@dimen/normal_marging"
             android:layout_marginTop="@dimen/normal_marging"
             android:background="@drawable/tenant_title_back"
@@ -420,26 +425,28 @@
 
         <FrameLayout
             android:id="@+id/ll_shop_buy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/normal_marging"
-            android:layout_marginTop="@dimen/normal_marging"
-            android:background="@drawable/tenant_title_back">
+            android:layout_alignTop="@id/ll_product_detail_title"
+            android:layout_marginRight="@dimen/normal_marging">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
+                android:background="@drawable/tenant_title_back"
+                android:padding="@dimen/small_padding"
                 android:src="@drawable/shop_buy_white" />
 
             <TextView
                 android:id="@+id/tv_product_cart_number"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="right"
                 android:background="@drawable/message_notice"
                 android:gravity="center"
+                android:text="99+"
                 android:textColor="@color/white"
                 android:textSize="10sp"
                 android:visibility="gone" />

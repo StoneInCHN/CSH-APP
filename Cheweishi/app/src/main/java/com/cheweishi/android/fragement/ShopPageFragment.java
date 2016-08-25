@@ -217,8 +217,8 @@ public class ShopPageFragment extends BaseFragment implements PullToRefreshBase.
 
     @Override
     public void onItemClick(View view, int position) {
-        LogHelper.d("onItemClick:" + position);
         Intent detail = new Intent(baseContext, ProductDetailActivity.class);
+        detail.putExtra("productId", list.get(position).getId());
         startActivity(detail);
     }
 

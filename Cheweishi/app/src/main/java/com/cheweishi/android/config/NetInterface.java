@@ -5,7 +5,7 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-//    public static final String BASE_URL = "http://120.27.92.247:10001";// 生产服务器路径
+    //    public static final String BASE_URL = "http://120.27.92.247:10001";// 生产服务器路径
     public static final String BASE_URL = "http://120.27.27.99:10001";// 测试服务器路径
 //    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
@@ -48,6 +48,8 @@ public class NetInterface {
     public static final String TEMP_NEWS = "/csh-interface/news/";//新闻相关
 
     public static final String TEMP_SHOP = "/csh-interface/estore/product/";//电商相关
+
+    public static final String TEMP_SHOP_CART = "/csh-interface/estore/cart/";//购物车相关
 
     public static final String HEADER_ALL = BASE_URL + TEMP_URL;
 
@@ -95,7 +97,7 @@ public class NetInterface {
 
     public static final String QUERY_CAR_THERE = "getVehicleBrandDetailByLine";// 三级
 
-    public static final String ADD = "add";// 添加反馈
+    public static final String ADD = "add";// 添加反馈.商品
 
     public static final String LOGOUT = "logout";//注销
 
@@ -174,6 +176,10 @@ public class NetInterface {
     public static final String GET_SHOP_CATEGORY = "getCategory";//获取商品分类
 
     public static final String GET_PAY_COUPON_RED = "getCouponAndGiftForPay";//获取支付时可用优惠券及可用红包及可用洗车券
+
+    public static final String GET_PRODUCT_INFO = "details";//商品详情
+
+    public static final String DELETE = "delete";//删除商品
 
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 

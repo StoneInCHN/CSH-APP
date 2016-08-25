@@ -1603,11 +1603,14 @@
     <string name="shop_service_desc">服务介绍</string>
     <string name="shop_normal_issue">常见问题</string>
     <string name="shop_normal_help">购买帮助</string>
-    <string name="user_common">用户评价(0)</string>
-    <string name="no_user_common">暂无评价</string>
+    <string name="user_comment">用户评价(0)</string>
+    <string name="no_user_comment">暂无评价</string>
     <string name="add_buy_car">加入购物车</string>
     <string name="now_buy">立即购买</string>
     <string name="shop_detail">商品详情</string>
     <string name="shop_email">正品全国包邮</string>
+    <string name="get_product_info_error">获取商品信息失败</string>
+    <string name="get_comment_more">查看更多</string>
+    <string name="add_cart_success">添加成功</string>
 
 </resources>

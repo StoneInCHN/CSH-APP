@@ -15,28 +15,43 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
+import com.cheweishi.android.biz.XUtilsImageLoader;
+import com.cheweishi.android.config.Constant;
+import com.cheweishi.android.config.NetInterface;
+import com.cheweishi.android.dialog.ProgrosDialog;
+import com.cheweishi.android.entity.ProductDetailResponse;
 import com.cheweishi.android.interfaces.ScrollViewListener;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.thirdpart.adapter.CBPageAdapter;
 import com.cheweishi.android.thirdpart.holder.CBViewHolderCreator;
-import com.cheweishi.android.thirdpart.holder.CommonNetWorkImgHolder;
+import com.cheweishi.android.thirdpart.holder.ProductDetailImgHolder;
 import com.cheweishi.android.thirdpart.view.CBLoopViewPager;
+import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.MyScrollView;
+import com.cheweishi.android.widget.XCRoundImageView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.nineoldandroids.view.ViewHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by tangce on 8/12/2016.
  */
 public class ProductDetailActivity extends BaseActivity implements ScrollViewListener, ViewPager.OnPageChangeListener, TextWatcher {
+
+    private final String MORE_99 = "99+";
 
     @ViewInject(R.id.left_action)
     private Button left_action; // 左标题
@@ -90,13 +105,42 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
     @ViewInject(R.id.iv_product_detail_num_les)
     private ImageView num_les;//减少
 
+    @ViewInject(R.id.tv_product_detail_full_name)
+    private TextView tv_product_detail_full_name;//商品名字
+
+    @ViewInject(R.id.tv_product_detail_buy_number)
+    private TextView tv_product_detail_buy_number; // 当前购买人数
+
+    @ViewInject(R.id.tv_product_detail_user_comment)
+    private TextView tv_product_detail_user_comment;// 用户评论人数
+
+    @ViewInject(R.id.xiv_product_common_user)
+    private XCRoundImageView xiv_product_common_user;//评论人的头像
+
+    @ViewInject(R.id.tv_product_common_user_name)
+    private TextView tv_product_common_user_name; // 评论人的名字
+
+    @ViewInject(R.id.tv_product_common_time)
+    private TextView tv_product_common_time;// 评论人的评论时间
+
+    @ViewInject(R.id.tv_product_common_content)
+    private TextView tv_product_common_content;// 评论的内容
+
+    @ViewInject(R.id.rl_product_detail_more)
+    private RelativeLayout rl_product_detail_more;//评论视图
+
+    @ViewInject(R.id.tv_shop_item_money)
+    private TextView tv_shop_item_money; // 购买价格
+
     private int headerHeight; // 顶部标题的高度
 
-    private List<String> list = new ArrayList<>();// 图片url
+    private List<ProductDetailResponse.MsgBean.ProductImagesBean> list = new ArrayList<>();// 图片url
 
     private CBPageAdapter adapter; // 图片适配器
 
     private int mBuynumber = 1; // 购买数量
+
+    private int mCurrentProDuctId;//当前商品id
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,22 +159,75 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
         et_product_detail_num.addTextChangedListener(this);
         sv_product_detail.setScrollViewListener(this);
         vp_product_detail.setOnPageChangeListener(this);
-        for (int i = 0; i < 1; i++) {
-            list.add("");
-        }
+        mCurrentProDuctId = getIntent().getIntExtra("productId", -1);
         adapter = new CBPageAdapter(new MyHolder(), list, this);
         vp_product_detail.setAdapter(adapter, true);
         drawPoint(0);
+        getProductInfoPacket(mCurrentProDuctId);
+    }
+
+    @Override
+    public void receive(String TAG, String data) {
+
+        switch (TAG) {
+            case NetInterface.GET_PRODUCT_INFO: // 获取商品详情
+                ProductDetailResponse detailResponse = (ProductDetailResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ProductDetailResponse.class);
+                if (!detailResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(detailResponse.getDesc());
+                    return;
+                }
 
 
-        tv_product_cart_number.setVisibility(View.VISIBLE);
-        tv_product_cart_number.setText("1");
-        tv_common_title_number.setVisibility(View.VISIBLE);
-        tv_common_title_number.setText("1");
+                // 设置广告
+                List<ProductDetailResponse.MsgBean.ProductImagesBean> tempImg = detailResponse.getMsg().getProductImages();
+
+                if (null != tempImg && 0 < tempImg.size()) {
+                    list = tempImg;
+                    adapter.notifyDataSetChanged();
+                }
+
+
+                tv_product_detail_full_name.setText(detailResponse.getMsg().getFullName());
+                tv_product_detail_buy_number.setText(detailResponse.getMsg().getSales() + "个人购买");
+                tv_product_detail_user_comment.setText("用户评价(" + detailResponse.getMsg().getReviewCount() + ")");
+
+                if (0 < Integer.valueOf(detailResponse.getMsg().getReviewCount())) { // 评论输了大于0的情况
+                    rl_product_detail_more.setVisibility(View.VISIBLE);
+                    tv_product_detail_right_more.setText(getString(R.string.get_comment_more));
+                    XUtilsImageLoader.getxUtilsImageLoader(baseContext, R.drawable.info_touxiang_moren, xiv_product_common_user, detailResponse.getMsg().getReviews().get(0).getMember().getPhoto());
+                    tv_product_common_user_name.setText(detailResponse.getMsg().getReviews().get(0).getMember().getUserName());
+                    tv_product_common_time.setText(transferLongToDate(detailResponse.getMsg().getReviews().get(0).getCreateDate()));
+                    tv_product_common_content.setText(detailResponse.getMsg().getReviews().get(0).getContent());
+                }
+
+                tv_shop_item_money.setText(detailResponse.getMsg().getPrice());
+
+                UpdateBuyCartNumber(0, Integer.valueOf(detailResponse.getMsg().getCartProductCount()));
+
+                loginResponse.setToken(detailResponse.getToken());
+                break;
+            case NetInterface.ADD:// 添加到购物车
+                BaseResponse add = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+                if (!add.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    showToast(add.getDesc());
+                    return;
+                }
+
+                //更新数量
+                showToast(getString(R.string.add_cart_success));
+
+                UpdateBuyCartNumber(1, mBuynumber);
+
+                loginResponse.setToken(add.getToken());
+                break;
+        }
+
+
+        ProgrosDialog.closeProgrosDialog();
     }
 
     @OnClick({R.id.left_action, R.id.ll_product_img_txt_detail, R.id.ll_product_detail_param, R.id.rl_product_detail_more
-            , R.id.tv_product_detail_right_more, R.id.iv_product_detail_num_les, R.id.iv_product_detail_num_add})
+            , R.id.tv_product_detail_right_more, R.id.iv_product_detail_num_les, R.id.iv_product_detail_num_add, R.id.bt_product_detail_addCart})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_action:
@@ -159,7 +256,56 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
                 ++mBuynumber;
                 et_product_detail_num.setText(String.valueOf(99 < mBuynumber ? 99 : mBuynumber));
                 break;
+            case R.id.bt_product_detail_addCart: // 加入购物车
+                addProductToBuyCartNowPacket(mCurrentProDuctId, mBuynumber);
+                break;
         }
+    }
+
+
+    /**
+     * 更新购物车
+     *
+     * @param type   1:增加的数量  0:直接显示数量
+     * @param number 数量
+     */
+    private void UpdateBuyCartNumber(int type, int number) {
+        if (StringUtil.isEmpty(number))
+            return;
+        else if (0 == type && 0 == number) {
+            tv_product_cart_number.setVisibility(View.GONE);
+            tv_common_title_number.setVisibility(View.GONE);
+            return;
+        }
+
+        if (1 == type) { // 非直接显示
+            try {
+                number += Integer.valueOf(tv_product_cart_number.getText().toString());
+            } catch (Exception e) {
+                number = 100;//标识超过99 flag
+            }
+        }
+        tv_product_cart_number.setVisibility(View.VISIBLE);
+        tv_common_title_number.setVisibility(View.VISIBLE);
+        if (99 < number) {
+            tv_product_cart_number.setText(MORE_99);
+            tv_common_title_number.setText(MORE_99);
+        } else {
+            tv_product_cart_number.setText(String.valueOf(number));
+            tv_common_title_number.setText(String.valueOf(number));
+        }
+    }
+
+    /**
+     * 把毫秒转化成日期
+     *
+     * @param millSec(毫秒数)
+     * @return
+     */
+    private String transferLongToDate(Long millSec) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = new Date(millSec);
+        return sdf.format(date);
     }
 
 
@@ -186,6 +332,8 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
     }
 
     private void drawPoint(int position) {
+        if (null == list || 0 == list.size())
+            return;
         int radius = 10; // 半径
         int spacing = 50; // 点之间间隔
         Bitmap points = Bitmap.createBitmap(radius * 2 + spacing * (list.size() - 1), radius * 2, Bitmap.Config.ARGB_8888);
@@ -232,11 +380,11 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
     }
 
 
-    private class MyHolder implements CBViewHolderCreator<CommonNetWorkImgHolder> {
+    private class MyHolder implements CBViewHolderCreator<ProductDetailImgHolder> {
 
         @Override
-        public CommonNetWorkImgHolder createHolder() {
-            return new CommonNetWorkImgHolder();
+        public ProductDetailImgHolder createHolder() {
+            return new ProductDetailImgHolder();
         }
     }
 
@@ -254,4 +402,51 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
     public void onPageScrollStateChanged(int state) {
 
     }
+
+
+    /**
+     * 根据商品id获取商品详细
+     *
+     * @param id 商品id
+     */
+    private void getProductInfoPacket(int id) {
+        if (-1 == id) {
+            showToast(getString(R.string.get_product_info_error));
+            return;
+        }
+
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_SHOP + NetInterface.GET_PRODUCT_INFO + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("productId", id);
+        param.put(Constant.PARAMETER_TAG, NetInterface.GET_PRODUCT_INFO);
+        netWorkHelper.PostJson(url, param, this);
+    }
+
+
+    /**
+     * 加入购物车
+     *
+     * @param id     商品id
+     * @param number 购买数量
+     */
+    private void addProductToBuyCartNowPacket(int id, int number) {
+        if (-1 == id) {
+            showToast(getString(R.string.get_product_info_error));
+            return;
+        }
+
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_SHOP_CART + NetInterface.ADD + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("productId", id);
+        param.put("quantity", number);
+        param.put(Constant.PARAMETER_TAG, NetInterface.ADD);
+        netWorkHelper.PostJson(url, param, this);
+    }
+
+
 }
