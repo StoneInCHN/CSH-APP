@@ -426,7 +426,7 @@
         <FrameLayout
             android:id="@+id/ll_shop_buy"
             android:layout_width="40dp"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@id/ll_product_detail_title"
             android:layout_marginRight="@dimen/normal_marging">
@@ -434,7 +434,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/tenant_title_back"
                 android:padding="@dimen/small_padding"
                 android:src="@drawable/shop_buy_white" />
@@ -446,7 +446,6 @@
                 android:layout_gravity="right"
                 android:background="@drawable/message_notice"
                 android:gravity="center"
-                android:text="99+"
                 android:textColor="@color/white"
                 android:textSize="10sp"
                 android:visibility="gone" />
