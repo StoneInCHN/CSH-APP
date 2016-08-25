@@ -23,6 +23,7 @@ import com.cheweishi.android.adapter.ShopFragmentPagerAdapter;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ShopTypeResponse;
+import com.cheweishi.android.fragement.ShopPageFragment;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.ScreenUtils;
@@ -269,8 +270,9 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        LogHelper.d("onItemClick:" + position);
         if (null != mFilterData && position <= (mFilterData.size() - 1)) {
-            vp_shops.setCurrentItem(position);
+            ((ShopPageFragment) adapter.getItem(vp_shops.getCurrentItem())).setSortType(position);
         }
         dismissPopupWindow();
     }

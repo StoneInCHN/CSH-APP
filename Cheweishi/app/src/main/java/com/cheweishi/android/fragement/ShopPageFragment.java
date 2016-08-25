@@ -225,4 +225,19 @@ public class ShopPageFragment extends BaseFragment implements PullToRefreshBase.
         Intent detail = new Intent(baseContext, ProductDetailActivity.class);
         startActivity(detail);
     }
+
+    public void setSortType(int p) {
+        switch (p) {
+            case 0:
+                mSortType = "PRICEASC";
+                break;
+            case 1:
+                mSortType = "SALESDESC";
+                break;
+            case 2:
+                mSortType = "RECOMMEND";
+                break;
+        }
+        sendPacket(0, currentId, mSortType, mKeyWord);
+    }
 }

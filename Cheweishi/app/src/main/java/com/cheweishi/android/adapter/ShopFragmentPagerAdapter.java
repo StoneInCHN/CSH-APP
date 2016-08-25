@@ -4,12 +4,14 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.SparseArray;
 
 import com.cheweishi.android.entity.NewsTypeResponse;
 import com.cheweishi.android.entity.ShopTypeResponse;
 import com.cheweishi.android.fragement.NewsPageFragment;
 import com.cheweishi.android.fragement.ShopPageFragment;
 
+import java.lang.ref.SoftReference;
 import java.util.List;
 
 /**
@@ -17,13 +19,14 @@ import java.util.List;
  */
 public class ShopFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private Context context;
-
     private List<ShopTypeResponse.MsgBean> list;
+
+    private SparseArray<SoftReference<Fragment>> fragments = new SparseArray<>();
+
+    private Fragment f;
 
     public ShopFragmentPagerAdapter(FragmentManager fm, Context context, List<ShopTypeResponse.MsgBean> list) {
         super(fm);
-        this.context = context;
         this.list = list;
     }
 
@@ -34,7 +37,15 @@ public class ShopFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ShopPageFragment.newInstance(position, list.get(position).getId(),list.get(position).getName());
+        if (null != fragments.get(position)) {
+            f = fragments.get(position).get();
+            if (null != f)
+                return f;
+
+        }
+        f = ShopPageFragment.newInstance(position, list.get(position).getId(), list.get(position).getName());
+        fragments.put(position, new SoftReference<Fragment>(f));
+        return f;
     }
 
     @Override
