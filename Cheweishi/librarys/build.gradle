@@ -7,8 +7,8 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 4
-        targetSdkVersion 4
+        minSdkVersion 7
+        targetSdkVersion 7
     }
 
     buildTypes {
@@ -25,4 +25,5 @@ android {
 
 dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
 }
