@@ -531,6 +531,7 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
             case NetInterface.BUY_SERVICE: // 购买
                 PreparePayResponse preparePayResponse = (PreparePayResponse) GsonUtil.getInstance().convertJsonStringToObject(data, PreparePayResponse.class);
                 if (!preparePayResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    tv_wash_affirm.setClickable(true);
                     showToast(preparePayResponse.getDesc());
                     return;
                 }
