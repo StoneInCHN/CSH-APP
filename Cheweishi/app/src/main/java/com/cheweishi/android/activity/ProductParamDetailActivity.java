@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.adapter.ProductParamFragmentPagerAdapter;
+import com.cheweishi.android.entity.ProductDetailResponse;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -62,7 +63,7 @@ public class ProductParamDetailActivity extends BaseActivity {
         list.add("图文详情");
         list.add("产品参数");
         list.add("用户评价");
-        adapter = new ProductParamFragmentPagerAdapter(getSupportFragmentManager(), baseContext, list);
+        adapter = new ProductParamFragmentPagerAdapter(getSupportFragmentManager(), list, ((ProductDetailResponse) getIntent().getSerializableExtra("data")));
         vp_param_shop.setAdapter(adapter);
         tl_param_shop.setupWithViewPager(vp_param_shop);
         vp_param_shop.setCurrentItem(getIntent().getIntExtra("currentP", 0));

@@ -2,12 +2,13 @@ package com.cheweishi.android.entity;
 
 import com.cheweishi.android.response.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/8/25.
  */
-public class ProductDetailResponse extends BaseResponse {
+public class ProductDetailResponse extends BaseResponse implements Serializable{
 
     /**
      * image : null
@@ -34,7 +35,7 @@ public class ProductDetailResponse extends BaseResponse {
         this.msg = msg;
     }
 
-    public static class MsgBean {
+    public static class MsgBean implements Serializable{
         private String image;
         private int reviewCount;
         private String price;
@@ -163,7 +164,7 @@ public class ProductDetailResponse extends BaseResponse {
             this.reviews = reviews;
         }
 
-        public static class ProductImagesBean {
+        public static class ProductImagesBean implements Serializable{
             private String mobileicon;
             private int id;
 
@@ -184,7 +185,7 @@ public class ProductDetailResponse extends BaseResponse {
             }
         }
 
-        public static class ProductParamBean {
+        public static class ProductParamBean implements Serializable{
             private String name;
             private String value;
 
@@ -205,7 +206,7 @@ public class ProductDetailResponse extends BaseResponse {
             }
         }
 
-        public static class ReviewsBean {
+        public static class ReviewsBean implements Serializable{
             private int score;
             private String bizReply;
             /**
@@ -266,7 +267,7 @@ public class ProductDetailResponse extends BaseResponse {
                 this.createDate = createDate;
             }
 
-            public static class MemberBean {
+            public static class MemberBean implements Serializable{
                 private String userName;
                 private String photo;
 

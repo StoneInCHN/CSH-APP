@@ -83,6 +83,8 @@ public class BuyCartActivity extends BaseActivity implements PullToRefreshBase.O
 
     private boolean isAdd;//是否为添加
 
+    private PullToRefreshBase.Mode mCurrentMode = PullToRefreshBase.Mode.PULL_FROM_START;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -258,6 +260,7 @@ public class BuyCartActivity extends BaseActivity implements PullToRefreshBase.O
                 if (null == list || 0 == list.size())
                     return;
                 if (!isCheck) { // 编辑
+                    plr_buy_cart.setMode(PullToRefreshBase.Mode.DISABLED);
                     isCheck = true;
                     right_action.setText(getString(R.string.finish));
                     iv_bc_bottom_check.setImageResource(R.drawable.mess_yuan);
@@ -267,6 +270,11 @@ public class BuyCartActivity extends BaseActivity implements PullToRefreshBase.O
                     tv_bc_bottom_money.setVisibility(View.GONE);
                     clearCheck();
                 } else {
+                    if (list.size() < total) {
+                        plr_buy_cart.setMode(PullToRefreshBase.Mode.BOTH);
+                    } else {
+                        plr_buy_cart.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                    }
                     isCheck = false;
                     right_action.setText(getString(R.string.car_manager_edit));
                     iv_bc_bottom_check.setImageResource(R.drawable.mess_yuan_click);

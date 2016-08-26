@@ -242,11 +242,12 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
                 break;
             case R.id.ll_product_img_txt_detail: // 图文详情
                 Intent intent = new Intent(baseContext, ProductParamDetailActivity.class);
-                intent.putExtra("richImg", detailResponse.getMsg().getIntroduction());
+                intent.putExtra("data", detailResponse);
                 startActivity(intent);
                 break;
             case R.id.ll_product_detail_param: // 产品参数
                 Intent detail = new Intent(baseContext, ProductParamDetailActivity.class);
+                detail.putExtra("data", detailResponse);
                 detail.putExtra("currentP", 1);
                 startActivity(detail);
                 break;

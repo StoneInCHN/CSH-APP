@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.cheweishi.android.entity.ProductDetailResponse;
 import com.cheweishi.android.fragement.ProductParamPageFragment;
 
 import java.util.List;
@@ -14,19 +15,20 @@ import java.util.List;
  */
 public class ProductParamFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private Context context;
 
     private List<String> list;
 
-    public ProductParamFragmentPagerAdapter(FragmentManager fm, Context context, List<String> list) {
+    private ProductDetailResponse response;
+
+    public ProductParamFragmentPagerAdapter(FragmentManager fm, List<String> list, ProductDetailResponse data) {
         super(fm);
-        this.context = context;
         this.list = list;
+        this.response = data;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return ProductParamPageFragment.newInstance(position, list.get(position));
+        return ProductParamPageFragment.newInstance(position, list.get(position), response);
     }
 
     @Override
