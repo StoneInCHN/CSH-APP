@@ -31,6 +31,7 @@ import com.cheweishi.android.thirdpart.holder.CBViewHolderCreator;
 import com.cheweishi.android.thirdpart.holder.ProductDetailImgHolder;
 import com.cheweishi.android.thirdpart.view.CBLoopViewPager;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.MyScrollView;
 import com.cheweishi.android.widget.XCRoundImageView;
@@ -51,7 +52,9 @@ import java.util.Map;
  */
 public class ProductDetailActivity extends BaseActivity implements ScrollViewListener, ViewPager.OnPageChangeListener, TextWatcher {
 
-    private final String MORE_99 = "99+";
+    private static final String MORE_99 = "99+";
+
+    private static final String DEFAULT_NUMBER = "0";
 
     @ViewInject(R.id.left_action)
     private Button left_action; // 左标题
@@ -63,10 +66,10 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
     private LinearLayout right_action; // 右边
 
     @ViewInject(R.id.tv_common_title_number)
-    private TextView tv_common_title_number; // 购物车数量
+    public static TextView tv_common_title_number; // 购物车数量
 
     @ViewInject(R.id.tv_product_cart_number)
-    private TextView tv_product_cart_number;//购物车数量
+    public static TextView tv_product_cart_number;//购物车数量
 
     @ViewInject(R.id.sv_product_detail)
     private MyScrollView sv_product_detail;
@@ -142,6 +145,8 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
 
     private int mCurrentProDuctId;//当前商品id
 
+    private ProductDetailResponse detailResponse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,7 +176,7 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
 
         switch (TAG) {
             case NetInterface.GET_PRODUCT_INFO: // 获取商品详情
-                ProductDetailResponse detailResponse = (ProductDetailResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ProductDetailResponse.class);
+                detailResponse = (ProductDetailResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ProductDetailResponse.class);
                 if (!detailResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     showToast(detailResponse.getDesc());
                     return;
@@ -227,14 +232,17 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
     }
 
     @OnClick({R.id.left_action, R.id.ll_product_img_txt_detail, R.id.ll_product_detail_param, R.id.rl_product_detail_more
-            , R.id.tv_product_detail_right_more, R.id.iv_product_detail_num_les, R.id.iv_product_detail_num_add, R.id.bt_product_detail_addCart})
+            , R.id.tv_product_detail_right_more, R.id.iv_product_detail_num_les, R.id.iv_product_detail_num_add,
+            R.id.bt_product_detail_addCart, R.id.ll_shop_buy, R.id.ll_common_title_right, R.id.ll_product_detail_title})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.ll_product_detail_title:
             case R.id.left_action:
                 finish();
                 break;
             case R.id.ll_product_img_txt_detail: // 图文详情
                 Intent intent = new Intent(baseContext, ProductParamDetailActivity.class);
+                intent.putExtra("richImg", detailResponse.getMsg().getIntroduction());
                 startActivity(intent);
                 break;
             case R.id.ll_product_detail_param: // 产品参数
@@ -259,6 +267,12 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
             case R.id.bt_product_detail_addCart: // 加入购物车
                 addProductToBuyCartNowPacket(mCurrentProDuctId, mBuynumber);
                 break;
+            case R.id.ll_common_title_right://顶部购物车
+            case R.id.ll_shop_buy:
+                Intent buyCart = new Intent(baseContext, BuyCartActivity.class);
+//                buyCart.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(buyCart);
+                break;
         }
     }
 
@@ -269,18 +283,23 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
      * @param type   1:增加的数量  0:直接显示数量
      * @param number 数量
      */
-    private void UpdateBuyCartNumber(int type, int number) {
+    public static void UpdateBuyCartNumber(int type, int number) {
+        if (null == tv_common_title_number || null == tv_product_cart_number)
+            return;
         if (StringUtil.isEmpty(number))
             return;
         else if (0 == type && 0 == number) {
             tv_product_cart_number.setVisibility(View.GONE);
             tv_common_title_number.setVisibility(View.GONE);
+            tv_product_cart_number.setText(DEFAULT_NUMBER);
+            tv_common_title_number.setText(DEFAULT_NUMBER);
             return;
         }
 
         if (1 == type) { // 非直接显示
             try {
-                number += Integer.valueOf(tv_product_cart_number.getText().toString());
+                if (!StringUtil.isEmpty(tv_product_cart_number.getText().toString()))
+                    number += Integer.valueOf(tv_product_cart_number.getText().toString());
             } catch (Exception e) {
                 number = 100;//标识超过99 flag
             }

@@ -1064,11 +1064,13 @@
         <!--产品详情参数-->
         <activity
             android:name=".activity.ProductParamDetailActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <!--购物车-->
         <activity
             android:name=".activity.BuyCartActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
     </application>

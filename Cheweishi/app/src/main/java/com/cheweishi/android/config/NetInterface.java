@@ -181,6 +181,8 @@ public class NetInterface {
 
     public static final String DELETE = "delete";//删除商品
 
+    public static final String ADD_AND_LESS="oprNum";//增减商品
+
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 
 }

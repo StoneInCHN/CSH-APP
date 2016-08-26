@@ -1612,5 +1612,11 @@
     <string name="get_product_info_error">获取商品信息失败</string>
     <string name="get_comment_more">查看更多</string>
     <string name="add_cart_success">添加成功</string>
+    <string name="buy_cart">去结算</string>
+    <string name="total_money">合计:</string>
+    <string name="bug_cart">购物车</string>
+    <string name="error_info_less">商品数量不能小于1</string>
+    <string name="confirm_delete">确认删除选中的商品?</string>
+    <string name="confirm">确认</string>
 
 </resources>

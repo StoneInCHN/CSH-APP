@@ -12,15 +12,16 @@ public class ProductDetailResponse extends BaseResponse {
     /**
      * image : null
      * productImages : [{"mobileicon":null,"id":10},{"mobileicon":null,"id":11}]
-     * productParam : {"重量":"10kg","大小":"大","材质":"棉质"}
-     * reviews : {"score":12,"bizReply":"商家回复","member":{"userName":"15892999216","photo":"/upload/endUser/photo/src_8e97aef2-cb1d-4e71-9d83-081b96ddfe28.jpeg"},"id":2,"content":"1111111111111111","createDate":1461398979000}
-     * reviewCount : 0
+     * productParam : [{"name":"大小","value":"大"},{"name":"材质","value":"棉质"},{"name":"重量","value":"10kg"}]
+     * reviews : [{"score":21,"bizReply":"商家回复","member":{"userName":"18696546911","photo":"/upload/endUser/photo/src_8e97aef2-cb1d-4e71-9d83-081b96ddfe28.jpeg"},"id":1,"content":"1111111111111111","createDate":1461398979000}]
+     * reviewCount : 3
      * price : 601
      * cartProductCount : 0
-     * fullName : 熊猫座椅
+     * fullName : 熊猫座椅AAA
      * id : 2
+     * stock : 93
      * sales : null
-     * introduction : null
+     * introduction :
      */
 
     private MsgBean msg;
@@ -35,28 +36,12 @@ public class ProductDetailResponse extends BaseResponse {
 
     public static class MsgBean {
         private String image;
-        /**
-         * 重量 : 10kg
-         * 大小 : 大
-         * 材质 : 棉质
-         */
-
-//        private ProductParamBean productParam;
-        /**
-         * score : 12
-         * bizReply : 商家回复
-         * member : {"userName":"15892999216","photo":"/upload/endUser/photo/src_8e97aef2-cb1d-4e71-9d83-081b96ddfe28.jpeg"}
-         * id : 2
-         * content : 1111111111111111
-         * createDate : 1461398979000
-         */
-
-        private List<ReviewsBean> reviews;
-        private String reviewCount;
+        private int reviewCount;
         private String price;
         private String cartProductCount;
         private String fullName;
         private int id;
+        private int stock;
         private String sales;
         private String introduction;
         /**
@@ -65,6 +50,22 @@ public class ProductDetailResponse extends BaseResponse {
          */
 
         private List<ProductImagesBean> productImages;
+        /**
+         * name : 大小
+         * value : 大
+         */
+
+        private List<ProductParamBean> productParam;
+        /**
+         * score : 21
+         * bizReply : 商家回复
+         * member : {"userName":"18696546911","photo":"/upload/endUser/photo/src_8e97aef2-cb1d-4e71-9d83-081b96ddfe28.jpeg"}
+         * id : 1
+         * content : 1111111111111111
+         * createDate : 1461398979000
+         */
+
+        private List<ReviewsBean> reviews;
 
         public String getImage() {
             return image;
@@ -74,27 +75,11 @@ public class ProductDetailResponse extends BaseResponse {
             this.image = image;
         }
 
-//        public ProductParamBean getProductParam() {
-//            return productParam;
-//        }
-//
-//        public void setProductParam(ProductParamBean productParam) {
-//            this.productParam = productParam;
-//        }
-
-        public List<ReviewsBean> getReviews() {
-            return reviews;
-        }
-
-        public void setReviews(List<ReviewsBean> reviews) {
-            this.reviews = reviews;
-        }
-
-        public String getReviewCount() {
+        public int getReviewCount() {
             return reviewCount;
         }
 
-        public void setReviewCount(String reviewCount) {
+        public void setReviewCount(int reviewCount) {
             this.reviewCount = reviewCount;
         }
 
@@ -130,6 +115,14 @@ public class ProductDetailResponse extends BaseResponse {
             this.id = id;
         }
 
+        public int getStock() {
+            return stock;
+        }
+
+        public void setStock(int stock) {
+            this.stock = stock;
+        }
+
         public String getSales() {
             return sales;
         }
@@ -154,41 +147,69 @@ public class ProductDetailResponse extends BaseResponse {
             this.productImages = productImages;
         }
 
+        public List<ProductParamBean> getProductParam() {
+            return productParam;
+        }
+
+        public void setProductParam(List<ProductParamBean> productParam) {
+            this.productParam = productParam;
+        }
+
+        public List<ReviewsBean> getReviews() {
+            return reviews;
+        }
+
+        public void setReviews(List<ReviewsBean> reviews) {
+            this.reviews = reviews;
+        }
+
+        public static class ProductImagesBean {
+            private String mobileicon;
+            private int id;
+
+            public String getMobileicon() {
+                return mobileicon;
+            }
+
+            public void setMobileicon(String mobileicon) {
+                this.mobileicon = mobileicon;
+            }
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+        }
+
         public static class ProductParamBean {
-            private String 重量;
-            private String 大小;
-            private String 材质;
+            private String name;
+            private String value;
 
-            public String get重量() {
-                return 重量;
+            public String getName() {
+                return name;
             }
 
-            public void set重量(String 重量) {
-                this.重量 = 重量;
+            public void setName(String name) {
+                this.name = name;
             }
 
-            public String get大小() {
-                return 大小;
+            public String getValue() {
+                return value;
             }
 
-            public void set大小(String 大小) {
-                this.大小 = 大小;
-            }
-
-            public String get材质() {
-                return 材质;
-            }
-
-            public void set材质(String 材质) {
-                this.材质 = 材质;
+            public void setValue(String value) {
+                this.value = value;
             }
         }
 
         public static class ReviewsBean {
-            private String score;
+            private int score;
             private String bizReply;
             /**
-             * userName : 15892999216
+             * userName : 18696546911
              * photo : /upload/endUser/photo/src_8e97aef2-cb1d-4e71-9d83-081b96ddfe28.jpeg
              */
 
@@ -197,11 +218,11 @@ public class ProductDetailResponse extends BaseResponse {
             private String content;
             private long createDate;
 
-            public String getScore() {
+            public int getScore() {
                 return score;
             }
 
-            public void setScore(String score) {
+            public void setScore(int score) {
                 this.score = score;
             }
 
@@ -264,27 +285,6 @@ public class ProductDetailResponse extends BaseResponse {
                 public void setPhoto(String photo) {
                     this.photo = photo;
                 }
-            }
-        }
-
-        public static class ProductImagesBean {
-            private String mobileicon;
-            private int id;
-
-            public String getMobileicon() {
-                return mobileicon;
-            }
-
-            public void setMobileicon(String mobileicon) {
-                this.mobileicon = mobileicon;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
             }
         }
     }
