@@ -66,6 +66,7 @@ public class CBPageAdapter<T> extends PagerAdapter {
         views.add(view);
     }
 
+
     @Override
     public void finishUpdate(ViewGroup container) {
         int position = viewPager.getCurrentItem();
@@ -102,6 +103,11 @@ public class CBPageAdapter<T> extends PagerAdapter {
         this.holderCreator = holderCreator;
         this.mDatas = datas;
         this.activity = activity;
+    }
+
+    public void setData(List<T> datas) {
+        this.mDatas = datas;
+        notifyDataSetChanged();
     }
 
     public View getView(int position, View view, ViewGroup container) {

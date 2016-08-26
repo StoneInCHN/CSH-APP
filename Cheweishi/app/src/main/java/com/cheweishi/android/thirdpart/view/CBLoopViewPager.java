@@ -125,7 +125,7 @@ public class CBLoopViewPager extends ViewPager {
                                    int positionOffsetPixels) {
             int realPosition = position;
 
-            if (mOuterPageChangeListener != null) {
+            if (mOuterPageChangeListener != null && null != mAdapter) {
                 if (realPosition != mAdapter.getRealCount() - 1) {
                     mOuterPageChangeListener.onPageScrolled(realPosition,
                             positionOffset, positionOffsetPixels);

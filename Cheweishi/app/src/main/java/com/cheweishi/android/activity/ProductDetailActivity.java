@@ -165,9 +165,8 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
         sv_product_detail.setScrollViewListener(this);
         vp_product_detail.setOnPageChangeListener(this);
         mCurrentProDuctId = getIntent().getIntExtra("productId", -1);
-        adapter = new CBPageAdapter(new MyHolder(), list, this);
-        vp_product_detail.setAdapter(adapter, true);
-        drawPoint(0);
+//        adapter = new CBPageAdapter(new MyHolder(), list, this);
+//        vp_product_detail.setAdapter(adapter, true);
         getProductInfoPacket(mCurrentProDuctId);
     }
 
@@ -188,7 +187,10 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
 
                 if (null != tempImg && 0 < tempImg.size()) {
                     list = tempImg;
-                    adapter.notifyDataSetChanged();
+                    adapter = new CBPageAdapter(new MyHolder(), list, this);
+                    vp_product_detail.setAdapter(adapter, true);
+//                    adapter.setData(list);
+                    drawPoint(0);
                 }
 
 
@@ -243,18 +245,24 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
             case R.id.ll_product_img_txt_detail: // 图文详情
                 Intent intent = new Intent(baseContext, ProductParamDetailActivity.class);
                 intent.putExtra("data", detailResponse);
+                intent.putExtra("mBuynumber", mBuynumber);
+                intent.putExtra("cartNumber", tv_product_cart_number.getText().toString());
                 startActivity(intent);
                 break;
             case R.id.ll_product_detail_param: // 产品参数
                 Intent detail = new Intent(baseContext, ProductParamDetailActivity.class);
                 detail.putExtra("data", detailResponse);
                 detail.putExtra("currentP", 1);
+                detail.putExtra("mBuynumber", mBuynumber);
+                detail.putExtra("cartNumber", tv_product_cart_number.getText().toString());
                 startActivity(detail);
                 break;
             case R.id.tv_product_detail_right_more://评价
             case R.id.rl_product_detail_more: // 更多评论
                 Intent common = new Intent(baseContext, ProductParamDetailActivity.class);
                 common.putExtra("currentP", 2);
+                common.putExtra("mBuynumber", mBuynumber);
+                common.putExtra("cartNumber", tv_product_cart_number.getText().toString());
                 startActivity(common);
                 break;
             case R.id.iv_product_detail_num_les: // 减少

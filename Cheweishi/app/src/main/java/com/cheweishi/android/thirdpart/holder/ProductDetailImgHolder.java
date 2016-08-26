@@ -8,13 +8,14 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.entity.AdvResponse;
 import com.cheweishi.android.entity.ProductDetailResponse;
+import com.cheweishi.android.utils.LogHelper;
 
 import java.util.List;
 
 /**
  * Created by tangce on 8/19/2016.
  */
-public class ProductDetailImgHolder implements Holder<List<ProductDetailResponse.MsgBean.ProductImagesBean>> {
+public class ProductDetailImgHolder implements Holder<ProductDetailResponse.MsgBean.ProductImagesBean> {
     private ImageView imageView;
 
     @Override
@@ -25,8 +26,8 @@ public class ProductDetailImgHolder implements Holder<List<ProductDetailResponse
     }
 
     @Override
-    public void UpdateUI(Context context, int position, List<ProductDetailResponse.MsgBean.ProductImagesBean> data) {
+    public void UpdateUI(Context context, int position, ProductDetailResponse.MsgBean.ProductImagesBean data) {
 
-        XUtilsImageLoader.getxUtilsImageLoader(context, R.drawable.udesk_defualt_failure, imageView, data.get(position).getMobileicon());
+        XUtilsImageLoader.getxUtilsImageLoaderNoData(context, R.drawable.udesk_defualt_failure, imageView, data.getMobileicon());
     }
 }

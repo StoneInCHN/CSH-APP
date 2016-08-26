@@ -147,6 +147,7 @@ public class BuyCartActivity extends BaseActivity implements PullToRefreshBase.O
                 loginResponse.setToken(buyCartListRsp.getToken());
 
                 ProductDetailActivity.UpdateBuyCartNumber(0, getBuyCartNumber());
+                ProductParamDetailActivity.UpdateBuyCartNumber(0, getBuyCartNumber());
                 break;
             case NetInterface.ADD_AND_LESS: // 添加或者减少
                 BaseResponse response = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);

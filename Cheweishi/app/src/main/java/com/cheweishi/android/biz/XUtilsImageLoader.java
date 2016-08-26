@@ -72,6 +72,21 @@ public class XUtilsImageLoader {
      * @param context
      * @return
      */
+    public static void getxUtilsImageLoaderNoData(Context context, int resid, ImageView imageView, String uri) {
+        if (null == uri) {
+            return;
+        }
+        Picasso.with(context).load( uri)
+                .placeholder(resid)
+                .error(resid)
+                .config(Bitmap.Config.RGB_565)
+                .into(imageView);
+    }
+
+    /**
+     * @param context
+     * @return
+     */
     public static void getxUtilsImageLoader(Context context, int resid, int errorid, ImageView imageView, String uri) {
         if (null == uri) {
             imageView.setImageResource(errorid);
