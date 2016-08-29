@@ -1618,5 +1618,6 @@
     <string name="error_info_less">商品数量不能小于1</string>
     <string name="confirm_delete">确认删除选中的商品?</string>
     <string name="confirm">确认</string>
+    <string name="confirm_select">您还没有选择需要删除的条目</string>
 
 </resources>
