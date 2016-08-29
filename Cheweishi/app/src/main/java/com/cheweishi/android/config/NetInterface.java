@@ -51,6 +51,8 @@ public class NetInterface {
 
     public static final String TEMP_SHOP_CART = "/csh-interface/estore/cart/";//购物车相关
 
+    public static final String TEMP_SHOP_ADD = "/csh-interface/estore/receiverAddress/";//收货地址
+
     public static final String HEADER_ALL = BASE_URL + TEMP_URL;
 
     public static final String RESPONSE_SUCCESS = "0000"; // success
@@ -182,6 +184,8 @@ public class NetInterface {
     public static final String DELETE = "delete";//删除商品
 
     public static final String ADD_AND_LESS="oprNum";//增减商品
+
+    public static final String GET_DEFAULT_ADDRESS="getDefault";//获取默认地址
 
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 

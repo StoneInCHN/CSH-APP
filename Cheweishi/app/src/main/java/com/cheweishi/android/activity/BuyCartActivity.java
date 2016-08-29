@@ -311,7 +311,8 @@ public class BuyCartActivity extends BaseActivity implements PullToRefreshBase.O
                 if (isCheck) {//删除
                     showNormalCustomDialog(getString(R.string.confirm_delete), getString(R.string.confirm));
                 } else { // 结算
-
+                    Intent intent = new Intent(baseContext,ShopPayOrderActivity.class);
+                    startActivity(intent);
                 }
                 break;
         }

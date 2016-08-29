@@ -1073,6 +1073,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
+        <!--商品订单-->
+        <activity
+            android:name=".activity.ShopPayOrderActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

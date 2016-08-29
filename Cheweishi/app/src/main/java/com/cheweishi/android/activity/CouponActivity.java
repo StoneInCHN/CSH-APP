@@ -103,6 +103,7 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
                 ActivityCouponResponse couponResponse = (ActivityCouponResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ActivityCouponResponse.class);
 
                 if (!couponResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    ProgrosDialog.closeProgrosDialog();
                     showToast(couponResponse.getDesc());
                     return;
                 }
@@ -140,6 +141,7 @@ public class CouponActivity extends BaseActivity implements PullToRefreshBase.On
                 BaseResponse getCouponResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
 
                 if (!getCouponResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    ProgrosDialog.closeProgrosDialog();
                     showToast(getCouponResponse.getDesc());
                     return;
                 }

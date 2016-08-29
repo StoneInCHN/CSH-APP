@@ -117,6 +117,7 @@ public class ProductParamDetailActivity extends BaseActivity {
             case NetInterface.ADD:// 添加到购物车
                 BaseResponse add = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
                 if (!add.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    ProgrosDialog.closeProgrosDialog();
                     showToast(add.getDesc());
                     return;
                 }

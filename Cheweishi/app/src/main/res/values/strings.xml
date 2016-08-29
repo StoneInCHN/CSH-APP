@@ -1620,5 +1620,12 @@
     <string name="confirm">确认</string>
     <string name="confirm_select">您还没有选择需要删除的条目</string>
     <string name="bizRely">[商家回复]:</string>
+    <string name="confrim_order">确认订单</string>
+    <string name="get_goods_user">收货人:</string>
+    <string name="shop_list">商品列表</string>
+    <string name="yf">运费</string>
+    <string name="zero_money">￥0</string>
+    <string name="total_number_item">共计0件商品</string>
+
 
 </resources>

@@ -175,6 +175,8 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener,
             case NetInterface.LIST + "Store":
                 StoreListResponse response = (StoreListResponse) GsonUtil.getInstance().convertJsonStringToObject(data, StoreListResponse.class);
                 if (null == response || !response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    ProgrosDialog.closeProgrosDialog();
+                    prl_store.onRefreshComplete();
                     showToast(response.getDesc());
                     return;
                 }

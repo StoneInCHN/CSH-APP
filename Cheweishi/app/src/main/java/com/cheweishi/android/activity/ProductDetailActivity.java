@@ -180,6 +180,7 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
             case NetInterface.GET_PRODUCT_INFO: // 获取商品详情
                 detailResponse = (ProductDetailResponse) GsonUtil.getInstance().convertJsonStringToObject(data, ProductDetailResponse.class);
                 if (!detailResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    ProgrosDialog.closeProgrosDialog();
                     showToast(detailResponse.getDesc());
                     return;
                 }
@@ -225,6 +226,7 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
             case NetInterface.ADD:// 添加到购物车
                 BaseResponse add = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
                 if (!add.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    ProgrosDialog.closeProgrosDialog();
                     showToast(add.getDesc());
                     return;
                 }
