@@ -135,6 +135,9 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
     @ViewInject(R.id.tv_shop_item_money)
     private TextView tv_shop_item_money; // 购买价格
 
+    @ViewInject(R.id.tv_product_detail_biz)
+    private TextView tv_product_detail_biz;//商家回复
+
     private int headerHeight; // 顶部标题的高度
 
     private List<ProductDetailResponse.MsgBean.ProductImagesBean> list = new ArrayList<>();// 图片url
@@ -205,9 +208,15 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
                     tv_product_common_user_name.setText(detailResponse.getMsg().getReviews().get(0).getMember().getUserName());
                     tv_product_common_time.setText(transferLongToDate(detailResponse.getMsg().getReviews().get(0).getCreateDate()));
                     tv_product_common_content.setText(detailResponse.getMsg().getReviews().get(0).getContent());
+
+                    if (!StringUtil.isEmpty(detailResponse.getMsg().getReviews().get(0).getBizReply())) {
+                        tv_product_detail_biz.setVisibility(View.VISIBLE);
+                        tv_product_detail_biz.setText(getString(R.string.bizRely) + detailResponse.getMsg().getReviews().get(0).getBizReply());
+                    }
                 }
 
                 tv_shop_item_money.setText(detailResponse.getMsg().getPrice());
+
 
                 UpdateBuyCartNumber(0, Integer.valueOf(detailResponse.getMsg().getCartProductCount()));
 

@@ -357,46 +357,70 @@
                     android:padding="@dimen/normal_padding"
                     android:visibility="gone">
 
+                    <RelativeLayout
+                        android:id="@+id/rl_product_detail_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                    <com.cheweishi.android.widget.XCRoundImageView
-                        android:id="@+id/xiv_product_common_user"
-                        android:layout_width="@dimen/thirty_five"
-                        android:layout_height="@dimen/thirty_five"
-                        android:layout_centerVertical="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/info_touxiang_moren" />
+                        <com.cheweishi.android.widget.XCRoundImageView
+                            android:id="@+id/xiv_product_common_user"
+                            android:layout_width="@dimen/thirty_five"
+                            android:layout_height="@dimen/thirty_five"
+                            android:layout_centerVertical="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/info_touxiang_moren" />
 
-                    <TextView
-                        android:id="@+id/tv_product_common_user_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/divice_main"
-                        android:layout_marginTop="@dimen/divice_main"
-                        android:layout_toRightOf="@id/xiv_product_common_user"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_size_small" />
+                        <TextView
+                            android:id="@+id/tv_product_common_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/divice_main"
+                            android:layout_marginTop="@dimen/divice_main"
+                            android:layout_toRightOf="@id/xiv_product_common_user"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_small" />
 
-                    <TextView
-                        android:id="@+id/tv_product_common_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_product_common_user_name"
-                        android:layout_marginLeft="@dimen/divice_main"
-                        android:layout_toRightOf="@id/xiv_product_common_user"
-                        android:textColor="@color/light_gray"
-                        android:textSize="@dimen/text_size_small" />
+                        <TextView
+                            android:id="@+id/tv_product_common_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_product_common_user_name"
+                            android:layout_marginLeft="@dimen/divice_main"
+                            android:layout_toRightOf="@id/xiv_product_common_user"
+                            android:textColor="@color/light_gray"
+                            android:textSize="@dimen/text_size_small" />
 
-                    <TextView
-                        android:id="@+id/tv_product_common_content"
+                        <TextView
+                            android:id="@+id/tv_product_common_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/tv_product_common_time"
+                            android:ellipsize="end"
+                            android:gravity="right"
+                            android:maxLines="2"
+                            android:textColor="@color/light_gray"
+                            android:textSize="@dimen/text_size_small" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/tv_product_common_time"
-                        android:ellipsize="end"
-                        android:gravity="right"
-                        android:maxLines="2"
-                        android:textColor="@color/light_gray"
-                        android:textSize="@dimen/text_size_small" />
+                        android:layout_below="@id/rl_product_detail_content">
+
+                        <TextView
+                            android:id="@+id/tv_product_detail_biz"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:ellipsize="end"
+                            android:maxLines="5"
+                            android:visibility="gone"
+                            android:textColor="@color/main_orange"
+                            android:textSize="@dimen/text_size_small" />
+                    </RelativeLayout>
+
 
                 </RelativeLayout>
 

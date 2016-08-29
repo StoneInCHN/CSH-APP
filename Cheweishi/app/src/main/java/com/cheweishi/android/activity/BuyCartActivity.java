@@ -304,7 +304,7 @@ public class BuyCartActivity extends BaseActivity implements PullToRefreshBase.O
             case R.id.tv_bc_bottom_buy: // 购买或者删除
                 if (null == list || 0 == list.size())
                     return;
-                else if(0>=getSelectedNumber()) {// 没有任何选中
+                else if (0 >= getSelectedNumber()) {// 没有任何选中
                     showToast(R.string.confirm_select);
                     return;
                 }
