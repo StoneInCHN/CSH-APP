@@ -12,19 +12,53 @@
         android:id="@+id/ll_sp_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/normal_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/actual_money"
+                android:textColor="@color/light_gray"
+                android:textSize="@dimen/item_content_size" />
+
+            <TextView
+                android:id="@+id/tv_sp_order_total_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/zero_money"
+                android:textColor="@color/red"
+                android:textSize="@dimen/item_content_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="11" />
+            android:layout_weight="1.0"
+            android:background="@color/orange"
+            android:text="@string/buy_cart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/item_content_size" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/ll_sp_bottom"
-        android:layout_below="@id/i_sp_top">
+        android:layout_below="@id/i_sp_top"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,9 +66,11 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/rl_sp_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/more_back"
+                android:focusable="true"
                 android:padding="@dimen/large_padding">
 
                 <ImageView
@@ -67,34 +103,35 @@
                             android:textSize="@dimen/item_content_size" />
 
                         <TextView
+                            android:id="@+id/tv_sp_order_consignee"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLength="15"
                             android:maxLines="1"
-                            android:text="唐笧"
+                            android:text="@string/empty"
                             android:textColor="@color/black"
                             android:textSize="@dimen/item_content_size" />
 
                         <TextView
+                            android:id="@+id/tv_sp_order_consignee_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/large_marging"
                             android:ellipsize="end"
                             android:maxLength="15"
                             android:maxLines="1"
-                            android:text="18380473706"
                             android:textColor="@color/black"
                             android:textSize="@dimen/item_content_size" />
 
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_sp_order_consignee_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="四川省成都市 天府软件园D区"
                         android:textColor="@color/light_gray"
                         android:textSize="@dimen/item_content_size" />
                 </LinearLayout>
@@ -127,12 +164,91 @@
                 android:layout_height="1dp"
                 android:background="@color/line_gray" />
 
-            <com.cheweishi.android.widget.UnSlidingListView
+            <com.cheweishi.android.widget.ScrollListView
                 android:id="@+id/usl_sp_order"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never"
-                android:scrollbars="none" />
+                android:layout_height="wrap_content"
+                android:divider="@color/line_gray"
+                android:dividerHeight="1dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_gray" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_marging"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/normal_padding">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/invoice"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/item_content_size" />
+
+                    <TextView
+                        android:id="@+id/tv_sp_order_invoice_notice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/invoice_notice"
+                        android:textColor="@color/maintain_orange"
+                        android:textSize="@dimen/item_small_text_size"
+                        android:visibility="gone" />
+
+                    <CheckBox
+                        android:id="@+id/cb_sp_order_invoice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:button="@drawable/check"
+                        android:checked="false" />
+
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_sp_order_invoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/large_marging"
+                    android:padding="@dimen/normal_padding"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/invoice_title"
+                        android:textColor="@color/light_gray"
+                        android:textSize="@dimen/item_content_size" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/normal_marging"
+                        android:background="@color/white_alpha"
+                        android:hint="@string/person_company"
+                        android:textSize="@dimen/item_content_size" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -140,10 +256,11 @@
                 android:background="@color/line_gray" />
 
             <LinearLayout
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_marging"
                 android:background="@color/white"
+                android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:padding="@dimen/normal_padding">
 
@@ -229,6 +346,11 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/small_marging"
+                android:background="@color/line_gray" />
         </LinearLayout>
     </ScrollView>
 

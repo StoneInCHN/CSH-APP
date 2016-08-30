@@ -1,15 +1,27 @@
 package com.cheweishi.android.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by tangce on 8/29/2016.
  */
-public class ShopPayOrderNative {
+public class ShopPayOrderNative implements Serializable {
 
     private String icon;
 
     private String name;
 
     private String number;
+
+    private String money;
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
+        this.money = money;
+    }
 
     public String getIcon() {
         return icon;

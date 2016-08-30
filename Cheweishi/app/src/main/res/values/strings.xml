@@ -1624,8 +1624,14 @@
     <string name="get_goods_user">收货人:</string>
     <string name="shop_list">商品列表</string>
     <string name="yf">运费</string>
+    <string name="invoice">发票</string>
+    <string name="invoice_title">发票抬头</string>
+    <string name="invoice_notice">交易成功后寄出,仅含商品实付金额</string>
+    <string name="person_company">个人/单位名称</string>
     <string name="zero_money">￥0</string>
+    <string name="empty">无</string>
     <string name="total_number_item">共计0件商品</string>
+
 
 
 </resources>

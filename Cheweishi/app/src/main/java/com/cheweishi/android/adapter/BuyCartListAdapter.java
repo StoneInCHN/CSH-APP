@@ -104,7 +104,11 @@ public class BuyCartListAdapter extends BaseAdapter {
         }
 
         holder.name.setText(list.get(position).getProduct().getFullName());
-        holder.money.setText(list.get(position).getProduct().getPrice());
+
+
+        int temp = 0;
+        temp = Integer.valueOf(list.get(position).getProduct().getPrice()) * Integer.valueOf(list.get(position).getQuantity());
+        holder.money.setText(String.valueOf(temp));
         holder.number.setText(list.get(position).getQuantity());
 
         // TODO 关联增加事件
@@ -121,7 +125,7 @@ public class BuyCartListAdapter extends BaseAdapter {
         holder.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(null!= checkListener) {
+                if (null != checkListener) {
                     checkListener.onItemAddClick(position);
                     notifyDataSetChanged();
                 }
@@ -131,7 +135,7 @@ public class BuyCartListAdapter extends BaseAdapter {
         holder.less.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(null!=checkListener) {
+                if (null != checkListener) {
                     checkListener.onItemLessClick(position);
                     notifyDataSetChanged();
                 }

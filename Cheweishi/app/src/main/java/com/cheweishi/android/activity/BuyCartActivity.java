@@ -17,6 +17,7 @@ import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ActivityCouponResponse;
 import com.cheweishi.android.entity.BuyCartListResponse;
 import com.cheweishi.android.entity.ProductDetailResponse;
+import com.cheweishi.android.entity.ShopPayOrderNative;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.utils.GsonUtil;
@@ -28,6 +29,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -311,11 +313,31 @@ public class BuyCartActivity extends BaseActivity implements PullToRefreshBase.O
                 if (isCheck) {//删除
                     showNormalCustomDialog(getString(R.string.confirm_delete), getString(R.string.confirm));
                 } else { // 结算
-                    Intent intent = new Intent(baseContext,ShopPayOrderActivity.class);
+                    Intent intent = new Intent(baseContext, ShopPayOrderActivity.class);
+                    intent.putExtra("data", (Serializable) getPayList());
                     startActivity(intent);
                 }
                 break;
         }
+    }
+
+    private List<ShopPayOrderNative> getPayList() {
+        if (null == list || 0 == list.size())
+            return null;
+        List<ShopPayOrderNative> temp = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).isChecked()) {
+                int tempMoney = 0;
+                tempMoney = Integer.valueOf(list.get(i).getProduct().getPrice()) * Integer.valueOf(list.get(i).getQuantity());
+                ShopPayOrderNative shopPayOrderNative = new ShopPayOrderNative();
+                shopPayOrderNative.setIcon(list.get(i).getProduct().getImage());
+                shopPayOrderNative.setMoney(String.valueOf(tempMoney));
+                shopPayOrderNative.setName(list.get(i).getProduct().getFullName());
+                shopPayOrderNative.setNumber(list.get(i).getQuantity());
+                temp.add(shopPayOrderNative);
+            }
+        }
+        return temp;
     }
 
     /**
