@@ -1631,6 +1631,10 @@
     <string name="zero_money">￥0</string>
     <string name="empty">无</string>
     <string name="total_number_item">共计0件商品</string>
+    <string name="receive_address">我的收货地址</string>
+    <string name="add_new_address">添加新地址</string>
+    <string name="edit_address">编辑地址</string>
+    <string name="mdefault">默认</string>
 
 
 

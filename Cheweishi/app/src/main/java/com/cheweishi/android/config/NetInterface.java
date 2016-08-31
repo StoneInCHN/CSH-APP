@@ -187,6 +187,7 @@ public class NetInterface {
 
     public static final String GET_DEFAULT_ADDRESS="getDefault";//获取默认地址
 
+
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 
 }

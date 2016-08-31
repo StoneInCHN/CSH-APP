@@ -1078,6 +1078,16 @@
             android:name=".activity.ShopPayOrderActivity"
             android:screenOrientation="portrait" />
 
+        <!--我的收货地址-->
+        <activity
+            android:name=".activity.MyReceiveAddressActivity"
+            android:screenOrientation="portrait" />
+
+        <!--地址管理-->
+        <activity
+            android:name=".activity.AddressManagerActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

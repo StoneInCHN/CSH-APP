@@ -43,11 +43,12 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/bt_sp_pay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:background="@color/orange"
-            android:text="@string/buy_cart"
+            android:text="@string/confrim_order"
             android:textColor="@color/white"
             android:textSize="@dimen/item_content_size" />
     </LinearLayout>

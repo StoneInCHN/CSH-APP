@@ -1,5 +1,6 @@
 package com.cheweishi.android.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -124,7 +125,8 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
                 finish();
                 break;
             case R.id.rl_sp_order: // 地址
-
+                Intent address = new Intent(baseContext,MyReceiveAddressActivity.class);
+                startActivity(address);
                 break;
         }
     }
