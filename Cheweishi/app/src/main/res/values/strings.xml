@@ -1622,6 +1622,7 @@
     <string name="bizRely">[商家回复]:</string>
     <string name="confrim_order">确认订单</string>
     <string name="get_goods_user">收货人:</string>
+    <string name="get_goods_user_name">收货人姓名</string>
     <string name="shop_list">商品列表</string>
     <string name="yf">运费</string>
     <string name="invoice">发票</string>
@@ -1635,7 +1636,8 @@
     <string name="add_new_address">添加新地址</string>
     <string name="edit_address">编辑地址</string>
     <string name="mdefault">默认</string>
-
+    <string name="goods_area">省、市、区</string>
+    <string name="detail_address">详细地址</string>
 
 
 </resources>
