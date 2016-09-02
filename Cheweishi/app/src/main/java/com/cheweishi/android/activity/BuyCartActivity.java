@@ -14,14 +14,11 @@ import com.cheweishi.android.adapter.BuyCartListAdapter;
 import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
-import com.cheweishi.android.entity.ActivityCouponResponse;
 import com.cheweishi.android.entity.BuyCartListResponse;
-import com.cheweishi.android.entity.ProductDetailResponse;
 import com.cheweishi.android.entity.ShopPayOrderNative;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.widget.CustomDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -253,6 +250,12 @@ public class BuyCartActivity extends BaseActivity implements PullToRefreshBase.O
         netWorkHelper.PostJson(url, params, this);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        plr_buy_cart.onRefreshComplete();
+    }
+
     @OnClick({R.id.left_action, R.id.right_action, R.id.iv_bc_bottom_check, R.id.tv_bc_bottom_buy})
     public void onClick(View v) {
         switch (v.getId()) {
@@ -313,6 +316,7 @@ public class BuyCartActivity extends BaseActivity implements PullToRefreshBase.O
                 if (isCheck) {//删除
                     showNormalCustomDialog(getString(R.string.confirm_delete), getString(R.string.confirm));
                 } else { // 结算
+                    plr_buy_cart.onRefreshComplete();
                     Intent intent = new Intent(baseContext, ShopPayOrderActivity.class);
                     intent.putExtra("data", (Serializable) getPayList());
                     startActivity(intent);
