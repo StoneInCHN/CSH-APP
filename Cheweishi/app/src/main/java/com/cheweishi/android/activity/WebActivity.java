@@ -141,7 +141,9 @@ public class WebActivity extends BaseActivity implements OnClickListener, TextWa
                     return;
                 }
                 et_web.setText("");
-                sendPacketForUrl();
+//                sendPacketForUrl();
+                // TODO  直接重新加载.
+                mWebView.reload();
                 loginResponse.setToken(response.getToken());
                 break;
             case NetInterface.DO_LIKE: // 点赞

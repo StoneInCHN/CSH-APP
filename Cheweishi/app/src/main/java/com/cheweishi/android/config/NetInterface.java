@@ -183,10 +183,13 @@ public class NetInterface {
 
     public static final String DELETE = "delete";//删除商品
 
-    public static final String ADD_AND_LESS="oprNum";//增减商品
+    public static final String ADD_AND_LESS = "oprNum";//增减商品
 
-    public static final String GET_DEFAULT_ADDRESS="getDefault";//获取默认地址
+    public static final String GET_DEFAULT_ADDRESS = "getDefault";//获取默认地址
 
+    public static final String GET_ADDRESS = "getArea";//获取地区
+
+    public static final String ADD_OR_EDIT = "addOrEdit";//编辑或者添加收货地址
 
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 

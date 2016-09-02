@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,18 +32,18 @@ public class MyReceiveAddressAdapter extends BaseAdapter {
     public MyReceiveAddressAdapter(Context context, List<MyRecevieAddressResponse.MsgBean> list) {
         this.context = context;
         this.list = list;
-        this.list.add(0, new MyRecevieAddressResponse.MsgBean());
+//        this.list.add(0, new MyRecevieAddressResponse.MsgBean());
     }
 
     public void setData(List<MyRecevieAddressResponse.MsgBean> list) {
         this.list = list;
-        this.list.add(0, new MyRecevieAddressResponse.MsgBean());
+//        this.list.add(0, new MyRecevieAddressResponse.MsgBean());
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return list.size() + 1;
     }
 
     @Override
@@ -77,7 +78,7 @@ public class MyReceiveAddressAdapter extends BaseAdapter {
                 if (null == convertView) {
                     headerViewHolder = new HeaderViewHolder();
                     convertView = View.inflate(context, R.layout.item_address_header, null);
-                    headerViewHolder.header = (RelativeLayout) convertView.findViewById(R.id.rl_ad_header);
+                    headerViewHolder.header = (LinearLayout) convertView.findViewById(R.id.rl_ad_header);
                     convertView.setTag(headerViewHolder);
                 } else {
                     headerViewHolder = (HeaderViewHolder) convertView.getTag();
@@ -106,11 +107,10 @@ public class MyReceiveAddressAdapter extends BaseAdapter {
                 } else {
                     contentViewHolder = (ContentViewHolder) convertView.getTag();
                 }
-
-                contentViewHolder.name.setText(list.get(position).getConsignee());
-                contentViewHolder.address.setText(list.get(position).getAreaName() + list.get(position).getAddress());
-                contentViewHolder.number.setText(list.get(position).getPhone());
-                if (list.get(position).isIsDefault())
+                contentViewHolder.name.setText(list.get(position - 1).getConsignee());
+                contentViewHolder.address.setText(list.get(position - 1).getAreaName() + list.get(position - 1).getAddress());
+                contentViewHolder.number.setText(list.get(position - 1).getPhone());
+                if (list.get(position - 1).isIsDefault())
                     contentViewHolder.mDefault.setVisibility(View.VISIBLE);
                 else
                     contentViewHolder.mDefault.setVisibility(View.GONE);
@@ -119,7 +119,7 @@ public class MyReceiveAddressAdapter extends BaseAdapter {
                     public void onClick(View v) {
                         // TODO 跳转到编辑页面
                         Intent addressManger = new Intent(context, AddressManagerActivity.class);
-                        addressManger.putExtra("data", list.get(position));
+                        addressManger.putExtra("data", list.get(position - 1));
                         context.startActivity(addressManger);
                     }
                 });
@@ -133,7 +133,7 @@ public class MyReceiveAddressAdapter extends BaseAdapter {
 
 
     private class HeaderViewHolder {
-        private RelativeLayout header;
+        private LinearLayout header;
     }
 
     private class ContentViewHolder {

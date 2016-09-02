@@ -17,16 +17,16 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLength="15"
-            android:textColor="@color/light_gray"
-            android:textSize="@dimen/item_small_text_size" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/item_content_size" />
 
         <TextView
             android:id="@+id/tv_ad_item_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/normal_marging"
-            android:textColor="@color/light_gray"
-            android:textSize="@dimen/item_small_text_size" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/item_content_size" />
 
 
         <TextView
@@ -39,7 +39,7 @@
             android:padding="@dimen/one_dp_padding"
             android:text="@string/mdefault"
             android:textColor="@color/white"
-            android:textSize="@dimen/item_small_text_size"
+            android:textSize="@dimen/car_text_small"
             android:visibility="gone" />
 
     </LinearLayout>
@@ -52,12 +52,12 @@
         android:ellipsize="end"
         android:maxLength="20"
         android:textColor="@color/light_gray"
-        android:textSize="@dimen/item_small_text_size" />
+        android:textSize="@dimen/item_content_size" />
 
     <TextView
         android:id="@+id/tv_ad_item_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/car_text_large"
+        android:layout_height="@dimen/car_text_large"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@drawable/ic_editor" />

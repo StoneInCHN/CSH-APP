@@ -66,6 +66,9 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
     @ViewInject(R.id.tv_sp_order_consignee_address)
     private TextView tv_sp_order_consignee_address;//收货人地址
 
+    @ViewInject(R.id.tv_sp_order_consignee_title)
+    private TextView tv_sp_order_consignee_title;//收货人
+
     @ViewInject(R.id.tv_sp_money)
     private TextView tv_sp_money;//总价钱
 
@@ -73,6 +76,23 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
 
     private List<ShopPayOrderNative> list;
 
+    private boolean isRefreshing = false;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isRefreshing) {
+            isRefreshing = false;
+            getDefaultAddress(1);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (!isRefreshing)
+            isRefreshing = true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +119,7 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
 
         cb_sp_order_invoice.setOnCheckedChangeListener(this);
 
-        getDefaultAddress();
+        getDefaultAddress(0);
     }
 
     private long calcMoney() {
@@ -118,21 +138,22 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
         return temp;
     }
 
-    @OnClick({R.id.left_action,R.id.rl_sp_order})
+    @OnClick({R.id.left_action, R.id.rl_sp_order})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_action:
                 finish();
                 break;
             case R.id.rl_sp_order: // 地址
-                Intent address = new Intent(baseContext,MyReceiveAddressActivity.class);
+                Intent address = new Intent(baseContext, MyReceiveAddressActivity.class);
                 startActivity(address);
                 break;
         }
     }
 
-    private void getDefaultAddress() {
-        ProgrosDialog.openDialog(baseContext);
+    private void getDefaultAddress(int type) {
+        if (0 == type)
+            ProgrosDialog.openDialog(baseContext);
         String url = NetInterface.BASE_URL + NetInterface.TEMP_SHOP_ADD + NetInterface.GET_DEFAULT_ADDRESS + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
@@ -155,6 +176,7 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
                 }
 
                 if (null != addressResponse.getMsg()) { // 有地址
+                    tv_sp_order_consignee_title.setText(R.string.get_goods_user);
                     tv_sp_order_consignee.setText(addressResponse.getMsg().getConsignee());
                     tv_sp_order_consignee_address.setText(addressResponse.getMsg().getAreaName() + addressResponse.getMsg().getAddress());
                     tv_sp_order_consignee_phone.setText(addressResponse.getMsg().getPhone());

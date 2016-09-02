@@ -17,6 +17,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +47,26 @@ public class MyReceiveAddressActivity extends BaseActivity implements PullToRefr
     private int total;
 
     private boolean isHeaderRefresh = false; // 是否为下拉刷新
+
+    private boolean isRefreshing = false;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isRefreshing) {
+            isRefreshing = false;
+            isHeaderRefresh = true;
+            page = 1;
+            getReceiveAddressPacket(1);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (!isRefreshing)
+            isRefreshing = true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,5 +152,14 @@ public class MyReceiveAddressActivity extends BaseActivity implements PullToRefr
         isHeaderRefresh = false;
         page++;
         getReceiveAddressPacket(1);
+    }
+
+    @OnClick({R.id.left_action})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.left_action:
+                finish();
+                break;
+        }
     }
 }

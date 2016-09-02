@@ -97,9 +97,9 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/tv_sp_order_consignee_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/get_goods_user"
                             android:textColor="@color/black"
                             android:textSize="@dimen/item_content_size" />
 
@@ -110,7 +110,6 @@
                             android:ellipsize="end"
                             android:maxLength="15"
                             android:maxLines="1"
-                            android:text="@string/empty"
                             android:textColor="@color/black"
                             android:textSize="@dimen/item_content_size" />
 

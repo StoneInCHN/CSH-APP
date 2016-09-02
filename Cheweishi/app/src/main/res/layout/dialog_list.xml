@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/normal_padding"
-            android:text="提示"
+            android:text="请选择地址"
             android:textColor="@color/main_blue"
             android:textSize="@dimen/title__text_size"
             android:visibility="visible" />
@@ -35,7 +35,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/normal_marging"
             android:divider="@color/line_gray"
-            android:dividerHeight="1dp"></ListView>
+            android:dividerHeight="1dp"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
     </LinearLayout>
 
 </FrameLayout>

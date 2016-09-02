@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by tangce on 8/31/2016.
  */
-public class MyRecevieAddressResponse extends BaseResponse implements Serializable{
+public class MyRecevieAddressResponse extends BaseResponse implements Serializable {
 
 
     /**
@@ -45,7 +45,7 @@ public class MyRecevieAddressResponse extends BaseResponse implements Serializab
         this.msg = msg;
     }
 
-    public static class PageBean implements Serializable{
+    public static class PageBean implements Serializable {
         private int total;
         private int pageNumber;
         private int pageSize;
@@ -75,13 +75,30 @@ public class MyRecevieAddressResponse extends BaseResponse implements Serializab
         }
     }
 
-    public static class MsgBean implements Serializable{
+    public static class MsgBean implements Serializable {
         private boolean isDefault;
         private String consignee;
         private String address;
         private String areaName;
         private String phone;
+        private int areaId;
         private int id;
+
+        public int getAreaId() {
+            return areaId;
+        }
+
+        public void setAreaId(int areaId) {
+            this.areaId = areaId;
+        }
+
+        public boolean isDefault() {
+            return isDefault;
+        }
+
+        public void setDefault(boolean aDefault) {
+            isDefault = aDefault;
+        }
 
         public boolean isIsDefault() {
             return isDefault;

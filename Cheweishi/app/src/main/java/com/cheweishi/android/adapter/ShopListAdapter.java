@@ -12,6 +12,7 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.entity.NewsListResponse;
 import com.cheweishi.android.entity.ShopListResponse;
+import com.cheweishi.android.widget.RatioImageView;
 import com.cheweishi.android.widget.SimpleTagImageView;
 
 import java.text.SimpleDateFormat;
@@ -70,7 +71,7 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView icon;
+        private RatioImageView icon;
         private TextView desc;
         private TextView money;
         private TextView buyCount;
@@ -78,10 +79,11 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            icon = (ImageView) itemView.findViewById(R.id.iv_shop_item_img);
+            icon = (RatioImageView) itemView.findViewById(R.id.iv_shop_item_img);
             desc = (TextView) itemView.findViewById(R.id.tv_shop_item_desc);
             buyCount = (TextView) itemView.findViewById(R.id.tv_shop_item_buy_count);
             money = (TextView) itemView.findViewById(R.id.tv_shop_item_money);
+            icon.setOriginalSize(50, 50);
         }
 
         @Override
