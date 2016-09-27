@@ -180,6 +180,8 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
     private void doSearch(String key) {
         dismissPopupWindow();
+        if(null == mTempData)
+            return;
         ShopTypeResponse.MsgBean type = new ShopTypeResponse.MsgBean();
         type.setId(-1);
         type.setName(key);
@@ -286,9 +288,7 @@ public class CarShopActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if (null != newText && 10 < newText.length())
-            return true;
-        return false;
+        return null != newText && 10 < newText.length();
     }
 
 

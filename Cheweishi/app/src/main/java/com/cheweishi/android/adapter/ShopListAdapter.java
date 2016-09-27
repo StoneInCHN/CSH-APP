@@ -83,13 +83,13 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
             desc = (TextView) itemView.findViewById(R.id.tv_shop_item_desc);
             buyCount = (TextView) itemView.findViewById(R.id.tv_shop_item_buy_count);
             money = (TextView) itemView.findViewById(R.id.tv_shop_item_money);
-            icon.setOriginalSize(50, 50);
+//            icon.setOriginalSize(50, 50);
         }
 
         @Override
         public void onClick(View v) {
-            if(null!=mOnItemClickListener)
-                mOnItemClickListener.onItemClick(v,getPosition());
+            if (null != mOnItemClickListener)
+                mOnItemClickListener.onItemClick(v, getPosition());
         }
     }
 

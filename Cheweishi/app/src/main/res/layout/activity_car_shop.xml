@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white_alpha"
             android:fitsSystemWindows="true"
+            app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
             app:layout_scrollFlags="scroll|enterAlways">
 
@@ -24,14 +25,14 @@
                 android:layout_height="48dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/normal_padding">
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/left_action"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/normal_padding"
                     android:background="@null"
                     android:drawableLeft="@drawable/left"
                     android:drawablePadding="@dimen/small_padding"

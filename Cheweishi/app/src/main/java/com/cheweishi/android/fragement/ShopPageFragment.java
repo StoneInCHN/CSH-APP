@@ -3,12 +3,11 @@ package com.cheweishi.android.fragement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -18,12 +17,11 @@ import com.cheweishi.android.adapter.ShopListAdapter;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ShopListResponse;
-import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.utils.GsonUtil;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshRecyclerView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,6 +105,16 @@ public class ShopPageFragment extends BaseFragment implements PullToRefreshBase.
         recyclerView.getRefreshableView().setEmptyView(fl_shop_page_empty);
         recyclerView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         recyclerView.setOnRefreshListener(this);
+        recyclerView.getRefreshableView().addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) { //滑动的时候对RecycleView的优化
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) { // 滑动的时候暂停加载
+                    Picasso.with(baseContext).resumeTag(baseContext);
+                } else {
+                    Picasso.with(baseContext).pauseTag(baseContext);
+                }
+            }
+        });
         isPrepared = true;
         onVisible();
     }
