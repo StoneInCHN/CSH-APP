@@ -15,6 +15,16 @@ public class ShopPayOrderNative implements Serializable {
 
     private String money;
 
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getMoney() {
         return money;
     }

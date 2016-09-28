@@ -12,19 +12,20 @@ public class MyRecevieAddressResponse extends BaseResponse implements Serializab
 
 
     /**
-     * total : 4
-     * pageNumber : 1
      * pageSize : 10
+     * total : 2
+     * pageNumber : 1
      */
 
     private PageBean page;
     /**
+     * id : 6
+     * phone : 18380473706
+     * area : {"id":3317}
+     * areaName : 四川省成都市高新区
+     * address : 软件园
      * isDefault : true
-     * consignee : andrea
-     * address : 天府软件园D区
-     * areaName : 四川省成都市
-     * phone : 15892999216
-     * id : 2
+     * consignee : 唐笧
      */
 
     private List<MsgBean> msg;
@@ -46,9 +47,17 @@ public class MyRecevieAddressResponse extends BaseResponse implements Serializab
     }
 
     public static class PageBean implements Serializable {
+        private int pageSize;
         private int total;
         private int pageNumber;
-        private int pageSize;
+
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
+        }
 
         public int getTotal() {
             return total;
@@ -65,39 +74,59 @@ public class MyRecevieAddressResponse extends BaseResponse implements Serializab
         public void setPageNumber(int pageNumber) {
             this.pageNumber = pageNumber;
         }
-
-        public int getPageSize() {
-            return pageSize;
-        }
-
-        public void setPageSize(int pageSize) {
-            this.pageSize = pageSize;
-        }
     }
 
-    public static class MsgBean implements Serializable {
+    public static class MsgBean implements Serializable{
+        private int id;
+        private String phone;
+        /**
+         * id : 3317
+         */
+
+        private AreaBean area;
+        private String areaName;
+        private String address;
         private boolean isDefault;
         private String consignee;
-        private String address;
-        private String areaName;
-        private String phone;
-        private int areaId;
-        private int id;
 
-        public int getAreaId() {
-            return areaId;
+        public int getId() {
+            return id;
         }
 
-        public void setAreaId(int areaId) {
-            this.areaId = areaId;
+        public void setId(int id) {
+            this.id = id;
         }
 
-        public boolean isDefault() {
-            return isDefault;
+        public String getPhone() {
+            return phone;
         }
 
-        public void setDefault(boolean aDefault) {
-            isDefault = aDefault;
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public AreaBean getArea() {
+            return area;
+        }
+
+        public void setArea(AreaBean area) {
+            this.area = area;
+        }
+
+        public String getAreaName() {
+            return areaName;
+        }
+
+        public void setAreaName(String areaName) {
+            this.areaName = areaName;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
         }
 
         public boolean isIsDefault() {
@@ -116,36 +145,16 @@ public class MyRecevieAddressResponse extends BaseResponse implements Serializab
             this.consignee = consignee;
         }
 
-        public String getAddress() {
-            return address;
-        }
+        public static class AreaBean implements Serializable {
+            private int id;
 
-        public void setAddress(String address) {
-            this.address = address;
-        }
+            public int getId() {
+                return id;
+            }
 
-        public String getAreaName() {
-            return areaName;
-        }
-
-        public void setAreaName(String areaName) {
-            this.areaName = areaName;
-        }
-
-        public String getPhone() {
-            return phone;
-        }
-
-        public void setPhone(String phone) {
-            this.phone = phone;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
+            public void setId(int id) {
+                this.id = id;
+            }
         }
     }
 }

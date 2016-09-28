@@ -24,6 +24,7 @@ import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ProductDetailResponse;
+import com.cheweishi.android.entity.ShopPayOrderNative;
 import com.cheweishi.android.interfaces.ScrollViewListener;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.thirdpart.adapter.CBPageAdapter;
@@ -40,6 +41,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.nineoldandroids.view.ViewHelper;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -246,7 +248,8 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
 
     @OnClick({R.id.left_action, R.id.ll_product_img_txt_detail, R.id.ll_product_detail_param, R.id.rl_product_detail_more
             , R.id.tv_product_detail_right_more, R.id.iv_product_detail_num_les, R.id.iv_product_detail_num_add,
-            R.id.bt_product_detail_addCart, R.id.ll_shop_buy, R.id.ll_common_title_right, R.id.ll_product_detail_title})
+            R.id.bt_product_detail_addCart, R.id.ll_shop_buy, R.id.ll_common_title_right, R.id.ll_product_detail_title,
+            R.id.bt_product_detail_create})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_product_detail_title:
@@ -293,9 +296,43 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
 //                buyCart.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(buyCart);
                 break;
+            case R.id.bt_product_detail_create://立即购买
+                nowBuy();
+                break;
         }
     }
 
+    /**
+     * 立即购买
+     */
+    private void nowBuy() {
+        Intent intent = new Intent(baseContext, ShopPayOrderActivity.class);
+        intent.putExtra("data", (Serializable) getPayList());
+        intent.putExtra("isNowBuy", true);
+        startActivity(intent);
+    }
+
+    /**
+     * 获取立即购买的信息
+     *
+     * @return
+     */
+    private List<ShopPayOrderNative> getPayList() {
+        if (null == list || 0 == list.size())
+            return null;
+        List<ShopPayOrderNative> temp = new ArrayList<>();
+        if (null != detailResponse && null != detailResponse.getMsg()) {
+            long tempMoney = Integer.valueOf(detailResponse.getMsg().getPrice()) * Integer.valueOf(et_product_detail_num.getText().toString());
+            ShopPayOrderNative shopPayOrderNative = new ShopPayOrderNative();
+            shopPayOrderNative.setIcon(detailResponse.getMsg().getImage());
+            shopPayOrderNative.setMoney(String.valueOf(tempMoney));
+            shopPayOrderNative.setName(detailResponse.getMsg().getFullName());
+            shopPayOrderNative.setNumber(et_product_detail_num.getText().toString());
+            shopPayOrderNative.setId(detailResponse.getMsg().getId());
+            temp.add(shopPayOrderNative);
+        }
+        return temp;
+    }
 
     /**
      * 更新购物车

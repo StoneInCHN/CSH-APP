@@ -30,6 +30,7 @@
                 android:textSize="@dimen/item_content_size" />
 
             <Button
+                android:id="@+id/bt_product_detail_create"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"

@@ -73,7 +73,6 @@ public class AddressManagerActivity extends BaseActivity implements AdapterView.
     private int mCurrentArea = -1;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +86,7 @@ public class AddressManagerActivity extends BaseActivity implements AdapterView.
 
         data = (MyRecevieAddressResponse.MsgBean) getIntent().getSerializableExtra("data");
         if (null != data) {
-            mCurrentArea = data.getAreaId();
+            mCurrentArea = data.getArea().getId();
             title.setText(R.string.edit_address);
             right_action.setText(R.string.delete);
             et_adm_name.setText(data.getConsignee());

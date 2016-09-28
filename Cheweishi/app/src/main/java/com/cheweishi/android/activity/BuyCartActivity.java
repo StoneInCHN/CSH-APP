@@ -338,6 +338,7 @@ public class BuyCartActivity extends BaseActivity implements PullToRefreshBase.O
                 shopPayOrderNative.setMoney(String.valueOf(tempMoney));
                 shopPayOrderNative.setName(list.get(i).getProduct().getFullName());
                 shopPayOrderNative.setNumber(list.get(i).getQuantity());
+                shopPayOrderNative.setId(list.get(i).getId());
                 temp.add(shopPayOrderNative);
             }
         }

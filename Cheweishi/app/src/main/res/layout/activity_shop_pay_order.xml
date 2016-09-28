@@ -238,10 +238,12 @@
                         android:textSize="@dimen/item_content_size" />
 
                     <EditText
+                        android:id="@+id/et_sp_order_invoice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/normal_marging"
+                        android:maxLength="30"
                         android:background="@color/white_alpha"
                         android:hint="@string/person_company"
                         android:textSize="@dimen/item_content_size" />

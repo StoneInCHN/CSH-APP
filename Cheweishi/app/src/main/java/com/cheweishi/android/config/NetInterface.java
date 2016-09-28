@@ -53,6 +53,8 @@ public class NetInterface {
 
     public static final String TEMP_SHOP_ADD = "/csh-interface/estore/receiverAddress/";//收货地址
 
+    public static final String TEMP_ORDER_CREATE = "/csh-interface/estore/order/";//创建订单
+
     public static final String HEADER_ALL = BASE_URL + TEMP_URL;
 
     public static final String RESPONSE_SUCCESS = "0000"; // success
@@ -190,6 +192,8 @@ public class NetInterface {
     public static final String GET_ADDRESS = "getArea";//获取地区
 
     public static final String ADD_OR_EDIT = "addOrEdit";//编辑或者添加收货地址
+
+    public static final String CREATE = "create";//创建订单
 
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 

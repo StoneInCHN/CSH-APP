@@ -2,10 +2,12 @@ package com.cheweishi.android.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,7 +18,10 @@ import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.DefaultAddressResponse;
 import com.cheweishi.android.entity.ShopPayOrderNative;
+import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
+import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.ScrollListView;
 import com.cheweishi.android.widget.UnSlidingListView;
 import com.lidroid.xutils.ViewUtils;
@@ -69,6 +74,9 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
     @ViewInject(R.id.tv_sp_order_consignee_title)
     private TextView tv_sp_order_consignee_title;//收货人
 
+    @ViewInject(R.id.et_sp_order_invoice)
+    private EditText et_sp_order_invoice; // 发票抬头
+
     @ViewInject(R.id.tv_sp_money)
     private TextView tv_sp_money;//总价钱
 
@@ -77,6 +85,10 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
     private List<ShopPayOrderNative> list;
 
     private boolean isRefreshing = false;
+
+    private int receiverId = -1;//收货人地址Id
+
+    private boolean isNowBuy;//是否为立即购买
 
     @Override
     protected void onResume() {
@@ -105,6 +117,7 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
     private void init() {
         left_action.setText(R.string.back);
         title.setText(R.string.confrim_order);
+        isNowBuy = getIntent().getBooleanExtra("isNowBuy", false);
         list = (List<ShopPayOrderNative>) getIntent().getSerializableExtra("data");
 
         if (null != list && 0 < list.size()) {
@@ -138,7 +151,22 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
         return temp;
     }
 
-    @OnClick({R.id.left_action, R.id.rl_sp_order})
+    /**
+     * 获取物品集合的id
+     *
+     * @return
+     */
+    private int[] getIds() {
+        if (null == list || 0 == list.size())
+            return null;
+        int[] ids = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            ids[i] = list.get(i).getId();
+        }
+        return ids;
+    }
+
+    @OnClick({R.id.left_action, R.id.rl_sp_order, R.id.bt_sp_pay})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_action:
@@ -148,7 +176,42 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
                 Intent address = new Intent(baseContext, MyReceiveAddressActivity.class);
                 startActivity(address);
                 break;
+            case R.id.bt_sp_pay: // 确认下单
+                if (-1 == receiverId) {
+                    showToast("当前还没有填写收货地址");
+                    return;
+                }
+                createOrder(getIds());
+                break;
         }
+    }
+
+    private void createOrder(int[] ids) {
+        if (null == ids) {
+            showToast("没有选择购买的物品");
+            return;
+        } else if (cb_sp_order_invoice.isChecked() && StringUtil.isEmpty(et_sp_order_invoice.getText().toString())) {
+            showToast("请填写发票信息");
+            return;
+        }
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER_CREATE + NetInterface.CREATE + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("receiverId", receiverId);
+        param.put("isInvoice", cb_sp_order_invoice.isChecked());
+        if (cb_sp_order_invoice.isChecked()) {
+            param.put("invoiceTitle", et_sp_order_invoice.getText().toString());
+        }
+        if (isNowBuy) { // 是否为立即购买
+            param.put("productId", list.get(0).getId());
+            param.put("quantity", list.get(0).getNumber());
+        } else {
+            param.put("itemIds", ids);
+        }
+        param.put(Constant.PARAMETER_TAG, NetInterface.CREATE);
+        netWorkHelper.PostJson(url, param, this);
     }
 
     private void getDefaultAddress(int type) {
@@ -167,7 +230,7 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
     public void receive(String TAG, String data) {
 
         switch (TAG) {
-            case NetInterface.GET_DEFAULT_ADDRESS:
+            case NetInterface.GET_DEFAULT_ADDRESS: // 获取默认收货地址
                 DefaultAddressResponse addressResponse = (DefaultAddressResponse) GsonUtil.getInstance().convertJsonStringToObject(data, DefaultAddressResponse.class);
                 if (!addressResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     ProgrosDialog.closeProgrosDialog();
@@ -180,9 +243,26 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
                     tv_sp_order_consignee.setText(addressResponse.getMsg().getConsignee());
                     tv_sp_order_consignee_address.setText(addressResponse.getMsg().getAreaName() + addressResponse.getMsg().getAddress());
                     tv_sp_order_consignee_phone.setText(addressResponse.getMsg().getPhone());
+                    receiverId = addressResponse.getMsg().getId();
                 }
 
                 loginResponse.setToken(addressResponse.getToken());
+                break;
+            case NetInterface.CREATE: // 创建订单
+                BaseResponse createResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+                if (!createResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+                    ProgrosDialog.closeProgrosDialog();
+                    showToast(createResponse.getDesc());
+                    return;
+                }
+
+                loginResponse.setToken(createResponse.getToken());
+                // TODO 跳转至支付界面.并结束当前界面
+
+                Intent pay = new Intent(baseContext, ShopPayActivity.class);
+                startActivity(pay);
+                finish();
+
                 break;
         }
 

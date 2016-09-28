@@ -1088,6 +1088,11 @@
             android:name=".activity.AddressManagerActivity"
             android:screenOrientation="portrait" />
 
+        <!--商品支付界面-->
+        <activity
+            android:name=".activity.ShopPayActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
