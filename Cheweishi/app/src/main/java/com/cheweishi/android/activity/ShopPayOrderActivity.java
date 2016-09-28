@@ -244,6 +244,11 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
                     tv_sp_order_consignee_address.setText(addressResponse.getMsg().getAreaName() + addressResponse.getMsg().getAddress());
                     tv_sp_order_consignee_phone.setText(addressResponse.getMsg().getPhone());
                     receiverId = addressResponse.getMsg().getId();
+                } else { // 也有可能是删除了,也有可能是没有填写
+                    tv_sp_order_consignee_title.setText(R.string.no_rece_add);
+                    tv_sp_order_consignee.setText(null);
+                    tv_sp_order_consignee_address.setText(null);
+                    tv_sp_order_consignee_phone.setText(null);
                 }
 
                 loginResponse.setToken(addressResponse.getToken());

@@ -1644,6 +1644,7 @@
     <string name="re_error">当前收货人不能为空</string>
     <string name="detail_error">当前详细不能为空且必须3个字以上</string>
     <string name="delete_desc">确认删除当前收货地址？</string>
+    <string name="no_rece_add">您当前还没有收货地址,点击添加</string>
 
 
 </resources>
