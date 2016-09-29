@@ -1,5 +1,6 @@
 package com.cheweishi.android.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
+import com.cheweishi.android.widget.CustomDialog;
 import com.cheweishi.android.widget.ScrollListView;
 import com.cheweishi.android.widget.UnSlidingListView;
 import com.lidroid.xutils.ViewUtils;
@@ -245,10 +247,11 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
                     tv_sp_order_consignee_phone.setText(addressResponse.getMsg().getPhone());
                     receiverId = addressResponse.getMsg().getId();
                 } else { // 也有可能是删除了,也有可能是没有填写
-                    tv_sp_order_consignee_title.setText(R.string.no_rece_add);
+                    tv_sp_order_consignee_title.setText(null);
                     tv_sp_order_consignee.setText(null);
                     tv_sp_order_consignee_address.setText(null);
                     tv_sp_order_consignee_phone.setText(null);
+                    showAddAddressDialog(getString(R.string.no_rece_add), getString(R.string.confirm));
                 }
 
                 loginResponse.setToken(addressResponse.getToken());
@@ -283,5 +286,29 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
             tv_sp_order_invoice_notice.setVisibility(View.GONE);
             ll_sp_order_invoice.setVisibility(View.GONE);
         }
+    }
+
+    public void showAddAddressDialog(String msg, String buttonMsg) {
+        CustomDialog.Builder builder = new CustomDialog.Builder(this);
+        builder.setMessage(msg);
+        builder.setTitle(getString(R.string.remind));
+
+        builder.setPositiveButton(buttonMsg,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Intent address = new Intent(baseContext, MyReceiveAddressActivity.class);
+                        startActivity(address);
+                    }
+                });
+        builder.setNegativeButton(getString(R.string.cancel),
+                new android.content.DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.create().show();
     }
 }
