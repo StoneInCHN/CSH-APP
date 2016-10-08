@@ -555,7 +555,7 @@
         <activity
             android:name="com.cheweishi.android.activity.GasStationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/translucent"></activity>
+            android:theme="@style/myAnimationNoTileBar"></activity>
 
         <!-- 友盟 -->
 
