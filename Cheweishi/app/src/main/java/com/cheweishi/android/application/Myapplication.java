@@ -294,7 +294,7 @@ public class Myapplication extends Application implements
             AlarmManager mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             mAlarmManager.set(AlarmManager.RTC,
                     System.currentTimeMillis() + 1000, pendingIntent);
-            ActivityControl.finishProgrom();
+            ActivityControl.GG(getApplicationContext());
 
         }
 

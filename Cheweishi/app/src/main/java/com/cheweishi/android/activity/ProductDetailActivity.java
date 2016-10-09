@@ -318,7 +318,7 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
      * @return
      */
     private List<ShopPayOrderNative> getPayList() {
-        if (null == list || 0 == list.size())
+        if (null == detailResponse || null == detailResponse.getMsg())
             return null;
         List<ShopPayOrderNative> temp = new ArrayList<>();
         if (null != detailResponse && null != detailResponse.getMsg()) {

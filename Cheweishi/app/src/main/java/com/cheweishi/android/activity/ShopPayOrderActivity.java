@@ -268,6 +268,8 @@ public class ShopPayOrderActivity extends BaseActivity implements CompoundButton
                 // TODO 跳转至支付界面.并结束当前界面
 
                 Intent pay = new Intent(baseContext, ShopPayActivity.class);
+                pay.putExtra("orderId", createResponse.getDesc());
+                pay.putExtra("money", tv_sp_money.getText());
                 startActivity(pay);
                 finish();
 
