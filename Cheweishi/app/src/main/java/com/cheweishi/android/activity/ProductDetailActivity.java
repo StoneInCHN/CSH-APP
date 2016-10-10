@@ -321,16 +321,16 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
         if (null == detailResponse || null == detailResponse.getMsg())
             return null;
         List<ShopPayOrderNative> temp = new ArrayList<>();
-        if (null != detailResponse && null != detailResponse.getMsg()) {
-            long tempMoney = Integer.valueOf(detailResponse.getMsg().getPrice()) * Integer.valueOf(et_product_detail_num.getText().toString());
-            ShopPayOrderNative shopPayOrderNative = new ShopPayOrderNative();
-            shopPayOrderNative.setIcon(detailResponse.getMsg().getImage());
-            shopPayOrderNative.setMoney(String.valueOf(tempMoney));
-            shopPayOrderNative.setName(detailResponse.getMsg().getFullName());
-            shopPayOrderNative.setNumber(et_product_detail_num.getText().toString());
-            shopPayOrderNative.setId(detailResponse.getMsg().getId());
-            temp.add(shopPayOrderNative);
-        }
+//        if (null != detailResponse && null != detailResponse.getMsg()) {
+        long tempMoney = Integer.valueOf(detailResponse.getMsg().getPrice()) * Integer.valueOf(et_product_detail_num.getText().toString());
+        ShopPayOrderNative shopPayOrderNative = new ShopPayOrderNative();
+        shopPayOrderNative.setIcon(detailResponse.getMsg().getImage());
+        shopPayOrderNative.setMoney(String.valueOf(tempMoney));
+        shopPayOrderNative.setName(detailResponse.getMsg().getFullName());
+        shopPayOrderNative.setNumber(et_product_detail_num.getText().toString());
+        shopPayOrderNative.setId(detailResponse.getMsg().getId());
+        temp.add(shopPayOrderNative);
+//        }
         return temp;
     }
 

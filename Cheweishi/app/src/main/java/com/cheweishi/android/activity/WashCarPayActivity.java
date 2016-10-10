@@ -815,7 +815,8 @@ public class WashCarPayActivity extends BaseActivity implements PayUtils.OnPayLi
         tv_wash_affirm.setClickable(true);
         if (CHANNEL_ALIPAY.equals(channel) || CHANNEL_WECHAT.equals(channel)) { // 微信或者支付宝
             if (0 < amount) { // 价钱大于0,就发起过微信和支付宝
-                this.finish();
+                // TODO 跳转到支付完成
+                paymentDone();
                 return;
             }
         }
