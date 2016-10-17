@@ -18,6 +18,7 @@ import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.CarManagerActivity;
 import com.cheweishi.android.activity.IdeaReturnActivity;
 import com.cheweishi.android.activity.MainNewActivity;
+import com.cheweishi.android.activity.MyShopOrderActivity;
 import com.cheweishi.android.activity.MyorderActivity;
 import com.cheweishi.android.activity.PurseActivity;
 import com.cheweishi.android.activity.PurseRedPacketsActivity;
@@ -68,6 +69,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     //我的订单
     private LinearLayout ll_my_order;
+
+    //商品订单
+    private LinearLayout ll_my_shop_order;
 
     //扫一扫
     private LinearLayout ll_my_scan;
@@ -122,6 +126,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         ll_my_default_car = (LinearLayout) view.findViewById(R.id.ll_my_default_car);
         ll_my_money = (LinearLayout) view.findViewById(R.id.ll_my_money);
         ll_my_order = (LinearLayout) view.findViewById(R.id.ll_my_order);
+        ll_my_shop_order = (LinearLayout) view.findViewById(R.id.ll_my_shop_order);
         ll_my_scan = (LinearLayout) view.findViewById(R.id.ll_my_scan);
         ll_communicate = (LinearLayout) view.findViewById(R.id.ll_communicate);
         ll_feed_back = (LinearLayout) view.findViewById(R.id.ll_feed_back);
@@ -137,6 +142,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         ll_my_money.setOnClickListener(this);
         ll_my_order.setOnClickListener(this);
         ll_my_scan.setOnClickListener(this);
+        ll_my_shop_order.setOnClickListener(this);
         ll_communicate.setOnClickListener(this);
         ll_feed_back.setOnClickListener(this);
 
@@ -205,6 +211,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 Intent intent = new Intent(baseContext,
                         PurseRedPacketsActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.ll_my_shop_order:
+                Intent shopOrderActivity = new Intent(baseContext, MyShopOrderActivity.class);
+                startActivity(shopOrderActivity);
                 break;
         }
     }

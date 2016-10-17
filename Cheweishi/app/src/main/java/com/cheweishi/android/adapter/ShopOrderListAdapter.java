@@ -10,10 +10,13 @@ import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.entity.NewsListResponse;
 import com.cheweishi.android.entity.ShopOrderListResponse;
+import com.cheweishi.android.entity.ShopPayOrderNative;
 import com.cheweishi.android.widget.SimpleTagImageView;
 import com.cheweishi.android.widget.UnSlidingListView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,20 +28,40 @@ public class ShopOrderListAdapter extends BaseAdapter {
 
     private List<ShopOrderListResponse.MsgBean> list;
 
+    private List<ShopPayOrderListAdapter> childAdapters;
+
 
     public ShopOrderListAdapter(Context context, List<ShopOrderListResponse.MsgBean> list) {
         this.context = context;
         this.list = list;
+        initChildAdapter(list);
     }
 
     public void setData(List<ShopOrderListResponse.MsgBean> list) {
         this.list = list;
+        initChildAdapter(list);
         notifyDataSetChanged();
     }
 
 
-    private void initChildAdapter() {
-
+    private void initChildAdapter(List<ShopOrderListResponse.MsgBean> parents) {
+        if (null == parents || 0 == parents.size())
+            return;
+        childAdapters = new ArrayList<>();
+        for (int i = 0; i < parents.size(); i++) {
+            ShopOrderListResponse.MsgBean temp = parents.get(i);
+            List<ShopPayOrderNative> orderNatives = new ArrayList<>();
+            for (int j = 0; j < temp.getOrderItem().size(); j++) {
+                ShopPayOrderNative orderNative = new ShopPayOrderNative();
+                orderNative.setId(temp.getOrderItem().get(j).getId());
+                orderNative.setNumber(temp.getOrderItem().get(j).getQuantity());
+                orderNative.setMoney(temp.getOrderItem().get(j).getPrice());
+                orderNative.setName(temp.getOrderItem().get(j).getName());
+                orderNative.setIcon(temp.getOrderItem().get(j).getThumbnail());
+                orderNatives.add(orderNative);
+            }
+            childAdapters.add(new ShopPayOrderListAdapter(context, orderNatives));
+        }
     }
 
     @Override
@@ -54,16 +77,6 @@ public class ShopOrderListAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return 2;//2种类型
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(position);
     }
 
     @Override
@@ -86,7 +99,8 @@ public class ShopOrderListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+        holder.content.setAdapter(childAdapters.get(position));
+        holder.time.setText(getDate(list.get(position).getCreateDate()));
 //        holder.time.setText(list.get(position).getOrderItem().get(position).ge);
 
         return convertView;
@@ -101,4 +115,11 @@ public class ShopOrderListAdapter extends BaseAdapter {
         private TextView pay;
     }
 
+
+    private String getDate(long time) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        Date curDate = new Date(time);// 获取当前时间
+        String str = formatter.format(curDate);
+        return str;
+    }
 }

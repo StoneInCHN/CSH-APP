@@ -221,8 +221,8 @@ public class ShopOrderListResponse extends BaseResponse {
 
         public static class OrderItemBean {
             private String thumbnail;
-            private int quantity;
-            private int price;
+            private String quantity;
+            private String price;
             private String name;
             private int id;
 
@@ -234,19 +234,19 @@ public class ShopOrderListResponse extends BaseResponse {
                 this.thumbnail = thumbnail;
             }
 
-            public int getQuantity() {
+            public String getQuantity() {
                 return quantity;
             }
 
-            public void setQuantity(int quantity) {
+            public void setQuantity(String quantity) {
                 this.quantity = quantity;
             }
 
-            public int getPrice() {
+            public String getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(String price) {
                 this.price = price;
             }
 

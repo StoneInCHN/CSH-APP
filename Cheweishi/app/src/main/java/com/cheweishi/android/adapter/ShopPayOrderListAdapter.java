@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.cheweishi.android.R;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.entity.ShopPayOrderNative;
+import com.cheweishi.android.utils.StringUtil;
 
 import java.util.List;
 
@@ -24,6 +25,11 @@ public class ShopPayOrderListAdapter extends BaseAdapter {
     public ShopPayOrderListAdapter(Context context, List<ShopPayOrderNative> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void setData(List<ShopPayOrderNative> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -63,7 +69,8 @@ public class ShopPayOrderListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-
+        if (StringUtil.isEmpty(list.get(position).getIcon()))
+            holder.icon.setScaleType(ImageView.ScaleType.FIT_XY);
         XUtilsImageLoader.getHomeAdvImg(context, R.drawable.udesk_defualt_failure, holder.icon, list.get(position).getIcon());
         holder.name.setText(list.get(position).getName());
         holder.number.setText("x" + list.get(position).getNumber());
