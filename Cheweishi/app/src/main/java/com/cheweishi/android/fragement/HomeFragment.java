@@ -469,7 +469,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 if (response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     // TODO 成功
                     MainNewActivity.bindTitle = StringUtil.isEmpty(response.getDesc()) ? "车生活" : response.getDesc();
-                    setTitle(response.getDesc());
+                    setTitle(MainNewActivity.bindTitle);
                     showData(response);
 
                     return;

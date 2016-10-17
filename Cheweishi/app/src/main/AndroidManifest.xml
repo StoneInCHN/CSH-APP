@@ -1093,6 +1093,11 @@
             android:name=".activity.ShopPayActivity"
             android:screenOrientation="portrait" />
 
+        <!--商品订单列表-->
+        <activity
+            android:name=".activity.MyShopOrderActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

@@ -247,7 +247,7 @@ public class ShopPayActivity extends BaseActivity implements PayUtils.OnPayListe
             return;
         }
         ProgrosDialog.openDialog(baseContext);
-        String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER + NetInterface.UPDATE_PAY_STATUS + NetInterface.SUFFIX;
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER_CREATE + NetInterface.UPDATE_PAY_STATUS + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());

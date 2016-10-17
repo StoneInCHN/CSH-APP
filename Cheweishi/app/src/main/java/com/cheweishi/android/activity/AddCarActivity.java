@@ -51,6 +51,7 @@ import com.cheweishi.android.tools.RegularExpressionTools;
 import com.cheweishi.android.tools.ReturnBackDialogRemindTools;
 import com.cheweishi.android.utils.CommonUtils;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.MyMapUtils;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
@@ -921,9 +922,9 @@ public class AddCarActivity extends BaseActivity {
     public void receive(String data) {
         ProgrosDialog.closeProgrosDialog();
         addCarFlag = false;
-        AddCarResponse response = (AddCarResponse) GsonUtil.getInstance().convertJsonStringToObject(data, AddCarResponse.class);
-        if (!response.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
-            showToast(response.getDesc());
+        AddCarResponse addCarResponse = (AddCarResponse) GsonUtil.getInstance().convertJsonStringToObject(data, AddCarResponse.class);
+        if (!addCarResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
+            showToast(addCarResponse.getDesc());
             return;
         }
 
@@ -933,9 +934,14 @@ public class AddCarActivity extends BaseActivity {
         mIntent.setAction(Constant.REFRESH_FLAG);
         sendBroadcast(mIntent);
 
+        LogHelper.d("我出错了1");
 //        cid = response.getDesc();
-        cid = response.getMsg().getVehicleId();
-        loginResponse.setToken(response.getToken());
+        if (null == addCarResponse.getMsg()) {
+            cid = addCarResponse.getDesc();
+        } else {
+            cid = addCarResponse.getMsg().getVehicleId();
+        }
+        loginResponse.setToken(addCarResponse.getToken());
 //        LoginMessageUtils.saveloginmsg(baseContext, loginResponse);
         if (isNeedBingd) {
             if (carManagerTemp == null && null != cid && !"".equals(cid)) {

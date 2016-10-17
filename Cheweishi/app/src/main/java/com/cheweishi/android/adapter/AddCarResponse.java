@@ -7,8 +7,10 @@ import com.cheweishi.android.response.BaseResponse;
  */
 public class AddCarResponse extends BaseResponse {
 
+
     /**
-     * vehicleId : 73
+     * appTitle : 精诚汽车服务中心
+     * vehicleId : 9
      */
 
     private MsgBean msg;
@@ -22,7 +24,16 @@ public class AddCarResponse extends BaseResponse {
     }
 
     public static class MsgBean {
+        private String appTitle;
         private String vehicleId;
+
+        public String getAppTitle() {
+            return appTitle;
+        }
+
+        public void setAppTitle(String appTitle) {
+            this.appTitle = appTitle;
+        }
 
         public String getVehicleId() {
             return vehicleId;

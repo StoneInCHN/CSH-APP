@@ -4,22 +4,24 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.SparseArray;
 
 import com.cheweishi.android.entity.NewsTypeResponse;
 import com.cheweishi.android.fragement.NewsPageFragment;
+import com.cheweishi.android.fragement.OrderPageFragment;
 
 import java.util.List;
 
 /**
  * Created by Tanck on 2015/8/27.
  */
-public class NewsFragmentPagerAdapter extends FragmentPagerAdapter {
+public class ShopOrderFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private Context context;
 
-    private List<NewsTypeResponse.MsgBean> list;
+    private List<String> list;
 
-    public NewsFragmentPagerAdapter(FragmentManager fm, Context context, List<NewsTypeResponse.MsgBean> list) {
+    public ShopOrderFragmentPagerAdapter(FragmentManager fm, Context context, List<String> list) {
         super(fm);
         this.context = context;
         this.list = list;
@@ -27,7 +29,7 @@ public class NewsFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return NewsPageFragment.newInstance(position,list.get(position).getId());
+        return OrderPageFragment.newInstance(position);
     }
 
     @Override
@@ -37,7 +39,7 @@ public class NewsFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return list.get(position).getName();
+        return list.get(position);
     }
 
 }

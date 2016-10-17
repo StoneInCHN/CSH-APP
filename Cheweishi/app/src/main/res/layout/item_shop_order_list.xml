@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/more_back"
+    android:orientation="vertical"
+    android:padding="@dimen/normal_padding">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_item_order_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单时间:2016-10-11 10:55:10"
+            android:textColor="@color/light_gray"
+            android:textSize="@dimen/item_small_text_size" />
+
+        <TextView
+            android:id="@+id/tv_item_order_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="待付款"
+            android:textColor="@color/red"
+            android:textSize="@dimen/item_small_text_size" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/normal_marging"
+        android:background="@color/line_gray" />
+
+    <com.cheweishi.android.widget.UnSlidingListView
+        android:id="@+id/ulv_item_order_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/normal_marging"
+        android:background="@color/line_gray" />
+
+    <TextView
+        android:id="@+id/tv_item_order_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="@dimen/normal_marging"
+        android:text="共1件商品 实付:￥399"
+        android:textSize="@dimen/item_small_text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/normal_marging"
+        android:background="@color/line_gray" />
+
+    <RelativeLayout
+        android:id="@+id/rl_item_order_opt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/normal_padding">
+
+        <TextView
+            android:id="@+id/tv_item_order_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="立即付款"
+            android:textColor="@color/orange" />
+
+        <TextView
+            android:id="@+id/tv_item_order_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/normal_marging"
+            android:layout_toLeftOf="@id/tv_item_order_pay"
+            android:text="取消订单"
+            android:textColor="@color/light_gray" />
+    </RelativeLayout>
+
+</LinearLayout>
