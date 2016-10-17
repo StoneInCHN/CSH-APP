@@ -117,7 +117,7 @@ public class ShopOrderListAdapter extends BaseAdapter {
 
 
     private String getDate(long time) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date curDate = new Date(time);// 获取当前时间
         String str = formatter.format(curDate);
         return str;
