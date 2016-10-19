@@ -17,6 +17,7 @@ import com.cheweishi.android.entity.NewsListResponse;
 import com.cheweishi.android.entity.ShopOrderListResponse;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -45,11 +46,16 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
 
     private List<ShopOrderListResponse.MsgBean> list = new ArrayList<>();
 
+    private ShopOrderListResponse.MsgBean bean;
+
     private ShopOrderListAdapter adapter;
 
     private int total;
 
     private boolean isHeadRefresh = false;
+
+    private boolean isFirstLoad = false;
+
     private boolean isEmpty;
 
     public static OrderPageFragment newInstance(int id) {
@@ -103,6 +109,7 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
 
         if (0x10 == what && !isLoaded) {
             isLoaded = true;
+            isFirstLoad = true;//用于第一次加载获取list的total
             sendPacket(0);
         } else if (0 == list.size()) {
             EmptyTools.setEmptyView(baseContext, listView);
@@ -139,22 +146,25 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
 
         if (null != temp && 0 < temp.size()) {
 //            EmptyTools.hintEmpty();
-            total = response.getPage().getTotal();
             if (isHeadRefresh) {
-                list = temp;
+                total = response.getPage().getTotal();
+                list = handleList(temp);
             } else {
-                list.addAll(temp);
+                if (isFirstLoad) {
+                    total = response.getPage().getTotal();
+                    isFirstLoad = !isFirstLoad;
+                }
+                list.addAll(handleList(temp));
             }
             isEmpty = false;
         } else if (!isEmpty) { // 已经添加了
             isEmpty = true;
-            list = temp;
+            list = handleList(temp);
 //            adapter.setData(list);
             EmptyTools.setEmptyView(baseContext, listView);
             EmptyTools.setImg(R.drawable.mycar_icon);
             EmptyTools.setMessage("当前列表没有商品信息");
         }
-
         adapter.setData(list);
         loginResponse.setToken(response.getToken());
         ProgrosDialog.closeProgrosDialog();
@@ -165,6 +175,36 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
             listView.onRefreshComplete();
             listView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         }
+    }
+
+    /**
+     * 拆分订单
+     *
+     * @param list
+     * @return
+     */
+    private List<ShopOrderListResponse.MsgBean> handleList(List<ShopOrderListResponse.MsgBean> list) {
+        if (null == list || 0 == list.size())
+            return list;
+        List<ShopOrderListResponse.MsgBean> temp = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            ++total;
+            bean = list.get(i);
+            bean.setType(1);
+            temp.add(bean);//先add一个Head
+            for (int j = 0; j < list.get(i).getOrderItem().size(); j++) {
+                ++total;
+                bean = (ShopOrderListResponse.MsgBean) bean.clone();
+                bean.setType(2);
+                bean.setOrderPosition(j);
+                temp.add(bean);
+            }
+//            ++total;
+            bean = (ShopOrderListResponse.MsgBean) bean.clone();
+            bean.setType(3);
+            temp.add(bean);
+        }
+        return temp;
     }
 
     @Override
@@ -192,8 +232,8 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         position = position - 1;
-        Intent intent = new Intent(baseContext, WebActivity.class);
-        intent.putExtra("id", list.get(position).getId());
-        startActivity(intent);
+//        Intent intent = new Intent(baseContext, WebActivity.class);
+//        intent.putExtra("id", list.get(position).getId());
+//        startActivity(intent);
     }
 }

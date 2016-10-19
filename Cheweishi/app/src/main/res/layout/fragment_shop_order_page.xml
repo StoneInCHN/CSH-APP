@@ -12,9 +12,9 @@
         android:id="@+id/prl_order"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:descendantFocusability="blocksDescendants"
-        android:divider="@color/line_gray"
-        android:dividerHeight="10dp"
+        android:divider="@null"
+        android:dividerHeight="0dip"
+        android:listSelector="@null"
         android:scrollbars="none" />
 
 </LinearLayout>

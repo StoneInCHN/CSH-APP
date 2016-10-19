@@ -83,7 +83,10 @@ public class ShopOrderListResponse extends BaseResponse {
         }
     }
 
-    public static class MsgBean {
+    public static class MsgBean implements Cloneable {
+        private int type = 0;//订单类型
+        private int orderPosition;//订单位置
+//        private int realPosition;//订单真实位置
         private String amount;
         private String consignee;
         private String address;
@@ -97,6 +100,42 @@ public class ShopOrderListResponse extends BaseResponse {
         private String sn;
         private String paymentStatus;
         private long createDate;
+
+        @Override
+        public Object clone() {
+            try {
+                ShopOrderListResponse.MsgBean msgBean = (MsgBean) super.clone();
+                return msgBean;
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+//        public int getRealPosition() {
+//            return realPosition;
+//        }
+//
+//        public void setRealPosition(int realPosition) {
+//            this.realPosition = realPosition;
+//        }
+
+        public int getOrderPosition() {
+            return orderPosition;
+        }
+
+        public void setOrderPosition(int orderPosition) {
+            this.orderPosition = orderPosition;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
         /**
          * thumbnail : null
          * quantity : 1
@@ -104,6 +143,7 @@ public class ShopOrderListResponse extends BaseResponse {
          * name : 熊猫座椅
          * id : 11
          */
+
 
         private List<OrderItemBean> orderItem;
 

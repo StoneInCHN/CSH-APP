@@ -1647,5 +1647,12 @@
     <string name="no_rece_add">您当前还没有收货地址,点击添加</string>
     <string name="pay_error_notify">很抱歉,支付遇到问题了,请重新再试</string>
 
+    <string name="unpaid">待付款</string>
+    <string name="unsend">待发货</string>
+    <string name="unrec">待收货</string>
+    <string name="received">待评价</string>
+    <string name="time_out_close">交易关闭</string>
+    <string name="order_time">订单时间:</string>
+
 
 </resources>
