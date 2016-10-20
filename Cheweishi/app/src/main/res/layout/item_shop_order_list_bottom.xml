@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_item_order_detail_bottom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/normal_padding">
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginTop="@dimen/normal_marging"
+        android:layout_marginLeft="@dimen/normal_marging"
+        android:layout_marginRight="@dimen/normal_marging"
         android:background="@color/line_gray" />
 
     <TextView
@@ -25,8 +26,10 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
+        android:layout_marginLeft="@dimen/normal_marging"
+        android:layout_marginRight="@dimen/normal_marging"
         android:layout_marginTop="@dimen/normal_marging"
-        android:background="@color/line_gray" />
+        android:background="@color/orange" />
 
     <RelativeLayout
         android:id="@+id/rl_item_order_opt"

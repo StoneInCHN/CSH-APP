@@ -12,6 +12,7 @@
         android:background="@color/hyal_head" />
 
     <RelativeLayout
+        android:id="@+id/rl_item_order_detail_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -38,9 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_below="@id/tv_item_order_status"
-            android:layout_marginBottom="@dimen/normal_marging"
             android:layout_marginTop="@dimen/normal_marging"
-            android:background="@color/line_gray" />
+            android:background="@color/orange" />
 
     </RelativeLayout>
 

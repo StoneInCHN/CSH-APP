@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Created by Tanck on 10/11/2016.
- * <p>
+ * <p/>
  * Describe:
  */
 public class ShopOrderListResponse extends BaseResponse {
@@ -86,7 +86,7 @@ public class ShopOrderListResponse extends BaseResponse {
     public static class MsgBean implements Cloneable {
         private int type = 0;//订单类型
         private int orderPosition;//订单位置
-//        private int realPosition;//订单真实位置
+        //        private int realPosition;//订单真实位置
         private String amount;
         private String consignee;
         private String address;
@@ -265,6 +265,15 @@ public class ShopOrderListResponse extends BaseResponse {
             private String price;
             private String name;
             private int id;
+            private productBean product;
+
+            public productBean getProduct() {
+                return product;
+            }
+
+            public void setProduct(productBean product) {
+                this.product = product;
+            }
 
             public String getThumbnail() {
                 return thumbnail;
@@ -304,6 +313,18 @@ public class ShopOrderListResponse extends BaseResponse {
 
             public void setId(int id) {
                 this.id = id;
+            }
+
+            public static class productBean {
+                private int id;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
             }
         }
     }

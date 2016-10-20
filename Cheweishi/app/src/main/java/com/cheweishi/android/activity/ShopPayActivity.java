@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * Created by Tanck on 9/28/2016.
- * <p>
+ * <p/>
  * Describe: 商品支付界面
  */
 public class ShopPayActivity extends BaseActivity implements PayUtils.OnPayListener {
@@ -108,12 +108,21 @@ public class ShopPayActivity extends BaseActivity implements PayUtils.OnPayListe
         left_action.setText(R.string.back);
         title.setText(R.string.wash_pay);
         String temp = getIntent().getStringExtra("orderId");
+        LogHelper.d("orderIds:" + temp);
         if (StringUtil.isEmpty(temp)) {
             showToast(R.string.pay_error_notify);
 //            finish();
             return;
         }
-        orderId = temp.split(",");
+        if (temp.contains(","))
+            orderId = temp.split(",");
+        else {
+            orderId = new String[1];
+            orderId[0] = temp;
+        }
+//        orderId = new Long[2];
+//        orderId[0]= Long.valueOf(21);
+//        orderId[1]= Long.valueOf(22);
         money = getIntent().getStringExtra("money");
         tv_shop_money.setText("￥" + money);
     }
@@ -229,7 +238,7 @@ public class ShopPayActivity extends BaseActivity implements PayUtils.OnPayListe
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
-        param.put("orderId", orderId);
+        param.put("orderIds", orderId);
         param.put("paymentType", paymentType);
         netWorkHelper.PostJson(url, param, this);
     }
@@ -251,7 +260,7 @@ public class ShopPayActivity extends BaseActivity implements PayUtils.OnPayListe
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
-        param.put("orderId", orderId);
+        param.put("orderIds", orderId);
         param.put(Constant.PARAMETER_TAG, NetInterface.UPDATE_PAY_STATUS);
         netWorkHelper.PostJson(url, param, this);
     }
