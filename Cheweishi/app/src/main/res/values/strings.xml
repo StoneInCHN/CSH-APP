@@ -1651,8 +1651,15 @@
     <string name="unsend">待发货</string>
     <string name="unrec">待收货</string>
     <string name="received">待评价</string>
+    <string name="cancel_order">已取消</string>
     <string name="time_out_close">交易关闭</string>
+    <string name="not_no">等待确认</string>
+    <string name="paid">已支付,等待商家确认</string>
     <string name="order_time">订单时间:</string>
+    <string name="cancel_order_desc">确认取消当前订单？</string>
+    <string name="confirm_order_cancel">残忍取消</string>
+    <string name="cancel_order_cancel">我再想想</string>
+    <string name="cancel_error">订单取消失败啦</string>
 
 
 </resources>

@@ -16,7 +16,6 @@ import com.cheweishi.android.activity.ShopPayActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.entity.ShopOrderListResponse;
 import com.cheweishi.android.entity.ShopPayOrderNative;
-import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 
 import java.text.SimpleDateFormat;
@@ -34,6 +33,29 @@ public class ShopOrderListAdapter extends BaseAdapter {
     private List<ShopOrderListResponse.MsgBean> list;
 
     private List<ShopPayOrderListAdapter> childAdapters;
+
+    private OrderProcessListener listener;
+
+    public void setListener(OrderProcessListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OrderProcessListener {
+        /**
+         * 对应订单取消的时候
+         *
+         * @param position
+         */
+        void onCancel(int position);
+
+        /**
+         * 对应订单确认收货
+         *
+         * @param position
+         */
+        void onReceive(int position);
+
+    }
 
 
     public ShopOrderListAdapter(Context context, List<ShopOrderListResponse.MsgBean> list) {
@@ -121,33 +143,55 @@ public class ShopOrderListAdapter extends BaseAdapter {
                     holder.cancel = (TextView) convertView.findViewById(R.id.tv_item_order_cancel);
                     holder.pay = (TextView) convertView.findViewById(R.id.tv_item_order_pay);
                     holder.detailBottom = (LinearLayout) convertView.findViewById(R.id.ll_item_order_detail_bottom);
+                    holder.opt = (RelativeLayout) convertView.findViewById(R.id.rl_item_order_opt);
+                    holder.back = (TextView) convertView.findViewById(R.id.tv_item_order_back);
                     break;
             }
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        String tempPayStatus = list.get(position).getPaymentStatus();
+        String tempOrderStatus = list.get(position).getOrderStatus();
+        String tempShippingStatus = list.get(position).getShippingStatus();
         holder.setListener(position);
         switch (getItemViewType(position)) {
             case 1:// head
 
                 holder.time.setText(context.getString(R.string.order_time) + getDate(list.get(position).getCreateDate()));
-                String tempPayStatus = list.get(position).getPaymentStatus();
-                String tempOrderStatus = list.get(position).getOrderStatus();
-                String tempShippingStatus = list.get(position).getShippingStatus();
+                /**
+                 * 订单状态
+                 未确认
+                 unconfirmed,
 
-                if ("unpaid".equals(tempPayStatus)) {
+                 已确认
+                 confirmed,
+
+                 已完成
+                 completed,
+
+                 已取消
+                 cancelled,
+
+                 已失效
+                 failure
+                 */
+                if ("failure".equals(tempOrderStatus)) {
+                    holder.status.setText(R.string.time_out_close);
+                } else if ("unpaid".equals(tempPayStatus) && "cancelled".equals(tempOrderStatus)) {
+                    holder.status.setText(R.string.cancel_order);
+                } else if ("unpaid".equals(tempPayStatus)) {
                     holder.status.setText(R.string.unpaid);
+                } else if ("paid".equals(tempPayStatus) && "unconfirmed".equals(tempOrderStatus)) {
+                    holder.status.setText(R.string.paid);
                 } else if ("paid".equals(tempPayStatus) && "confirmed".equals(tempOrderStatus)) {
                     holder.status.setText(R.string.unsend);
                 } else if ("shipped".equals(tempShippingStatus)) {
                     holder.status.setText(R.string.unrec);
                 } else if ("received".equals(tempShippingStatus)) {
                     holder.status.setText(R.string.received);
-                } else if ("failure".equals(tempOrderStatus)) {
-                    holder.status.setText(R.string.time_out_close);
                 } else {
-                    holder.status.setText(R.string.time_out_close);
+                    holder.status.setText(R.string.not_no);
                 }
                 holder.detailHead.setOnClickListener(holder);
                 break;
@@ -164,9 +208,71 @@ public class ShopOrderListAdapter extends BaseAdapter {
                 break;
             case 3://bottom
                 holder.money.setText("共" + list.get(position).getProductCount() + "件商品 实付:￥" + list.get(position).getAmount());
-                holder.cancel.setOnClickListener(holder);
-                holder.pay.setOnClickListener(holder);
                 holder.detailBottom.setOnClickListener(holder);
+                if ("failure".equals(tempOrderStatus)) {//交易关闭
+                    holder.opt.setVisibility(View.GONE);
+                } else if ("unpaid".equals(tempPayStatus) && "cancelled".equals(tempOrderStatus)) {//没给钱,点击已取消
+                    holder.opt.setVisibility(View.GONE);
+                } else if ("unpaid".equals(tempPayStatus)) {//待付款
+                    holder.opt.setVisibility(View.VISIBLE);
+                    // TODO 展示取消及付款,隐藏退货,退款
+                    holder.pay.setVisibility(View.VISIBLE);
+                    holder.cancel.setVisibility(View.VISIBLE);
+                    holder.back.setVisibility(View.GONE);
+                    holder.pay.setOnClickListener(holder);
+                    holder.cancel.setOnClickListener(holder);
+                } else if ("paid".equals(tempPayStatus) && "unconfirmed".equals(tempOrderStatus)) {//给了钱,没确认
+                    holder.opt.setVisibility(View.VISIBLE);
+                    // TODO 展示退款,隐藏取消及付款,退货
+                    holder.cancel.setVisibility(View.GONE);
+                    holder.pay.setVisibility(View.GONE);
+                    holder.back.setVisibility(View.VISIBLE);
+                } else if ("paid".equals(tempPayStatus) && "confirmed".equals(tempOrderStatus)) {//给了钱,且确认了
+                    holder.opt.setVisibility(View.VISIBLE);
+                    // TODO 展示退款,隐藏取消及付款,退货
+                    holder.cancel.setVisibility(View.GONE);
+                    holder.pay.setVisibility(View.GONE);
+                    holder.back.setVisibility(View.VISIBLE);
+                } else if ("shipped".equals(tempShippingStatus)) {//待收货
+                    holder.opt.setVisibility(View.VISIBLE);
+                    // TODO 展示退款,隐藏取消及付款,退货(后期可能会增加查看物流)
+                    holder.cancel.setVisibility(View.GONE);
+                    holder.pay.setVisibility(View.GONE);
+                    holder.back.setVisibility(View.VISIBLE);
+                } else if ("received".equals(tempShippingStatus)) {//收货了,待评价
+                    holder.opt.setVisibility(View.VISIBLE);
+                    // TODO 展示退货,隐藏取消及付款,退款
+                    holder.back.setVisibility(View.GONE);
+                    holder.cancel.setVisibility(View.GONE);
+                    holder.pay.setVisibility(View.GONE);
+                } else { // 等待确认
+                    holder.status.setText(R.string.not_no);
+                    holder.opt.setVisibility(View.GONE);
+                }
+
+//                if ("failure".equals(tempOrderStatus)) {
+//                    holder.opt.setVisibility(View.GONE);
+//                } else if ("unpaid".equals(tempPayStatus) && "cancelled".equals(tempOrderStatus)) {//订单已取消
+//
+//                } else if ("paid".equals(tempPayStatus) && "unconfirmed".equals(tempOrderStatus)) {
+//                    holder.opt.setVisibility(View.VISIBLE);
+//                    if ("paid".equals(tempPayStatus)) {
+//                        holder.pay.setVisibility(View.GONE);
+//                        holder.cancel.setVisibility(View.GONE);
+//                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.cancel.getLayoutParams();
+//                        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//                    } else {
+//                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.cancel.getLayoutParams();
+//                        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
+//                        holder.pay.setVisibility(View.VISIBLE);
+//                        holder.cancel.setVisibility(View.VISIBLE);
+//                        holder.pay.setOnClickListener(holder);
+//                        holder.cancel.setOnClickListener(holder);
+//                    }
+//
+//
+//                    holder.detailBottom.setOnClickListener(holder);
+//                }
                 break;
         }
 
@@ -179,10 +285,13 @@ public class ShopOrderListAdapter extends BaseAdapter {
         private TextView money;
         private TextView cancel;
         private TextView pay;
+        private TextView back;//退款
 
         private RelativeLayout detailHead;
 
         private LinearLayout detailBottom;
+
+        private RelativeLayout opt;//底部可能需要隐藏
 
         //订单列表内容
         private ImageView icon;
@@ -205,6 +314,8 @@ public class ShopOrderListAdapter extends BaseAdapter {
                 case R.id.rl_item_order_detail_head:
                     break;
                 case R.id.tv_item_order_cancel:
+                    if (null != listener)
+                        listener.onCancel(position);
                     break;
                 case R.id.tv_item_order_pay:
                     Intent pay = new Intent(context, ShopPayActivity.class);
@@ -219,6 +330,7 @@ public class ShopOrderListAdapter extends BaseAdapter {
                     break;
             }
         }
+
     }
 
     /**
