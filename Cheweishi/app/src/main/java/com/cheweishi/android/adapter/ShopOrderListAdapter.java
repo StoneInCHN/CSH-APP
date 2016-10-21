@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.cheweishi.android.R;
 import com.cheweishi.android.activity.ProductDetailActivity;
+import com.cheweishi.android.activity.ShopOrderDetailActivity;
 import com.cheweishi.android.activity.ShopPayActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
 import com.cheweishi.android.entity.ShopOrderListResponse;
@@ -145,6 +146,7 @@ public class ShopOrderListAdapter extends BaseAdapter {
                     holder.detailBottom = (LinearLayout) convertView.findViewById(R.id.ll_item_order_detail_bottom);
                     holder.opt = (RelativeLayout) convertView.findViewById(R.id.rl_item_order_opt);
                     holder.back = (TextView) convertView.findViewById(R.id.tv_item_order_back);
+                    holder.backGoods = (TextView) convertView.findViewById(R.id.tv_item_order_back_goods);
                     break;
             }
             convertView.setTag(holder);
@@ -219,6 +221,7 @@ public class ShopOrderListAdapter extends BaseAdapter {
                     holder.pay.setVisibility(View.VISIBLE);
                     holder.cancel.setVisibility(View.VISIBLE);
                     holder.back.setVisibility(View.GONE);
+                    holder.backGoods.setVisibility(View.GONE);
                     holder.pay.setOnClickListener(holder);
                     holder.cancel.setOnClickListener(holder);
                 } else if ("paid".equals(tempPayStatus) && "unconfirmed".equals(tempOrderStatus)) {//给了钱,没确认
@@ -226,27 +229,34 @@ public class ShopOrderListAdapter extends BaseAdapter {
                     // TODO 展示退款,隐藏取消及付款,退货
                     holder.cancel.setVisibility(View.GONE);
                     holder.pay.setVisibility(View.GONE);
+                    holder.backGoods.setVisibility(View.GONE);
                     holder.back.setVisibility(View.VISIBLE);
+                    holder.back.setOnClickListener(holder);
                 } else if ("paid".equals(tempPayStatus) && "confirmed".equals(tempOrderStatus)) {//给了钱,且确认了
                     holder.opt.setVisibility(View.VISIBLE);
                     // TODO 展示退款,隐藏取消及付款,退货
                     holder.cancel.setVisibility(View.GONE);
                     holder.pay.setVisibility(View.GONE);
                     holder.back.setVisibility(View.VISIBLE);
+                    holder.backGoods.setVisibility(View.GONE);
+                    holder.back.setOnClickListener(holder);
                 } else if ("shipped".equals(tempShippingStatus)) {//待收货
                     holder.opt.setVisibility(View.VISIBLE);
                     // TODO 展示退款,隐藏取消及付款,退货(后期可能会增加查看物流)
                     holder.cancel.setVisibility(View.GONE);
                     holder.pay.setVisibility(View.GONE);
+                    holder.backGoods.setVisibility(View.GONE);
                     holder.back.setVisibility(View.VISIBLE);
+                    holder.back.setOnClickListener(holder);
                 } else if ("received".equals(tempShippingStatus)) {//收货了,待评价
                     holder.opt.setVisibility(View.VISIBLE);
                     // TODO 展示退货,隐藏取消及付款,退款
                     holder.back.setVisibility(View.GONE);
                     holder.cancel.setVisibility(View.GONE);
                     holder.pay.setVisibility(View.GONE);
+                    holder.backGoods.setVisibility(View.VISIBLE);
+                    holder.backGoods.setOnClickListener(holder);
                 } else { // 等待确认
-                    holder.status.setText(R.string.not_no);
                     holder.opt.setVisibility(View.GONE);
                 }
 
@@ -286,6 +296,7 @@ public class ShopOrderListAdapter extends BaseAdapter {
         private TextView cancel;
         private TextView pay;
         private TextView back;//退款
+        private TextView backGoods;//退货
 
         private RelativeLayout detailHead;
 
@@ -310,8 +321,12 @@ public class ShopOrderListAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+                case R.id.rl_sp_my_order_content://content
                 case R.id.ll_item_order_detail_bottom://detail
                 case R.id.rl_item_order_detail_head:
+                    Intent detail = new Intent(context, ShopOrderDetailActivity.class);
+                    detail.putExtra("data",list.get(position));
+                    context.startActivity(detail);
                     break;
                 case R.id.tv_item_order_cancel:
                     if (null != listener)
@@ -323,11 +338,11 @@ public class ShopOrderListAdapter extends BaseAdapter {
                     pay.putExtra("money", list.get(position).getAmount());
                     context.startActivity(pay);
                     break;
-                case R.id.rl_sp_my_order_content://content
-                    Intent detail = new Intent(context, ProductDetailActivity.class);
-                    detail.putExtra("productId", list.get(position).getOrderItem().get(list.get(position).getOrderPosition()).getProduct().getId());
-                    context.startActivity(detail);
-                    break;
+//                case R.id.rl_sp_my_order_content://content
+//                    Intent detail = new Intent(context, ProductDetailActivity.class);
+//                    detail.putExtra("productId", list.get(position).getOrderItem().get(list.get(position).getOrderPosition()).getProduct().getId());
+//                    context.startActivity(detail);
+//                    break;
             }
         }
 

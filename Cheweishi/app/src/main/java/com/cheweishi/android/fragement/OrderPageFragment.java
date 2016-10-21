@@ -116,7 +116,7 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
         } else if (0 == list.size()) {
             EmptyTools.setEmptyView(baseContext, listView);
             EmptyTools.setImg(R.drawable.mycar_icon);
-            EmptyTools.setMessage("当前列表没有商品信息");
+            EmptyTools.setMessage("当前列表没有订单信息");
         }
     }
 
@@ -204,7 +204,7 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
 //            adapter.setData(list);
             EmptyTools.setEmptyView(baseContext, listView);
             EmptyTools.setImg(R.drawable.mycar_icon);
-            EmptyTools.setMessage("当前列表没有商品信息");
+            EmptyTools.setMessage("当前列表没有订单信息");
         }
         adapter.setData(list);
         loginResponse.setToken(response.getToken());

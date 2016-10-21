@@ -1098,6 +1098,11 @@
             android:name=".activity.MyShopOrderActivity"
             android:screenOrientation="portrait" />
 
+        <!--商品订单详情-->
+        <activity
+            android:name=".activity.ShopOrderDetailActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

@@ -65,10 +65,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/normal_marging"
             android:background="@drawable/cancel_click_selector_black"
             android:padding="@dimen/small_padding"
             android:text="申请退款"
+            android:textColor="@color/light_gray"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_item_order_back_goods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/cancel_click_selector_black"
+            android:padding="@dimen/small_padding"
+            android:text="申请退货"
             android:textColor="@color/light_gray"
             android:visibility="gone" />
     </RelativeLayout>

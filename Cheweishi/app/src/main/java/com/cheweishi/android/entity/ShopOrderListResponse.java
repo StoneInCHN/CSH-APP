@@ -2,6 +2,7 @@ package com.cheweishi.android.entity;
 
 import com.cheweishi.android.response.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -83,7 +84,7 @@ public class ShopOrderListResponse extends BaseResponse {
         }
     }
 
-    public static class MsgBean implements Cloneable {
+    public static class MsgBean implements Cloneable,Serializable {
         private int type = 0;//订单类型
         private int orderPosition;//订单位置
         //        private int realPosition;//订单真实位置
@@ -259,7 +260,7 @@ public class ShopOrderListResponse extends BaseResponse {
             this.orderItem = orderItem;
         }
 
-        public static class OrderItemBean {
+        public static class OrderItemBean implements Serializable{
             private String thumbnail;
             private String quantity;
             private String price;
@@ -315,7 +316,7 @@ public class ShopOrderListResponse extends BaseResponse {
                 this.id = id;
             }
 
-            public static class productBean {
+            public static class productBean implements Serializable{
                 private int id;
 
                 public int getId() {
