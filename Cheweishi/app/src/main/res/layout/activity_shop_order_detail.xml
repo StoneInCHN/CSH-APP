@@ -277,6 +277,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normal_marging"
                 android:background="@color/white"
                 android:padding="@dimen/normal_padding">
 
@@ -320,6 +321,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:text="@string/no_pay"
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/item_small_text_size" />
 

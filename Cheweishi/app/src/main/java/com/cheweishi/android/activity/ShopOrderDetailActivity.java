@@ -137,36 +137,51 @@ public class ShopOrderDetailActivity extends BaseActivity implements AdapterView
         } else if ("unpaid".equals(tempPayStatus) && "cancelled".equals(tempOrderStatus)) {
             tv_shop_order_detail_status.setText(R.string.cancel_order);
             rl_shop_order_detail_bottom.setVisibility(View.GONE);
-            tv_shop_order_detail_pay_way.setText(R.string.no_pay);
         } else if ("unpaid".equals(tempPayStatus)) {
             tv_shop_order_detail_status.setText(R.string.unpaid);
             tv_shop_order_detail_cancel.setVisibility(View.VISIBLE);
         } else if ("paid".equals(tempPayStatus) && "unconfirmed".equals(tempOrderStatus)) {
             tv_shop_order_detail_status.setText(R.string.paid);
-//            tv_shop_order_detail_pay_way.setText(R.string.no_pay);
+            tv_shop_order_detail_pay_way.setText(R.string.no_pay);
             tv_shop_order_detail_cancel.setVisibility(View.GONE);
             tv_shop_order_detail_pay.setVisibility(View.GONE);
             tv_shop_order_detail_back.setVisibility(View.VISIBLE);
+            tv_shop_order_detail_pay_way.setText(getPayWay(data.getPaymentType()));
         } else if ("paid".equals(tempPayStatus) && "confirmed".equals(tempOrderStatus)) {
             tv_shop_order_detail_status.setText(R.string.unsend);
             tv_shop_order_detail_cancel.setVisibility(View.GONE);
             tv_shop_order_detail_pay.setVisibility(View.GONE);
             tv_shop_order_detail_back.setVisibility(View.VISIBLE);
+            tv_shop_order_detail_pay_way.setText(getPayWay(data.getPaymentType()));
         } else if ("shipped".equals(tempShippingStatus)) {
             tv_shop_order_detail_status.setText(R.string.unrec);
             tv_shop_order_detail_cancel.setVisibility(View.GONE);
             tv_shop_order_detail_pay.setVisibility(View.GONE);
             tv_shop_order_detail_back.setVisibility(View.VISIBLE);
+            tv_shop_order_detail_pay_way.setText(getPayWay(data.getPaymentType()));
         } else if ("received".equals(tempShippingStatus)) {
             tv_shop_order_detail_status.setText(R.string.received);
             tv_shop_order_detail_cancel.setVisibility(View.GONE);
             tv_shop_order_detail_pay.setVisibility(View.GONE);
             tv_shop_order_detail_back.setVisibility(View.GONE);
             tv_shop_order_detail_goods.setVisibility(View.VISIBLE);
+            tv_shop_order_detail_pay_way.setText(getPayWay(data.getPaymentType()));
         } else {
             tv_shop_order_detail_status.setText(R.string.not_no);
             rl_shop_order_detail_bottom.setVisibility(View.GONE);
         }
+    }
+
+    private int getPayWay(String payType) {
+        switch (payType) {
+            case "ALIPAY":
+                return R.string.alipay;
+            case "WECHAT":
+                return R.string.wechatPay;
+            case "WALLET":
+                return R.string.walletPay;
+        }
+        return R.string.no_pay;
     }
 
     @OnClick({R.id.left_action, R.id.tv_shop_order_detail_cancel})

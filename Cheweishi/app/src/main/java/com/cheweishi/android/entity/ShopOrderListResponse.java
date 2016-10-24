@@ -84,7 +84,16 @@ public class ShopOrderListResponse extends BaseResponse {
         }
     }
 
-    public static class MsgBean implements Cloneable,Serializable {
+    public static class MsgBean implements Cloneable, Serializable {
+        /**
+         * 支付宝
+         * ALIPAY,
+         * 微信
+         * WECHAT,
+         * 钱包余额
+         * WALLET,
+         */
+        private String paymentType;//支付类型
         private int type = 0;//订单类型
         private int orderPosition;//订单位置
         //        private int realPosition;//订单真实位置
@@ -120,6 +129,15 @@ public class ShopOrderListResponse extends BaseResponse {
 //        public void setRealPosition(int realPosition) {
 //            this.realPosition = realPosition;
 //        }
+
+
+        public String getPaymentType() {
+            return paymentType;
+        }
+
+        public void setPaymentType(String paymentType) {
+            this.paymentType = paymentType;
+        }
 
         public int getOrderPosition() {
             return orderPosition;
@@ -260,7 +278,7 @@ public class ShopOrderListResponse extends BaseResponse {
             this.orderItem = orderItem;
         }
 
-        public static class OrderItemBean implements Serializable{
+        public static class OrderItemBean implements Serializable {
             private String thumbnail;
             private String quantity;
             private String price;
@@ -316,7 +334,7 @@ public class ShopOrderListResponse extends BaseResponse {
                 this.id = id;
             }
 
-            public static class productBean implements Serializable{
+            public static class productBean implements Serializable {
                 private int id;
 
                 public int getId() {
