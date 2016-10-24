@@ -285,7 +285,7 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
         sendPacket(1);
     }
 
-    public void showDeleteDialog(String msg, String buttonMsg) {
+    private void showDeleteDialog(String msg, String buttonMsg) {
         CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
         builder.setMessage(msg);
         builder.setTitle(getString(R.string.remind));

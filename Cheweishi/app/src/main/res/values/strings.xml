@@ -1652,6 +1652,7 @@
     <string name="unrec">待收货</string>
     <string name="received">待评价</string>
     <string name="cancel_order">已取消</string>
+    <string name="no_pay">未支付</string>
     <string name="time_out_close">交易关闭</string>
     <string name="not_no">等待确认</string>
     <string name="paid">已支付,等待商家确认</string>
