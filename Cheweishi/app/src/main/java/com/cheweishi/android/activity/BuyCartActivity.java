@@ -82,7 +82,21 @@ public class BuyCartActivity extends BaseActivity implements PullToRefreshBase.O
 
     private boolean isAdd;//是否为添加
 
+    private boolean isRefresh = false;
+
     private PullToRefreshBase.Mode mCurrentMode = PullToRefreshBase.Mode.PULL_FROM_START;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!isRefresh) {
+            isRefresh = true;
+        } else {
+            // 重新连接
+            list.clear();
+            sendPacket(1);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
