@@ -16,6 +16,7 @@ import com.cheweishi.android.config.Constant;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
 import com.cheweishi.android.entity.ProductDetailResponse;
+import com.cheweishi.android.entity.ShopPayOrderNative;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.utils.GsonUtil;
 import com.cheweishi.android.utils.StringUtil;
@@ -23,6 +24,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +54,6 @@ public class ProductParamDetailActivity extends BaseActivity {
     @ViewInject(R.id.tl_param_shop)
     private TabLayout tl_param_shop; // 滚动顶部标题
 
-
     private ProductParamFragmentPagerAdapter adapter;//整个适配器
 
     private List<String> list = new ArrayList<>();//标题数据
@@ -63,6 +64,8 @@ public class ProductParamDetailActivity extends BaseActivity {
     private static final String DEFAULT_NUMBER = "0";
 
     private static final String MORE_99 = "99+";
+
+    private ProductDetailResponse detailResponse;
 
 
     @Override
@@ -84,7 +87,12 @@ public class ProductParamDetailActivity extends BaseActivity {
         vp_param_shop.setAdapter(adapter);
         tl_param_shop.setupWithViewPager(vp_param_shop);
         vp_param_shop.setCurrentItem(getIntent().getIntExtra("currentP", 0));
-        mCurrentProDuctId = ((ProductDetailResponse) getIntent().getSerializableExtra("data")).getMsg().getId();
+        detailResponse = (ProductDetailResponse) getIntent().getSerializableExtra("data");
+        if (null == detailResponse) {
+            showToast(R.string.init_fail);
+            return;
+        }
+        mCurrentProDuctId = detailResponse.getMsg().getId();
         mBuynumber = getIntent().getIntExtra("mBuynumber", 1);
 
 
@@ -94,7 +102,7 @@ public class ProductParamDetailActivity extends BaseActivity {
         tv_common_title_number.setText(temp);
     }
 
-    @OnClick({R.id.left_action, R.id.bt_param_bottom_add, R.id.ll_common_title_right})
+    @OnClick({R.id.left_action, R.id.bt_param_bottom_add, R.id.ll_common_title_right, R.id.bt_param_bottom_buy})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_action:
@@ -107,8 +115,44 @@ public class ProductParamDetailActivity extends BaseActivity {
                 Intent buyCart = new Intent(baseContext, BuyCartActivity.class);
                 startActivity(buyCart);
                 break;
+            case R.id.bt_param_bottom_buy://立即购买
+                nowBuy();
+                break;
         }
 
+    }
+
+    /**
+     * 立即购买
+     */
+    private void nowBuy() {
+        Intent intent = new Intent(baseContext, ShopPayOrderActivity.class);
+        intent.putExtra("data", (Serializable) getPayList());
+        intent.putExtra("isNowBuy", true);
+        startActivity(intent);
+    }
+
+
+    /**
+     * 获取立即购买的信息
+     *
+     * @return
+     */
+    private List<ShopPayOrderNative> getPayList() {
+        if (null == detailResponse || null == detailResponse.getMsg())
+            return null;
+        List<ShopPayOrderNative> temp = new ArrayList<>();
+//        if (null != detailResponse && null != detailResponse.getMsg()) {
+        long tempMoney = Integer.valueOf(detailResponse.getMsg().getPrice()) * Integer.valueOf(tv_common_title_number.getText().toString());
+        ShopPayOrderNative shopPayOrderNative = new ShopPayOrderNative();
+        shopPayOrderNative.setIcon(detailResponse.getMsg().getImage());
+        shopPayOrderNative.setMoney(String.valueOf(tempMoney));
+        shopPayOrderNative.setName(detailResponse.getMsg().getFullName());
+        shopPayOrderNative.setNumber(tv_common_title_number.getText().toString());
+        shopPayOrderNative.setId(detailResponse.getMsg().getId());
+        temp.add(shopPayOrderNative);
+//        }
+        return temp;
     }
 
     @Override

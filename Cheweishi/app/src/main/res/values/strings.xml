@@ -1669,4 +1669,6 @@
     <string name="walletPay">钱包支付</string>
 
 
+    <string name="init_fail">页面初始化失败</string>
+
 </resources>
