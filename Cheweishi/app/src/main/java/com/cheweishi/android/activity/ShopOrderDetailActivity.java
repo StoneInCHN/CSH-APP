@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * Created by Tanck on 10/21/2016.
- * <p/>
+ * <p>
  * Describe:商品订单详情
  */
 public class ShopOrderDetailActivity extends BaseActivity implements AdapterView.OnItemClickListener {
@@ -184,7 +184,7 @@ public class ShopOrderDetailActivity extends BaseActivity implements AdapterView
         return R.string.no_pay;
     }
 
-    @OnClick({R.id.left_action, R.id.tv_shop_order_detail_cancel})
+    @OnClick({R.id.left_action, R.id.tv_shop_order_detail_cancel, R.id.tv_shop_order_detail_pay})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_action:
@@ -193,6 +193,12 @@ public class ShopOrderDetailActivity extends BaseActivity implements AdapterView
             case R.id.tv_shop_order_detail_cancel:
                 currentOrderId = data.getId();
                 showDeleteDialog(getString(R.string.cancel_order_desc), getString(R.string.confirm_order_cancel));
+                break;
+            case R.id.tv_shop_order_detail_pay:
+                Intent pay = new Intent(baseContext, ShopPayActivity.class);
+                pay.putExtra("orderId", String.valueOf(data.getId()));
+                pay.putExtra("money", data.getAmount());
+                startActivity(pay);
                 break;
         }
     }

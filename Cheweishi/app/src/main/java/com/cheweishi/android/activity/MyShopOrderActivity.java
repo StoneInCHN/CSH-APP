@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Created by Tanck on 10/10/2016.
- * <p>
+ * <p/>
  * Describe: 商品订单
  */
 public class MyShopOrderActivity extends BaseActivity {
@@ -58,6 +58,8 @@ public class MyShopOrderActivity extends BaseActivity {
         adapter = new ShopOrderFragmentPagerAdapter(getSupportFragmentManager(), baseContext, titles);
         vp_shop_order.setAdapter(adapter);
         tl_shop_order.setupWithViewPager(vp_shop_order);
+        int currentItem = getIntent().getIntExtra("page", 0);
+        vp_shop_order.setCurrentItem(currentItem);
     }
 
 

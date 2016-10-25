@@ -82,6 +82,18 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     //意见反馈
     private LinearLayout ll_feed_back;
 
+    //待付款
+    private LinearLayout ll_my_shop_unpaid;
+
+    //待发货
+    private LinearLayout ll_my_shop_unsend;
+
+    //待收货
+    private LinearLayout ll_my_shop_unrec;
+
+    //待评价
+    private LinearLayout ll_my_shop_received;
+
     //下拉
     private PullScrollView psl_my;
 
@@ -133,6 +145,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         ll_my_default_coupon = (LinearLayout) view.findViewById(R.id.ll_my_default_coupon);
         psl_my = (PullScrollView) view.findViewById(R.id.psl_my);
         iv_my_top = view.findViewById(R.id.iv_my_top);
+        ll_my_shop_unpaid = (LinearLayout) view.findViewById(R.id.ll_my_shop_unpaid);
+        ll_my_shop_unsend = (LinearLayout) view.findViewById(R.id.ll_my_shop_unsend);
+        ll_my_shop_unrec = (LinearLayout) view.findViewById(R.id.ll_my_shop_unrec);
+        ll_my_shop_received = (LinearLayout) view.findViewById(R.id.ll_my_shop_received);
 
 
         iv_myAccountUserIcon.setOnClickListener(this);
@@ -145,6 +161,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         ll_my_shop_order.setOnClickListener(this);
         ll_communicate.setOnClickListener(this);
         ll_feed_back.setOnClickListener(this);
+        ll_my_shop_unpaid.setOnClickListener(this);
+        ll_my_shop_unsend.setOnClickListener(this);
+        ll_my_shop_unrec.setOnClickListener(this);
+        ll_my_shop_received.setOnClickListener(this);
 
     }
 
@@ -216,7 +236,25 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 Intent shopOrderActivity = new Intent(baseContext, MyShopOrderActivity.class);
                 startActivity(shopOrderActivity);
                 break;
+            case R.id.ll_my_shop_unpaid://待付款
+                goShopOrder(1);
+                break;
+            case R.id.ll_my_shop_unsend://待发货
+                goShopOrder(2);
+                break;
+            case R.id.ll_my_shop_unrec://待收货
+                goShopOrder(3);
+                break;
+            case R.id.ll_my_shop_received://待评价
+                goShopOrder(4);
+                break;
         }
+    }
+
+    private void goShopOrder(int item) {
+        Intent shopOrder = new Intent(baseContext, MyShopOrderActivity.class);
+        shopOrder.putExtra("page", item);
+        startActivity(shopOrder);
     }
 
     /**
