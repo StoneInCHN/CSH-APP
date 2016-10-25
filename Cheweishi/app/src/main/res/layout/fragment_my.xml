@@ -213,11 +213,12 @@
                     android:id="@+id/ll_my_shop_order"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/more_back"
                     android:padding="@dimen/large_padding">
 
                     <TextView
                         android:id="@+id/tv_my_shop_order"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:drawableLeft="@drawable/myorder"
@@ -226,9 +227,17 @@
                         android:gravity="center_vertical"
                         android:includeFontPadding="false"
                         android:singleLine="true"
-                        android:text="@string/my_order"
+                        android:text="商品订单"
                         android:textColor="@color/gray_normal"
                         android:textSize="@dimen/key_text_small" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/right"
+                        android:gravity="right"
+                        android:text="查看所有商品订单  "
+                        android:textColor="@color/light_gray" />
                 </LinearLayout>
 
                 <View

@@ -89,7 +89,7 @@ public class ProductParamDetailActivity extends BaseActivity {
 
 
         String temp = getIntent().getStringExtra("cartNumber");
-        if (!StringUtil.isEmpty(temp))
+        if (!StringUtil.isEmpty(temp) && !"0".equals(temp))
             tv_common_title_number.setVisibility(View.VISIBLE);
         tv_common_title_number.setText(temp);
     }
