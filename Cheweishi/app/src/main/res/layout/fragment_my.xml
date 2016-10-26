@@ -390,6 +390,35 @@
                 android:background="@color/line_gray" />
 
             <LinearLayout
+                android:id="@+id/ll_my_reback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/more_back"
+                android:gravity="center_vertical"
+                android:padding="@dimen/large_padding">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@drawable/myorder"
+                    android:drawablePadding="@dimen/normal_padding"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:singleLine="true"
+                    android:text="@string/reback_money"
+                    android:textColor="@color/gray_normal"
+                    android:textSize="@dimen/key_text_small" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_gray" />
+
+            <LinearLayout
                 android:id="@+id/ll_my_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

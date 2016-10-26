@@ -16,6 +16,7 @@ import com.cheweishi.android.entity.ShopOrderListResponse;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -121,6 +122,33 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
     }
 
     /**
+     * 退货
+     *
+     * @param orderId
+     * @param orderItemId
+     */
+    private void applyReturns(int orderId, String orderItemId) {
+        String[] temp;
+        if (StringUtil.isEmpty(orderItemId))
+            return;
+        else if (orderItemId.contains(","))
+            temp = orderItemId.split(",");
+        else {
+            temp = new String[1];
+            temp[0] = orderItemId;
+        }
+        ProgrosDialog.openDialog(baseContext);
+        String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER_CREATE + NetInterface.RETURN + NetInterface.SUFFIX;
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", loginResponse.getDesc());
+        param.put("token", loginResponse.getToken());
+        param.put("orderId", orderId);
+        param.put("orderItemIds", temp);
+        param.put(Constant.PARAMETER_TAG, NetInterface.RETURN);
+        netWorkHelper.PostJson(url, param, this);
+    }
+
+    /**
      * 确认收货 or 取消订单
      *
      * @param isConfirm
@@ -141,6 +169,11 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
         netWorkHelper.PostJson(url, param, this);
     }
 
+    /**
+     * 订单列表
+     *
+     * @param type
+     */
     private void sendPacket(int type) {
         if (0 == type)
             ProgrosDialog.openDialog(baseContext);
@@ -157,7 +190,7 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
     @Override
     public void receive(String TAG, String data) {
         switch (TAG) {
-            case NetInterface.OPT:
+            case NetInterface.OPT://取消.确认
                 BaseResponse baseResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
                 if (!baseResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     ProgrosDialog.closeProgrosDialog();
@@ -165,6 +198,19 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
                     return;
                 }
                 loginResponse.setToken(baseResponse.getToken());
+                ProgrosDialog.closeProgrosDialog();
+                reLoad();
+                break;
+            case NetInterface.RETURN://退货
+                BaseResponse backResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data,BaseResponse.class);
+                if(!backResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)){
+                    ProgrosDialog.closeProgrosDialog();
+                    showToast(backResponse.getDesc());
+                    return;
+                }
+
+
+                loginResponse.setToken(backResponse.getToken());
                 ProgrosDialog.closeProgrosDialog();
                 reLoad();
                 break;
@@ -277,6 +323,11 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
     public void onReceive(int position) {
         currentOrderId = list.get(position).getId();
         cancelOrConfirm(true, currentOrderId);
+    }
+
+    @Override
+    public void onBackGoods(int position) {
+        currentOrderId = list.get(position).getId();
     }
 
     private void reLoad() {

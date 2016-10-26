@@ -56,6 +56,13 @@ public class ShopOrderListAdapter extends BaseAdapter {
          */
         void onReceive(int position);
 
+        /**
+         * 对应订单退货
+         *
+         * @param position
+         */
+        void onBackGoods(int position);
+
     }
 
 
@@ -325,7 +332,7 @@ public class ShopOrderListAdapter extends BaseAdapter {
                 case R.id.ll_item_order_detail_bottom://detail
                 case R.id.rl_item_order_detail_head:
                     Intent detail = new Intent(context, ShopOrderDetailActivity.class);
-                    detail.putExtra("data",list.get(position));
+                    detail.putExtra("data", list.get(position));
                     context.startActivity(detail);
                     break;
                 case R.id.tv_item_order_cancel:
@@ -337,6 +344,12 @@ public class ShopOrderListAdapter extends BaseAdapter {
                     pay.putExtra("orderId", String.valueOf(list.get(position).getId()));
                     pay.putExtra("money", list.get(position).getAmount());
                     context.startActivity(pay);
+                    break;
+                case R.id.tv_item_order_back_goods:// 退货
+                    if (null != listener)
+                        listener.onBackGoods(position);
+                    break;
+                case R.id.tv_item_order_back://退款
                     break;
 //                case R.id.rl_sp_my_order_content://content
 //                    Intent detail = new Intent(context, ProductDetailActivity.class);
@@ -354,7 +367,7 @@ public class ShopOrderListAdapter extends BaseAdapter {
      * @param position
      * @return
      */
-    private String getOrderId(int position) {
+    public String getOrderId(int position) {
         int number = list.get(position).getOrderItem().size();
         StringBuffer orderIds = new StringBuffer();
         for (int i = 0; i < number; i++) {

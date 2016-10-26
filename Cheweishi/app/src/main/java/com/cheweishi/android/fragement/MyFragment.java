@@ -94,6 +94,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     //待评价
     private LinearLayout ll_my_shop_received;
 
+    //退货/售后
+    private LinearLayout ll_my_reback;
+
     //下拉
     private PullScrollView psl_my;
 
@@ -149,6 +152,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         ll_my_shop_unsend = (LinearLayout) view.findViewById(R.id.ll_my_shop_unsend);
         ll_my_shop_unrec = (LinearLayout) view.findViewById(R.id.ll_my_shop_unrec);
         ll_my_shop_received = (LinearLayout) view.findViewById(R.id.ll_my_shop_received);
+        ll_my_reback = (LinearLayout) view.findViewById(R.id.ll_my_reback);
 
 
         iv_myAccountUserIcon.setOnClickListener(this);
@@ -165,6 +169,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         ll_my_shop_unsend.setOnClickListener(this);
         ll_my_shop_unrec.setOnClickListener(this);
         ll_my_shop_received.setOnClickListener(this);
+        ll_my_reback.setOnClickListener(this);
 
     }
 
@@ -247,6 +252,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.ll_my_shop_received://待评价
                 goShopOrder(4);
+                break;
+            case R.id.ll_my_reback://退货/售后
+
                 break;
         }
     }
