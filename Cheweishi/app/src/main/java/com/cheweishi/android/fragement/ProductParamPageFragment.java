@@ -96,19 +96,15 @@ public class ProductParamPageFragment extends BaseFragment implements ImageFixCa
         switch (mPage) {
             case 0:// 图文详情
                 view = inflater.inflate(R.layout.fragment_richtext, container, false);
-                rt_param = (TextView) view.findViewById(R.id.rt_param);
+
                 break;
             case 1:// 产品参数
                 view = inflater.inflate(R.layout.fragment_param, container, false);
-                usl_param = (UnSlidingListView) view.findViewById(R.id.usl_param);
+
                 break;
             case 2://用户评价
                 view = inflater.inflate(R.layout.fragment_comment, container, false);
-                ptl_product_param_comment = (PullToRefreshListView) view.findViewById(R.id.ptl_product_param_comment);
-                commentsAdapter = new CommentsAdapter(baseContext, userComments);
-                ptl_product_param_comment.setAdapter(commentsAdapter);
-                ptl_product_param_comment.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-                ptl_product_param_comment.setOnRefreshListener(this);
+
                 break;
         }
         return view;
@@ -117,6 +113,24 @@ public class ProductParamPageFragment extends BaseFragment implements ImageFixCa
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        switch (mPage) {
+            case 0://图文详情
+//                isRichLoaded = false;
+                rt_param = (TextView) view.findViewById(R.id.rt_param);
+                break;
+            case 1://产品参数
+//                isParamLoaded = false;
+                usl_param = (UnSlidingListView) view.findViewById(R.id.usl_param);
+                break;
+            case 2://用户评价
+//                isCommentLoaded = false;
+                ptl_product_param_comment = (PullToRefreshListView) view.findViewById(R.id.ptl_product_param_comment);
+                commentsAdapter = new CommentsAdapter(baseContext, userComments);
+                ptl_product_param_comment.setAdapter(commentsAdapter);
+                ptl_product_param_comment.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                ptl_product_param_comment.setOnRefreshListener(this);
+                break;
+        }
         isPrepared = true;
         onVisible();
     }
@@ -136,8 +150,8 @@ public class ProductParamPageFragment extends BaseFragment implements ImageFixCa
         if (0x616 == what) {
             switch (mPage) {
                 case 0:
-//                    if (!isRichLoaded)
-                    sendPacket(0); // TODO 发送对应的请求
+                    if (!isRichLoaded)
+                        sendPacket(0); // TODO 发送对应的请求
                     break;
                 case 1:
                     if (!isParamLoaded)

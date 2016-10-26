@@ -86,6 +86,7 @@ public class ProductParamDetailActivity extends BaseActivity {
         adapter = new ProductParamFragmentPagerAdapter(getSupportFragmentManager(), list, ((ProductDetailResponse) getIntent().getSerializableExtra("data")));
         vp_param_shop.setAdapter(adapter);
         tl_param_shop.setupWithViewPager(vp_param_shop);
+        vp_param_shop.setOffscreenPageLimit(3);
         vp_param_shop.setCurrentItem(getIntent().getIntExtra("currentP", 0));
         detailResponse = (ProductDetailResponse) getIntent().getSerializableExtra("data");
         if (null == detailResponse) {
