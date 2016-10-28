@@ -934,7 +934,6 @@ public class AddCarActivity extends BaseActivity {
         mIntent.setAction(Constant.REFRESH_FLAG);
         sendBroadcast(mIntent);
 
-        LogHelper.d("我出错了1");
 //        cid = response.getDesc();
         if (null == addCarResponse.getMsg()) {
             cid = addCarResponse.getDesc();
