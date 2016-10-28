@@ -24,7 +24,6 @@
         android:layout_marginRight="@dimen/top_left_small_padding"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="@string/zero_money"
         android:textColor="@color/light_gray"
         android:textSize="@dimen/item_content_size" />
 

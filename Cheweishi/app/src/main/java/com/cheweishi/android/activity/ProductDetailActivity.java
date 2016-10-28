@@ -273,6 +273,8 @@ public class ProductDetailActivity extends BaseActivity implements ScrollViewLis
                 break;
             case R.id.tv_product_detail_right_more://评价
             case R.id.rl_product_detail_more: // 更多评论
+                if (0 >= Integer.valueOf(detailResponse.getMsg().getReviewCount()))  // 评论输了大于0的情况
+                    return;
                 Intent common = new Intent(baseContext, ProductParamDetailActivity.class);
                 common.putExtra("currentP", 2);
                 common.putExtra("mBuynumber", mBuynumber);

@@ -60,6 +60,20 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
 
     private int currentOrderId = -1;//当前订单Id
 
+    private boolean isRefresh;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isRefresh) {
+            isRefresh = true;
+        } else {
+            // 重新连接
+            list.clear();
+            sendPacket(1);
+        }
+    }
+
     public static OrderPageFragment newInstance(int id) {
         Bundle args = new Bundle();
         args.putInt(ARG_ID, id);
@@ -202,8 +216,8 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
                 reLoad();
                 break;
             case NetInterface.RETURN://退货
-                BaseResponse backResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data,BaseResponse.class);
-                if(!backResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)){
+                BaseResponse backResponse = (BaseResponse) GsonUtil.getInstance().convertJsonStringToObject(data, BaseResponse.class);
+                if (!backResponse.getCode().equals(NetInterface.RESPONSE_SUCCESS)) {
                     ProgrosDialog.closeProgrosDialog();
                     showToast(backResponse.getDesc());
                     return;
@@ -328,6 +342,7 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
     @Override
     public void onBackGoods(int position) {
         currentOrderId = list.get(position).getId();
+        applyReturns(currentOrderId, adapter.getOrderId(position));
     }
 
     private void reLoad() {

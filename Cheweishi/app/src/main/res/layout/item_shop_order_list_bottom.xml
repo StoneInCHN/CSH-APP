@@ -20,7 +20,6 @@
         android:layout_gravity="right"
         android:layout_marginRight="@dimen/normal_marging"
         android:layout_marginTop="@dimen/normal_marging"
-        android:text="共1件商品 实付:￥399"
         android:textSize="@dimen/item_small_text_size" />
 
     <View

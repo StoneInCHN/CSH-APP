@@ -1103,6 +1103,11 @@
             android:name=".activity.ShopOrderDetailActivity"
             android:screenOrientation="portrait" />
 
+        <!--退货/售后-->
+        <activity
+            android:name=".activity.ReturnActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
