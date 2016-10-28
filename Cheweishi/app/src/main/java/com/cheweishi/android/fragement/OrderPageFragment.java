@@ -16,6 +16,7 @@ import com.cheweishi.android.entity.ShopOrderListResponse;
 import com.cheweishi.android.response.BaseResponse;
 import com.cheweishi.android.tools.EmptyTools;
 import com.cheweishi.android.utils.GsonUtil;
+import com.cheweishi.android.utils.LogHelper;
 import com.cheweishi.android.utils.StringUtil;
 import com.cheweishi.android.widget.CustomDialog;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -62,15 +63,22 @@ public class OrderPageFragment extends BaseFragment implements PullToRefreshBase
 
     private boolean isRefresh;
 
+    private static boolean newRefresh = false;
+
     @Override
     public void onResume() {
         super.onResume();
         if (!isRefresh) {
             isRefresh = true;
         } else {
+            if (newRefresh) {//防止重复发包
+                newRefresh = !newRefresh;
+                return;
+            }
+            newRefresh = true;
             // 重新连接
             list.clear();
-            sendPacket(1);
+            reLoad();
         }
     }
 

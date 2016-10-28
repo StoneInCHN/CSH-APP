@@ -49,7 +49,7 @@ public class MyorderActivity extends BaseActivity implements OnClickListener,
     private int pageNumber = 1;
     private CustomDialog.Builder builder;
     private CustomDialog deleteDialog;
-    private static boolean refresh = false;
+    private  boolean refresh = false;
     private int total = 0; //分页总数
     private boolean isHeaderRefresh = false; //是否下拉刷新
     private boolean isEmpty;
