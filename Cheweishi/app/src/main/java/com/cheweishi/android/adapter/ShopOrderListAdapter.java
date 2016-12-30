@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.activity.ProductDetailActivity;
 import com.cheweishi.android.activity.ShopOrderDetailActivity;
 import com.cheweishi.android.activity.ShopPayActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
@@ -267,29 +266,6 @@ public class ShopOrderListAdapter extends BaseAdapter {
                     holder.opt.setVisibility(View.GONE);
                 }
 
-//                if ("failure".equals(tempOrderStatus)) {
-//                    holder.opt.setVisibility(View.GONE);
-//                } else if ("unpaid".equals(tempPayStatus) && "cancelled".equals(tempOrderStatus)) {//订单已取消
-//
-//                } else if ("paid".equals(tempPayStatus) && "unconfirmed".equals(tempOrderStatus)) {
-//                    holder.opt.setVisibility(View.VISIBLE);
-//                    if ("paid".equals(tempPayStatus)) {
-//                        holder.pay.setVisibility(View.GONE);
-//                        holder.cancel.setVisibility(View.GONE);
-//                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.cancel.getLayoutParams();
-//                        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-//                    } else {
-//                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.cancel.getLayoutParams();
-//                        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
-//                        holder.pay.setVisibility(View.VISIBLE);
-//                        holder.cancel.setVisibility(View.VISIBLE);
-//                        holder.pay.setOnClickListener(holder);
-//                        holder.cancel.setOnClickListener(holder);
-//                    }
-//
-//
-//                    holder.detailBottom.setOnClickListener(holder);
-//                }
                 break;
         }
 
