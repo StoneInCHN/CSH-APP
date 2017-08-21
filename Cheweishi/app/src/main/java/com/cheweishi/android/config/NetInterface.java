@@ -5,8 +5,8 @@ package com.cheweishi.android.config;
  */
 public class NetInterface {
 
-    //        public static final String BASE_URL = "http://120.27.92.247:10001";// 生产服务器路径
-    public static final String BASE_URL = "http://120.27.27.99:10001";// 测试服务器路径
+        public static final String BASE_URL = "http://120.27.92.247:10001";// 生产服务器路径
+//    public static final String BASE_URL = "http://120.27.27.99:10001";// 测试服务器路径
 //    public static final String BASE_URL = "http://10.50.40.56:8081";// 基础路径
 
     public static final String IMG_BASE_URL = BASE_URL;// 基础路径
@@ -50,10 +50,6 @@ public class NetInterface {
     public static final String TEMP_SHOP = "/csh-interface/estore/product/";//电商相关
 
     public static final String TEMP_SHOP_CART = "/csh-interface/estore/cart/";//购物车相关
-
-    public static final String TEMP_SHOP_ADD = "/csh-interface/estore/receiverAddress/";//收货地址
-
-    public static final String TEMP_ORDER_CREATE = "/csh-interface/estore/order/";//创建订单
 
     public static final String HEADER_ALL = BASE_URL + TEMP_URL;
 
@@ -184,26 +180,6 @@ public class NetInterface {
     public static final String GET_PRODUCT_INFO = "details";//商品详情
 
     public static final String DELETE = "delete";//删除商品
-
-    public static final String ADD_AND_LESS = "oprNum";//增减商品
-
-    public static final String GET_DEFAULT_ADDRESS = "getDefault";//获取默认地址
-
-    public static final String GET_ADDRESS = "getArea";//获取地区
-
-    public static final String ADD_OR_EDIT = "addOrEdit";//编辑或者添加收货地址
-
-    public static final String CREATE = "create";//创建订单
-
-    public static final String PAY = "pay";//支付订单
-
-    public static final String OPT = "operation";//取消订单或者确认收货
-
-    public static final String REVIEWLIST = "reviewList";//评论列表
-
-    public static final String RETURN = "applyReturns";//退货
-
-    public static final String RETURNLIST = "getReturnsBill";//退货列表
 
     public static final String INSURANCE = "http://app.car1615.com/app/insurance/page/788bf80951bb4b6f867ae5d281ea6807"; // 购买保险
 

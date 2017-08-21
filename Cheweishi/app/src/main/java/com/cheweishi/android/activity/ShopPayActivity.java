@@ -234,13 +234,13 @@ public class ShopPayActivity extends BaseActivity implements PayUtils.OnPayListe
      */
     private void pay() {
         ProgrosDialog.openDialog(baseContext);
-        String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER_CREATE + NetInterface.PAY + NetInterface.SUFFIX;
+//        String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER_CREATE + NetInterface.PAY + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
         param.put("orderIds", orderId);
         param.put("paymentType", paymentType);
-        netWorkHelper.PostJson(url, param, this);
+//        netWorkHelper.PostJson(url, param, this);
     }
 
     /**
@@ -256,13 +256,13 @@ public class ShopPayActivity extends BaseActivity implements PayUtils.OnPayListe
             return;
         }
         ProgrosDialog.openDialog(baseContext);
-        String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER_CREATE + NetInterface.UPDATE_PAY_STATUS + NetInterface.SUFFIX;
+//        String url = NetInterface.BASE_URL + NetInterface.TEMP_ORDER_CREATE + NetInterface.UPDATE_PAY_STATUS + NetInterface.SUFFIX;
         Map<String, Object> param = new HashMap<>();
         param.put("userId", loginResponse.getDesc());
         param.put("token", loginResponse.getToken());
         param.put("orderIds", orderId);
         param.put(Constant.PARAMETER_TAG, NetInterface.UPDATE_PAY_STATUS);
-        netWorkHelper.PostJson(url, param, this);
+//        netWorkHelper.PostJson(url, param, this);
     }
 
     @Override

@@ -22,17 +22,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-/**
- * 版权所有：XXX有限公司
- *
- * PullToRefreshRecyclerView
- *
- * @author zhou.wenkai  zwenkai@foxmail.com ,Created on 2015-9-23 09:07:33
- * Major Function：对PullToRefresh的扩展,增加支持RecyclerView
- *
- * 注:如果您修改了本类请填写以下内容作为记录，如非本人操作劳烦通知，谢谢！！！
- * @author mender，Modified Date Modify Content:
- */
+
 public class PullToRefreshRecyclerView extends PullToRefreshBase<RecyclerViewEmptySupport> {
 
     public PullToRefreshRecyclerView(Context context) {

@@ -3,12 +3,12 @@ android {
     lintOptions{
         abortOnError false
     }
-    compileSdkVersion 19
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 23
+    buildToolsVersion "26.0.0"
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 7
+        minSdkVersion 14
+        targetSdkVersion 23
     }
 
     buildTypes {

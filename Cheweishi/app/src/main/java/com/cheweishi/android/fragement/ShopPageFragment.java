@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.cheweishi.android.R;
-import com.cheweishi.android.activity.ProductDetailActivity;
+//import com.cheweishi.android.activity.ProductDetailActivity;
 import com.cheweishi.android.adapter.ShopListAdapter;
 import com.cheweishi.android.config.NetInterface;
 import com.cheweishi.android.dialog.ProgrosDialog;
@@ -225,9 +225,9 @@ public class ShopPageFragment extends BaseFragment implements PullToRefreshBase.
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent detail = new Intent(baseContext, ProductDetailActivity.class);
-        detail.putExtra("productId", list.get(position).getId());
-        startActivity(detail);
+//        Intent detail = new Intent(baseContext, ProductDetailActivity.class);
+//        detail.putExtra("productId", list.get(position).getId());
+//        startActivity(detail);
     }
 
     public void setSortType(int p) {

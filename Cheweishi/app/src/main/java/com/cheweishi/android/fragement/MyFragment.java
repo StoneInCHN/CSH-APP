@@ -18,11 +18,10 @@ import com.cheweishi.android.activity.BaseActivity;
 import com.cheweishi.android.activity.CarManagerActivity;
 import com.cheweishi.android.activity.IdeaReturnActivity;
 import com.cheweishi.android.activity.MainNewActivity;
-import com.cheweishi.android.activity.MyShopOrderActivity;
+//import com.cheweishi.android.activity.MyShopOrderActivity;
 import com.cheweishi.android.activity.MyorderActivity;
 import com.cheweishi.android.activity.PurseActivity;
 import com.cheweishi.android.activity.PurseRedPacketsActivity;
-import com.cheweishi.android.activity.ReturnActivity;
 import com.cheweishi.android.activity.SetActivity;
 import com.cheweishi.android.activity.UserInfoEditActivity;
 import com.cheweishi.android.biz.XUtilsImageLoader;
@@ -239,8 +238,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.ll_my_shop_order:
-                Intent shopOrderActivity = new Intent(baseContext, MyShopOrderActivity.class);
-                startActivity(shopOrderActivity);
+//                Intent shopOrderActivity = new Intent(baseContext, MyShopOrderActivity.class);
+//                startActivity(shopOrderActivity);
                 break;
             case R.id.ll_my_shop_unpaid://待付款
                 goShopOrder(1);
@@ -255,16 +254,16 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 goShopOrder(4);
                 break;
             case R.id.ll_my_reback://退货/售后
-                Intent returnGoods = new Intent(baseContext, ReturnActivity.class);
-                startActivity(returnGoods);
+//                Intent returnGoods = new Intent(baseContext, ReturnActivity.class);
+//                startActivity(returnGoods);
                 break;
         }
     }
 
     private void goShopOrder(int item) {
-        Intent shopOrder = new Intent(baseContext, MyShopOrderActivity.class);
-        shopOrder.putExtra("page", item);
-        startActivity(shopOrder);
+//        Intent shopOrder = new Intent(baseContext, MyShopOrderActivity.class);
+//        shopOrder.putExtra("page", item);
+//        startActivity(shopOrder);
     }
 
     /**

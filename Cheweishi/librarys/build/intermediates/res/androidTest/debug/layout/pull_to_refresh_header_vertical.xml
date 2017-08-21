@@ -5,7 +5,6 @@
         android:id="@+id/fl_inner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
         android:paddingBottom="@dimen/header_footer_top_bottom_padding"
         android:paddingLeft="@dimen/header_footer_left_right_padding"
         android:paddingRight="@dimen/header_footer_left_right_padding"
@@ -22,14 +21,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />
 
-            <ProgressBar
-                android:id="@+id/pull_to_refresh_progress"
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:indeterminate="true"
-                android:visibility="gone" />
+            <!--<ProgressBar-->
+                <!--android:id="@+id/pull_to_refresh_progress"-->
+                <!--style="?android:attr/progressBarStyleSmall"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:indeterminate="true"-->
+                <!--android:visibility="gone" />-->
         </FrameLayout>
 
         <!--<LinearLayout-->
@@ -59,4 +58,4 @@
         <!--</LinearLayout>-->
     </FrameLayout>
 
-</merge><!-- From: file:/E:/carlife/CSH-APP/Cheweishi/librarys/src/main/res/layout/pull_to_refresh_header_vertical.xml --><!-- From: file:/E:/carlife/CSH-APP/Cheweishi/librarys/build/intermediates/bundles/debug/res/layout/pull_to_refresh_header_vertical.xml -->
+</merge><!-- From: file:/E:/carlief/CSH-APP/Cheweishi/librarys/src/main/res/layout/pull_to_refresh_header_vertical.xml --><!-- From: file:/E:/carlief/CSH-APP/Cheweishi/librarys/build/intermediates/bundles/debug/res/layout/pull_to_refresh_header_vertical.xml -->
